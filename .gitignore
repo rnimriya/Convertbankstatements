@@ -1,0 +1,51 @@
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── Build outputs ─────────────────────────────────────────────────────────────
+.next/
+out/
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# ── Environment / secrets ──────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+.env.production
+web/.env.local
+backend/.env
+
+# ── Python virtual env ────────────────────────────────────────────────────────
+backend/venv/
+backend/.venv/
+
+# ── User data (never commit) ──────────────────────────────────────────────────
+web/data/users.json
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+*.pem
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+
+# ── Prisma ────────────────────────────────────────────────────────────────────
+web/prisma/migrations/
+
+# ── Uploaded / temp files ─────────────────────────────────────────────────────
+uploads/
+tmp/
+*.pdf

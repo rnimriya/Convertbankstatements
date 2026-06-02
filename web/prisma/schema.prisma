@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────────────────────────────
+
+enum SubTier {
+  FREE
+  PAYG
+  PRO       // $48/mo — 200 pages/month
+  BUSINESS  // $98/mo — 500 pages/month
+}
+
+enum SubStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  TRIALING
+  INCOMPLETE
+}
+
+enum BillingType {
+  FREE_TIER    // within the 8 free pages
+  SUBSCRIPTION // deducted from monthly allotment
+  PAY_AS_YOU_GO
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+// ─── Models ───────────────────────────────────────────────────────────────────
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  avatarUrl    String?
+  // externalId is the ID from Supabase Auth
+  externalId   String   @unique
+  stripeCustomerId String? @unique
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  subscription Subscription?
+  usageLogs    UsageLog[]
+  payments     Payment[]
+
+  @@index([email])
+  @@index([externalId])
+}
+
+model Subscription {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Stripe subscription details
+  stripeSubId          String?   @unique
+  stripePriceId        String?
+
+  tier      SubTier   @default(FREE)
+  status    SubStatus @default(ACTIVE)
+
+  // Billing period (refreshed on Stripe invoice.paid webhook)
+  currentPeriodStart   DateTime  @default(now())
+  currentPeriodEnd     DateTime  @default(dbgenerated("NOW() + INTERVAL '30 days'"))
+
+  // Page tracking
+  // FREE: lifetime free pages used (capped at 8 total)
+  // PRO:  200 pages per billing period
+  // BUSINESS: 500 pages per billing period
+  monthlyPageLimit     Int       @default(0)   // 0 = PAYG (no allotment), 8 = FREE cap
+  pagesUsedThisPeriod  Int       @default(0)
+
+  // Lifetime stats
+  totalPagesProcessed  Int       @default(0)
+  totalDocuments       Int       @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([stripeSubId])
+}
+
+model UsageLog {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // File metadata (never store the PDF itself)
+  fileName     String
+  fileHash     String   // SHA-256 of the file for dedup checks
+  pageCount    Int
+  pagesCharged Int      // may be less than pageCount if partially free
+
+  billingType  BillingType
+  isFreePages  Boolean  @default(false)
+
+  // Which payment covered this (null if free or subscription)
+  paymentId String?
+  payment   Payment? @relation(fields: [paymentId], references: [id])
+
+  // Export formats requested by user
+  exportFormats String[]  // ["csv", "xlsx", "ofx", "qfx", "sheets"]
+
+  // Processing result summary (no raw financial data stored)
+  transactionCount Int     @default(0)
+  processingMs     Int     @default(0)
+  bankName         String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([fileHash])
+}
+
+model Payment {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Stripe identifiers
+  stripePaymentIntentId String? @unique
+  stripeSessionId       String? @unique
+
+  amount   Int    // cents (e.g. 199 = $1.99)
+  currency String @default("usd")
+  status   PaymentStatus @default(PENDING)
+
+  // What was purchased
+  description String  // e.g. "Pay-as-you-go: document processing"
+  pageCount   Int?    // pages covered by this payment
+
+  usageLogs UsageLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([stripeSessionId])
+}
