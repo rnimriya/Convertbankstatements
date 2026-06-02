@@ -4,7 +4,11 @@
  * Local dev  → writes to  <project>/data/users.json  (persistent)
  * Vercel/prod → writes to  /tmp/users.json            (ephemeral, per-instance)
  *
- * For a real production app, replace every function body with Prisma/PostgreSQL calls.
+ * Auto-seed: if the store is empty AND env vars SEED_USER_EMAIL +
+ * SEED_USER_PASSWORD_HASH are set, a seed account is created automatically.
+ * This survives Vercel cold-starts without needing a real database.
+ *
+ * For a real production app replace every function body with Prisma / Supabase calls.
  */
 import fs from "fs/promises";
 import path from "path";
@@ -38,12 +42,40 @@ async function ensure() {
   }
 }
 
+/** Seed a default user from env vars if the store is empty. */
+async function maybeSeed(users: User[]): Promise<User[]> {
+  const email = process.env.SEED_USER_EMAIL;
+  const passwordHash = process.env.SEED_USER_PASSWORD_HASH;
+  const name = process.env.SEED_USER_NAME ?? null;
+
+  // Only seed if env vars are set AND store is empty
+  if (!email || !passwordHash || users.length > 0) return users;
+
+  const seeded: User[] = [
+    {
+      id: "seed-user-001",
+      email,
+      name,
+      passwordHash,
+      pagesUsed: 0,
+      tier: "FREE",
+      monthlyPageLimit: 8,
+      razorpayCustomerId: null,
+      createdAt: new Date().toISOString(),
+    },
+  ];
+  await fs.writeFile(FILE, JSON.stringify(seeded, null, 2));
+  console.log(`[users] Auto-seeded account for ${email}`);
+  return seeded;
+}
+
 async function read(): Promise<User[]> {
   await ensure();
   try {
-    return JSON.parse(await fs.readFile(FILE, "utf8"));
+    const raw = JSON.parse(await fs.readFile(FILE, "utf8")) as User[];
+    return await maybeSeed(raw);
   } catch {
-    return [];
+    return await maybeSeed([]);
   }
 }
 
