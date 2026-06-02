@@ -1,21 +1,28 @@
 /**
- * JSON-file user store — works locally with zero configuration.
- * In production, swap for Prisma/PostgreSQL by updating each function.
+ * JSON-file user store.
+ *
+ * Local dev  → writes to  <project>/data/users.json  (persistent)
+ * Vercel/prod → writes to  /tmp/users.json            (ephemeral, per-instance)
+ *
+ * For a real production app, replace every function body with Prisma/PostgreSQL calls.
  */
 import fs from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
 
-const FILE = path.join(process.cwd(), "data", "users.json");
+// Vercel sets VERCEL=1 automatically. /tmp is the only writable path there.
+const FILE = process.env.VERCEL
+  ? "/tmp/users.json"
+  : path.join(process.cwd(), "data", "users.json");
 
 export interface User {
   id: string;
   email: string;
   name: string | null;
   passwordHash: string;
-  pagesUsed: number;            // lifetime pages consumed
+  pagesUsed: number;
   tier: "FREE" | "PRO" | "BUSINESS";
-  monthlyPageLimit: number;     // 8 FREE, 200 PRO, 500 BUSINESS
+  monthlyPageLimit: number;
   razorpayCustomerId: string | null;
   createdAt: string;
 }

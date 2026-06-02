@@ -1,6 +1,8 @@
+import { createHash } from "crypto";
+
 /**
- * Lightweight PDF page counter that works in the Next.js Edge/Node runtime.
- * Reads PDF metadata without rendering or requiring pdfjs-dist.
+ * Lightweight PDF page counter — no deps, works in Node.js edge runtime.
+ * Reads PDF metadata without rendering any page.
  */
 export function countPdfPages(buffer: Buffer): number {
   const text = buffer.toString("latin1");
@@ -8,7 +10,6 @@ export function countPdfPages(buffer: Buffer): number {
   // Strategy 1: /Count N in the Pages dictionary (most reliable)
   const countMatches = [...text.matchAll(/\/Count\s+(\d+)/g)];
   if (countMatches.length > 0) {
-    // Take the largest /Count value — that's the root Pages node
     const counts = countMatches.map((m) => parseInt(m[1], 10));
     return Math.max(...counts);
   }
@@ -21,6 +22,5 @@ export function countPdfPages(buffer: Buffer): number {
 }
 
 export function sha256Hex(buffer: Buffer): string {
-  const { createHash } = require("crypto") as typeof import("crypto");
   return createHash("sha256").update(buffer).digest("hex");
 }

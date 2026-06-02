@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
-import path from "path";
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: path.join(__dirname, "../../"),
+  // No special config needed — outputFileTracingRoot was only silencing
+  // a local multi-lockfile warning and breaks on Vercel.
 };
 
 export default nextConfig;
