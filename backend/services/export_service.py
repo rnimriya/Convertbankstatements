@@ -71,6 +71,28 @@ def to_xlsx(transactions: list[Transaction]) -> tuple[bytes, str]:
     return buf.getvalue(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
 
+def _parse_date(date_str: str) -> datetime:
+    date_str = date_str.strip()
+    for fmt in (
+        "%Y-%m-%d",      # 2024-12-31
+        "%d/%m/%Y",      # 31/12/2024
+        "%d-%m-%Y",      # 31-12-2024
+        "%d %b %Y",      # 31 Dec 2024
+        "%d %B %Y",      # 31 December 2024
+        "%Y/%m/%d",      # 2024/12/31
+        "%d/%m/%y",      # 31/12/24
+        "%d-%m-%y",      # 31-12-24
+        "%d-%b-%y",      # 31-Dec-24
+        "%d-%b-%Y",      # 31-Dec-2024
+        "%b %d, %Y",     # Dec 31, 2024
+    ):
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            continue
+    return datetime.fromisoformat(date_str)
+
+
 def to_ofx(
     transactions: list[Transaction],
     bank_id: str = "000000000",
@@ -83,7 +105,7 @@ def to_ofx(
     stmttrns = []
     for t in transactions:
         try:
-            dt = datetime.fromisoformat(t.date).replace(tzinfo=UTC)
+            dt = _parse_date(t.date).replace(tzinfo=UTC)
         except ValueError:
             continue
         trntype = "CREDIT" if t.amount >= 0 else "DEBIT"

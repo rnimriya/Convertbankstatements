@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     const upstream = await fetch(`${backendUrl}/api/process-statement`, {
       method: "POST",
       body: upstreamForm,
-      signal: AbortSignal.timeout(60_000),
+      signal: AbortSignal.timeout(300_000),
       headers: session ? { Authorization: `Bearer ${session.sub}` } : {},
     });
 

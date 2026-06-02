@@ -54,14 +54,18 @@ export default function HomeScreen() {
       const data = JSON.parse(uploadResult.body);
 
       if (uploadResult.status === 402) {
+        const message = data.message || data.detail?.message || "Payment is required to process this statement.";
+        const price = data.price_inr ? `₹${data.price_inr}` : (data.detail?.price_usd ? `$${data.detail.price_usd.toFixed(2)}` : "₹49");
+        const checkoutUrl = data.detail?.stripe_checkout_url || `${BACKEND_URL}/pricing`;
+
         Alert.alert(
           "Payment required",
-          `$${data.detail.price_usd.toFixed(2)} to process this document.`,
+          `${message}\n\nCost: ${price}`,
           [
             { text: "Cancel", style: "cancel" },
             {
               text: "Pay now",
-              onPress: () => Linking.openURL(data.detail.stripe_checkout_url),
+              onPress: () => Linking.openURL(checkoutUrl),
             },
           ]
         );

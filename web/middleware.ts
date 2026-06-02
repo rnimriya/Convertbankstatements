@@ -9,6 +9,13 @@ export async function middleware(request: NextRequest) {
   const isProtected = PROTECTED.some((p) => path.startsWith(p));
   const isAuthPage = AUTH_PAGES.includes(path);
 
+  // Clear session if requested (breaks redirect loops when user is deleted from DB but JWT is still valid)
+  if (isAuthPage && request.nextUrl.searchParams.has("clear")) {
+    const res = NextResponse.next();
+    res.cookies.delete("bs_token");
+    return res;
+  }
+
   // Only check auth when needed
   if (!isProtected && !isAuthPage) return NextResponse.next();
 

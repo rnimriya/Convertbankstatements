@@ -32,7 +32,7 @@ export function FreePagesBar({ tier, pagesUsed, pageLimit }: Props) {
           />
         </View>
         {depleted && (
-          <Text style={styles.hint}>Pay $1.99 per document to continue</Text>
+          <Text style={styles.hint}>Pay ₹49 per document to continue</Text>
         )}
       </View>
     );
@@ -58,7 +58,7 @@ export function FreePagesBar({ tier, pagesUsed, pageLimit }: Props) {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.label}>Pay-as-you-go · $1.99 / document</Text>
+      <Text style={styles.label}>Pay-as-you-go · ₹49 / document</Text>
     </View>
   );
 }

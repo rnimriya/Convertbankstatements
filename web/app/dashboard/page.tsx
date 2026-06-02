@@ -10,7 +10,7 @@ export default async function DashboardPage() {
   if (!session) redirect("/login?redirectTo=/dashboard");
 
   const user = await findById(session.sub);
-  if (!user) redirect("/login");
+  if (!user) redirect("/login?clear=1");
 
   const billing: BillingContext = {
     tier: user.tier as BillingContext["tier"],

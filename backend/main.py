@@ -195,7 +195,7 @@ def extract_with_pdfplumber(data: bytes) -> tuple[list[Transaction], Optional[st
 
 
 # Matches: DD/MM/YYYY or DD-MM-YYYY or YYYY-MM-DD
-DATE_RE = r"(\d{2}[/\-]\d{2}[/\-]\d{4}|\d{4}[/\-]\d{2}[/\-]\d{2}|\d{2}\s+\w{3}\s+\d{4})"
+DATE_RE = r"(\d{1,2}[/\-]\d{1,2}[/\-]\d{2,4}|\d{4}[/\-]\d{2}[/\-]\d{2}|\d{1,2}\s+\w{3,9}\s+\d{2,4})"
 # Amount: optional ₹/Rs., digits with commas, optional decimal
 AMOUNT_RE = r"(?:₹|Rs\.?)?\s*([\d,]+(?:\.\d{1,2})?)"
 
