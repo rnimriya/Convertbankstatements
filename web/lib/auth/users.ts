@@ -25,6 +25,8 @@ export interface User {
   monthlyPageLimit: number;
   razorpayCustomerId: string | null;
   createdAt: string;
+  resetToken?: string | null;
+  resetTokenExpiry?: string | null;
 }
 
 async function ensure() {
@@ -104,6 +106,47 @@ export async function upgradeTier(
   if (user) {
     user.tier = tier;
     user.monthlyPageLimit = pageLimit;
+    await write(users);
+  }
+}
+
+export async function setResetToken(
+  email: string,
+  token: string,
+  expiry: string
+): Promise<void> {
+  const users = await read();
+  const user = users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+  if (user) {
+    user.resetToken = token;
+    user.resetTokenExpiry = expiry;
+    await write(users);
+  }
+}
+
+export async function findUserByResetToken(token: string): Promise<User | null> {
+  const users = await read();
+  const user = users.find((u) => u.resetToken === token);
+  if (!user) return null;
+
+  // Check expiry
+  if (user.resetTokenExpiry && new Date(user.resetTokenExpiry) < new Date()) {
+    return null; // Expired
+  }
+
+  return user;
+}
+
+export async function updatePassword(
+  userId: string,
+  newPasswordHash: string
+): Promise<void> {
+  const users = await read();
+  const user = users.find((u) => u.id === userId);
+  if (user) {
+    user.passwordHash = newPasswordHash;
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
     await write(users);
   }
 }
