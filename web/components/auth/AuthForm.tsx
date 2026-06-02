@@ -2,13 +2,12 @@
 
 import { useState, FormEvent } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2, FileText, AlertCircle, CheckCircle2 } from "lucide-react";
 
 type Mode = "login" | "signup";
 
 export function AuthForm({ mode }: { mode: Mode }) {
-  const router = useRouter();
   const params = useSearchParams();
   const redirectTo = params.get("redirectTo") ?? "/dashboard";
 
@@ -48,10 +47,11 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
       if (mode === "signup") {
         setSuccess(true);
-        setTimeout(() => { router.push(redirectTo); router.refresh(); }, 1200);
+        // Hard redirect so the browser sends the new cookie with the next request
+        setTimeout(() => { window.location.href = redirectTo; }, 1200);
       } else {
-        router.push(redirectTo);
-        router.refresh();
+        // Hard redirect — ensures the bs_token cookie is present when middleware runs
+        window.location.href = redirectTo;
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong.");

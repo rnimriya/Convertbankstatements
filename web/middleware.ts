@@ -2,16 +2,18 @@ import { NextResponse, type NextRequest } from "next/server";
 import { verifyJWT } from "@/lib/auth/jwt";
 
 const PROTECTED = ["/dashboard"];
-const AUTH_PAGES = ["/login", "/signup"];
+const AUTH_PAGES = ["/login", "/signup", "/forgot-password", "/reset-password"];
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isProtected = PROTECTED.some((p) => path.startsWith(p));
-  const isAuthPage = AUTH_PAGES.includes(path);
+  const isAuthPage = AUTH_PAGES.some((p) => path.startsWith(p));
 
   // Clear session if requested (breaks redirect loops when user is deleted from DB but JWT is still valid)
-  if (isAuthPage && request.nextUrl.searchParams.has("clear")) {
-    const res = NextResponse.next();
+  if (request.nextUrl.searchParams.has("clear")) {
+    const res = isProtected
+      ? NextResponse.redirect(new URL("/login", request.url))
+      : NextResponse.next();
     res.cookies.delete("bs_token");
     return res;
   }
@@ -29,6 +31,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Logged-in users should not see login/signup/forgot/reset pages
   if (isAuthPage && user) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
