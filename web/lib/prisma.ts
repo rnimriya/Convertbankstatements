@@ -1,13 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
-
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-  });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
-}
+/**
+ * Prisma is not active — auth and billing use lib/auth/users.ts (JSON store).
+ * Kept as a stub so internal API routes compile without changes.
+ * Swap this file for a real PrismaClient when you add PostgreSQL.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const prisma: any = null;

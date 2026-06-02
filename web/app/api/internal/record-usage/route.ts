@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { incrementPages } from "@/lib/auth/users";
 
 export async function POST(req: NextRequest) {
   const apiKey = req.headers.get("x-api-key");
@@ -8,51 +8,12 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const {
-    userId: externalId,
-    fileName,
-    fileHash,
-    pageCount,
-    pagesCharged,
-    billingType,
-    transactionCount,
-    processingMs,
-    bankName,
-    exportFormats,
-    paymentId,
-  } = body;
+  const { userId, pageCount } = body;
 
-  const user = await prisma.user.findFirst({ where: { externalId } });
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
+  if (!userId || typeof pageCount !== "number") {
+    return NextResponse.json({ error: "userId and pageCount required" }, { status: 400 });
   }
 
-  await prisma.$transaction([
-    prisma.usageLog.create({
-      data: {
-        userId: user.id,
-        fileName,
-        fileHash,
-        pageCount,
-        pagesCharged,
-        billingType,
-        isFreePages: billingType === "FREE_TIER",
-        paymentId: paymentId ?? null,
-        exportFormats: exportFormats ?? [],
-        transactionCount,
-        processingMs,
-        bankName: bankName ?? null,
-      },
-    }),
-    prisma.subscription.updateMany({
-      where: { userId: user.id },
-      data: {
-        pagesUsedThisPeriod: { increment: pagesCharged },
-        totalPagesProcessed: { increment: pageCount },
-        totalDocuments: { increment: 1 },
-      },
-    }),
-  ]);
-
+  await incrementPages(userId, pageCount);
   return NextResponse.json({ ok: true });
 }
