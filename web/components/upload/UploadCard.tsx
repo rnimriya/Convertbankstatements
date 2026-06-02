@@ -55,7 +55,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
   }, [formats, onBillingUpdate]);
 
   const onDrop = useCallback(
-    (accepted: File[], rejected: { file: File; errors: { code: string }[] }[]) => {
+    (accepted: File[], rejected: { file: File; errors: readonly { code: string }[] }[]) => {
       if (rejected.length > 0) {
         setState({
           status: "error",
