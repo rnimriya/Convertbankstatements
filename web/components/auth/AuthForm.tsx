@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2, FileText, AlertCircle, CheckCircle2 } from "lucide-react";
 
 type Mode = "login" | "signup";
+type ErrorCode = "USER_NOT_FOUND" | "WRONG_PASSWORD" | null;
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const params = useSearchParams();
@@ -18,11 +19,13 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [errorCode, setErrorCode] = useState<ErrorCode>(null);
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
+    setErrorCode(null);
 
     if (mode === "signup") {
       if (password !== confirmPassword) { setError("Passwords do not match."); return; }
@@ -43,7 +46,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Something went wrong.");
+      if (!res.ok) {
+        setErrorCode(data.code ?? null);
+        throw new Error(data.error ?? "Something went wrong.");
+      }
 
       if (mode === "signup") {
         setSuccess(true);
@@ -96,10 +102,30 @@ export function AuthForm({ mode }: { mode: Mode }) {
               : "Start free — 8 pages on us, no card required."}
           </p>
 
+          {/* Error banner */}
           {error && (
-            <div className="mt-5 flex items-start gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
-              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-              {error}
+            <div className="mt-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <div className="flex items-start gap-2">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+              {/* Smart action links based on error code */}
+              {mode === "login" && errorCode === "USER_NOT_FOUND" && (
+                <p className="mt-2 pl-6 text-xs text-red-600">
+                  👉{" "}
+                  <Link href="/signup" className="font-semibold underline hover:text-red-800">
+                    Create a free account
+                  </Link>
+                </p>
+              )}
+              {mode === "login" && errorCode === "WRONG_PASSWORD" && (
+                <p className="mt-2 pl-6 text-xs text-red-600">
+                  👉{" "}
+                  <Link href="/forgot-password" className="font-semibold underline hover:text-red-800">
+                    Reset your password
+                  </Link>
+                </p>
+              )}
             </div>
           )}
 
@@ -122,6 +148,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">Email address</label>
               <input
+                id="auth-email"
                 type="email"
                 required
                 value={email}
@@ -142,6 +169,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               </div>
               <div className="relative">
                 <input
+                  id="auth-password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={password}
@@ -153,6 +181,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -163,6 +192,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               <div>
                 <label className="mb-1.5 block text-sm font-medium text-slate-700">Confirm password</label>
                 <input
+                  id="auth-confirm-password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={confirmPassword}
@@ -174,12 +204,15 @@ export function AuthForm({ mode }: { mode: Mode }) {
             )}
 
             <button
+              id="auth-submit"
               type="submit"
               disabled={loading}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors disabled:opacity-50"
             >
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-              {mode === "login" ? "Sign in" : "Create account"}
+              {loading
+                ? (mode === "login" ? "Signing in…" : "Creating account…")
+                : (mode === "login" ? "Sign in" : "Create account")}
             </button>
           </form>
 

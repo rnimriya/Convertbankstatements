@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const parsed = schema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: "Invalid credentials." }, { status: 400 });
+      return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
     }
 
     const { email, password } = parsed.data;
@@ -24,12 +24,24 @@ export async function POST(req: NextRequest) {
     if (!user) {
       // Constant-time response to prevent user enumeration
       await bcrypt.hash("dummy", 1);
-      return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+      return NextResponse.json(
+        {
+          error: "No account found with this email. Please sign up first.",
+          code: "USER_NOT_FOUND",
+        },
+        { status: 401 }
+      );
     }
 
     const valid = await bcrypt.compare(password, user.passwordHash);
     if (!valid) {
-      return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
+      return NextResponse.json(
+        {
+          error: "Incorrect password. Please try again or use 'Forgot password?' to reset it.",
+          code: "WRONG_PASSWORD",
+        },
+        { status: 401 }
+      );
     }
 
     const token = await signJWT({ sub: user.id, email: user.email, name: user.name });
