@@ -20,18 +20,18 @@ const STATS = [
 ];
 
 const STEPS = [
-  { step: "01", icon: <FileText className="h-5 w-5" />, title: "Upload your PDF", desc: "Drag and drop your bank statement — SBI, HDFC, ICICI, Axis, Kotak and 25+ more. Any format, any year." },
-  { step: "02", icon: <Zap className="h-5 w-5" />, title: "AI extracts everything", desc: "Our AI reads every transaction — date, description, amount, and balance — even from password-protected or scanned PDFs." },
-  { step: "03", icon: <Download className="h-5 w-5" />, title: "Download clean data", desc: "Export as CSV, Excel, OFX (Tally/QuickBooks), or push to Google Sheets. Import directly into your accounting software." },
+  { step: "01", icon: <FileText className="h-5 w-5" />, title: "Upload your PDF", desc: "Drag and drop your bank statement. Works with SBI, HDFC, ICICI, Axis, Kotak, and 25+ more. Any year, any account type." },
+  { step: "02", icon: <Zap className="h-5 w-5" />, title: "We extract every transaction", desc: "Dates, descriptions, amounts, and balances are pulled out automatically. Works on password-protected and scanned PDFs too." },
+  { step: "03", icon: <Download className="h-5 w-5" />, title: "Download and use it", desc: "Get CSV, Excel, or OFX for Tally and QuickBooks. You can also push straight to Google Sheets." },
 ];
 
 const FEATURES = [
-  { icon: <Globe className="h-5 w-5 text-brand-600" />, bg: "bg-brand-50", title: "30+ Indian banks", desc: "SBI, HDFC, ICICI, Axis, Kotak, PNB, BoB, Canara, IndusInd, Yes Bank, IDFC, and many more — including cooperative banks." },
-  { icon: <Zap className="h-5 w-5 text-amber-600" />, bg: "bg-amber-50", title: "5 export formats", desc: "CSV, Excel (.xlsx), OFX (Tally/QuickBooks), QFX (Quicken), and Google Sheets API for direct live sync." },
-  { icon: <Lock className="h-5 w-5 text-emerald-600" />, bg: "bg-emerald-50", title: "Zero data retention", desc: "Your PDFs are processed in memory and deleted immediately. We never store your financial documents on our servers." },
-  { icon: <TrendingUp className="h-5 w-5 text-purple-600" />, bg: "bg-purple-50", title: "Auto categorisation", desc: "Transactions auto-labelled — groceries, fuel, EMI, salary, UPI, utilities — so your books are ready for filing." },
-  { icon: <Shield className="h-5 w-5 text-rose-600" />, bg: "bg-rose-50", title: "Secure payments", desc: "Pay via UPI, Credit/Debit Card, Net Banking, or Wallets through Razorpay. All data encrypted with TLS 1.3." },
-  { icon: <Clock className="h-5 w-5 text-sky-600" />, bg: "bg-sky-50", title: "Results in seconds", desc: "Most statements — even 12-month PDFs with hundreds of entries — are processed and ready to download in under 15 seconds." },
+  { icon: <Globe className="h-5 w-5 text-brand-600" />, bg: "bg-brand-50", title: "30+ Indian banks", desc: "SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara, IndusInd, Yes Bank, IDFC FIRST, Federal Bank, RBL, and Bandhan are all supported. Cooperative banks work too." },
+  { icon: <Zap className="h-5 w-5 text-amber-600" />, bg: "bg-amber-50", title: "5 export formats", desc: "Pick CSV, Excel, OFX for Tally or QuickBooks, QFX for Quicken, or sync straight to Google Sheets. No copy-pasting." },
+  { icon: <Lock className="h-5 w-5 text-emerald-600" />, bg: "bg-emerald-50", title: "Your data is never stored", desc: "PDFs are processed in memory and deleted right after. Nothing is written to disk or kept on our servers." },
+  { icon: <TrendingUp className="h-5 w-5 text-purple-600" />, bg: "bg-purple-50", title: "Auto categorisation", desc: "Every transaction gets a label: groceries, fuel, EMI, salary, UPI, utilities. Your books are sorted before you open them." },
+  { icon: <Shield className="h-5 w-5 text-rose-600" />, bg: "bg-rose-50", title: "Payments via Razorpay", desc: "Pay with UPI, card, net banking, or wallet. All connections use TLS 1.3. No data is shared with third parties." },
+  { icon: <Clock className="h-5 w-5 text-sky-600" />, bg: "bg-sky-50", title: "Done in under 15 seconds", desc: "A 12-month PDF with 300 transactions is ready to download in about 10 seconds. No waiting, no queue." },
 ];
 
 const PRICING = [
@@ -42,12 +42,12 @@ const PRICING = [
 ];
 
 const FAQS = [
-  { q: "Which Indian banks are supported?", a: "We support 30+ banks including SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara, Union Bank, IndusInd, Yes Bank, IDFC FIRST, Federal Bank, RBL, Bandhan, and many more including cooperative banks and payment banks like Paytm and Airtel." },
-  { q: "Is my financial data safe?", a: "Yes. Your PDFs are processed entirely in memory and are never written to disk or stored in a database. Once we return your converted data, the file is permanently deleted from our servers. We are GDPR and IT Act 2000 compliant." },
-  { q: "Can I process password-protected PDFs?", a: "Yes — most bank statement PDFs from Indian banks are protected with the account holder's date of birth or mobile number. You can enter the password during upload and we will handle the rest." },
-  { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages of processing completely free — that covers most 1-3 month statements. After that, pay just ₹49 per document or upgrade to a monthly plan." },
-  { q: "What formats does Tally support?", a: "Tally accepts OFX bank feeds. Export in OFX format from BankStatements and import directly into Tally ERP or Tally Prime via the Bank Reconciliation module." },
-  { q: "Can I pay via UPI?", a: "Yes! We accept all UPI apps (Google Pay, PhonePe, Paytm, BHIM), Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and Wallets through Razorpay." },
+  { q: "Which Indian banks are supported?", a: "Over 30 banks work right now: SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara, Union Bank, IndusInd, Yes Bank, IDFC FIRST, Federal Bank, RBL, Bandhan, and several cooperative and payment banks. If your bank is not on the list, email us and we will check." },
+  { q: "Is my financial data safe?", a: "Yes. Your PDF is processed in memory and deleted the moment we send back your data. Nothing is written to disk. Nothing is stored in a database. We follow GDPR and India's IT Act 2000." },
+  { q: "Can I process password-protected PDFs?", a: "Yes. Most Indian bank PDFs are locked with your date of birth or mobile number. Enter the password during upload and we handle the rest. We do not store the password." },
+  { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free, no card needed. That covers most 1-3 month statements. After that, pay Rs. 49 per document or switch to a monthly plan if you convert often." },
+  { q: "How do I import into Tally?", a: "Tally accepts OFX bank feeds. Export as OFX from BankStatements, then import into Tally ERP or Tally Prime through the Bank Reconciliation module. Takes about two minutes." },
+  { q: "Can I pay via UPI?", a: "Yes. We accept Google Pay, PhonePe, Paytm, BHIM, all Visa and Mastercard cards, RuPay, net banking, and wallets. Payments go through Razorpay." },
 ];
 
 function Navbar() {
@@ -95,20 +95,20 @@ function Hero() {
           <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
               <CheckCircle2 className="h-3 w-3" />
-              8 pages free · No card · Pay via UPI
+              8 pages free · No card needed · Pay via UPI
             </div>
 
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              Convert Indian bank
+              Turn Indian bank PDFs
               <br />
               <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
-                statements to Excel
+                into clean Excel data
               </span>
             </h1>
 
             <p className="mt-3 max-w-lg text-base leading-relaxed text-slate-500 lg:mx-0 mx-auto">
-              SBI, HDFC, ICICI, Axis, Kotak &amp; 25+ more.
-              CSV · Excel · OFX (Tally) · Google Sheets — in under 15 seconds.
+              Works with SBI, HDFC, ICICI, Axis, Kotak, and 25+ more.
+              Get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.
             </p>
 
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
@@ -116,19 +116,19 @@ function Hero() {
                 href="/signup"
                 className="flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand-200 hover:bg-brand-700 transition-all hover:scale-[1.02]"
               >
-                Start for free <ArrowRight className="h-3.5 w-3.5" />
+                Start free <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 href="/pricing"
                 className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors"
               >
-                <IndianRupee className="h-3.5 w-3.5 text-brand-500" /> View pricing
+                <IndianRupee className="h-3.5 w-3.5 text-brand-500" /> See pricing
               </Link>
             </div>
 
             {/* Quick trust signals */}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 lg:justify-start">
-              {["30+ Indian banks", "₹49 / document", "Data never stored"].map((t) => (
+              {["30+ Indian banks", "Rs. 49 per document", "Data deleted after conversion"].map((t) => (
                 <span key={t} className="flex items-center gap-1 text-xs text-slate-400">
                   <span className="text-emerald-500">✓</span> {t}
                 </span>
@@ -206,7 +206,7 @@ function BankLogos() {
   return (
     <section className="border-y border-slate-100 bg-slate-50 py-10">
       <div className="mx-auto max-w-5xl px-6">
-        <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">Supports statements from</p>
+        <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">Works with statements from</p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           {INDIAN_BANKS.map((bank) => (
             <span key={bank} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
@@ -242,7 +242,7 @@ function HowItWorks() {
     <section id="how-it-works" className="bg-slate-50 px-6 py-24">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500">How it works</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">3 steps to clean data</h2>
+        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">Upload, convert, done</h2>
         <div className="mt-14 grid gap-8 sm:grid-cols-3">
           {STEPS.map(({ step, icon, title, desc }) => (
             <div key={step} className="relative text-center">
@@ -263,7 +263,7 @@ function Features() {
     <section id="features" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500">Features</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">Built for Indian banks & accountants</h2>
+        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 sm:text-4xl">Everything a CA or bookkeeper needs</h2>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
           {FEATURES.map(({ icon, bg, title, desc }) => (
             <div key={title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
@@ -283,8 +283,8 @@ function PricingPreview() {
     <section className="bg-slate-50 px-6 py-24">
       <div className="mx-auto max-w-4xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500">Pricing</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-slate-900">Affordable for every CA & business</h2>
-        <p className="mt-3 text-slate-500">Pay via UPI, Card, Net Banking or Wallet through Razorpay</p>
+        <h2 className="mt-2 text-3xl font-extrabold text-slate-900">Pay only for what you use</h2>
+        <p className="mt-3 text-slate-500">Start free. Pay Rs. 49 per document after that, or pick a monthly plan if you convert often.</p>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PRICING.map(({ label, price, sub, highlight }) => (
@@ -310,7 +310,7 @@ function FAQ() {
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-500">FAQ</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-slate-900">Frequently asked questions</h2>
+          <h2 className="mt-2 text-3xl font-extrabold text-slate-900">Common questions</h2>
         </div>
         <div className="mt-10 space-y-3">
           {FAQS.map(({ q, a }) => (
@@ -331,13 +331,13 @@ function FAQ() {
 function CTA() {
   return (
     <section className="bg-brand-600 px-6 py-20 text-center">
-      <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Stop manually entering bank transactions</h2>
-      <p className="mt-4 text-lg text-brand-100">Join CAs, accountants and businesses saving hours every month.</p>
+      <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Stop typing out bank transactions by hand</h2>
+      <p className="mt-4 text-lg text-brand-100">CAs and bookkeepers use this to cut hours of data entry down to seconds.</p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <Link href="/signup" className="flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 font-bold text-brand-700 shadow hover:bg-brand-50 transition-all hover:scale-[1.02]">
-          Start free — 8 pages on us <ArrowRight className="h-4 w-4" />
+          Get 8 pages free <ArrowRight className="h-4 w-4" />
         </Link>
-        <span className="text-sm text-brand-200">No card · Pay via UPI when you need more</span>
+        <span className="text-sm text-brand-200">No card needed. Pay via UPI if you need more.</span>
       </div>
     </section>
   );
