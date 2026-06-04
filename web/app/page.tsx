@@ -59,7 +59,7 @@ function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
             <FileText className="h-4 w-4 text-white" />
           </div>
-          <div>
+          <div className="hidden sm:block">
             <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
             <span className="ml-1.5 rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </div>

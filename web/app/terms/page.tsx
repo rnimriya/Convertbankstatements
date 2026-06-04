@@ -194,8 +194,8 @@ export default function TermsPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
               <FileText className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
-            <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
+            <span className="hidden sm:inline rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/login" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">Sign in</Link>

@@ -78,7 +78,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
               <FileText className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
           </a>
 
           <div className="flex items-center gap-3">
