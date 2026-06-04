@@ -9,11 +9,10 @@ export async function middleware(request: NextRequest) {
   const isProtected = PROTECTED.some((p) => path.startsWith(p));
   const isAuthPage = AUTH_PAGES.some((p) => path.startsWith(p));
 
-  // Clear session if requested (breaks redirect loops when user is deleted from DB but JWT is still valid)
-  if (request.nextUrl.searchParams.has("clear")) {
-    const res = isProtected
-      ? NextResponse.redirect(new URL("/login", request.url))
-      : NextResponse.next();
+  // Explicit logout: only clear the cookie when ?logout=1 is present.
+  // This is intentional — the user clicked "Sign out".
+  if (request.nextUrl.searchParams.has("logout")) {
+    const res = NextResponse.redirect(new URL("/login", request.url));
     res.cookies.delete("bs_token");
     return res;
   }
@@ -24,6 +23,7 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("bs_token")?.value ?? "";
   const user = token ? await verifyJWT(token) : null;
 
+  // Unauthenticated user trying to access a protected page
   if (isProtected && !user) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";

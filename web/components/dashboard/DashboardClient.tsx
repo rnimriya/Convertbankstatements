@@ -46,10 +46,10 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   }, []);
 
   const handleSignOut = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/");
-    router.refresh();
+    // Hard-navigate to /login?logout=1 — middleware clears the cookie atomically
+    window.location.href = "/login?logout=1";
   };
+
 
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
     { id: "upload", label: "Upload", icon: <FileText className="h-4 w-4" /> },
