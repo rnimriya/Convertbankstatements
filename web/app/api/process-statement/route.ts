@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { countPdfPages, sha256Hex } from "@/lib/pdf-utils";
-import { generateMockTransactions, transactionsToCSV } from "@/lib/mock-transactions";
+import {
+  generateMockTransactions,
+  transactionsToCSV,
+  transactionsToExcel,
+  transactionsToOFX,
+  transactionsToQFX,
+  transactionsToGoogleSheets,
+} from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
 import { findById, incrementPages } from "@/lib/auth/users";
 import { cookies } from "next/headers";
@@ -118,9 +125,33 @@ export async function POST(req: NextRequest) {
     isDemo = true;
   }
 
-  // ── Export CSV ─────────────────────────────────────────────────────────
-  const csvContent = transactionsToCSV(transactions);
-  const csvBase64 = Buffer.from(csvContent).toString("base64");
+  // ── Build export URLs for each requested format ───────────────────────
+  const exportUrls: Record<string, string> = {};
+
+  for (const fmt of exportFormats) {
+    if (fmt === "csv") {
+      const content = transactionsToCSV(transactions);
+      exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
+    } else if (fmt === "xlsx") {
+      const buf = transactionsToExcel(transactions);
+      exportUrls.xlsx = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${buf.toString("base64")}`;
+    } else if (fmt === "ofx") {
+      const content = transactionsToOFX(transactions);
+      exportUrls.ofx = `data:application/x-ofx;base64,${Buffer.from(content).toString("base64")}`;
+    } else if (fmt === "qfx") {
+      const content = transactionsToQFX(transactions);
+      exportUrls.qfx = `data:application/x-qfx;base64,${Buffer.from(content).toString("base64")}`;
+    } else if (fmt === "sheets") {
+      const content = transactionsToGoogleSheets(transactions);
+      exportUrls.sheets = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
+    }
+  }
+
+  // If no format was recognised, always include CSV as fallback
+  if (Object.keys(exportUrls).length === 0) {
+    const content = transactionsToCSV(transactions);
+    exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
+  }
 
   // ── Record usage ───────────────────────────────────────────────────────
   if (userId) {
@@ -149,7 +180,7 @@ export async function POST(req: NextRequest) {
           : `${Math.max(0, monthlyPageLimit - pagesUsed - pageCount)} pages remaining this month.`,
     },
     transactions: transactions.slice(0, 10),
-    export_urls: { csv: `data:text/csv;base64,${csvBase64}` },
+    export_urls: exportUrls,
     processing_ms: Date.now() - start,
   });
 }

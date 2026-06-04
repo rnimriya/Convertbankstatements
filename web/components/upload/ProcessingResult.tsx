@@ -11,17 +11,25 @@ interface Props {
 const FORMAT_LABELS: Record<string, string> = {
   csv: "CSV",
   xlsx: "Excel (.xlsx)",
-  ofx: "OFX (QuickBooks)",
+  ofx: "OFX (QuickBooks / Tally)",
   qfx: "QFX (Quicken)",
-  sheets: "Google Sheets",
+  sheets: "Google Sheets (CSV)",
+};
+
+const FORMAT_EXTENSIONS: Record<string, string> = {
+  csv: "csv",
+  xlsx: "xlsx",
+  ofx: "ofx",
+  qfx: "qfx",
+  sheets: "csv",
 };
 
 export function ProcessingResult({ result, onReset }: Props) {
   const handleDownload = (fmt: string, url: string) => {
-    // Handle data: URLs (base64 CSV) or regular URLs
+    const ext = FORMAT_EXTENSIONS[fmt] ?? fmt;
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${result.file_name.replace(".pdf", "")}_transactions.${fmt}`;
+    a.download = `${result.file_name.replace(".pdf", "")}_transactions.${ext}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

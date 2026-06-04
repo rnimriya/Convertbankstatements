@@ -1,4 +1,5 @@
 import type { Transaction } from "@/types/billing";
+import * as XLSX from "xlsx";
 
 const MERCHANTS = [
   "AMAZON.IN", "FLIPKART INTERNET", "MYNTRA DESIGNS", "SWIGGY ORDER",
@@ -105,4 +106,117 @@ export function transactionsToCSV(transactions: Transaction[]): string {
     )
     .join("\n");
   return header + rows;
+}
+
+/** Excel (.xlsx) — returns a Buffer */
+export function transactionsToExcel(transactions: Transaction[]): Buffer {
+  const rows = transactions.map((t) => ({
+    Date: t.date,
+    Description: t.description,
+    "Amount (INR)": t.amount,
+    "Balance (INR)": t.balance ?? "",
+    Category: t.category ?? "",
+    Reference: t.reference ?? "",
+  }));
+
+  const ws = XLSX.utils.json_to_sheet(rows);
+  ws["!cols"] = [
+    { wch: 12 }, // Date
+    { wch: 40 }, // Description
+    { wch: 14 }, // Amount
+    { wch: 14 }, // Balance
+    { wch: 18 }, // Category
+    { wch: 22 }, // Reference
+  ];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Transactions");
+  return Buffer.from(XLSX.write(wb, { type: "buffer", bookType: "xlsx" }));
+}
+
+/** OFX 1.02 (QuickBooks / Tally / Xero) */
+export function transactionsToOFX(transactions: Transaction[], accountId = "0000000000"): string {
+  const now = new Date();
+  const dtNow = formatOFXDate(now);
+
+  const txnXml = transactions
+    .map((t, i) => {
+      const type = t.amount >= 0 ? "CREDIT" : "DEBIT";
+      const fitid = t.reference ?? `TXN${String(i + 1).padStart(10, "0")}`;
+      return `<STMTTRN>
+<TRNTYPE>${type}</TRNTYPE>
+<DTPOSTED>${formatOFXDate(new Date(t.date))}</DTPOSTED>
+<TRNAMT>${t.amount.toFixed(2)}</TRNAMT>
+<FITID>${fitid}</FITID>
+<NAME>${escapeXml(t.description)}</NAME>
+<MEMO>${escapeXml(t.category ?? "")}</MEMO>
+</STMTTRN>`;
+    })
+    .join("\n");
+
+  return `OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:UTF-8
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+
+<OFX>
+<SIGNONMSGSRSV1>
+<SONRS>
+<STATUS><CODE>0</CODE><SEVERITY>INFO</SEVERITY></STATUS>
+<DTSERVER>${dtNow}</DTSERVER>
+<LANGUAGE>ENG</LANGUAGE>
+</SONRS>
+</SIGNONMSGSRSV1>
+<BANKMSGSRSV1>
+<STMTTRNRS>
+<TRNUID>1001</TRNUID>
+<STATUS><CODE>0</CODE><SEVERITY>INFO</SEVERITY></STATUS>
+<STMTRS>
+<CURDEF>INR</CURDEF>
+<BANKACCTFROM>
+<BANKID>IN</BANKID>
+<ACCTID>${accountId}</ACCTID>
+<ACCTTYPE>CHECKING</ACCTTYPE>
+</BANKACCTFROM>
+<BANKTRANLIST>
+<DTSTART>${dtNow}</DTSTART>
+<DTEND>${dtNow}</DTEND>
+${txnXml}
+</BANKTRANLIST>
+</STMTRS>
+</STMTTRNRS>
+</BANKMSGSRSV1>
+</OFX>`;
+}
+
+/** QFX (Quicken Financial Exchange — OFX 1.02 variant) */
+export function transactionsToQFX(transactions: Transaction[], accountId = "0000000000"): string {
+  // QFX is virtually identical to OFX 1.02; Quicken identifies it by file extension
+  return transactionsToOFX(transactions, accountId);
+}
+
+/** Google Sheets — identical CSV, Google Sheets auto-imports on open */
+export function transactionsToGoogleSheets(transactions: Transaction[]): string {
+  return transactionsToCSV(transactions);
+}
+
+function formatOFXDate(d: Date): string {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return (
+    `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}` +
+    `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`
+  );
+}
+
+function escapeXml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
