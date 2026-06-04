@@ -60,7 +60,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   const displayName = userName ?? userEmail.split("@")[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-800">
       {/* Demo banner */}
       {isDemo && (
         <div className="flex items-center justify-center gap-2 bg-amber-500 px-4 py-2 text-center text-sm font-medium text-white">
@@ -72,7 +72,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       )}
 
       {/* Header */}
-      <header className="border-b border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <header className="border-b border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
@@ -91,7 +91,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
             <ThemeToggle />
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-700 px-3 py-1.5 text-sm text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-600 px-3 py-1.5 text-sm text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-600 transition-colors"
             >
               <LogOut className="h-3.5 w-3.5" />
               {isDemo ? "Go home" : "Sign out"}
@@ -101,7 +101,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       </header>
 
       {/* Tab bar */}
-      <div className="border-b border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <div className="border-b border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700">
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex gap-0">
             {tabs.map((t) => (

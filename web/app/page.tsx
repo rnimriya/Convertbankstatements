@@ -53,7 +53,7 @@ const FAQS = [
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-gray-600 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
@@ -84,7 +84,7 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white dark:bg-gray-900 px-6 pb-10 pt-10">
+    <section className="relative overflow-hidden bg-white dark:bg-gray-800 px-6 pb-10 pt-10">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-32 left-1/2 h-[360px] w-[500px] -translate-x-1/2 rounded-full bg-brand-50 dark:bg-brand-900/20 blur-3xl opacity-50" />
       </div>
@@ -120,7 +120,7 @@ function Hero() {
               </Link>
               <Link
                 href="/pricing"
-                className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
+                className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-600 transition-colors"
               >
                 <IndianRupee className="h-3.5 w-3.5 text-brand-500" /> See pricing
               </Link>
@@ -136,14 +136,14 @@ function Hero() {
           </div>
 
           <div className="w-full max-w-sm shrink-0 lg:max-w-xs xl:max-w-sm">
-            <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-700 shadow-xl shadow-slate-200/50 dark:shadow-black/30">
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 px-3 py-2">
+            <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-600 shadow-xl shadow-slate-200/50 dark:shadow-black/30">
+              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-gray-600 bg-slate-50 dark:bg-gray-700 px-3 py-2">
                 <div className="flex gap-1">
                   <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
                   <div className="h-2.5 w-2.5 rounded-full bg-amber-400" />
                   <div className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                 </div>
-                <div className="mx-auto flex items-center gap-1.5 rounded border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-2 py-0.5 text-[10px] text-slate-400 dark:text-gray-400">
+                <div className="mx-auto flex items-center gap-1.5 rounded border border-slate-200 dark:border-gray-500 bg-white dark:bg-gray-600 px-2 py-0.5 text-[10px] text-slate-400 dark:text-gray-400">
                   <Lock className="h-2.5 w-2.5 text-emerald-500" /> bankstatements.io
                 </div>
               </div>
@@ -159,13 +159,13 @@ function Hero() {
 
 function MockDashboard() {
   return (
-    <div className="bg-slate-50 dark:bg-gray-900 p-3 space-y-2">
-      <div className="rounded-lg border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2">
+    <div className="bg-slate-50 dark:bg-gray-800 p-3 space-y-2">
+      <div className="rounded-lg border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2">
         <div className="flex items-center justify-between text-xs">
           <span className="font-semibold text-slate-600 dark:text-gray-300">Free pages</span>
           <span className="font-bold text-brand-600 dark:text-brand-400">6 / 8 left</span>
         </div>
-        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-gray-700">
+        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-gray-600">
           <div className="h-1.5 w-1/4 rounded-full bg-brand-500" />
         </div>
       </div>
@@ -177,12 +177,12 @@ function MockDashboard() {
         <p className="text-xs font-semibold text-slate-700 dark:text-gray-200">Drop SBI / HDFC / ICICI PDF</p>
         <div className="flex gap-1.5">
           {["CSV", "Excel", "OFX"].map((f) => (
-            <span key={f} className="rounded-full border border-brand-200 dark:border-brand-700 bg-white dark:bg-gray-800 px-1.5 py-0.5 text-[10px] font-semibold text-brand-700 dark:text-brand-400">{f}</span>
+            <span key={f} className="rounded-full border border-brand-200 dark:border-brand-700 bg-white dark:bg-gray-700 px-1.5 py-0.5 text-[10px] font-semibold text-brand-700 dark:text-brand-400">{f}</span>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-2">
+      <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-2">
         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-emerald-50 dark:bg-emerald-900/30">
           <FileText className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
         </div>
@@ -198,12 +198,12 @@ function MockDashboard() {
 
 function BankLogos() {
   return (
-    <section className="border-y border-slate-100 dark:border-gray-700 bg-slate-50 dark:bg-gray-800/50 py-10">
+    <section className="border-y border-slate-100 dark:border-gray-600 bg-slate-50 dark:bg-gray-700/50 py-10">
       <div className="mx-auto max-w-5xl px-6">
         <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-gray-500">Works with statements from</p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           {INDIAN_BANKS.map((bank) => (
-            <span key={bank} className="rounded-full border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-3 py-1 text-xs font-semibold text-slate-600 dark:text-gray-300 shadow-sm">
+            <span key={bank} className="rounded-full border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-3 py-1 text-xs font-semibold text-slate-600 dark:text-gray-300 shadow-sm">
               {bank}
             </span>
           ))}
@@ -216,7 +216,7 @@ function BankLogos() {
 
 function Stats() {
   return (
-    <section className="bg-white dark:bg-gray-900 py-14">
+    <section className="bg-white dark:bg-gray-800 py-14">
       <div className="mx-auto max-w-4xl px-6">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           {STATS.map(({ value, label }) => (
@@ -233,7 +233,7 @@ function Stats() {
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-slate-50 dark:bg-gray-800/50 px-6 py-24">
+    <section id="how-it-works" className="bg-slate-50 dark:bg-gray-700/50 px-6 py-24">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">How it works</p>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-gray-100 sm:text-4xl">Upload, convert, done</h2>
@@ -254,13 +254,13 @@ function HowItWorks() {
 
 function Features() {
   return (
-    <section id="features" className="bg-white dark:bg-gray-900 px-6 py-24">
+    <section id="features" className="bg-white dark:bg-gray-800 px-6 py-24">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">Features</p>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-gray-100 sm:text-4xl">Everything a CA or bookkeeper needs</h2>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
           {FEATURES.map(({ icon, bg, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow">
+            <div key={title} className="rounded-2xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-6 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow">
               <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>{icon}</div>
               <h3 className="mt-4 font-bold text-slate-800 dark:text-gray-200">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-gray-400">{desc}</p>
@@ -274,7 +274,7 @@ function Features() {
 
 function PricingPreview() {
   return (
-    <section className="bg-slate-50 dark:bg-gray-800/50 px-6 py-24">
+    <section className="bg-slate-50 dark:bg-gray-700/50 px-6 py-24">
       <div className="mx-auto max-w-4xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">Pricing</p>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-gray-100">Pay only for what you use</h2>
@@ -282,7 +282,7 @@ function PricingPreview() {
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PRICING.map(({ label, price, sub, highlight }) => (
-            <div key={label} className={`rounded-2xl border p-5 text-left ${highlight ? "border-brand-400 bg-brand-600 text-white" : "border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800"}`}>
+            <div key={label} className={`rounded-2xl border p-5 text-left ${highlight ? "border-brand-400 bg-brand-600 text-white" : "border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700"}`}>
               <p className={`text-sm font-medium ${highlight ? "text-brand-100" : "text-slate-600 dark:text-gray-300"}`}>{label}</p>
               <p className={`mt-2 text-3xl font-extrabold ${highlight ? "text-white" : "text-slate-900 dark:text-gray-100"}`}>{price}</p>
               <p className={`mt-1 text-xs ${highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{sub}</p>
@@ -300,7 +300,7 @@ function PricingPreview() {
 
 function FAQ() {
   return (
-    <section id="faq" className="bg-white dark:bg-gray-900 px-6 py-24">
+    <section id="faq" className="bg-white dark:bg-gray-800 px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">FAQ</p>
@@ -308,7 +308,7 @@ function FAQ() {
         </div>
         <div className="mt-10 space-y-3">
           {FAQS.map(({ q, a }) => (
-            <details key={q} className="group rounded-2xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 p-5">
+            <details key={q} className="group rounded-2xl border border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700 p-5">
               <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-800 dark:text-gray-200">
                 {q}
                 <ChevronDown className="h-4 w-4 shrink-0 text-slate-400 dark:text-gray-500 transition-transform group-open:rotate-180" />
@@ -340,7 +340,7 @@ function CTA() {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-800">
       <Navbar />
       <Hero />
       <BankLogos />

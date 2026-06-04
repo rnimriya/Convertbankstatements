@@ -17,14 +17,14 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     const barColor = pct > 85 ? "bg-amber-500" : "bg-brand-500";
 
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
+      <div className="rounded-xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-4 shadow-sm">
         <div className="flex items-center justify-between text-sm font-medium">
           <span className="text-slate-700 dark:text-gray-200">Monthly pages</span>
           <span className={remaining === 0 ? "text-red-600 dark:text-red-400 font-semibold" : "text-slate-600 dark:text-gray-300"}>
             {remaining.toLocaleString()} / {monthlyPageLimit.toLocaleString()} remaining
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-gray-700">
+        <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-gray-600">
           <div
             className={`h-2 rounded-full transition-all duration-500 ${barColor}`}
             style={{ width: `${pct}%` }}
@@ -49,7 +49,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
         className={`rounded-xl border p-4 shadow-sm transition-colors ${
           isDepleted
             ? "border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20"
-            : "border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+            : "border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700"
         }`}
       >
         <div className="flex items-center justify-between">
@@ -73,7 +73,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
           </div>
         </div>
 
-        <div className="mt-3 h-2 w-full rounded-full bg-slate-100 dark:bg-gray-700">
+        <div className="mt-3 h-2 w-full rounded-full bg-slate-100 dark:bg-gray-600">
           <div
             className={`h-2 rounded-full transition-all duration-700 ${
               isDepleted ? "bg-amber-500" : "bg-brand-500"
@@ -100,7 +100,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
 
   // PAYG tier
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm">
+    <div className="rounded-xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 p-4 shadow-sm">
       <p className="text-sm font-medium text-slate-700 dark:text-gray-200">Pay-as-you-go</p>
       <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">$1.99 per document · No monthly limit</p>
     </div>

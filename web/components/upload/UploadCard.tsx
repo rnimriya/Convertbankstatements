@@ -126,7 +126,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
             />
             <button
               onClick={reset}
-              className="w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
+              className="w-full rounded-xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>
@@ -160,7 +160,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
           "rounded-2xl border-2 border-dashed px-6 py-10 transition-all duration-200 select-none",
           isDragActive
             ? "border-brand-500 bg-brand-50 dark:bg-brand-900/20 scale-[1.01]"
-            : "border-slate-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-gray-700",
+            : "border-slate-300 dark:border-gray-500 bg-white dark:bg-gray-700 hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-gray-600",
           state.status === "processing" && "pointer-events-none opacity-70"
         )}
       >
