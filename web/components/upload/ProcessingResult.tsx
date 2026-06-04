@@ -39,7 +39,7 @@ export function ProcessingResult({ result, onReset }: Props) {
     <div className="space-y-4">
       {/* Demo notice */}
       {result.is_demo && (
-        <div className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+        <div className="flex items-start gap-2 rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-800 dark:text-amber-300">
           <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
           <span>
             <strong>Demo data</strong> — the Python AI backend isn&apos;t connected, so transactions
@@ -49,12 +49,12 @@ export function ProcessingResult({ result, onReset }: Props) {
       )}
 
       {/* Success card */}
-      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+      <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 p-5 shadow-sm">
         <div className="flex items-start gap-3">
           <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-emerald-500" />
           <div className="min-w-0">
-            <h3 className="font-bold text-slate-800">Processing complete!</h3>
-            <p className="mt-0.5 truncate text-sm text-slate-500">{result.file_name}</p>
+            <h3 className="font-bold text-slate-800 dark:text-gray-200">Processing complete!</h3>
+            <p className="mt-0.5 truncate text-sm text-slate-500 dark:text-gray-400">{result.file_name}</p>
           </div>
         </div>
 
@@ -66,31 +66,31 @@ export function ProcessingResult({ result, onReset }: Props) {
         </div>
 
         {result.bank_name && (
-          <p className="mt-3 text-center text-xs text-slate-400">
-            Detected: <span className="font-semibold text-slate-600">{result.bank_name}</span>
+          <p className="mt-3 text-center text-xs text-slate-400 dark:text-gray-500">
+            Detected: <span className="font-semibold text-slate-600 dark:text-gray-300">{result.bank_name}</span>
           </p>
         )}
 
         {/* Billing message */}
-        <p className="mt-2 text-center text-xs text-emerald-600 font-medium">
+        <p className="mt-2 text-center text-xs text-emerald-600 dark:text-emerald-400 font-medium">
           {result.billing.message}
         </p>
 
         {/* Downloads */}
         {Object.keys(result.export_urls).length > 0 && (
           <div className="mt-4 space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">Downloads</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-gray-500">Downloads</p>
             {Object.entries(result.export_urls).map(([fmt, url]) => (
               <button
                 key={fmt}
                 onClick={() => handleDownload(fmt, url)}
-                className="flex w-full items-center justify-between rounded-xl border border-emerald-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm hover:bg-emerald-50 transition-colors"
+                className="flex w-full items-center justify-between rounded-xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-gray-200 shadow-sm hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
               >
                 <span className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
+                  <FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                   {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
                 </span>
-                <Download className="h-4 w-4 text-slate-400" />
+                <Download className="h-4 w-4 text-slate-400 dark:text-gray-500" />
               </button>
             ))}
           </div>
@@ -99,24 +99,24 @@ export function ProcessingResult({ result, onReset }: Props) {
 
       {/* Transaction preview */}
       {result.transactions.length > 0 && (
-        <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-              <TrendingUp className="h-4 w-4 text-brand-600" />
+        <div className="rounded-2xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-gray-700 px-5 py-3">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-gray-200">
+              <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
               Transaction preview
             </div>
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-slate-400 dark:text-gray-500">
               First {result.transactions.length} of {result.transaction_count}
             </span>
           </div>
-          <div className="divide-y divide-slate-50">
+          <div className="divide-y divide-slate-50 dark:divide-gray-700">
             {result.transactions.slice(0, 8).map((txn: Transaction, i) => (
               <div key={i} className="flex items-center gap-3 px-5 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-medium text-slate-700">{txn.description}</p>
-                  <p className="text-xs text-slate-400">{txn.date} {txn.category && `· ${txn.category}`}</p>
+                  <p className="truncate text-xs font-medium text-slate-700 dark:text-gray-200">{txn.description}</p>
+                  <p className="text-xs text-slate-400 dark:text-gray-500">{txn.date} {txn.category && `· ${txn.category}`}</p>
                 </div>
-                <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ? "text-emerald-600" : "text-slate-700"}`}>
+                <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-700 dark:text-gray-300"}`}>
                   {txn.amount >= 0 ? "+" : ""}${Math.abs(txn.amount).toFixed(2)}
                 </span>
               </div>
@@ -127,7 +127,7 @@ export function ProcessingResult({ result, onReset }: Props) {
 
       <button
         onClick={onReset}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
       >
         <RefreshCw className="h-4 w-4" />
         Process another statement
@@ -138,9 +138,9 @@ export function ProcessingResult({ result, onReset }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-white p-3 text-center shadow-sm">
-      <p className="text-xl font-bold text-slate-800">{value}</p>
-      <p className="text-xs text-slate-400">{label}</p>
+    <div className="rounded-xl bg-white dark:bg-gray-800 p-3 text-center shadow-sm">
+      <p className="text-xl font-bold text-slate-800 dark:text-gray-200">{value}</p>
+      <p className="text-xs text-slate-400 dark:text-gray-500">{label}</p>
     </div>
   );
 }

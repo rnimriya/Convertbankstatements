@@ -8,6 +8,7 @@ import type { BillingContext } from "@/types/billing";
 import { FileText, History, CreditCard, LogOut, Info } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 type Tab = "upload" | "history" | "billing";
 
@@ -46,7 +47,6 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   }, []);
 
   const handleSignOut = async () => {
-    // Hard-navigate to /login?logout=1 — middleware clears the cookie atomically
     window.location.href = "/login?logout=1";
   };
 
@@ -60,7 +60,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   const displayName = userName ?? userEmail.split("@")[0];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
       {/* Demo banner */}
       {isDemo && (
         <div className="flex items-center justify-center gap-2 bg-amber-500 px-4 py-2 text-center text-sm font-medium text-white">
@@ -72,25 +72,26 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       )}
 
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
               <FileText className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-800">BankStatements</span>
+            <span className="font-bold text-slate-800 dark:text-gray-100">BankStatements</span>
           </a>
 
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-2">
-              <div className="h-7 w-7 rounded-full bg-brand-100 flex items-center justify-center text-xs font-bold text-brand-700">
+              <div className="h-7 w-7 rounded-full bg-brand-100 dark:bg-brand-900/50 flex items-center justify-center text-xs font-bold text-brand-700 dark:text-brand-300">
                 {displayName[0]?.toUpperCase()}
               </div>
-              <span className="text-sm text-slate-600">{displayName}</span>
+              <span className="text-sm text-slate-600 dark:text-gray-300">{displayName}</span>
             </div>
+            <ThemeToggle />
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-700 px-3 py-1.5 text-sm text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors"
             >
               <LogOut className="h-3.5 w-3.5" />
               {isDemo ? "Go home" : "Sign out"}
@@ -100,7 +101,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       </header>
 
       {/* Tab bar */}
-      <div className="border-b border-slate-200 bg-white">
+      <div className="border-b border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800">
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex gap-0">
             {tabs.map((t) => (
@@ -109,8 +110,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
                 onClick={() => setTab(t.id)}
                 className={`flex items-center gap-2 border-b-2 px-5 py-3.5 text-sm font-medium transition-colors ${
                   tab === t.id
-                    ? "border-brand-600 text-brand-700"
-                    : "border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-200"
+                    ? "border-brand-600 text-brand-700 dark:text-brand-400"
+                    : "border-transparent text-slate-500 dark:text-gray-400 hover:text-slate-700 dark:hover:text-gray-200 hover:border-slate-200 dark:hover:border-gray-600"
                 }`}
               >
                 {t.icon}
@@ -126,8 +127,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "upload" && (
           <div className="mx-auto max-w-2xl">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-900">Convert bank statement</h1>
-              <p className="mt-1 text-sm text-slate-500">
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Convert bank statement</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
                 Upload a PDF — 1,000+ banks supported. Your file is never stored on our servers.
               </p>
             </div>
@@ -138,8 +139,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "history" && (
           <div>
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-900">Processing history</h1>
-              <p className="mt-1 text-sm text-slate-500">Your last 20 converted documents.</p>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Processing history</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">Your last 20 converted documents.</p>
             </div>
             <UsageHistory logs={recentLogs} isDemo={isDemo} />
           </div>
@@ -148,9 +149,9 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "billing" && (
           <div>
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-900">Plans & Billing</h1>
-              <p className="mt-1 text-sm text-slate-500">
-                You&apos;re on the <span className="font-semibold text-brand-700">{billing.tier}</span> plan.
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Plans & Billing</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
+                You&apos;re on the <span className="font-semibold text-brand-700 dark:text-brand-400">{billing.tier}</span> plan.
               </p>
             </div>
             <PricingSection currentTier={billing.tier} />

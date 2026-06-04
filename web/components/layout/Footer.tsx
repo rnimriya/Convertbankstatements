@@ -30,7 +30,7 @@ const NAV = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 bg-white">
+    <footer className="border-t border-slate-100 dark:border-gray-700 bg-white dark:bg-gray-800">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           {/* Brand */}
@@ -39,18 +39,18 @@ export function Footer() {
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-600">
                 <FileText className="h-3.5 w-3.5 text-white" />
               </div>
-              <span className="font-bold text-slate-800">BankStatements</span>
-              <span className="rounded-full bg-brand-100 px-1.5 py-0.5 text-[10px] font-bold text-brand-600">
+              <span className="font-bold text-slate-800 dark:text-gray-100">BankStatements</span>
+              <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">
                 India
               </span>
             </Link>
-            <p className="mt-2 text-xs leading-relaxed text-slate-400">
+            <p className="mt-2 text-xs leading-relaxed text-slate-400 dark:text-gray-500">
               Convert Indian bank statement PDFs to clean CSV, Excel & OFX data. Your financial
               documents are never stored on our servers.
             </p>
-            <p className="mt-3 text-xs text-slate-400">
+            <p className="mt-3 text-xs text-slate-400 dark:text-gray-500">
               Payments secured by{" "}
-              <span className="font-semibold text-slate-500">Razorpay</span> · UPI / Cards / NetBanking
+              <span className="font-semibold text-slate-500 dark:text-gray-400">Razorpay</span> · UPI / Cards / NetBanking
             </p>
           </div>
 
@@ -58,10 +58,10 @@ export function Footer() {
           <div className="flex gap-10 text-sm sm:gap-14">
             {NAV.map(({ heading, links }) => (
               <div key={heading} className="space-y-2">
-                <p className="font-semibold text-slate-700">{heading}</p>
+                <p className="font-semibold text-slate-700 dark:text-gray-200">{heading}</p>
                 {links.map(({ label, href }) => (
                   <p key={label}>
-                    <Link href={href} className="text-slate-500 hover:text-slate-800 transition-colors">
+                    <Link href={href} className="text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-gray-100 transition-colors">
                       {label}
                     </Link>
                   </p>
@@ -71,7 +71,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-100 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400">
+        <div className="mt-8 border-t border-slate-100 dark:border-gray-700 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-500">
           <p>© {new Date().getFullYear()} BankStatements India. All rights reserved.</p>
           <p>All prices in INR · GST applicable · Data never stored</p>
         </div>

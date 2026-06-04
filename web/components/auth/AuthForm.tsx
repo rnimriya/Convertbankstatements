@@ -4,6 +4,7 @@ import { useState, FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Eye, EyeOff, Loader2, FileText, AlertCircle, CheckCircle2 } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 type Mode = "login" | "signup";
 type ErrorCode = "USER_NOT_FOUND" | "WRONG_PASSWORD" | null;
@@ -53,10 +54,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
       if (mode === "signup") {
         setSuccess(true);
-        // Hard redirect so the browser sends the new cookie with the next request
         setTimeout(() => { window.location.href = redirectTo; }, 1200);
       } else {
-        // Hard redirect — ensures the bs_token cookie is present when middleware runs
         window.location.href = redirectTo;
       }
     } catch (err: unknown) {
@@ -68,35 +67,38 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   if (success) {
     return (
-      <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 px-4 py-12">
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 bg-white p-10 shadow-lg text-center">
+      <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12">
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-gray-800 p-10 shadow-lg text-center">
           <CheckCircle2 className="h-12 w-12 text-emerald-500" />
-          <p className="text-lg font-bold text-slate-800">Account created!</p>
-          <p className="text-sm text-slate-500">Redirecting to your dashboard…</p>
+          <p className="text-lg font-bold text-slate-800 dark:text-gray-200">Account created!</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400">Redirecting to your dashboard…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 px-4 py-12">
+    <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-gray-900 dark:to-gray-800 px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="mb-8 flex flex-col items-center">
+        {/* Logo + theme toggle */}
+        <div className="mb-8 flex flex-col items-center relative">
+          <div className="absolute right-0 top-0">
+            <ThemeToggle />
+          </div>
           <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200 dark:shadow-brand-900/30">
               <FileText className="h-6 w-6 text-white" />
             </div>
           </Link>
-          <span className="mt-3 text-xl font-bold text-slate-800">BankStatements</span>
-          <span className="text-xs text-slate-400">India&apos;s bank statement converter</span>
+          <span className="mt-3 text-xl font-bold text-slate-800 dark:text-gray-100">BankStatements</span>
+          <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-xl shadow-slate-200/50">
-          <h1 className="text-2xl font-bold text-slate-900">
+        <div className="rounded-2xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/30">
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">
             {mode === "login" ? "Welcome back" : "Create account"}
           </h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
             {mode === "login"
               ? "Sign in to convert your bank statements."
               : "Start free — 8 pages on us, no card required."}
@@ -104,24 +106,23 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
           {/* Error banner */}
           {error && (
-            <div className="mt-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="mt-5 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
               <div className="flex items-start gap-2">
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                 <span>{error}</span>
               </div>
-              {/* Smart action links based on error code */}
               {mode === "login" && errorCode === "USER_NOT_FOUND" && (
-                <p className="mt-2 pl-6 text-xs text-red-600">
+                <p className="mt-2 pl-6 text-xs text-red-600 dark:text-red-400">
                   👉{" "}
-                  <Link href="/signup" className="font-semibold underline hover:text-red-800">
+                  <Link href="/signup" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
                     Create a free account
                   </Link>
                 </p>
               )}
               {mode === "login" && errorCode === "WRONG_PASSWORD" && (
-                <p className="mt-2 pl-6 text-xs text-red-600">
+                <p className="mt-2 pl-6 text-xs text-red-600 dark:text-red-400">
                   👉{" "}
-                  <Link href="/forgot-password" className="font-semibold underline hover:text-red-800">
+                  <Link href="/forgot-password" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
                     Reset your password
                   </Link>
                 </p>
@@ -132,21 +133,21 @@ export function AuthForm({ mode }: { mode: Mode }) {
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             {mode === "signup" && (
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                  Full name <span className="text-slate-400">(optional)</span>
+                <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">
+                  Full name <span className="text-slate-400 dark:text-gray-500">(optional)</span>
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Rahul Sharma"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-100"
+                  className="w-full rounded-xl border border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700 px-4 py-2.5 text-sm text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                 />
               </div>
             )}
 
             <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700">Email address</label>
+              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">Email address</label>
               <input
                 id="auth-email"
                 type="email"
@@ -154,15 +155,15 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-100"
+                className="w-full rounded-xl border border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700 px-4 py-2.5 text-sm text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
               />
             </div>
 
             <div>
               <div className="mb-1.5 flex items-center justify-between">
-                <label className="text-sm font-medium text-slate-700">Password</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-gray-200">Password</label>
                 {mode === "login" && (
-                  <Link href="/forgot-password" className="text-xs text-brand-600 hover:underline">
+                  <Link href="/forgot-password" className="text-xs text-brand-600 dark:text-brand-400 hover:underline">
                     Forgot password?
                   </Link>
                 )}
@@ -175,12 +176,12 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-11 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-100"
+                  className="w-full rounded-xl border border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700 px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300"
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -190,7 +191,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
             {mode === "signup" && (
               <div>
-                <label className="mb-1.5 block text-sm font-medium text-slate-700">Confirm password</label>
+                <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">Confirm password</label>
                 <input
                   id="auth-confirm-password"
                   type={showPassword ? "text" : "password"}
@@ -198,7 +199,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Repeat password"
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-100"
+                  className="w-full rounded-xl border border-slate-200 dark:border-gray-600 bg-slate-50 dark:bg-gray-700 px-4 py-2.5 text-sm text-slate-900 dark:text-gray-100 placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                 />
               </div>
             )}
@@ -216,19 +217,19 @@ export function AuthForm({ mode }: { mode: Mode }) {
             </button>
           </form>
 
-          <p className="mt-6 text-center text-sm text-slate-500">
+          <p className="mt-6 text-center text-sm text-slate-500 dark:text-gray-400">
             {mode === "login" ? (
-              <>Don&apos;t have an account?{" "}<Link href="/signup" className="font-semibold text-brand-600 hover:underline">Sign up free</Link></>
+              <>Don&apos;t have an account?{" "}<Link href="/signup" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">Sign up free</Link></>
             ) : (
-              <>Already have an account?{" "}<Link href="/login" className="font-semibold text-brand-600 hover:underline">Sign in</Link></>
+              <>Already have an account?{" "}<Link href="/login" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">Sign in</Link></>
             )}
           </p>
         </div>
 
-        <p className="mt-5 text-center text-xs text-slate-400">
+        <p className="mt-5 text-center text-xs text-slate-400 dark:text-gray-500">
           By signing up you agree to our{" "}
-          <Link href="/terms" className="underline hover:text-slate-600">Terms</Link> &amp;{" "}
-          <Link href="/privacy" className="underline hover:text-slate-600">Privacy Policy</Link>
+          <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300">Terms</Link> &amp;{" "}
+          <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300">Privacy Policy</Link>
         </p>
       </div>
     </div>
