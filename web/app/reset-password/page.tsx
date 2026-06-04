@@ -1,19 +1,13 @@
 "use client";
 
-import { useState, FormEvent, useEffect, Suspense } from "react";
+import { useState, FormEvent, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
-  FileText,
-  AlertCircle,
-  CheckCircle2,
-  Loader2,
-  Eye,
-  EyeOff,
-  ShieldCheck,
-  ArrowLeft,
-  XCircle,
+  FileText, AlertCircle, CheckCircle2, Loader2,
+  Eye, EyeOff, ShieldCheck, ArrowLeft, XCircle,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 function ResetPasswordForm() {
   const params = useSearchParams();
@@ -27,7 +21,6 @@ function ResetPasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
-  // Password strength helpers
   const hasMinLength = password.length >= 8;
   const hasUppercase = /[A-Z]/.test(password);
   const hasNumber = /[0-9]/.test(password);
@@ -39,14 +32,8 @@ function ResetPasswordForm() {
     e.preventDefault();
     setError(null);
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (!hasMinLength) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
+    if (password !== confirmPassword) { setError("Passwords do not match."); return; }
+    if (!hasMinLength) { setError("Password must be at least 8 characters."); return; }
 
     setLoading(true);
     try {
@@ -68,23 +55,19 @@ function ResetPasswordForm() {
     }
   };
 
-  // Missing token guard
   if (!token) {
     return (
       <div className="flex flex-col items-center gap-4 text-center py-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50 ring-4 ring-red-100">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/20 ring-4 ring-red-100 dark:ring-red-900/40">
           <XCircle className="h-8 w-8 text-red-500" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-slate-900">Invalid reset link</h1>
-          <p className="mt-2 text-sm text-slate-500 leading-relaxed">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white">Invalid reset link</h1>
+          <p className="mt-2 text-sm text-slate-500 dark:text-gray-400 leading-relaxed">
             This password reset link is missing a token. Please request a new one.
           </p>
         </div>
-        <Link
-          href="/forgot-password"
-          className="mt-2 flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 transition-colors"
-        >
+        <Link href="/forgot-password" className="mt-2 flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
           Request new link
         </Link>
       </div>
@@ -94,16 +77,16 @@ function ResetPasswordForm() {
   if (success) {
     return (
       <div className="flex flex-col items-center gap-4 text-center py-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 ring-4 ring-emerald-100">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-900/20 ring-4 ring-emerald-100 dark:ring-emerald-900/40">
           <CheckCircle2 className="h-8 w-8 text-emerald-500" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-slate-900">Password updated!</h1>
-          <p className="mt-2 text-sm text-slate-500 leading-relaxed">
+          <h1 className="text-xl font-bold text-slate-900 dark:text-white">Password updated!</h1>
+          <p className="mt-2 text-sm text-slate-500 dark:text-gray-400 leading-relaxed">
             Your password has been reset successfully. Redirecting you to sign in…
           </p>
         </div>
-        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-100">
+        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-100 dark:bg-gray-800">
           <div className="h-full animate-[progress_2.5s_linear_forwards] rounded-full bg-brand-600" />
         </div>
       </div>
@@ -113,28 +96,25 @@ function ResetPasswordForm() {
   return (
     <>
       <div className="flex items-center gap-3 mb-2">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50">
-          <ShieldCheck className="h-5 w-5 text-brand-600" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
+          <ShieldCheck className="h-5 w-5 text-brand-600 dark:text-brand-400" />
         </div>
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Reset password</h1>
-        </div>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Reset password</h1>
       </div>
-      <p className="mt-1 mb-6 text-sm text-slate-500">
+      <p className="mt-1 mb-6 text-sm text-slate-500 dark:text-gray-400">
         Choose a strong new password for your account.
       </p>
 
       {error && (
-        <div className="mb-5 flex items-start gap-2 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div className="mb-5 flex items-start gap-2 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
           <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* New Password */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-700">New password</label>
+          <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">New password</label>
           <div className="relative">
             <input
               id="reset-password"
@@ -143,61 +123,44 @@ function ResetPasswordForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min. 8 characters"
-              className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-11 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-brand-500 focus:bg-white focus:ring-2 focus:ring-brand-100"
+              className="w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
             />
             <button
               type="button"
               onClick={() => setShowPassword((v) => !v)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300"
               aria-label="Toggle password visibility"
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
           </div>
 
-          {/* Strength meter */}
           {password.length > 0 && (
             <div className="mt-2 space-y-1.5">
               <div className="flex gap-1">
                 {[1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className={`h-1 flex-1 rounded-full transition-all duration-300 ${
-                      strength >= i ? strengthColor : "bg-slate-100"
-                    }`}
-                  />
+                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength >= i ? strengthColor : "bg-slate-100 dark:bg-gray-700"}`} />
                 ))}
               </div>
-              <div className="flex justify-between text-xs text-slate-400">
+              <div className="flex justify-between text-xs text-slate-400 dark:text-gray-500">
                 <span>
                   Strength:{" "}
-                  <span
-                    className={
-                      strength === 1
-                        ? "text-red-500"
-                        : strength === 2
-                        ? "text-amber-500"
-                        : "text-emerald-600"
-                    }
-                  >
+                  <span className={strength === 1 ? "text-red-500" : strength === 2 ? "text-amber-500" : "text-emerald-600"}>
                     {strengthLabel}
                   </span>
                 </span>
                 <span className="space-x-2">
-                  <span className={hasMinLength ? "text-emerald-600" : ""}>8+ chars</span>
-                  <span className={hasUppercase ? "text-emerald-600" : ""}>A–Z</span>
-                  <span className={hasNumber ? "text-emerald-600" : ""}>0–9</span>
+                  <span className={hasMinLength ? "text-emerald-600 dark:text-emerald-400" : ""}>8+ chars</span>
+                  <span className={hasUppercase ? "text-emerald-600 dark:text-emerald-400" : ""}>A–Z</span>
+                  <span className={hasNumber ? "text-emerald-600 dark:text-emerald-400" : ""}>0–9</span>
                 </span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Confirm Password */}
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-slate-700">
-            Confirm new password
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">Confirm new password</label>
           <input
             id="reset-confirm-password"
             type={showPassword ? "text" : "password"}
@@ -205,14 +168,14 @@ function ResetPasswordForm() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Repeat password"
-            className={`w-full rounded-xl border bg-slate-50 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:bg-white focus:ring-2 ${
+            className={`w-full rounded-xl border bg-slate-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:bg-white dark:focus:bg-gray-800 focus:ring-2 ${
               confirmPassword && confirmPassword !== password
-                ? "border-red-300 focus:border-red-400 focus:ring-red-100"
-                : "border-slate-200 focus:border-brand-500 focus:ring-brand-100"
+                ? "border-red-300 dark:border-red-700 focus:border-red-400 focus:ring-red-100 dark:focus:ring-red-900/30"
+                : "border-slate-200 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-100 dark:focus:ring-brand-900/50"
             }`}
           />
           {confirmPassword && confirmPassword !== password && (
-            <p className="mt-1 text-xs text-red-500">Passwords don&apos;t match</p>
+            <p className="mt-1 text-xs text-red-500 dark:text-red-400">Passwords don&apos;t match</p>
           )}
         </div>
 
@@ -227,11 +190,8 @@ function ResetPasswordForm() {
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-slate-500">
-        <Link
-          href="/forgot-password"
-          className="flex items-center justify-center gap-1 text-slate-500 hover:text-brand-600 transition-colors"
-        >
+      <p className="mt-6 text-center text-sm text-slate-500 dark:text-gray-400">
+        <Link href="/forgot-password" className="flex items-center justify-center gap-1 text-slate-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
           <ArrowLeft className="h-3.5 w-3.5" />
           Request a new reset link
         </Link>
@@ -242,28 +202,30 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-brand-50/30 to-blue-50/20 px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-gray-900 px-4 py-12">
       <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="mb-8 flex flex-col items-center">
+        <div className="mb-8 flex flex-col items-center relative">
+          <div className="absolute right-0 top-0">
+            <ThemeToggle />
+          </div>
           <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200 transition hover:scale-105">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200 dark:shadow-brand-900/30 transition hover:scale-105">
               <FileText className="h-6 w-6 text-white" />
             </div>
           </Link>
-          <span className="mt-3 text-xl font-bold text-slate-800">BankStatements</span>
-          <span className="text-xs text-slate-400">India&apos;s bank statement converter</span>
+          <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
+          <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-xl shadow-slate-200/50">
-          <Suspense fallback={<div className="py-8 text-center text-sm text-slate-400">Loading…</div>}>
+        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/40">
+          <Suspense fallback={<div className="py-8 text-center text-sm text-slate-400 dark:text-gray-500">Loading…</div>}>
             <ResetPasswordForm />
           </Suspense>
         </div>
 
-        <p className="mt-5 text-center text-xs text-slate-400">
+        <p className="mt-5 text-center text-xs text-slate-400 dark:text-gray-500">
           Need help?{" "}
-          <a href="mailto:support@bankstatements.in" className="underline hover:text-slate-600">
+          <a href="mailto:support@bankstatements.in" className="underline hover:text-slate-600 dark:hover:text-gray-300">
             Contact support
           </a>
         </p>

@@ -84,7 +84,7 @@ export function ProcessingResult({ result, onReset }: Props) {
               <button
                 key={fmt}
                 onClick={() => handleDownload(fmt, url)}
-                className="flex w-full items-center justify-between rounded-xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-gray-700 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-gray-200 shadow-sm hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
+                className="flex w-full items-center justify-between rounded-xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-gray-200 shadow-sm hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
               >
                 <span className="flex items-center gap-2">
                   <FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
@@ -99,8 +99,8 @@ export function ProcessingResult({ result, onReset }: Props) {
 
       {/* Transaction preview */}
       {result.transactions.length > 0 && (
-        <div className="rounded-2xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-gray-600 px-5 py-3">
+        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-sm overflow-hidden">
+          <div className="flex items-center justify-between border-b border-slate-100 dark:border-gray-800 px-5 py-3">
             <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-gray-200">
               <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
               Transaction preview
@@ -127,7 +127,7 @@ export function ProcessingResult({ result, onReset }: Props) {
 
       <button
         onClick={onReset}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-600 transition-colors"
+        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors"
       >
         <RefreshCw className="h-4 w-4" />
         Process another statement
@@ -138,7 +138,7 @@ export function ProcessingResult({ result, onReset }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-white dark:bg-gray-700 p-3 text-center shadow-sm">
+    <div className="rounded-xl bg-white dark:bg-gray-800 p-3 text-center shadow-sm">
       <p className="text-xl font-bold text-slate-800 dark:text-gray-200">{value}</p>
       <p className="text-xs text-slate-400 dark:text-gray-500">{label}</p>
     </div>

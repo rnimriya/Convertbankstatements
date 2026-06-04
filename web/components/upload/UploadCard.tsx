@@ -103,7 +103,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
             <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">{state.message}</p>
 
             <div className="mt-4">
-              <span className="text-4xl font-extrabold text-slate-900 dark:text-gray-100">₹49</span>
+              <span className="text-4xl font-extrabold text-slate-900 dark:text-white">₹49</span>
               <span className="ml-1 text-sm text-slate-500 dark:text-gray-400">one-time · per document</span>
             </div>
 
@@ -126,7 +126,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
             />
             <button
               onClick={reset}
-              className="w-full rounded-xl border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-600 transition-colors"
+              className="w-full rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors"
             >
               Cancel
             </button>
@@ -160,7 +160,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
           "rounded-2xl border-2 border-dashed px-6 py-10 transition-all duration-200 select-none",
           isDragActive
             ? "border-brand-500 bg-brand-50 dark:bg-brand-900/20 scale-[1.01]"
-            : "border-slate-300 dark:border-gray-500 bg-white dark:bg-gray-700 hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-gray-600",
+            : "border-slate-300 dark:border-gray-800LITE bg-white dark:bg-gray-800 hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-gray-800",
           state.status === "processing" && "pointer-events-none opacity-70"
         )}
       >
@@ -170,7 +170,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
           <>
             <Loader2 className="h-10 w-10 animate-spin text-brand-500" />
             <p className="mt-3 text-sm font-semibold text-slate-700 dark:text-gray-200">
-              Processing <span className="text-slate-900 dark:text-gray-100">{state.fileName}</span>…
+              Processing <span className="text-slate-900 dark:text-white">{state.fileName}</span>…
             </p>
             <p className="mt-1 text-xs text-slate-400 dark:text-gray-500">Extracting transactions · usually under 15s</p>
           </>

@@ -76,7 +76,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
               className={`relative rounded-2xl border p-5 ${
                 plan.highlight
                   ? "border-brand-500 bg-brand-600 dark:bg-brand-700 shadow-lg shadow-brand-100 dark:shadow-brand-900/30"
-                  : "border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 shadow-sm"
+                  : "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-sm"
               } ${isCurrent ? "ring-2 ring-brand-500" : ""}`}
             >
               {plan.highlight && (
@@ -92,7 +92,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
 
               <p className={`font-bold ${plan.highlight ? "text-white" : "text-slate-800 dark:text-gray-200"}`}>{plan.name}</p>
               <p className="mt-1 flex items-end gap-0.5">
-                <span className={`text-2xl font-extrabold ${plan.highlight ? "text-white" : "text-slate-900 dark:text-gray-100"}`}>{plan.price}</span>
+                <span className={`text-2xl font-extrabold ${plan.highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
                 {plan.period && <span className={`mb-0.5 text-xs ${plan.highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
               </p>
 
@@ -111,7 +111,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                   className={`mt-5 w-full rounded-xl border py-2 text-sm font-semibold cursor-not-allowed ${
                     plan.highlight
                       ? "border-brand-400 bg-brand-500 text-brand-100"
-                      : "border-slate-100 dark:border-gray-600 bg-slate-50 dark:bg-gray-600 text-slate-400 dark:text-gray-500"
+                      : "border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-800 text-slate-400 dark:text-gray-500"
                   }`}
                 >
                   {isCurrent ? "Current plan" : "Free"}
@@ -128,7 +128,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                   className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-2 text-sm font-semibold transition-colors ${
                     plan.highlight
                       ? "bg-white text-brand-700 hover:bg-brand-50"
-                      : "border border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-600"
+                      : "border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-800"
                   }`}
                 />
               )}

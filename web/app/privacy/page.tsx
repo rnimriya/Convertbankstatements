@@ -161,19 +161,19 @@ We are committed to resolving complaints about our collection or use of your per
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-black">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-sm">
+      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-gray-800 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
               <FileText className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-800">BankStatements</span>
-            <span className="rounded-full bg-brand-100 px-1.5 py-0.5 text-[10px] font-bold text-brand-600">India</span>
+            <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
+            <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </Link>
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-sm text-slate-500 hover:text-slate-800 transition-colors">Sign in</Link>
+            <Link href="/login" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">Sign in</Link>
             <Link href="/signup" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
               Get started free
             </Link>
@@ -182,15 +182,15 @@ export default function PrivacyPage() {
       </nav>
 
       {/* Header */}
-      <div className="border-b border-slate-100 bg-slate-50 px-6 py-10">
+      <div className="border-b border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 px-6 py-10">
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100">
               <Shield className="h-5 w-5 text-brand-600" />
             </div>
             <div>
-              <h1 className="text-2xl font-extrabold text-slate-900">Privacy Policy</h1>
-              <p className="text-xs text-slate-400 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+              <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Privacy Policy</h1>
+              <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
             </div>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-slate-500">
@@ -202,14 +202,14 @@ export default function PrivacyPage() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-12">
         {/* Table of contents */}
-        <div className="mb-10 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-          <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Contents</p>
+        <div className="mb-10 rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 p-5">
+          <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-gray-500">Contents</p>
           <div className="grid gap-1 sm:grid-cols-2">
             {SECTIONS.map(({ id, title }) => (
               <a
                 key={id}
                 href={`#${id}`}
-                className="text-sm text-brand-600 hover:underline underline-offset-2"
+                className="text-sm text-brand-600 dark:text-brand-400 hover:underline underline-offset-2"
               >
                 {title}
               </a>
@@ -221,12 +221,12 @@ export default function PrivacyPage() {
         <div className="space-y-10">
           {SECTIONS.map(({ id, title, content }) => (
             <section key={id} id={id} className="scroll-mt-20">
-              <h2 className="mb-3 text-lg font-bold text-slate-900">{title}</h2>
+              <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">{title}</h2>
               <div className="space-y-3">
                 {content.split("\n\n").map((para, i) => {
                   if (para.startsWith("**") && para.split("\n").length === 1) {
                     return (
-                      <p key={i} className="text-sm font-semibold text-slate-800">
+                      <p key={i} className="text-sm font-semibold text-slate-800 dark:text-gray-200">
                         {para.replace(/\*\*/g, "")}
                       </p>
                     );
@@ -234,10 +234,10 @@ export default function PrivacyPage() {
                   // Render bold inline text
                   const parts = para.split(/(\*\*[^*]+\*\*)/g);
                   return (
-                    <p key={i} className="text-sm leading-relaxed text-slate-600">
+                    <p key={i} className="text-sm leading-relaxed text-slate-600 dark:text-gray-400">
                       {parts.map((part, j) =>
                         part.startsWith("**") ? (
-                          <strong key={j} className="font-semibold text-slate-800">
+                          <strong key={j} className="font-semibold text-slate-800 dark:text-gray-200">
                             {part.replace(/\*\*/g, "")}
                           </strong>
                         ) : (
@@ -260,7 +260,7 @@ export default function PrivacyPage() {
           </p>
         </div>
 
-        <div className="mt-8 text-center text-xs text-slate-400">
+        <div className="mt-8 text-center text-xs text-slate-400 dark:text-gray-500">
           Questions?{" "}
           <a href="mailto:privacy@bankstatements.io" className="text-brand-600 hover:underline">
             privacy@bankstatements.io

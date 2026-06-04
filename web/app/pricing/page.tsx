@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CheckCircle2, ArrowRight, FileText, IndianRupee } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata = { title: "Pricing — BankStatements India" };
 
@@ -69,44 +70,47 @@ const COMPARE_ROWS = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <nav className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-white dark:bg-black">
+      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-gray-800 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
               <FileText className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-800">BankStatements</span>
+            <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
           </Link>
           <div className="flex items-center gap-3">
-            <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900">Sign in</Link>
+            <ThemeToggle />
+            <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white">Sign in</Link>
             <Link href="/signup" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">Get started free</Link>
           </div>
         </div>
       </nav>
 
-      <div className="border-b border-slate-100 bg-slate-50 px-6 py-8">
+      <div className="border-b border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">Simple, transparent pricing</h1>
-            <p className="mt-1 text-sm text-slate-500">
+            <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Simple, transparent pricing</h1>
+            <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
               Start free · All prices in INR · No hidden charges
             </p>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-500 shadow-sm w-fit">
+          <div className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-xs font-medium text-slate-500 dark:text-gray-400 shadow-sm w-fit">
             <IndianRupee className="h-3.5 w-3.5 text-brand-500" />
             UPI · Cards · Net Banking · Wallets
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 pb-20">
+      <div className="mx-auto max-w-6xl px-6 pb-20 pt-8">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {PLANS.map((plan) => (
             <div
               key={plan.name}
               className={`relative flex flex-col rounded-2xl border p-6 shadow-sm ${
-                plan.highlight ? "border-brand-500 shadow-lg shadow-brand-100" : "border-slate-200 bg-white"
+                plan.highlight
+                  ? "border-brand-500 bg-brand-600 shadow-lg shadow-brand-100 dark:shadow-brand-900/30"
+                  : "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900"
               }`}
             >
               {plan.badge && (
@@ -114,23 +118,23 @@ export default function PricingPage() {
                   {plan.badge}
                 </div>
               )}
-              <p className="font-bold text-slate-800">{plan.name}</p>
-              <p className="mt-0.5 text-xs text-slate-400">{plan.tagline}</p>
+              <p className={`font-bold ${plan.highlight ? "text-white" : "text-slate-800 dark:text-white"}`}>{plan.name}</p>
+              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-brand-100" : "text-slate-400 dark:text-gray-500"}`}>{plan.tagline}</p>
               <div className="mt-3 flex items-end gap-0.5">
-                <span className="text-3xl font-extrabold text-slate-900">{plan.price}</span>
-                {plan.period && <span className="mb-1 text-sm text-slate-400">{plan.period}</span>}
+                <span className={`text-3xl font-extrabold ${plan.highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
+                {plan.period && <span className={`mb-1 text-sm ${plan.highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
               </div>
 
               <ul className="mt-5 flex-1 space-y-2">
                 {plan.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-slate-600">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
+                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-brand-100" : "text-slate-600 dark:text-gray-300"}`}>
+                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-brand-200" : "text-emerald-500"}`} />
                     {f}
                   </li>
                 ))}
                 {plan.notIncluded.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-slate-400 line-through decoration-slate-300">
-                    <span className="mt-0.5 h-4 w-4 shrink-0 text-center text-xs text-slate-300">✕</span>
+                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-brand-300 decoration-brand-400" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
+                    <span className="mt-0.5 h-4 w-4 shrink-0 text-center text-xs">✕</span>
                     {f}
                   </li>
                 ))}
@@ -140,8 +144,8 @@ export default function PricingPage() {
                 href={plan.href}
                 className={`mt-6 flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors ${
                   plan.highlight
-                    ? "bg-brand-600 text-white hover:bg-brand-700"
-                    : "border border-slate-200 text-slate-700 hover:bg-slate-50"
+                    ? "bg-white text-brand-700 hover:bg-brand-50"
+                    : "border border-slate-200 dark:border-gray-700 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-800"
                 }`}
               >
                 {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
@@ -152,25 +156,25 @@ export default function PricingPage() {
       </div>
 
       {/* Comparison table */}
-      <div className="bg-slate-50 px-6 py-20">
+      <div className="bg-slate-50 dark:bg-gray-900 px-6 py-20">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-8 text-center text-2xl font-extrabold text-slate-900">Full comparison</h2>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <h2 className="mb-8 text-center text-2xl font-extrabold text-slate-900 dark:text-white">Full comparison</h2>
+          <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-black shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 bg-slate-50">
-                  <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-slate-500">Feature</th>
+                <tr className="border-b border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-900">
+                  <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400">Feature</th>
                   {["Free", "Pay-per-doc", "Pro", "Business"].map((h) => (
-                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-600" : "text-slate-500"}`}>{h}</th>
+                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-600 dark:text-brand-400" : "text-slate-500 dark:text-gray-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {COMPARE_ROWS.map(({ feature, free, payg, pro, business }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}>
-                    <td className="px-5 py-3 font-medium text-slate-700">{feature}</td>
+                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-black" : "bg-slate-50/50 dark:bg-gray-900/50"}>
+                    <td className="px-5 py-3 font-medium text-slate-700 dark:text-gray-300">{feature}</td>
                     {[free, payg, pro, business].map((val, j) => (
-                      <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-slate-300" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-slate-600"}`}>{val}</td>
+                      <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-slate-300 dark:text-gray-700" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-slate-600 dark:text-gray-300"}`}>{val}</td>
                     ))}
                   </tr>
                 ))}
@@ -180,7 +184,7 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <div className="bg-brand-600 px-6 py-16 text-center">
+      <div className="bg-brand-600 dark:bg-brand-700 px-6 py-16 text-center">
         <h2 className="text-2xl font-extrabold text-white sm:text-3xl">Start with 8 free pages today</h2>
         <p className="mt-2 text-brand-100">No credit card · Pay via UPI when you need more</p>
         <Link href="/signup" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3 font-bold text-brand-700 hover:bg-brand-50 transition-colors">

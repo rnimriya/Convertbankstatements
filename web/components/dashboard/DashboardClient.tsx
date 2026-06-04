@@ -60,7 +60,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   const displayName = userName ?? userEmail.split("@")[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-800">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-900">
       {/* Demo banner */}
       {isDemo && (
         <div className="flex items-center justify-center gap-2 bg-amber-500 px-4 py-2 text-center text-sm font-medium text-white">
@@ -72,13 +72,13 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       )}
 
       {/* Header */}
-      <header className="border-b border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700">
+      <header className="border-b border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
               <FileText className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold text-slate-800 dark:text-gray-100">BankStatements</span>
+            <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
           </a>
 
           <div className="flex items-center gap-3">
@@ -91,7 +91,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
             <ThemeToggle />
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-600 px-3 py-1.5 text-sm text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-600 transition-colors"
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-gray-800 px-3 py-1.5 text-sm text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors"
             >
               <LogOut className="h-3.5 w-3.5" />
               {isDemo ? "Go home" : "Sign out"}
@@ -101,7 +101,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       </header>
 
       {/* Tab bar */}
-      <div className="border-b border-slate-200 dark:border-gray-600 bg-white dark:bg-gray-700">
+      <div className="border-b border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800">
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex gap-0">
             {tabs.map((t) => (
@@ -127,7 +127,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "upload" && (
           <div className="mx-auto max-w-2xl">
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Convert bank statement</h1>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Convert bank statement</h1>
               <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
                 Upload a PDF — 1,000+ banks supported. Your file is never stored on our servers.
               </p>
@@ -139,7 +139,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "history" && (
           <div>
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Processing history</h1>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Processing history</h1>
               <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">Your last 20 converted documents.</p>
             </div>
             <UsageHistory logs={recentLogs} isDemo={isDemo} />
@@ -149,7 +149,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "billing" && (
           <div>
             <div className="mb-6">
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-gray-100">Plans & Billing</h1>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Plans & Billing</h1>
               <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
                 You&apos;re on the <span className="font-semibold text-brand-700 dark:text-brand-400">{billing.tier}</span> plan.
               </p>

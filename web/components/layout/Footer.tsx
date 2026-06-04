@@ -30,7 +30,7 @@ const NAV = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 dark:border-gray-600 bg-white dark:bg-gray-700">
+    <footer className="border-t border-slate-100 dark:border-gray-800 bg-white dark:bg-gray-800">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           {/* Brand */}
@@ -39,7 +39,7 @@ export function Footer() {
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-600">
                 <FileText className="h-3.5 w-3.5 text-white" />
               </div>
-              <span className="font-bold text-slate-800 dark:text-gray-100">BankStatements</span>
+              <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
               <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">
                 India
               </span>
@@ -71,7 +71,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-100 dark:border-gray-600 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-500">
+        <div className="mt-8 border-t border-slate-100 dark:border-gray-800 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-500">
           <p>© {new Date().getFullYear()} BankStatements India. All rights reserved.</p>
           <p>All prices in INR · GST applicable · Data never stored</p>
         </div>
