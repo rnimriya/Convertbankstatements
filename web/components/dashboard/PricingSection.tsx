@@ -76,7 +76,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
               className={`relative rounded-2xl border p-5 ${
                 plan.highlight
                   ? "border-brand-500 bg-brand-600 dark:bg-brand-700 shadow-lg shadow-brand-100 dark:shadow-brand-900/30"
-                  : "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 shadow-sm"
+                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-black shadow-sm"
               } ${isCurrent ? "ring-2 ring-brand-500" : ""}`}
             >
               {plan.highlight && (
@@ -111,7 +111,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                   className={`mt-5 w-full rounded-xl border py-2 text-sm font-semibold cursor-not-allowed ${
                     plan.highlight
                       ? "border-brand-400 bg-brand-500 text-brand-100"
-                      : "border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-800 text-slate-400 dark:text-gray-500"
+                      : "border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black text-slate-400 dark:text-gray-500"
                   }`}
                 >
                   {isCurrent ? "Current plan" : "Free"}
@@ -128,7 +128,7 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                   className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-2 text-sm font-semibold transition-colors ${
                     plan.highlight
                       ? "bg-white text-brand-700 hover:bg-brand-50"
-                      : "border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-800"
+                      : "border border-slate-200 dark:border-white/10 bg-white dark:bg-black text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
                   }`}
                 />
               )}

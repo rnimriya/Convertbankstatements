@@ -86,7 +86,7 @@ function ResetPasswordForm() {
             Your password has been reset successfully. Redirecting you to sign in…
           </p>
         </div>
-        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-100 dark:bg-gray-800">
+        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-100 dark:bg-black">
           <div className="h-full animate-[progress_2.5s_linear_forwards] rounded-full bg-brand-600" />
         </div>
       </div>
@@ -123,7 +123,7 @@ function ResetPasswordForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min. 8 characters"
-              className="w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+              className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
             />
             <button
               type="button"
@@ -139,7 +139,7 @@ function ResetPasswordForm() {
             <div className="mt-2 space-y-1.5">
               <div className="flex gap-1">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength >= i ? strengthColor : "bg-slate-100 dark:bg-gray-700"}`} />
+                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength >= i ? strengthColor : "bg-slate-100 dark:bg-black"}`} />
                 ))}
               </div>
               <div className="flex justify-between text-xs text-slate-400 dark:text-gray-500">
@@ -168,10 +168,10 @@ function ResetPasswordForm() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Repeat password"
-            className={`w-full rounded-xl border bg-slate-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:bg-white dark:focus:bg-gray-800 focus:ring-2 ${
+            className={`w-full rounded-xl border bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:bg-white dark:focus:bg-gray-800 focus:ring-2 ${
               confirmPassword && confirmPassword !== password
                 ? "border-red-300 dark:border-red-700 focus:border-red-400 focus:ring-red-100 dark:focus:ring-red-900/30"
-                : "border-slate-200 dark:border-gray-700 focus:border-brand-500 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                : "border-slate-200 dark:border-white/10 focus:border-brand-500 focus:ring-brand-100 dark:focus:ring-brand-900/50"
             }`}
           />
           {confirmPassword && confirmPassword !== password && (
@@ -202,7 +202,7 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-gray-900 px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center relative">
           <div className="absolute right-0 top-0">
@@ -217,7 +217,7 @@ export default function ResetPasswordPage() {
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/40">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           <Suspense fallback={<div className="py-8 text-center text-sm text-slate-400 dark:text-gray-500">Loading…</div>}>
             <ResetPasswordForm />
           </Suspense>

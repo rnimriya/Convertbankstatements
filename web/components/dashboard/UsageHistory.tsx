@@ -22,7 +22,7 @@ const BILLING_BADGE: Record<string, { label: string; cls: string }> = {
 export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }) {
   if (logs.length === 0) {
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-dashed border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 py-16 text-center">
+      <div className="flex flex-col items-center rounded-2xl border border-dashed border-slate-200 dark:border-white/10 bg-white dark:bg-black py-16 text-center">
         {isDemo ? (
           <>
             <Info className="h-10 w-10 text-amber-400" />
@@ -45,12 +45,12 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
   return (
     <div className="space-y-3">
       {logs.map((log) => {
-        const badge = BILLING_BADGE[log.billingType] ?? { label: log.billingType, cls: "bg-slate-100 dark:bg-gray-800 text-slate-600 dark:text-gray-300" };
+        const badge = BILLING_BADGE[log.billingType] ?? { label: log.billingType, cls: "bg-slate-100 dark:bg-black text-slate-600 dark:text-gray-300" };
         const date = new Date(log.createdAt);
         return (
           <div
             key={log.id}
-            className="flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
+            className="flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
               <FileText className="h-5 w-5 text-brand-600 dark:text-brand-400" />

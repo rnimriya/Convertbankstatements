@@ -71,7 +71,7 @@ const COMPARE_ROWS = [
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
-      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-gray-800 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
+      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
@@ -87,7 +87,7 @@ export default function PricingPage() {
         </div>
       </nav>
 
-      <div className="border-b border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 px-6 py-8">
+      <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Simple, transparent pricing</h1>
@@ -95,7 +95,7 @@ export default function PricingPage() {
               Start free · All prices in INR · No hidden charges
             </p>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4 py-2 text-xs font-medium text-slate-500 dark:text-gray-400 shadow-sm w-fit">
+          <div className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-4 py-2 text-xs font-medium text-slate-500 dark:text-gray-400 shadow-sm w-fit">
             <IndianRupee className="h-3.5 w-3.5 text-brand-500" />
             UPI · Cards · Net Banking · Wallets
           </div>
@@ -110,7 +110,7 @@ export default function PricingPage() {
               className={`relative flex flex-col rounded-2xl border p-6 shadow-sm ${
                 plan.highlight
                   ? "border-brand-500 bg-brand-600 shadow-lg shadow-brand-100 dark:shadow-brand-900/30"
-                  : "border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900"
+                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-black"
               }`}
             >
               {plan.badge && (
@@ -145,7 +145,7 @@ export default function PricingPage() {
                 className={`mt-6 flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors ${
                   plan.highlight
                     ? "bg-white text-brand-700 hover:bg-brand-50"
-                    : "border border-slate-200 dark:border-gray-700 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-800"
+                    : "border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
                 }`}
               >
                 {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
@@ -156,13 +156,13 @@ export default function PricingPage() {
       </div>
 
       {/* Comparison table */}
-      <div className="bg-slate-50 dark:bg-gray-900 px-6 py-20">
+      <div className="bg-slate-50 dark:bg-black px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-8 text-center text-2xl font-extrabold text-slate-900 dark:text-white">Full comparison</h2>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-black shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-900">
+                <tr className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400">Feature</th>
                   {["Free", "Pay-per-doc", "Pro", "Business"].map((h) => (
                     <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-600 dark:text-brand-400" : "text-slate-500 dark:text-gray-400"}`}>{h}</th>
@@ -171,7 +171,7 @@ export default function PricingPage() {
               </thead>
               <tbody>
                 {COMPARE_ROWS.map(({ feature, free, payg, pro, business }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-black" : "bg-slate-50/50 dark:bg-gray-900/50"}>
+                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-black" : "bg-slate-50/50 dark:bg-black/50"}>
                     <td className="px-5 py-3 font-medium text-slate-700 dark:text-gray-300">{feature}</td>
                     {[free, payg, pro, business].map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-slate-300 dark:text-gray-700" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-slate-600 dark:text-gray-300"}`}>{val}</td>

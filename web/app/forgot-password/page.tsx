@@ -37,7 +37,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-gray-900 px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center relative">
           <div className="absolute right-0 top-0">
@@ -52,7 +52,7 @@ export default function ForgotPasswordPage() {
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/40">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           {submitted ? (
             <div className="flex flex-col items-center gap-4 text-center py-4">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-900/20 ring-4 ring-emerald-100 dark:ring-emerald-900/40">
@@ -111,7 +111,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-xl border border-slate-200 dark:border-gray-700 bg-slate-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                    className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                   />
                 </div>
 

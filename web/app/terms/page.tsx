@@ -188,7 +188,7 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-black">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-gray-800 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
+      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
@@ -207,7 +207,7 @@ export default function TermsPage() {
       </nav>
 
       {/* Header */}
-      <div className="border-b border-slate-100 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 px-6 py-10">
+      <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black px-6 py-10">
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100">
@@ -229,7 +229,7 @@ export default function TermsPage() {
               { label: "Refunds", value: "7 days for subscriptions" },
               { label: "Jurisdiction", value: "Laws of India" },
             ].map(({ label, value }) => (
-              <div key={label} className="rounded-xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3">
+              <div key={label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-4 py-3">
                 <p className="text-xs text-slate-400 dark:text-gray-500">{label}</p>
                 <p className="mt-0.5 text-sm font-semibold text-slate-700 dark:text-gray-200">{value}</p>
               </div>
@@ -241,7 +241,7 @@ export default function TermsPage() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-12">
         {/* Table of contents */}
-        <div className="mb-10 rounded-2xl border border-slate-200 dark:border-gray-800 bg-slate-50 dark:bg-gray-900 p-5">
+        <div className="mb-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black p-5">
           <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-gray-500">Contents</p>
           <div className="grid gap-1 sm:grid-cols-2">
             {SECTIONS.map(({ id, title }) => (

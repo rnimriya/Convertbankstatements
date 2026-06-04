@@ -67,8 +67,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   if (success) {
     return (
-      <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-gray-900 px-4 py-12">
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-gray-800 p-10 shadow-lg text-center">
+      <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-black p-10 shadow-lg text-center">
           <CheckCircle2 className="h-12 w-12 text-emerald-500" />
           <p className="text-lg font-bold text-slate-800 dark:text-gray-200">Account created!</p>
           <p className="text-sm text-slate-500 dark:text-gray-400">Redirecting to your dashboard…</p>
@@ -78,7 +78,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-gray-900 px-4 py-12">
+    <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
       <div className="w-full max-w-md">
         {/* Logo + theme toggle */}
         <div className="mb-8 flex flex-col items-center relative">
@@ -94,7 +94,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-gray-800 bg-white dark:bg-gray-800 p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/30">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
             {mode === "login" ? "Welcome back" : "Create account"}
           </h1>
@@ -141,7 +141,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Rahul Sharma"
-                  className="w-full rounded-xl border border-slate-200 dark:border-gray-800LITE bg-slate-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                  className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                 />
               </div>
             )}
@@ -155,7 +155,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-slate-200 dark:border-gray-800LITE bg-slate-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
               />
             </div>
 
@@ -176,7 +176,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
-                  className="w-full rounded-xl border border-slate-200 dark:border-gray-800LITE bg-slate-50 dark:bg-gray-800 px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                  className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                 />
                 <button
                   type="button"
@@ -199,7 +199,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Repeat password"
-                  className="w-full rounded-xl border border-slate-200 dark:border-gray-800LITE bg-slate-50 dark:bg-gray-800 px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                  className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                 />
               </div>
             )}

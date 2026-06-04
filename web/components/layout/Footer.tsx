@@ -30,7 +30,7 @@ const NAV = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 dark:border-gray-800 bg-white dark:bg-gray-800">
+    <footer className="border-t border-slate-100 dark:border-white/10 bg-white dark:bg-black">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           {/* Brand */}
@@ -71,7 +71,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-100 dark:border-gray-800 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-500">
+        <div className="mt-8 border-t border-slate-100 dark:border-white/10 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-500">
           <p>© {new Date().getFullYear()} BankStatements India. All rights reserved.</p>
           <p>All prices in INR · GST applicable · Data never stored</p>
         </div>
