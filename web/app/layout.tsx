@@ -3,7 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   title: "BankStatements — Convert PDFs to CSV, Excel & More",
@@ -12,7 +16,7 @@ export const metadata: Metadata = {
   keywords: ["bank statement", "PDF to CSV", "OFX", "QFX", "Excel"],
   openGraph: {
     title: "BankStatements — Convert PDFs to Structured Data",
-    description: "First 8 pages free. Pay $1.99 per document after that.",
+    description: "First 8 pages free. Pay ₹49 per document after that.",
     type: "website",
   },
 };
@@ -28,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.className} bg-white dark:bg-black text-slate-900 dark:text-white antialiased`}>
+      <body className={`${inter.variable} ${inter.className} antialiased`}>
         <ThemeProvider>
           {children}
         </ThemeProvider>

@@ -70,24 +70,24 @@ const COMPARE_ROWS = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
-      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
+    <div className="min-h-screen bg-white dark:bg-surface">
+      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
-              <FileText className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
+              <FileText className="h-4 w-4 text-black" />
             </div>
             <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />
             <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white">Sign in</Link>
-            <Link href="/signup" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700">Get started free</Link>
+            <Link href="/signup" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">Get started free</Link>
           </div>
         </div>
       </nav>
 
-      <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black px-6 py-8">
+      <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Simple, transparent pricing</h1>
@@ -95,7 +95,7 @@ export default function PricingPage() {
               Start free · All prices in INR · No hidden charges
             </p>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-4 py-2 text-xs font-medium text-slate-500 dark:text-gray-400 shadow-sm w-fit">
+          <div className="flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-4 py-2 text-xs font-medium text-slate-500 dark:text-gray-400 shadow-sm w-fit">
             <IndianRupee className="h-3.5 w-3.5 text-brand-500" />
             UPI · Cards · Net Banking · Wallets
           </div>
@@ -107,33 +107,33 @@ export default function PricingPage() {
           {PLANS.map((plan) => (
             <div
               key={plan.name}
-              className={`relative flex flex-col rounded-2xl border p-6 shadow-sm ${
+              className={`relative flex flex-col rounded-2xl border p-6 ${
                 plan.highlight
-                  ? "border-brand-500 bg-brand-600 shadow-lg shadow-brand-100 dark:shadow-brand-900/30"
-                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-black"
+                  ? "border-brand-400 bg-brand-400 dark:bg-surface dark:border-brand-400 shadow-glow"
+                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm"
               }`}
             >
               {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-400 px-3 py-1 text-xs font-bold text-black whitespace-nowrap">
                   {plan.badge}
                 </div>
               )}
-              <p className={`font-bold ${plan.highlight ? "text-white" : "text-slate-800 dark:text-white"}`}>{plan.name}</p>
-              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-brand-100" : "text-slate-400 dark:text-gray-500"}`}>{plan.tagline}</p>
+              <p className={`font-bold ${plan.highlight ? "text-black dark:text-white" : "text-slate-800 dark:text-white"}`}>{plan.name}</p>
+              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-slate-400 dark:text-gray-500"}`}>{plan.tagline}</p>
               <div className="mt-3 flex items-end gap-0.5">
-                <span className={`text-3xl font-extrabold ${plan.highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
-                {plan.period && <span className={`mb-1 text-sm ${plan.highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
+                <span className={`text-3xl font-extrabold ${plan.highlight ? "text-black dark:text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
+                {plan.period && <span className={`mb-1 text-sm ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
               </div>
 
               <ul className="mt-5 flex-1 space-y-2">
                 {plan.features.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-brand-100" : "text-slate-600 dark:text-gray-300"}`}>
-                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-brand-200" : "text-emerald-500"}`} />
+                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-black dark:text-gray-200" : "text-slate-600 dark:text-gray-300"}`}>
+                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-emerald-500"}`} />
                     {f}
                   </li>
                 ))}
                 {plan.notIncluded.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-brand-300 decoration-brand-400" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
+                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-black/40 dark:text-gray-600 decoration-black/30 dark:decoration-gray-700" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
                     <span className="mt-0.5 h-4 w-4 shrink-0 text-center text-xs">✕</span>
                     {f}
                   </li>
@@ -144,7 +144,7 @@ export default function PricingPage() {
                 href={plan.href}
                 className={`mt-6 flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors ${
                   plan.highlight
-                    ? "bg-white text-brand-700 hover:bg-brand-50"
+                    ? "bg-black/10 dark:bg-brand-400 dark:text-black text-black hover:bg-black/20 dark:hover:bg-brand-300"
                     : "border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
                 }`}
               >
@@ -156,22 +156,22 @@ export default function PricingPage() {
       </div>
 
       {/* Comparison table */}
-      <div className="bg-slate-50 dark:bg-black px-6 py-20">
+      <div className="bg-slate-50 dark:bg-surface px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-8 text-center text-2xl font-extrabold text-slate-900 dark:text-white">Full comparison</h2>
-          <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black">
+                <tr className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400">Feature</th>
                   {["Free", "Pay-per-doc", "Pro", "Business"].map((h) => (
-                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-600 dark:text-brand-400" : "text-slate-500 dark:text-gray-400"}`}>{h}</th>
+                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-500 dark:text-brand-400" : "text-slate-500 dark:text-gray-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {COMPARE_ROWS.map(({ feature, free, payg, pro, business }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-black" : "bg-slate-50/50 dark:bg-black/50"}>
+                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-surface" : "bg-slate-50/50 dark:bg-surface/50"}>
                     <td className="px-5 py-3 font-medium text-slate-700 dark:text-gray-300">{feature}</td>
                     {[free, payg, pro, business].map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-slate-300 dark:text-gray-700" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-slate-600 dark:text-gray-300"}`}>{val}</td>
@@ -184,10 +184,11 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <div className="bg-brand-600 dark:bg-brand-700 px-6 py-16 text-center">
-        <h2 className="text-2xl font-extrabold text-white sm:text-3xl">Start with 8 free pages today</h2>
-        <p className="mt-2 text-brand-100">No credit card · Pay via UPI when you need more</p>
-        <Link href="/signup" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3 font-bold text-brand-700 hover:bg-brand-50 transition-colors">
+      <div className="bg-[#0d1a13] dark:bg-[#0d1a13] border-y border-brand-900/50 px-6 py-16 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,153,0.08)_0%,transparent_70%)] pointer-events-none" />
+        <h2 className="relative text-2xl font-extrabold text-white sm:text-3xl">Start with 8 free pages today</h2>
+        <p className="relative mt-2 text-brand-300">No credit card · Pay via UPI when you need more</p>
+        <Link href="/signup" className="relative mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-400 px-8 py-3 font-bold text-black shadow-glow hover:bg-brand-300 transition-all hover:scale-[1.02]">
           Create free account <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

@@ -8,16 +8,18 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS = {
   primary:
-    "bg-brand-600 text-white shadow-sm shadow-brand-200 dark:shadow-brand-900/30 " +
-    "hover:bg-brand-700 active:bg-brand-800 " +
-    "focus-visible:ring-brand-500",
+    "bg-brand-400 text-black font-bold " +
+    "shadow-glow-sm hover:shadow-glow active:shadow-none " +
+    "hover:bg-brand-300 active:bg-brand-500 " +
+    "dark:bg-brand-400 dark:text-black dark:hover:bg-brand-300 " +
+    "focus-visible:ring-brand-400",
   secondary:
-    "border border-slate-200 dark:border-white/10 bg-white dark:bg-black text-slate-700 dark:text-gray-200 " +
-    "hover:bg-slate-50 dark:hover:bg-white/5 active:bg-slate-100 dark:active:bg-white/10 " +
+    "border border-slate-200 dark:border-white/[0.07] bg-white dark:bg-surface text-slate-700 dark:text-gray-200 " +
+    "hover:bg-slate-50 dark:hover:bg-surface-raised active:bg-slate-100 dark:active:bg-surface-raised " +
     "focus-visible:ring-slate-400",
   ghost:
     "text-slate-600 dark:text-gray-300 " +
-    "hover:bg-slate-100 dark:hover:bg-white/5 active:bg-slate-200 dark:active:bg-white/10 " +
+    "hover:bg-slate-100 dark:hover:bg-surface active:bg-slate-200 dark:active:bg-surface-raised " +
     "focus-visible:ring-slate-400",
   danger:
     "bg-red-600 text-white shadow-sm shadow-red-200 dark:shadow-red-900/30 " +

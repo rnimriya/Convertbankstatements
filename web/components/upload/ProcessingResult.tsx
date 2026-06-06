@@ -102,7 +102,7 @@ export function ProcessingResult({ result, onReset }: Props) {
 
       {/* Transaction preview */}
       {result.transactions.length > 0 && (
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black shadow-sm overflow-hidden">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm overflow-hidden">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/10 px-5 py-3">
             <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-gray-200">
               <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
@@ -144,7 +144,7 @@ export function ProcessingResult({ result, onReset }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-white dark:bg-black p-3 text-center shadow-sm">
+    <div className="rounded-xl bg-white dark:bg-surface p-3 text-center shadow-sm">
       <p className="text-xl font-bold text-slate-800 dark:text-gray-200">{value}</p>
       <p className="text-xs text-slate-400 dark:text-gray-500">{label}</p>
     </div>

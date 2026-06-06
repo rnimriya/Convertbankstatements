@@ -123,7 +123,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
               pageCount={state.pageCount}
               onSuccess={async () => { await uploadFile(state.file); }}
               onError={(msg) => setState({ status: "error", message: msg })}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-semibold text-white shadow hover:bg-brand-700 transition-colors"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-semibold text-black shadow hover:bg-brand-300 transition-colors"
             />
             <Button variant="secondary" fullWidth onClick={reset}>
               Cancel
@@ -164,7 +164,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
           "rounded-2xl border-2 border-dashed px-6 py-10 transition-all duration-200 select-none",
           isDragActive
             ? "border-brand-500 bg-brand-50 dark:bg-brand-900/20 scale-[1.01]"
-            : "border-slate-300 dark:border-white/10 bg-white dark:bg-black hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-white/5",
+            : "border-slate-300 dark:border-white/10 bg-white dark:bg-surface hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-white/5",
           state.status === "processing" && "pointer-events-none opacity-70"
         )}
       >

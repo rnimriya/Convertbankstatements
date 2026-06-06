@@ -30,14 +30,14 @@ const NAV = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 dark:border-white/10 bg-white dark:bg-black">
+    <footer className="border-t border-slate-100 dark:border-white/10 bg-white dark:bg-surface">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-600">
-                <FileText className="h-3.5 w-3.5 text-white" />
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
+                <FileText className="h-3.5 w-3.5 text-black" />
               </div>
               <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
               <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">

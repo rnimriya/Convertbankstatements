@@ -67,7 +67,7 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
               className={`relative flex items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left text-xs font-medium transition-all duration-150 ${
                 active
                   ? "border-brand-500 bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 shadow-sm ring-1 ring-brand-300 dark:ring-brand-700"
-                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-black text-slate-600 dark:text-gray-300 hover:border-slate-300 dark:hover:border-gray-600 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-gray-100"
+                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface text-slate-600 dark:text-gray-300 hover:border-slate-300 dark:hover:border-gray-600 hover:bg-slate-50 dark:hover:bg-white/5 hover:text-slate-800 dark:hover:text-gray-100"
               }`}
             >
               <span className="text-base leading-none">{icon}</span>

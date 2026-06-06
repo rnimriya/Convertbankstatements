@@ -44,15 +44,15 @@ export default function ForgotPasswordPage() {
             <ThemeToggle />
           </div>
           <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200 dark:shadow-brand-900/30 transition hover:scale-105">
-              <FileText className="h-6 w-6 text-white" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-400 shadow-glow transition hover:scale-105">
+              <FileText className="h-6 w-6 text-black" />
             </div>
           </Link>
           <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           {submitted ? (
             <div className="flex flex-col items-center gap-4 text-center py-4">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-900/20 ring-4 ring-emerald-100 dark:ring-emerald-900/40">
@@ -111,7 +111,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                    className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                   />
                 </div>
 
@@ -119,7 +119,7 @@ export default function ForgotPasswordPage() {
                   type="submit"
                   disabled={loading}
                   id="forgot-submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
                 >
                   {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                   {loading ? "Sending…" : "Send reset link"}

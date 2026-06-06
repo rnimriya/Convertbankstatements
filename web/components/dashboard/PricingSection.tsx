@@ -75,12 +75,12 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
               key={plan.id}
               className={`relative rounded-2xl border p-5 ${
                 plan.highlight
-                  ? "border-brand-500 bg-brand-600 dark:bg-brand-700 shadow-lg shadow-brand-100 dark:shadow-brand-900/30"
-                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-black shadow-sm"
-              } ${isCurrent ? "ring-2 ring-brand-500" : ""}`}
+                  ? "border-brand-400 bg-brand-400 dark:bg-surface dark:border-brand-400 shadow-glow"
+                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm"
+              } ${isCurrent ? "ring-2 ring-brand-400" : ""}`}
             >
               {plan.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-600 dark:bg-brand-500 px-3 py-0.5 text-xs font-bold text-white whitespace-nowrap">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-brand-400 px-3 py-0.5 text-xs font-bold text-black whitespace-nowrap">
                   Most popular
                 </span>
               )}
@@ -90,16 +90,16 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                 </span>
               )}
 
-              <p className={`font-bold ${plan.highlight ? "text-white" : "text-slate-800 dark:text-gray-200"}`}>{plan.name}</p>
+              <p className={`font-bold ${plan.highlight ? "text-black dark:text-white" : "text-slate-800 dark:text-gray-200"}`}>{plan.name}</p>
               <p className="mt-1 flex items-end gap-0.5">
-                <span className={`text-2xl font-extrabold ${plan.highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
-                {plan.period && <span className={`mb-0.5 text-xs ${plan.highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
+                <span className={`text-2xl font-extrabold ${plan.highlight ? "text-black dark:text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
+                {plan.period && <span className={`mb-0.5 text-xs ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
               </p>
 
               <ul className="mt-4 space-y-2">
                 {plan.features.map((f) => (
-                  <li key={f} className={`flex items-center gap-2 text-xs ${plan.highlight ? "text-brand-100" : "text-slate-600 dark:text-gray-300"}`}>
-                    <Check className={`h-3.5 w-3.5 shrink-0 ${plan.highlight ? "text-brand-200" : "text-emerald-500"}`} />
+                  <li key={f} className={`flex items-center gap-2 text-xs ${plan.highlight ? "text-black dark:text-gray-200" : "text-slate-600 dark:text-gray-300"}`}>
+                    <Check className={`h-3.5 w-3.5 shrink-0 ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-emerald-500"}`} />
                     {f}
                   </li>
                 ))}
@@ -110,8 +110,8 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                   disabled
                   className={`mt-5 w-full rounded-xl border py-2 text-sm font-semibold cursor-not-allowed ${
                     plan.highlight
-                      ? "border-brand-400 bg-brand-500 text-brand-100"
-                      : "border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black text-slate-400 dark:text-gray-500"
+                      ? "border-black/20 dark:border-brand-400/30 bg-black/10 dark:bg-surface text-black/50 dark:text-gray-500"
+                      : "border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface text-slate-400 dark:text-gray-500"
                   }`}
                 >
                   {isCurrent ? "Current plan" : "Free"}
@@ -127,8 +127,8 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
                   onError={setError}
                   className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-2 text-sm font-semibold transition-colors ${
                     plan.highlight
-                      ? "bg-white text-brand-700 hover:bg-brand-50"
-                      : "border border-slate-200 dark:border-white/10 bg-white dark:bg-black text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
+                      ? "bg-black/10 dark:bg-brand-400 dark:text-black text-black hover:bg-black/20 dark:hover:bg-brand-300"
+                      : "border border-slate-200 dark:border-white/10 bg-white dark:bg-surface text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
                   }`}
                 />
               )}

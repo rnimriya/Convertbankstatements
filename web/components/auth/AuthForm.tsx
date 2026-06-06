@@ -73,7 +73,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   if (success) {
     return (
       <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-black p-10 shadow-lg text-center">
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-surface p-10 shadow-lg text-center">
           <CheckCircle2 className="h-12 w-12 text-emerald-500" />
           <p className="text-lg font-bold text-slate-800 dark:text-gray-200">Account created!</p>
           <p className="text-sm text-slate-500 dark:text-gray-400">Redirecting to your dashboard…</p>
@@ -91,15 +91,15 @@ export function AuthForm({ mode }: { mode: Mode }) {
             <ThemeToggle />
           </div>
           <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200 dark:shadow-brand-900/30">
-              <FileText className="h-6 w-6 text-white" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-400 shadow-glow">
+              <FileText className="h-6 w-6 text-black" />
             </div>
           </Link>
           <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
             {mode === "login" ? "Welcome back" : "Create account"}
           </h1>
@@ -146,7 +146,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Rahul Sharma"
-                  className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                  className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
                 />
               </div>
             )}
@@ -160,7 +160,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
               />
             </div>
 
@@ -181,7 +181,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
-                  className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                  className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
                 />
                 <button
                   type="button"
@@ -204,7 +204,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Repeat password"
-                  className="w-full rounded-xl border border-slate-200 dark:border-white/10LITE bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-700 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                  className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
                 />
               </div>
             )}
@@ -213,7 +213,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               id="auth-submit"
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
             >
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               {loading

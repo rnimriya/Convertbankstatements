@@ -67,7 +67,7 @@ function ResetPasswordForm() {
             This password reset link is missing a token. Please request a new one.
           </p>
         </div>
-        <Link href="/forgot-password" className="mt-2 flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+        <Link href="/forgot-password" className="mt-2 flex items-center gap-2 rounded-xl bg-brand-400 px-6 py-2.5 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">
           Request new link
         </Link>
       </div>
@@ -86,8 +86,8 @@ function ResetPasswordForm() {
             Your password has been reset successfully. Redirecting you to sign in…
           </p>
         </div>
-        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-100 dark:bg-black">
-          <div className="h-full animate-[progress_2.5s_linear_forwards] rounded-full bg-brand-600" />
+        <div className="h-1 w-48 overflow-hidden rounded-full bg-slate-100 dark:bg-surface">
+          <div className="h-full animate-[progress_2.5s_linear_forwards] rounded-full bg-brand-400" />
         </div>
       </div>
     );
@@ -123,7 +123,7 @@ function ResetPasswordForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Min. 8 characters"
-              className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+              className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
             />
             <button
               type="button"
@@ -139,7 +139,7 @@ function ResetPasswordForm() {
             <div className="mt-2 space-y-1.5">
               <div className="flex gap-1">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength >= i ? strengthColor : "bg-slate-100 dark:bg-black"}`} />
+                  <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${strength >= i ? strengthColor : "bg-slate-100 dark:bg-surface"}`} />
                 ))}
               </div>
               <div className="flex justify-between text-xs text-slate-400 dark:text-gray-500">
@@ -168,7 +168,7 @@ function ResetPasswordForm() {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Repeat password"
-            className={`w-full rounded-xl border bg-slate-50 dark:bg-black px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:bg-white dark:focus:bg-gray-800 focus:ring-2 ${
+            className={`w-full rounded-xl border bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:bg-white dark:focus:bg-gray-800 focus:ring-2 ${
               confirmPassword && confirmPassword !== password
                 ? "border-red-300 dark:border-red-700 focus:border-red-400 focus:ring-red-100 dark:focus:ring-red-900/30"
                 : "border-slate-200 dark:border-white/10 focus:border-brand-500 focus:ring-brand-100 dark:focus:ring-brand-900/50"
@@ -183,7 +183,7 @@ function ResetPasswordForm() {
           type="submit"
           id="reset-submit"
           disabled={loading || (!!confirmPassword && confirmPassword !== password)}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-700 transition-colors disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           {loading ? "Updating…" : "Set new password"}
@@ -209,15 +209,15 @@ export default function ResetPasswordPage() {
             <ThemeToggle />
           </div>
           <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-600 shadow-lg shadow-brand-200 dark:shadow-brand-900/30 transition hover:scale-105">
-              <FileText className="h-6 w-6 text-white" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-400 shadow-glow transition hover:scale-105">
+              <FileText className="h-6 w-6 text-black" />
             </div>
           </Link>
           <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
           <Suspense fallback={<div className="py-8 text-center text-sm text-slate-400 dark:text-gray-500">Loading…</div>}>
             <ResetPasswordForm />
           </Suspense>

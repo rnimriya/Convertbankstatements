@@ -9,21 +9,46 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // ── Neon green brand palette ───────────────────────────────────────
         brand: {
-          50:  "#f0f9ff",
-          100: "#e0f2fe",
-          200: "#bae6fd",
-          300: "#7dd3fc",
-          400: "#38bdf8",
-          500: "#0ea5e9",
-          600: "#0284c7",
-          700: "#0369a1",
-          800: "#075985",
-          900: "#0c4a6e",
+          50:  "#ecfdf6",
+          100: "#d1fae5",
+          200: "#a7f3d0",
+          300: "#6ee7b7",
+          400: "#00e599",  // ← Neon's signature green
+          500: "#00c07d",
+          600: "#009a62",
+          700: "#007a4e",
+          800: "#005c3a",
+          900: "#003d26",
+          950: "#00200f",
         },
+        // ── CSS-variable-driven surface tokens (light + dark) ──────────────
+        background: "var(--bg)",
+        surface: {
+          DEFAULT: "var(--surface)",
+          raised:  "var(--surface-raised)",
+        },
+        "border-subtle": "var(--border-subtle)",
+      },
+      // ── Box-shadow glow ────────────────────────────────────────────────
+      boxShadow: {
+        "glow-sm": "0 0 12px rgba(0,229,153,0.20)",
+        "glow":    "0 0 24px rgba(0,229,153,0.25), 0 0 48px rgba(0,229,153,0.10)",
+        "glow-lg": "0 0 40px rgba(0,229,153,0.30), 0 0 80px rgba(0,229,153,0.12)",
       },
       animation: {
-        "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "pulse-slow":  "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "glow-pulse":  "glowPulse 2.5s ease-in-out infinite",
+      },
+      keyframes: {
+        glowPulse: {
+          "0%, 100%": { boxShadow: "0 0 12px rgba(0,229,153,0.20)" },
+          "50%":      { boxShadow: "0 0 28px rgba(0,229,153,0.40), 0 0 56px rgba(0,229,153,0.15)" },
+        },
+      },
+      fontFamily: {
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
       },
     },
   },

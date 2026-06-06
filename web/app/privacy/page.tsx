@@ -161,20 +161,20 @@ We are committed to resolving complaints about our collection or use of your per
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
+    <div className="min-h-screen bg-white dark:bg-surface">
       {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
+      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
-              <FileText className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
+              <FileText className="h-4 w-4 text-black" />
             </div>
             <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
             <span className="hidden sm:inline rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/login" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors">Sign in</Link>
-            <Link href="/signup" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+            <Link href="/signup" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">
               Get started free
             </Link>
           </div>
@@ -182,11 +182,11 @@ export default function PrivacyPage() {
       </nav>
 
       {/* Header */}
-      <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black px-6 py-10">
+      <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-6 py-10">
         <div className="mx-auto max-w-3xl">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100">
-              <Shield className="h-5 w-5 text-brand-600" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-900/30">
+              <Shield className="h-5 w-5 text-brand-600 dark:text-brand-400" />
             </div>
             <div>
               <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Privacy Policy</h1>
@@ -202,7 +202,7 @@ export default function PrivacyPage() {
       {/* Content */}
       <div className="mx-auto max-w-3xl px-6 py-12">
         {/* Table of contents */}
-        <div className="mb-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black p-5">
+        <div className="mb-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface p-5">
           <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-gray-500">Contents</p>
           <div className="grid gap-1 sm:grid-cols-2">
             {SECTIONS.map(({ id, title }) => (

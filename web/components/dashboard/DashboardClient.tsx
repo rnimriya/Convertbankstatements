@@ -62,7 +62,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   const displayName = userName ?? userEmail.split("@")[0];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-black">
+    <div className="min-h-screen bg-slate-50 dark:bg-surface">
       {/* Demo banner */}
       {isDemo && (
         <Alert variant="warning" className="rounded-none border-x-0 border-t-0 py-2 text-center text-sm">
@@ -73,11 +73,11 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       )}
 
       {/* Header */}
-      <header className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-black">
+      <header className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-surface">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
-              <FileText className="h-4 w-4 text-white" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
+              <FileText className="h-4 w-4 text-black" />
             </div>
             <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
           </a>
@@ -103,7 +103,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       </header>
 
       {/* Tab bar */}
-      <div className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-black">
+      <div className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-surface">
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex gap-0">
             {tabs.map((t) => (
@@ -112,7 +112,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
                 onClick={() => setTab(t.id)}
                 className={`flex items-center gap-2 border-b-2 px-5 py-3.5 text-sm font-medium transition-colors ${
                   tab === t.id
-                    ? "border-brand-600 text-brand-700 dark:text-brand-400"
+                    ? "border-brand-400 text-brand-600 dark:text-brand-400"
                     : "border-transparent text-slate-500 dark:text-gray-400 hover:text-slate-700 dark:hover:text-gray-200 hover:border-slate-200 dark:hover:border-gray-600"
                 }`}
               >

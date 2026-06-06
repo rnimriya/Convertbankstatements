@@ -53,11 +53,11 @@ const FAQS = [
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-black/80 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600">
-            <FileText className="h-4 w-4 text-white" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
+            <FileText className="h-4 w-4 text-black" />
           </div>
           <div className="hidden sm:block">
             <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
@@ -73,7 +73,7 @@ function Navbar() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-gray-100">Sign in</Link>
-          <Link href="/signup" className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700 transition-colors">
+          <Link href="/signup" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">
             Get started free
           </Link>
         </div>
@@ -84,7 +84,7 @@ function Navbar() {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white dark:bg-black px-6 pb-10 pt-10">
+    <section className="relative overflow-hidden bg-white dark:bg-surface px-6 pb-10 pt-10">
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-32 left-1/2 h-[360px] w-[500px] -translate-x-1/2 rounded-full bg-brand-50 dark:bg-brand-900/20 blur-3xl opacity-50" />
       </div>
@@ -101,7 +101,7 @@ function Hero() {
             <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
               Turn Indian bank PDFs
               <br />
-              <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-brand-300 to-brand-400 bg-clip-text text-transparent dark:neon-text-glow">
                 into clean Excel data
               </span>
             </h1>
@@ -114,13 +114,13 @@ function Hero() {
             <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <Link
                 href="/signup"
-                className="flex items-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand-200 hover:bg-brand-700 transition-all hover:scale-[1.02]"
+                className="flex items-center gap-2 rounded-lg bg-brand-400 px-5 py-2.5 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all hover:scale-[1.02]"
               >
                 Start free <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 href="/pricing"
-                className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+                className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
               >
                 <IndianRupee className="h-3.5 w-3.5 text-brand-500" /> See pricing
               </Link>
@@ -137,13 +137,13 @@ function Hero() {
 
           <div className="w-full max-w-sm shrink-0 lg:max-w-xs xl:max-w-sm">
             <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black px-3 py-2">
+              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-3 py-2">
                 <div className="flex gap-1">
                   <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
                   <div className="h-2.5 w-2.5 rounded-full bg-amber-400" />
                   <div className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                 </div>
-                <div className="mx-auto flex items-center gap-1.5 rounded border border-slate-200 dark:border-white/10LITE bg-white dark:bg-black px-2 py-0.5 text-[10px] text-slate-400 dark:text-gray-400">
+                <div className="mx-auto flex items-center gap-1.5 rounded border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-2 py-0.5 text-[10px] text-slate-400 dark:text-gray-400">
                   <Lock className="h-2.5 w-2.5 text-emerald-500" /> bankstatements.io
                 </div>
               </div>
@@ -159,13 +159,13 @@ function Hero() {
 
 function MockDashboard() {
   return (
-    <div className="bg-slate-50 dark:bg-black p-3 space-y-2">
-      <div className="rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-3 py-2">
+    <div className="bg-slate-50 dark:bg-surface p-3 space-y-2">
+      <div className="rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-3 py-2">
         <div className="flex items-center justify-between text-xs">
           <span className="font-semibold text-slate-600 dark:text-gray-300">Free pages</span>
           <span className="font-bold text-brand-600 dark:text-brand-400">6 / 8 left</span>
         </div>
-        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-black">
+        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-surface">
           <div className="h-1.5 w-1/4 rounded-full bg-brand-500" />
         </div>
       </div>
@@ -177,12 +177,12 @@ function MockDashboard() {
         <p className="text-xs font-semibold text-slate-700 dark:text-gray-200">Drop SBI / HDFC / ICICI PDF</p>
         <div className="flex gap-1.5">
           {["CSV", "Excel", "OFX"].map((f) => (
-            <span key={f} className="rounded-full border border-brand-200 dark:border-brand-700 bg-white dark:bg-black px-1.5 py-0.5 text-[10px] font-semibold text-brand-700 dark:text-brand-400">{f}</span>
+            <span key={f} className="rounded-full border border-brand-200 dark:border-brand-700 bg-white dark:bg-surface px-1.5 py-0.5 text-[10px] font-semibold text-brand-700 dark:text-brand-400">{f}</span>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-3 py-2">
+      <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-3 py-2">
         <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-emerald-50 dark:bg-emerald-900/30">
           <FileText className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
         </div>
@@ -198,12 +198,12 @@ function MockDashboard() {
 
 function BankLogos() {
   return (
-    <section className="border-y border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-black/50 py-10">
+    <section className="border-y border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface/50 py-10">
       <div className="mx-auto max-w-5xl px-6">
         <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-gray-500">Works with statements from</p>
         <div className="flex flex-wrap items-center justify-center gap-3">
           {INDIAN_BANKS.map((bank) => (
-            <span key={bank} className="rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-3 py-1 text-xs font-semibold text-slate-600 dark:text-gray-300 shadow-sm">
+            <span key={bank} className="rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-3 py-1 text-xs font-semibold text-slate-600 dark:text-gray-300 shadow-sm">
               {bank}
             </span>
           ))}
@@ -216,7 +216,7 @@ function BankLogos() {
 
 function Stats() {
   return (
-    <section className="bg-white dark:bg-black py-14">
+    <section className="bg-white dark:bg-surface py-14">
       <div className="mx-auto max-w-4xl px-6">
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
           {STATS.map(({ value, label }) => (
@@ -233,14 +233,14 @@ function Stats() {
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-slate-50 dark:bg-black/50 px-6 py-24">
+    <section id="how-it-works" className="bg-slate-50 dark:bg-surface/50 px-6 py-24">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">How it works</p>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Upload, convert, done</h2>
         <div className="mt-14 grid gap-8 sm:grid-cols-3">
           {STEPS.map(({ step, icon, title, desc }) => (
             <div key={step} className="relative text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-200 dark:shadow-brand-900/50">{icon}</div>
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-400 text-black shadow-glow dark:shadow-brand-900/50">{icon}</div>
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 translate-x-6 rounded-full bg-brand-100 dark:bg-brand-900/50 px-2.5 py-0.5 text-xs font-bold text-brand-600 dark:text-brand-400">{step}</div>
               <h3 className="mt-5 text-lg font-bold text-slate-800 dark:text-gray-200">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-gray-400">{desc}</p>
@@ -254,13 +254,13 @@ function HowItWorks() {
 
 function Features() {
   return (
-    <section id="features" className="bg-white dark:bg-black px-6 py-24">
+    <section id="features" className="bg-white dark:bg-surface px-6 py-24">
       <div className="mx-auto max-w-5xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">Features</p>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Everything a CA or bookkeeper needs</h2>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
           {FEATURES.map(({ icon, bg, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-6 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow">
+            <div key={title} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-6 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow">
               <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>{icon}</div>
               <h3 className="mt-4 font-bold text-slate-800 dark:text-gray-200">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-gray-400">{desc}</p>
@@ -274,7 +274,7 @@ function Features() {
 
 function PricingPreview() {
   return (
-    <section className="bg-slate-50 dark:bg-black/50 px-6 py-24">
+    <section className="bg-slate-50 dark:bg-surface/50 px-6 py-24">
       <div className="mx-auto max-w-4xl text-center">
         <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">Pricing</p>
         <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">Pay only for what you use</h2>
@@ -282,7 +282,7 @@ function PricingPreview() {
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {PRICING.map(({ label, price, sub, highlight }) => (
-            <div key={label} className={`rounded-2xl border p-5 text-left ${highlight ? "border-brand-400 bg-brand-600 text-white" : "border-slate-200 dark:border-white/10 bg-white dark:bg-black"}`}>
+            <div key={label} className={`rounded-2xl border p-5 text-left ${highlight ? "border-brand-400 bg-brand-400 text-black" : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface"}`}>
               <p className={`text-sm font-medium ${highlight ? "text-brand-100" : "text-slate-600 dark:text-gray-300"}`}>{label}</p>
               <p className={`mt-2 text-3xl font-extrabold ${highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>{price}</p>
               <p className={`mt-1 text-xs ${highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{sub}</p>
@@ -300,7 +300,7 @@ function PricingPreview() {
 
 function FAQ() {
   return (
-    <section id="faq" className="bg-white dark:bg-black px-6 py-24">
+    <section id="faq" className="bg-white dark:bg-surface px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <div className="text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">FAQ</p>
@@ -308,7 +308,7 @@ function FAQ() {
         </div>
         <div className="mt-10 space-y-3">
           {FAQS.map(({ q, a }) => (
-            <details key={q} className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-black p-5">
+            <details key={q} className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface p-5">
               <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-800 dark:text-gray-200">
                 {q}
                 <ChevronDown className="h-4 w-4 shrink-0 text-slate-400 dark:text-gray-500 transition-transform group-open:rotate-180" />
@@ -324,14 +324,15 @@ function FAQ() {
 
 function CTA() {
   return (
-    <section className="bg-brand-600 dark:bg-brand-700 px-6 py-20 text-center">
-      <h2 className="text-3xl font-extrabold text-white sm:text-4xl">Stop typing out bank transactions by hand</h2>
-      <p className="mt-4 text-lg text-brand-100">CAs and bookkeepers use this to cut hours of data entry down to seconds.</p>
-      <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-        <Link href="/signup" className="flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 font-bold text-brand-700 shadow hover:bg-brand-50 transition-all hover:scale-[1.02]">
+    <section className="bg-[#0d1a13] dark:bg-[#0d1a13] border-y border-brand-900/50 px-6 py-20 text-center relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,153,0.08)_0%,transparent_70%)] pointer-events-none" />
+      <h2 className="relative text-3xl font-extrabold text-white sm:text-4xl">Stop typing out bank transactions by hand</h2>
+      <p className="relative mt-4 text-lg text-brand-300">CAs and bookkeepers use this to cut hours of data entry down to seconds.</p>
+      <div className="relative mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <Link href="/signup" className="flex items-center gap-2 rounded-xl bg-brand-400 px-8 py-3.5 font-bold text-black shadow-glow hover:bg-brand-300 transition-all hover:scale-[1.02]">
           Get 8 pages free <ArrowRight className="h-4 w-4" />
         </Link>
-        <span className="text-sm text-brand-200">No card needed. Pay via UPI if you need more.</span>
+        <span className="text-sm text-brand-400/70">No card needed. Pay via UPI if you need more.</span>
       </div>
     </section>
   );
@@ -340,7 +341,7 @@ function CTA() {
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black">
+    <div className="min-h-screen bg-white dark:bg-surface">
       <Navbar />
       <Hero />
       <BankLogos />
