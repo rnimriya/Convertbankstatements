@@ -25,12 +25,6 @@ const STATS = [
   { value: "₹49",  label: "Per document" },
 ];
 
-const PREVIEW_ROWS = [
-  { date: "Oct 01", desc: "NEFT from HDFC Bank",  amount: "+₹5,000",  credit: true  },
-  { date: "Oct 03", desc: "Amazon.in Purchase",    amount: "−₹1,299",  credit: false },
-  { date: "Oct 05", desc: "Salary Credit",         amount: "+₹85,000", credit: true  },
-  { date: "Oct 07", desc: "Zomato Order",          amount: "−₹450",    credit: false },
-];
 
 const INPUT =
   "w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
@@ -120,7 +114,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         {/* Dot grid */}
         <div
           className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: "radial-gradient(circle, #93c5fd 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+          style={{ backgroundImage: "radial-gradient(circle, #7dd3fc 1px, transparent 1px)", backgroundSize: "28px 28px" }}
         />
 
         {/* Logo */}
@@ -159,39 +153,6 @@ export function AuthForm({ mode }: { mode: Mode }) {
             ))}
           </ul>
 
-          {/* Transaction preview card */}
-          <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm overflow-hidden">
-            <div className="flex items-center gap-2.5 border-b border-white/8 px-4 py-3 bg-white/[0.03]">
-              <div className="flex h-5 w-5 items-center justify-center rounded bg-red-500/80">
-                <FileText className="h-2.5 w-2.5 text-white" />
-              </div>
-              <span className="text-xs text-white/60 font-medium flex-1">SBI_Statement_Oct2024.pdf</span>
-              <ArrowRight className="h-3 w-3 text-brand-400" />
-              <span className="text-xs font-semibold text-brand-400">Excel</span>
-            </div>
-            <div className="px-4 pb-2">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr>
-                    <th className="py-2 text-left text-white/30 font-medium">Date</th>
-                    <th className="py-2 text-left text-white/30 font-medium">Description</th>
-                    <th className="py-2 text-right text-white/30 font-medium">Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {PREVIEW_ROWS.map((row) => (
-                    <tr key={row.desc} className="border-t border-white/[0.05]">
-                      <td className="py-1.5 text-white/35 tabular-nums">{row.date}</td>
-                      <td className="py-1.5 text-white/55 truncate max-w-[140px]">{row.desc}</td>
-                      <td className={`py-1.5 text-right font-semibold tabular-nums ${row.credit ? "text-brand-400" : "text-red-400"}`}>
-                        {row.amount}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
 
         {/* Stats + testimonial */}

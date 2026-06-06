@@ -325,7 +325,7 @@ function FAQ() {
 function CTA() {
   return (
     <section className="bg-[#0a0f1e] dark:bg-[#0a0f1e] border-y border-brand-900/50 px-6 py-20 text-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.10)_0%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.12)_0%,transparent_70%)] pointer-events-none" />
       <h2 className="relative text-3xl font-extrabold text-white sm:text-4xl">Stop typing out bank transactions by hand</h2>
       <p className="relative mt-4 text-lg text-brand-300">CAs and bookkeepers use this to cut hours of data entry down to seconds.</p>
       <div className="relative mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
