@@ -4,7 +4,7 @@ import { useState, FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
-  Eye, EyeOff, Loader2, FileText, AlertCircle, CheckCircle2,
+  Eye, EyeOff, Loader2, AlertCircle, CheckCircle2,
   Zap, Shield, IndianRupee, ArrowRight, ArrowLeft,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -120,9 +120,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         {/* Logo */}
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-2.5 w-fit group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-400 shadow-glow-sm transition group-hover:shadow-glow">
-              <FileText className="h-5 w-5 text-black" />
-            </div>
+            <img src="/logo.svg" alt="BankStatements" className="h-9 w-9 transition group-hover:scale-105" />
             <span className="text-lg font-bold text-white">BankStatements</span>
             <span className="rounded-full bg-white/5 border border-white/10 px-1.5 py-0.5 text-[10px] font-bold text-brand-400">
               India
@@ -207,9 +205,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
             {/* Mobile-only logo */}
             <div className="mb-8 flex flex-col items-center lg:hidden">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-400 shadow-glow-sm">
-                <FileText className="h-5 w-5 text-black" />
-              </div>
+              <img src="/logo.svg" alt="BankStatements" className="h-11 w-11" />
               <span className="mt-2.5 text-base font-bold text-slate-800 dark:text-white">BankStatements India</span>
             </div>
 

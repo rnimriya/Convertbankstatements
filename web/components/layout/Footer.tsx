@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { FileText } from "lucide-react";
 
 const NAV = [
   {
@@ -36,9 +35,7 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
-                <FileText className="h-3.5 w-3.5 text-black" />
-              </div>
+              <img src="/logo.svg" alt="BankStatements" className="h-7 w-7" />
               <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
               <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">
                 India

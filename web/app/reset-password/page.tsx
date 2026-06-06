@@ -209,9 +209,7 @@ export default function ResetPasswordPage() {
             <ThemeToggle />
           </div>
           <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-400 shadow-glow transition hover:scale-105">
-              <FileText className="h-6 w-6 text-black" />
-            </div>
+            <img src="/logo.svg" alt="BankStatements" className="h-12 w-12 transition hover:scale-105" />
           </Link>
           <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>

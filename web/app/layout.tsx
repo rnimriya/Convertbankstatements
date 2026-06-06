@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description:
     "Convert bank statement PDFs from 1,000+ banks into structured CSV, Excel, OFX, and QFX data. First 8 pages free.",
   keywords: ["bank statement", "PDF to CSV", "OFX", "QFX", "Excel"],
+  icons: {
+    icon: "/logo.svg",
+    apple: "/logo.svg",
+    shortcut: "/logo.svg",
+  },
   openGraph: {
     title: "BankStatements — Convert PDFs to Structured Data",
     description: "First 8 pages free. Pay ₹49 per document after that.",

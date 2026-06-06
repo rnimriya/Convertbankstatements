@@ -76,9 +76,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       <header className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-surface">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
-              <FileText className="h-4 w-4 text-black" />
-            </div>
+            <img src="/logo.svg" alt="BankStatements" className="h-8 w-8" />
             <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
           </a>
 

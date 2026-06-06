@@ -74,9 +74,7 @@ export default function PricingPage() {
       <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
-              <FileText className="h-4 w-4 text-black" />
-            </div>
+            <img src="/logo.svg" alt="BankStatements" className="h-8 w-8" />
             <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
           </Link>
           <div className="flex items-center gap-3">
