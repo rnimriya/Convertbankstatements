@@ -13,7 +13,7 @@
 
 .dark {
   --bg:             10 10 10;      /* #0a0a0a */
-  --surface:        17 17 17;      /* #111111 */
+  --surface:        50 50 50;      /* #323232 */
   --surface-raised: 26 26 26;      /* #1a1a1a */
   --border-subtle:  255 255 255;   /* white — used at /7 opacity */
 }
