@@ -24,12 +24,13 @@ const config: Config = {
           950: "#00200f",
         },
         // ── CSS-variable-driven surface tokens (light + dark) ──────────────
-        background: "var(--bg)",
+        // Uses rgb(channels / alpha) so opacity modifiers like bg-surface/80 work
+        background: "rgb(var(--bg) / <alpha-value>)",
         surface: {
-          DEFAULT: "var(--surface)",
-          raised:  "var(--surface-raised)",
+          DEFAULT: "rgb(var(--surface) / <alpha-value>)",
+          raised:  "rgb(var(--surface-raised) / <alpha-value>)",
         },
-        "border-subtle": "var(--border-subtle)",
+        "border-subtle": "rgb(var(--border-subtle) / <alpha-value>)",
       },
       // ── Box-shadow glow ────────────────────────────────────────────────
       boxShadow: {

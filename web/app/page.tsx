@@ -165,7 +165,7 @@ function MockDashboard() {
           <span className="font-semibold text-slate-600 dark:text-gray-300">Free pages</span>
           <span className="font-bold text-brand-600 dark:text-brand-400">6 / 8 left</span>
         </div>
-        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-surface">
+        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-white/10">
           <div className="h-1.5 w-1/4 rounded-full bg-brand-500" />
         </div>
       </div>

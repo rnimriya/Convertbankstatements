@@ -24,7 +24,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
             {remaining.toLocaleString()} / {monthlyPageLimit.toLocaleString()} remaining
           </span>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-surface">
+        <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-white/10">
           <div
             className={`h-2 rounded-full transition-all duration-500 ${barColor}`}
             style={{ width: `${pct}%` }}
@@ -73,7 +73,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
           </div>
         </div>
 
-        <div className="mt-3 h-2 w-full rounded-full bg-slate-100 dark:bg-surface">
+        <div className="mt-3 h-2 w-full rounded-full bg-slate-100 dark:bg-white/10">
           <div
             className={`h-2 rounded-full transition-all duration-700 ${
               isDepleted ? "bg-amber-500" : "bg-brand-500"
