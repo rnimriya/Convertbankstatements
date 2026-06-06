@@ -1,39 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <clipPath id="circle">
-      <circle cx="256" cy="256" r="256"/>
-    </clipPath>
+    <clipPath id="c"><circle cx="256" cy="256" r="256"/></clipPath>
   </defs>
 
-  <!-- Yellow-green background -->
-  <circle cx="256" cy="256" r="256" fill="#c8d42a"/>
+  <!-- Blue background -->
+  <circle cx="256" cy="256" r="256" fill="#1aace2"/>
 
-  <!-- Long flat shadow (diagonal, clipped to circle) -->
-  <g clip-path="url(#circle)">
-    <polygon points="190,512 512,190 512,512" fill="#000" opacity="0.18"/>
-  </g>
+  <!-- Long flat shadow (diagonal) -->
+  <polygon points="198,512 512,198 512,512" fill="#000" opacity="0.17" clip-path="url(#c)"/>
 
-  <!-- Right panel: spreadsheet grid -->
-  <rect x="255" y="144" width="168" height="222" rx="6" fill="#1e7d35" clip-path="url(#circle)"/>
+  <!-- Right panel: green spreadsheet -->
+  <rect x="262" y="136" width="164" height="238" fill="#1e8038" clip-path="url(#c)"/>
 
-  <!-- Grid: 2 cols × 4 rows -->
-  <!-- Vertical divider -->
-  <line x1="339" y1="144" x2="339" y2="366" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#circle)"/>
-  <!-- Horizontal dividers -->
-  <line x1="255" y1="199" x2="423" y2="199" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#circle)"/>
-  <line x1="255" y1="254" x2="423" y2="254" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#circle)"/>
-  <line x1="255" y1="309" x2="423" y2="309" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#circle)"/>
+  <!-- White cells: 2 cols × 4 rows -->
+  <rect x="269" y="143" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="349" y="143" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="269" y="201" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="349" y="201" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="269" y="259" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="349" y="259" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="269" y="317" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
+  <rect x="349" y="317" width="70" height="50" rx="2" fill="white" opacity="0.93" clip-path="url(#c)"/>
 
-  <!-- Left panel: dark green with X -->
-  <rect x="78" y="112" width="202" height="286" rx="10" fill="#1a5e2a" clip-path="url(#circle)"/>
+  <!-- Dark spine connecting panels -->
+  <rect x="243" y="118" width="20" height="272" fill="#0d4519" clip-path="url(#c)"/>
 
-  <!-- Large bold "X" centered on left panel -->
+  <!-- Left panel: dark green parallelogram (3D effect) -->
+  <polygon points="90,106 248,118 248,390 90,390" fill="#1c6b31" clip-path="url(#c)"/>
+
+  <!-- Bold X -->
   <text
-    x="179" y="270"
+    x="168" y="252"
     font-family="'Arial Black','Arial Bold',Arial,sans-serif"
-    font-size="162" font-weight="900"
+    font-size="158" font-weight="900"
     fill="white"
     text-anchor="middle"
     dominant-baseline="middle"
-    clip-path="url(#circle)">X</text>
+    clip-path="url(#c)">X</text>
 </svg>
