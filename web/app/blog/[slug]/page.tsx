@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
-import { getPostBySlug } from "@/lib/blog/posts";
+import { getPostBySlug, getAllPosts } from "@/lib/blog/posts";
 import { getCommentsForPost } from "@/lib/blog/comments";
 import { getSession } from "@/lib/auth/session";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CommentSection } from "@/components/blog/CommentSection";
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+import { RELATED_MAP } from "@/lib/blog/related";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +28,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const comments = getCommentsForPost(slug);
   const session = await getSession();
+
+  const relatedSlugs = RELATED_MAP[slug] ?? [];
+  const allPosts = getAllPosts();
+  const relatedPosts = relatedSlugs
+    .map((s) => allPosts.find((p) => p.slug === s && p.published))
+    .filter(Boolean) as (typeof allPosts)[0][];
 
   return (
     <>
@@ -86,6 +94,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               ← Back to Blog
             </a>
           </div>
+
+          {/* Related posts */}
+          <RelatedPosts posts={relatedPosts} />
 
           {/* Comments */}
           <CommentSection
