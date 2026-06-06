@@ -184,8 +184,8 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <div className="bg-[#0d1a13] dark:bg-[#0d1a13] border-y border-brand-900/50 px-6 py-16 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,229,153,0.08)_0%,transparent_70%)] pointer-events-none" />
+      <div className="bg-[#0a0f1e] dark:bg-[#0a0f1e] border-y border-brand-900/50 px-6 py-16 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.10)_0%,transparent_70%)] pointer-events-none" />
         <h2 className="relative text-2xl font-extrabold text-white sm:text-3xl">Start with 8 free pages today</h2>
         <p className="relative mt-2 text-brand-300">No credit card · Pay via UPI when you need more</p>
         <Link href="/signup" className="relative mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-400 px-8 py-3 font-bold text-black shadow-glow hover:bg-brand-300 transition-all hover:scale-[1.02]">

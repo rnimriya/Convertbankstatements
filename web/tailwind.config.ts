@@ -9,19 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Neon green brand palette ───────────────────────────────────────
+        // ── Electric blue brand palette ────────────────────────────────────
         brand: {
-          50:  "#ecfdf6",
-          100: "#d1fae5",
-          200: "#a7f3d0",
-          300: "#6ee7b7",
-          400: "#00e599",  // ← Neon's signature green
-          500: "#00c07d",
-          600: "#009a62",
-          700: "#007a4e",
-          800: "#005c3a",
-          900: "#003d26",
-          950: "#00200f",
+          50:  "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",  // ← primary accent — bright electric blue
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+          950: "#172554",
         },
         // ── CSS-variable-driven surface tokens (light + dark) ──────────────
         // Uses rgb(channels / alpha) so opacity modifiers like bg-surface/80 work
@@ -34,9 +34,9 @@ const config: Config = {
       },
       // ── Box-shadow glow ────────────────────────────────────────────────
       boxShadow: {
-        "glow-sm": "0 0 12px rgba(0,229,153,0.20)",
-        "glow":    "0 0 24px rgba(0,229,153,0.25), 0 0 48px rgba(0,229,153,0.10)",
-        "glow-lg": "0 0 40px rgba(0,229,153,0.30), 0 0 80px rgba(0,229,153,0.12)",
+        "glow-sm": "0 0 12px rgba(96,165,250,0.25)",
+        "glow":    "0 0 24px rgba(96,165,250,0.30), 0 0 48px rgba(96,165,250,0.12)",
+        "glow-lg": "0 0 40px rgba(96,165,250,0.35), 0 0 80px rgba(96,165,250,0.15)",
       },
       animation: {
         "pulse-slow":  "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
@@ -44,8 +44,8 @@ const config: Config = {
       },
       keyframes: {
         glowPulse: {
-          "0%, 100%": { boxShadow: "0 0 12px rgba(0,229,153,0.20)" },
-          "50%":      { boxShadow: "0 0 28px rgba(0,229,153,0.40), 0 0 56px rgba(0,229,153,0.15)" },
+          "0%, 100%": { boxShadow: "0 0 12px rgba(96,165,250,0.25)" },
+          "50%":      { boxShadow: "0 0 28px rgba(96,165,250,0.45), 0 0 56px rgba(96,165,250,0.18)" },
         },
       },
       fontFamily: {

@@ -3,15 +3,40 @@
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Eye, EyeOff, Loader2, FileText, AlertCircle, CheckCircle2 } from "lucide-react";
+import {
+  Eye, EyeOff, Loader2, FileText, AlertCircle, CheckCircle2,
+  Zap, Shield, IndianRupee, ArrowRight, ArrowLeft,
+} from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 type Mode = "login" | "signup";
 type ErrorCode = "USER_NOT_FOUND" | "WRONG_PASSWORD" | null;
 
+const FEATURES = [
+  { Icon: Zap,           text: "All major Indian banks supported" },
+  { Icon: Shield,        text: "Files are never stored on our servers" },
+  { Icon: CheckCircle2,  text: "CSV, Excel, OFX, QFX & Google Sheets" },
+  { Icon: IndianRupee,   text: "Start free — 8 pages, no card needed" },
+];
+
+const STATS = [
+  { value: "50K+", label: "Docs converted" },
+  { value: "30+",  label: "Indian banks" },
+  { value: "₹49",  label: "Per document" },
+];
+
+const PREVIEW_ROWS = [
+  { date: "Oct 01", desc: "NEFT from HDFC Bank",  amount: "+₹5,000",  credit: true  },
+  { date: "Oct 03", desc: "Amazon.in Purchase",    amount: "−₹1,299",  credit: false },
+  { date: "Oct 05", desc: "Salary Credit",         amount: "+₹85,000", credit: true  },
+  { date: "Oct 07", desc: "Zomato Order",          amount: "−₹450",    credit: false },
+];
+
+const INPUT =
+  "w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
+
 export function AuthForm({ mode }: { mode: Mode }) {
   const params = useSearchParams();
-  // Only allow same-origin relative paths — reject anything starting with // or a scheme.
   const rawRedirect = params.get("redirectTo") ?? "";
   const redirectTo =
     rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
@@ -72,10 +97,12 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   if (success) {
     return (
-      <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-surface p-10 shadow-lg text-center">
-          <CheckCircle2 className="h-12 w-12 text-emerald-500" />
-          <p className="text-lg font-bold text-slate-800 dark:text-gray-200">Account created!</p>
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0a0a0a] px-4">
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-brand-200 dark:border-brand-800/50 bg-brand-50 dark:bg-brand-900/20 p-12 text-center shadow-glow">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-400 shadow-glow">
+            <CheckCircle2 className="h-8 w-8 text-black" />
+          </div>
+          <p className="text-xl font-bold text-slate-800 dark:text-white">Account created!</p>
           <p className="text-sm text-slate-500 dark:text-gray-400">Redirecting to your dashboard…</p>
         </div>
       </div>
@@ -83,159 +110,290 @@ export function AuthForm({ mode }: { mode: Mode }) {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-180px)] items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
-      <div className="w-full max-w-md">
-        {/* Logo + theme toggle */}
-        <div className="mb-8 flex flex-col items-center relative">
-          <div className="absolute right-0 top-0">
+    <div className="flex min-h-screen">
+
+      {/* ──────── LEFT PANEL ──────── */}
+      <div className="hidden lg:flex lg:w-[55%] relative flex-col justify-between p-12 bg-[#070d1a] overflow-hidden">
+        {/* Background glows */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_5%_65%,rgba(96,165,250,0.13)_0%,transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_90%_10%,rgba(96,165,250,0.07)_0%,transparent_60%)] pointer-events-none" />
+        {/* Dot grid */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: "radial-gradient(circle, #93c5fd 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+        />
+
+        {/* Logo */}
+        <div className="relative z-10">
+          <Link href="/" className="flex items-center gap-2.5 w-fit group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-400 shadow-glow-sm transition group-hover:shadow-glow">
+              <FileText className="h-5 w-5 text-black" />
+            </div>
+            <span className="text-lg font-bold text-white">BankStatements</span>
+            <span className="rounded-full bg-white/5 border border-white/10 px-1.5 py-0.5 text-[10px] font-bold text-brand-400">
+              India
+            </span>
+          </Link>
+        </div>
+
+        {/* Middle content */}
+        <div className="relative z-10 max-w-[420px]">
+          <h2 className="text-[2rem] font-extrabold text-white leading-tight">
+            Convert bank PDFs to<br />
+            <span className="text-brand-400">clean spreadsheets</span> — instantly
+          </h2>
+          <p className="mt-3 text-sm text-blue-200/55 leading-relaxed">
+            India&apos;s most accurate bank statement parser.
+            Trusted by CAs, bookkeepers and finance teams.
+          </p>
+
+          {/* Features */}
+          <ul className="mt-8 space-y-3.5">
+            {FEATURES.map(({ Icon, text }) => (
+              <li key={text} className="flex items-center gap-3">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-400/10 border border-brand-400/20">
+                  <Icon className="h-3.5 w-3.5 text-brand-400" />
+                </span>
+                <span className="text-sm text-blue-100/70">{text}</span>
+              </li>
+            ))}
+          </ul>
+
+          {/* Transaction preview card */}
+          <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm overflow-hidden">
+            <div className="flex items-center gap-2.5 border-b border-white/8 px-4 py-3 bg-white/[0.03]">
+              <div className="flex h-5 w-5 items-center justify-center rounded bg-red-500/80">
+                <FileText className="h-2.5 w-2.5 text-white" />
+              </div>
+              <span className="text-xs text-white/60 font-medium flex-1">SBI_Statement_Oct2024.pdf</span>
+              <ArrowRight className="h-3 w-3 text-brand-400" />
+              <span className="text-xs font-semibold text-brand-400">Excel</span>
+            </div>
+            <div className="px-4 pb-2">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr>
+                    <th className="py-2 text-left text-white/30 font-medium">Date</th>
+                    <th className="py-2 text-left text-white/30 font-medium">Description</th>
+                    <th className="py-2 text-right text-white/30 font-medium">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PREVIEW_ROWS.map((row) => (
+                    <tr key={row.desc} className="border-t border-white/[0.05]">
+                      <td className="py-1.5 text-white/35 tabular-nums">{row.date}</td>
+                      <td className="py-1.5 text-white/55 truncate max-w-[140px]">{row.desc}</td>
+                      <td className={`py-1.5 text-right font-semibold tabular-nums ${row.credit ? "text-brand-400" : "text-red-400"}`}>
+                        {row.amount}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        {/* Stats + testimonial */}
+        <div className="relative z-10">
+          <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-7 mb-7">
+            {STATS.map(({ value, label }) => (
+              <div key={label}>
+                <p className="text-2xl font-extrabold text-brand-400">{value}</p>
+                <p className="mt-0.5 text-xs text-blue-200/35">{label}</p>
+              </div>
+            ))}
+          </div>
+          <blockquote className="border-l-2 border-brand-400/40 pl-4">
+            <p className="text-sm text-blue-100/45 italic">
+              &ldquo;Saves me 3–4 hours every month. Best tool for CA work.&rdquo;
+            </p>
+            <footer className="mt-1.5 text-xs text-blue-100/25">
+              — Priya Mehta, Chartered Accountant, Mumbai
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+
+      {/* ──────── RIGHT PANEL ──────── */}
+      <div className="flex flex-1 flex-col bg-white dark:bg-[#0a0a0a]">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-6 py-5 lg:px-10">
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-gray-500 hover:text-slate-700 dark:hover:text-gray-200 transition-colors"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            <span>Home</span>
+          </Link>
+          <div className="flex items-center gap-3">
+            <span className="hidden sm:inline text-sm text-slate-400 dark:text-gray-500">
+              {mode === "login" ? "No account?" : "Have an account?"}
+            </span>
+            <Link
+              href={mode === "login" ? "/signup" : "/login"}
+              className="rounded-lg border border-slate-200 dark:border-white/10 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+            >
+              {mode === "login" ? "Sign up free" : "Sign in"}
+            </Link>
             <ThemeToggle />
           </div>
-          <Link href="/">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-400 shadow-glow">
-              <FileText className="h-6 w-6 text-black" />
-            </div>
-          </Link>
-          <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
-          <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-            {mode === "login" ? "Welcome back" : "Create account"}
-          </h1>
-          <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
-            {mode === "login"
-              ? "Sign in to convert your bank statements."
-              : "Start free — 8 pages on us, no card required."}
-          </p>
+        {/* Form */}
+        <div className="flex flex-1 items-center justify-center px-6 py-6 lg:px-16">
+          <div className="w-full max-w-sm">
 
-          {/* Error banner */}
-          {error && (
-            <div className="mt-5 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
-              <div className="flex items-start gap-2">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{error}</span>
+            {/* Mobile-only logo */}
+            <div className="mb-8 flex flex-col items-center lg:hidden">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-400 shadow-glow-sm">
+                <FileText className="h-5 w-5 text-black" />
               </div>
-              {mode === "login" && errorCode === "USER_NOT_FOUND" && (
-                <p className="mt-2 pl-6 text-xs text-red-600 dark:text-red-400">
-                  👉{" "}
-                  <Link href="/signup" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
-                    Create a free account
-                  </Link>
-                </p>
-              )}
-              {mode === "login" && errorCode === "WRONG_PASSWORD" && (
-                <p className="mt-2 pl-6 text-xs text-red-600 dark:text-red-400">
-                  👉{" "}
-                  <Link href="/forgot-password" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
-                    Reset your password
-                  </Link>
-                </p>
-              )}
+              <span className="mt-2.5 text-base font-bold text-slate-800 dark:text-white">BankStatements India</span>
             </div>
-          )}
 
-          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            {mode === "signup" && (
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">
-                  Full name <span className="text-slate-400 dark:text-gray-500">(optional)</span>
+            <div className="mb-7">
+              <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+                {mode === "login" ? "Welcome back" : "Start for free"}
+              </h1>
+              <p className="mt-1.5 text-sm text-slate-500 dark:text-gray-400">
+                {mode === "login"
+                  ? "Sign in to your account to continue."
+                  : "Create your account — 8 pages free, always."}
+              </p>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="mb-5 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
+                <div className="flex items-start gap-2">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <div>
+                    <span>{error}</span>
+                    {mode === "login" && errorCode === "USER_NOT_FOUND" && (
+                      <p className="mt-1 text-xs">
+                        <Link href="/signup" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
+                          Create a free account →
+                        </Link>
+                      </p>
+                    )}
+                    {mode === "login" && errorCode === "WRONG_PASSWORD" && (
+                      <p className="mt-1 text-xs">
+                        <Link href="/forgot-password" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
+                          Reset your password →
+                        </Link>
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {mode === "signup" && (
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                    Full name{" "}
+                    <span className="font-normal text-slate-400 dark:text-gray-500">(optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Rahul Sharma"
+                    className={INPUT}
+                  />
+                </div>
+              )}
+
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                  Email address
                 </label>
                 <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Rahul Sharma"
-                  className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
+                  id="auth-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className={INPUT}
                 />
               </div>
-            )}
 
-            <div>
-              <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">Email address</label>
-              <input
-                id="auth-email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
-              />
-            </div>
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium text-slate-700 dark:text-gray-300">Password</label>
+                  {mode === "login" && (
+                    <Link href="/forgot-password" className="text-xs text-brand-500 dark:text-brand-400 hover:underline">
+                      Forgot password?
+                    </Link>
+                  )}
+                </div>
+                <div className="relative">
+                  <input
+                    id="auth-password"
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
+                    className={`${INPUT} pr-11`}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 transition-colors"
+                    aria-label="Toggle password visibility"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+              </div>
 
-            <div>
-              <div className="mb-1.5 flex items-center justify-between">
-                <label className="text-sm font-medium text-slate-700 dark:text-gray-200">Password</label>
-                {mode === "login" && (
-                  <Link href="/forgot-password" className="text-xs text-brand-600 dark:text-brand-400 hover:underline">
-                    Forgot password?
-                  </Link>
+              {mode === "signup" && (
+                <div className="space-y-1.5">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                    Confirm password
+                  </label>
+                  <input
+                    id="auth-confirm-password"
+                    type={showPassword ? "text" : "password"}
+                    required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    placeholder="Repeat password"
+                    className={INPUT}
+                  />
+                </div>
+              )}
+
+              <button
+                id="auth-submit"
+                type="submit"
+                disabled={loading}
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <><Loader2 className="h-4 w-4 animate-spin" />{mode === "login" ? "Signing in…" : "Creating account…"}</>
+                ) : (
+                  <>{mode === "login" ? "Sign in" : "Create free account"}<ArrowRight className="h-4 w-4" /></>
                 )}
-              </div>
-              <div className="relative">
-                <input
-                  id="auth-password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
-                  className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 pr-11 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300"
-                  aria-label="Toggle password visibility"
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-            </div>
+              </button>
+            </form>
 
-            {mode === "signup" && (
-              <div>
-                <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">Confirm password</label>
-                <input
-                  id="auth-confirm-password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Repeat password"
-                  className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20"
-                />
-              </div>
-            )}
-
-            <button
-              id="auth-submit"
-              type="submit"
-              disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
-            >
-              {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-              {loading
-                ? (mode === "login" ? "Signing in…" : "Creating account…")
-                : (mode === "login" ? "Sign in" : "Create account")}
-            </button>
-          </form>
-
-          <p className="mt-6 text-center text-sm text-slate-500 dark:text-gray-400">
-            {mode === "login" ? (
-              <>Don&apos;t have an account?{" "}<Link href="/signup" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">Sign up free</Link></>
-            ) : (
-              <>Already have an account?{" "}<Link href="/login" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">Sign in</Link></>
-            )}
-          </p>
+            <p className="mt-6 text-center text-xs text-slate-400 dark:text-gray-500">
+              By continuing you agree to our{" "}
+              <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+                Terms
+              </Link>{" "}
+              &amp;{" "}
+              <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
         </div>
-
-        <p className="mt-5 text-center text-xs text-slate-400 dark:text-gray-500">
-          By signing up you agree to our{" "}
-          <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300">Terms</Link> &amp;{" "}
-          <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300">Privacy Policy</Link>
-        </p>
       </div>
     </div>
   );
