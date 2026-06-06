@@ -51,7 +51,9 @@ export async function POST(req: NextRequest) {
     }
   } else {
     // Anonymous: cookie-based tracking
-    pagesUsed = parseInt(jar.get("bs_pages_used")?.value ?? "0", 10);
+    // Clamp to a valid integer — NaN or negative values would bypass the billing gate.
+    const raw = parseInt(jar.get("bs_pages_used")?.value ?? "0", 10);
+    pagesUsed = Number.isFinite(raw) && raw >= 0 ? raw : 0;
   }
 
   // ── Billing decision ───────────────────────────────────────────────────
@@ -107,7 +109,9 @@ export async function POST(req: NextRequest) {
       method: "POST",
       body: upstreamForm,
       signal: AbortSignal.timeout(300_000),
-      headers: session ? { Authorization: `Bearer ${session.sub}` } : {},
+      headers: {
+        "x-api-key": process.env.BACKEND_API_KEY ?? "",
+      },
     });
 
     if (upstream.ok) {

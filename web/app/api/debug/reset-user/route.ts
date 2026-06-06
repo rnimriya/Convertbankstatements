@@ -10,7 +10,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { randomUUID } from "crypto";
+import { randomUUID, timingSafeEqual } from "crypto";
 import fs from "fs/promises";
 import path from "path";
 
@@ -33,9 +33,20 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const { email, password, name, secret } = body;
 
-  // Security: require secret in production
-  if (!isDev && (!debugSecret || secret !== debugSecret)) {
-    return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+  // Security: require secret in production — use timing-safe comparison
+  if (!isDev) {
+    if (!debugSecret || !secret) {
+      return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+    }
+    try {
+      const a = Buffer.from(debugSecret);
+      const b = Buffer.from(secret);
+      if (a.length !== b.length || !timingSafeEqual(a, b)) {
+        return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+      }
+    } catch {
+      return NextResponse.json({ error: "Forbidden." }, { status: 403 });
+    }
   }
 
   if (!email || !password || password.length < 8) {

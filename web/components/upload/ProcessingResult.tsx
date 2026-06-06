@@ -1,7 +1,10 @@
 "use client";
 
-import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, Info, TrendingUp } from "lucide-react";
+import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp } from "lucide-react";
 import type { ProcessResult, Transaction } from "@/types/billing";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Alert } from "@/components/ui/Alert";
 
 interface Props {
   result: ProcessResult & { is_demo?: boolean };
@@ -39,21 +42,21 @@ export function ProcessingResult({ result, onReset }: Props) {
     <div className="space-y-4">
       {/* Demo notice */}
       {result.is_demo && (
-        <div className="flex items-start gap-2 rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 text-sm text-amber-800 dark:text-amber-300">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
-          <span>
-            <strong>Demo data</strong> — the Python AI backend isn&apos;t connected, so transactions
-            are sample data. Connect FastAPI to extract real transactions from your PDF.
-          </span>
-        </div>
+        <Alert variant="warning" title="Demo data">
+          The Python AI backend isn&apos;t connected — transactions are sample data.
+          Connect FastAPI to extract real transactions from your PDF.
+        </Alert>
       )}
 
       {/* Success card */}
       <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 p-5 shadow-sm">
         <div className="flex items-start gap-3">
           <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-emerald-500" />
-          <div className="min-w-0">
-            <h3 className="font-bold text-slate-800 dark:text-gray-200">Processing complete!</h3>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="font-bold text-slate-800 dark:text-gray-200">Processing complete!</h3>
+              <Badge variant="success" size="sm" dot>Done</Badge>
+            </div>
             <p className="mt-0.5 truncate text-sm text-slate-500 dark:text-gray-400">{result.file_name}</p>
           </div>
         </div>
@@ -81,17 +84,17 @@ export function ProcessingResult({ result, onReset }: Props) {
           <div className="mt-4 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-gray-500">Downloads</p>
             {Object.entries(result.export_urls).map(([fmt, url]) => (
-              <button
+              <Button
                 key={fmt}
+                variant="secondary"
+                fullWidth
+                leftIcon={<FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />}
+                rightIcon={<Download className="h-4 w-4" />}
                 onClick={() => handleDownload(fmt, url)}
-                className="flex w-full items-center justify-between rounded-xl border border-emerald-200 dark:border-emerald-800 bg-white dark:bg-black px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-gray-200 shadow-sm hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors"
+                className="justify-between border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
               >
-                <span className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                  {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
-                </span>
-                <Download className="h-4 w-4 text-slate-400 dark:text-gray-500" />
-              </button>
+                {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
+              </Button>
             ))}
           </div>
         )}
@@ -105,19 +108,21 @@ export function ProcessingResult({ result, onReset }: Props) {
               <TrendingUp className="h-4 w-4 text-brand-600 dark:text-brand-400" />
               Transaction preview
             </div>
-            <span className="text-xs text-slate-400 dark:text-gray-500">
-              First {result.transactions.length} of {result.transaction_count}
-            </span>
+            <Badge variant="default" size="sm">
+              {result.transactions.length} of {result.transaction_count}
+            </Badge>
           </div>
           <div className="divide-y divide-slate-50 dark:divide-white/10">
             {result.transactions.slice(0, 8).map((txn: Transaction, i) => (
               <div key={i} className="flex items-center gap-3 px-5 py-2.5">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-xs font-medium text-slate-700 dark:text-gray-200">{txn.description}</p>
-                  <p className="text-xs text-slate-400 dark:text-gray-500">{txn.date} {txn.category && `· ${txn.category}`}</p>
+                  <p className="text-xs text-slate-400 dark:text-gray-500">
+                    {txn.date}{txn.category && ` · ${txn.category}`}
+                  </p>
                 </div>
                 <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-700 dark:text-gray-300"}`}>
-                  {txn.amount >= 0 ? "+" : ""}${Math.abs(txn.amount).toFixed(2)}
+                  {txn.amount >= 0 ? "+" : ""}₹{Math.abs(txn.amount).toFixed(2)}
                 </span>
               </div>
             ))}
@@ -125,13 +130,14 @@ export function ProcessingResult({ result, onReset }: Props) {
         </div>
       )}
 
-      <button
+      <Button
+        variant="secondary"
+        fullWidth
+        leftIcon={<RefreshCw className="h-4 w-4" />}
         onClick={onReset}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
       >
-        <RefreshCw className="h-4 w-4" />
         Process another statement
-      </button>
+      </Button>
     </div>
   );
 }

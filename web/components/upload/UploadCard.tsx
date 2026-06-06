@@ -2,11 +2,14 @@
 
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Upload, FileText, Loader2, AlertTriangle, X, IndianRupee } from "lucide-react";
+import { Upload, FileText, IndianRupee } from "lucide-react";
 import { FreePagesIndicator } from "./FreePagesIndicator";
 import { ExportFormatSelector } from "./ExportFormatSelector";
 import { ProcessingResult } from "./ProcessingResult";
 import { RazorpayCheckout } from "@/components/payment/RazorpayCheckout";
+import { Button } from "@/components/ui/Button";
+import { Spinner } from "@/components/ui/Spinner";
+import { Alert } from "@/components/ui/Alert";
 import type { BillingContext, ProcessResult } from "@/types/billing";
 import { cn } from "@/lib/utils";
 
@@ -118,18 +121,13 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
               userEmail={userEmail}
               fileName={state.file.name}
               pageCount={state.pageCount}
-              onSuccess={async () => {
-                await uploadFile(state.file);
-              }}
+              onSuccess={async () => { await uploadFile(state.file); }}
               onError={(msg) => setState({ status: "error", message: msg })}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 py-3 text-sm font-semibold text-white shadow hover:bg-brand-700 transition-colors"
             />
-            <button
-              onClick={reset}
-              className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
-            >
+            <Button variant="secondary" fullWidth onClick={reset}>
               Cancel
-            </button>
+            </Button>
           </div>
 
           <p className="mt-4 text-center text-xs text-slate-400 dark:text-gray-500">
@@ -153,6 +151,12 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
       />
       <ExportFormatSelector selected={formats} onChange={setFormats} />
 
+      {state.status === "error" && (
+        <Alert variant="error" dismissible onDismiss={reset}>
+          {state.message}
+        </Alert>
+      )}
+
       <div
         {...getRootProps()}
         className={cn(
@@ -160,7 +164,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
           "rounded-2xl border-2 border-dashed px-6 py-10 transition-all duration-200 select-none",
           isDragActive
             ? "border-brand-500 bg-brand-50 dark:bg-brand-900/20 scale-[1.01]"
-            : "border-slate-300 dark:border-white/10LITE bg-white dark:bg-black hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-white/5",
+            : "border-slate-300 dark:border-white/10 bg-white dark:bg-black hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-white/5",
           state.status === "processing" && "pointer-events-none opacity-70"
         )}
       >
@@ -168,20 +172,11 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
 
         {state.status === "processing" ? (
           <>
-            <Loader2 className="h-10 w-10 animate-spin text-brand-500" />
+            <Spinner size="xl" color="brand" />
             <p className="mt-3 text-sm font-semibold text-slate-700 dark:text-gray-200">
               Processing <span className="text-slate-900 dark:text-white">{state.fileName}</span>…
             </p>
             <p className="mt-1 text-xs text-slate-400 dark:text-gray-500">Extracting transactions · usually under 15s</p>
-          </>
-        ) : state.status === "error" ? (
-          <>
-            <AlertTriangle className="h-10 w-10 text-red-400" />
-            <p className="mt-3 text-sm font-semibold text-red-700 dark:text-red-400">{state.message}</p>
-            <button onClick={(e) => { e.stopPropagation(); reset(); }}
-              className="mt-3 flex items-center gap-1 text-xs text-slate-500 dark:text-gray-400 underline">
-              <X className="h-3 w-3" /> Clear
-            </button>
           </>
         ) : (
           <>

@@ -14,6 +14,8 @@ import io
 import json
 import logging
 import os
+import re
+import secrets
 import time
 from typing import Optional
 
@@ -21,7 +23,7 @@ import fitz  # PyMuPDF
 import pdfplumber
 from anthropic import Anthropic
 from dotenv import load_dotenv
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -37,6 +39,18 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
+
+
+# ─── Internal API key guard ───────────────────────────────────────────────────
+
+def _verify_api_key(x_api_key: str = Header(default="")):
+    """Require BACKEND_API_KEY header on all processing endpoints.
+    In dev (key not set) the check is skipped so local testing works without config."""
+    expected = os.getenv("BACKEND_API_KEY", "")
+    if not expected:
+        return  # dev mode: no key configured → allow all
+    if not secrets.compare_digest(x_api_key, expected):
+        raise HTTPException(status_code=403, detail="Forbidden.")
 
 
 # ─── Models ──────────────────────────────────────────────────────────────────
@@ -84,7 +98,8 @@ def _find_col(header: list[str], field: str) -> Optional[int]:
     candidates = HEADER_CANDIDATES[field]
     for i, cell in enumerate(header):
         clean = cell.lower().strip().replace("\n", " ")
-        if any(c in clean for c in candidates):
+        # Word-boundary match prevents "date" matching inside "mandate", "update", etc.
+        if any(re.search(r'\b' + re.escape(c) + r'\b', clean) for c in candidates):
             return i
     return None
 
@@ -323,7 +338,7 @@ def extract_with_vision(data: bytes) -> tuple[list[Transaction], Optional[str]]:
     try:
         message = client.messages.create(
             model="claude-sonnet-4-6",
-            max_tokens=8192,
+            max_tokens=16000,
             messages=[{
                 "role": "user",
                 "content": [
@@ -358,6 +373,9 @@ def extract_with_vision(data: bytes) -> tuple[list[Transaction], Optional[str]]:
         ]
         return txns, bank_name
 
+    except json.JSONDecodeError as e:
+        log.error("Vision JSON parse failed (response likely truncated): %s | raw[:300]=%s", e, raw[:300])
+        return [], None
     except Exception as e:
         log.error("Vision extraction failed: %s", e)
         return [], None
@@ -412,12 +430,17 @@ async def health():
 async def process_statement(
     file: UploadFile = File(...),
     export_formats: str = Form("csv"),
+    _: None = Depends(_verify_api_key),
 ):
     if not file.filename or not file.filename.lower().endswith(".pdf"):
         raise HTTPException(status_code=415, detail="Only PDF files are accepted.")
 
     start = time.monotonic()
     data = await file.read()
+
+    # Validate PDF magic bytes — reject files that merely have a .pdf extension
+    if not data.startswith(b"%PDF"):
+        raise HTTPException(status_code=415, detail="File does not appear to be a valid PDF.")
 
     if len(data) > 50 * 1024 * 1024:
         raise HTTPException(status_code=413, detail="File exceeds 50 MB.")
@@ -445,7 +468,7 @@ async def process_statement(
         page_count=page_count,
         transaction_count=len(transactions),
         bank_name=bank_name,
-        transactions=transactions[:20],   # preview; full data in CSV
+        transactions=transactions,   # full set — caller builds exports from this
         export_urls=export_urls,
         processing_ms=int((time.monotonic() - start) * 1000),
     )

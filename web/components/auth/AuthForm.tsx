@@ -11,7 +11,12 @@ type ErrorCode = "USER_NOT_FOUND" | "WRONG_PASSWORD" | null;
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const params = useSearchParams();
-  const redirectTo = params.get("redirectTo") ?? "/dashboard";
+  // Only allow same-origin relative paths — reject anything starting with // or a scheme.
+  const rawRedirect = params.get("redirectTo") ?? "";
+  const redirectTo =
+    rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
+      ? rawRedirect
+      : "/dashboard";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

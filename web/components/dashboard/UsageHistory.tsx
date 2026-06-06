@@ -1,6 +1,9 @@
 "use client";
 
-import { FileText, Clock, Info } from "lucide-react";
+import { FileText } from "lucide-react";
+import { Badge } from "@/components/ui/Badge";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { Clock, Info } from "lucide-react";
 
 interface Log {
   id: string;
@@ -13,31 +16,34 @@ interface Log {
   exportFormats: string[];
 }
 
-const BILLING_BADGE: Record<string, { label: string; cls: string }> = {
-  FREE_TIER: { label: "Free", cls: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400" },
-  SUBSCRIPTION: { label: "Subscription", cls: "bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400" },
-  PAY_AS_YOU_GO: { label: "$1.99", cls: "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400" },
+const BILLING_BADGE: Record<string, { label: string; variant: "success" | "brand" | "warning" }> = {
+  FREE_TIER:    { label: "Free",         variant: "success" },
+  SUBSCRIPTION: { label: "Subscription", variant: "brand"   },
+  PAY_AS_YOU_GO:{ label: "₹49",          variant: "warning"  },
 };
 
 export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }) {
   if (logs.length === 0) {
+    if (isDemo) {
+      return (
+        <div className="rounded-2xl border border-dashed border-slate-200 dark:border-white/10 bg-white dark:bg-black">
+          <EmptyState
+            icon={<Info className="h-full w-full" />}
+            title="History not available in demo mode"
+            description="Sign up free to track your processing history."
+            cta={{ label: "Sign up free", href: "/signup", variant: "primary", size: "sm" }}
+          />
+        </div>
+      );
+    }
+
     return (
-      <div className="flex flex-col items-center rounded-2xl border border-dashed border-slate-200 dark:border-white/10 bg-white dark:bg-black py-16 text-center">
-        {isDemo ? (
-          <>
-            <Info className="h-10 w-10 text-amber-400" />
-            <p className="mt-3 text-base font-semibold text-slate-700 dark:text-gray-200">History not available in demo mode</p>
-            <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">
-              <a href="/signup" className="text-brand-600 dark:text-brand-400 underline">Sign up free</a> to track your processing history.
-            </p>
-          </>
-        ) : (
-          <>
-            <Clock className="h-10 w-10 text-slate-200 dark:text-gray-600" />
-            <p className="mt-3 text-base font-semibold text-slate-500 dark:text-gray-400">No documents yet</p>
-            <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">Upload your first bank statement to get started.</p>
-          </>
-        )}
+      <div className="rounded-2xl border border-dashed border-slate-200 dark:border-white/10 bg-white dark:bg-black">
+        <EmptyState
+          icon={<Clock className="h-full w-full" />}
+          title="No documents yet"
+          description="Upload your first bank statement to get started."
+        />
       </div>
     );
   }
@@ -45,7 +51,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
   return (
     <div className="space-y-3">
       {logs.map((log) => {
-        const badge = BILLING_BADGE[log.billingType] ?? { label: log.billingType, cls: "bg-slate-100 dark:bg-black text-slate-600 dark:text-gray-300" };
+        const badge = BILLING_BADGE[log.billingType];
         const date = new Date(log.createdAt);
         return (
           <div
@@ -66,9 +72,11 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
             </div>
 
             <div className="flex flex-col items-end gap-1.5 shrink-0">
-              <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${badge.cls}`}>
-                {badge.label}
-              </span>
+              {badge ? (
+                <Badge variant={badge.variant} size="sm" dot>{badge.label}</Badge>
+              ) : (
+                <Badge variant="default" size="sm">{log.billingType}</Badge>
+              )}
               <span className="text-xs text-slate-400 dark:text-gray-500">
                 {date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
               </span>

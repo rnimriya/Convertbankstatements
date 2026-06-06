@@ -42,6 +42,8 @@ export async function POST(req: NextRequest) {
     const res = NextResponse.json({ ok: true, plan });
     res.cookies.set("bs_payg_cleared", parsed.data.razorpay_payment_id, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       path: "/",
       maxAge: 60 * 30, // 30 minutes to complete the upload
     });

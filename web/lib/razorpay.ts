@@ -21,7 +21,16 @@ export function verifyWebhookSignature(body: string, signature: string): boolean
     .createHmac("sha256", secret)
     .update(body)
     .digest("hex");
-  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  try {
+    // Compare raw bytes (hex-decoded), not UTF-8 string bytes.
+    // timingSafeEqual throws if lengths differ — guard that first.
+    const a = Buffer.from(expected, "hex");
+    const b = Buffer.from(signature, "hex");
+    if (a.length !== b.length) return false;
+    return crypto.timingSafeEqual(a, b);
+  } catch {
+    return false;
+  }
 }
 
 export function verifyPaymentSignature(params: {

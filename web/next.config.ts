@@ -1,8 +1,38 @@
 import type { NextConfig } from "next";
 
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  {
+    key: "Strict-Transport-Security",
+    value: "max-age=63072000; includeSubDomains; preload",
+  },
+  {
+    key: "Content-Security-Policy",
+    value: [
+      "default-src 'self'",
+      // Razorpay checkout script + iframe
+      "script-src 'self' 'unsafe-inline' https://checkout.razorpay.com",
+      "frame-src https://api.razorpay.com",
+      "connect-src 'self' https://api.razorpay.com",
+      "style-src 'self' 'unsafe-inline'",
+      "font-src 'self' https://fonts.gstatic.com",
+      "img-src 'self' data: https:",
+    ].join("; "),
+  },
+];
+
 const nextConfig: NextConfig = {
-  // No special config needed — outputFileTracingRoot was only silencing
-  // a local multi-lockfile warning and breaks on Vercel.
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: securityHeaders,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

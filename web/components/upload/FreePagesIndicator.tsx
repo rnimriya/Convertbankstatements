@@ -32,7 +32,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
         </div>
         {remaining === 0 && (
           <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">
-            Monthly limit reached. Additional documents are $1.99 each.
+            Monthly limit reached. Additional documents are ₹49 each.
           </p>
         )}
       </div>
@@ -57,7 +57,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
             <p className="text-sm font-semibold text-slate-800 dark:text-gray-200">Free pages</p>
             <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">
               {isDepleted
-                ? "Upgrade or pay $1.99 per document"
+                ? "Upgrade or pay ₹49 per document"
                 : `${remaining} free page${remaining !== 1 ? "s" : ""} remaining`}
             </p>
           </div>
@@ -102,7 +102,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
   return (
     <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-black p-4 shadow-sm">
       <p className="text-sm font-medium text-slate-700 dark:text-gray-200">Pay-as-you-go</p>
-      <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">$1.99 per document · No monthly limit</p>
+      <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">₹49 per document · No monthly limit</p>
     </div>
   );
 }

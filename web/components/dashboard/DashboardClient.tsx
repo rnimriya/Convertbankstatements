@@ -5,10 +5,12 @@ import { UploadCard } from "@/components/upload/UploadCard";
 import { UsageHistory } from "@/components/dashboard/UsageHistory";
 import { PricingSection } from "@/components/dashboard/PricingSection";
 import type { BillingContext } from "@/types/billing";
-import { FileText, History, CreditCard, LogOut, Info } from "lucide-react";
+import { FileText, History, CreditCard, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Button } from "@/components/ui/Button";
+import { Alert } from "@/components/ui/Alert";
 
 type Tab = "upload" | "history" | "billing";
 
@@ -34,6 +36,7 @@ interface Props {
 export function DashboardClient({ billing: initialBilling, recentLogs, userEmail, userName, isDemo }: Props) {
   const [tab, setTab] = useState<Tab>("upload");
   const [billing, setBilling] = useState(initialBilling);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
 
   const refreshBilling = useCallback(async () => {
@@ -46,14 +49,13 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
     } catch { /* non-fatal */ }
   }, []);
 
-  const handleSignOut = async () => {
+  const handleSignOut = () => {
     window.location.href = "/login?logout=1";
   };
 
-
   const tabs: { id: Tab; label: string; icon: React.ReactNode }[] = [
-    { id: "upload", label: "Upload", icon: <FileText className="h-4 w-4" /> },
-    { id: "history", label: "History", icon: <History className="h-4 w-4" /> },
+    { id: "upload",  label: "Upload",  icon: <FileText className="h-4 w-4" /> },
+    { id: "history", label: "History", icon: <History  className="h-4 w-4" /> },
     { id: "billing", label: "Billing", icon: <CreditCard className="h-4 w-4" /> },
   ];
 
@@ -63,12 +65,11 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
     <div className="min-h-screen bg-slate-50 dark:bg-black">
       {/* Demo banner */}
       {isDemo && (
-        <div className="flex items-center justify-center gap-2 bg-amber-500 px-4 py-2 text-center text-sm font-medium text-white">
-          <Info className="h-4 w-4 shrink-0" />
+        <Alert variant="warning" className="rounded-none border-x-0 border-t-0 py-2 text-center text-sm">
           Demo mode — Supabase not configured.{" "}
-          <a href="/signup" className="underline hover:no-underline font-bold">Sign up free</a>
-          {" "}to save your history and unlock full features.
-        </div>
+          <a href="/signup" className="font-bold underline hover:no-underline">Sign up free</a>
+          {" "}to save history and unlock full features.
+        </Alert>
       )}
 
       {/* Header */}
@@ -89,13 +90,14 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
               <span className="text-sm text-slate-600 dark:text-gray-300">{displayName}</span>
             </div>
             <ThemeToggle />
-            <button
+            <Button
+              variant="secondary"
+              size="sm"
+              leftIcon={<LogOut className="h-3.5 w-3.5" />}
               onClick={handleSignOut}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-white/10 px-3 py-1.5 text-sm text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
             >
-              <LogOut className="h-3.5 w-3.5" />
               {isDemo ? "Go home" : "Sign out"}
-            </button>
+            </Button>
           </div>
         </div>
       </header>
@@ -132,7 +134,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
                 Upload a PDF — 1,000+ banks supported. Your file is never stored on our servers.
               </p>
             </div>
-            <UploadCard billing={billing} onBillingUpdate={refreshBilling} />
+            <UploadCard billing={billing} onBillingUpdate={refreshBilling} userEmail={userEmail} />
           </div>
         )}
 
