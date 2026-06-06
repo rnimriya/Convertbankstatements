@@ -1,53 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
   <defs>
-    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="glow-bg" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+    <clipPath id="c">
+      <circle cx="256" cy="256" r="256"/>
+    </clipPath>
   </defs>
 
-  <!-- Dark background -->
-  <rect width="200" height="200" fill="#1c1c1c"/>
+  <!-- Yellow-green circle -->
+  <circle cx="256" cy="256" r="256" fill="#c8d42a"/>
 
-  <!-- Glow blob behind icon -->
-  <ellipse cx="100" cy="105" rx="55" ry="62" fill="rgba(56,189,248,0.18)" filter="url(#glow-bg)"/>
+  <!-- Long flat shadow -->
+  <polygon points="190,512 512,190 512,512" fill="#000" opacity="0.18" clip-path="url(#c)"/>
 
-  <!-- Document body -->
-  <path d="M38 18 L130 18 L162 50 L162 182 L38 182 Z"
-        stroke="#38bdf8" stroke-width="6" stroke-linejoin="round"
-        fill="rgba(56,189,248,0.06)"
-        filter="url(#glow)"/>
+  <!-- Spreadsheet right panel -->
+  <rect x="255" y="144" width="168" height="222" rx="6" fill="#1e7d35" clip-path="url(#c)"/>
+  <line x1="339" y1="144" x2="339" y2="366" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#c)"/>
+  <line x1="255" y1="199" x2="423" y2="199" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#c)"/>
+  <line x1="255" y1="254" x2="423" y2="254" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#c)"/>
+  <line x1="255" y1="309" x2="423" y2="309" stroke="white" stroke-width="5" opacity="0.85" clip-path="url(#c)"/>
 
-  <!-- Folded corner -->
-  <path d="M130 18 L130 50 L162 50"
-        stroke="#38bdf8" stroke-width="6" stroke-linejoin="round"
-        filter="url(#glow)"/>
+  <!-- Dark green X panel -->
+  <rect x="78" y="112" width="202" height="286" rx="10" fill="#1a5e2a" clip-path="url(#c)"/>
 
-  <!-- Grid outer box -->
-  <rect x="48" y="72" width="104" height="78" stroke="#38bdf8" stroke-width="4" filter="url(#glow)"/>
-  <!-- Horizontal dividers -->
-  <line x1="48" y1="98"  x2="152" y2="98"  stroke="#38bdf8" stroke-width="4" filter="url(#glow)"/>
-  <line x1="48" y1="124" x2="152" y2="124" stroke="#38bdf8" stroke-width="4" filter="url(#glow)"/>
-  <!-- Vertical divider -->
-  <line x1="100" y1="72" x2="100" y2="150" stroke="#38bdf8" stroke-width="4" filter="url(#glow)"/>
-
-  <!-- XLSX text -->
+  <!-- X letter -->
   <text
-    x="100" y="173"
+    x="179" y="270"
     font-family="'Arial Black','Arial Bold',Arial,sans-serif"
-    font-size="24" font-weight="900"
-    fill="#38bdf8"
+    font-size="162" font-weight="900"
+    fill="white"
     text-anchor="middle"
-    letter-spacing="4"
-    filter="url(#glow)">XLSX</text>
+    dominant-baseline="middle"
+    clip-path="url(#c)">X</text>
 </svg>
