@@ -25,6 +25,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  distDir: "out",
   async headers() {
     return [
       {
