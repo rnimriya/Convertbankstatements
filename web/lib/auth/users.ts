@@ -1,17 +1,18 @@
 /**
- * User store — Upstash Redis in production (persistent, atomic),
- * local JSON file in development.
+ * User store — Turso (libSQL/SQLite) in production, local JSON file in dev.
  *
- * Redis data model:
- *   cs:user:{id}       → HASH   (all user fields; HINCRBY for atomic page increments)
- *   cs:email:{email}   → STRING userId   (email lookup index, SET NX for atomic signup)
- *   cs:rtoken:{token}  → STRING userId   (reset-token reverse index, TTL = 1 h)
- *   cs:payg:{payId}    → STRING userId   (one-time PAYG payment markers, TTL = 2 h)
+ * Turso is already connected to the project via Vercel marketplace.
+ * Env vars TURSO_DATABASE_URL + TURSO_AUTH_TOKEN are set automatically.
+ *
+ * Tables (all prefixed cs_ to avoid conflicts with other projects that share
+ * this Turso database):
+ *   cs_users       — user accounts
+ *   cs_payg_used   — one-time PAYG payment markers (auto-purged after 2 h)
  */
 import fs from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
-import { Redis } from "@upstash/redis";
+import { createClient, type Client, type Row } from "@libsql/client";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -29,67 +30,66 @@ export interface User {
   resetTokenExpiry?: string | null;
 }
 
-// ── Backend selection ────────────────────────────────────────────────────────
+// ── Turso client ─────────────────────────────────────────────────────────────
 
-function useRedis(): boolean {
-  return Boolean(
-    process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-  );
+let _db: Client | null = null;
+
+function getDb(): Client | null {
+  const url = process.env.TURSO_DATABASE_URL;
+  const authToken = process.env.TURSO_AUTH_TOKEN;
+  if (!url || !authToken) return null;
+  if (!_db) _db = createClient({ url, authToken });
+  return _db;
 }
 
-let _redis: Redis | null = null;
-function r(): Redis {
-  if (!_redis) {
-    _redis = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL!,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-    });
-  }
-  return _redis;
+// ── Schema initialisation (once per cold start) ───────────────────────────────
+
+let _initDone = false;
+
+async function initDb(db: Client): Promise<void> {
+  if (_initDone) return;
+  await db.batch([
+    `CREATE TABLE IF NOT EXISTS cs_users (
+       id                   TEXT PRIMARY KEY,
+       email                TEXT UNIQUE NOT NULL,
+       name                 TEXT,
+       password_hash        TEXT NOT NULL,
+       pages_used           INTEGER NOT NULL DEFAULT 0,
+       tier                 TEXT NOT NULL DEFAULT 'FREE',
+       monthly_page_limit   INTEGER NOT NULL DEFAULT 8,
+       razorpay_customer_id TEXT,
+       created_at           TEXT NOT NULL,
+       reset_token          TEXT,
+       reset_token_expiry   TEXT
+     )`,
+    `CREATE TABLE IF NOT EXISTS cs_payg_used (
+       payment_id TEXT PRIMARY KEY,
+       user_id    TEXT NOT NULL,
+       used_at    INTEGER NOT NULL
+     )`,
+  ], "write");
+  _initDone = true;
 }
 
-// ── Redis key helpers ────────────────────────────────────────────────────────
+// ── Row → User ────────────────────────────────────────────────────────────────
 
-const UK = (id: string) => `cs:user:${id}`;
-const EK = (email: string) => `cs:email:${email.toLowerCase()}`;
-const RK = (token: string) => `cs:rtoken:${token}`;
-const PK = (payId: string) => `cs:payg:${payId}`;
-
-// ── Type marshalling ─────────────────────────────────────────────────────────
-
-function toHash(u: User): Record<string, string | number> {
+function rowToUser(row: Row): User {
   return {
-    id: u.id,
-    email: u.email,
-    name: u.name ?? "",
-    passwordHash: u.passwordHash,
-    pagesUsed: u.pagesUsed,
-    tier: u.tier,
-    monthlyPageLimit: u.monthlyPageLimit,
-    razorpayCustomerId: u.razorpayCustomerId ?? "",
-    createdAt: u.createdAt,
-    resetToken: u.resetToken ?? "",
-    resetTokenExpiry: u.resetTokenExpiry ?? "",
+    id:                 row.id as string,
+    email:              row.email as string,
+    name:               (row.name as string) || null,
+    passwordHash:       row.password_hash as string,
+    pagesUsed:          row.pages_used as number,
+    tier:               (row.tier as string || "FREE") as User["tier"],
+    monthlyPageLimit:   row.monthly_page_limit as number,
+    razorpayCustomerId: (row.razorpay_customer_id as string) || null,
+    createdAt:          row.created_at as string,
+    resetToken:         (row.reset_token as string) || null,
+    resetTokenExpiry:   (row.reset_token_expiry as string) || null,
   };
 }
 
-function fromHash(h: Record<string, string>): User {
-  return {
-    id: h.id,
-    email: h.email,
-    name: h.name || null,
-    passwordHash: h.passwordHash,
-    pagesUsed: parseInt(h.pagesUsed ?? "0", 10),
-    tier: (h.tier || "FREE") as User["tier"],
-    monthlyPageLimit: parseInt(h.monthlyPageLimit ?? "8", 10),
-    razorpayCustomerId: h.razorpayCustomerId || null,
-    createdAt: h.createdAt,
-    resetToken: h.resetToken || null,
-    resetTokenExpiry: h.resetTokenExpiry || null,
-  };
-}
-
-// ── File backend (local dev) ─────────────────────────────────────────────────
+// ── File backend (local dev only) ─────────────────────────────────────────────
 
 const FILE = path.join(process.cwd(), "data", "users.json");
 
@@ -110,7 +110,7 @@ async function fileWrite(users: User[]) {
   await fs.writeFile(FILE, JSON.stringify(users, null, 2));
 }
 
-// ── Seed account (survives cold starts in Redis; auto-seeds file store if empty) ──
+// ── Seed account ──────────────────────────────────────────────────────────────
 
 let _seeded = false;
 
@@ -122,27 +122,26 @@ async function ensureSeed() {
   if (!email || !passwordHash) return;
 
   try {
-    if (useRedis()) {
-      const exists = await r().get(EK(email));
-      if (exists) return;
-      const user: User = {
-        id: "seed-user-001",
-        email: email.toLowerCase(),
-        name: process.env.SEED_USER_NAME ?? null,
-        passwordHash,
-        pagesUsed: 0,
-        tier: "FREE",
-        monthlyPageLimit: 8,
-        razorpayCustomerId: null,
-        createdAt: new Date().toISOString(),
-      };
-      // NX prevents overwriting a legitimately-claimed email slot
-      const claimed = await r().set(EK(email), user.id, { nx: true });
-      if (claimed) await r().hset(UK(user.id), toHash(user));
+    const db = getDb();
+    if (db) {
+      await initDb(db);
+      // INSERT OR IGNORE — does nothing if email already exists
+      await db.execute({
+        sql: `INSERT OR IGNORE INTO cs_users
+              (id, email, name, password_hash, pages_used, tier, monthly_page_limit, razorpay_customer_id, created_at)
+              VALUES (?, ?, ?, ?, 0, 'FREE', 8, NULL, ?)`,
+        args: [
+          "seed-user-001",
+          email.toLowerCase(),
+          process.env.SEED_USER_NAME ?? null,
+          passwordHash,
+          new Date().toISOString(),
+        ],
+      });
     } else {
       const users = await fileRead();
       if (users.length === 0) {
-        const user: User = {
+        await fileWrite([{
           id: "seed-user-001",
           email: email.toLowerCase(),
           name: process.env.SEED_USER_NAME ?? null,
@@ -152,23 +151,24 @@ async function ensureSeed() {
           monthlyPageLimit: 8,
           razorpayCustomerId: null,
           createdAt: new Date().toISOString(),
-        };
-        await fileWrite([user]);
+        }]);
       }
     }
-  } catch { /* non-fatal — app still works without seed */ }
+  } catch { /* non-fatal */ }
 }
 
-// ── Public API ───────────────────────────────────────────────────────────────
+// ── Public API ─────────────────────────────────────────────────────────────────
 
 export async function findByEmail(email: string): Promise<User | null> {
   await ensureSeed();
-  if (useRedis()) {
-    const id = await r().get<string>(EK(email));
-    if (!id) return null;
-    const hash = await r().hgetall(UK(id));
-    if (!hash) return null;
-    return fromHash(hash as Record<string, string>);
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    const res = await db.execute({
+      sql: "SELECT * FROM cs_users WHERE email = ?",
+      args: [email.toLowerCase()],
+    });
+    return res.rows[0] ? rowToUser(res.rows[0]) : null;
   }
   const users = await fileRead();
   return users.find(u => u.email.toLowerCase() === email.toLowerCase()) ?? null;
@@ -176,10 +176,14 @@ export async function findByEmail(email: string): Promise<User | null> {
 
 export async function findById(id: string): Promise<User | null> {
   await ensureSeed();
-  if (useRedis()) {
-    const hash = await r().hgetall(UK(id));
-    if (!hash) return null;
-    return fromHash(hash as Record<string, string>);
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    const res = await db.execute({
+      sql: "SELECT * FROM cs_users WHERE id = ?",
+      args: [id],
+    });
+    return res.rows[0] ? rowToUser(res.rows[0]) : null;
   }
   const users = await fileRead();
   return users.find(u => u.id === id) ?? null;
@@ -202,11 +206,19 @@ export async function createUser(
     createdAt: new Date().toISOString(),
   };
 
-  if (useRedis()) {
-    // SET NX atomically claims the email slot — rejects duplicate signups
-    const claimed = await r().set(EK(email), user.id, { nx: true });
-    if (!claimed) throw new Error("An account with this email already exists.");
-    await r().hset(UK(user.id), toHash(user));
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    // UNIQUE constraint on email — INSERT OR IGNORE + rowsAffected check = atomic duplicate detection
+    const res = await db.execute({
+      sql: `INSERT OR IGNORE INTO cs_users
+            (id, email, name, password_hash, pages_used, tier, monthly_page_limit, razorpay_customer_id, created_at)
+            VALUES (?, ?, ?, ?, 0, 'FREE', 8, NULL, ?)`,
+      args: [user.id, user.email, user.name, user.passwordHash, user.createdAt],
+    });
+    if (res.rowsAffected === 0) {
+      throw new Error("An account with this email already exists.");
+    }
     return user;
   }
 
@@ -220,9 +232,14 @@ export async function createUser(
 }
 
 export async function incrementPages(userId: string, count: number): Promise<void> {
-  if (useRedis()) {
-    // HINCRBY is atomic — safe under any concurrency
-    await r().hincrby(UK(userId), "pagesUsed", count);
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    // Single SQL statement — atomic in SQLite
+    await db.execute({
+      sql: "UPDATE cs_users SET pages_used = pages_used + ? WHERE id = ?",
+      args: [count, userId],
+    });
     return;
   }
   const users = await fileRead();
@@ -235,8 +252,13 @@ export async function upgradeTier(
   tier: User["tier"],
   pageLimit: number
 ): Promise<void> {
-  if (useRedis()) {
-    await r().hset(UK(userId), { tier, monthlyPageLimit: pageLimit });
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    await db.execute({
+      sql: "UPDATE cs_users SET tier = ?, monthly_page_limit = ? WHERE id = ?",
+      args: [tier, pageLimit, userId],
+    });
     return;
   }
   const users = await fileRead();
@@ -253,15 +275,13 @@ export async function setResetToken(
   token: string,
   expiry: string
 ): Promise<void> {
-  if (useRedis()) {
-    const id = await r().get<string>(EK(email));
-    if (!id) return;
-    const ttl = Math.max(60, Math.floor((new Date(expiry).getTime() - Date.now()) / 1000));
-    // Store token on the user hash AND a reverse-index key with matching TTL
-    const pipe = r().pipeline();
-    pipe.hset(UK(id), { resetToken: token, resetTokenExpiry: expiry });
-    pipe.set(RK(token), id, { ex: ttl });
-    await pipe.exec();
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    await db.execute({
+      sql: "UPDATE cs_users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?",
+      args: [token, expiry, email.toLowerCase()],
+    });
     return;
   }
   const users = await fileRead();
@@ -274,13 +294,17 @@ export async function setResetToken(
 }
 
 export async function findUserByResetToken(token: string): Promise<User | null> {
-  if (useRedis()) {
-    // O(1) lookup via reverse index (no SCAN needed)
-    const id = await r().get<string>(RK(token));
-    if (!id) return null; // expired or never issued
-    const hash = await r().hgetall(UK(id));
-    if (!hash) return null;
-    return fromHash(hash as Record<string, string>);
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    // SQLite datetime comparison handles expiry check inline
+    const res = await db.execute({
+      sql: `SELECT * FROM cs_users
+            WHERE reset_token = ?
+              AND reset_token_expiry > datetime('now')`,
+      args: [token],
+    });
+    return res.rows[0] ? rowToUser(res.rows[0]) : null;
   }
   const users = await fileRead();
   const user = users.find(u => u.resetToken === token);
@@ -290,11 +314,12 @@ export async function findUserByResetToken(token: string): Promise<User | null> 
 }
 
 export async function updatePassword(userId: string, newPasswordHash: string): Promise<void> {
-  if (useRedis()) {
-    await r().hset(UK(userId), {
-      passwordHash: newPasswordHash,
-      resetToken: "",
-      resetTokenExpiry: "",
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    await db.execute({
+      sql: "UPDATE cs_users SET password_hash = ?, reset_token = NULL, reset_token_expiry = NULL WHERE id = ?",
+      args: [newPasswordHash, userId],
     });
     return;
   }
@@ -309,19 +334,31 @@ export async function updatePassword(userId: string, newPasswordHash: string): P
 }
 
 /**
- * Atomically marks a Razorpay payment ID as consumed for a PAYG upload.
- * Returns true  — first use, proceed with the upload.
- * Returns false — already used, reject (replay attack or concurrent duplicate).
+ * Atomically mark a Razorpay payment ID as consumed for a PAYG upload.
  *
- * Redis SET NX EX is a single atomic command — two concurrent requests with
- * the same payment ID can only win this race once.
+ * Uses INSERT OR IGNORE + rowsAffected — SQLite's UNIQUE constraint makes
+ * this atomic: two concurrent requests with the same payment_id can only
+ * succeed once (the second gets rowsAffected=0).
+ *
+ * Returns true  — first use, proceed with upload.
+ * Returns false — already consumed, reject (replay / concurrent duplicate).
  */
 export async function markPaygUsed(paymentId: string, userId: string): Promise<boolean> {
-  if (useRedis()) {
-    // "OK" = newly set (safe to proceed), null = already existed (reject)
-    const result = await r().set(PK(paymentId), userId, { nx: true, ex: 7200 });
-    return result === "OK";
+  const db = getDb();
+  if (db) {
+    await initDb(db);
+    const res = await db.execute({
+      sql: `INSERT OR IGNORE INTO cs_payg_used (payment_id, user_id, used_at)
+            VALUES (?, ?, ?)`,
+      args: [paymentId, userId, Date.now()],
+    });
+    // Async cleanup — remove markers older than 2 hours (fire-and-forget)
+    db.execute({
+      sql: "DELETE FROM cs_payg_used WHERE used_at < ?",
+      args: [Date.now() - 7_200_000],
+    }).catch(() => {});
+    return res.rowsAffected > 0;
   }
-  // File backend has no real Razorpay payments; always allow (local dev only)
+  // File backend: no real Razorpay in local dev — always allow
   return true;
 }
