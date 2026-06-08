@@ -9,7 +9,7 @@ import {
   transactionsToGoogleSheets,
 } from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
-import { findById, incrementPages } from "@/lib/auth/users";
+import { findById, incrementPages, markPaygUsed } from "@/lib/auth/users";
 import { cookies } from "next/headers";
 
 const FREE_PAGE_CAP = 8;
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   const pageCount = countPdfPages(bytes);
   const _fileHash = sha256Hex(bytes);
 
-  // ── Auth & Billing ─────────────────────────────────────────────────────
+  // ── Auth & Billing ─────────────────────────────────────────────────────────
   const session = await getSession();
   const jar = await cookies();
 
@@ -50,20 +50,18 @@ export async function POST(req: NextRequest) {
       monthlyPageLimit = user.monthlyPageLimit;
     }
   } else {
-    // Anonymous: cookie-based tracking
-    // Clamp to a valid integer — NaN or negative values would bypass the billing gate.
+    // Anonymous: cookie-based tracking (soft limit — requires login for real enforcement)
     const raw = parseInt(jar.get("bs_pages_used")?.value ?? "0", 10);
     pagesUsed = Number.isFinite(raw) && raw >= 0 ? raw : 0;
   }
 
-  // ── Billing decision ───────────────────────────────────────────────────
+  // ── Billing decision ───────────────────────────────────────────────────────
   if (tier === "FREE") {
     const remaining = Math.max(0, FREE_PAGE_CAP - pagesUsed);
-
     if (remaining < pageCount) {
-      // Check if user paid via Razorpay PAYG (cookie cleared after use)
-      const paygCleared = jar.get("bs_payg_cleared")?.value;
-      if (!paygCleared) {
+      // Atomically consume the one-time PAYG payment cookie.
+      // markPaygUsed uses Redis SET NX — only one concurrent request can win.
+      if (!(await consumePayg(jar, userId))) {
         return NextResponse.json(
           {
             error: "PAYMENT_REQUIRED",
@@ -75,32 +73,32 @@ export async function POST(req: NextRequest) {
           { status: 402 }
         );
       }
-      // Payment verified — clear the one-time cookie
-      jar.delete("bs_payg_cleared");
     }
   } else if (["PRO", "BUSINESS"].includes(tier)) {
     if (pagesUsed + pageCount > monthlyPageLimit) {
-      return NextResponse.json(
-        {
-          error: "PAYMENT_REQUIRED",
-          message: `Monthly limit of ${monthlyPageLimit} pages reached. Pay ₹49 per additional document.`,
-          page_count: pageCount,
-          price_inr: 49,
-          plan: "payg",
-        },
-        { status: 402 }
-      );
+      // PRO/BUSINESS users who exceed their monthly limit can also pay PAYG
+      if (!(await consumePayg(jar, userId))) {
+        return NextResponse.json(
+          {
+            error: "PAYMENT_REQUIRED",
+            message: `Monthly limit of ${monthlyPageLimit} pages reached. Pay ₹49 per additional document.`,
+            page_count: pageCount,
+            price_inr: 49,
+            plan: "payg",
+          },
+          { status: 402 }
+        );
+      }
     }
   }
 
-  // ── Extract transactions: try FastAPI first, fall back to mock ────────
+  // ── Extract transactions: try FastAPI first, fall back to mock ────────────
   let transactions: ReturnType<typeof generateMockTransactions> = [];
   let bankName = inferIndianBankName(file.name, bytes.toString("latin1").slice(0, 2000));
   let isDemo = true;
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
   try {
-    // Forward the file to FastAPI with a short timeout probe first
     const upstreamForm = new FormData();
     upstreamForm.append("file", new Blob([bytes], { type: "application/pdf" }), file.name);
     upstreamForm.append("export_formats", exportFormats.join(","));
@@ -121,7 +119,7 @@ export async function POST(req: NextRequest) {
       isDemo = false;
     }
   } catch {
-    // FastAPI not running — use mock data
+    // FastAPI not running — fall through to mock
   }
 
   if (transactions.length === 0) {
@@ -129,7 +127,7 @@ export async function POST(req: NextRequest) {
     isDemo = true;
   }
 
-  // ── Build export URLs for each requested format ───────────────────────
+  // ── Build export URLs ──────────────────────────────────────────────────────
   const exportUrls: Record<string, string> = {};
 
   for (const fmt of exportFormats) {
@@ -151,17 +149,15 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // If no format was recognised, always include CSV as fallback
   if (Object.keys(exportUrls).length === 0) {
     const content = transactionsToCSV(transactions);
     exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
   }
 
-  // ── Record usage ───────────────────────────────────────────────────────
+  // ── Record usage ───────────────────────────────────────────────────────────
   if (userId) {
     await incrementPages(userId, pageCount);
   } else {
-    // Anonymous cookie update (response cookies set below)
     jar.set("bs_pages_used", String(pagesUsed + pageCount), {
       httpOnly: true, sameSite: "lax", maxAge: 60 * 60 * 24 * 365,
     });
@@ -187,6 +183,26 @@ export async function POST(req: NextRequest) {
     export_urls: exportUrls,
     processing_ms: Date.now() - start,
   });
+}
+
+/**
+ * Atomically consume the bs_payg_cleared one-time payment cookie.
+ *
+ * Uses markPaygUsed (Redis SET NX) so two concurrent requests carrying the
+ * same payment ID can only succeed once — the TOCTOU race is closed.
+ *
+ * Returns true if payment was successfully consumed (upload may proceed).
+ * Returns false if no cookie, or cookie already consumed by another request.
+ */
+async function consumePayg(
+  jar: Awaited<ReturnType<typeof cookies>>,
+  userId: string | null
+): Promise<boolean> {
+  const paymentId = jar.get("bs_payg_cleared")?.value;
+  if (!paymentId) return false;
+  const consumed = await markPaygUsed(paymentId, userId ?? "anon");
+  if (consumed) jar.delete("bs_payg_cleared");
+  return consumed;
 }
 
 function inferIndianBankName(filename: string, pdfText: string): string | null {

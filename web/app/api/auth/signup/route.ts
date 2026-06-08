@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { createUser } from "@/lib/auth/users";
 import { signJWT } from "@/lib/auth/jwt";
 import { sessionCookieOptions, SESSION_COOKIE } from "@/lib/auth/session";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const schema = z.object({
@@ -12,6 +13,9 @@ const schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const limited = await checkRateLimit(req);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const parsed = schema.safeParse(body);

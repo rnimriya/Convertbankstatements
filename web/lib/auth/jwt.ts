@@ -1,15 +1,15 @@
-/**
- * JWT helpers using `jose` — already bundled with Next.js, no extra deps.
- */
 import { SignJWT, jwtVerify } from "jose";
 
-const secret = () =>
-  new TextEncoder().encode(
-    process.env.JWT_SECRET ?? "dev-secret-please-change-in-production-32chars"
-  );
+function secret() {
+  const s = process.env.JWT_SECRET;
+  if (!s || s.length < 32) {
+    throw new Error("JWT_SECRET env var is required and must be at least 32 characters");
+  }
+  return new TextEncoder().encode(s);
+}
 
 export interface JWTPayload {
-  sub: string;       // user id
+  sub: string;
   email: string;
   name: string | null;
 }

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { findByEmail } from "@/lib/auth/users";
 import { signJWT } from "@/lib/auth/jwt";
 import { sessionCookieOptions, SESSION_COOKIE } from "@/lib/auth/session";
+import { checkRateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const schema = z.object({
@@ -10,38 +11,35 @@ const schema = z.object({
   password: z.string().min(1),
 });
 
+// Pre-computed at module load (12 rounds = same cost as real password hashes).
+// Ensures non-existent-email responses take the same time as wrong-password
+// responses — prevents email enumeration via timing.
+const DUMMY_HASH_PROMISE = bcrypt.hash("dummy-constant-never-matches-" + Math.random(), 12);
+
 export async function POST(req: NextRequest) {
+  const limited = await checkRateLimit(req);
+  if (limited) return limited;
+
   try {
     const body = await req.json();
     const parsed = schema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
+      return NextResponse.json({ error: "Invalid email or password." }, { status: 400 });
     }
 
     const { email, password } = parsed.data;
     const user = await findByEmail(email);
 
     if (!user) {
-      // Constant-time response to prevent user enumeration
-      await bcrypt.hash("dummy", 1);
-      return NextResponse.json(
-        {
-          error: "No account found with this email. Please sign up first.",
-          code: "USER_NOT_FOUND",
-        },
-        { status: 401 }
-      );
+      // Always run a full bcrypt comparison to keep timing identical to
+      // the valid-user path — prevents enumeration via response latency.
+      await bcrypt.compare(password, await DUMMY_HASH_PROMISE);
+      return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
 
     const valid = await bcrypt.compare(password, user.passwordHash);
     if (!valid) {
-      return NextResponse.json(
-        {
-          error: "Incorrect password. Please try again or use 'Forgot password?' to reset it.",
-          code: "WRONG_PASSWORD",
-        },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
 
     const token = await signJWT({ sub: user.id, email: user.email, name: user.name });
