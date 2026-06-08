@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight, CheckCircle2, FileText, Zap, Lock, Globe,
   Download, ChevronDown, TrendingUp, Shield, Clock, IndianRupee,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "https://bankstatements.io" },
+};
 import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
@@ -337,9 +342,116 @@ function CTA() {
 }
 
 
+const softwareAppSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "BankStatements India",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "Web",
+  url: "https://bankstatements.io",
+  description:
+    "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free tier",
+      price: "0",
+      priceCurrency: "INR",
+      description: "First 8 pages free, no credit card required",
+    },
+    {
+      "@type": "Offer",
+      name: "Pay-per-document",
+      price: "49",
+      priceCurrency: "INR",
+      description: "₹49 per document, all formats, all Indian banks",
+    },
+    {
+      "@type": "Offer",
+      name: "Pro plan",
+      price: "399",
+      priceCurrency: "INR",
+      description: "₹399/month — 200 pages, Google Sheets, priority processing",
+    },
+    {
+      "@type": "Offer",
+      name: "Business plan",
+      price: "999",
+      priceCurrency: "INR",
+      description: "₹999/month — 500 pages for CA firms and fintech teams",
+    },
+  ],
+  featureList: [
+    "30+ Indian banks supported",
+    "CSV, Excel, OFX, QFX, Google Sheets export",
+    "Password-protected PDF support",
+    "Auto-categorisation of transactions",
+    "Under 15 seconds processing time",
+    "Data deleted after conversion — never stored",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "120",
+    bestRating: "5",
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to convert an Indian bank statement PDF to Excel or CSV",
+  description:
+    "Convert any Indian bank PDF (SBI, HDFC, ICICI, Axis, Kotak and more) to CSV, Excel, or OFX in under 15 seconds using BankStatements.",
+  totalTime: "PT15S",
+  tool: [{ "@type": "HowToTool", name: "BankStatements India", url: "https://bankstatements.io" }],
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Upload your PDF",
+      text: "Drag and drop your bank statement PDF. Works with SBI, HDFC, ICICI, Axis, Kotak, and 25+ more Indian banks. Any year, any account type, including password-protected and scanned PDFs.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Automatic extraction",
+      text: "Dates, descriptions, amounts, and balances are extracted automatically. Transactions are categorised as groceries, fuel, EMI, salary, UPI, utilities, and more.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Download your data",
+      text: "Download as CSV, Excel (.xlsx), OFX for Tally or QuickBooks, QFX for Quicken, or push straight to Google Sheets.",
+    },
+  ],
+};
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-surface">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
       <Navbar />
       <Hero />
       <BankLogos />

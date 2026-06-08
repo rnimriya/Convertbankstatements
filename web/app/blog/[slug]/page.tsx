@@ -14,10 +14,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return { title: "Post not found" };
+  const canonicalUrl = `https://bankstatements.io/blog/${slug}`;
   return {
     title: `${post.title} - BankStatements India`,
     description: post.excerpt,
-    openGraph: { images: [post.featureImage] },
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: canonicalUrl,
+      type: "article",
+      publishedTime: post.createdAt,
+      modifiedTime: post.updatedAt,
+      authors: [post.author],
+      images: [{ url: post.featureImage, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.featureImage],
+    },
   };
 }
 
@@ -35,8 +52,44 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     .map((s) => allPosts.find((p) => p.slug === s && p.published))
     .filter(Boolean) as (typeof allPosts)[0][];
 
+  const blogPostSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.featureImage,
+    datePublished: post.createdAt,
+    dateModified: post.updatedAt || post.createdAt,
+    author: { "@type": "Person", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      name: "BankStatements India",
+      logo: { "@type": "ImageObject", url: "https://bankstatements.io/logo.svg" },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://bankstatements.io/blog/${slug}` },
+    keywords: post.tags.join(", "),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bankstatements.io" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://bankstatements.io/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://bankstatements.io/blog/${slug}` },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-[#0a0a0a]">
         {/* Feature image */}

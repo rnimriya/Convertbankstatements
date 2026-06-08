@@ -3,7 +3,17 @@ import { CheckCircle2, ArrowRight, FileText, IndianRupee } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
-export const metadata = { title: "Pricing — BankStatements India" };
+export const metadata = {
+  title: "Pricing — BankStatements India",
+  description:
+    "Start free with 8 pages, then pay ₹49 per document or choose a monthly plan. Pro at ₹399/month (200 pages) and Business at ₹999/month (500 pages) for CAs and teams.",
+  alternates: { canonical: "https://bankstatements.io/pricing" },
+  openGraph: {
+    title: "Pricing — BankStatements India",
+    description: "8 pages free · ₹49 per document · Pro ₹399/mo · Business ₹999/mo",
+    url: "https://bankstatements.io/pricing",
+  },
+};
 
 const PLANS = [
   {
@@ -68,9 +78,73 @@ const COMPARE_ROWS = [
   { feature: "Payment methods", free: "—", payg: "UPI/Card/NB", pro: "UPI/Card/NB", business: "UPI/Card/NB" },
 ];
 
+const pricingSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "BankStatements India",
+  description:
+    "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
+  url: "https://bankstatements.io",
+  brand: { "@type": "Brand", name: "BankStatements India" },
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Free",
+      price: "0",
+      priceCurrency: "INR",
+      description: "8 pages free forever, no credit card required",
+      availability: "https://schema.org/InStock",
+      url: "https://bankstatements.io/signup",
+    },
+    {
+      "@type": "Offer",
+      name: "Pay-per-document",
+      price: "49",
+      priceCurrency: "INR",
+      description: "₹49 per document, all formats, all Indian banks",
+      availability: "https://schema.org/InStock",
+      url: "https://bankstatements.io/signup",
+    },
+    {
+      "@type": "Offer",
+      name: "Pro",
+      price: "399",
+      priceCurrency: "INR",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "399",
+        priceCurrency: "INR",
+        unitText: "month",
+      },
+      description: "200 pages/month, Google Sheets, priority processing",
+      availability: "https://schema.org/InStock",
+      url: "https://bankstatements.io/signup?plan=pro",
+    },
+    {
+      "@type": "Offer",
+      name: "Business",
+      price: "999",
+      priceCurrency: "INR",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: "999",
+        priceCurrency: "INR",
+        unitText: "month",
+      },
+      description: "500 pages/month for CA firms and fintech teams",
+      availability: "https://schema.org/InStock",
+      url: "https://bankstatements.io/signup?plan=business",
+    },
+  ],
+};
+
 export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-surface">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
+      />
       <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
