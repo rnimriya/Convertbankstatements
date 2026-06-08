@@ -209,9 +209,9 @@ export default function ResetPasswordPage() {
             <ThemeToggle />
           </div>
           <Link href="/">
-            <img src="/logo.svg" alt="BankStatements" className="h-12 w-12 transition hover:scale-105" />
+            <img src="/logo.svg" alt="ConvertStatement" className="h-12 w-12 transition hover:scale-105" />
           </Link>
-          <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">BankStatements</span>
+          <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">ConvertStatement</span>
           <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
@@ -223,7 +223,7 @@ export default function ResetPasswordPage() {
 
         <p className="mt-5 text-center text-xs text-slate-400 dark:text-gray-500">
           Need help?{" "}
-          <a href="mailto:support@bankstatements.in" className="underline hover:text-slate-600 dark:hover:text-gray-300">
+          <a href="mailto:support@convertstatement.online" className="underline hover:text-slate-600 dark:hover:text-gray-300">
             Contact support
           </a>
         </p>

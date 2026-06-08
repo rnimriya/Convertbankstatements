@@ -9,13 +9,13 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const BASE = "https://bankstatements.io";
+const BASE = "https://convertstatement.online";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: "BankStatements India — Convert Bank PDFs to Excel, CSV & Tally",
-    template: "%s | BankStatements India",
+    default: "ConvertStatement — Convert Bank PDFs to Excel, CSV & Tally",
+    template: "%s | ConvertStatement",
   },
   description:
     "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free.",
@@ -31,16 +31,16 @@ export const metadata: Metadata = {
     "bank statement extractor",
     "PDF to QFX QuickBooks India",
   ],
-  authors: [{ name: "BankStatements India", url: BASE }],
-  creator: "BankStatements India",
-  publisher: "BankStatements India",
+  authors: [{ name: "ConvertStatement", url: BASE }],
+  creator: "ConvertStatement",
+  publisher: "ConvertStatement",
   alternates: { canonical: BASE },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: BASE,
-    siteName: "BankStatements India",
-    title: "BankStatements India — Convert Bank PDFs to Excel, CSV & Tally",
+    siteName: "ConvertStatement",
+    title: "ConvertStatement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
       "30+ Indian banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Pay ₹49 per document after that.",
     images: [
@@ -48,13 +48,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "BankStatements India — PDF to Excel converter for Indian banks",
+        alt: "ConvertStatement — PDF to Excel converter for Indian banks",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BankStatements India — Convert Bank PDFs to Excel, CSV & Tally",
+    title: "ConvertStatement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
       "30+ Indian banks. CSV, Excel, OFX, QFX. First 8 pages free. Pay ₹49/doc.",
     images: ["/og-image.png"],
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "BankStatements India",
+  name: "ConvertStatement",
   url: BASE,
   logo: `${BASE}/logo.svg`,
   sameAs: [],
@@ -89,7 +89,7 @@ const organizationSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "BankStatements India",
+  name: "ConvertStatement",
   url: BASE,
   potentialAction: {
     "@type": "SearchAction",

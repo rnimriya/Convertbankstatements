@@ -14,9 +14,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return { title: "Post not found" };
-  const canonicalUrl = `https://bankstatements.io/blog/${slug}`;
+  const canonicalUrl = `https://convertstatement.online/blog/${slug}`;
   return {
-    title: `${post.title} - BankStatements India`,
+    title: `${post.title} - ConvertStatement`,
     description: post.excerpt,
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -63,10 +63,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     author: { "@type": "Person", name: post.author },
     publisher: {
       "@type": "Organization",
-      name: "BankStatements India",
-      logo: { "@type": "ImageObject", url: "https://bankstatements.io/logo.svg" },
+      name: "ConvertStatement",
+      logo: { "@type": "ImageObject", url: "https://convertstatement.online/logo.svg" },
     },
-    mainEntityOfPage: { "@type": "WebPage", "@id": `https://bankstatements.io/blog/${slug}` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://convertstatement.online/blog/${slug}` },
     keywords: post.tags.join(", "),
   };
 
@@ -74,9 +74,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://bankstatements.io" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://bankstatements.io/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://bankstatements.io/blog/${slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://convertstatement.online" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://convertstatement.online/blog" },
+      { "@type": "ListItem", position: 3, name: post.title, item: `https://convertstatement.online/blog/${slug}` },
     ],
   };
 

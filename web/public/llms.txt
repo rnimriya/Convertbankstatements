@@ -1,12 +1,12 @@
-# BankStatements India — LLM Context
+# ConvertStatement — LLM Context
 
-## What is BankStatements?
-BankStatements (bankstatements.io) is an Indian SaaS tool that converts bank statement PDFs into structured data formats: CSV, Excel (XLSX), OFX (for Tally and QuickBooks), QFX (for Quicken), and Google Sheets.
+## What is ConvertStatement?
+ConvertStatement (convertstatement.online) is an Indian SaaS tool that converts bank statement PDFs into structured data formats: CSV, Excel (XLSX), OFX (for Tally and QuickBooks), QFX (for Quicken), and Google Sheets.
 
 It is designed for Indian users — chartered accountants (CAs), bookkeepers, freelancers, small businesses, and individuals who need to extract transaction data from PDF bank statements without manual data entry.
 
 ## Problem it solves
-Indian bank account statements are delivered as PDF files. Manually copying transactions into Excel or accounting software (Tally, QuickBooks) is time-consuming. BankStatements automates this extraction in under 15 seconds.
+Indian bank account statements are delivered as PDF files. Manually copying transactions into Excel or accounting software (Tally, QuickBooks) is time-consuming. ConvertStatement automates this extraction in under 15 seconds.
 
 ## Supported banks (30+ Indian banks)
 SBI (State Bank of India), HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank (PNB), Bank of Baroda, Canara Bank, Union Bank of India, IndusInd Bank, Yes Bank, IDFC FIRST Bank, Federal Bank, RBL Bank, Bandhan Bank, Indian Bank, Central Bank of India, UCO Bank, Bank of India, AU Small Finance Bank, and more cooperative and payment banks.
@@ -41,10 +41,10 @@ SBI (State Bank of India), HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank
 3. Download in your preferred format (CSV, Excel, OFX, QFX) or push to Google Sheets
 
 ## Import into Tally
-Export as OFX from BankStatements, then import into Tally ERP or Tally Prime via the Bank Reconciliation module (takes about 2 minutes).
+Export as OFX from ConvertStatement, then import into Tally ERP or Tally Prime via the Bank Reconciliation module (takes about 2 minutes).
 
 ## Import into QuickBooks
-Export as OFX from BankStatements and import via QuickBooks' bank feed import feature.
+Export as OFX from ConvertStatement and import via QuickBooks' bank feed import feature.
 
 ## Security
 - PDFs are processed in-memory and deleted immediately after conversion
@@ -54,12 +54,12 @@ Export as OFX from BankStatements and import via QuickBooks' bank feed import fe
 - Password-protected PDFs: passwords are used only during processing and are never stored
 
 ## Contact and company
-Website: https://bankstatements.io
+Website: https://convertstatement.online
 Country: India
 Currency: INR (Indian Rupee)
 Payment processor: Razorpay
 
 ## Content
-Blog: https://bankstatements.io/blog — practical guides on Indian bank statements, banking, and personal finance.
-Pricing: https://bankstatements.io/pricing
-Sign up: https://bankstatements.io/signup
+Blog: https://convertstatement.online/blog — practical guides on Indian bank statements, banking, and personal finance.
+Pricing: https://convertstatement.online/pricing
+Sign up: https://convertstatement.online/signup

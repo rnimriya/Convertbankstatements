@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://bankstatements.io" },
+  alternates: { canonical: "https://convertstatement.online" },
 };
 import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -52,7 +52,7 @@ const FAQS = [
   { q: "Is my financial data safe?", a: "Yes. Your PDF is processed in memory and deleted the moment we send back your data. Nothing is written to disk. Nothing is stored in a database. We follow GDPR and India's IT Act 2000." },
   { q: "Can I process password-protected PDFs?", a: "Yes. Most Indian bank PDFs are locked with your date of birth or mobile number. Enter the password during upload and we handle the rest. We do not store the password." },
   { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free, no card needed. That covers most 1-3 month statements. After that, pay Rs. 49 per document or switch to a monthly plan if you convert often." },
-  { q: "How do I import into Tally?", a: "Tally accepts OFX bank feeds. Export as OFX from BankStatements, then import into Tally ERP or Tally Prime through the Bank Reconciliation module. Takes about two minutes." },
+  { q: "How do I import into Tally?", a: "Tally accepts OFX bank feeds. Export as OFX from ConvertStatement, then import into Tally ERP or Tally Prime through the Bank Reconciliation module. Takes about two minutes." },
   { q: "Can I pay via UPI?", a: "Yes. We accept Google Pay, PhonePe, Paytm, BHIM, all Visa and Mastercard cards, RuPay, net banking, and wallets. Payments go through Razorpay." },
 ];
 
@@ -61,9 +61,9 @@ function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.svg" alt="BankStatements" className="h-8 w-8" />
+          <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
           <div className="hidden sm:block">
-            <span className="font-bold text-slate-800 dark:text-white">BankStatements</span>
+            <span className="font-bold text-slate-800 dark:text-white">ConvertStatement</span>
             <span className="ml-1.5 rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </div>
         </Link>
@@ -147,7 +147,7 @@ function Hero() {
                   <div className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
                 </div>
                 <div className="mx-auto flex items-center gap-1.5 rounded border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-2 py-0.5 text-[10px] text-slate-400 dark:text-gray-400">
-                  <Lock className="h-2.5 w-2.5 text-emerald-500" /> bankstatements.io
+                  <Lock className="h-2.5 w-2.5 text-emerald-500" /> convertstatement.online
                 </div>
               </div>
               <MockDashboard />
@@ -345,10 +345,10 @@ function CTA() {
 const softwareAppSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "BankStatements India",
+  name: "ConvertStatement",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Web",
-  url: "https://bankstatements.io",
+  url: "https://convertstatement.online",
   description:
     "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
   offers: [
@@ -412,9 +412,9 @@ const howToSchema = {
   "@type": "HowTo",
   name: "How to convert an Indian bank statement PDF to Excel or CSV",
   description:
-    "Convert any Indian bank PDF (SBI, HDFC, ICICI, Axis, Kotak and more) to CSV, Excel, or OFX in under 15 seconds using BankStatements.",
+    "Convert any Indian bank PDF (SBI, HDFC, ICICI, Axis, Kotak and more) to CSV, Excel, or OFX in under 15 seconds using ConvertStatement.",
   totalTime: "PT15S",
-  tool: [{ "@type": "HowToTool", name: "BankStatements India", url: "https://bankstatements.io" }],
+  tool: [{ "@type": "HowToTool", name: "ConvertStatement", url: "https://convertstatement.online" }],
   step: [
     {
       "@type": "HowToStep",

@@ -3,24 +3,24 @@ import { FileText, ScrollText } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata = {
-  title: "Terms of Service — BankStatements India",
-  description: "Terms and conditions governing use of the BankStatements India bank statement conversion service.",
+  title: "Terms of Service — ConvertStatement",
+  description: "Terms and conditions governing use of the ConvertStatement bank statement conversion service.",
 };
 
 const SECTIONS = [
   {
     id: "acceptance",
     title: "1. Acceptance of Terms",
-    content: `By creating an account or using the BankStatements India service ("Service") at bankstatements.io, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
+    content: `By creating an account or using the ConvertStatement service ("Service") at convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
 
-These Terms constitute a legally binding agreement between you and BankStatements India ("Company", "we", "us", or "our"). These Terms are governed by the laws of India, and any disputes shall be subject to the exclusive jurisdiction of courts in India.
+These Terms constitute a legally binding agreement between you and ConvertStatement ("Company", "we", "us", or "our"). These Terms are governed by the laws of India, and any disputes shall be subject to the exclusive jurisdiction of courts in India.
 
 We reserve the right to update these Terms at any time. Continued use of the Service after changes constitutes acceptance.`,
   },
   {
     id: "service-description",
     title: "2. Description of Service",
-    content: `BankStatements India provides a software-as-a-service (SaaS) platform that:
+    content: `ConvertStatement provides a software-as-a-service (SaaS) platform that:
 
 - Accepts PDF bank statements uploaded by users
 - Extracts transaction data (dates, descriptions, amounts, balances) from those PDFs
@@ -41,7 +41,7 @@ To use the Service beyond the free tier, you must create an account with a valid
 You agree to provide accurate, current, and complete information during registration and to keep your account information updated.
 
 **Account Security**
-You are responsible for all activity that occurs under your account. Notify us immediately at support@bankstatements.io if you suspect unauthorised access.
+You are responsible for all activity that occurs under your account. Notify us immediately at support@convertstatement.online if you suspect unauthorised access.
 
 **One Account Per User**
 Creating multiple accounts to circumvent plan limits or free tier restrictions is prohibited and may result in immediate termination of all associated accounts.
@@ -87,7 +87,7 @@ We accept UPI, Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and Wa
 Applicable Goods and Services Tax (GST) will be added to all subscription and pay-as-you-go payments as required by Indian law.
 
 **Refunds**
-Pay-as-you-go payments are non-refundable once a document has been processed. For subscription plans, refunds are available within 7 days of the initial subscription if no documents have been processed. Contact billing@bankstatements.io to request a refund.
+Pay-as-you-go payments are non-refundable once a document has been processed. For subscription plans, refunds are available within 7 days of the initial subscription if no documents have been processed. Contact billing@convertstatement.online to request a refund.
 
 **Subscription Cancellation**
 You may cancel your subscription at any time. Your plan remains active until the end of the current billing period, after which you will revert to the free tier.`,
@@ -102,7 +102,7 @@ You retain full ownership of all bank statements you upload and all transaction 
 We do not claim any ownership over your financial data. Your PDFs and extracted transaction data are not stored on our servers after processing is complete.
 
 **Our IP**
-The BankStatements India platform, software, algorithms, branding, and user interface are owned by us and are protected by intellectual property laws. You may not copy, reproduce, or create derivative works from any part of our platform.`,
+The ConvertStatement platform, software, algorithms, branding, and user interface are owned by us and are protected by intellectual property laws. You may not copy, reproduce, or create derivative works from any part of our platform.`,
   },
   {
     id: "accuracy",
@@ -134,7 +134,7 @@ Nothing in these Terms limits liability for fraud, death or personal injury caus
   {
     id: "indemnification",
     title: "9. Indemnification",
-    content: `You agree to defend, indemnify, and hold harmless BankStatements India and its officers, directors, employees, and agents from any claims, damages, costs, or expenses (including reasonable legal fees) arising from:
+    content: `You agree to defend, indemnify, and hold harmless ConvertStatement and its officers, directors, employees, and agents from any claims, damages, costs, or expenses (including reasonable legal fees) arising from:
 
 - Your use or misuse of the Service
 - Your violation of these Terms
@@ -145,7 +145,7 @@ Nothing in these Terms limits liability for fraud, death or personal injury caus
     id: "termination",
     title: "10. Termination",
     content: `**By You**
-You may close your account at any time by contacting support@bankstatements.io. Upon closure, your account data will be deleted within 30 days, except for billing records which are retained as required by law.
+You may close your account at any time by contacting support@convertstatement.online. Upon closure, your account data will be deleted within 30 days, except for billing records which are retained as required by law.
 
 **By Us**
 We may suspend or terminate your account immediately if you breach these Terms, engage in fraudulent activity, or if we are required to do so by law. We will provide notice unless prohibited by law or where notice would cause harm.
@@ -159,7 +159,7 @@ Upon termination, your right to use the Service ceases immediately. Any outstand
     content: `These Terms are governed by and construed in accordance with the laws of India, without regard to conflict of law provisions.
 
 **Dispute Resolution**
-We encourage you to contact us first at support@bankstatements.io to resolve any dispute informally. If a dispute cannot be resolved informally within 30 days, it shall be submitted to binding arbitration under the Arbitration and Conciliation Act, 1996, conducted in English in India.
+We encourage you to contact us first at support@convertstatement.online to resolve any dispute informally. If a dispute cannot be resolved informally within 30 days, it shall be submitted to binding arbitration under the Arbitration and Conciliation Act, 1996, conducted in English in India.
 
 **Jurisdiction**
 For matters not subject to arbitration, you submit to the exclusive jurisdiction of courts located in India.`,
@@ -180,7 +180,7 @@ Our failure to enforce any right or provision of these Terms will not be conside
 You may not assign your rights or obligations under these Terms without our prior written consent. We may assign our rights without restriction.
 
 **Contact**
-For questions about these Terms, contact us at legal@bankstatements.io.`,
+For questions about these Terms, contact us at legal@convertstatement.online.`,
   },
 ];
 
@@ -194,7 +194,7 @@ export default function TermsPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
               <FileText className="h-4 w-4 text-black" />
             </div>
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">ConvertStatement</span>
             <span className="hidden sm:inline rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -219,7 +219,7 @@ export default function TermsPage() {
             </div>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-slate-500">
-            These Terms govern your use of BankStatements India. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
+            These Terms govern your use of ConvertStatement. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
           </p>
 
           {/* Quick summary */}
@@ -313,8 +313,8 @@ export default function TermsPage() {
           <p className="font-semibold">Questions about these Terms?</p>
           <p className="mt-1 text-brand-700 dark:text-brand-400">
             Email us at{" "}
-            <a href="mailto:legal@bankstatements.io" className="underline hover:no-underline">
-              legal@bankstatements.io
+            <a href="mailto:legal@convertstatement.online" className="underline hover:no-underline">
+              legal@convertstatement.online
             </a>{" "}
             and we&apos;ll respond within 2 business days.
           </p>

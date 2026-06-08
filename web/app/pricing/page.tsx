@@ -4,14 +4,14 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata = {
-  title: "Pricing — BankStatements India",
+  title: "Pricing — ConvertStatement",
   description:
     "Start free with 8 pages, then pay ₹49 per document or choose a monthly plan. Pro at ₹399/month (200 pages) and Business at ₹999/month (500 pages) for CAs and teams.",
-  alternates: { canonical: "https://bankstatements.io/pricing" },
+  alternates: { canonical: "https://convertstatement.online/pricing" },
   openGraph: {
-    title: "Pricing — BankStatements India",
+    title: "Pricing — ConvertStatement",
     description: "8 pages free · ₹49 per document · Pro ₹399/mo · Business ₹999/mo",
-    url: "https://bankstatements.io/pricing",
+    url: "https://convertstatement.online/pricing",
   },
 };
 
@@ -81,11 +81,11 @@ const COMPARE_ROWS = [
 const pricingSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  name: "BankStatements India",
+  name: "ConvertStatement",
   description:
     "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
-  url: "https://bankstatements.io",
-  brand: { "@type": "Brand", name: "BankStatements India" },
+  url: "https://convertstatement.online",
+  brand: { "@type": "Brand", name: "ConvertStatement" },
   offers: [
     {
       "@type": "Offer",
@@ -94,7 +94,7 @@ const pricingSchema = {
       priceCurrency: "INR",
       description: "8 pages free forever, no credit card required",
       availability: "https://schema.org/InStock",
-      url: "https://bankstatements.io/signup",
+      url: "https://convertstatement.online/signup",
     },
     {
       "@type": "Offer",
@@ -103,7 +103,7 @@ const pricingSchema = {
       priceCurrency: "INR",
       description: "₹49 per document, all formats, all Indian banks",
       availability: "https://schema.org/InStock",
-      url: "https://bankstatements.io/signup",
+      url: "https://convertstatement.online/signup",
     },
     {
       "@type": "Offer",
@@ -118,7 +118,7 @@ const pricingSchema = {
       },
       description: "200 pages/month, Google Sheets, priority processing",
       availability: "https://schema.org/InStock",
-      url: "https://bankstatements.io/signup?plan=pro",
+      url: "https://convertstatement.online/signup?plan=pro",
     },
     {
       "@type": "Offer",
@@ -133,7 +133,7 @@ const pricingSchema = {
       },
       description: "500 pages/month for CA firms and fintech teams",
       availability: "https://schema.org/InStock",
-      url: "https://bankstatements.io/signup?plan=business",
+      url: "https://convertstatement.online/signup?plan=business",
     },
   ],
 };
@@ -148,8 +148,8 @@ export default function PricingPage() {
       <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="BankStatements" className="h-8 w-8" />
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">BankStatements</span>
+            <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">ConvertStatement</span>
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />

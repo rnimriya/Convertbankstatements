@@ -120,8 +120,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
         {/* Logo */}
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-2.5 w-fit group">
-            <img src="/logo.svg" alt="BankStatements" className="h-9 w-9 transition group-hover:scale-105" />
-            <span className="text-lg font-bold text-white">BankStatements</span>
+            <img src="/logo.svg" alt="ConvertStatement" className="h-9 w-9 transition group-hover:scale-105" />
+            <span className="text-lg font-bold text-white">ConvertStatement</span>
             <span className="rounded-full bg-white/5 border border-white/10 px-1.5 py-0.5 text-[10px] font-bold text-brand-400">
               India
             </span>
@@ -205,8 +205,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
             {/* Mobile-only logo */}
             <div className="mb-8 flex flex-col items-center lg:hidden">
-              <img src="/logo.svg" alt="BankStatements" className="h-11 w-11" />
-              <span className="mt-2.5 text-base font-bold text-slate-800 dark:text-white">BankStatements India</span>
+              <img src="/logo.svg" alt="ConvertStatement" className="h-11 w-11" />
+              <span className="mt-2.5 text-base font-bold text-slate-800 dark:text-white">ConvertStatement</span>
             </div>
 
             <div className="mb-7">

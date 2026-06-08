@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Blog - BankStatements India",
+  title: "Blog - ConvertStatement",
   description: "Guides, tips, and resources on Indian bank statements, banking, and personal finance.",
 };
 
@@ -26,7 +26,7 @@ export default async function BlogPage({
         {/* Hero */}
         <section className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-[#0d0d0d] py-14 px-6 text-center">
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white">
-            BankStatements Blog
+            ConvertStatement Blog
           </h1>
           <p className="mt-3 text-base text-slate-500 dark:text-gray-400 max-w-xl mx-auto">
             Practical guides on Indian bank statements, banking, and personal finance.

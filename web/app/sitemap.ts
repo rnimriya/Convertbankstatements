@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog/posts";
 
-const BASE = "https://bankstatements.io";
+const BASE = "https://convertstatement.online";
 
 const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: BASE, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },

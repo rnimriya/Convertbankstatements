@@ -17,7 +17,7 @@ export function NewPostForm() {
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [featureImage, setFeatureImage] = useState("");
-  const [author, setAuthor] = useState("BankStatements Team");
+  const [author, setAuthor] = useState("ConvertStatement Team");
   const [tags, setTags] = useState("");
   const [published, setPublished] = useState(false);
 
@@ -52,7 +52,7 @@ export function NewPostForm() {
           excerpt: excerpt.trim(),
           content: content.trim(),
           featureImage: featureImage.trim() || undefined,
-          author: author.trim() || "BankStatements Team",
+          author: author.trim() || "ConvertStatement Team",
           tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
           published,
         }),

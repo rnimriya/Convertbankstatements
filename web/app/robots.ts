@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
 
-const BASE = "https://bankstatements.io";
+const BASE = "https://convertstatement.online";
 
 export default function robots(): MetadataRoute.Robots {
   return {
