@@ -2,56 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design tokens — space-separated RGB channels for Tailwind opacity support ── */
-
 :root {
-  --bg:             255 255 255;   /* #ffffff */
-  --surface:        248 250 252;   /* #f8fafc */
-  --surface-raised: 241 245 249;   /* #f1f5f9 */
-  --border-subtle:  226 232 240;   /* #e2e8f0 */
+  --bg:             255 255 255;
+  --surface:        248 250 252;
+  --surface-raised: 241 245 249;
+  --border-subtle:  226 232 240;
 }
-
-.dark {
-  --bg:             10 10 10;      /* #0a0a0a */
-  --surface:        50 50 50;      /* #323232 */
-  --surface-raised: 26 26 26;      /* #1a1a1a */
-  --border-subtle:  255 255 255;   /* white — used at /7 opacity */
-}
-
-/* ── Base ──────────────────────────────────────────────────────────────────── */
 
 @layer base {
   body {
-    background-color: rgb(var(--bg));
-    @apply text-slate-900 dark:text-white;
+    background-color: #ffffff;
+    @apply text-slate-900;
   }
-
-  .dark ::-webkit-scrollbar              { width: 6px; height: 6px; }
-  .dark ::-webkit-scrollbar-track        { background: #111111; }
-  .dark ::-webkit-scrollbar-thumb        { background: #2a2a2a; border-radius: 3px; }
-  .dark ::-webkit-scrollbar-thumb:hover  { background: #0ea5e9; }
 }
-
-/* ── Animations ────────────────────────────────────────────────────────────── */
 
 @keyframes progress {
   from { width: 0%; }
   to   { width: 100%; }
-}
-
-/* ── Brand glow utilities ──────────────────────────────────────────────────── */
-
-@layer utilities {
-  .neon-glow {
-    box-shadow: 0 0 24px rgba(14, 165, 233, 0.35), 0 0 48px rgba(14, 165, 233, 0.14);
-  }
-  .neon-glow-sm {
-    box-shadow: 0 0 12px rgba(14, 165, 233, 0.30);
-  }
-  .neon-text-glow {
-    text-shadow: 0 0 20px rgba(14, 165, 233, 0.55);
-  }
-  .neon-border {
-    border-color: rgba(14, 165, 233, 0.25);
-  }
 }

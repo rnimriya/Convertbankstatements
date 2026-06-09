@@ -1,346 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight, CheckCircle2, FileText, Zap, Lock, Globe,
-  Download, ChevronDown, TrendingUp, Shield, Clock, IndianRupee,
+  ArrowRight, CheckCircle2, FileSpreadsheet, Zap, Lock, Globe,
+  Download, Upload, Shield, Clock, CreditCard, FileCheck,
 } from "lucide-react";
+import FormatPills from "@/components/FormatPills";
+import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://convertstatement.online" },
 };
-import { Footer } from "@/components/layout/Footer";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
-const INDIAN_BANKS = [
+// ── Data ─────────────────────────────────────────────────────────────────────
+
+const BANKS = [
   "SBI", "HDFC Bank", "ICICI Bank", "Axis Bank", "Kotak Bank",
   "PNB", "Bank of Baroda", "Canara Bank", "Union Bank", "IndusInd",
-  "Yes Bank", "IDFC FIRST", "Federal Bank", "RBL Bank", "Bandhan Bank",
+  "Yes Bank", "IDFC First", "Federal Bank", "RBL Bank", "Bandhan Bank",
   "Indian Bank", "Central Bank", "UCO Bank", "Bank of India", "AU Bank",
-];
-
-const STATS = [
-  { value: "30+", label: "Indian banks supported" },
-  { value: "5", label: "Export formats" },
-  { value: "< 15s", label: "Processing time" },
-  { value: "₹49", label: "Pay-per-document" },
-];
-
-const STEPS = [
-  { step: "01", icon: <FileText className="h-5 w-5" />, title: "Upload your PDF", desc: "Drag and drop your bank statement. Works with SBI, HDFC, ICICI, Axis, Kotak, and 25+ more. Any year, any account type." },
-  { step: "02", icon: <Zap className="h-5 w-5" />, title: "We extract every transaction", desc: "Dates, descriptions, amounts, and balances are pulled out automatically. Works on password-protected and scanned PDFs too." },
-  { step: "03", icon: <Download className="h-5 w-5" />, title: "Download and use it", desc: "Get CSV, Excel, or OFX for Tally and QuickBooks. You can also push straight to Google Sheets." },
-];
-
-const FEATURES = [
-  { icon: <Globe className="h-5 w-5 text-brand-600" />, bg: "bg-brand-50 dark:bg-brand-900/30", title: "30+ Indian banks", desc: "SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara, IndusInd, Yes Bank, IDFC FIRST, Federal Bank, RBL, and Bandhan are all supported. Cooperative banks work too." },
-  { icon: <Zap className="h-5 w-5 text-amber-600" />, bg: "bg-amber-50 dark:bg-amber-900/20", title: "5 export formats", desc: "Pick CSV, Excel, OFX for Tally or QuickBooks, QFX for Quicken, or sync straight to Google Sheets. No copy-pasting." },
-  { icon: <Lock className="h-5 w-5 text-emerald-600" />, bg: "bg-emerald-50 dark:bg-emerald-900/20", title: "Your data is never stored", desc: "PDFs are processed in memory and deleted right after. Nothing is written to disk or kept on our servers." },
-  { icon: <TrendingUp className="h-5 w-5 text-purple-600" />, bg: "bg-purple-50 dark:bg-purple-900/20", title: "Auto categorisation", desc: "Every transaction gets a label: groceries, fuel, EMI, salary, UPI, utilities. Your books are sorted before you open them." },
-  { icon: <Shield className="h-5 w-5 text-rose-600" />, bg: "bg-rose-50 dark:bg-rose-900/20", title: "Payments via Razorpay", desc: "Pay with UPI, card, net banking, or wallet. All connections use TLS 1.3. No data is shared with third parties." },
-  { icon: <Clock className="h-5 w-5 text-sky-600" />, bg: "bg-sky-50 dark:bg-sky-900/20", title: "Done in under 15 seconds", desc: "A 12-month PDF with 300 transactions is ready to download in about 10 seconds. No waiting, no queue." },
-];
-
-const PRICING = [
-  { label: "First 8 pages", price: "Free", sub: "No card required", highlight: false },
-  { label: "Pay-per-document", price: "₹49", sub: "UPI / Card / NetBanking", highlight: false },
-  { label: "Pro — 200 pages/mo", price: "₹399", sub: "Best for CAs & freelancers", highlight: true },
-  { label: "Business — 500 pages/mo", price: "₹999", sub: "CA firms & fintech teams", highlight: false },
+  "South Indian", "City Union", "Lakshmi Vilas", "IOB", "Andhra Bank",
 ];
 
 const FAQS = [
-  { q: "Which Indian banks are supported?", a: "Over 30 banks work right now: SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara, Union Bank, IndusInd, Yes Bank, IDFC FIRST, Federal Bank, RBL, Bandhan, and several cooperative and payment banks. If your bank is not on the list, email us and we will check." },
-  { q: "Is my financial data safe?", a: "Yes. Your PDF is processed in memory and deleted the moment we send back your data. Nothing is written to disk. Nothing is stored in a database. We follow GDPR and India's IT Act 2000." },
-  { q: "Can I process password-protected PDFs?", a: "Yes. Most Indian bank PDFs are locked with your date of birth or mobile number. Enter the password during upload and we handle the rest. We do not store the password." },
-  { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free, no card needed. That covers most 1-3 month statements. After that, pay Rs. 49 per document or switch to a monthly plan if you convert often." },
-  { q: "How do I import into Tally?", a: "Tally accepts OFX bank feeds. Export as OFX from ConvertStatement, then import into Tally ERP or Tally Prime through the Bank Reconciliation module. Takes about two minutes." },
-  { q: "Can I pay via UPI?", a: "Yes. We accept Google Pay, PhonePe, Paytm, BHIM, all Visa and Mastercard cards, RuPay, net banking, and wallets. Payments go through Razorpay." },
+  { q: "Which Indian banks are supported?", a: "Over 30 banks including SBI, HDFC, ICICI, Axis, Kotak, PNB, Bank of Baroda, Canara, Union Bank, IndusInd, Yes Bank, IDFC First, Federal Bank, RBL, Bandhan, and more. Email us if yours isn't listed." },
+  { q: "Is my financial data safe?", a: "Yes. PDFs are processed in memory and deleted immediately after conversion. Nothing is stored on disk or in a database. We follow GDPR and India's IT Act 2000." },
+  { q: "Can I process password-protected PDFs?", a: "Yes. Enter the password during upload — most Indian banks lock PDFs with your date of birth or mobile number. We never store the password." },
+  { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free — no card needed. That covers most 1-3 month statements. After that, pay ₹49 per document or choose a monthly plan." },
+  { q: "How do I import into Tally?", a: "Export as OFX from ConvertStatement, then import into Tally ERP or Tally Prime via the Bank Reconciliation module. Takes about two minutes." },
+  { q: "Can I pay via UPI?", a: "Yes. We accept UPI (GPay, PhonePe, Paytm, BHIM), all Visa/Mastercard/RuPay cards, net banking, and wallets via Razorpay." },
 ];
 
-function Navbar() {
-  return (
-    <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
-          <div className="hidden sm:block">
-            <span className="font-bold text-slate-800 dark:text-white">ConvertStatement</span>
-            <span className="ml-1.5 rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
-          </div>
-        </Link>
-        <div className="hidden items-center gap-8 md:flex">
-          <Link href="#how-it-works" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">How it works</Link>
-          <Link href="#features" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">Features</Link>
-          <Link href="/pricing" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">Pricing</Link>
-          <Link href="#faq" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">FAQ</Link>
-        </div>
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-gray-100">Sign in</Link>
-          <Link href="/signup" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">
-            Get started free
-          </Link>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-white dark:bg-surface px-6 pb-10 pt-10">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 left-1/2 h-[360px] w-[500px] -translate-x-1/2 rounded-full bg-brand-50 dark:bg-brand-900/20 blur-3xl opacity-50" />
-      </div>
-
-      <div className="mx-auto max-w-5xl">
-        <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:gap-12">
-
-          <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-400">
-              <CheckCircle2 className="h-3 w-3" />
-              8 pages free · No card needed · Pay via UPI
-            </div>
-
-            <h1 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
-              Turn Indian bank PDFs
-              <br />
-              <span className="bg-gradient-to-r from-brand-300 to-brand-400 bg-clip-text text-transparent dark:neon-text-glow">
-                into clean Excel data
-              </span>
-            </h1>
-
-            <p className="mt-3 max-w-lg text-base leading-relaxed text-slate-500 dark:text-gray-400 lg:mx-0 mx-auto">
-              Works with SBI, HDFC, ICICI, Axis, Kotak, and 25+ more.
-              Get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.
-            </p>
-
-            <div className="mt-5 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
-              <Link
-                href="/signup"
-                className="flex items-center gap-2 rounded-lg bg-brand-400 px-5 py-2.5 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all hover:scale-[1.02]"
-              >
-                Start free <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-              <Link
-                href="/pricing"
-                className="flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
-              >
-                <IndianRupee className="h-3.5 w-3.5 text-brand-500" /> See pricing
-              </Link>
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 lg:justify-start">
-              {["30+ Indian banks", "Rs. 49 per document", "Data deleted after conversion"].map((t) => (
-                <span key={t} className="flex items-center gap-1 text-xs text-slate-400 dark:text-gray-500">
-                  <span className="text-emerald-500">✓</span> {t}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="w-full max-w-sm shrink-0 lg:max-w-xs xl:max-w-sm">
-            <div className="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
-              <div className="flex items-center gap-2 border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-3 py-2">
-                <div className="flex gap-1">
-                  <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                </div>
-                <div className="mx-auto flex items-center gap-1.5 rounded border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-2 py-0.5 text-[10px] text-slate-400 dark:text-gray-400">
-                  <Lock className="h-2.5 w-2.5 text-emerald-500" /> convertstatement.online
-                </div>
-              </div>
-              <MockDashboard />
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MockDashboard() {
-  return (
-    <div className="bg-slate-50 dark:bg-surface p-3 space-y-2">
-      <div className="rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-3 py-2">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-semibold text-slate-600 dark:text-gray-300">Free pages</span>
-          <span className="font-bold text-brand-600 dark:text-brand-400">6 / 8 left</span>
-        </div>
-        <div className="mt-1.5 h-1.5 w-full rounded-full bg-slate-100 dark:bg-white/10">
-          <div className="h-1.5 w-1/4 rounded-full bg-brand-500" />
-        </div>
-      </div>
-
-      <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-brand-200 dark:border-brand-700 bg-brand-50 dark:bg-brand-900/20 py-5 gap-1.5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-100 dark:bg-brand-800/50">
-          <FileText className="h-5 w-5 text-brand-600 dark:text-brand-400" />
-        </div>
-        <p className="text-xs font-semibold text-slate-700 dark:text-gray-200">Drop SBI / HDFC / ICICI PDF</p>
-        <div className="flex gap-1.5">
-          {["CSV", "Excel", "OFX"].map((f) => (
-            <span key={f} className="rounded-full border border-brand-200 dark:border-brand-700 bg-white dark:bg-surface px-1.5 py-0.5 text-[10px] font-semibold text-brand-700 dark:text-brand-400">{f}</span>
-          ))}
-        </div>
-      </div>
-
-      <div className="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-3 py-2">
-        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-emerald-50 dark:bg-emerald-900/30">
-          <FileText className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-[11px] font-semibold text-slate-700 dark:text-gray-200">SBI_Nov2024.pdf</p>
-          <p className="text-[10px] text-slate-400 dark:text-gray-500">58 transactions · CSV ready</p>
-        </div>
-        <span className="rounded-full bg-emerald-100 dark:bg-emerald-900/30 px-1.5 py-0.5 text-[10px] font-bold text-emerald-700 dark:text-emerald-400">Free</span>
-      </div>
-    </div>
-  );
-}
-
-function BankLogos() {
-  return (
-    <section className="border-y border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface/50 py-10">
-      <div className="mx-auto max-w-5xl px-6">
-        <p className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-gray-500">Works with statements from</p>
-        <div className="flex flex-wrap items-center justify-center gap-3">
-          {INDIAN_BANKS.map((bank) => (
-            <span key={bank} className="rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-3 py-1 text-xs font-semibold text-slate-600 dark:text-gray-300 shadow-sm">
-              {bank}
-            </span>
-          ))}
-          <span className="rounded-full bg-brand-50 dark:bg-brand-900/30 border border-brand-200 dark:border-brand-700 px-3 py-1 text-xs font-semibold text-brand-600 dark:text-brand-400">+ more</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Stats() {
-  return (
-    <section className="bg-white dark:bg-surface py-14">
-      <div className="mx-auto max-w-4xl px-6">
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {STATS.map(({ value, label }) => (
-            <div key={label} className="text-center">
-              <p className="text-3xl font-extrabold text-brand-600 dark:text-brand-400">{value}</p>
-              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">{label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowItWorks() {
-  return (
-    <section id="how-it-works" className="bg-slate-50 dark:bg-surface/50 px-6 py-24">
-      <div className="mx-auto max-w-5xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">How it works</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Upload, convert, done</h2>
-        <div className="mt-14 grid gap-8 sm:grid-cols-3">
-          {STEPS.map(({ step, icon, title, desc }) => (
-            <div key={step} className="relative text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-400 text-black shadow-glow dark:shadow-brand-900/50">{icon}</div>
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 translate-x-6 rounded-full bg-brand-100 dark:bg-brand-900/50 px-2.5 py-0.5 text-xs font-bold text-brand-600 dark:text-brand-400">{step}</div>
-              <h3 className="mt-5 text-lg font-bold text-slate-800 dark:text-gray-200">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-gray-400">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Features() {
-  return (
-    <section id="features" className="bg-white dark:bg-surface px-6 py-24">
-      <div className="mx-auto max-w-5xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">Features</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">Everything a CA or bookkeeper needs</h2>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
-          {FEATURES.map(({ icon, bg, title, desc }) => (
-            <div key={title} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-6 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow">
-              <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>{icon}</div>
-              <h3 className="mt-4 font-bold text-slate-800 dark:text-gray-200">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-gray-400">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PricingPreview() {
-  return (
-    <section className="bg-slate-50 dark:bg-surface/50 px-6 py-24">
-      <div className="mx-auto max-w-4xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">Pricing</p>
-        <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">Pay only for what you use</h2>
-        <p className="mt-3 text-slate-500 dark:text-gray-400">Start free. Pay Rs. 49 per document after that, or pick a monthly plan if you convert often.</p>
-
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {PRICING.map(({ label, price, sub, highlight }) => (
-            <div key={label} className={`rounded-2xl border p-5 text-left ${highlight ? "border-brand-400 bg-brand-400 text-black" : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface"}`}>
-              <p className={`text-sm font-medium ${highlight ? "text-brand-100" : "text-slate-600 dark:text-gray-300"}`}>{label}</p>
-              <p className={`mt-2 text-3xl font-extrabold ${highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>{price}</p>
-              <p className={`mt-1 text-xs ${highlight ? "text-brand-200" : "text-slate-400 dark:text-gray-500"}`}>{sub}</p>
-            </div>
-          ))}
-        </div>
-
-        <Link href="/pricing" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline">
-          View full pricing <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
-    </section>
-  );
-}
-
-function FAQ() {
-  return (
-    <section id="faq" className="bg-white dark:bg-surface px-6 py-24">
-      <div className="mx-auto max-w-3xl">
-        <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-500 dark:text-brand-400">FAQ</p>
-          <h2 className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">Common questions</h2>
-        </div>
-        <div className="mt-10 space-y-3">
-          {FAQS.map(({ q, a }) => (
-            <details key={q} className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface p-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between font-semibold text-slate-800 dark:text-gray-200">
-                {q}
-                <ChevronDown className="h-4 w-4 shrink-0 text-slate-400 dark:text-gray-500 transition-transform group-open:rotate-180" />
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-gray-400">{a}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CTA() {
-  return (
-    <section className="bg-[#0a0f1e] dark:bg-[#0a0f1e] border-y border-brand-900/50 px-6 py-20 text-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.12)_0%,transparent_70%)] pointer-events-none" />
-      <h2 className="relative text-3xl font-extrabold text-white sm:text-4xl">Stop typing out bank transactions by hand</h2>
-      <p className="relative mt-4 text-lg text-brand-300">CAs and bookkeepers use this to cut hours of data entry down to seconds.</p>
-      <div className="relative mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-        <Link href="/signup" className="flex items-center gap-2 rounded-xl bg-brand-400 px-8 py-3.5 font-bold text-black shadow-glow hover:bg-brand-300 transition-all hover:scale-[1.02]">
-          Get 8 pages free <ArrowRight className="h-4 w-4" />
-        </Link>
-        <span className="text-sm text-brand-400/70">No card needed. Pay via UPI if you need more.</span>
-      </div>
-    </section>
-  );
-}
-
+// ── Schema markup ─────────────────────────────────────────────────────────────
 
 const softwareAppSchema = {
   "@context": "https://schema.org",
@@ -349,52 +39,13 @@ const softwareAppSchema = {
   applicationCategory: "FinanceApplication",
   operatingSystem: "Web",
   url: "https://convertstatement.online",
-  description:
-    "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
+  description: "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
   offers: [
-    {
-      "@type": "Offer",
-      name: "Free tier",
-      price: "0",
-      priceCurrency: "INR",
-      description: "First 8 pages free, no credit card required",
-    },
-    {
-      "@type": "Offer",
-      name: "Pay-per-document",
-      price: "49",
-      priceCurrency: "INR",
-      description: "₹49 per document, all formats, all Indian banks",
-    },
-    {
-      "@type": "Offer",
-      name: "Pro plan",
-      price: "399",
-      priceCurrency: "INR",
-      description: "₹399/month — 200 pages, Google Sheets, priority processing",
-    },
-    {
-      "@type": "Offer",
-      name: "Business plan",
-      price: "999",
-      priceCurrency: "INR",
-      description: "₹999/month — 500 pages for CA firms and fintech teams",
-    },
+    { "@type": "Offer", name: "Free tier", price: "0", priceCurrency: "INR", description: "First 8 pages free" },
+    { "@type": "Offer", name: "Pay-per-document", price: "49", priceCurrency: "INR" },
+    { "@type": "Offer", name: "Pro", price: "299", priceCurrency: "INR" },
+    { "@type": "Offer", name: "Business", price: "999", priceCurrency: "INR" },
   ],
-  featureList: [
-    "30+ Indian banks supported",
-    "CSV, Excel, OFX, QFX, Google Sheets export",
-    "Password-protected PDF support",
-    "Auto-categorisation of transactions",
-    "Under 15 seconds processing time",
-    "Data deleted after conversion — never stored",
-  ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.8",
-    reviewCount: "120",
-    bestRating: "5",
-  },
 };
 
 const faqSchema = {
@@ -407,61 +58,444 @@ const faqSchema = {
   })),
 };
 
-const howToSchema = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "How to convert an Indian bank statement PDF to Excel or CSV",
-  description:
-    "Convert any Indian bank PDF (SBI, HDFC, ICICI, Axis, Kotak and more) to CSV, Excel, or OFX in under 15 seconds using ConvertStatement.",
-  totalTime: "PT15S",
-  tool: [{ "@type": "HowToTool", name: "ConvertStatement", url: "https://convertstatement.online" }],
-  step: [
-    {
-      "@type": "HowToStep",
-      position: 1,
-      name: "Upload your PDF",
-      text: "Drag and drop your bank statement PDF. Works with SBI, HDFC, ICICI, Axis, Kotak, and 25+ more Indian banks. Any year, any account type, including password-protected and scanned PDFs.",
-    },
-    {
-      "@type": "HowToStep",
-      position: 2,
-      name: "Automatic extraction",
-      text: "Dates, descriptions, amounts, and balances are extracted automatically. Transactions are categorised as groceries, fuel, EMI, salary, UPI, utilities, and more.",
-    },
-    {
-      "@type": "HowToStep",
-      position: 3,
-      name: "Download your data",
-      text: "Download as CSV, Excel (.xlsx), OFX for Tally or QuickBooks, QFX for Quicken, or push straight to Google Sheets.",
-    },
-  ],
-};
+// ── Sections ──────────────────────────────────────────────────────────────────
 
-export default function LandingPage() {
+function Navbar() {
   return (
-    <div className="min-h-screen bg-white dark:bg-surface">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <Navbar />
-      <Hero />
-      <BankLogos />
-      <Stats />
-      <HowItWorks />
-      <Features />
-      <PricingPreview />
-      <FAQ />
-      <CTA />
-      <Footer />
+    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-100">
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5">
+          <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
+          <span className="font-bold text-slate-900 font-display text-[17px]">ConvertStatement</span>
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-500">
+          <Link href="#features"    className="hover:text-slate-900 transition-colors">Features</Link>
+          <Link href="#pricing"     className="hover:text-slate-900 transition-colors">Pricing</Link>
+          <Link href="#banks"       className="hover:text-slate-900 transition-colors">Banks</Link>
+          <Link href="/blog"        className="hover:text-slate-900 transition-colors">Blog</Link>
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <Link href="/login"  className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Sign in</Link>
+          <Link href="/signup" className="text-sm font-semibold text-white bg-navy px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">
+            Get started
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function ConverterMockup() {
+  return (
+    <div className="relative w-full max-w-[380px] mx-auto lg:mx-0">
+      {/* Floating: processing complete */}
+      <div className="absolute -top-4 -right-3 z-10 flex items-center gap-1.5 px-3 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold shadow-sm whitespace-nowrap">
+        <CheckCircle2 size={12} />
+        Processing complete
+      </div>
+
+      {/* Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
+        {/* Browser chrome */}
+        <div className="bg-slate-50 border-b border-slate-100 px-4 py-3 flex items-center gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+          <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+          <span className="text-[11px] text-slate-400 ml-2 font-medium">convertstatement.online/convert</span>
+        </div>
+
+        {/* Body */}
+        <div className="p-5 space-y-4">
+          {/* File */}
+          <div>
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Statement PDF</p>
+            <div className="flex items-center gap-3 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg">
+              <FileSpreadsheet size={17} className="text-red-500 shrink-0" />
+              <span className="text-sm font-medium text-slate-700 truncate flex-1">HDFC_Statement_Jan2025.pdf</span>
+              <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
+            </div>
+          </div>
+
+          {/* Divider arrow */}
+          <div className="flex items-center justify-center">
+            <div className="flex flex-col items-center gap-0.5">
+              <div className="w-px h-4 bg-slate-200" />
+              <Download size={14} className="text-slate-400" />
+            </div>
+          </div>
+
+          {/* Format picker */}
+          <div>
+            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Output format</p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Excel", "CSV", "OFX", "Sheets"].map((f, i) => (
+                <span key={f} className={`px-2.5 py-1 text-xs font-semibold rounded-md ${i === 0 ? "bg-navy text-white" : "bg-slate-100 text-slate-500"}`}>
+                  {f}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <button className="w-full py-2.5 rounded-lg text-sm font-semibold text-white bg-navy flex items-center justify-center gap-2">
+            <Download size={14} />
+            Convert &amp; Download
+          </button>
+        </div>
+      </div>
+
+      {/* Floating: price */}
+      <div className="absolute -bottom-4 -left-3 z-10 flex items-center gap-1.5 px-3 py-2 rounded-full bg-navy text-white text-xs font-semibold shadow-lg whitespace-nowrap">
+        <CreditCard size={12} />
+        ₹49 per document
+      </div>
     </div>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="pt-28 pb-24 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 xl:gap-20 items-center">
+
+          {/* Left */}
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-5 border border-navy/20 bg-navy/5 text-navy">
+              <CheckCircle2 size={13} />
+              30+ Indian banks supported
+            </div>
+
+            <h1 className="font-display text-[2.75rem] leading-[1.07] font-bold tracking-tight text-slate-900 mb-5">
+              Bank statements,<br />
+              spreadsheet-ready<br />
+              in 15 seconds
+            </h1>
+
+            <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-md">
+              Upload any Indian bank PDF — SBI, HDFC, ICICI, and 30 more. Get clean Excel, CSV, OFX, or Google Sheets without manual typing.
+            </p>
+
+            <div className="flex flex-wrap gap-3 mb-8">
+              <Link href="/signup" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-white bg-navy hover:opacity-90 transition-opacity">
+                Convert free — 8 pages
+                <ArrowRight size={15} />
+              </Link>
+              <Link href="#how-it-works" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-700 border border-slate-200 hover:border-slate-300 bg-white transition-colors">
+                See how it works
+              </Link>
+            </div>
+
+            <div>
+              <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-2.5">Converts to</p>
+              <FormatPills />
+            </div>
+          </div>
+
+          {/* Right — mockup */}
+          <div className="flex justify-center lg:justify-end">
+            <ConverterMockup />
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Stats() {
+  const items = [
+    { value: "8 pages",  label: "free every month",       sub: "No credit card required" },
+    { value: "15s",      label: "average conversion",      sub: "Usually faster" },
+    { value: "30+",      label: "banks supported",          sub: "SBI, HDFC, ICICI & more" },
+    { value: "₹49",     label: "per document",             sub: "Pay only when you need" },
+  ];
+  return (
+    <div className="border-y border-slate-100">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-slate-100">
+          {items.map(({ value, label, sub }) => (
+            <div key={value} className="py-10 px-6 first:pl-0 last:pr-0">
+              <div className="font-display text-3xl font-bold tracking-tight text-slate-900 mb-1">{value}</div>
+              <div className="text-sm font-semibold text-slate-700">{label}</div>
+              <div className="text-xs text-slate-400 mt-0.5">{sub}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BankChips() {
+  return (
+    <section id="banks" className="py-16 bg-slate-50/60">
+      <div className="max-w-6xl mx-auto px-6">
+        <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-widest text-center mb-6">
+          Works with every major Indian bank
+        </p>
+        <div className="flex flex-wrap gap-2 justify-center">
+          {BANKS.map(b => (
+            <span key={b} className="px-3 py-1.5 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full shadow-sm">
+              {b}
+            </span>
+          ))}
+          <span className="px-3 py-1.5 text-sm font-medium text-navy bg-navy/5 border border-navy/20 rounded-full">
+            + more
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  const steps = [
+    {
+      n: "01",
+      icon: <Upload size={19} />,
+      title: "Upload your PDF",
+      body: "Drag & drop or click to select. Works with every major Indian bank, including password-protected files.",
+    },
+    {
+      n: "02",
+      icon: <FileCheck size={19} />,
+      title: "Choose your format",
+      body: "Pick Excel, CSV, OFX for Tally, QFX for QuickBooks, or Google Sheets. Each format is optimized for its target.",
+    },
+    {
+      n: "03",
+      icon: <Download size={19} />,
+      title: "Download & use",
+      body: "Your file is ready in under 15 seconds. Clean columns, correct dates, all transactions captured accurately.",
+    },
+  ];
+  return (
+    <section id="how-it-works" className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <h2 className="font-display text-3xl font-bold text-slate-900 mb-3">Three steps. Done.</h2>
+          <p className="text-slate-500 max-w-md mx-auto">No account needed for your first 8 pages. Just upload and download.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 border border-slate-200 rounded-2xl overflow-hidden divide-y md:divide-y-0 md:divide-x divide-slate-200">
+          {steps.map(({ n, title, body, icon }) => (
+            <div key={n} className="p-8 bg-white">
+              <div className="flex items-start gap-3 mb-5">
+                <span className="font-display text-5xl font-black text-slate-100 leading-none select-none">{n}</span>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-navy/10 text-navy shrink-0 mt-1">
+                  {icon}
+                </div>
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-2">{title}</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Features() {
+  const features = [
+    { icon: <Zap size={19} />,         title: "Lightning fast",        body: "Multi-page PDFs processed in under 15 seconds. No queuing, no waiting room." },
+    { icon: <Shield size={19} />,      title: "Private by design",     body: "Files are processed in memory and never stored. Your financial data stays yours." },
+    { icon: <FileCheck size={19} />,   title: "High accuracy",         body: "Amounts, dates, and references pulled precisely from structured bank PDFs." },
+    { icon: <Globe size={19} />,       title: "30+ banks covered",     body: "Public sector, private, cooperative, and small finance banks all supported." },
+    { icon: <CreditCard size={19} />,  title: "Simple pricing",        body: "First 8 pages free. Then ₹49 per document — no subscription traps." },
+    { icon: <Clock size={19} />,       title: "5 export formats",      body: "Excel, CSV, OFX for Tally, QFX for QuickBooks, and Google Sheets in one tool." },
+    { icon: <Lock size={19} />,        title: "Password-protected",    body: "Enter your PDF password at upload — most Indian bank PDFs are DOB-locked." },
+    { icon: <Upload size={19} />,      title: "Any account type",      body: "Savings, current, salary, NRE/NRO — any statement format from any year." },
+    { icon: <Download size={19} />,    title: "Instant download",      body: "No email delivery, no waiting. Click Convert and your file downloads immediately." },
+  ];
+  return (
+    <section id="features" className="py-24 bg-slate-50/60">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <h2 className="font-display text-3xl font-bold text-slate-900 mb-3">Built for accountants and finance teams</h2>
+          <p className="text-slate-500 max-w-lg mx-auto">Everything you need to convert bank statements — nothing you don&apos;t.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {features.map(({ icon, title, body }) => (
+            <div key={title} className="bg-white border border-slate-200 rounded-xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg cursor-default">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 bg-navy/10 text-navy">
+                {icon}
+              </div>
+              <h3 className="font-semibold text-slate-900 mb-1.5">{title}</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  const tiers = [
+    {
+      name: "Free",
+      price: "₹0",
+      period: "",
+      desc: "Perfect for occasional use",
+      features: ["8 pages / month", "All output formats", "All supported banks", "No account required"],
+      cta: "Start free",
+      href: "/convert",
+      featured: false,
+    },
+    {
+      name: "Pay-as-you-go",
+      price: "₹49",
+      period: "/ document",
+      desc: "For when you need more",
+      features: ["Unlimited pages per doc", "All output formats", "All supported banks", "No subscription"],
+      cta: "Convert now",
+      href: "/convert",
+      featured: false,
+    },
+    {
+      name: "Pro",
+      price: "₹299",
+      period: "/ month",
+      desc: "For regular use",
+      badge: "Most popular",
+      features: ["500 pages / month", "All output formats", "Priority processing", "Email support"],
+      cta: "Start Pro",
+      href: "/signup",
+      featured: true,
+    },
+    {
+      name: "Business",
+      price: "₹999",
+      period: "/ month",
+      desc: "For teams and CA firms",
+      features: ["2000 pages / month", "All output formats", "API access", "Priority support"],
+      cta: "Start Business",
+      href: "/signup",
+      featured: false,
+    },
+  ];
+
+  return (
+    <section id="pricing" className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-14">
+          <h2 className="font-display text-3xl font-bold text-slate-900 mb-3">Simple, transparent pricing</h2>
+          <p className="text-slate-500">Start free. Only pay when you need more.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {tiers.map(({ name, price, period, desc, features, cta, href, featured, badge }) => (
+            <div
+              key={name}
+              className={`relative rounded-2xl p-6 flex flex-col ${
+                featured
+                  ? "border-2 border-navy shadow-lg bg-navy/[0.03]"
+                  : "border border-slate-200 bg-white"
+              }`}
+            >
+              {badge && (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 text-[11px] font-bold text-white bg-navy rounded-full whitespace-nowrap">
+                  {badge}
+                </span>
+              )}
+              <div className="mb-5">
+                <h3 className="font-semibold text-slate-900 mb-1">{name}</h3>
+                <div className="flex items-baseline gap-1 mb-1">
+                  <span className="font-display text-2xl font-bold text-slate-900">{price}</span>
+                  <span className="text-sm text-slate-500">{period}</span>
+                </div>
+                <p className="text-xs text-slate-500">{desc}</p>
+              </div>
+              <ul className="space-y-2 mb-6 flex-1">
+                {features.map(f => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-slate-600">
+                    <CheckCircle2 size={13} className="shrink-0 text-navy" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={href}
+                className={`w-full py-2.5 rounded-lg text-sm font-semibold text-center transition-opacity hover:opacity-90 ${
+                  featured
+                    ? "bg-navy text-white"
+                    : "border border-slate-200 text-slate-700 bg-white hover:border-slate-300"
+                }`}
+              >
+                {cta}
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQ() {
+  return (
+    <section className="py-24 bg-slate-50/60">
+      <div className="max-w-2xl mx-auto px-6">
+        <h2 className="font-display text-3xl font-bold text-slate-900 mb-10 text-center">Frequently asked questions</h2>
+        <div className="space-y-2">
+          {FAQS.map(({ q, a }) => (
+            <details key={q} className="group bg-white border border-slate-200 rounded-xl overflow-hidden">
+              <summary className="flex items-center justify-between px-5 py-4 cursor-pointer list-none text-sm font-medium text-slate-900 gap-4">
+                <span>{q}</span>
+                <svg className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-180 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="px-5 pb-5 pt-3 text-sm text-slate-500 leading-relaxed border-t border-slate-100">{a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CTA() {
+  return (
+    <section className="py-24 bg-[#0a0f1e]">
+      <div className="max-w-3xl mx-auto px-6 text-center">
+        <h2 className="font-display text-3xl font-bold text-white mb-4">
+          Stop typing transactions manually
+        </h2>
+        <p className="text-slate-400 mb-8 max-w-lg mx-auto leading-relaxed">
+          Join thousands of accountants and finance professionals who convert bank statements in seconds, not hours.
+        </p>
+        <Link href="/signup" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg text-sm font-semibold text-[#0a0f1e] bg-white hover:bg-slate-100 transition-colors">
+          Convert free — 8 pages
+          <ArrowRight size={15} />
+        </Link>
+        <p className="mt-4 text-sm text-slate-500">No credit card required · Pay via UPI if you need more</p>
+      </div>
+    </section>
+  );
+}
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+
+export default function HomePage() {
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <Navbar />
+      <main>
+        <Hero />
+        <Stats />
+        <BankChips />
+        <HowItWorks />
+        <Features />
+        <Pricing />
+        <FAQ />
+        <CTA />
+      </main>
+      <Footer />
+    </>
   );
 }
