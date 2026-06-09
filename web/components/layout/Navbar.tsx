@@ -1,7 +1,4 @@
-"use client";
-
 import Link from "next/link";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function Navbar() {
   return (
@@ -22,8 +19,7 @@ export function Navbar() {
           <Link href="/#faq" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">FAQ</Link>
         </div>
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-gray-100">Sign in</Link>
+          <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">Sign in</Link>
           <Link href="/signup" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">
             Get started free
           </Link>
