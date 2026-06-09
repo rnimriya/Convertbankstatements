@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  ArrowRight, CheckCircle2, FileSpreadsheet, Zap, Lock, Globe,
+  ArrowRight, CheckCircle2, Zap, Lock, Globe,
   Download, Upload, Shield, Clock, CreditCard, FileCheck,
 } from "lucide-react";
 import FormatPills from "@/components/FormatPills";
+import ConverterMockup from "@/components/ConverterMockup";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
@@ -84,74 +85,6 @@ function Navbar() {
         </div>
       </div>
     </header>
-  );
-}
-
-function ConverterMockup() {
-  return (
-    <div className="relative w-full max-w-[380px] mx-auto lg:mx-0">
-      {/* Floating: processing complete */}
-      <div className="absolute -top-4 -right-3 z-10 flex items-center gap-1.5 px-3 py-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold shadow-sm whitespace-nowrap">
-        <CheckCircle2 size={12} />
-        Processing complete
-      </div>
-
-      {/* Card */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
-        {/* Browser chrome */}
-        <div className="bg-slate-50 border-b border-slate-100 px-4 py-3 flex items-center gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-          <div className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-          <span className="text-[11px] text-slate-400 ml-2 font-medium">convertstatement.online/convert</span>
-        </div>
-
-        {/* Body */}
-        <div className="p-5 space-y-4">
-          {/* File */}
-          <div>
-            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Statement PDF</p>
-            <div className="flex items-center gap-3 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg">
-              <FileSpreadsheet size={17} className="text-red-500 shrink-0" />
-              <span className="text-sm font-medium text-slate-700 truncate flex-1">HDFC_Statement_Jan2025.pdf</span>
-              <CheckCircle2 size={14} className="text-emerald-500 shrink-0" />
-            </div>
-          </div>
-
-          {/* Divider arrow */}
-          <div className="flex items-center justify-center">
-            <div className="flex flex-col items-center gap-0.5">
-              <div className="w-px h-4 bg-slate-200" />
-              <Download size={14} className="text-slate-400" />
-            </div>
-          </div>
-
-          {/* Format picker */}
-          <div>
-            <p className="text-[11px] font-semibold text-slate-400 uppercase tracking-wide mb-1.5">Output format</p>
-            <div className="flex flex-wrap gap-1.5">
-              {["Excel", "CSV", "OFX", "Sheets"].map((f, i) => (
-                <span key={f} className={`px-2.5 py-1 text-xs font-semibold rounded-md ${i === 0 ? "bg-navy text-white" : "bg-slate-100 text-slate-500"}`}>
-                  {f}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* CTA */}
-          <button className="w-full py-2.5 rounded-lg text-sm font-semibold text-white bg-navy flex items-center justify-center gap-2">
-            <Download size={14} />
-            Convert &amp; Download
-          </button>
-        </div>
-      </div>
-
-      {/* Floating: price */}
-      <div className="absolute -bottom-4 -left-3 z-10 flex items-center gap-1.5 px-3 py-2 rounded-full bg-navy text-white text-xs font-semibold shadow-lg whitespace-nowrap">
-        <CreditCard size={12} />
-        ₹49 per document
-      </div>
-    </div>
   );
 }
 

@@ -20,3 +20,46 @@
   from { width: 0%; }
   to   { width: 100%; }
 }
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-8px) rotate(0.3deg); }
+  66%       { transform: translateY(-4px) rotate(-0.2deg); }
+}
+
+@keyframes shimmerSlide {
+  0%   { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@keyframes progressShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes badgeIn {
+  0%   { opacity: 0; transform: translateY(8px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(26, 71, 200, 0.25); }
+  70%  { box-shadow: 0 0 0 14px rgba(26, 71, 200, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(26, 71, 200, 0); }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: floatCard 5s ease-in-out infinite;
+  }
+  .animate-badge-in {
+    animation: badgeIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  .animate-shimmer-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    animation: shimmerSlide 2.2s ease-in-out infinite;
+  }
+}
