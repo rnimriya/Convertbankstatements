@@ -90,27 +90,6 @@ export function AuthForm({ mode }: { mode: Mode }) {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
 
-      {/* Top bar */}
-      <header className="w-full border-b border-slate-100 bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 h-16">
-          <Link href="/" className="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-            <span className="font-bold text-slate-900 font-display text-[17px]">Convert Statement</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline text-sm text-slate-400">
-              {mode === "login" ? "No account?" : "Have an account?"}
-            </span>
-            <Link
-              href={mode === "login" ? "/signup" : "/login"}
-              className="rounded-lg border border-slate-200 bg-white px-4 py-1.5 text-sm font-semibold text-slate-700 hover:border-slate-300 transition-colors"
-            >
-              {mode === "login" ? "Sign up free" : "Sign in"}
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Centered form */}
       <div className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
