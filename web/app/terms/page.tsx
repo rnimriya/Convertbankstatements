@@ -306,7 +306,7 @@ export default function TermsPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-brand-200 dark:border-brand-800 bg-brand-50 p-5 text-sm text-navy ">
+ <div className="mt-12 rounded-2xl border border-navy/20 bg-navy/5 p-5 text-sm text-navy">
  <p className="font-semibold">Questions about these Terms?</p>
  <p className="mt-1 text-navy ">
  Email us at{" "}
