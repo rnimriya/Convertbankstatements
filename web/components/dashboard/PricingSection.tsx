@@ -30,22 +30,22 @@ const PLANS = [
   {
     id: "PRO" as SubTier,
     name: "Pro",
-    price: "₹399",
+    price: "₹1,198",
     period: "/ month",
     highlight: true,
-    features: ["200 pages / month", "All export formats", "Google Sheets", "Priority processing"],
+    features: ["500 pages / month", "All export formats", "Google Sheets", "Priority processing"],
     plan: "pro" as const,
-    amountINR: 399,
+    amountINR: 1198,
   },
   {
     id: "BUSINESS" as SubTier,
     name: "Business",
-    price: "₹999",
+    price: "₹4,498",
     period: "/ month",
     highlight: false,
-    features: ["500 pages / month", "All export formats", "API access", "5 team seats"],
+    features: ["2,000 pages / month", "All export formats", "API access", "5 team seats"],
     plan: "business" as const,
-    amountINR: 999,
+    amountINR: 4498,
   },
 ];
 
