@@ -51,22 +51,22 @@ const SOCIAL = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-100 bg-white">
+    <footer className="border-t border-slate-100 dark:border-white/10 bg-white dark:bg-surface">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="flex items-center gap-2.5">
               <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-              <span className="font-bold text-slate-800 font-display">Convert Statement</span>
+              <span className="font-bold text-slate-800 dark:text-white font-display">Convert Statement</span>
             </Link>
-            <p className="mt-3 text-xs leading-relaxed text-slate-400">
+            <p className="mt-3 text-xs leading-relaxed text-slate-400 dark:text-gray-500">
               Convert Indian bank statement PDFs to clean CSV, Excel and OFX data. Your financial
               documents are never stored on our servers.
             </p>
-            <p className="mt-2 text-xs text-slate-400">
+            <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">
               Payments secured by{" "}
-              <span className="font-semibold text-slate-500">Razorpay</span> · UPI / Cards / NetBanking
+              <span className="font-semibold text-slate-500 dark:text-gray-400">Razorpay</span> · UPI / Cards / NetBanking
             </p>
 
             {/* Social links */}
@@ -78,7 +78,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-400 hover:border-navy/40 hover:text-navy transition-colors"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 dark:border-white/10 text-slate-400 dark:text-gray-500 hover:border-navy/40 hover:text-navy dark:hover:border-brand-400/40 dark:hover:text-brand-400 transition-colors"
                 >
                   {icon}
                 </a>
@@ -90,12 +90,12 @@ export function Footer() {
           <div className="flex gap-10 text-sm sm:gap-14">
             {NAV.map(({ heading, links }) => (
               <div key={heading} className="space-y-2">
-                <p className="font-semibold text-slate-700">{heading}</p>
+                <p className="font-semibold text-slate-700 dark:text-gray-200">{heading}</p>
                 {links.map(({ label, href }) => (
                   <p key={label}>
                     <Link
                       href={href}
-                      className="text-slate-500 hover:text-slate-800 transition-colors"
+                      className="text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-white transition-colors"
                     >
                       {label}
                     </Link>
@@ -106,7 +106,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-100 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400">
+        <div className="mt-8 border-t border-slate-100 dark:border-white/10 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-600">
           <p>© {new Date().getFullYear()} Convert Statement. All rights reserved.</p>
           <p>All prices in INR · GST applicable · Data never stored</p>
         </div>

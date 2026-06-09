@@ -58,7 +58,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
   const initial = displayName[0]?.toUpperCase();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-surface">
       {/* Demo banner */}
       {isDemo && (
         <Alert variant="warning" className="rounded-none border-x-0 border-t-0 py-2 text-center text-sm">
@@ -69,20 +69,20 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       )}
 
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white sticky top-0 z-40">
+      <header className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-surface sticky top-0 z-40">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2.5 group">
             <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-            <span className="hidden sm:inline font-bold text-slate-800 font-display text-[16px]">Convert Statement</span>
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white font-display text-[16px]">Convert Statement</span>
           </a>
 
           <div className="flex items-center gap-3">
             {/* User avatar + name */}
-            <div className="hidden sm:flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full pl-1 pr-3 py-1">
+            <div className="hidden sm:flex items-center gap-2 bg-slate-50 dark:bg-surface border border-slate-200 dark:border-white/10 rounded-full pl-1 pr-3 py-1">
               <div className="h-6 w-6 rounded-full bg-navy flex items-center justify-center text-[11px] font-bold text-white">
                 {initial}
               </div>
-              <span className="text-sm text-slate-600 font-medium">{displayName}</span>
+              <span className="text-sm text-slate-600 dark:text-gray-300 font-medium">{displayName}</span>
             </div>
             <Button
               variant="secondary"
@@ -97,7 +97,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       </header>
 
       {/* Tab bar */}
-      <div className="border-b border-slate-200 bg-white">
+      <div className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-surface">
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex">
             {tabs.map((t) => (
@@ -106,8 +106,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
                 onClick={() => setTab(t.id)}
                 className={`flex items-center gap-2 border-b-2 px-5 py-3.5 text-sm font-medium transition-colors ${
                   tab === t.id
-                    ? "border-navy text-navy"
-                    : "border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-200"
+                    ? "border-navy text-navy dark:border-brand-400 dark:text-brand-400"
+                    : "border-transparent text-slate-500 dark:text-gray-400 hover:text-slate-800 dark:hover:text-gray-200 hover:border-slate-200 dark:hover:border-white/20"
                 }`}
               >
                 {t.icon}
@@ -125,22 +125,22 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
           <div className="mx-auto max-w-xl">
             {/* Page heading */}
             <div className="mb-6 text-center">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-3 border border-navy/20 bg-navy/5 text-navy">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full mb-3 border border-navy/20 dark:border-brand-400/20 bg-navy/5 dark:bg-brand-400/5 text-navy dark:text-brand-400">
                 <FileText size={12} />
                 PDF → Excel / CSV / OFX
               </div>
-              <h1 className="font-display text-2xl font-bold text-slate-900">Convert Bank Statement</h1>
-              <p className="mt-1.5 text-sm text-slate-400">
+              <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Convert Bank Statement</h1>
+              <p className="mt-1.5 text-sm text-slate-400 dark:text-gray-500">
                 Upload any Indian bank PDF — your file is never stored on our servers.
               </p>
             </div>
             {/* Single / Bulk toggle */}
-            <div className="flex items-center gap-1 bg-slate-100 rounded-xl p-1 mb-4">
+            <div className="flex items-center gap-1 bg-slate-100 dark:bg-surface rounded-xl p-1 mb-4">
               {(["single", "bulk"] as const).map(m => (
                 <button
                   key={m}
                   onClick={() => setUploadMode(m)}
-                  className={`flex-1 py-1.5 rounded-lg text-sm font-semibold transition-all ${uploadMode === m ? "bg-white text-navy shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                  className={`flex-1 py-1.5 rounded-lg text-sm font-semibold transition-all ${uploadMode === m ? "bg-white dark:bg-surface-raised text-navy dark:text-brand-400 shadow-sm" : "text-slate-500 dark:text-gray-400 hover:text-slate-700 dark:hover:text-gray-200"}`}
                 >
                   {m === "single" ? "Single file" : "Bulk upload"}
                 </button>
@@ -157,8 +157,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "history" && (
           <div>
             <div className="mb-6">
-              <h1 className="font-display text-2xl font-bold text-slate-900">Processing history</h1>
-              <p className="mt-1 text-sm text-slate-500">Your last 20 converted documents.</p>
+              <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Processing history</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">Your last 20 converted documents.</p>
             </div>
             <UsageHistory logs={recentLogs} isDemo={isDemo} />
           </div>
@@ -167,9 +167,9 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "billing" && (
           <div>
             <div className="mb-6">
-              <h1 className="font-display text-2xl font-bold text-slate-900">Plans &amp; Billing</h1>
-              <p className="mt-1 text-sm text-slate-500">
-                You&apos;re on the <span className="font-semibold text-navy">{billing.tier}</span> plan.
+              <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Plans &amp; Billing</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
+                You&apos;re on the <span className="font-semibold text-navy dark:text-brand-400">{billing.tier}</span> plan.
               </p>
             </div>
             <PricingSection currentTier={billing.tier} />
@@ -179,8 +179,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         {tab === "portals" && (
           <div>
             <div className="mb-6">
-              <h1 className="font-display text-2xl font-bold text-slate-900">Client Upload Portals</h1>
-              <p className="mt-1 text-sm text-slate-500">
+              <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">Client Upload Portals</h1>
+              <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
                 Generate a secure link to share with clients. Uploads via the link bill your account automatically.
               </p>
             </div>

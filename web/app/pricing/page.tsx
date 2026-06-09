@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { IndianRupee, ArrowRight } from "lucide-react";
+import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { PricingCards } from "@/components/PricingCards";
 
 export const metadata = {
@@ -96,19 +96,7 @@ export default function PricingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
       />
-      <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">Convert Statement</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            <ThemeToggle />
-            <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white">Sign in</Link>
-            <Link href="/signup" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">Get started free</Link>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">

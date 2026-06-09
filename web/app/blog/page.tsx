@@ -22,9 +22,9 @@ export default async function BlogPage({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+      <main className="min-h-screen bg-white dark:bg-surface">
         {/* Hero */}
-        <section className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-[#0d0d0d] py-14 px-6 text-center">
+        <section className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface py-14 px-6 text-center">
           <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white">
             Convert Statement Blog
           </h1>
@@ -43,7 +43,7 @@ export default async function BlogPage({
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="group flex flex-col rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#111] overflow-hidden hover:shadow-lg dark:hover:shadow-brand-500/10 transition-shadow"
+                  className="group flex flex-col rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface overflow-hidden hover:shadow-lg dark:hover:shadow-white/5 transition-shadow"
                 >
                   <Link href={`/blog/${post.slug}`} className="block overflow-hidden">
                     <img

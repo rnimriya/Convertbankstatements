@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FileText, Shield } from "lucide-react";
+import { Shield } from "lucide-react";
+import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata = {
@@ -161,36 +162,22 @@ We are committed to resolving complaints about our collection or use of your per
 
 export default function PrivacyPage() {
  return (
- <div className="min-h-screen bg-white">
- {/* Navbar */}
- <nav className="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur-md">
- <div className="mx-auto flex max-w-5xl items-center justify-between px-6 h-16">
- <Link href="/" className="flex items-center gap-2.5">
- <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
- <span className="hidden sm:inline font-bold text-slate-900 font-display text-[17px]">Convert Statement</span>
- </Link>
- <div className="flex items-center gap-3">
- <Link href="/login" className="text-sm text-slate-500 hover:text-slate-900 transition-colors">Sign in</Link>
- <Link href="/signup" className="rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition-opacity">
- Get started free
- </Link>
- </div>
- </div>
- </nav>
+ <div className="min-h-screen bg-white dark:bg-surface">
+ <Navbar />
 
  {/* Header */}
- <div className="border-b border-slate-100 bg-slate-50 px-6 py-10">
+ <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-6 py-10">
  <div className="mx-auto max-w-3xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/10">
- <Shield className="h-5 w-5 text-navy" />
+ <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/10 dark:bg-brand-400/10">
+ <Shield className="h-5 w-5 text-navy dark:text-brand-400" />
  </div>
  <div>
- <h1 className="text-2xl font-extrabold text-slate-900 ">Privacy Policy</h1>
- <p className="text-xs text-slate-400 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+ <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Privacy Policy</h1>
+ <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
- <p className="mt-4 text-sm leading-relaxed text-slate-500">
+ <p className="mt-4 text-sm leading-relaxed text-slate-500 dark:text-gray-400">
  We built Convert Statement with privacy at its core. Your financial documents are never stored on our servers — they are processed in memory and deleted the moment your converted data is ready. This policy explains exactly what we do (and don&apos;t do) with your data.
  </p>
  </div>
@@ -199,14 +186,14 @@ export default function PrivacyPage() {
  {/* Content */}
  <div className="mx-auto max-w-3xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-2xl border border-slate-200 bg-slate-50 bg-slate-50 p-5">
- <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 ">Contents</p>
+ <div className="mb-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface p-5">
+ <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-gray-500">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy hover:underline underline-offset-2"
+ className="text-sm text-navy dark:text-brand-400 hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -218,12 +205,12 @@ export default function PrivacyPage() {
  <div className="space-y-10">
  {SECTIONS.map(({ id, title, content }) => (
  <section key={id} id={id} className="scroll-mt-20">
- <h2 className="mb-3 text-lg font-bold text-slate-900 ">{title}</h2>
+ <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">{title}</h2>
  <div className="space-y-3">
  {content.split("\n\n").map((para, i) => {
  if (para.startsWith("**") && para.split("\n").length === 1) {
  return (
- <p key={i} className="text-sm font-semibold text-slate-800 ">
+ <p key={i} className="text-sm font-semibold text-slate-800 dark:text-gray-200">
  {para.replace(/\*\*/g, "")}
  </p>
  );
@@ -231,10 +218,10 @@ export default function PrivacyPage() {
  // Render bold inline text
  const parts = para.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={i} className="text-sm leading-relaxed text-slate-600 ">
+ <p key={i} className="text-sm leading-relaxed text-slate-600 dark:text-gray-400">
  {parts.map((part, j) =>
  part.startsWith("**") ? (
- <strong key={j} className="font-semibold text-slate-800 ">
+ <strong key={j} className="font-semibold text-slate-800 dark:text-gray-200">
  {part.replace(/\*\*/g, "")}
  </strong>
  ) : (
@@ -250,16 +237,16 @@ export default function PrivacyPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-800">
+ <div className="mt-12 rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-900/20 p-5 text-sm text-emerald-800 dark:text-emerald-300">
  <p className="font-semibold">Our core commitment</p>
  <p className="mt-1">
  Your PDF bank statements are processed in memory and deleted immediately after conversion. We will never sell your data, use it for advertising, or share it with third parties beyond what is needed to run the service.
  </p>
  </div>
 
- <div className="mt-8 text-center text-xs text-slate-400 ">
+ <div className="mt-8 text-center text-xs text-slate-400 dark:text-gray-500">
  Questions?{" "}
- <a href="mailto:privacy@convertstatement.online" className="text-navy hover:underline">
+ <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-brand-400 hover:underline">
  privacy@convertstatement.online
  </a>
  </div>
