@@ -95,6 +95,12 @@ function Hero() {
     { i: "A", bg: "bg-navy"       },
     { i: "K", bg: "bg-rose-500"   },
   ];
+  const BULLETS = [
+    "30+ Indian banks — SBI, HDFC, ICICI & more",
+    "Excel, CSV, OFX for Tally, Google Sheets",
+    "Files never stored — private by design",
+    "First 8 pages free · No card required",
+  ];
   return (
     <section className="relative pt-28 pb-20 bg-white overflow-hidden">
       {/* Subtle dot-grid background */}
@@ -108,72 +114,89 @@ function Hero() {
         }}
       />
 
-      <div className="relative max-w-4xl mx-auto px-6 text-center">
-        {/* Live badge */}
-        <div className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 border border-emerald-200 bg-emerald-50 text-emerald-700">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-          </span>
-          30+ Indian banks · Instant results
-        </div>
+      <div className="relative max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
 
-        {/* Headline */}
-        <h1 className="font-display text-[2.85rem] sm:text-[3.5rem] leading-[1.06] font-bold tracking-tight text-slate-900 mb-5">
-          Bank Statement<br />
-          <span className="text-navy">PDF to Excel</span><br />
-          in 15 seconds
-        </h1>
-
-        {/* Sub */}
-        <p className="text-[1.05rem] text-slate-500 leading-relaxed mb-8 max-w-[500px] mx-auto">
-          Upload any Indian bank PDF. Get clean spreadsheets instantly — no manual typing, no subscription traps.
-        </p>
-
-        {/* CTA buttons */}
-        <div className="flex flex-wrap gap-3 justify-center mb-4">
-          <Link
-            href="/signup"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white bg-navy hover:opacity-90 transition-opacity shadow-lg shadow-navy/30"
-          >
-            Convert free — 8 pages
-            <ArrowRight size={15} />
-          </Link>
-          <Link
-            href="#how-it-works"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-slate-700 border border-slate-200 hover:border-slate-300 bg-white transition-colors"
-          >
-            See how it works
-          </Link>
-        </div>
-
-        {/* Trust bar */}
-        <div className="flex items-center justify-center gap-4 mb-12">
-          <div className="flex items-center -space-x-2">
-            {TRUST_INITIALS.map(({ i, bg }) => (
-              <div
-                key={i}
-                className={`w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold text-white ${bg}`}
-              >
-                {i}
-              </div>
-            ))}
-          </div>
-          <div className="text-left">
-            <div className="flex items-center gap-1 mb-0.5">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={11} className="text-amber-400 fill-amber-400" />
-              ))}
+          {/* Left copy */}
+          <div>
+            {/* Live badge */}
+            <div className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 border border-emerald-200 bg-emerald-50 text-emerald-700">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              30+ Indian banks · Instant results
             </div>
-            <p className="text-xs text-slate-500">
-              <span className="font-semibold text-slate-700">1,200+ CAs</span> and finance teams
-            </p>
-          </div>
-        </div>
 
-        {/* Mockup centrepiece */}
-        <div className="flex justify-center">
-          <ConverterMockup />
+            {/* Headline */}
+            <h1 className="font-display text-[2.85rem] sm:text-[3.25rem] leading-[1.06] font-bold tracking-tight text-slate-900 mb-5">
+              Bank Statement<br />
+              <span className="text-navy">PDF to Excel</span><br />
+              in 15 seconds
+            </h1>
+
+            {/* Sub */}
+            <p className="text-[1.05rem] text-slate-500 leading-relaxed mb-7 max-w-[420px]">
+              Upload any Indian bank PDF. Get clean spreadsheets instantly — no manual typing, no subscription traps.
+            </p>
+
+            {/* Bullet list */}
+            <ul className="space-y-2.5 mb-8">
+              {BULLETS.map(b => (
+                <li key={b} className="flex items-start gap-2.5 text-sm text-slate-600">
+                  <CheckCircle2 size={16} className="shrink-0 text-navy mt-0.5" />
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap gap-3 mb-9">
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-white bg-navy hover:opacity-90 transition-opacity shadow-lg shadow-navy/30"
+              >
+                Convert free — 8 pages
+                <ArrowRight size={15} />
+              </Link>
+              <Link
+                href="#how-it-works"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-700 border border-slate-200 hover:border-slate-300 bg-white transition-colors"
+              >
+                See how it works
+              </Link>
+            </div>
+
+            {/* Trust bar */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center -space-x-2">
+                {TRUST_INITIALS.map(({ i, bg }) => (
+                  <div
+                    key={i}
+                    className={`w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold text-white ${bg}`}
+                  >
+                    {i}
+                  </div>
+                ))}
+              </div>
+              <div>
+                <div className="flex items-center gap-1 mb-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} size={11} className="text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
+                <p className="text-xs text-slate-500">
+                  <span className="font-semibold text-slate-700">1,200+ CAs</span> and finance teams
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — animated mockup */}
+          <div className="flex justify-center lg:justify-end">
+            <ConverterMockup />
+          </div>
+
         </div>
       </div>
     </section>
