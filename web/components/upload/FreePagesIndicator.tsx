@@ -14,26 +14,28 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
   if (tier === "PRO" || tier === "BUSINESS") {
     const remaining = Math.max(0, monthlyPageLimit - pagesUsed);
     const pct = Math.min(100, (pagesUsed / monthlyPageLimit) * 100);
-    const barColor = pct > 85 ? "bg-amber-500" : "bg-brand-500";
+    const low = pct > 85;
 
     return (
-      <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-4 shadow-sm">
-        <div className="flex items-center justify-between text-sm font-medium">
-          <span className="text-slate-700 dark:text-gray-200">Monthly pages</span>
-          <span className={remaining === 0 ? "text-red-600 dark:text-red-400 font-semibold" : "text-slate-600 dark:text-gray-300"}>
-            {remaining.toLocaleString()} / {monthlyPageLimit.toLocaleString()} remaining
-          </span>
+      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border bg-white ${low ? "border-amber-200" : "border-slate-200"}`}>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Monthly pages</span>
+            <span className={`text-xs font-bold ${low ? "text-amber-600" : "text-navy"}`}>
+              {remaining.toLocaleString()} / {monthlyPageLimit.toLocaleString()} left
+            </span>
+          </div>
+          <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div
+              className={`h-1.5 rounded-full transition-all duration-500 ${low ? "bg-amber-400" : "bg-navy"}`}
+              style={{ width: `${pct}%` }}
+            />
+          </div>
         </div>
-        <div className="mt-2 h-2 w-full rounded-full bg-slate-100 dark:bg-white/10">
-          <div
-            className={`h-2 rounded-full transition-all duration-500 ${barColor}`}
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-        {remaining === 0 && (
-          <p className="mt-2 text-xs text-amber-700 dark:text-amber-400">
-            Monthly limit reached. Additional documents are ₹49 each.
-          </p>
+        {low && (
+          <a href="/pricing" className="shrink-0 text-xs font-semibold text-navy border border-navy/20 bg-navy/5 px-2.5 py-1 rounded-lg hover:bg-navy/10 transition-colors">
+            Upgrade
+          </a>
         )}
       </div>
     );
@@ -45,64 +47,44 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     const isDepleted = remaining === 0;
 
     return (
-      <div
-        className={`rounded-xl border p-4 shadow-sm transition-colors ${
-          isDepleted
-            ? "border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20"
-            : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface"
-        }`}
-      >
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-semibold text-slate-800 dark:text-gray-200">Free pages</p>
-            <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">
-              {isDepleted
-                ? "Upgrade or pay ₹49 per document"
-                : `${remaining} free page${remaining !== 1 ? "s" : ""} remaining`}
-            </p>
-          </div>
-          <div className="text-right">
-            <span
-              className={`text-3xl font-bold tabular-nums ${
-                isDepleted ? "text-amber-600 dark:text-amber-400" : "text-brand-600 dark:text-brand-400"
-              }`}
-            >
-              {remaining}
+      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border bg-white ${isDepleted ? "border-amber-200 bg-amber-50" : "border-slate-200"}`}>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Free pages</span>
+            <span className={`text-xs font-bold tabular-nums ${isDepleted ? "text-amber-600" : "text-navy"}`}>
+              {remaining} / {FREE_PAGE_CAP} remaining
             </span>
-            <span className="text-xs text-slate-400 dark:text-gray-500 ml-1">/ {FREE_PAGE_CAP}</span>
+          </div>
+          <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div
+              className={`h-1.5 rounded-full transition-all duration-700 ${isDepleted ? "bg-amber-400" : "bg-navy"}`}
+              style={{ width: `${pct}%` }}
+            />
           </div>
         </div>
-
-        <div className="mt-3 h-2 w-full rounded-full bg-slate-100 dark:bg-white/10">
-          <div
-            className={`h-2 rounded-full transition-all duration-700 ${
-              isDepleted ? "bg-amber-500" : "bg-brand-500"
-            }`}
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-
-        <div className="mt-2 flex justify-between text-xs text-slate-400 dark:text-gray-500">
-          {Array.from({ length: FREE_PAGE_CAP }).map((_, i) => (
-            <div
-              key={i}
-              className={`h-1 w-1 rounded-full ${
-                i < pagesUsed
-                  ? (isDepleted ? "bg-amber-400" : "bg-brand-400")
-                  : "bg-slate-200 dark:bg-surface"
-              }`}
-            />
-          ))}
-        </div>
+        {isDepleted ? (
+          <a href="/pricing" className="shrink-0 text-xs font-semibold text-white bg-navy px-2.5 py-1 rounded-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+            Upgrade
+          </a>
+        ) : (
+          <div className={`shrink-0 text-2xl font-bold tabular-nums ${isDepleted ? "text-amber-500" : "text-navy"}`}>
+            {remaining}
+          </div>
+        )}
       </div>
     );
   }
 
-  // PAYG tier
+  // PAYG
   return (
-    <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-4 shadow-sm">
-      <p className="text-sm font-medium text-slate-700 dark:text-gray-200">Pay-as-you-go</p>
-      <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">₹49 per document · No monthly limit</p>
+    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 bg-white">
+      <div className="w-7 h-7 rounded-full bg-navy/10 flex items-center justify-center shrink-0">
+        <span className="text-[11px] font-bold text-navy">₹</span>
+      </div>
+      <div>
+        <p className="text-sm font-semibold text-slate-800">Pay-as-you-go</p>
+        <p className="text-xs text-slate-500">₹49 per document · No monthly limit</p>
+      </div>
     </div>
   );
 }

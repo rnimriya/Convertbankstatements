@@ -2,14 +2,12 @@
 
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { Upload, FileText, IndianRupee } from "lucide-react";
+import { Upload, FileText, IndianRupee, AlertCircle, Loader2 } from "lucide-react";
 import { FreePagesIndicator } from "./FreePagesIndicator";
 import { ExportFormatSelector } from "./ExportFormatSelector";
 import { ProcessingResult } from "./ProcessingResult";
 import { RazorpayCheckout } from "@/components/payment/RazorpayCheckout";
-import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
-import { Alert } from "@/components/ui/Alert";
 import type { BillingContext, ProcessResult } from "@/types/billing";
 import { cn } from "@/lib/utils";
 
@@ -35,21 +33,17 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
 
   const uploadFile = useCallback(async (file: File) => {
     setState({ status: "processing", fileName: file.name });
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("export_formats", formats.join(","));
-
     try {
       const res = await fetch("/api/process-statement", { method: "POST", body: formData });
       const data = await res.json();
-
       if (res.status === 402) {
         setState({ status: "payment_required", file, pageCount: data.page_count, message: data.message });
         return;
       }
       if (!res.ok) throw new Error(data.error ?? "Processing failed.");
-
       setState({ status: "done", result: data });
       onBillingUpdate();
     } catch (e) {
@@ -95,24 +89,20 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
           pagesUsed={billing.pagesUsedThisPeriod}
           monthlyPageLimit={billing.monthlyPageLimit}
         />
-
-        <div className="rounded-2xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-6 shadow-sm">
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
           <div className="text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 dark:bg-amber-900/40">
-              <IndianRupee className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100">
+              <IndianRupee className="h-6 w-6 text-amber-600" />
             </div>
-            <h3 className="mt-3 text-lg font-bold text-slate-800 dark:text-gray-200">Payment Required</h3>
-            <p className="mt-1 text-sm text-slate-600 dark:text-gray-300 font-medium">{state.file.name}</p>
-            <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">{state.message}</p>
-
+            <h3 className="mt-3 text-lg font-bold text-slate-800">Payment Required</h3>
+            <p className="mt-1 text-sm text-slate-600 font-medium">{state.file.name}</p>
+            <p className="mt-1 text-sm text-slate-500">{state.message}</p>
             <div className="mt-4">
-              <span className="text-4xl font-extrabold text-slate-900 dark:text-white">₹49</span>
-              <span className="ml-1 text-sm text-slate-500 dark:text-gray-400">one-time · per document</span>
+              <span className="text-4xl font-extrabold text-slate-900">₹49</span>
+              <span className="ml-1 text-sm text-slate-500">one-time · per document</span>
             </div>
-
-            <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">Secure payment via Razorpay · UPI / Cards / NetBanking</p>
+            <p className="mt-2 text-xs text-slate-400">Secure payment via Razorpay · UPI / Cards / NetBanking</p>
           </div>
-
           <div className="mt-5 flex flex-col gap-2">
             <RazorpayCheckout
               plan="payg"
@@ -123,16 +113,15 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
               pageCount={state.pageCount}
               onSuccess={async () => { await uploadFile(state.file); }}
               onError={(msg) => setState({ status: "error", message: msg })}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-semibold text-black shadow hover:bg-brand-300 transition-colors"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-navy py-3 text-sm font-semibold text-white hover:opacity-90 transition-opacity"
             />
-            <Button variant="secondary" fullWidth onClick={reset}>
+            <button onClick={reset} className="w-full py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
               Cancel
-            </Button>
+            </button>
           </div>
-
-          <p className="mt-4 text-center text-xs text-slate-400 dark:text-gray-500">
-            Or upgrade to Pro (₹399/mo) for 200 pages/month →{" "}
-            <a href="/pricing" className="text-brand-600 dark:text-brand-400 underline">See plans</a>
+          <p className="mt-4 text-center text-xs text-slate-400">
+            Or upgrade to Pro for 500 pages/month →{" "}
+            <a href="/pricing" className="text-navy underline">See plans</a>
           </p>
         </div>
       </div>
@@ -144,27 +133,34 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
 
   return (
     <div className="space-y-4">
+      {/* Free pages / plan indicator */}
       <FreePagesIndicator
         tier={billing.tier}
         pagesUsed={billing.pagesUsedThisPeriod}
         monthlyPageLimit={billing.monthlyPageLimit}
       />
+
+      {/* Format pills */}
       <ExportFormatSelector selected={formats} onChange={setFormats} />
 
+      {/* Error */}
       {state.status === "error" && (
-        <Alert variant="error" dismissible onDismiss={reset}>
-          {state.message}
-        </Alert>
+        <div className="flex items-start gap-3 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
+          <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-500" />
+          <span className="flex-1">{state.message}</span>
+          <button onClick={reset} className="shrink-0 text-red-400 hover:text-red-600 font-medium">✕</button>
+        </div>
       )}
 
+      {/* Drop zone */}
       <div
         {...getRootProps()}
         className={cn(
-          "relative flex min-h-[220px] cursor-pointer flex-col items-center justify-center",
-          "rounded-2xl border-2 border-dashed px-6 py-10 transition-all duration-200 select-none",
+          "relative flex min-h-[260px] cursor-pointer flex-col items-center justify-center gap-4",
+          "rounded-2xl border-2 border-dashed px-8 py-12 text-center transition-all duration-200 select-none",
           isDragActive
-            ? "border-brand-500 bg-brand-50 dark:bg-brand-900/20 scale-[1.01]"
-            : "border-slate-300 dark:border-white/10 bg-white dark:bg-surface hover:border-brand-400 hover:bg-slate-50 dark:hover:bg-white/5",
+            ? "border-navy bg-navy/5 scale-[1.01]"
+            : "border-slate-200 bg-slate-50/60 hover:border-navy/40 hover:bg-navy/[0.02]",
           state.status === "processing" && "pointer-events-none opacity-70"
         )}
       >
@@ -172,34 +168,53 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
 
         {state.status === "processing" ? (
           <>
-            <Spinner size="xl" color="brand" />
-            <p className="mt-3 text-sm font-semibold text-slate-700 dark:text-gray-200">
-              Processing <span className="text-slate-900 dark:text-white">{state.fileName}</span>…
-            </p>
-            <p className="mt-1 text-xs text-slate-400 dark:text-gray-500">Extracting transactions · usually under 15s</p>
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-navy/10">
+              <Loader2 className="h-8 w-8 text-navy animate-spin" />
+            </div>
+            <div>
+              <p className="font-semibold text-slate-800">Converting {state.fileName}…</p>
+              <p className="mt-1 text-sm text-slate-400">Extracting transactions · usually under 15s</p>
+            </div>
+            <div className="w-48 h-1 bg-slate-200 rounded-full overflow-hidden">
+              <div
+                className="h-full rounded-full bg-navy"
+                style={{
+                  width: "60%",
+                  background: "linear-gradient(90deg, #1A47C8, #3b6ef5, #1A47C8)",
+                  backgroundSize: "200% 100%",
+                  animation: "progressShimmer 1.4s linear infinite",
+                }}
+              />
+            </div>
           </>
         ) : (
           <>
             <div className={cn(
-              "flex h-16 w-16 items-center justify-center rounded-2xl transition-colors",
-              isDragActive ? "bg-brand-100 dark:bg-brand-900/40" : "bg-brand-50 dark:bg-brand-900/20 ring-2 ring-brand-100 dark:ring-brand-900/50"
+              "flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-200",
+              isDragActive
+                ? "bg-navy text-white scale-110"
+                : "bg-white border-2 border-slate-200 text-slate-400"
             )}>
               {isDragActive
-                ? <FileText className="h-8 w-8 text-brand-600 dark:text-brand-400" />
-                : <Upload className="h-8 w-8 text-brand-500 dark:text-brand-400" />}
+                ? <FileText className="h-8 w-8" />
+                : <Upload className="h-8 w-8" />}
             </div>
 
-            <p className="mt-4 text-base font-semibold text-slate-700 dark:text-gray-200">
-              {isDragActive ? "Drop your PDF here!" : "Drop your bank statement PDF"}
-            </p>
-            <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">
-              or <span className="font-medium text-brand-600 dark:text-brand-400 underline underline-offset-2">browse files</span>
-            </p>
-            <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">PDF only · max {MAX_FILE_MB} MB · All Indian banks</p>
+            <div>
+              <p className="text-base font-semibold text-slate-700">
+                {isDragActive ? "Drop it here!" : "Drop your bank statement PDF"}
+              </p>
+              <p className="mt-1 text-sm text-slate-400">
+                or{" "}
+                <span className="font-semibold text-navy underline underline-offset-2">browse files</span>
+              </p>
+              <p className="mt-2 text-xs text-slate-400">PDF only · max {MAX_FILE_MB} MB · All Indian banks</p>
+            </div>
 
             {billing.tier === "FREE" && freeRemaining > 0 && (
-              <div className="mt-4 rounded-full bg-emerald-50 dark:bg-emerald-900/20 px-4 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-400 ring-1 ring-emerald-200 dark:ring-emerald-800">
-                ✓ {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} remaining
+              <div className="flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+                <span className="text-emerald-500">✓</span>
+                {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} remaining
               </div>
             )}
           </>
