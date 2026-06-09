@@ -7,6 +7,7 @@
  *   cs:email:{email}   → STRING userId   (email lookup index, SET NX for atomic signup)
  *   cs:rtoken:{token}  → STRING userId   (reset-token reverse index, TTL = 1 h)
  *   cs:payg:{payId}    → STRING userId   (one-time PAYG payment markers, TTL = 2 h)
+ *   cs:webhook:{payId} → STRING "1"      (webhook idempotency, TTL = 25 h)
  */
 import fs from "fs/promises";
 import path from "path";
@@ -29,6 +30,8 @@ export interface User {
   referredBy: string | null;
   referralPagesCredited: number;
   createdAt: string;
+  /** ISO timestamp of the last time pagesUsed was reset for a new billing period. */
+  lastPeriodResetAt: string | null;
   resetToken?: string | null;
   resetTokenExpiry?: string | null;
 }
@@ -76,6 +79,7 @@ function toHash(u: User): Record<string, string | number> {
     referredBy: u.referredBy ?? "",
     referralPagesCredited: u.referralPagesCredited,
     createdAt: u.createdAt,
+    lastPeriodResetAt: u.lastPeriodResetAt ?? "",
     resetToken: u.resetToken ?? "",
     resetTokenExpiry: u.resetTokenExpiry ?? "",
   };
@@ -96,9 +100,63 @@ function fromHash(h: Record<string, string>): User {
     referredBy: h.referredBy || null,
     referralPagesCredited: parseInt(h.referralPagesCredited ?? "0", 10),
     createdAt: h.createdAt,
+    lastPeriodResetAt: h.lastPeriodResetAt || null,
     resetToken: h.resetToken || null,
     resetTokenExpiry: h.resetTokenExpiry || null,
   };
+}
+
+// ── Billing period helpers ───────────────────────────────────────────────────
+
+/**
+ * Returns "YYYY-MM" for the given date — used to detect when a new
+ * monthly billing period has started.
+ */
+function billingPeriodKey(date: Date): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
+/**
+ * Lazily resets pagesUsed at the start of each new billing period.
+ *
+ * Called every time a user record is fetched. FREE users are excluded —
+ * their 8-page allowance is a one-time trial, not a monthly quota.
+ *
+ * For PRO and BUSINESS users, if the stored lastPeriodResetAt (or createdAt
+ * for accounts that predate this field) is from a prior calendar month,
+ * pagesUsed is reset to 0 and lastPeriodResetAt is updated atomically.
+ *
+ * Race condition note: two concurrent fetches in the first request of a new
+ * month will both attempt the reset. Since we use a simple hset (not Lua),
+ * both will write { pagesUsed: 0 } and then both will HINCRBY their own
+ * pageCount. The final value will be the sum of both uploads — correct
+ * behaviour within a fresh period.
+ */
+async function maybeResetPeriod(user: User): Promise<User> {
+  if (user.tier === "FREE") return user;
+
+  const now = new Date();
+  const currentPeriod = billingPeriodKey(now);
+  const anchorDate = new Date(user.lastPeriodResetAt ?? user.createdAt);
+  const lastPeriod = billingPeriodKey(anchorDate);
+
+  if (lastPeriod === currentPeriod) return user;
+
+  const nowIso = now.toISOString();
+
+  if (useRedis()) {
+    await r().hset(UK(user.id), { pagesUsed: 0, lastPeriodResetAt: nowIso });
+  } else {
+    const users = await fileRead();
+    const u = users.find((u) => u.id === user.id);
+    if (u) {
+      u.pagesUsed = 0;
+      u.lastPeriodResetAt = nowIso;
+      await fileWrite(users);
+    }
+  }
+
+  return { ...user, pagesUsed: 0, lastPeriodResetAt: nowIso };
 }
 
 // ── File backend (local dev) ─────────────────────────────────────────────────
@@ -151,6 +209,7 @@ async function ensureSeed() {
         referredBy: null,
         referralPagesCredited: 0,
         createdAt: new Date().toISOString(),
+        lastPeriodResetAt: null,
       };
       const claimed = await r().set(EK(email), user.id, { nx: true });
       if (claimed) await r().hset(UK(user.id), toHash(user));
@@ -171,6 +230,7 @@ async function ensureSeed() {
           referredBy: null,
           referralPagesCredited: 0,
           createdAt: new Date().toISOString(),
+          lastPeriodResetAt: null,
         };
         await fileWrite([user]);
       }
@@ -187,10 +247,11 @@ export async function findByEmail(email: string): Promise<User | null> {
     if (!id) return null;
     const hash = await r().hgetall(UK(id));
     if (!hash) return null;
-    return fromHash(hash as Record<string, string>);
+    return maybeResetPeriod(fromHash(hash as Record<string, string>));
   }
   const users = await fileRead();
-  return users.find(u => u.email.toLowerCase() === email.toLowerCase()) ?? null;
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase()) ?? null;
+  return user ? maybeResetPeriod(user) : null;
 }
 
 export async function findById(id: string): Promise<User | null> {
@@ -198,10 +259,11 @@ export async function findById(id: string): Promise<User | null> {
   if (useRedis()) {
     const hash = await r().hgetall(UK(id));
     if (!hash) return null;
-    return fromHash(hash as Record<string, string>);
+    return maybeResetPeriod(fromHash(hash as Record<string, string>));
   }
   const users = await fileRead();
-  return users.find(u => u.id === id) ?? null;
+  const user = users.find(u => u.id === id) ?? null;
+  return user ? maybeResetPeriod(user) : null;
 }
 
 export async function createUser(
@@ -225,6 +287,7 @@ export async function createUser(
     referredBy: referredBy ?? null,
     referralPagesCredited: 0,
     createdAt: new Date().toISOString(),
+    lastPeriodResetAt: null,
   };
 
   if (useRedis()) {
@@ -265,7 +328,14 @@ export async function upgradeTier(
   billingCycle: User["billingCycle"] = "monthly"
 ): Promise<void> {
   if (useRedis()) {
-    await r().hset(UK(userId), { tier, monthlyPageLimit: pageLimit, billingCycle });
+    // Reset pagesUsed on upgrade so the new period starts clean
+    await r().hset(UK(userId), {
+      tier,
+      monthlyPageLimit: pageLimit,
+      billingCycle,
+      pagesUsed: 0,
+      lastPeriodResetAt: new Date().toISOString(),
+    });
     return;
   }
   const users = await fileRead();
@@ -274,6 +344,8 @@ export async function upgradeTier(
     user.tier = tier;
     user.monthlyPageLimit = pageLimit;
     user.billingCycle = billingCycle;
+    user.pagesUsed = 0;
+    user.lastPeriodResetAt = new Date().toISOString();
     await fileWrite(users);
   }
 }
@@ -346,7 +418,12 @@ export async function findUserByResetToken(token: string): Promise<User | null> 
     if (!id) return null;
     const hash = await r().hgetall(UK(id));
     if (!hash) return null;
-    return fromHash(hash as Record<string, string>);
+    const user = fromHash(hash as Record<string, string>);
+    // Verify the stored token matches — prevents reuse after updatePassword clears it.
+    // The RK reverse-index TTL (1h) keeps the key alive but this guard makes it inert.
+    if (!user.resetToken || user.resetToken !== token) return null;
+    if (user.resetTokenExpiry && new Date(user.resetTokenExpiry) < new Date()) return null;
+    return user;
   }
   const users = await fileRead();
   const user = users.find(u => u.resetToken === token);
@@ -355,13 +432,25 @@ export async function findUserByResetToken(token: string): Promise<User | null> 
   return user;
 }
 
-export async function updatePassword(userId: string, newPasswordHash: string): Promise<void> {
+/**
+ * Updates the user's password and invalidates the reset token.
+ * Pass `consumedToken` to also delete the Redis reverse-index key immediately,
+ * preventing token reuse within the remaining TTL window.
+ */
+export async function updatePassword(
+  userId: string,
+  newPasswordHash: string,
+  consumedToken?: string
+): Promise<void> {
   if (useRedis()) {
-    await r().hset(UK(userId), {
+    const pipe = r().pipeline();
+    pipe.hset(UK(userId), {
       passwordHash: newPasswordHash,
       resetToken: "",
       resetTokenExpiry: "",
     });
+    if (consumedToken) pipe.del(RK(consumedToken));
+    await pipe.exec();
     return;
   }
   const users = await fileRead();
@@ -389,6 +478,18 @@ export async function markPaygUsed(paymentId: string, userId: string): Promise<b
     return result === "OK";
   }
   return true; // local dev — no real payments
+}
+
+/**
+ * Reverses a PAYG payment consumption — deletes the Redis idempotency key so
+ * the payment can be retried. Call this when processing fails after the payment
+ * was already consumed (e.g. backend unavailable). The PAYG cookie must also be
+ * re-set by the caller so the user can retry the upload.
+ */
+export async function reversePaygConsumption(paymentId: string): Promise<void> {
+  if (useRedis()) {
+    await r().del(PK(paymentId));
+  }
 }
 
 const WK = (paymentId: string) => `cs:webhook:${paymentId}`;

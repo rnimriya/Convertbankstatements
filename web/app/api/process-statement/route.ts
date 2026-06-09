@@ -9,7 +9,7 @@ import {
   transactionsToGoogleSheets,
 } from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
-import { findById, incrementPages, markPaygUsed } from "@/lib/auth/users";
+import { findById, incrementPages, markPaygUsed, reversePaygConsumption } from "@/lib/auth/users";
 import { getPortal } from "@/lib/portals";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
@@ -104,12 +104,15 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Billing decision ───────────────────────────────────────────────────────
+  // paygPaymentId is set when the user's cookie was consumed — used to reverse
+  // the consumption if the backend is unavailable so the user can retry.
+  let paygPaymentId: string | null = null;
+
   if (tier === "FREE") {
     const remaining = Math.max(0, FREE_PAGE_CAP - pagesUsed);
     if (remaining < pageCount) {
-      // Atomically consume the one-time PAYG payment cookie.
-      // markPaygUsed uses Redis SET NX — only one concurrent request can win.
-      if (!(await consumePayg(jar, userId))) {
+      const result = await claimPayg(jar, userId);
+      if (!result.consumed) {
         return NextResponse.json(
           {
             error: "PAYMENT_REQUIRED",
@@ -121,11 +124,13 @@ export async function POST(req: NextRequest) {
           { status: 402 }
         );
       }
+      paygPaymentId = result.paymentId;
     }
   } else if (["PRO", "BUSINESS"].includes(tier)) {
     if (pagesUsed + pageCount > monthlyPageLimit) {
       // PRO/BUSINESS users who exceed their monthly limit can also pay PAYG
-      if (!(await consumePayg(jar, userId))) {
+      const result = await claimPayg(jar, userId);
+      if (!result.consumed) {
         return NextResponse.json(
           {
             error: "PAYMENT_REQUIRED",
@@ -137,6 +142,7 @@ export async function POST(req: NextRequest) {
           { status: 402 }
         );
       }
+      paygPaymentId = result.paymentId;
     }
   }
 
@@ -171,8 +177,37 @@ export async function POST(req: NextRequest) {
   }
 
   if (transactions.length === 0) {
-    transactions = generateMockTransactions(pageCount);
     isDemo = true;
+
+    // If the user paid ₹49 (PAYG) but the backend is down, reverse the payment
+    // consumption so they can retry when the backend recovers. Re-set the cookie
+    // so the payment token is available for the next attempt.
+    if (paygPaymentId) {
+      await reversePaygConsumption(paygPaymentId);
+      const res = NextResponse.json(
+        {
+          error: "BACKEND_UNAVAILABLE",
+          message:
+            "Our PDF conversion service is temporarily unavailable. Your payment has been preserved — please try again in a few minutes.",
+        },
+        { status: 503 }
+      );
+      res.cookies.set("bs_payg_cleared", paygPaymentId, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 30,
+      });
+      return res;
+    }
+
+    transactions = generateMockTransactions(pageCount);
+  }
+
+  // Payment was successfully used — clear the cookie now that processing succeeded
+  if (paygPaymentId) {
+    jar.delete("bs_payg_cleared");
   }
 
   // ── Build export URLs ──────────────────────────────────────────────────────
@@ -234,22 +269,21 @@ export async function POST(req: NextRequest) {
 }
 
 /**
- * Atomically consume the bs_payg_cleared one-time payment cookie.
+ * Atomically claim a PAYG payment from the bs_payg_cleared cookie.
  *
- * Uses markPaygUsed (Redis SET NX) so two concurrent requests carrying the
- * same payment ID can only succeed once — the TOCTOU race is closed.
+ * Unlike the old consumePayg helper, this does NOT delete the cookie —
+ * cookie deletion is deferred until after processing succeeds. This allows
+ * reversePaygConsumption to restore the token if the backend is unavailable.
  *
- * Returns true if payment was successfully consumed (upload may proceed).
- * Returns false if no cookie, or cookie already consumed by another request.
+ * Returns { consumed: true, paymentId } on success.
+ * Returns { consumed: false, paymentId: null } if no cookie or already used.
  */
-async function consumePayg(
+async function claimPayg(
   jar: Awaited<ReturnType<typeof cookies>>,
   userId: string | null
-): Promise<boolean> {
-  const paymentId = jar.get("bs_payg_cleared")?.value;
-  if (!paymentId) return false;
+): Promise<{ consumed: boolean; paymentId: string | null }> {
+  const paymentId = jar.get("bs_payg_cleared")?.value ?? null;
+  if (!paymentId) return { consumed: false, paymentId: null };
   const consumed = await markPaygUsed(paymentId, userId ?? "anon");
-  if (consumed) jar.delete("bs_payg_cleared");
-  return consumed;
+  return { consumed, paymentId: consumed ? paymentId : null };
 }
-

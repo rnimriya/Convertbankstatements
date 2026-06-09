@@ -85,14 +85,14 @@ export async function listPortals(ownerId: string): Promise<Portal[]> {
     const tokens = await r().smembers(UPK(ownerId));
     if (!tokens || tokens.length === 0) return [];
     const portals = await Promise.all(tokens.map(t => getPortal(t as string)));
-    return portals.filter((p): p is Portal => p !== null)
+    return portals.filter((p): p is Portal => p !== null && p.active)
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   }
   const tokens = _memByUser.get(ownerId);
   if (!tokens) return [];
   return Array.from(tokens)
     .map(t => _memPortals.get(t))
-    .filter((p): p is Portal => p !== undefined)
+    .filter((p): p is Portal => p !== undefined && p.active)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 

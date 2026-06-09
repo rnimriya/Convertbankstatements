@@ -41,12 +41,20 @@ export async function POST(req: NextRequest) {
     const passwordHash = await bcrypt.hash(password, 12);
     const user = await createUser(email, passwordHash, name, referrerId ?? undefined);
 
-    // Credit both parties with bonus pages
+    // Credit both parties with bonus pages.
+    // Isolated in its own try-catch: a Redis failure here must not roll back the
+    // signup or leak an error message — the account is already created and the
+    // JWT is about to be issued. Lost referral pages are non-critical and can be
+    // corrected manually if needed.
     if (referrerId) {
-      await Promise.all([
-        creditPages(user.id, REFERRAL_BONUS_PAGES),
-        creditPages(referrerId, REFERRAL_BONUS_PAGES),
-      ]);
+      try {
+        await Promise.all([
+          creditPages(user.id, REFERRAL_BONUS_PAGES),
+          creditPages(referrerId, REFERRAL_BONUS_PAGES),
+        ]);
+      } catch (err) {
+        console.error("[signup] referral credit failed for user", user.id, err);
+      }
     }
 
     const token = await signJWT({ sub: user.id, email: user.email, name: user.name });

@@ -25,7 +25,9 @@ export async function POST(req: NextRequest) {
     }
 
     const newHash = await bcrypt.hash(password, 12);
-    await updatePassword(user.id, newHash);
+    // Pass the consumed token so updatePassword can delete the Redis reverse-index
+    // key immediately — prevents reuse within the remaining TTL window.
+    await updatePassword(user.id, newHash, token);
 
     return NextResponse.json({ ok: true, message: "Password updated successfully." });
   } catch {

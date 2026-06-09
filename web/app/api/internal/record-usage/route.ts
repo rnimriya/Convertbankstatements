@@ -23,8 +23,18 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const { userId, pageCount } = body;
 
-  if (!userId || typeof pageCount !== "number") {
-    return NextResponse.json({ error: "userId and pageCount required" }, { status: 400 });
+  if (
+    !userId ||
+    typeof userId !== "string" ||
+    typeof pageCount !== "number" ||
+    !Number.isInteger(pageCount) ||
+    pageCount <= 0 ||
+    pageCount > 1000
+  ) {
+    return NextResponse.json(
+      { error: "userId (string) and pageCount (integer 1–1000) are required." },
+      { status: 400 }
+    );
   }
 
   await incrementPages(userId, pageCount);
