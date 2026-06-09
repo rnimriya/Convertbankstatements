@@ -74,11 +74,11 @@ Every registered account receives 8 pages of processing completely free. No paym
 **Pay-As-You-Go (₹49 per document)**
 After exhausting your free pages, you may pay ₹49 per document. Payment is processed through Razorpay before the document is converted. All prices are in Indian Rupees (INR) and are exclusive of applicable taxes.
 
-**Pro Plan (₹399/month)**
-Provides 200 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
-
-**Business Plan (₹999/month)**
+**Pro Plan (₹1,198/month)**
 Provides 500 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
+
+**Business Plan (₹4,498/month)**
+Provides 2,000 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
 **Payment Methods**
 We accept UPI, Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and Wallets through Razorpay. All transactions are subject to Razorpay's payment terms.
