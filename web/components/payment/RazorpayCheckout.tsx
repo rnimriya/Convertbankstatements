@@ -76,7 +76,7 @@ export function RazorpayCheckout({
         key: order.keyId,
         amount: order.amount,
         currency: "INR",
-        name: "ConvertStatement",
+        name: "Convert Statement",
         description: plan === "payg" ? "Pay-per-document processing" : `${label} Plan`,
         order_id: order.orderId,
         prefill: { email: userEmail },

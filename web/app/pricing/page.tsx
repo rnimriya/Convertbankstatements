@@ -4,12 +4,12 @@ import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const metadata = {
-  title: "Pricing — ConvertStatement",
+  title: "Pricing — Convert Statement",
   description:
     "Start free with 8 pages, then pay ₹49 per document or choose a monthly plan. Pro at ₹399/month (200 pages) and Business at ₹999/month (500 pages) for CAs and teams.",
   alternates: { canonical: "https://convertstatement.online/pricing" },
   openGraph: {
-    title: "Pricing — ConvertStatement",
+    title: "Pricing — Convert Statement",
     description: "8 pages free · ₹49 per document · Pro ₹399/mo · Business ₹999/mo",
     url: "https://convertstatement.online/pricing",
   },
@@ -81,11 +81,11 @@ const COMPARE_ROWS = [
 const pricingSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  name: "ConvertStatement",
+  name: "Convert Statement",
   description:
     "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
   url: "https://convertstatement.online",
-  brand: { "@type": "Brand", name: "ConvertStatement" },
+  brand: { "@type": "Brand", name: "Convert Statement" },
   offers: [
     {
       "@type": "Offer",
@@ -148,8 +148,8 @@ export default function PricingPage() {
       <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">ConvertStatement</span>
+            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">Convert Statement</span>
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />

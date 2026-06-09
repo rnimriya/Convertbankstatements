@@ -3,15 +3,15 @@ import { FileText, Shield } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata = {
-  title: "Privacy Policy — ConvertStatement",
-  description: "How ConvertStatement collects, uses, and protects your personal and financial data.",
+  title: "Privacy Policy — Convert Statement",
+  description: "How Convert Statement collects, uses, and protects your personal and financial data.",
 };
 
 const SECTIONS = [
   {
     id: "overview",
     title: "1. Overview",
-    content: `ConvertStatement ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at convertstatement.online ("Service").
+    content: `Convert Statement ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at convertstatement.online ("Service").
 
 We comply with the Information Technology Act, 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 (SPDI Rules), and applicable data protection laws of India.
 
@@ -169,7 +169,7 @@ export default function PrivacyPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
               <FileText className="h-4 w-4 text-black" />
             </div>
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">ConvertStatement</span>
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">Convert Statement</span>
             <span className="hidden sm:inline rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -194,7 +194,7 @@ export default function PrivacyPage() {
             </div>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-slate-500">
-            We built ConvertStatement with privacy at its core. Your financial documents are never stored on our servers — they are processed in memory and deleted the moment your converted data is ready. This policy explains exactly what we do (and don&apos;t do) with your data.
+            We built Convert Statement with privacy at its core. Your financial documents are never stored on our servers — they are processed in memory and deleted the moment your converted data is ready. This policy explains exactly what we do (and don&apos;t do) with your data.
           </p>
         </div>
       </div>

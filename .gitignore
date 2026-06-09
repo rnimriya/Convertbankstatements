@@ -49,3 +49,4 @@ web/prisma/migrations/
 uploads/
 tmp/
 *.pdf
+node_modules.zip

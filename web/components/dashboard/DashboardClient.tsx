@@ -76,8 +76,8 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
       <header className="border-b border-slate-200 dark:border-white/10 bg-white dark:bg-surface">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <a href="/" className="flex items-center gap-2">
-            <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">ConvertStatement</span>
+            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">Convert Statement</span>
           </a>
 
           <div className="flex items-center gap-3">

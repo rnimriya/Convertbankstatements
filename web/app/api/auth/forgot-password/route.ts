@@ -55,13 +55,13 @@ async function sendResetEmail(to: string, resetUrl: string): Promise<void> {
 
   const resend = new Resend(key);
   const { error } = await resend.emails.send({
-    from: "ConvertStatement <onboarding@resend.dev>",
+    from: "Convert Statement <onboarding@resend.dev>",
     to,
-    subject: "Reset your ConvertStatement password",
+    subject: "Reset your Convert Statement password",
     html: `
       <div style="font-family:sans-serif;max-width:580px;margin:0 auto;padding:32px">
         <h2 style="color:#16a34a;margin-bottom:8px">Reset your password</h2>
-        <p style="color:#374151">Click the button below to reset your ConvertStatement password.
+        <p style="color:#374151">Click the button below to reset your Convert Statement password.
            This link expires in <strong>1 hour</strong>.</p>
         <a href="${resetUrl}"
            style="display:inline-block;background:#16a34a;color:#fff;text-decoration:none;
@@ -74,7 +74,7 @@ async function sendResetEmail(to: string, resetUrl: string): Promise<void> {
         </p>
         <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0">
         <p style="color:#9ca3af;font-size:12px">
-          ConvertStatement &mdash; Convert Indian bank statements to Excel
+          Convert Statement &mdash; Convert Indian bank statements to Excel
         </p>
       </div>
     `,

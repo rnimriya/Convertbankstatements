@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       excerpt: excerpt ?? "",
       content,
       featureImage: featureImage ?? `https://picsum.photos/seed/${slug}/800/450`,
-      author: author ?? "ConvertStatement Team",
+      author: author ?? "Convert Statement Team",
       tags: Array.isArray(tags) ? tags : [],
       published: published ?? false,
     });

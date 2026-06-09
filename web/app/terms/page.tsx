@@ -3,24 +3,24 @@ import { FileText, ScrollText } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata = {
-  title: "Terms of Service — ConvertStatement",
-  description: "Terms and conditions governing use of the ConvertStatement bank statement conversion service.",
+  title: "Terms of Service — Convert Statement",
+  description: "Terms and conditions governing use of the Convert Statement bank statement conversion service.",
 };
 
 const SECTIONS = [
   {
     id: "acceptance",
     title: "1. Acceptance of Terms",
-    content: `By creating an account or using the ConvertStatement service ("Service") at convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
+    content: `By creating an account or using the Convert Statement service ("Service") at convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
 
-These Terms constitute a legally binding agreement between you and ConvertStatement ("Company", "we", "us", or "our"). These Terms are governed by the laws of India, and any disputes shall be subject to the exclusive jurisdiction of courts in India.
+These Terms constitute a legally binding agreement between you and Convert Statement ("Company", "we", "us", or "our"). These Terms are governed by the laws of India, and any disputes shall be subject to the exclusive jurisdiction of courts in India.
 
 We reserve the right to update these Terms at any time. Continued use of the Service after changes constitutes acceptance.`,
   },
   {
     id: "service-description",
     title: "2. Description of Service",
-    content: `ConvertStatement provides a software-as-a-service (SaaS) platform that:
+    content: `Convert Statement provides a software-as-a-service (SaaS) platform that:
 
 - Accepts PDF bank statements uploaded by users
 - Extracts transaction data (dates, descriptions, amounts, balances) from those PDFs
@@ -102,7 +102,7 @@ You retain full ownership of all bank statements you upload and all transaction 
 We do not claim any ownership over your financial data. Your PDFs and extracted transaction data are not stored on our servers after processing is complete.
 
 **Our IP**
-The ConvertStatement platform, software, algorithms, branding, and user interface are owned by us and are protected by intellectual property laws. You may not copy, reproduce, or create derivative works from any part of our platform.`,
+The Convert Statement platform, software, algorithms, branding, and user interface are owned by us and are protected by intellectual property laws. You may not copy, reproduce, or create derivative works from any part of our platform.`,
   },
   {
     id: "accuracy",
@@ -134,7 +134,7 @@ Nothing in these Terms limits liability for fraud, death or personal injury caus
   {
     id: "indemnification",
     title: "9. Indemnification",
-    content: `You agree to defend, indemnify, and hold harmless ConvertStatement and its officers, directors, employees, and agents from any claims, damages, costs, or expenses (including reasonable legal fees) arising from:
+    content: `You agree to defend, indemnify, and hold harmless Convert Statement and its officers, directors, employees, and agents from any claims, damages, costs, or expenses (including reasonable legal fees) arising from:
 
 - Your use or misuse of the Service
 - Your violation of these Terms
@@ -194,7 +194,7 @@ export default function TermsPage() {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-400 dark:shadow-glow-sm">
               <FileText className="h-4 w-4 text-black" />
             </div>
-            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">ConvertStatement</span>
+            <span className="hidden sm:inline font-bold text-slate-800 dark:text-white">Convert Statement</span>
             <span className="hidden sm:inline rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">India</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -219,7 +219,7 @@ export default function TermsPage() {
             </div>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-slate-500">
-            These Terms govern your use of ConvertStatement. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
+            These Terms govern your use of Convert Statement. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
           </p>
 
           {/* Quick summary */}

@@ -27,7 +27,7 @@ const FAQS = [
   { q: "Is my financial data safe?", a: "Yes. PDFs are processed in memory and deleted immediately after conversion. Nothing is stored on disk or in a database. We follow GDPR and India's IT Act 2000." },
   { q: "Can I process password-protected PDFs?", a: "Yes. Enter the password during upload — most Indian banks lock PDFs with your date of birth or mobile number. We never store the password." },
   { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free — no card needed. That covers most 1-3 month statements. After that, pay ₹49 per document or choose a monthly plan." },
-  { q: "How do I import into Tally?", a: "Export as OFX from ConvertStatement, then import into Tally ERP or Tally Prime via the Bank Reconciliation module. Takes about two minutes." },
+  { q: "How do I import into Tally?", a: "Export as OFX from Convert Statement, then import into Tally ERP or Tally Prime via the Bank Reconciliation module. Takes about two minutes." },
   { q: "Can I pay via UPI?", a: "Yes. We accept UPI (GPay, PhonePe, Paytm, BHIM), all Visa/Mastercard/RuPay cards, net banking, and wallets via Razorpay." },
 ];
 
@@ -36,7 +36,7 @@ const FAQS = [
 const softwareAppSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "ConvertStatement",
+  name: "Convert Statement",
   applicationCategory: "FinanceApplication",
   operatingSystem: "Web",
   url: "https://convertstatement.online",
@@ -66,8 +66,8 @@ function Navbar() {
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-100">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <img src="/logo.svg" alt="ConvertStatement" className="h-8 w-8" />
-          <span className="font-bold text-slate-900 font-display text-[17px]">ConvertStatement</span>
+          <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
+          <span className="font-bold text-slate-900 font-display text-[17px]">Convert Statement</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-500">

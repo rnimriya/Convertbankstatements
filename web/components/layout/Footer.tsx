@@ -75,8 +75,8 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/logo.svg" alt="ConvertStatement" className="h-7 w-7" />
-              <span className="font-bold text-slate-800 dark:text-white">ConvertStatement</span>
+              <img src="/logo.svg" alt="Convert Statement" className="h-7 w-7" />
+              <span className="font-bold text-slate-800 dark:text-white">Convert Statement</span>
               <span className="rounded-full bg-brand-100 dark:bg-brand-900/50 px-1.5 py-0.5 text-[10px] font-bold text-brand-600 dark:text-brand-400">
                 India
               </span>
@@ -128,7 +128,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t border-slate-100 dark:border-white/10 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-500">
-          <p>© {new Date().getFullYear()} ConvertStatement. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Convert Statement. All rights reserved.</p>
           <p>All prices in INR · GST applicable · Data never stored</p>
         </div>
       </div>

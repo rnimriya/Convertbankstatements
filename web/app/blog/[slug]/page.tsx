@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return { title: "Post not found" };
   const canonicalUrl = `https://convertstatement.online/blog/${slug}`;
   return {
-    title: `${post.title} - ConvertStatement`,
+    title: `${post.title} - Convert Statement`,
     description: post.excerpt,
     alternates: { canonical: canonicalUrl },
     openGraph: {
@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     author: { "@type": "Person", name: post.author },
     publisher: {
       "@type": "Organization",
-      name: "ConvertStatement",
+      name: "Convert Statement",
       logo: { "@type": "ImageObject", url: "https://convertstatement.online/logo.svg" },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://convertstatement.online/blog/${slug}` },
