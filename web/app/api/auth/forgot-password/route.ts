@@ -55,7 +55,7 @@ async function sendResetEmail(to: string, resetUrl: string): Promise<void> {
 
   const resend = new Resend(key);
   const { error } = await resend.emails.send({
-    from: "noreply@convertstatement.online",
+    from: "ConvertStatement <onboarding@resend.dev>",
     to,
     subject: "Reset your ConvertStatement password",
     html: `
