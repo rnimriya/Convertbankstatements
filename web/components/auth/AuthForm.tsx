@@ -4,30 +4,14 @@ import { useState, FormEvent } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
-  Eye, EyeOff, Loader2, AlertCircle, CheckCircle2,
-  Zap, Shield, IndianRupee, ArrowRight, ArrowLeft,
+  Eye, EyeOff, Loader2, AlertCircle, CheckCircle2, ArrowRight,
 } from "lucide-react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 type Mode = "login" | "signup";
 type ErrorCode = "USER_NOT_FOUND" | "WRONG_PASSWORD" | null;
 
-const FEATURES = [
-  { Icon: Zap,           text: "All major Indian banks supported" },
-  { Icon: Shield,        text: "Files are never stored on our servers" },
-  { Icon: CheckCircle2,  text: "CSV, Excel, OFX, QFX & Google Sheets" },
-  { Icon: IndianRupee,   text: "Start free — 8 pages, no card needed" },
-];
-
-const STATS = [
-  { value: "50K+", label: "Docs converted" },
-  { value: "30+",  label: "Indian banks" },
-  { value: "₹49",  label: "Per document" },
-];
-
-
 const INPUT =
-  "w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
+  "w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-navy focus:bg-white focus:ring-2 focus:ring-navy/10";
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const params = useSearchParams();
@@ -91,152 +75,79 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-[#0a0a0a] px-4">
-        <div className="flex flex-col items-center gap-4 rounded-2xl border border-brand-200 dark:border-brand-800/50 bg-brand-50 dark:bg-brand-900/20 p-12 text-center shadow-glow">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-400 shadow-glow">
-            <CheckCircle2 className="h-8 w-8 text-black" />
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-emerald-200 bg-white p-12 text-center shadow-sm">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
+            <CheckCircle2 className="h-8 w-8 text-emerald-600" />
           </div>
-          <p className="text-xl font-bold text-slate-800 dark:text-white">Account created!</p>
-          <p className="text-sm text-slate-500 dark:text-gray-400">Redirecting to your dashboard…</p>
+          <p className="font-display text-xl font-bold text-slate-900">Account created!</p>
+          <p className="text-sm text-slate-500">Redirecting to your dashboard…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col bg-slate-50">
 
-      {/* ──────── LEFT PANEL ──────── */}
-      <div className="hidden lg:flex lg:w-[55%] relative flex-col justify-between p-12 bg-[#070d1a] overflow-hidden">
-        {/* Background glows */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_5%_65%,rgba(96,165,250,0.13)_0%,transparent_65%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_40%_40%_at_90%_10%,rgba(96,165,250,0.07)_0%,transparent_60%)] pointer-events-none" />
-        {/* Dot grid */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: "radial-gradient(circle, #7dd3fc 1px, transparent 1px)", backgroundSize: "28px 28px" }}
-        />
-
-        {/* Logo */}
-        <div className="relative z-10">
-          <Link href="/" className="flex items-center gap-2.5 w-fit group">
-            <img src="/logo.svg" alt="Convert Statement" className="h-9 w-9 transition group-hover:scale-105" />
-            <span className="text-lg font-bold text-white">Convert Statement</span>
-            <span className="rounded-full bg-white/5 border border-white/10 px-1.5 py-0.5 text-[10px] font-bold text-brand-400">
-              India
-            </span>
-          </Link>
-        </div>
-
-        {/* Middle content */}
-        <div className="relative z-10 max-w-[420px]">
-          <h2 className="text-[2rem] font-extrabold text-white leading-tight">
-            Convert bank PDFs to<br />
-            <span className="text-brand-400">clean spreadsheets</span> — instantly
-          </h2>
-          <p className="mt-3 text-sm text-blue-200/55 leading-relaxed">
-            India&apos;s most accurate bank statement parser.
-            Trusted by CAs, bookkeepers and finance teams.
-          </p>
-
-          {/* Features */}
-          <ul className="mt-8 space-y-3.5">
-            {FEATURES.map(({ Icon, text }) => (
-              <li key={text} className="flex items-center gap-3">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-400/10 border border-brand-400/20">
-                  <Icon className="h-3.5 w-3.5 text-brand-400" />
-                </span>
-                <span className="text-sm text-blue-100/70">{text}</span>
-              </li>
-            ))}
-          </ul>
-
-        </div>
-
-        {/* Stats + testimonial */}
-        <div className="relative z-10">
-          <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-7 mb-7">
-            {STATS.map(({ value, label }) => (
-              <div key={label}>
-                <p className="text-2xl font-extrabold text-brand-400">{value}</p>
-                <p className="mt-0.5 text-xs text-blue-200/35">{label}</p>
-              </div>
-            ))}
-          </div>
-          <blockquote className="border-l-2 border-brand-400/40 pl-4">
-            <p className="text-sm text-blue-100/45 italic">
-              &ldquo;Saves me 3–4 hours every month. Best tool for CA work.&rdquo;
-            </p>
-            <footer className="mt-1.5 text-xs text-blue-100/25">
-              — Priya Mehta, Chartered Accountant, Mumbai
-            </footer>
-          </blockquote>
-        </div>
-      </div>
-
-      {/* ──────── RIGHT PANEL ──────── */}
-      <div className="flex flex-1 flex-col bg-white dark:bg-[#0a0a0a]">
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-6 py-5 lg:px-10">
-          <Link
-            href="/"
-            className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-gray-500 hover:text-slate-700 dark:hover:text-gray-200 transition-colors"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>Home</span>
+      {/* Top bar */}
+      <header className="w-full border-b border-slate-100 bg-white/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 h-16">
+          <Link href="/" className="flex items-center gap-2.5">
+            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
+            <span className="font-bold text-slate-900 font-display text-[17px]">Convert Statement</span>
           </Link>
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline text-sm text-slate-400 dark:text-gray-500">
+            <span className="hidden sm:inline text-sm text-slate-400">
               {mode === "login" ? "No account?" : "Have an account?"}
             </span>
             <Link
               href={mode === "login" ? "/signup" : "/login"}
-              className="rounded-lg border border-slate-200 dark:border-white/10 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+              className="rounded-lg border border-slate-200 bg-white px-4 py-1.5 text-sm font-semibold text-slate-700 hover:border-slate-300 transition-colors"
             >
               {mode === "login" ? "Sign up free" : "Sign in"}
             </Link>
-            <ThemeToggle />
           </div>
         </div>
+      </header>
 
-        {/* Form */}
-        <div className="flex flex-1 items-center justify-center px-6 py-6 lg:px-16">
-          <div className="w-full max-w-sm">
+      {/* Centered form */}
+      <div className="flex flex-1 items-center justify-center px-6 py-12">
+        <div className="w-full max-w-md">
 
-            {/* Mobile-only logo */}
-            <div className="mb-8 flex flex-col items-center lg:hidden">
-              <img src="/logo.svg" alt="Convert Statement" className="h-11 w-11" />
-              <span className="mt-2.5 text-base font-bold text-slate-800 dark:text-white">Convert Statement</span>
-            </div>
+          {/* Logo + heading */}
+          <div className="mb-8 text-center">
+            <img src="/logo.svg" alt="Convert Statement" className="mx-auto mb-5 h-12 w-12" />
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900">
+              {mode === "login" ? "Welcome back" : "Start for free"}
+            </h1>
+            <p className="mt-2 text-[0.95rem] text-slate-500">
+              {mode === "login"
+                ? "Sign in to your account to continue."
+                : "Create your account — 8 pages free, always."}
+            </p>
+          </div>
 
-            <div className="mb-7">
-              <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">
-                {mode === "login" ? "Welcome back" : "Start for free"}
-              </h1>
-              <p className="mt-1.5 text-sm text-slate-500 dark:text-gray-400">
-                {mode === "login"
-                  ? "Sign in to your account to continue."
-                  : "Create your account — 8 pages free, always."}
-              </p>
-            </div>
+          {/* Card */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
 
             {/* Error */}
             {error && (
-              <div className="mb-5 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
+              <div className="mb-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
                 <div className="flex items-start gap-2">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
                   <div>
                     <span>{error}</span>
                     {mode === "login" && errorCode === "USER_NOT_FOUND" && (
                       <p className="mt-1 text-xs">
-                        <Link href="/signup" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
+                        <Link href="/signup" className="font-semibold underline hover:text-red-900">
                           Create a free account →
                         </Link>
                       </p>
                     )}
                     {mode === "login" && errorCode === "WRONG_PASSWORD" && (
                       <p className="mt-1 text-xs">
-                        <Link href="/forgot-password" className="font-semibold underline hover:text-red-800 dark:hover:text-red-300">
+                        <Link href="/forgot-password" className="font-semibold underline hover:text-red-900">
                           Reset your password →
                         </Link>
                       </p>
@@ -249,9 +160,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
             <form onSubmit={handleSubmit} className="space-y-4">
               {mode === "signup" && (
                 <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium text-slate-700">
                     Full name{" "}
-                    <span className="font-normal text-slate-400 dark:text-gray-500">(optional)</span>
+                    <span className="font-normal text-slate-400">(optional)</span>
                   </label>
                   <input
                     type="text"
@@ -264,7 +175,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               )}
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                <label className="block text-sm font-medium text-slate-700">
                   Email address
                 </label>
                 <input
@@ -280,9 +191,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-700 dark:text-gray-300">Password</label>
+                  <label className="text-sm font-medium text-slate-700">Password</label>
                   {mode === "login" && (
-                    <Link href="/forgot-password" className="text-xs text-brand-500 dark:text-brand-400 hover:underline">
+                    <Link href="/forgot-password" className="text-xs text-navy hover:underline">
                       Forgot password?
                     </Link>
                   )}
@@ -300,7 +211,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                     aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -310,7 +221,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
               {mode === "signup" && (
                 <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-300">
+                  <label className="block text-sm font-medium text-slate-700">
                     Confirm password
                   </label>
                   <input
@@ -329,27 +240,41 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 id="auth-submit"
                 type="submit"
                 disabled={loading}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-navy py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
-                  <><Loader2 className="h-4 w-4 animate-spin" />{mode === "login" ? "Signing in…" : "Creating account…"}</>
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    {mode === "login" ? "Signing in…" : "Creating account…"}
+                  </>
                 ) : (
-                  <>{mode === "login" ? "Sign in" : "Create free account"}<ArrowRight className="h-4 w-4" /></>
+                  <>
+                    {mode === "login" ? "Sign in" : "Create free account"}
+                    <ArrowRight className="h-4 w-4" />
+                  </>
                 )}
               </button>
             </form>
 
-            <p className="mt-6 text-center text-xs text-slate-400 dark:text-gray-500">
+            <p className="mt-6 text-center text-xs text-slate-400">
               By continuing you agree to our{" "}
-              <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+              <Link href="/terms" className="underline hover:text-slate-600 transition-colors">
                 Terms
               </Link>{" "}
               &amp;{" "}
-              <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+              <Link href="/privacy" className="underline hover:text-slate-600 transition-colors">
                 Privacy Policy
               </Link>
             </p>
           </div>
+
+          {/* Back link */}
+          <p className="mt-6 text-center text-sm text-slate-400">
+            <Link href="/" className="hover:text-slate-600 transition-colors">
+              ← Back to home
+            </Link>
+          </p>
+
         </div>
       </div>
     </div>
