@@ -290,7 +290,7 @@ function Pricing() {
     },
     {
       name: "Pro",
-      price: "₹299",
+      price: "₹1198",
       period: "/ month",
       desc: "For regular use",
       badge: "Most popular",
@@ -301,7 +301,7 @@ function Pricing() {
     },
     {
       name: "Business",
-      price: "₹999",
+      price: "₹4498",
       period: "/ month",
       desc: "For teams and CA firms",
       features: ["2000 pages / month", "All output formats", "API access", "Priority support"],
