@@ -108,8 +108,7 @@ function Hero() {
         }}
       />
 
-      <div className="relative max-w-5xl mx-auto px-6 text-center">
-
+      <div className="relative max-w-4xl mx-auto px-6 text-center">
         {/* Live badge */}
         <div className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 border border-emerald-200 bg-emerald-50 text-emerald-700">
           <span className="relative flex h-2 w-2">
@@ -120,20 +119,19 @@ function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="font-display text-[2.75rem] sm:text-[3.5rem] leading-[1.06] font-bold tracking-tight text-slate-900 mb-5">
-          Bank Statement{" "}
-          <span className="text-navy">PDF to Excel</span>
-          <br />in 15 seconds
+        <h1 className="font-display text-[2.85rem] sm:text-[3.5rem] leading-[1.06] font-bold tracking-tight text-slate-900 mb-5">
+          Bank Statement<br />
+          <span className="text-navy">PDF to Excel</span><br />
+          in 15 seconds
         </h1>
 
         {/* Sub */}
-        <p className="text-[1.05rem] text-slate-500 leading-relaxed mb-8 max-w-xl mx-auto">
-          Upload any Indian bank PDF — SBI, HDFC, ICICI and 30+ more.
-          Get clean Excel, CSV or OFX in seconds. First 8 pages free.
+        <p className="text-[1.05rem] text-slate-500 leading-relaxed mb-8 max-w-[500px] mx-auto">
+          Upload any Indian bank PDF. Get clean spreadsheets instantly — no manual typing, no subscription traps.
         </p>
 
         {/* CTA buttons */}
-        <div className="flex flex-wrap gap-3 justify-center mb-12">
+        <div className="flex flex-wrap gap-3 justify-center mb-4">
           <Link
             href="/signup"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold text-white bg-navy hover:opacity-90 transition-opacity shadow-lg shadow-navy/30"
@@ -149,13 +147,8 @@ function Hero() {
           </Link>
         </div>
 
-        {/* Mockup — centrepiece */}
-        <div className="flex justify-center">
-          <ConverterMockup />
-        </div>
-
         {/* Trust bar */}
-        <div className="mt-8 flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-4 mb-12">
           <div className="flex items-center -space-x-2">
             {TRUST_INITIALS.map(({ i, bg }) => (
               <div
@@ -178,6 +171,10 @@ function Hero() {
           </div>
         </div>
 
+        {/* Mockup centrepiece */}
+        <div className="flex justify-center">
+          <ConverterMockup />
+        </div>
       </div>
     </section>
   );
