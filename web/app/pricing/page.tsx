@@ -1,73 +1,24 @@
 import Link from "next/link";
-import { CheckCircle2, ArrowRight, FileText, IndianRupee } from "lucide-react";
+import { IndianRupee, ArrowRight } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { PricingCards } from "@/components/PricingCards";
 
 export const metadata = {
   title: "Pricing — Convert Statement",
   description:
-    "Start free with 8 pages, then pay ₹49 per document or choose a monthly plan. Pro at ₹399/month (200 pages) and Business at ₹999/month (500 pages) for CAs and teams.",
+    "Start free with 8 pages, then pay ₹49 per document or choose a monthly plan. Pro at ₹1,198/month (500 pages) and Business at ₹4,498/month (2,000 pages) for CAs and teams.",
   alternates: { canonical: "https://convertstatement.online/pricing" },
   openGraph: {
     title: "Pricing — Convert Statement",
-    description: "8 pages free · ₹49 per document · Pro ₹399/mo · Business ₹999/mo",
+    description: "8 pages free · ₹49 per document · Pro ₹1,198/mo · Business ₹4,498/mo",
     url: "https://convertstatement.online/pricing",
   },
 };
 
-const PLANS = [
-  {
-    name: "Free",
-    price: "₹0",
-    period: "",
-    tagline: "Try it out — no card needed",
-    highlight: false,
-    badge: null,
-    features: ["8 pages free, forever", "CSV & Excel export", "All Indian banks", "No credit card required"],
-    notIncluded: ["OFX / QFX export", "Google Sheets"],
-    cta: "Start free",
-    href: "/signup",
-  },
-  {
-    name: "Pay-per-doc",
-    price: "₹49",
-    period: "/ document",
-    tagline: "No subscription, pay only when you need",
-    highlight: false,
-    badge: null,
-    features: ["₹49 per document", "All export formats", "UPI / Cards / NetBanking", "All Indian banks"],
-    notIncluded: ["Monthly page pool"],
-    cta: "Get started",
-    href: "/signup",
-  },
-  {
-    name: "Pro",
-    price: "₹399",
-    period: "/ month",
-    tagline: "Perfect for CAs & individuals",
-    highlight: true,
-    badge: "Most popular",
-    features: ["200 pages / month", "All export formats", "Google Sheets export", "Priority processing", "Email support"],
-    notIncluded: ["API access", "Team seats"],
-    cta: "Start Pro",
-    href: "/signup?plan=pro",
-  },
-  {
-    name: "Business",
-    price: "₹999",
-    period: "/ month",
-    tagline: "For CA firms & fintech teams",
-    highlight: false,
-    badge: null,
-    features: ["500 pages / month", "All export formats", "Google Sheets export", "Priority processing", "API access", "5 team seats", "Dedicated support"],
-    notIncluded: [],
-    cta: "Start Business",
-    href: "/signup?plan=business",
-  },
-];
 
 const COMPARE_ROWS = [
-  { feature: "Pages included", free: "8 total", payg: "—", pro: "200 / mo", business: "500 / mo" },
+  { feature: "Pages included", free: "8 total", payg: "—", pro: "500 / mo", business: "2,000 / mo" },
   { feature: "Price per document", free: "Free", payg: "₹49", pro: "Included", business: "Included" },
   { feature: "CSV export", free: "✓", payg: "✓", pro: "✓", business: "✓" },
   { feature: "Excel export", free: "✓", payg: "✓", pro: "✓", business: "✓" },
@@ -108,30 +59,30 @@ const pricingSchema = {
     {
       "@type": "Offer",
       name: "Pro",
-      price: "399",
+      price: "1198",
       priceCurrency: "INR",
       priceSpecification: {
         "@type": "UnitPriceSpecification",
-        price: "399",
+        price: "1198",
         priceCurrency: "INR",
         unitText: "month",
       },
-      description: "200 pages/month, Google Sheets, priority processing",
+      description: "500 pages/month, Google Sheets, priority processing",
       availability: "https://schema.org/InStock",
       url: "https://convertstatement.online/signup?plan=pro",
     },
     {
       "@type": "Offer",
       name: "Business",
-      price: "999",
+      price: "4498",
       priceCurrency: "INR",
       priceSpecification: {
         "@type": "UnitPriceSpecification",
-        price: "999",
+        price: "4498",
         priceCurrency: "INR",
         unitText: "month",
       },
-      description: "500 pages/month for CA firms and fintech teams",
+      description: "2,000 pages/month for CA firms and fintech teams",
       availability: "https://schema.org/InStock",
       url: "https://convertstatement.online/signup?plan=business",
     },
@@ -175,56 +126,7 @@ export default function PricingPage() {
       </div>
 
       <div className="mx-auto max-w-6xl px-6 pb-20 pt-8">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative flex flex-col rounded-2xl border p-6 ${
-                plan.highlight
-                  ? "border-brand-400 bg-brand-400 dark:bg-surface dark:border-brand-400 shadow-glow"
-                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm"
-              }`}
-            >
-              {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-400 px-3 py-1 text-xs font-bold text-black whitespace-nowrap">
-                  {plan.badge}
-                </div>
-              )}
-              <p className={`font-bold ${plan.highlight ? "text-black dark:text-white" : "text-slate-800 dark:text-white"}`}>{plan.name}</p>
-              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-slate-400 dark:text-gray-500"}`}>{plan.tagline}</p>
-              <div className="mt-3 flex items-end gap-0.5">
-                <span className={`text-3xl font-extrabold ${plan.highlight ? "text-black dark:text-white" : "text-slate-900 dark:text-white"}`}>{plan.price}</span>
-                {plan.period && <span className={`mb-1 text-sm ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>{plan.period}</span>}
-              </div>
-
-              <ul className="mt-5 flex-1 space-y-2">
-                {plan.features.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-black dark:text-gray-200" : "text-slate-600 dark:text-gray-300"}`}>
-                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-emerald-500"}`} />
-                    {f}
-                  </li>
-                ))}
-                {plan.notIncluded.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-black/40 dark:text-gray-600 decoration-black/30 dark:decoration-gray-700" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
-                    <span className="mt-0.5 h-4 w-4 shrink-0 text-center text-xs">✕</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <Link
-                href={plan.href}
-                className={`mt-6 flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors ${
-                  plan.highlight
-                    ? "bg-black/10 dark:bg-brand-400 dark:text-black text-black hover:bg-black/20 dark:hover:bg-brand-300"
-                    : "border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
-                }`}
-              >
-                {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          ))}
-        </div>
+        <PricingCards />
       </div>
 
       {/* Comparison table */}

@@ -4,17 +4,19 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
-import { getRazorpay, PAYG_AMOUNT_PAISE, PRO_AMOUNT_PAISE, BIZ_AMOUNT_PAISE } from "@/lib/razorpay";
+import { getRazorpay, PAYG_AMOUNT_PAISE, PRO_AMOUNT_PAISE, BIZ_AMOUNT_PAISE, PRO_ANNUAL_PAISE, BIZ_ANNUAL_PAISE } from "@/lib/razorpay";
 import { z } from "zod";
 
 const AMOUNTS: Record<string, number> = {
   payg: PAYG_AMOUNT_PAISE,
   pro: PRO_AMOUNT_PAISE,
   business: BIZ_AMOUNT_PAISE,
+  pro_annual: PRO_ANNUAL_PAISE,
+  business_annual: BIZ_ANNUAL_PAISE,
 };
 
 const schema = z.object({
-  plan: z.enum(["payg", "pro", "business"]),
+  plan: z.enum(["payg", "pro", "business", "pro_annual", "business_annual"]),
   fileName: z.string().optional(),
   pageCount: z.number().optional(),
 });

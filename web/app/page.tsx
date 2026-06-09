@@ -5,6 +5,7 @@ import {
   Download, Upload, Shield, Clock, CreditCard, FileCheck, Star,
 } from "lucide-react";
 import ConverterMockup from "@/components/ConverterMockup";
+import { SamplePDFDemo } from "@/components/SamplePDFDemo";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
@@ -41,8 +42,8 @@ const softwareAppSchema = {
   offers: [
     { "@type": "Offer", name: "Free tier",          price: "0",    priceCurrency: "INR" },
     { "@type": "Offer", name: "Pay-per-document",   price: "49",   priceCurrency: "INR" },
-    { "@type": "Offer", name: "Pro",                price: "1198", priceCurrency: "INR" },
-    { "@type": "Offer", name: "Business",           price: "4498", priceCurrency: "INR" },
+    { "@type": "Offer", name: "Pro",      price: "1198", priceCurrency: "INR" },
+    { "@type": "Offer", name: "Business", price: "4498", priceCurrency: "INR" },
   ],
 };
 
@@ -159,12 +160,7 @@ function Hero() {
                 Convert free — 8 pages
                 <ArrowRight size={15} />
               </Link>
-              <Link
-                href="#how-it-works"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-700 border border-slate-200 hover:border-slate-300 bg-white transition-colors"
-              >
-                See how it works
-              </Link>
+              <SamplePDFDemo />
             </div>
 
             {/* Trust bar */}
@@ -186,7 +182,7 @@ function Hero() {
                   ))}
                 </div>
                 <p className="text-xs text-slate-500">
-                  <span className="font-semibold text-slate-700">1,200+ CAs</span> and finance teams
+                  Trusted by <span className="font-semibold text-slate-700">500+ CAs</span> across India
                 </p>
               </div>
             </div>
@@ -445,7 +441,7 @@ function Pricing() {
       period: "/ mo",
       desc: "For regular use",
       badge: "Most popular",
-      features: ["500 pages / month", "All output formats", "Priority processing", "Email support"],
+      features: ["500 pages / month pool", "All output formats", "Priority processing", "Email support"],
       cta: "Start Pro",
       href: "/signup",
       featured: true,
@@ -455,8 +451,8 @@ function Pricing() {
       price: "₹4,498",
       period: "/ mo",
       desc: "For CA firms & teams",
-      features: ["2,000 pages / month", "All output formats", "API access", "Priority support"],
-      cta: "Contact us",
+      features: ["2,000 pages / month pool", "All output formats", "API access", "5 team seats", "Priority support"],
+      cta: "Start Business",
       href: "/signup",
       featured: false,
     },
@@ -469,6 +465,10 @@ function Pricing() {
           <p className="text-xs font-semibold text-navy uppercase tracking-widest mb-3">Pricing</p>
           <h2 className="font-display text-[2rem] font-bold text-slate-900 mb-3">Simple, transparent pricing</h2>
           <p className="text-slate-500 text-sm">Start free. Only pay when you need more.</p>
+          <p className="text-xs text-slate-400 mt-2 max-w-lg mx-auto">
+            <span className="font-medium text-slate-500">Pay-as-you-go</span> charges ₹49 per document regardless of page count.{" "}
+            <span className="font-medium text-slate-500">Pro & Business</span> plans give you a shared monthly page pool — e.g. a 20-page statement uses 20 of your 500 pages.
+          </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {tiers.map(({ name, price, period, desc, features, cta, href, featured, badge }) => (
@@ -562,7 +562,7 @@ function CTA() {
           Stop typing transactions<br className="hidden sm:block" /> manually
         </h2>
         <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">
-          Join 1,200+ accountants and finance professionals who convert bank statements in seconds, not hours.
+          Join 500+ CAs and finance professionals across India who convert bank statements in seconds, not hours.
         </p>
         <Link
           href="/signup"

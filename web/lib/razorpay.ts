@@ -1,9 +1,12 @@
 import Razorpay from "razorpay";
 import crypto from "crypto";
 
-export const PAYG_AMOUNT_PAISE = 4900;   // ₹49
-export const PRO_AMOUNT_PAISE = 39900;   // ₹399/month
-export const BIZ_AMOUNT_PAISE = 99900;   // ₹999/month
+export const PAYG_AMOUNT_PAISE = 4900;        // ₹49
+export const PRO_AMOUNT_PAISE = 119800;       // ₹1,198/month
+export const BIZ_AMOUNT_PAISE = 449800;       // ₹4,498/month
+// Annual = monthly × 12 × 0.80 (20% discount), billed in one charge
+export const PRO_ANNUAL_PAISE = 1149900;      // ₹11,499/year (₹958/mo equiv)
+export const BIZ_ANNUAL_PAISE = 4317800;      // ₹43,178/year (₹3,598/mo equiv)
 
 export function getRazorpay() {
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {

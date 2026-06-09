@@ -20,6 +20,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
     rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
       ? rawRedirect
       : "/dashboard";
+  const referralCode = params.get("ref") ?? undefined;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,7 +46,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
     try {
       const endpoint = mode === "signup" ? "/api/auth/signup" : "/api/auth/login";
       const body = mode === "signup"
-        ? { name: name.trim() || undefined, email, password }
+        ? { name: name.trim() || undefined, email, password, referralCode }
         : { email, password };
 
       const res = await fetch(endpoint, {
@@ -109,6 +110,14 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
           {/* Card */}
           <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+
+            {/* Referral notice */}
+            {mode === "signup" && referralCode && (
+              <div className="mb-5 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                <p className="font-semibold">You were invited! 🎉</p>
+                <p className="text-xs mt-0.5 text-emerald-600">Sign up now and both you and your friend get 50 bonus free pages.</p>
+              </div>
+            )}
 
             {/* Error */}
             {error && (

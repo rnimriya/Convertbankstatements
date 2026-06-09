@@ -23,7 +23,11 @@ export interface User {
   pagesUsed: number;
   tier: "FREE" | "PRO" | "BUSINESS";
   monthlyPageLimit: number;
+  billingCycle: "monthly" | "annual";
   razorpayCustomerId: string | null;
+  referralCode: string;
+  referredBy: string | null;
+  referralPagesCredited: number;
   createdAt: string;
   resetToken?: string | null;
   resetTokenExpiry?: string | null;
@@ -66,7 +70,11 @@ function toHash(u: User): Record<string, string | number> {
     pagesUsed: u.pagesUsed,
     tier: u.tier,
     monthlyPageLimit: u.monthlyPageLimit,
+    billingCycle: u.billingCycle,
     razorpayCustomerId: u.razorpayCustomerId ?? "",
+    referralCode: u.referralCode,
+    referredBy: u.referredBy ?? "",
+    referralPagesCredited: u.referralPagesCredited,
     createdAt: u.createdAt,
     resetToken: u.resetToken ?? "",
     resetTokenExpiry: u.resetTokenExpiry ?? "",
@@ -82,7 +90,11 @@ function fromHash(h: Record<string, string>): User {
     pagesUsed: parseInt(h.pagesUsed ?? "0", 10),
     tier: (h.tier || "FREE") as User["tier"],
     monthlyPageLimit: parseInt(h.monthlyPageLimit ?? "8", 10),
+    billingCycle: (h.billingCycle || "monthly") as User["billingCycle"],
     razorpayCustomerId: h.razorpayCustomerId || null,
+    referralCode: h.referralCode || h.id.slice(0, 8),
+    referredBy: h.referredBy || null,
+    referralPagesCredited: parseInt(h.referralPagesCredited ?? "0", 10),
     createdAt: h.createdAt,
     resetToken: h.resetToken || null,
     resetTokenExpiry: h.resetTokenExpiry || null,
@@ -133,7 +145,11 @@ async function ensureSeed() {
         pagesUsed: 0,
         tier: "FREE",
         monthlyPageLimit: 8,
+        billingCycle: "monthly",
         razorpayCustomerId: null,
+        referralCode: "seed0001",
+        referredBy: null,
+        referralPagesCredited: 0,
         createdAt: new Date().toISOString(),
       };
       const claimed = await r().set(EK(email), user.id, { nx: true });
@@ -149,7 +165,11 @@ async function ensureSeed() {
           pagesUsed: 0,
           tier: "FREE",
           monthlyPageLimit: 8,
+          billingCycle: "monthly",
           razorpayCustomerId: null,
+          referralCode: "seed0001",
+          referredBy: null,
+          referralPagesCredited: 0,
           createdAt: new Date().toISOString(),
         };
         await fileWrite([user]);
@@ -187,17 +207,23 @@ export async function findById(id: string): Promise<User | null> {
 export async function createUser(
   email: string,
   passwordHash: string,
-  name?: string
+  name?: string,
+  referredBy?: string
 ): Promise<User> {
+  const id = randomUUID();
   const user: User = {
-    id: randomUUID(),
+    id,
     email: email.toLowerCase(),
     name: name ?? null,
     passwordHash,
     pagesUsed: 0,
     tier: "FREE",
     monthlyPageLimit: 8,
+    billingCycle: "monthly",
     razorpayCustomerId: null,
+    referralCode: id.slice(0, 8),
+    referredBy: referredBy ?? null,
+    referralPagesCredited: 0,
     createdAt: new Date().toISOString(),
   };
 
@@ -205,7 +231,10 @@ export async function createUser(
     // SET NX atomically claims the email slot — rejects duplicate signups
     const claimed = await r().set(EK(email), user.id, { nx: true });
     if (!claimed) throw new Error("An account with this email already exists.");
-    await r().hset(UK(user.id), toHash(user));
+    const pipe = r().pipeline();
+    pipe.hset(UK(user.id), toHash(user));
+    pipe.set(`cs:ref:${user.referralCode}`, user.id);
+    await pipe.exec();
     return user;
   }
 
@@ -232,10 +261,11 @@ export async function incrementPages(userId: string, count: number): Promise<voi
 export async function upgradeTier(
   userId: string,
   tier: User["tier"],
-  pageLimit: number
+  pageLimit: number,
+  billingCycle: User["billingCycle"] = "monthly"
 ): Promise<void> {
   if (useRedis()) {
-    await r().hset(UK(userId), { tier, monthlyPageLimit: pageLimit });
+    await r().hset(UK(userId), { tier, monthlyPageLimit: pageLimit, billingCycle });
     return;
   }
   const users = await fileRead();
@@ -243,8 +273,45 @@ export async function upgradeTier(
   if (user) {
     user.tier = tier;
     user.monthlyPageLimit = pageLimit;
+    user.billingCycle = billingCycle;
     await fileWrite(users);
   }
+}
+
+/** Credit extra free pages to a user (used by referral program). */
+export async function creditPages(userId: string, pages: number): Promise<void> {
+  if (useRedis()) {
+    await r().hincrby(UK(userId), "monthlyPageLimit", pages);
+    await r().hincrby(UK(userId), "referralPagesCredited", pages);
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.monthlyPageLimit += pages;
+    user.referralPagesCredited += pages;
+    await fileWrite(users);
+  }
+}
+
+/** Look up a user by their referral code. */
+export async function findByReferralCode(code: string): Promise<User | null> {
+  if (useRedis()) {
+    const userId = await r().get<string>(`cs:ref:${code}`);
+    if (!userId) return null;
+    return findById(userId);
+  }
+  const users = await fileRead();
+  return users.find(u => u.referralCode === code) ?? null;
+}
+
+/** Register a referral code→userId mapping (call at createUser time). */
+export async function registerReferralCode(code: string, userId: string): Promise<void> {
+  if (useRedis()) {
+    await r().set(`cs:ref:${code}`, userId);
+    return;
+  }
+  // file backend: code is stored on the user object itself, no extra index needed
 }
 
 export async function setResetToken(

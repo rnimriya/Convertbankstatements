@@ -10,15 +10,40 @@ import {
 } from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
 import { findById, incrementPages, markPaygUsed } from "@/lib/auth/users";
+import { getPortal } from "@/lib/portals";
 import { cookies } from "next/headers";
 
 const FREE_PAGE_CAP = 8;
 
 export async function POST(req: NextRequest) {
+  // ── Demo mode ──────────────────────────────────────────────────────────────
+  // ?demo=true skips file upload, billing, and auth — used by the "Try sample" button.
+  if (req.nextUrl.searchParams.get("demo") === "true") {
+    const start = Date.now();
+    const transactions = generateMockTransactions(5);
+    const content = transactionsToCSV(transactions);
+    const csvUrl = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
+    const xlsxBuf = transactionsToExcel(transactions);
+    const xlsxUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${xlsxBuf.toString("base64")}`;
+    return NextResponse.json({
+      success: true,
+      file_name: "SBI_Sample_Statement.pdf",
+      page_count: 5,
+      transaction_count: transactions.length,
+      bank_name: "State Bank of India (SBI)",
+      is_demo: true,
+      billing: { billing_type: "FREE_TIER", pages_charged: 0, payment_required: false, message: "Demo — no pages consumed." },
+      transactions: transactions.slice(0, 10),
+      export_urls: { csv: csvUrl, xlsx: xlsxUrl },
+      processing_ms: Date.now() - start,
+    });
+  }
+
   const formData = await req.formData();
   const file = formData.get("file") as File | null;
   const exportFormats = ((formData.get("export_formats") as string) || "csv")
     .split(",").map((f) => f.trim().toLowerCase());
+  const portalToken = (formData.get("portal_token") as string | null) ?? null;
 
   if (!file)
     return NextResponse.json({ error: "No file uploaded." }, { status: 400 });
@@ -40,16 +65,37 @@ export async function POST(req: NextRequest) {
   let pagesUsed = 0;
   let tier = "FREE";
   let monthlyPageLimit = FREE_PAGE_CAP;
+  let isPortalUpload = false;
 
-  if (session) {
-    const user = await findById(session.sub);
-    if (user) {
-      userId = user.id;
-      pagesUsed = user.pagesUsed;
-      tier = user.tier;
-      monthlyPageLimit = user.monthlyPageLimit;
+  // Portal upload: resolve portal owner and bill their account
+  if (portalToken) {
+    const portal = await getPortal(portalToken);
+    if (portal && portal.active) {
+      const owner = await findById(portal.ownerId);
+      if (owner) {
+        userId = owner.id;
+        pagesUsed = owner.pagesUsed;
+        tier = owner.tier;
+        monthlyPageLimit = owner.monthlyPageLimit;
+        isPortalUpload = true;
+      }
     }
-  } else {
+    // If portal is invalid or inactive, fall through to normal anonymous billing
+  }
+
+  if (!isPortalUpload) {
+    if (session) {
+      const user = await findById(session.sub);
+      if (user) {
+        userId = user.id;
+        pagesUsed = user.pagesUsed;
+        tier = user.tier;
+        monthlyPageLimit = user.monthlyPageLimit;
+      }
+    }
+  }
+
+  if (!isPortalUpload && !session) {
     // Anonymous: cookie-based tracking (soft limit — requires login for real enforcement)
     const raw = parseInt(jar.get("bs_pages_used")?.value ?? "0", 10);
     pagesUsed = Number.isFinite(raw) && raw >= 0 ? raw : 0;

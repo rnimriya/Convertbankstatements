@@ -14,13 +14,15 @@ const schema = z.object({
   razorpay_order_id: z.string(),
   razorpay_payment_id: z.string(),
   razorpay_signature: z.string(),
-  plan: z.enum(["payg", "pro", "business"]),
+  plan: z.enum(["payg", "pro", "business", "pro_annual", "business_annual"]),
 });
 
-const PLAN_CONFIG = {
-  pro:      { tier: "PRO" as const,      pageLimit: 200 },
-  business: { tier: "BUSINESS" as const, pageLimit: 500 },
-  payg:     { tier: "FREE" as const,     pageLimit: 8 },
+const PLAN_CONFIG: Record<string, { tier: "FREE" | "PRO" | "BUSINESS"; pageLimit: number; billingCycle: "monthly" | "annual" }> = {
+  pro:              { tier: "PRO",      pageLimit: 500,   billingCycle: "monthly" },
+  business:         { tier: "BUSINESS", pageLimit: 2000,  billingCycle: "monthly" },
+  pro_annual:       { tier: "PRO",      pageLimit: 500,   billingCycle: "annual"  },
+  business_annual:  { tier: "BUSINESS", pageLimit: 2000,  billingCycle: "annual"  },
+  payg:             { tier: "FREE",     pageLimit: 8,     billingCycle: "monthly" },
 };
 
 export async function POST(req: NextRequest) {
@@ -52,7 +54,7 @@ export async function POST(req: NextRequest) {
 
   // Subscription upgrade
   const cfg = PLAN_CONFIG[plan];
-  await upgradeTier(session.sub, cfg.tier, cfg.pageLimit);
+  await upgradeTier(session.sub, cfg.tier, cfg.pageLimit, cfg.billingCycle);
 
-  return NextResponse.json({ ok: true, plan, tier: cfg.tier });
+  return NextResponse.json({ ok: true, plan, tier: cfg.tier, billingCycle: cfg.billingCycle });
 }

@@ -1,15 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { createUser } from "@/lib/auth/users";
+import { createUser, findByReferralCode, creditPages } from "@/lib/auth/users";
 import { signJWT } from "@/lib/auth/jwt";
 import { sessionCookieOptions, SESSION_COOKIE } from "@/lib/auth/session";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
+const REFERRAL_BONUS_PAGES = 50;
+
 const schema = z.object({
   email: z.string().email("Invalid email address."),
   password: z.string().min(8, "Password must be at least 8 characters."),
   name: z.string().optional(),
+  referralCode: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -26,9 +29,25 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { email, password, name } = parsed.data;
+    const { email, password, name, referralCode } = parsed.data;
+
+    // Resolve referral code before creating user (non-blocking — ignore invalid codes)
+    let referrerId: string | null = null;
+    if (referralCode) {
+      const referrer = await findByReferralCode(referralCode).catch(() => null);
+      if (referrer) referrerId = referrer.id;
+    }
+
     const passwordHash = await bcrypt.hash(password, 12);
-    const user = await createUser(email, passwordHash, name);
+    const user = await createUser(email, passwordHash, name, referrerId ?? undefined);
+
+    // Credit both parties with bonus pages
+    if (referrerId) {
+      await Promise.all([
+        creditPages(user.id, REFERRAL_BONUS_PAGES),
+        creditPages(referrerId, REFERRAL_BONUS_PAGES),
+      ]);
+    }
 
     const token = await signJWT({ sub: user.id, email: user.email, name: user.name });
 

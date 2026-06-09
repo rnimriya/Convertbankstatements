@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -117,6 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.variable} ${bricolage.variable} ${inter.className} antialiased`}>
+        <AnnouncementBanner />
         {children}
       </body>
     </html>

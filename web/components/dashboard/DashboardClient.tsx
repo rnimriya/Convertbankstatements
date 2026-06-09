@@ -2,15 +2,17 @@
 
 import { useState, useCallback } from "react";
 import { UploadCard } from "@/components/upload/UploadCard";
+import { BulkUploadCard } from "@/components/upload/BulkUploadCard";
 import { UsageHistory } from "@/components/dashboard/UsageHistory";
 import { PricingSection } from "@/components/dashboard/PricingSection";
+import { PortalsPanel } from "@/components/dashboard/PortalsPanel";
 import type { BillingContext } from "@/types/billing";
-import { FileText, History, CreditCard, LogOut, Upload } from "lucide-react";
+import { FileText, History, CreditCard, LogOut, Upload, Link2 } from "lucide-react";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { Alert } from "@/components/ui/Alert";
 
-type Tab = "upload" | "history" | "billing";
+type Tab = "upload" | "history" | "billing" | "portals";
 
 export interface RecentLog {
   id: string;
@@ -33,6 +35,7 @@ interface Props {
 
 export function DashboardClient({ billing: initialBilling, recentLogs, userEmail, userName, isDemo }: Props) {
   const [tab, setTab] = useState<Tab>("upload");
+  const [uploadMode, setUploadMode] = useState<"single" | "bulk">("single");
   const [billing, setBilling] = useState(initialBilling);
 
   const refreshBilling = useCallback(async () => {
@@ -48,6 +51,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
     { id: "upload",  label: "Convert",  icon: <Upload     className="h-4 w-4" /> },
     { id: "history", label: "History",  icon: <History    className="h-4 w-4" /> },
     { id: "billing", label: "Billing",  icon: <CreditCard className="h-4 w-4" /> },
+    { id: "portals", label: "Portals",  icon: <Link2      className="h-4 w-4" /> },
   ];
 
   const displayName = userName ?? userEmail.split("@")[0];
@@ -130,7 +134,23 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
                 Upload any Indian bank PDF — your file is never stored on our servers.
               </p>
             </div>
-            <UploadCard billing={billing} onBillingUpdate={refreshBilling} userEmail={userEmail} />
+            {/* Single / Bulk toggle */}
+            <div className="flex items-center gap-1 bg-slate-100 rounded-xl p-1 mb-4">
+              {(["single", "bulk"] as const).map(m => (
+                <button
+                  key={m}
+                  onClick={() => setUploadMode(m)}
+                  className={`flex-1 py-1.5 rounded-lg text-sm font-semibold transition-all ${uploadMode === m ? "bg-white text-navy shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                >
+                  {m === "single" ? "Single file" : "Bulk upload"}
+                </button>
+              ))}
+            </div>
+
+            {uploadMode === "single"
+              ? <UploadCard billing={billing} onBillingUpdate={refreshBilling} userEmail={userEmail} />
+              : <BulkUploadCard billing={billing} onBillingUpdate={refreshBilling} />
+            }
           </div>
         )}
 
@@ -153,6 +173,18 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
               </p>
             </div>
             <PricingSection currentTier={billing.tier} />
+          </div>
+        )}
+
+        {tab === "portals" && (
+          <div>
+            <div className="mb-6">
+              <h1 className="font-display text-2xl font-bold text-slate-900">Client Upload Portals</h1>
+              <p className="mt-1 text-sm text-slate-500">
+                Generate a secure link to share with clients. Uploads via the link bill your account automatically.
+              </p>
+            </div>
+            <PortalsPanel />
           </div>
         )}
 
