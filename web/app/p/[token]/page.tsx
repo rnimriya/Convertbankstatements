@@ -5,11 +5,12 @@ import { PortalUpload } from "@/components/PortalUpload";
 export const dynamic = "force-dynamic";
 
 interface Props {
-  params: { token: string };
+  params: Promise<{ token: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const portal = await getPortal(params.token);
+  const { token } = await params;
+  const portal = await getPortal(token);
   if (!portal || !portal.active) return { title: "Upload Portal" };
   return {
     title: `${portal.label} — Secure Upload`,
@@ -18,8 +19,9 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function PortalPage({ params }: Props) {
-  const portal = await getPortal(params.token);
+  const { token } = await params;
+  const portal = await getPortal(token);
   if (!portal || !portal.active) notFound();
 
-  return <PortalUpload portalToken={params.token} portalLabel={portal.label} />;
+  return <PortalUpload portalToken={token} portalLabel={portal.label} />;
 }
