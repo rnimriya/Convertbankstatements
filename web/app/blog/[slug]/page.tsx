@@ -115,7 +115,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
             {post.title}
           </h1>
 
@@ -134,7 +134,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {/* Content */}
           <article
-            className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed"
+            className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 

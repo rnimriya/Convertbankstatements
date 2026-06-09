@@ -25,7 +25,7 @@ export default async function BlogPage({
       <main className="min-h-screen bg-white dark:bg-surface">
         {/* Hero */}
         <section className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface py-14 px-6 text-center">
-          <h1 className="text-4xl font-extrabold text-slate-900 dark:text-white">
+          <h1 className="font-display text-4xl font-extrabold text-slate-900 dark:text-white">
             Convert Statement Blog
           </h1>
           <p className="mt-3 text-base text-slate-500 dark:text-gray-400 max-w-xl mx-auto">
@@ -64,7 +64,7 @@ export default async function BlogPage({
                       ))}
                     </div>
                     <Link href={`/blog/${post.slug}`}>
-                      <h2 className="font-bold text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                      <h2 className="font-display font-bold text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                         {post.title}
                       </h2>
                     </Link>

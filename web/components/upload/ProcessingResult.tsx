@@ -42,9 +42,12 @@ export function ProcessingResult({ result, onReset }: Props) {
     <div className="space-y-4">
       {/* Demo notice */}
       {result.is_demo && (
-        <Alert variant="warning" title="Demo data">
-          The Python AI backend isn&apos;t connected — transactions are sample data.
-          Connect FastAPI to extract real transactions from your PDF.
+        <Alert variant="info" title="Sample data">
+          This is a demo using a sample SBI statement.{" "}
+          <a href="/signup" className="font-semibold underline hover:no-underline">
+            Sign up free
+          </a>{" "}
+          to convert your own bank statements.
         </Alert>
       )}
 
