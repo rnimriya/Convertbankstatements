@@ -102,9 +102,9 @@ function Hero() {
             </div>
 
             <h1 className="font-display text-[2.75rem] leading-[1.07] font-bold tracking-tight text-slate-900 mb-5">
-              Bank statements,<br />
-              spreadsheet-ready<br />
-              in 15 seconds
+              Bank Statement<br />
+              Converter<br />
+              <span className="text-navy">PDF to Excel/CSV</span>
             </h1>
 
             <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-md">
