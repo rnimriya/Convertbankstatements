@@ -5,7 +5,8 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/razorpay";
-import { upgradeTier, findById } from "@/lib/auth/users";
+import { upgradeTier, findById, markWebhookProcessed } from "@/lib/auth/users";
+import { TIER_CONFIG } from "@/lib/config/tiers";
 
 export async function POST(req: NextRequest) {
   const signature = req.headers.get("x-razorpay-signature") ?? "";
@@ -20,17 +21,26 @@ export async function POST(req: NextRequest) {
 
   if (eventType === "payment.captured") {
     const payment = event.payload?.payment?.entity;
+    const paymentId: string = payment?.id ?? "";
     const notes = payment?.notes ?? {};
     const plan: string = notes.plan ?? "payg";
     const userId: string = notes.userId ?? "";
 
-    if (userId && (plan === "pro" || plan === "business")) {
+    // Idempotency guard — Razorpay retries webhooks; process each payment_id only once.
+    if (paymentId && !(await markWebhookProcessed(paymentId))) {
+      return NextResponse.json({ received: true, skipped: "duplicate" });
+    }
+
+    if (userId && (plan === "pro" || plan === "business" || plan === "pro_annual" || plan === "business_annual")) {
       const user = await findById(userId);
       if (user) {
+        const tier = plan.startsWith("pro") ? "PRO" : "BUSINESS";
+        const cycle = plan.endsWith("_annual") ? "annual" : "monthly";
         await upgradeTier(
           userId,
-          plan === "pro" ? "PRO" : "BUSINESS",
-          plan === "pro" ? 200 : 500
+          tier,
+          TIER_CONFIG[tier].pagesPerMonth,
+          cycle,
         );
       }
     }

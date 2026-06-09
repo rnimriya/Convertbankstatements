@@ -8,6 +8,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { verifyPaymentSignature } from "@/lib/razorpay";
 import { upgradeTier } from "@/lib/auth/users";
+import { TIER_CONFIG } from "@/lib/config/tiers";
+import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const schema = z.object({
@@ -18,14 +20,17 @@ const schema = z.object({
 });
 
 const PLAN_CONFIG: Record<string, { tier: "FREE" | "PRO" | "BUSINESS"; pageLimit: number; billingCycle: "monthly" | "annual" }> = {
-  pro:              { tier: "PRO",      pageLimit: 500,   billingCycle: "monthly" },
-  business:         { tier: "BUSINESS", pageLimit: 2000,  billingCycle: "monthly" },
-  pro_annual:       { tier: "PRO",      pageLimit: 500,   billingCycle: "annual"  },
-  business_annual:  { tier: "BUSINESS", pageLimit: 2000,  billingCycle: "annual"  },
-  payg:             { tier: "FREE",     pageLimit: 8,     billingCycle: "monthly" },
+  pro:              { tier: "PRO",      pageLimit: TIER_CONFIG.PRO.pagesPerMonth,      billingCycle: "monthly" },
+  business:         { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "monthly" },
+  pro_annual:       { tier: "PRO",      pageLimit: TIER_CONFIG.PRO.pagesPerMonth,      billingCycle: "annual"  },
+  business_annual:  { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "annual"  },
+  payg:             { tier: "FREE",     pageLimit: TIER_CONFIG.FREE.pagesPerMonth,     billingCycle: "monthly" },
 };
 
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

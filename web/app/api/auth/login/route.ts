@@ -14,7 +14,10 @@ const schema = z.object({
 // Pre-computed at module load (12 rounds = same cost as real password hashes).
 // Ensures non-existent-email responses take the same time as wrong-password
 // responses — prevents email enumeration via timing.
-const DUMMY_HASH_PROMISE = bcrypt.hash("dummy-constant-never-matches-" + Math.random(), 12);
+// Fixed string — Math.random() was removed intentionally.
+// bcrypt timing depends on cost factor (rounds=12), not the input value,
+// so a constant string gives identical timing to a real hash comparison.
+const DUMMY_HASH_PROMISE = bcrypt.hash("dummy-constant-never-matches", 12);
 
 export async function POST(req: NextRequest) {
   const limited = await checkRateLimit(req);

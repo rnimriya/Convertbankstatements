@@ -4,15 +4,17 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
-import { getRazorpay, PAYG_AMOUNT_PAISE, PRO_AMOUNT_PAISE, BIZ_AMOUNT_PAISE, PRO_ANNUAL_PAISE, BIZ_ANNUAL_PAISE } from "@/lib/razorpay";
+import { getRazorpay } from "@/lib/razorpay";
+import { TIER_CONFIG } from "@/lib/config/tiers";
+import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const AMOUNTS: Record<string, number> = {
-  payg: PAYG_AMOUNT_PAISE,
-  pro: PRO_AMOUNT_PAISE,
-  business: BIZ_AMOUNT_PAISE,
-  pro_annual: PRO_ANNUAL_PAISE,
-  business_annual: BIZ_ANNUAL_PAISE,
+  payg:             TIER_CONFIG.PAYG.monthlyPricePaise,
+  pro:              TIER_CONFIG.PRO.monthlyPricePaise,
+  business:         TIER_CONFIG.BUSINESS.monthlyPricePaise,
+  pro_annual:       TIER_CONFIG.PRO.annualPricePaise!,
+  business_annual:  TIER_CONFIG.BUSINESS.annualPricePaise!,
 };
 
 const schema = z.object({
@@ -22,6 +24,9 @@ const schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

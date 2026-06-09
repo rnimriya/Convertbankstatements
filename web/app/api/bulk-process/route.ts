@@ -18,11 +18,13 @@ import {
   transactionsToCSV,
   transactionsToExcel,
 } from "@/lib/mock-transactions";
+import { TIER_CONFIG } from "@/lib/config/tiers";
+import { inferBankName } from "@/lib/config/banks";
 import JSZip from "jszip";
 
 const MAX_FILES = 20;
 const MAX_SIZE_MB = 50;
-const FREE_PAGE_CAP = 8;
+const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;
 
 interface FileResult {
   fileName: string;
@@ -168,15 +170,3 @@ export async function POST(req: NextRequest) {
   });
 }
 
-function inferBankName(filename: string): string | null {
-  const f = filename.toLowerCase();
-  const banks: [string, string][] = [
-    ["sbi", "State Bank of India (SBI)"], ["state bank", "State Bank of India (SBI)"],
-    ["hdfc", "HDFC Bank"], ["icici", "ICICI Bank"], ["axis", "Axis Bank"],
-    ["kotak", "Kotak Mahindra Bank"], ["pnb", "Punjab National Bank"],
-    ["bob", "Bank of Baroda"], ["canara", "Canara Bank"], ["union", "Union Bank of India"],
-    ["indusind", "IndusInd Bank"], ["yes bank", "Yes Bank"], ["idfc", "IDFC FIRST Bank"],
-  ];
-  for (const [key, name] of banks) if (f.includes(key)) return name;
-  return null;
-}

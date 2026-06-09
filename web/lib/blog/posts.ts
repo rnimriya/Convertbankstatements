@@ -51,12 +51,30 @@ function enrich(post: BlogPost): BlogPost {
   };
 }
 
+// Module-level cache — avoids reading from disk on every request.
+// TTL of 60 s so new posts published via the admin API become visible quickly.
+let _cache: BlogPost[] | null = null;
+let _cacheExpiresAt = 0;
+const CACHE_TTL_MS = 60_000;
+
 export function getAllPosts(): BlogPost[] {
+  const now = Date.now();
+  if (_cache && now < _cacheExpiresAt) return _cache;
+
   const custom = readCustomPosts();
-  const all = [...SEED_POSTS, ...custom].map(enrich);
-  return all.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-  );
+  const sorted = [...SEED_POSTS, ...custom]
+    .map(enrich)
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  _cache = sorted;
+  _cacheExpiresAt = now + CACHE_TTL_MS;
+  return sorted;
+}
+
+/** Bust the in-memory cache — call after any write (create/update/delete). */
+function invalidateCache() {
+  _cache = null;
+  _cacheExpiresAt = 0;
 }
 
 export function getPublishedPosts(
@@ -87,6 +105,7 @@ export function createPost(
   };
   custom.push(post);
   writeCustomPosts(custom);
+  invalidateCache();
   return post;
 }
 
@@ -96,6 +115,7 @@ export function updatePost(id: string, data: Partial<BlogPost>): BlogPost | null
   if (idx === -1) return null;
   custom[idx] = { ...custom[idx], ...data, updatedAt: new Date().toISOString() };
   writeCustomPosts(custom);
+  invalidateCache();
   return custom[idx];
 }
 
@@ -104,6 +124,7 @@ export function deletePost(id: string): boolean {
   const filtered = custom.filter((p) => p.id !== id);
   if (filtered.length === custom.length) return false;
   writeCustomPosts(filtered);
+  invalidateCache();
   return true;
 }
 

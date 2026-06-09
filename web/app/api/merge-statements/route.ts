@@ -109,11 +109,28 @@ function parseCSVLine(line: string): string[] {
   const result: string[] = [];
   let current = "";
   let inQuote = false;
-  for (let i = 0; i < line.length; i++) {
+  let i = 0;
+  while (i < line.length) {
     const ch = line[i];
-    if (ch === '"') { inQuote = !inQuote; continue; }
-    if (ch === "," && !inQuote) { result.push(current.trim()); current = ""; continue; }
+    if (ch === '"') {
+      if (inQuote && line[i + 1] === '"') {
+        // Escaped double-quote ("") inside a quoted field → literal "
+        current += '"';
+        i += 2;
+        continue;
+      }
+      inQuote = !inQuote;
+      i++;
+      continue;
+    }
+    if (ch === "," && !inQuote) {
+      result.push(current.trim());
+      current = "";
+      i++;
+      continue;
+    }
     current += ch;
+    i++;
   }
   result.push(current.trim());
   return result;

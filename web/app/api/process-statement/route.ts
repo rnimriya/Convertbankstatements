@@ -11,9 +11,11 @@ import {
 import { getSession } from "@/lib/auth/session";
 import { findById, incrementPages, markPaygUsed } from "@/lib/auth/users";
 import { getPortal } from "@/lib/portals";
+import { TIER_CONFIG } from "@/lib/config/tiers";
+import { inferBankName } from "@/lib/config/banks";
 import { cookies } from "next/headers";
 
-const FREE_PAGE_CAP = 8;
+const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;
 
 export async function POST(req: NextRequest) {
   // ── Demo mode ──────────────────────────────────────────────────────────────
@@ -140,7 +142,7 @@ export async function POST(req: NextRequest) {
 
   // ── Extract transactions: try FastAPI first, fall back to mock ────────────
   let transactions: ReturnType<typeof generateMockTransactions> = [];
-  let bankName = inferIndianBankName(file.name, bytes.toString("latin1").slice(0, 2000));
+  let bankName = inferBankName(file.name, bytes.toString("latin1").slice(0, 2000));
   let isDemo = true;
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
@@ -251,25 +253,3 @@ async function consumePayg(
   return consumed;
 }
 
-function inferIndianBankName(filename: string, pdfText: string): string | null {
-  const combined = (filename + " " + pdfText).toLowerCase();
-  const banks: [string, string][] = [
-    ["state bank", "State Bank of India (SBI)"], ["sbi", "State Bank of India (SBI)"],
-    ["hdfc", "HDFC Bank"], ["icici", "ICICI Bank"],
-    ["axis", "Axis Bank"], ["kotak", "Kotak Mahindra Bank"],
-    ["punjab national", "Punjab National Bank"], ["pnb", "Punjab National Bank"],
-    ["bank of baroda", "Bank of Baroda"], ["bob", "Bank of Baroda"],
-    ["canara", "Canara Bank"], ["union bank", "Union Bank of India"],
-    ["indusind", "IndusInd Bank"], ["yes bank", "Yes Bank"],
-    ["idfc", "IDFC FIRST Bank"], ["federal bank", "Federal Bank"],
-    ["south indian bank", "South Indian Bank"], ["rbl", "RBL Bank"],
-    ["bandhan", "Bandhan Bank"], ["paytm", "Paytm Payments Bank"],
-    ["airtel", "Airtel Payments Bank"], ["au bank", "AU Small Finance Bank"],
-    ["indian bank", "Indian Bank"], ["central bank", "Central Bank of India"],
-    ["uco bank", "UCO Bank"], ["bank of india", "Bank of India"],
-  ];
-  for (const [key, name] of banks) {
-    if (combined.includes(key)) return name;
-  }
-  return null;
-}

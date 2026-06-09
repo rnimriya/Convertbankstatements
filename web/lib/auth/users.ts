@@ -390,3 +390,24 @@ export async function markPaygUsed(paymentId: string, userId: string): Promise<b
   }
   return true; // local dev — no real payments
 }
+
+const WK = (paymentId: string) => `cs:webhook:${paymentId}`;
+
+/**
+ * Idempotency guard for Razorpay webhooks.
+ *
+ * Razorpay retries webhooks on failure (up to 3 times over 24 h).
+ * SET NX ensures a given payment_id is only processed once even if the
+ * webhook fires multiple times.
+ *
+ * Returns true  — first delivery, handler should proceed.
+ * Returns false — already processed, handler should return 200 immediately.
+ */
+export async function markWebhookProcessed(paymentId: string): Promise<boolean> {
+  if (useRedis()) {
+    // 25-hour TTL — longer than Razorpay's 24-hour retry window
+    const result = await r().set(WK(paymentId), "1", { nx: true, ex: 90_000 });
+    return result === "OK";
+  }
+  return true; // local dev — always process
+}
