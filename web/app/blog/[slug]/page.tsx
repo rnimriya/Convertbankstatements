@@ -91,7 +91,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
-      <main className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+      <main className="min-h-screen bg-white dark:bg-surface">
         {/* Feature image */}
         <div className="h-64 sm:h-80 w-full overflow-hidden">
           <img

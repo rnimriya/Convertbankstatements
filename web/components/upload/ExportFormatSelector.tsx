@@ -83,9 +83,9 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
 
   return (
     <div>
-      <p className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400">
+      <p className="mb-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-gray-500">
         Output format
-        <span className="ml-2 normal-case font-normal text-slate-400">(select all you need)</span>
+        <span className="ml-2 normal-case font-normal text-slate-400 dark:text-gray-500">(select all you need)</span>
       </p>
       <div className="flex flex-wrap gap-2">
         {FORMATS.map(({ id, label, sub, Icon }) => {
@@ -98,7 +98,7 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border text-sm font-medium transition-all duration-150 ${
                 active
                   ? "bg-navy text-white border-navy shadow-md shadow-navy/20"
-                  : "bg-white text-slate-600 border-slate-200 hover:border-navy/40 hover:text-navy"
+                  : "bg-white dark:bg-surface text-slate-600 dark:text-gray-300 border-slate-200 dark:border-white/10 hover:border-navy/40 dark:hover:border-brand-400/40 hover:text-navy dark:hover:text-brand-400"
               }`}
             >
               <Icon />

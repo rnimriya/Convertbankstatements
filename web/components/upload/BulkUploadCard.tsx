@@ -108,16 +108,16 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
     return (
       <div className="space-y-4">
         {/* Summary */}
-        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+        <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-2xl p-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CheckCircle2 size={18} className="text-emerald-600" />
-            <span className="font-semibold text-emerald-800 text-sm">
+            <span className="font-semibold text-emerald-800 dark:text-emerald-300 text-sm">
               {successCount} of {results.length} files converted
             </span>
           </div>
           <button
             onClick={() => { setPhase("idle"); setResults([]); setMergeUrl(null); }}
-            className="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1"
+            className="text-xs text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 flex items-center gap-1"
           >
             <X size={12} /> Reset
           </button>
@@ -125,10 +125,10 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {/* Multi-bank merge offer */}
         {hasMultipleBanks && successCount > 1 && (
-          <div className="bg-navy/5 border border-navy/20 rounded-2xl p-4 flex items-center justify-between gap-4">
+          <div className="bg-navy/5 dark:bg-brand-400/5 border border-navy/20 dark:border-brand-400/20 rounded-2xl p-4 flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-navy">Multiple banks detected</p>
-              <p className="text-xs text-slate-500 mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
+              <p className="text-sm font-semibold text-navy dark:text-brand-400">Multiple banks detected</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
             </div>
             {mergeUrl ? (
               <a
@@ -154,31 +154,31 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         {/* Individual file results */}
         <div className="space-y-2">
           {results.map((r, i) => (
-            <div key={i} className={`bg-white border rounded-xl p-4 flex items-center gap-3 ${r.error ? "border-red-200 bg-red-50/30" : "border-slate-200"}`}>
+            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ? "border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface"}`}>
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0" />
               ) : (
                 <FileSpreadsheet size={16} className="text-emerald-500 shrink-0" />
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-800 truncate">{r.fileName}</p>
+                <p className="text-sm font-medium text-slate-800 dark:text-white truncate">{r.fileName}</p>
                 {r.error ? (
-                  <p className="text-xs text-red-500">{r.error}</p>
+                  <p className="text-xs text-red-500 dark:text-red-400">{r.error}</p>
                 ) : (
-                  <p className="text-xs text-slate-400">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` : ""}</p>
+                  <p className="text-xs text-slate-400 dark:text-gray-500">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` : ""}</p>
                 )}
               </div>
               {!r.error && (
                 <div className="flex gap-1.5 shrink-0">
                   {r.exportUrls.xlsx && (
                     <a href={r.exportUrls.xlsx} download={r.fileName.replace(".pdf", ".xlsx")}
-                      className="px-2.5 py-1.5 rounded-lg bg-navy/10 text-navy text-xs font-semibold hover:bg-navy/20 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg bg-navy/10 dark:bg-brand-400/10 text-navy dark:text-brand-400 text-xs font-semibold hover:bg-navy/20 dark:hover:bg-brand-400/20 transition-colors">
                       .xlsx
                     </a>
                   )}
                   {r.exportUrls.csv && (
                     <a href={r.exportUrls.csv} download={r.fileName.replace(".pdf", ".csv")}
-                      className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:border-slate-300 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-slate-600 dark:text-gray-300 text-xs font-semibold hover:border-slate-300 dark:hover:border-white/20 transition-colors">
                       .csv
                     </a>
                   )}
@@ -194,7 +194,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
   return (
     <div className="space-y-4">
       {phase === "error" && (
-        <div className="flex items-start gap-3 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700">
+        <div className="flex items-start gap-3 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-700 dark:text-red-400">
           <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-500" />
           <span className="flex-1">{errorMsg}</span>
           <button onClick={() => setPhase("idle")} className="shrink-0 text-red-400 hover:text-red-600 font-medium">✕</button>
@@ -208,7 +208,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
           "rounded-2xl border-2 border-dashed px-8 py-12 text-center transition-all duration-200 select-none",
           isDragActive
             ? "border-navy bg-navy/5 scale-[1.01]"
-            : "border-slate-200 bg-slate-50/60 hover:border-navy/40 hover:bg-navy/[0.02]",
+            : "border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-surface/60 hover:border-navy/40 dark:hover:border-brand-400/40 hover:bg-navy/[0.02]",
           phase === "processing" && "pointer-events-none opacity-70"
         )}
       >
@@ -216,28 +216,28 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {phase === "processing" ? (
           <>
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-navy/10">
-              <Loader2 className="h-8 w-8 text-navy animate-spin" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-navy/10 dark:bg-brand-400/10">
+              <Loader2 className="h-8 w-8 text-navy dark:text-brand-400 animate-spin" />
             </div>
             <div>
-              <p className="font-semibold text-slate-800">Processing files…</p>
-              <p className="mt-1 text-sm text-slate-400">Converting sequentially · please wait</p>
+              <p className="font-semibold text-slate-800 dark:text-white">Processing files…</p>
+              <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">Converting sequentially · please wait</p>
             </div>
           </>
         ) : (
           <>
             <div className={cn(
               "flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-200",
-              isDragActive ? "bg-navy text-white scale-110" : "bg-white border-2 border-slate-200 text-slate-400"
+              isDragActive ? "bg-navy text-white scale-110" : "bg-white dark:bg-surface border-2 border-slate-200 dark:border-white/10 text-slate-400 dark:text-gray-500"
             )}>
               {isDragActive ? <FileText className="h-8 w-8" /> : <Upload className="h-8 w-8" />}
             </div>
             <div>
-              <p className="text-base font-semibold text-slate-700">
+              <p className="text-base font-semibold text-slate-700 dark:text-gray-200">
                 {isDragActive ? "Drop files here!" : "Drop multiple PDFs or a ZIP file"}
               </p>
-              <p className="mt-1 text-sm text-slate-400">or <span className="font-semibold text-navy underline underline-offset-2">browse files</span></p>
-              <p className="mt-2 text-xs text-slate-400">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
+              <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">or <span className="font-semibold text-navy dark:text-brand-400 underline underline-offset-2">browse files</span></p>
+              <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
             </div>
           </>
         )}

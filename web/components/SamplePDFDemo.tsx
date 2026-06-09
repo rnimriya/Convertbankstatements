@@ -47,7 +47,7 @@ export function SamplePDFDemo() {
     return (
       <button
         onClick={runDemo}
-        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-700 border border-slate-200 hover:border-navy/40 hover:text-navy bg-white transition-colors"
+        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-700 dark:text-gray-200 border border-slate-200 dark:border-white/10 hover:border-navy/40 dark:hover:border-brand-400/40 hover:text-navy dark:hover:text-brand-400 bg-white dark:bg-surface transition-colors"
       >
         <Zap size={15} className="text-amber-500" />
         Try with sample PDF
@@ -57,7 +57,7 @@ export function SamplePDFDemo() {
 
   if (state === "loading") {
     return (
-      <button disabled className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-400 border border-slate-200 bg-white cursor-wait">
+      <button disabled className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-slate-400 dark:text-gray-500 border border-slate-200 dark:border-white/10 bg-white dark:bg-surface cursor-wait">
         <Loader2 size={15} className="animate-spin" />
         Converting SBI sample…
       </button>
@@ -66,7 +66,7 @@ export function SamplePDFDemo() {
 
   if (state === "error") {
     return (
-      <button onClick={reset} className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-rose-600 border border-rose-200 bg-rose-50 hover:bg-rose-100 transition-colors">
+      <button onClick={reset} className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-rose-600 border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors">
         <X size={15} />
         Demo failed — try again
       </button>
@@ -75,52 +75,52 @@ export function SamplePDFDemo() {
 
   // done
   return (
-    <div className="w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl shadow-lg overflow-hidden">
+    <div className="w-full max-w-[420px] bg-white dark:bg-surface border border-slate-200 dark:border-white/10 rounded-2xl shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-emerald-50 border-b border-emerald-100">
-        <div className="flex items-center gap-2 text-emerald-700">
+      <div className="flex items-center justify-between px-4 py-3 bg-emerald-50 dark:bg-emerald-900/20 border-b border-emerald-100 dark:border-emerald-800">
+        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
           <CheckCircle2 size={15} className="text-emerald-500" />
           <span className="text-sm font-semibold">Converted in {result?.processing_ms}ms</span>
         </div>
-        <button onClick={reset} className="text-slate-400 hover:text-slate-600 transition-colors">
+        <button onClick={reset} className="text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
           <X size={14} />
         </button>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 divide-x divide-slate-100 border-b border-slate-100">
+      <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-white/10 border-b border-slate-100 dark:border-white/10">
         <div className="px-4 py-3 text-center">
-          <p className="text-lg font-bold text-slate-900">{result?.transaction_count}</p>
-          <p className="text-[10px] text-slate-400 uppercase tracking-wide">Transactions</p>
+          <p className="text-lg font-bold text-slate-900 dark:text-white">{result?.transaction_count}</p>
+          <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-wide">Transactions</p>
         </div>
         <div className="px-4 py-3 text-center">
-          <p className="text-lg font-bold text-slate-900">5</p>
-          <p className="text-[10px] text-slate-400 uppercase tracking-wide">Pages</p>
+          <p className="text-lg font-bold text-slate-900 dark:text-white">5</p>
+          <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-wide">Pages</p>
         </div>
         <div className="px-4 py-3 text-center">
-          <p className="text-lg font-bold text-slate-900 text-[13px] leading-tight mt-0.5">{result?.bank_name?.replace("State Bank of India", "SBI")}</p>
-          <p className="text-[10px] text-slate-400 uppercase tracking-wide">Bank</p>
+          <p className="text-lg font-bold text-slate-900 dark:text-white text-[13px] leading-tight mt-0.5">{result?.bank_name?.replace("State Bank of India", "SBI")}</p>
+          <p className="text-[10px] text-slate-400 dark:text-gray-500 uppercase tracking-wide">Bank</p>
         </div>
       </div>
 
       {/* Preview table */}
       <div className="px-4 pt-3 pb-1">
-        <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wide mb-2">Preview (first 3 rows)</p>
-        <div className="overflow-x-auto rounded-lg border border-slate-100 text-xs">
+        <p className="text-[10px] font-semibold text-slate-400 dark:text-gray-500 uppercase tracking-wide mb-2">Preview (first 3 rows)</p>
+        <div className="overflow-x-auto rounded-lg border border-slate-100 dark:border-white/10 text-xs">
           <table className="w-full">
             <thead>
-              <tr className="bg-slate-50">
-                <th className="px-2.5 py-2 text-left text-slate-500 font-semibold">Date</th>
-                <th className="px-2.5 py-2 text-left text-slate-500 font-semibold">Description</th>
-                <th className="px-2.5 py-2 text-right text-slate-500 font-semibold">Amount</th>
+              <tr className="bg-slate-50 dark:bg-surface">
+                <th className="px-2.5 py-2 text-left text-slate-500 dark:text-gray-400 font-semibold">Date</th>
+                <th className="px-2.5 py-2 text-left text-slate-500 dark:text-gray-400 font-semibold">Description</th>
+                <th className="px-2.5 py-2 text-right text-slate-500 dark:text-gray-400 font-semibold">Amount</th>
               </tr>
             </thead>
             <tbody>
               {result?.transactions.slice(0, 3).map((tx, i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-slate-50/50"}>
-                  <td className="px-2.5 py-2 text-slate-600 whitespace-nowrap">{tx.date}</td>
-                  <td className="px-2.5 py-2 text-slate-600 truncate max-w-[120px]">{tx.description}</td>
-                  <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type === "credit" ? "text-emerald-600" : "text-rose-500"}`}>
+                <tr key={i} className={i % 2 === 0 ? "bg-white dark:bg-surface" : "bg-slate-50/50 dark:bg-white/5"}>
+                  <td className="px-2.5 py-2 text-slate-600 dark:text-gray-300 whitespace-nowrap">{tx.date}</td>
+                  <td className="px-2.5 py-2 text-slate-600 dark:text-gray-300 truncate max-w-[120px]">{tx.description}</td>
+                  <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type === "credit" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}`}>
                     {tx.type === "credit" ? "+" : "−"}₹{Math.abs(tx.amount).toLocaleString("en-IN")}
                   </td>
                 </tr>
@@ -136,7 +136,7 @@ export function SamplePDFDemo() {
           <a
             href={result.export_urls.xlsx}
             download="SBI_Sample_Converted.xlsx"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy bg-navy/8 hover:bg-navy/15 rounded-lg transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-brand-400 bg-navy/[0.08] dark:bg-brand-400/10 hover:bg-navy/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
           >
             <FileSpreadsheet size={13} />
             Download Excel
@@ -146,15 +146,15 @@ export function SamplePDFDemo() {
           <a
             href={result.export_urls.csv}
             download="SBI_Sample_Converted.csv"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-slate-600 border border-slate-200 hover:border-slate-300 rounded-lg transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 rounded-lg transition-colors"
           >
             <Download size={13} />
             Download CSV
           </a>
         )}
       </div>
-      <p className="px-4 pb-3 text-[10px] text-slate-400 text-center">
-        Demo data — <a href="/signup" className="underline underline-offset-1 hover:text-navy transition-colors">sign up free</a> to convert your real statements
+      <p className="px-4 pb-3 text-[10px] text-slate-400 dark:text-gray-500 text-center">
+        Demo data — <a href="/signup" className="underline underline-offset-1 hover:text-navy dark:hover:text-brand-400 transition-colors">sign up free</a> to convert your real statements
       </p>
     </div>
   );
