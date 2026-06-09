@@ -29,7 +29,7 @@ interface RazorpayResponse {
 }
 
 interface Props {
-  plan: "payg" | "pro" | "business";
+  plan: "payg" | "pro" | "business" | "pro_annual" | "business_annual";
   label: string;
   amountINR: number;
   userEmail?: string;
