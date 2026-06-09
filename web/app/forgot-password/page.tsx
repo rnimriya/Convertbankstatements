@@ -3,7 +3,6 @@
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import { FileText, AlertCircle, CheckCircle2, Loader2, Mail, ArrowLeft } from "lucide-react";
-import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -40,9 +39,6 @@ export default function ForgotPasswordPage() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-brand-50 dark:from-black dark:to-black px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center relative">
-          <div className="absolute right-0 top-0">
-            <ThemeToggle />
-          </div>
           <Link href="/">
             <img src="/logo.svg" alt="Convert Statement" className="h-12 w-12 transition hover:scale-105" />
           </Link>
