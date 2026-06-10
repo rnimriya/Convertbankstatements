@@ -6,7 +6,7 @@ export async function Navbar() {
   const t = await getTranslations("nav");
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-100 dark:border-white/10 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
+    <nav className="sticky top-0 z-50 border-b border-slate-300 dark:border-white/20 bg-white/80 dark:bg-surface/80 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2">
           <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
