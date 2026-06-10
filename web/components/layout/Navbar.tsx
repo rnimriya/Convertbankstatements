@@ -23,8 +23,8 @@ export async function Navbar() {
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
           <Link href="/login" className="text-sm font-medium text-slate-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition-colors">{t("signIn")}</Link>
-          <Link href="/" className="rounded-lg bg-brand-400 px-4 py-2 text-sm font-semibold text-black hover:bg-brand-300 transition-colors">
-            {t("getStartedFree")}
+          <Link href="/" className="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-all shadow-[0_2px_12px_rgba(249,115,22,0.4)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.5)] hover:scale-[1.03] active:scale-100">
+            Free Trial
           </Link>
         </div>
       </div>
