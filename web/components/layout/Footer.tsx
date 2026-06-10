@@ -58,10 +58,7 @@ export async function Footer() {
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
-            <Link href="/">
-              <img src="/logo.svg" alt="Convert Statement" className="h-10 w-10" />
-            </Link>
-            <p className="mt-3 text-xs leading-relaxed text-slate-400 dark:text-gray-500">
+            <p className="text-xs leading-relaxed text-slate-400 dark:text-gray-500">
               {t("tagline")}
             </p>
             <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">
