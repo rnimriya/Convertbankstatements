@@ -131,161 +131,210 @@ export default async function HomePage() {
       <Navbar />
       <main className="overflow-x-hidden">
 
-        {/* ─── HERO — DARK COMPACT ─────────────────────────────── */}
-        <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #080e24 0%, #0d1a4a 35%, #0f2060 55%, #0a1535 100%)" }}>
+        {/* ─── HERO — SPLIT LEFT / RIGHT ───────────────────────── */}
+        <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #060c1e 0%, #0b1640 40%, #0e1f5c 65%, #07112e 100%)" }}>
 
-          {/* Dot grid */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
-            }}
-          />
+          {/* Dot-grid texture */}
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 
-          {/* Gradient orbs */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full opacity-20 pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(59,91,252,0.6) 0%, transparent 65%)" }} />
-          <div className="absolute -top-20 right-[5%] w-72 h-72 rounded-full opacity-15 pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.8) 0%, transparent 70%)" }} />
-          <div className="absolute bottom-0 left-[10%] w-64 h-64 rounded-full opacity-10 pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.8) 0%, transparent 70%)" }} />
+          {/* Ambient orbs */}
+          <div className="absolute -top-32 left-[30%] w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(59,91,252,0.18) 0%, transparent 65%)", filter: "blur(1px)" }} />
+          <div className="absolute top-10 right-[-80px] w-96 h-96 rounded-full pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.13) 0%, transparent 70%)" }} />
+          <div className="absolute bottom-0 left-[-60px] w-80 h-80 rounded-full pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)" }} />
+          {/* Subtle horizontal glow line */}
+          <div className="absolute top-0 inset-x-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(99,120,255,0.4) 40%, rgba(99,120,255,0.4) 60%, transparent 100%)" }} />
 
-          <div className="relative max-w-5xl mx-auto px-6 pt-14 pb-0 text-center">
+          <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center min-h-[88vh] py-16 lg:py-20">
 
-            {/* Announcement pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 text-xs font-semibold"
-              style={{ borderColor: "rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.75)" }}
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              </span>
-              {tHero("badge")}
-              <ChevronRight size={11} className="opacity-50" />
-            </div>
+              {/* ── LEFT — Copy ──────────────────────────────────────── */}
+              <div className="flex flex-col items-start">
 
-            {/* H1 */}
-            <h1 className="font-display font-black tracking-tight text-white mb-4 leading-[1.04]" style={{ fontSize: "clamp(2.2rem, 5.5vw, 3.75rem)" }}>
-              {tHero("titleLine1")}{" "}
-              <span
-                style={{
-                  background: "linear-gradient(135deg, #60a5fa 0%, #818cf8 40%, #a78bfa 70%, #60a5fa 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                {tHero("titleHighlight")}
-              </span>
-              <br />
-              <span className="text-white/90">{tHero("titleLine3")}</span>
-            </h1>
+                {/* Live badge */}
+                <div
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-7 text-xs font-semibold"
+                  style={{ borderWidth: 1, borderStyle: "solid", borderColor: "rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.78)" }}
+                >
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  </span>
+                  {tHero("badge")}
+                  <ChevronRight size={11} className="opacity-40" />
+                </div>
 
-            {/* Subtitle */}
-            <p className="text-white/55 text-[0.95rem] leading-relaxed mb-7 max-w-xl mx-auto">
-              {tHero("subtitle")}
-            </p>
+                {/* H1 */}
+                <h1 className="font-display font-black tracking-tight text-white leading-[1.04] mb-5" style={{ fontSize: "clamp(2.4rem, 4.2vw, 3.9rem)" }}>
+                  {tHero("titleLine1")}{" "}
+                  <span style={{
+                    background: "linear-gradient(135deg, #7dd3fc 0%, #818cf8 45%, #c4b5fd 80%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}>
+                    {tHero("titleHighlight")}
+                  </span>
+                  <br />
+                  <span style={{ color: "rgba(255,255,255,0.88)" }}>{tHero("titleLine3")}</span>
+                </h1>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-              <Link
-                href="/signup"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-bold text-white relative overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-2xl"
-                style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", boxShadow: "0 4px 24px rgba(249,115,22,0.45)" }}
-              >
-                <span className="absolute inset-0" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", animation: "shimmerSlide 2.5s ease-in-out infinite" }} />
-                <Sparkles size={14} className="relative z-10" />
-                <span className="relative z-10">{tHero("cta")}</span>
-                <ArrowRight size={13} className="relative z-10" />
-              </Link>
-              <SamplePDFDemo />
-            </div>
+                {/* Subtitle */}
+                <p className="text-[1rem] leading-relaxed mb-7 max-w-[480px]" style={{ color: "rgba(255,255,255,0.50)" }}>
+                  {tHero("subtitle")}
+                </p>
 
-            {/* Social proof + bullets */}
-            <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
-              <div className="flex items-center gap-2.5">
-                <div className="flex items-center -space-x-2">
-                  {TRUST_INITIALS.map(({ i, bg }) => (
-                    <div key={i} className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[9px] font-bold text-white shadow-sm ${bg}`} style={{ borderColor: "rgba(255,255,255,0.15)" }}>
-                      {i}
+                {/* Feature bullets */}
+                <div className="flex flex-col gap-2 mb-8">
+                  {[tHero("bullet1"), tHero("bullet2"), tHero("bullet3"), tHero("bullet4")].map((b) => (
+                    <div key={b} className="flex items-center gap-2.5">
+                      <div className="w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                        <CheckCircle2 size={10} className="text-emerald-400" />
+                      </div>
+                      <span className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>{b}</span>
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center gap-1">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={10} className="text-amber-400 fill-amber-400" />
-                  ))}
-                  <span className="text-xs text-white/40 ml-1">{tHero("trustText")}</span>
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                {[tHero("bullet3"), tHero("bullet4")].map((b) => (
-                  <span key={b} className="inline-flex items-center gap-1 text-xs text-white/45 font-medium">
-                    <CheckCircle2 size={11} className="text-emerald-400/60" />
-                    {b}
-                  </span>
-                ))}
-              </div>
-            </div>
 
-            {/* Stats bar */}
-            <div className="flex justify-center mb-0">
-              <div
-                className="inline-grid grid-cols-4 divide-x rounded-2xl overflow-hidden w-full max-w-2xl"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
-              >
-                {stats.map(({ value, label, icon }, i) => (
-                  <div key={label} className="py-4 px-4 text-center" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
-                    <div className="font-display text-xl sm:text-2xl font-black text-white tracking-tight">{value}</div>
-                    <div className="text-[10px] font-medium uppercase tracking-widest mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{label}</div>
+                {/* CTA buttons */}
+                <div className="flex flex-wrap items-center gap-3 mb-8">
+                  <Link
+                    href="/signup"
+                    className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-bold text-white relative overflow-hidden transition-all hover:-translate-y-0.5"
+                    style={{ background: "linear-gradient(135deg, #f97316 0%, #dc5e0a 100%)", boxShadow: "0 4px 28px rgba(249,115,22,0.50), inset 0 1px 0 rgba(255,255,255,0.15)" }}
+                  >
+                    <span className="absolute inset-0" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent)", animation: "shimmerSlide 2.5s ease-in-out infinite" }} />
+                    <Sparkles size={14} className="relative z-10" />
+                    <span className="relative z-10">{tHero("cta")}</span>
+                    <ArrowRight size={13} className="relative z-10" />
+                  </Link>
+                  <SamplePDFDemo />
+                </div>
+
+                {/* Social proof */}
+                <div className="flex items-center gap-3 flex-wrap">
+                  <div className="flex items-center -space-x-2.5">
+                    {TRUST_INITIALS.map(({ i, bg }) => (
+                      <div key={i} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-[11px] font-bold text-white shadow-lg ${bg}`} style={{ borderColor: "rgba(255,255,255,0.14)" }}>
+                        {i}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                  <div>
+                    <div className="flex items-center gap-0.5 mb-0.5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} size={12} className="text-amber-400 fill-amber-400" />
+                      ))}
+                    </div>
+                    <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.38)" }}>{tHero("trustText")}</p>
+                  </div>
+                </div>
+
+                {/* Stats row */}
+                <div className="mt-10 grid grid-cols-4 gap-px rounded-2xl overflow-hidden w-full max-w-sm" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  {stats.map(({ value, label }) => (
+                    <div key={label} className="py-3.5 px-2 text-center" style={{ background: "rgba(255,255,255,0.02)" }}>
+                      <div className="font-display text-lg font-black text-white tracking-tight">{value}</div>
+                      <div className="text-[9px] font-semibold uppercase tracking-wider mt-0.5" style={{ color: "rgba(255,255,255,0.30)" }}>{label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
+
+              {/* ── RIGHT — Mockup ───────────────────────────────────── */}
+              <div className="relative flex items-center justify-center lg:justify-end">
+
+                {/* Glow halo behind the card */}
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  <div className="w-[380px] h-[380px] rounded-full blur-[80px]" style={{ background: "radial-gradient(circle, rgba(59,91,252,0.30) 0%, transparent 70%)" }} />
+                </div>
+
+                {/* Subtle ring decoration */}
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                  <div className="w-[500px] h-[500px] rounded-full opacity-10" style={{ border: "1px solid rgba(255,255,255,0.3)" }} />
+                  <div className="absolute w-[380px] h-[380px] rounded-full opacity-8" style={{ border: "1px dashed rgba(255,255,255,0.15)" }} />
+                </div>
+
+                {/* Main card */}
+                <div className="relative z-10 w-full max-w-[400px]">
+                  <div
+                    className="rounded-3xl overflow-hidden"
+                    style={{
+                      boxShadow: "0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.08)",
+                      transform: "perspective(1000px) rotateY(-4deg) rotateX(2deg)",
+                    }}
+                  >
+                    <ConverterMockup />
+                  </div>
+
+                  {/* Floating badge — top left of card */}
+                  <div
+                    className="absolute -left-10 top-10 flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-2xl z-20"
+                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)" }}
+                  >
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(16,185,129,0.20)" }}>
+                      <CheckCircle2 size={16} className="text-emerald-400" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Processing complete</p>
+                      <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.40)" }}>142 transactions extracted</p>
+                    </div>
+                  </div>
+
+                  {/* Floating badge — bottom right */}
+                  <div
+                    className="absolute -right-8 bottom-14 flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-2xl z-20"
+                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)" }}
+                  >
+                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(251,191,36,0.18)" }}>
+                      <Zap size={16} className="text-amber-400" />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>11.2s avg.</p>
+                      <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.40)" }}>Conversion speed</p>
+                    </div>
+                  </div>
+
+                  {/* Floating badge — top right */}
+                  <div
+                    className="absolute -right-6 top-6 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl shadow-2xl z-20"
+                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)" }}
+                  >
+                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(139,92,246,0.22)" }}>
+                      <Shield size={13} className="text-violet-400" />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.90)" }}>Never stored</p>
+                      <p className="text-[9px]" style={{ color: "rgba(255,255,255,0.38)" }}>100% private</p>
+                    </div>
+                  </div>
+
+                  {/* Mini transaction preview badge — bottom left */}
+                  <div
+                    className="absolute -left-8 bottom-6 rounded-2xl shadow-2xl z-20 overflow-hidden"
+                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)", minWidth: "180px" }}
+                  >
+                    <div className="px-3.5 py-2 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.40)" }}>Latest transactions</p>
+                    </div>
+                    {[
+                      { desc: "UPI Transfer", amt: "+₹12,500", color: "text-emerald-400" },
+                      { desc: "HDFC ATM", amt: "−₹3,000", color: "text-rose-400" },
+                      { desc: "Salary Credit", amt: "+₹58,000", color: "text-emerald-400" },
+                    ].map((tx) => (
+                      <div key={tx.desc} className="flex items-center justify-between px-3.5 py-1.5">
+                        <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>{tx.desc}</span>
+                        <span className={`text-[10px] font-bold tabular-nums ${tx.color}`}>{tx.amt}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
             </div>
-
-            {/* Mockup — bleeds out of hero into next section */}
-            <div className="relative mt-10 flex justify-center">
-              {/* Glow behind card */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-80 h-48 rounded-full blur-3xl opacity-30" style={{ background: "radial-gradient(circle, rgba(59,91,252,0.6) 0%, transparent 70%)" }} />
-              </div>
-
-              <div
-                className="relative w-full max-w-[420px] rounded-2xl overflow-hidden shadow-2xl"
-                style={{ border: "1px solid rgba(255,255,255,0.10)", transform: "translateY(0)", boxShadow: "0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)" }}
-              >
-                <ConverterMockup />
-              </div>
-
-              {/* Floating badges */}
-              <div
-                className="absolute -left-4 sm:left-4 top-8 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-semibold shadow-xl z-10"
-                style={{ background: "rgba(15,22,60,0.95)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(12px)" }}
-              >
-                <div className="w-7 h-7 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                  <CheckCircle2 size={14} className="text-emerald-400" />
-                </div>
-                <div>
-                  <p className="text-white/90 font-bold text-[11px]">Converted!</p>
-                  <p className="text-white/40 text-[10px]">142 transactions</p>
-                </div>
-              </div>
-
-              <div
-                className="absolute -right-2 sm:right-4 bottom-12 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-semibold shadow-xl z-10"
-                style={{ background: "rgba(15,22,60,0.95)", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(12px)" }}
-              >
-                <div className="w-7 h-7 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                  <Zap size={14} className="text-amber-400" />
-                </div>
-                <div>
-                  <p className="text-white/90 font-bold text-[11px]">11.2s</p>
-                  <p className="text-white/40 text-[10px]">avg. conversion</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Fade to white */}
-            <div className="h-16 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #f8fafc)" }} />
           </div>
+
+          {/* Bottom fade to light */}
+          <div className="h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 0%, #f8fafc 100%)" }} />
         </section>
 
         {/* ─── BANKS DUAL MARQUEE ───────────────────────────────── */}
