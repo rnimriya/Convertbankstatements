@@ -133,10 +133,13 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                   <a
                     href={exportUrls.csv}
                     download={fileName.replace(".pdf", ".csv")}
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 text-sm font-semibold hover:border-navy/30 hover:text-navy dark:hover:border-brand-400/30 dark:hover:text-brand-400 transition-colors"
+                    className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold transition-all shadow-[0_2px_12px_rgba(249,115,22,0.35)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.45)]"
                   >
-                    <Download size={15} />
-                    Download CSV
+                    <span className="flex items-center gap-2">
+                      <Download size={15} />
+                      Download CSV
+                    </span>
+                    <Download size={15} className="text-white/70" />
                   </a>
                 )}
               </div>

@@ -87,17 +87,17 @@ export function ProcessingResult({ result, onReset }: Props) {
           <div className="mt-4 space-y-2">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-gray-500">Downloads</p>
             {Object.entries(result.export_urls).map(([fmt, url]) => (
-              <Button
+              <button
                 key={fmt}
-                variant="secondary"
-                fullWidth
-                leftIcon={<FileSpreadsheet className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />}
-                rightIcon={<Download className="h-4 w-4" />}
                 onClick={() => handleDownload(fmt, url)}
-                className="justify-between border-emerald-200 dark:border-emerald-800 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
+                className="flex w-full items-center justify-between rounded-xl bg-orange-500 hover:bg-orange-600 active:scale-[0.99] transition-all px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.35)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.45)]"
               >
-                {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
-              </Button>
+                <span className="flex items-center gap-2">
+                  <FileSpreadsheet className="h-4 w-4 text-white/80" />
+                  {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
+                </span>
+                <Download className="h-4 w-4 text-white/80" />
+              </button>
             ))}
           </div>
         )}
