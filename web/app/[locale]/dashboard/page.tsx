@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { findById, findByEmail } from "@/lib/auth/users";
 import { DashboardClient } from "@/components/dashboard/DashboardClient";
+import { Footer } from "@/components/layout/Footer";
 import type { BillingContext } from "@/types/billing";
 
 export default async function DashboardPage() {
@@ -26,6 +27,7 @@ export default async function DashboardPage() {
       userEmail={user?.email ?? session.email}
       userName={user?.name ?? session.name}
       isDemo={false}
+      footer={<Footer />}
     />
   );
 }

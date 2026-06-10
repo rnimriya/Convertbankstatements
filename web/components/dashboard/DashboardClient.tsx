@@ -10,7 +10,6 @@ import { PricingSection } from "@/components/dashboard/PricingSection";
 import { PortalsPanel } from "@/components/dashboard/PortalsPanel";
 import type { BillingContext } from "@/types/billing";
 import { FileText, History, CreditCard, LogOut, Upload, Link2 } from "lucide-react";
-import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/Button";
 import { Alert } from "@/components/ui/Alert";
 
@@ -33,9 +32,10 @@ interface Props {
   userEmail: string;
   userName: string | null;
   isDemo?: boolean;
+  footer?: React.ReactNode;
 }
 
-export function DashboardClient({ billing: initialBilling, recentLogs, userEmail, userName, isDemo }: Props) {
+export function DashboardClient({ billing: initialBilling, recentLogs, userEmail, userName, isDemo, footer }: Props) {
   const t = useTranslations("dashboard");
   const [tab, setTab] = useState<Tab>("upload");
   const [uploadMode, setUploadMode] = useState<"single" | "bulk">("single");
@@ -185,7 +185,7 @@ export function DashboardClient({ billing: initialBilling, recentLogs, userEmail
         )}
 
       </main>
-      <Footer />
+      {footer}
     </div>
   );
 }
