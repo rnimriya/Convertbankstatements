@@ -112,36 +112,36 @@ export function PricingCards() {
               key={plan.name}
               className={`relative flex flex-col rounded-2xl border p-6 ${
                 plan.highlight
-                  ? "border-brand-400 bg-brand-400 dark:bg-surface dark:border-brand-400 shadow-glow"
+                  ? "border-[#3B5BFC] bg-[#3B5BFC] shadow-[0_8px_40px_rgba(59,91,252,0.35)]"
                   : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm"
               }`}
             >
               {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-400 px-3 py-1 text-xs font-bold text-black whitespace-nowrap">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white px-4 py-1 text-xs font-bold text-[#3B5BFC] whitespace-nowrap shadow-sm border border-white">
                   {plan.badge}
                 </div>
               )}
-              <p className={`font-bold ${plan.highlight ? "text-black dark:text-white" : "text-slate-800 dark:text-white"}`}>{plan.name}</p>
-              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-slate-400 dark:text-gray-500"}`}>{plan.tagline}</p>
+              <p className={`font-bold ${plan.highlight ? "text-white" : "text-slate-800 dark:text-white"}`}>{plan.name}</p>
+              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-white/70" : "text-slate-400 dark:text-gray-500"}`}>{plan.tagline}</p>
 
               <div className="mt-3">
                 <div className="flex items-end gap-0.5">
-                  <span className={`text-3xl font-extrabold ${plan.highlight ? "text-black dark:text-white" : "text-slate-900 dark:text-white"}`}>
+                  <span className={`text-3xl font-extrabold ${plan.highlight ? "text-white" : "text-slate-900 dark:text-white"}`}>
                     {displayPrice}
                   </span>
                   {displayPeriod && (
-                    <span className={`mb-1 text-sm ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>
+                    <span className={`mb-1 text-sm ${plan.highlight ? "text-white/70" : "text-slate-400 dark:text-gray-500"}`}>
                       {displayPeriod}
                     </span>
                   )}
                 </div>
                 {showAnnual && "annualMonthlyEquiv" in plan && plan.annualMonthlyEquiv && (
-                  <p className={`text-xs mt-0.5 ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>
+                  <p className={`text-xs mt-0.5 ${plan.highlight ? "text-white/70" : "text-slate-400 dark:text-gray-500"}`}>
                     {plan.annualMonthlyEquiv} equivalent
                   </p>
                 )}
                 {!showAnnual && plan.annualPrice && (
-                  <p className={`text-xs mt-0.5 ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>
+                  <p className={`text-xs mt-0.5 ${plan.highlight ? "text-white/70" : "text-slate-400 dark:text-gray-500"}`}>
                     or {plan.annualPrice}/yr — save 20%
                   </p>
                 )}
@@ -149,13 +149,13 @@ export function PricingCards() {
 
               <ul className="mt-5 flex-1 space-y-2">
                 {plan.features.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-black dark:text-gray-200" : "text-slate-600 dark:text-gray-300"}`}>
-                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-emerald-500"}`} />
+                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-white" : "text-slate-600 dark:text-gray-300"}`}>
+                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-white/80" : "text-emerald-500"}`} />
                     {f}
                   </li>
                 ))}
                 {plan.notIncluded.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-black/40 dark:text-gray-600 decoration-black/30 dark:decoration-gray-700" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
+                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-white/40 decoration-white/30" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
                     <span className="mt-0.5 h-4 w-4 shrink-0 text-center text-xs">✕</span>
                     {f}
                   </li>
@@ -164,9 +164,9 @@ export function PricingCards() {
 
               <Link
                 href={href}
-                className={`mt-6 flex items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors ${
+                className={`mt-6 flex items-center justify-center gap-2 rounded-xl py-3 text-sm font-semibold transition-all ${
                   plan.highlight
-                    ? "bg-black/10 dark:bg-brand-400 dark:text-black text-black hover:bg-black/20 dark:hover:bg-brand-300"
+                    ? "bg-white text-[#3B5BFC] hover:bg-slate-50 shadow-sm"
                     : "border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
                 }`}
               >
