@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
   ArrowRight, CheckCircle2, Zap, Lock, Globe,
-  Download, Upload, Shield, Clock, FileCheck, Star,
+  Download, Upload, Shield, Clock, CreditCard, FileCheck, Star,
 } from "lucide-react";
 import ConverterMockup from "@/components/ConverterMockup";
 import { SamplePDFDemo } from "@/components/SamplePDFDemo";
