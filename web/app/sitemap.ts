@@ -18,6 +18,7 @@ const STATIC_CONFIGS: RouteConfig[] = [
   { path: "/login", changeFrequency: "yearly", priority: 0.5 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/contact", changeFrequency: "monthly", priority: 0.6 },
 ];
 
 const getUrl = (path: string, locale?: string) => {

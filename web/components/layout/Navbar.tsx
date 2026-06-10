@@ -19,7 +19,8 @@ export async function Navbar() {
           <Link href="/#how-it-works" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">{t("howItWorks")}</Link>
           <Link href="/#features" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">{t("features")}</Link>
           <Link href="/pricing" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">{t("pricing")}</Link>
-<Link href="/#faq" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">{t("faq")}</Link>
+          <Link href="/#faq" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">{t("faq")}</Link>
+          <Link href="/contact" className="text-sm text-slate-500 dark:text-gray-400 hover:text-slate-900 dark:hover:text-gray-100 transition-colors">{t("contact")}</Link>
         </div>
         <div className="flex items-center gap-3">
           <LanguageSwitcher />

@@ -34,6 +34,7 @@ export async function Footer() {
         { label: t("pricing"),     href: "/pricing" },
         { label: t("blog"),        href: "/blog" },
         { label: t("faq"),         href: "/#faq" },
+        { label: t("contact"),     href: "/contact" },
       ],
     },
     {
