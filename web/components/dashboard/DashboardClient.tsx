@@ -142,22 +142,25 @@ export function DashboardClient({
       )}
 
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-30 w-60 flex flex-col transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
-        style={{ background: "#080d1c", borderRight: "1px solid rgba(255,255,255,0.07)" }}
+        className={`fixed lg:static inset-y-0 left-0 z-30 w-60 flex flex-col bg-white border-r border-slate-200 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 px-5 py-5" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-          <a href="/" className="flex items-center gap-2.5 group">
+        <div className="flex items-center gap-2.5 px-5 py-5 border-b border-slate-100">
+          <a href="/" className="flex items-center gap-2.5">
             <img src="/logo.svg" alt="Convert Statement" className="h-7 w-7" />
-            <span className="font-display font-bold text-white text-[15px] tracking-tight leading-none">
-              Convert<br />
-              <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", fontWeight: 500, letterSpacing: "0.04em" }}>STATEMENT</span>
-            </span>
+            <div className="leading-none">
+              <span className="font-display font-bold text-slate-900 text-[15px] tracking-tight block">
+                Convert
+              </span>
+              <span className="text-[10px] font-semibold text-slate-400 tracking-[0.08em] uppercase">
+                Statement
+              </span>
+            </div>
           </a>
         </div>
 
         {/* User section */}
-        <div className="px-4 pt-4 pb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="px-4 pt-4 pb-4 border-b border-slate-100">
           <div className="flex items-center gap-3 mb-3">
             <div
               className="h-9 w-9 rounded-xl flex items-center justify-center text-sm font-bold text-white shrink-0"
@@ -166,27 +169,27 @@ export function DashboardClient({
               {initial}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-white truncate leading-tight">{displayName}</p>
-              <p className="text-[11px] truncate leading-tight" style={{ color: "rgba(255,255,255,0.35)" }}>{userEmail}</p>
+              <p className="text-sm font-semibold text-slate-800 truncate leading-tight">{displayName}</p>
+              <p className="text-[11px] text-slate-400 truncate leading-tight">{userEmail}</p>
             </div>
           </div>
 
           {/* Badges row */}
           <div className="flex items-center gap-2 flex-wrap">
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
-              billing.tier === "BUSINESS" ? "bg-blue-500/20 text-blue-300" :
-              billing.tier === "PRO"      ? "bg-violet-500/20 text-violet-300" :
-              "bg-white/10 text-white/45"
+              billing.tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
+              billing.tier === "PRO"      ? "bg-violet-100 text-violet-700" :
+              "bg-slate-100 text-slate-500"
             }`}>
               {billing.tier}
             </span>
             {!emailVerified && !verificationSent && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 flex items-center gap-1">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 text-amber-700 flex items-center gap-1">
                 <AlertTriangle size={8} /> Unverified
               </span>
             )}
             {verificationSent && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 flex items-center gap-1">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-700 flex items-center gap-1">
                 <CheckCircle2 size={8} /> Email sent
               </span>
             )}
@@ -195,13 +198,13 @@ export function DashboardClient({
           {/* Usage bar */}
           {isBusinessOrPro && (
             <div className="mt-3">
-              <div className="flex justify-between text-[10px] mb-1" style={{ color: "rgba(255,255,255,0.30)" }}>
+              <div className="flex justify-between text-[10px] text-slate-400 mb-1.5">
                 <span>Pages this month</span>
-                <span style={{ color: "rgba(255,255,255,0.50)" }}>
+                <span className="font-semibold text-slate-600">
                   {billing.pagesUsedThisPeriod}/{billing.monthlyPageLimit}
                 </span>
               </div>
-              <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.08)" }}>
+              <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{
@@ -218,10 +221,7 @@ export function DashboardClient({
         <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
           {navSections.map(section => (
             <div key={section.label}>
-              <p
-                className="px-3 mb-1 text-[9px] font-bold uppercase tracking-[0.14em]"
-                style={{ color: "rgba(255,255,255,0.22)" }}
-              >
+              <p className="px-3 mb-1 text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400">
                 {section.label}
               </p>
               <div className="space-y-0.5">
@@ -231,25 +231,20 @@ export function DashboardClient({
                     <button
                       key={id}
                       onClick={() => { setTab(id); setSidebarOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all group text-left ${
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left group ${
                         active
-                          ? "text-white"
-                          : "hover:bg-white/5"
+                          ? "bg-navy text-white shadow-sm shadow-navy/20"
+                          : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
                       }`}
-                      style={active ? { background: "rgba(255,255,255,0.10)" } : {}}
                     >
                       <Icon
                         size={15}
-                        style={{ color: active ? "#818cf8" : "rgba(255,255,255,0.28)" }}
-                        className="group-hover:!text-white/50 transition-colors shrink-0"
+                        className={`shrink-0 transition-colors ${
+                          active ? "text-white/80" : "text-slate-400 group-hover:text-slate-600"
+                        }`}
                       />
-                      <span
-                        className="flex-1 truncate"
-                        style={{ color: active ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.40)" }}
-                      >
-                        {label}
-                      </span>
-                      {active && <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 shrink-0" />}
+                      <span className="flex-1 truncate">{label}</span>
+                      {active && <div className="w-1.5 h-1.5 rounded-full bg-white/60 shrink-0" />}
                     </button>
                   );
                 })}
@@ -259,13 +254,10 @@ export function DashboardClient({
         </nav>
 
         {/* Sign out */}
-        <div className="p-3" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="p-3 border-t border-slate-100">
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all"
-            style={{ color: "rgba(255,255,255,0.30)" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#f87171"; (e.currentTarget as HTMLButtonElement).style.background = "rgba(239,68,68,0.10)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.30)"; (e.currentTarget as HTMLButtonElement).style.background = ""; }}
+            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-slate-400 hover:bg-red-50 hover:text-red-600 transition-all"
           >
             <LogOut size={15} />
             {isDemo ? t("goHome") : t("signOut")}
@@ -741,7 +733,6 @@ export function DashboardClient({
             </div>
           )}
 
-          {footer}
         </main>
       </div>
 

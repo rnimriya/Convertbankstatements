@@ -229,15 +229,6 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {/* Stats row */}
-                <div className="mt-10 grid grid-cols-4 gap-px rounded-2xl overflow-hidden w-full max-w-sm" style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                  {stats.map(({ value, label }) => (
-                    <div key={label} className="py-3.5 px-2 text-center" style={{ background: "rgba(255,255,255,0.02)" }}>
-                      <div className="font-display text-lg font-black text-white tracking-tight">{value}</div>
-                      <div className="text-[9px] font-semibold uppercase tracking-wider mt-0.5" style={{ color: "rgba(255,255,255,0.30)" }}>{label}</div>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               {/* ── RIGHT — Mockup ───────────────────────────────────── */}
