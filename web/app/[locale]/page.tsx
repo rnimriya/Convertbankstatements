@@ -243,8 +243,6 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Bottom fade to light */}
-          <div className="h-20 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent 0%, #f8fafc 100%)" }} />
         </section>
 
         {/* ─── BANKS DUAL MARQUEE ───────────────────────────────── */}
