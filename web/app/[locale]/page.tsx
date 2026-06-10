@@ -147,7 +147,7 @@ export default async function HomePage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-20 pb-20 bg-white overflow-hidden">
+        <section className="relative pt-12 pb-12 bg-white overflow-hidden">
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -158,24 +158,24 @@ export default async function HomePage() {
             }}
           />
           <div className="relative max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-14 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-6 border border-emerald-200 bg-emerald-50 text-emerald-700">
+                <div className="inline-flex items-center gap-2 text-xs font-semibold px-3.5 py-1.5 rounded-full mb-4 border border-emerald-200 bg-emerald-50 text-emerald-700">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                   </span>
                   {tHero("badge")}
                 </div>
-                <h1 className="font-display text-[2.85rem] sm:text-[3.25rem] leading-[1.06] font-bold tracking-tight text-slate-900 mb-5">
+                <h1 className="font-display text-[2.35rem] sm:text-[2.75rem] leading-[1.08] font-bold tracking-tight text-slate-900 mb-4">
                   {tHero("titleLine1")}<br />
                   <span className="text-navy">{tHero("titleHighlight")}</span><br />
                   {tHero("titleLine3")}
                 </h1>
-                <p className="text-[1.05rem] text-slate-500 leading-relaxed mb-7 max-w-[420px]">
+                <p className="text-[0.975rem] text-slate-500 leading-relaxed mb-5 max-w-[420px]">
                   {tHero("subtitle")}
                 </p>
-                <ul className="space-y-2.5 mb-8">
+                <ul className="space-y-2 mb-5">
                   {BULLETS.map((b) => (
                     <li key={b} className="flex items-start gap-2.5 text-sm text-slate-600">
                       <CheckCircle2 size={16} className="shrink-0 text-navy mt-0.5" />
@@ -183,7 +183,7 @@ export default async function HomePage() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-3 mb-9">
+                <div className="flex flex-wrap gap-3 mb-6">
                   <Link
                     href="/signup"
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-white bg-navy hover:opacity-90 transition-opacity shadow-lg shadow-navy/30"
