@@ -137,10 +137,56 @@ export default async function HomePage() {
           {/* Dot-grid texture */}
           <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 
-          {/* Ambient orbs */}
-          <div className="absolute -top-32 left-[30%] w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(59,91,252,0.18) 0%, transparent 65%)", filter: "blur(1px)" }} />
-          <div className="absolute top-10 right-[-80px] w-96 h-96 rounded-full pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.13) 0%, transparent 70%)" }} />
-          <div className="absolute bottom-0 left-[-60px] w-80 h-80 rounded-full pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)" }} />
+          {/* Animated ambient orbs */}
+          <div className="absolute -top-32 left-[30%] w-[600px] h-[600px] rounded-full pointer-events-none animate-blob" style={{ background: "radial-gradient(ellipse, rgba(59,91,252,0.22) 0%, transparent 65%)", filter: "blur(2px)" }} />
+          <div className="absolute top-10 right-[-80px] w-96 h-96 rounded-full pointer-events-none blur-3xl animate-blob" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.16) 0%, transparent 70%)", animationDelay: "-4s", animationDuration: "14s" }} />
+          <div className="absolute bottom-0 left-[-60px] w-80 h-80 rounded-full pointer-events-none blur-3xl animate-blob" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)", animationDelay: "-8s", animationDuration: "16s" }} />
+          {/* Extra deep-blue orb top-right */}
+          <div className="absolute -top-10 right-[20%] w-72 h-72 rounded-full pointer-events-none blur-3xl animate-blob" style={{ background: "radial-gradient(circle, rgba(26,71,200,0.18) 0%, transparent 70%)", animationDelay: "-2s", animationDuration: "18s" }} />
+
+          {/* Floating particles */}
+          {[
+            { top: "18%", left: "8%",  size: 4, delay: "0s",    dur: "6s",  opacity: 0.25 },
+            { top: "55%", left: "14%", size: 3, delay: "-2s",   dur: "8s",  opacity: 0.18 },
+            { top: "75%", left: "6%",  size: 5, delay: "-4s",   dur: "7s",  opacity: 0.20 },
+            { top: "30%", left: "88%", size: 3, delay: "-1s",   dur: "9s",  opacity: 0.18 },
+            { top: "65%", left: "92%", size: 4, delay: "-3s",   dur: "6.5s",opacity: 0.22 },
+            { top: "12%", left: "55%", size: 3, delay: "-5s",   dur: "10s", opacity: 0.15 },
+            { top: "82%", left: "72%", size: 5, delay: "-6s",   dur: "7.5s",opacity: 0.18 },
+          ].map((p, i) => (
+            <div
+              key={i}
+              className="absolute pointer-events-none rounded-full"
+              style={{
+                top: p.top, left: p.left,
+                width: p.size, height: p.size,
+                background: "#818cf8",
+                opacity: p.opacity,
+                animation: `floatCard ${p.dur} ease-in-out ${p.delay} infinite`,
+              }}
+            />
+          ))}
+
+          {/* Animated ring accent */}
+          <div
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              top: "15%", right: "8%",
+              width: 140, height: 140,
+              border: "1px solid rgba(99,120,255,0.12)",
+              animation: "floatCard 10s ease-in-out -3s infinite",
+            }}
+          />
+          <div
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              bottom: "20%", left: "4%",
+              width: 90, height: 90,
+              border: "1px solid rgba(139,92,246,0.10)",
+              animation: "floatCard 12s ease-in-out -6s infinite",
+            }}
+          />
+
           {/* Subtle horizontal glow line */}
           <div className="absolute top-0 inset-x-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(99,120,255,0.4) 40%, rgba(99,120,255,0.4) 60%, transparent 100%)" }} />
 

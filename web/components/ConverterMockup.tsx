@@ -25,7 +25,6 @@ const TXNS = [
   { desc: "SWIGGY ORDER 78231",   amt: "−₹342",    pos: false, date: "04 Jan" },
   { desc: "HOUSE RENT NEFT",      amt: "−₹18,000", pos: false, date: "05 Jan" },
   { desc: "UPI FREELANCE CREDIT", amt: "+₹12,500", pos: true,  date: "12 Jan" },
-  { desc: "AMAZON PAY PURCHASE",  amt: "−₹2,499",  pos: false, date: "14 Jan" },
 ];
 
 const FORMATS = ["XLSX", "CSV", "OFX", "Sheets"];
