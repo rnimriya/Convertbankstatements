@@ -1,26 +1,66 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog/posts";
+import { locales } from "@/i18n/routing";
 
 const BASE = "https://convertstatement.online";
 
-const STATIC_ROUTES: MetadataRoute.Sitemap = [
-  { url: BASE, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
-  { url: `${BASE}/pricing`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-  { url: `${BASE}/blog`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
-  { url: `${BASE}/signup`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.7 },
-  { url: `${BASE}/login`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.5 },
-  { url: `${BASE}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-  { url: `${BASE}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+interface RouteConfig {
+  path: string;
+  changeFrequency: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
+  priority: number;
+}
+
+const STATIC_CONFIGS: RouteConfig[] = [
+  { path: "/", changeFrequency: "weekly", priority: 1.0 },
+  { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/blog", changeFrequency: "daily", priority: 0.8 },
+  { path: "/signup", changeFrequency: "yearly", priority: 0.7 },
+  { path: "/login", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
 ];
 
+const getUrl = (path: string, locale?: string) => {
+  if (!locale || locale === "en") {
+    return path === "/" ? BASE : `${BASE}${path}`;
+  }
+  return path === "/" ? `${BASE}/${locale}` : `${BASE}/${locale}${path}`;
+};
+
+const buildAlternates = (path: string) => {
+  const languages: Record<string, string> = {};
+  for (const locale of locales) {
+    if (locale !== "en") {
+      languages[locale] = getUrl(path, locale);
+    }
+  }
+  return { languages };
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllPosts().filter((p) => p.published);
-  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${BASE}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedAt || post.createdAt),
-    changeFrequency: "monthly",
-    priority: 0.7,
+  const now = new Date();
+
+  // 1. Static pages (with alternate language links)
+  const staticEntries: MetadataRoute.Sitemap = STATIC_CONFIGS.map((cfg) => ({
+    url: getUrl(cfg.path),
+    lastModified: now,
+    changeFrequency: cfg.changeFrequency,
+    priority: cfg.priority,
+    alternates: buildAlternates(cfg.path),
   }));
 
-  return [...STATIC_ROUTES, ...blogEntries];
+  // 2. Blog posts (with alternate language links)
+  const posts = getAllPosts().filter((p) => p.published);
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => {
+    const blogPath = `/blog/${post.slug}`;
+    return {
+      url: getUrl(blogPath),
+      lastModified: new Date(post.updatedAt || post.createdAt),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: buildAlternates(blogPath),
+    };
+  });
+
+  return [...staticEntries, ...blogEntries];
 }
