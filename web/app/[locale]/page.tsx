@@ -141,24 +141,25 @@ export default async function HomePage() {
         <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #060c1e 0%, #0b1640 40%, #0e1f5c 65%, #07112e 100%)" }}>
 
           {/* Dot-grid texture */}
-          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 
-          {/* Animated ambient orbs */}
-          <div className="absolute -top-32 left-[30%] w-[600px] h-[600px] rounded-full pointer-events-none animate-blob" style={{ background: "radial-gradient(ellipse, rgba(59,91,252,0.22) 0%, transparent 65%)", filter: "blur(2px)" }} />
-          <div className="absolute top-10 right-[-80px] w-96 h-96 rounded-full pointer-events-none blur-3xl animate-blob" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.16) 0%, transparent 70%)", animationDelay: "-4s", animationDuration: "14s" }} />
-          <div className="absolute bottom-0 left-[-60px] w-80 h-80 rounded-full pointer-events-none blur-3xl animate-blob" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)", animationDelay: "-8s", animationDuration: "16s" }} />
-          {/* Extra deep-blue orb top-right */}
-          <div className="absolute -top-10 right-[20%] w-72 h-72 rounded-full pointer-events-none blur-3xl animate-blob" style={{ background: "radial-gradient(circle, rgba(26,71,200,0.18) 0%, transparent 70%)", animationDelay: "-2s", animationDuration: "18s" }} />
+          {/* Animated ambient orbs — higher opacity, less blur so colour is visible */}
+          <div className="absolute -top-20 left-[25%] w-[560px] h-[560px] rounded-full pointer-events-none animate-blob" style={{ background: "radial-gradient(ellipse, rgba(79,114,245,0.55) 0%, transparent 60%)", filter: "blur(60px)", animationDuration: "12s" }} />
+          <div className="absolute top-0 right-[-60px] w-[380px] h-[380px] rounded-full pointer-events-none animate-blob" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.40) 0%, transparent 65%)", filter: "blur(55px)", animationDelay: "-4s", animationDuration: "15s" }} />
+          <div className="absolute bottom-[-40px] left-[-40px] w-[340px] h-[340px] rounded-full pointer-events-none animate-blob" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.42) 0%, transparent 65%)", filter: "blur(50px)", animationDelay: "-8s", animationDuration: "17s" }} />
+          <div className="absolute top-[10%] right-[18%] w-[260px] h-[260px] rounded-full pointer-events-none animate-blob" style={{ background: "radial-gradient(circle, rgba(56,189,248,0.30) 0%, transparent 65%)", filter: "blur(45px)", animationDelay: "-2s", animationDuration: "20s" }} />
 
           {/* Floating particles */}
           {[
-            { top: "18%", left: "8%",  size: 4, delay: "0s",    dur: "6s",  opacity: 0.25 },
-            { top: "55%", left: "14%", size: 3, delay: "-2s",   dur: "8s",  opacity: 0.18 },
-            { top: "75%", left: "6%",  size: 5, delay: "-4s",   dur: "7s",  opacity: 0.20 },
-            { top: "30%", left: "88%", size: 3, delay: "-1s",   dur: "9s",  opacity: 0.18 },
-            { top: "65%", left: "92%", size: 4, delay: "-3s",   dur: "6.5s",opacity: 0.22 },
-            { top: "12%", left: "55%", size: 3, delay: "-5s",   dur: "10s", opacity: 0.15 },
-            { top: "82%", left: "72%", size: 5, delay: "-6s",   dur: "7.5s",opacity: 0.18 },
+            { top: "18%", left: "7%",  size: 6,  delay: "0s",     dur: "6s",   opacity: 0.55, color: "#a5b4fc" },
+            { top: "52%", left: "12%", size: 5,  delay: "-2s",    dur: "8s",   opacity: 0.45, color: "#818cf8" },
+            { top: "74%", left: "5%",  size: 7,  delay: "-4s",    dur: "7s",   opacity: 0.50, color: "#c4b5fd" },
+            { top: "28%", left: "90%", size: 5,  delay: "-1s",    dur: "9s",   opacity: 0.45, color: "#93c5fd" },
+            { top: "62%", left: "93%", size: 6,  delay: "-3s",    dur: "6.5s", opacity: 0.50, color: "#a5b4fc" },
+            { top: "10%", left: "52%", size: 4,  delay: "-5s",    dur: "10s",  opacity: 0.40, color: "#818cf8" },
+            { top: "80%", left: "70%", size: 7,  delay: "-6s",    dur: "7.5s", opacity: 0.48, color: "#c4b5fd" },
+            { top: "40%", left: "3%",  size: 4,  delay: "-3.5s",  dur: "11s",  opacity: 0.38, color: "#7dd3fc" },
+            { top: "88%", left: "40%", size: 5,  delay: "-7s",    dur: "8.5s", opacity: 0.42, color: "#a5b4fc" },
           ].map((p, i) => (
             <div
               key={i}
@@ -166,35 +167,47 @@ export default async function HomePage() {
               style={{
                 top: p.top, left: p.left,
                 width: p.size, height: p.size,
-                background: "#818cf8",
+                background: p.color,
                 opacity: p.opacity,
+                boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
                 animation: `floatCard ${p.dur} ease-in-out ${p.delay} infinite`,
               }}
             />
           ))}
 
-          {/* Animated ring accent */}
+          {/* Animated ring accents */}
           <div
             className="absolute pointer-events-none rounded-full"
             style={{
-              top: "15%", right: "8%",
-              width: 140, height: 140,
-              border: "1px solid rgba(99,120,255,0.12)",
-              animation: "floatCard 10s ease-in-out -3s infinite",
+              top: "12%", right: "6%",
+              width: 160, height: 160,
+              border: "1px solid rgba(129,140,248,0.30)",
+              boxShadow: "inset 0 0 30px rgba(129,140,248,0.08)",
+              animation: "floatCard 11s ease-in-out -3s infinite",
             }}
           />
           <div
             className="absolute pointer-events-none rounded-full"
             style={{
-              bottom: "20%", left: "4%",
-              width: 90, height: 90,
-              border: "1px solid rgba(139,92,246,0.10)",
-              animation: "floatCard 12s ease-in-out -6s infinite",
+              top: "12%", right: "6%",
+              width: 110, height: 110,
+              border: "1px solid rgba(129,140,248,0.18)",
+              margin: "25px",
+              animation: "floatCard 11s ease-in-out -3s infinite",
+            }}
+          />
+          <div
+            className="absolute pointer-events-none rounded-full"
+            style={{
+              bottom: "18%", left: "3%",
+              width: 100, height: 100,
+              border: "1px solid rgba(196,181,253,0.25)",
+              animation: "floatCard 13s ease-in-out -6s infinite",
             }}
           />
 
-          {/* Subtle horizontal glow line */}
-          <div className="absolute top-0 inset-x-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(99,120,255,0.4) 40%, rgba(99,120,255,0.4) 60%, transparent 100%)" }} />
+          {/* Horizontal glow line */}
+          <div className="absolute top-0 inset-x-0 h-px pointer-events-none" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(129,140,248,0.6) 35%, rgba(129,140,248,0.6) 65%, transparent 100%)" }} />
 
           <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center min-h-[88vh] py-16 lg:py-20">
