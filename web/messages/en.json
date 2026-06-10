@@ -257,7 +257,16 @@
     "demoAlert": "Demo mode — {link} to save history and unlock full features.",
     "demoLink": "Sign up free",
     "signOut": "Sign out",
-    "goHome": "Go home"
+    "goHome": "Go home",
+    "tabTeam": "Team",
+    "tabSettings": "Settings",
+    "tabQueue": "Queue",
+    "teamTitle": "Team Management",
+    "teamSubtitle": "Invite colleagues and manage your Business team seats.",
+    "settingsTitle": "Account Settings",
+    "settingsSubtitle": "Manage your profile, integrations, and notification preferences.",
+    "queueTitle": "Processing Queue",
+    "queueSubtitle": "Track async conversions and bulk jobs in real time."
   },
   "contact": {
     "title": "Contact Us",

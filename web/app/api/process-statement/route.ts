@@ -9,7 +9,8 @@ import {
   transactionsToGoogleSheets,
 } from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
-import { findById, incrementPages, markPaygUsed, reversePaygConsumption } from "@/lib/auth/users";
+import { findById, incrementPages, markPaygUsed, reversePaygConsumption, addConversionLog } from "@/lib/auth/users";
+import { randomUUID } from "crypto";
 import { getPortal } from "@/lib/portals";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
@@ -237,9 +238,22 @@ export async function POST(req: NextRequest) {
     exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
   }
 
-  // ── Record usage ───────────────────────────────────────────────────────────
+  // ── Record usage & log ─────────────────────────────────────────────────────
   if (userId) {
     await incrementPages(userId, pageCount);
+    if (!isDemo) {
+      await addConversionLog({
+        id: randomUUID(),
+        userId,
+        fileName: file.name,
+        pageCount,
+        transactionCount: transactions.length,
+        billingType: tier === "FREE" ? "FREE_TIER" : "SUBSCRIPTION",
+        bankName: bankName ?? null,
+        exportFormats,
+        createdAt: new Date().toISOString(),
+      }).catch(() => {/* non-fatal */});
+    }
   } else {
     jar.set("bs_pages_used", String(pagesUsed + pageCount), {
       httpOnly: true, sameSite: "lax", maxAge: 60 * 60 * 24 * 365,

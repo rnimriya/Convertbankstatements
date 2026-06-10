@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
-import { findById, findByEmail } from "@/lib/auth/users";
+import { findById, findByEmail, getConversionLogs } from "@/lib/auth/users";
 import { DashboardClient } from "@/components/dashboard/DashboardClient";
 import { Footer } from "@/components/layout/Footer";
 import type { BillingContext } from "@/types/billing";
@@ -20,12 +20,19 @@ export default async function DashboardPage() {
     stripeCustomerId: null,
   };
 
+  const recentLogs = user ? await getConversionLogs(user.id) : [];
+
   return (
     <DashboardClient
       billing={billing}
-      recentLogs={[]}
+      recentLogs={recentLogs.map(log => ({
+        ...log,
+        createdAt: new Date(log.createdAt),
+      }))}
       userEmail={user?.email ?? session.email}
       userName={user?.name ?? session.name}
+      emailVerified={user?.emailVerified ?? false}
+      hasSheetsAccess={Boolean(user?.googleSheetsRefreshToken)}
       isDemo={false}
       footer={<Footer />}
     />

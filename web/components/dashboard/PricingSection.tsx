@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, AlertTriangle, Loader2 } from "lucide-react";
 import { RazorpayCheckout } from "@/components/payment/RazorpayCheckout";
 import type { SubTier } from "@/types/billing";
 import { useRouter } from "next/navigation";
@@ -85,10 +85,39 @@ const PLANS = [
   },
 ];
 
-export function PricingSection({ currentTier }: { currentTier: SubTier }) {
+interface PricingSectionProps {
+  currentTier: SubTier;
+  onTierChange?: () => void;
+}
+
+export function PricingSection({ currentTier, onTierChange }: PricingSectionProps) {
   const [annual, setAnnual] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [cancelling, setCancelling] = useState(false);
+  const [cancelConfirm, setCancelConfirm] = useState(false);
+  const [cancelled, setCancelled] = useState(false);
   const router = useRouter();
+
+  const handleCancel = async () => {
+    if (!cancelConfirm) { setCancelConfirm(true); return; }
+    setCancelling(true);
+    try {
+      const res = await fetch("/api/cancel-subscription", { method: "POST" });
+      if (!res.ok) {
+        const d = await res.json();
+        setError(d.error ?? "Failed to cancel.");
+      } else {
+        setCancelled(true);
+        onTierChange?.();
+        router.refresh();
+      }
+    } catch {
+      setError("Network error — please try again.");
+    } finally {
+      setCancelling(false);
+      setCancelConfirm(false);
+    }
+  };
 
   return (
     <div>
@@ -246,6 +275,58 @@ export function PricingSection({ currentTier }: { currentTier: SubTier }) {
           );
         })}
       </div>
+
+      {/* Cancellation */}
+      {(currentTier === "PRO" || currentTier === "BUSINESS") && !cancelled && (
+        <div className="mt-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-5">
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <p className="font-semibold text-slate-800 dark:text-gray-200">Cancel subscription</p>
+              <p className="mt-0.5 text-sm text-slate-400 dark:text-gray-500">
+                Your plan will revert to Free at end of current billing period.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              {cancelConfirm && (
+                <button
+                  onClick={() => setCancelConfirm(false)}
+                  className="text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-gray-300"
+                >
+                  Keep plan
+                </button>
+              )}
+              <button
+                onClick={handleCancel}
+                disabled={cancelling}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                  cancelConfirm
+                    ? "bg-red-600 text-white hover:bg-red-700"
+                    : "border border-slate-200 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:border-red-300 hover:text-red-600 dark:hover:text-red-400"
+                } disabled:opacity-50`}
+              >
+                {cancelling && <Loader2 size={14} className="animate-spin" />}
+                {cancelConfirm ? "Confirm cancellation" : "Cancel subscription"}
+              </button>
+            </div>
+          </div>
+          {cancelConfirm && (
+            <div className="mt-3 flex items-start gap-2 text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-xl px-4 py-3">
+              <AlertTriangle size={14} className="shrink-0 mt-0.5" />
+              You will lose access to {currentTier === "PRO" ? "500" : "2,000"} pages/month, all export formats, and other Pro features. Are you sure?
+            </div>
+          )}
+        </div>
+      )}
+
+      {cancelled && (
+        <div className="mt-8 flex items-center gap-3 rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-emerald-50 dark:bg-emerald-900/20 p-5">
+          <CheckCircle2 size={20} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
+          <div>
+            <p className="font-semibold text-emerald-800 dark:text-emerald-300">Subscription cancelled</p>
+            <p className="text-sm text-emerald-700 dark:text-emerald-400">You've been moved to the Free plan. Your data is safe.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

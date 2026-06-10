@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import {
   ArrowRight, CheckCircle2, Zap, Lock, Globe,
   Download, Upload, Shield, Clock, CreditCard, FileCheck, Star,
-  Sparkles, ChevronRight,
+  Sparkles, ChevronRight, FileText, BarChart3, RefreshCw,
 } from "lucide-react";
 import ConverterMockup from "@/components/ConverterMockup";
 import { SamplePDFDemo } from "@/components/SamplePDFDemo";
@@ -44,31 +44,43 @@ export default async function HomePage() {
   ];
 
   const stats = [
-    { value: "15s",   label: tStats("conversion"), suffix: "" },
-    { value: "30+",   label: tStats("banks"),       suffix: "" },
-    { value: "99.4%", label: tStats("accuracy"),    suffix: "" },
-    { value: "₹49",   label: tStats("perDoc"),      suffix: "" },
+    { value: "15s",   label: tStats("conversion"), icon: "⚡" },
+    { value: "30+",   label: tStats("banks"),       icon: "🏦" },
+    { value: "99.4%", label: tStats("accuracy"),    icon: "✓" },
+    { value: "₹49",   label: tStats("perDoc"),      icon: "₹" },
   ];
 
   const steps = [
-    { n: "01", icon: <Upload size={22} />,    title: tHow("step1Title"), body: tHow("step1Body"), color: "bg-blue-50 text-blue-600" },
-    { n: "02", icon: <FileCheck size={22} />, title: tHow("step2Title"), body: tHow("step2Body"), color: "bg-violet-50 text-violet-600" },
-    { n: "03", icon: <Download size={22} />,  title: tHow("step3Title"), body: tHow("step3Body"), color: "bg-orange-50 text-orange-500" },
-  ];
-
-  const features = [
-    { icon: <Zap size={20} />,        title: tFeat("fastTitle"),       body: tFeat("fastBody"),       accent: "text-amber-500",   bg: "bg-amber-50",   border: "hover:border-amber-200"  },
-    { icon: <Shield size={20} />,     title: tFeat("privateTitle"),    body: tFeat("privateBody"),    accent: "text-emerald-500", bg: "bg-emerald-50", border: "hover:border-emerald-200" },
-    { icon: <FileCheck size={20} />,  title: tFeat("accurateTitle"),   body: tFeat("accurateBody"),   accent: "text-navy",        bg: "bg-blue-50",    border: "hover:border-blue-200"   },
-    { icon: <Globe size={20} />,      title: tFeat("banksTitle"),      body: tFeat("banksBody"),      accent: "text-violet-500",  bg: "bg-violet-50",  border: "hover:border-violet-200" },
-    { icon: <CreditCard size={20} />, title: tFeat("pricingTitle"),    body: tFeat("pricingBody"),    accent: "text-orange-500",  bg: "bg-orange-50",  border: "hover:border-orange-200" },
-    { icon: <Clock size={20} />,      title: tFeat("formatsTitle"),    body: tFeat("formatsBody"),    accent: "text-cyan-500",    bg: "bg-cyan-50",    border: "hover:border-cyan-200"   },
-    { icon: <Lock size={20} />,       title: tFeat("passwordTitle"),   body: tFeat("passwordBody"),   accent: "text-rose-500",    bg: "bg-rose-50",    border: "hover:border-rose-200"   },
-    { icon: <Upload size={20} />,     title: tFeat("anyAccountTitle"), body: tFeat("anyAccountBody"), accent: "text-indigo-500",  bg: "bg-indigo-50",  border: "hover:border-indigo-200" },
-    { icon: <Download size={20} />,   title: tFeat("instantTitle"),    body: tFeat("instantBody"),    accent: "text-teal-500",    bg: "bg-teal-50",    border: "hover:border-teal-200"   },
+    {
+      n: "01",
+      icon: <Upload size={20} />,
+      title: tHow("step1Title"),
+      body: tHow("step1Body"),
+      gradient: "from-blue-500 to-indigo-600",
+      glow: "shadow-blue-500/20",
+    },
+    {
+      n: "02",
+      icon: <FileCheck size={20} />,
+      title: tHow("step2Title"),
+      body: tHow("step2Body"),
+      gradient: "from-violet-500 to-purple-600",
+      glow: "shadow-violet-500/20",
+    },
+    {
+      n: "03",
+      icon: <Download size={20} />,
+      title: tHow("step3Title"),
+      body: tHow("step3Body"),
+      gradient: "from-orange-500 to-rose-500",
+      glow: "shadow-orange-500/20",
+    },
   ];
 
   const testimonials = [
+    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-violet-500" },
+    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-emerald-500" },
+    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-navy" },
     { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-violet-500" },
     { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-emerald-500" },
     { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-navy" },
@@ -119,153 +131,182 @@ export default async function HomePage() {
       <Navbar />
       <main className="overflow-x-hidden">
 
-        {/* ─── HERO ─────────────────────────────────────────────── */}
-        <section className="relative pt-16 pb-20 sm:pt-20 sm:pb-28 bg-white overflow-hidden">
+        {/* ─── HERO — DARK COMPACT ─────────────────────────────── */}
+        <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #080e24 0%, #0d1a4a 35%, #0f2060 55%, #0a1535 100%)" }}>
 
-          {/* Mesh gradient background */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 20% 20%, rgba(26,71,200,0.06) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(249,115,22,0.05) 0%, transparent 50%), radial-gradient(circle at 50% 0%, rgba(59,91,252,0.04) 0%, transparent 60%)" }} />
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-navy/20 to-transparent" />
-            {/* Animated blobs */}
-            <div className="absolute top-20 left-[10%] w-72 h-72 rounded-full bg-blue-100/40 blur-3xl animate-blob" style={{ animationDelay: "0s" }} />
-            <div className="absolute bottom-10 right-[8%] w-64 h-64 rounded-full bg-orange-100/40 blur-3xl animate-blob" style={{ animationDelay: "4s" }} />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-violet-50/30 blur-3xl animate-blob" style={{ animationDelay: "8s" }} />
-          </div>
+          {/* Dot grid */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
+              backgroundSize: "28px 28px",
+            }}
+          />
 
-          <div className="relative max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-16 items-center">
+          {/* Gradient orbs */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full opacity-20 pointer-events-none" style={{ background: "radial-gradient(ellipse, rgba(59,91,252,0.6) 0%, transparent 65%)" }} />
+          <div className="absolute -top-20 right-[5%] w-72 h-72 rounded-full opacity-15 pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.8) 0%, transparent 70%)" }} />
+          <div className="absolute bottom-0 left-[10%] w-64 h-64 rounded-full opacity-10 pointer-events-none blur-3xl" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.8) 0%, transparent 70%)" }} />
 
-              {/* Left — copy */}
-              <div className="animate-fade-up">
-                {/* Live badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-5 border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-semibold">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                  </span>
-                  {tHero("badge")}
-                </div>
+          <div className="relative max-w-5xl mx-auto px-6 pt-14 pb-0 text-center">
 
-                {/* H1 */}
-                <h1 className="font-display text-[2.6rem] sm:text-[3.25rem] lg:text-[3.5rem] leading-[1.06] font-bold tracking-tight text-slate-900 mb-5">
-                  {tHero("titleLine1")}{" "}
-                  <span
-                    className="relative inline-block"
-                    style={{
-                      background: "linear-gradient(135deg, #1A47C8 0%, #3B5BFC 50%, #1A47C8 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                    }}
-                  >
-                    {tHero("titleHighlight")}
-                  </span>
-                  <br className="hidden sm:block" />
-                  {" "}{tHero("titleLine3")}
-                </h1>
+            {/* Announcement pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 text-xs font-semibold"
+              style={{ borderColor: "rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.75)" }}
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              </span>
+              {tHero("badge")}
+              <ChevronRight size={11} className="opacity-50" />
+            </div>
 
-                {/* Subtitle */}
-                <p className="text-[1rem] text-slate-500 leading-relaxed mb-6 max-w-[460px]">
-                  {tHero("subtitle")}
-                </p>
+            {/* H1 */}
+            <h1 className="font-display font-black tracking-tight text-white mb-4 leading-[1.04]" style={{ fontSize: "clamp(2.2rem, 5.5vw, 3.75rem)" }}>
+              {tHero("titleLine1")}{" "}
+              <span
+                style={{
+                  background: "linear-gradient(135deg, #60a5fa 0%, #818cf8 40%, #a78bfa 70%, #60a5fa 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                {tHero("titleHighlight")}
+              </span>
+              <br />
+              <span className="text-white/90">{tHero("titleLine3")}</span>
+            </h1>
 
-                {/* Bullet pills */}
-                <div className="flex flex-wrap gap-2 mb-7">
-                  {[tHero("bullet1"), tHero("bullet2"), tHero("bullet3"), tHero("bullet4")].map((b) => (
-                    <span key={b} className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-medium text-slate-600">
-                      <CheckCircle2 size={12} className="text-navy shrink-0" />
-                      {b}
-                    </span>
+            {/* Subtitle */}
+            <p className="text-white/55 text-[0.95rem] leading-relaxed mb-7 max-w-xl mx-auto">
+              {tHero("subtitle")}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl text-sm font-bold text-white relative overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-2xl"
+                style={{ background: "linear-gradient(135deg, #f97316 0%, #ea580c 100%)", boxShadow: "0 4px 24px rgba(249,115,22,0.45)" }}
+              >
+                <span className="absolute inset-0" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", animation: "shimmerSlide 2.5s ease-in-out infinite" }} />
+                <Sparkles size={14} className="relative z-10" />
+                <span className="relative z-10">{tHero("cta")}</span>
+                <ArrowRight size={13} className="relative z-10" />
+              </Link>
+              <SamplePDFDemo />
+            </div>
+
+            {/* Social proof + bullets */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-10">
+              <div className="flex items-center gap-2.5">
+                <div className="flex items-center -space-x-2">
+                  {TRUST_INITIALS.map(({ i, bg }) => (
+                    <div key={i} className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-[9px] font-bold text-white shadow-sm ${bg}`} style={{ borderColor: "rgba(255,255,255,0.15)" }}>
+                      {i}
+                    </div>
                   ))}
                 </div>
-
-                {/* CTAs */}
-                <div className="flex flex-wrap items-center gap-3 mb-7">
-                  <Link
-                    href="/signup"
-                    className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold text-white bg-navy hover:opacity-90 transition-all shadow-lg shadow-navy/30 hover:shadow-navy/40 hover:-translate-y-0.5 relative overflow-hidden"
-                  >
-                    <span className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent)", animation: "shimmerSlide 2.5s ease-in-out infinite" }} />
-                    <Sparkles size={15} className="relative z-10" />
-                    <span className="relative z-10">{tHero("cta")}</span>
-                    <ArrowRight size={14} className="relative z-10" />
-                  </Link>
-                  <SamplePDFDemo />
-                </div>
-
-                {/* Social proof */}
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center -space-x-2.5">
-                    {TRUST_INITIALS.map(({ i, bg }) => (
-                      <div key={i} className={`w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shadow-sm ${bg}`}>
-                        {i}
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-0.5 mb-0.5">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} size={12} className="text-amber-400 fill-amber-400" />
-                      ))}
-                    </div>
-                    <p className="text-xs text-slate-500 font-medium">{tHero("trustText")}</p>
-                  </div>
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} size={10} className="text-amber-400 fill-amber-400" />
+                  ))}
+                  <span className="text-xs text-white/40 ml-1">{tHero("trustText")}</span>
                 </div>
               </div>
-
-              {/* Right — mockup */}
-              <div className="flex justify-center lg:justify-end animate-slide-in-right animation-delay-200">
-                <div className="relative">
-                  {/* Glow ring */}
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-navy/10 to-blue-400/10 blur-2xl scale-110 pointer-events-none" />
-                  <ConverterMockup />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── STATS ────────────────────────────────────────────── */}
-        <div className="bg-gradient-to-r from-navy via-[#1e3fa8] to-navy border-y border-navy/20">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4">
-              {stats.map(({ value, label }, i) => (
-                <div key={label} className={`py-8 px-6 text-center ${i < 3 ? "border-b md:border-b-0 md:border-r border-white/10" : ""} ${i === 1 ? "border-r border-white/10" : ""}`}>
-                  <div className="font-display text-3xl sm:text-4xl font-black text-white mb-1 tracking-tight">{value}</div>
-                  <div className="text-xs font-medium text-white/55 uppercase tracking-widest">{label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ─── BANKS DUAL MARQUEE ───────────────────────────────── */}
-        <section id="banks" className="py-12 bg-slate-50/60 border-b border-slate-100 overflow-hidden">
-          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest text-center mb-6">
-            {tBanks("heading")}
-          </p>
-          <div className="space-y-3">
-            {/* Row 1 — left to right */}
-            <div
-              className="relative"
-              style={{ maskImage: "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)" }}
-            >
-              <div className="flex gap-3 w-max animate-marquee">
-                {doubled.map((b, i) => (
-                  <span key={i} className="shrink-0 px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-full shadow-sm whitespace-nowrap hover:border-navy/30 hover:text-navy transition-colors">
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {[tHero("bullet3"), tHero("bullet4")].map((b) => (
+                  <span key={b} className="inline-flex items-center gap-1 text-xs text-white/45 font-medium">
+                    <CheckCircle2 size={11} className="text-emerald-400/60" />
                     {b}
                   </span>
                 ))}
               </div>
             </div>
-            {/* Row 2 — right to left (slower) */}
-            <div
-              className="relative"
-              style={{ maskImage: "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%)" }}
-            >
-              <div className="flex gap-3 w-max animate-marquee-reverse">
+
+            {/* Stats bar */}
+            <div className="flex justify-center mb-0">
+              <div
+                className="inline-grid grid-cols-4 divide-x rounded-2xl overflow-hidden w-full max-w-2xl"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              >
+                {stats.map(({ value, label, icon }, i) => (
+                  <div key={label} className="py-4 px-4 text-center" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+                    <div className="font-display text-xl sm:text-2xl font-black text-white tracking-tight">{value}</div>
+                    <div className="text-[10px] font-medium uppercase tracking-widest mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mockup — bleeds out of hero into next section */}
+            <div className="relative mt-10 flex justify-center">
+              {/* Glow behind card */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-80 h-48 rounded-full blur-3xl opacity-30" style={{ background: "radial-gradient(circle, rgba(59,91,252,0.6) 0%, transparent 70%)" }} />
+              </div>
+
+              <div
+                className="relative w-full max-w-[420px] rounded-2xl overflow-hidden shadow-2xl"
+                style={{ border: "1px solid rgba(255,255,255,0.10)", transform: "translateY(0)", boxShadow: "0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06)" }}
+              >
+                <ConverterMockup />
+              </div>
+
+              {/* Floating badges */}
+              <div
+                className="absolute -left-4 sm:left-4 top-8 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-semibold shadow-xl z-10"
+                style={{ background: "rgba(15,22,60,0.95)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(12px)" }}
+              >
+                <div className="w-7 h-7 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                  <CheckCircle2 size={14} className="text-emerald-400" />
+                </div>
+                <div>
+                  <p className="text-white/90 font-bold text-[11px]">Converted!</p>
+                  <p className="text-white/40 text-[10px]">142 transactions</p>
+                </div>
+              </div>
+
+              <div
+                className="absolute -right-2 sm:right-4 bottom-12 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl text-xs font-semibold shadow-xl z-10"
+                style={{ background: "rgba(15,22,60,0.95)", border: "1px solid rgba(255,255,255,0.12)", backdropFilter: "blur(12px)" }}
+              >
+                <div className="w-7 h-7 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                  <Zap size={14} className="text-amber-400" />
+                </div>
+                <div>
+                  <p className="text-white/90 font-bold text-[11px]">11.2s</p>
+                  <p className="text-white/40 text-[10px]">avg. conversion</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Fade to white */}
+            <div className="h-16 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #f8fafc)" }} />
+          </div>
+        </section>
+
+        {/* ─── BANKS DUAL MARQUEE ───────────────────────────────── */}
+        <section id="banks" className="py-10 bg-slate-50 border-b border-slate-100 overflow-hidden">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] text-center mb-5">
+            {tBanks("heading")}
+          </p>
+          <div className="space-y-2.5">
+            <div className="relative" style={{ maskImage: "linear-gradient(to right,transparent 0%,#000 8%,#000 92%,transparent 100%)", WebkitMaskImage: "linear-gradient(to right,transparent 0%,#000 8%,#000 92%,transparent 100%)" }}>
+              <div className="flex gap-2.5 w-max animate-marquee">
+                {doubled.map((b, i) => (
+                  <span key={i} className="shrink-0 px-4 py-1.5 text-xs font-semibold text-slate-600 bg-white border border-slate-200 rounded-full shadow-sm whitespace-nowrap hover:border-navy/40 hover:text-navy transition-colors">
+                    {b}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="relative" style={{ maskImage: "linear-gradient(to right,transparent 0%,#000 8%,#000 92%,transparent 100%)", WebkitMaskImage: "linear-gradient(to right,transparent 0%,#000 8%,#000 92%,transparent 100%)" }}>
+              <div className="flex gap-2.5 w-max animate-marquee-reverse">
                 {doubled2.map((b, i) => (
-                  <span key={i} className="shrink-0 px-4 py-2 text-sm font-medium text-slate-500 bg-slate-50 border border-slate-200 rounded-full whitespace-nowrap">
+                  <span key={i} className="shrink-0 px-4 py-1.5 text-xs font-medium text-slate-400 bg-slate-100 border border-slate-200/60 rounded-full whitespace-nowrap">
                     {b}
                   </span>
                 ))}
@@ -277,122 +318,163 @@ export default async function HomePage() {
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
         <section id="how-it-works" className="py-24 bg-white">
           <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-3">{tHow("label")}</span>
+            <div className="text-center mb-14">
+              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-[11px] font-bold uppercase tracking-widest mb-3">{tHow("label")}</span>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-3">{tHow("title")}</h2>
-              <p className="text-slate-500 max-w-sm mx-auto text-sm">{tHow("subtitle")}</p>
+              <p className="text-slate-400 max-w-xs mx-auto text-sm">{tHow("subtitle")}</p>
             </div>
 
-            {/* Desktop: 3-card row with connector */}
-            <div className="hidden md:grid grid-cols-3 gap-6 relative">
-              {/* Connecting line */}
-              <div className="absolute top-12 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-0.5 bg-gradient-to-r from-blue-200 via-violet-200 to-orange-200 pointer-events-none" />
-              {steps.map(({ n, icon, title, body, color }, idx) => (
-                <div key={n} className="relative group flex flex-col items-center text-center p-8 rounded-2xl border border-slate-100 bg-white hover:border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  {/* Step number */}
-                  <div className="absolute top-4 right-5 font-display text-[4.5rem] font-black text-slate-50 leading-none select-none group-hover:text-navy/5 transition-colors duration-300">{n}</div>
-                  {/* Icon circle */}
-                  <div className={`relative z-10 w-14 h-14 rounded-2xl flex items-center justify-center mb-5 ${color} group-hover:scale-110 transition-transform duration-300 shadow-sm`}>
+            <div className="grid md:grid-cols-3 gap-6 relative">
+              {/* Connector line */}
+              <div className="hidden md:block absolute top-9 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-px pointer-events-none" style={{ background: "linear-gradient(90deg,rgba(99,102,241,0.3),rgba(249,115,22,0.3))", borderTop: "1px dashed rgba(148,163,184,0.4)" }} />
+
+              {steps.map(({ n, icon, title, body, gradient, glow }, idx) => (
+                <div
+                  key={n}
+                  className={`relative group flex flex-col p-7 rounded-2xl border border-slate-100 bg-white hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${idx === 1 ? "md:mt-6" : ""}`}
+                >
+                  <div className={`absolute top-5 right-5 font-display text-[5rem] font-black leading-none select-none text-slate-50 group-hover:text-navy/5 transition-colors duration-300`}>{n}</div>
+
+                  <div className={`relative z-10 w-12 h-12 rounded-xl flex items-center justify-center mb-5 text-white bg-gradient-to-br ${gradient} shadow-lg ${glow} group-hover:scale-110 transition-transform duration-300`}>
                     {icon}
                   </div>
-                  <h3 className="relative z-10 text-base font-bold text-slate-900 mb-2">{title}</h3>
-                  <p className="relative z-10 text-sm text-slate-500 leading-relaxed">{body}</p>
+                  <h3 className="relative z-10 text-[0.95rem] font-bold text-slate-900 mb-2">{title}</h3>
+                  <p className="relative z-10 text-sm text-slate-400 leading-relaxed">{body}</p>
+
                   {idx < 2 && (
-                    <div className="hidden md:flex absolute -right-3 top-12 z-20 w-6 h-6 rounded-full bg-white border border-slate-200 items-center justify-center shadow-sm">
-                      <ChevronRight size={12} className="text-slate-400" />
+                    <div className="hidden md:flex absolute -right-3.5 top-9 z-20 w-7 h-7 rounded-full bg-white border border-slate-200 items-center justify-center shadow-md">
+                      <ChevronRight size={13} className="text-slate-400" />
                     </div>
                   )}
                 </div>
               ))}
             </div>
-
-            {/* Mobile: vertical timeline */}
-            <div className="md:hidden relative">
-              <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-blue-200 via-violet-200 to-orange-200" />
-              <div className="space-y-8">
-                {steps.map(({ n, icon, title, body, color }) => (
-                  <div key={n} className="flex gap-5 items-start">
-                    <div className={`relative z-10 shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${color} shadow-sm border-2 border-white`}>
-                      {icon}
-                    </div>
-                    <div className="pt-1 flex-1">
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">Step {n}</p>
-                      <h3 className="font-bold text-slate-900 mb-1">{title}</h3>
-                      <p className="text-sm text-slate-500 leading-relaxed">{body}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* ─── FEATURES — BENTO GRID ────────────────────────────── */}
-        <section id="features" className="py-24 bg-slate-50/60">
+        {/* ─── FEATURES — ADVANCED BENTO ────────────────────────── */}
+        <section id="features" className="py-24 overflow-hidden" style={{ background: "linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%)" }}>
           <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-3">{tFeat("label")}</span>
+            <div className="text-center mb-14">
+              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-[11px] font-bold uppercase tracking-widest mb-3">{tFeat("label")}</span>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-3">{tFeat("title")}</h2>
-              <p className="text-slate-500 max-w-md mx-auto text-sm">{tFeat("subtitle")}</p>
+              <p className="text-slate-400 max-w-sm mx-auto text-sm">{tFeat("subtitle")}</p>
             </div>
 
-            {/* Featured card — full width */}
-            <div className="rounded-2xl bg-navy p-8 mb-4 relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle at 70% 50%, rgba(255,255,255,0.3) 0%, transparent 60%)" }} />
-              <div className="relative z-10 w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center text-white shrink-0">
-                <Zap size={26} />
-              </div>
-              <div className="relative z-10 flex-1">
-                <h3 className="text-xl font-bold text-white mb-1.5">{tFeat("fastTitle")}</h3>
-                <p className="text-white/70 text-sm leading-relaxed max-w-lg">{tFeat("fastBody")}</p>
-              </div>
-              <div className="relative z-10 shrink-0">
-                <div className="flex items-baseline gap-1">
-                  <span className="font-display text-5xl font-black text-white">15</span>
-                  <span className="text-white/60 text-lg font-semibold">sec</span>
+            {/* Top row: 3 equal cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+              {/* Speed — dark accent */}
+              <div className="md:col-span-1 rounded-2xl p-7 flex flex-col relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0d1a4a 0%,#1A47C8 100%)" }}>
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 80% 20%,rgba(255,255,255,0.5) 0%,transparent 50%)" }} />
+                <div className="relative z-10 w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center text-white mb-4">
+                  <Zap size={20} />
                 </div>
-                <p className="text-white/50 text-xs text-right mt-0.5">avg. conversion</p>
+                <div className="relative z-10 font-display text-5xl font-black text-white mb-1">15<span className="text-2xl text-white/50 font-bold">s</span></div>
+                <div className="relative z-10 text-sm font-bold text-white mb-2">{tFeat("fastTitle")}</div>
+                <p className="relative z-10 text-xs text-white/50 leading-relaxed flex-1">{tFeat("fastBody")}</p>
+              </div>
+
+              {/* Privacy */}
+              <div className="rounded-2xl p-7 bg-white border border-slate-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group relative overflow-hidden">
+                <div className="absolute bottom-0 right-0 w-32 h-32 opacity-5 pointer-events-none">
+                  <Shield size={128} />
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-4 group-hover:scale-110 transition-transform">
+                  <Shield size={20} />
+                </div>
+                <h3 className="text-sm font-bold text-slate-900 mb-2">{tFeat("privateTitle")}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">{tFeat("privateBody")}</p>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
+                  <CheckCircle2 size={11} /> Zero storage
+                </div>
+              </div>
+
+              {/* Accuracy */}
+              <div className="rounded-2xl p-7 bg-white border border-slate-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group relative overflow-hidden">
+                <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-navy mb-4 group-hover:scale-110 transition-transform">
+                  <FileCheck size={20} />
+                </div>
+                <h3 className="text-sm font-bold text-slate-900 mb-2">{tFeat("accurateTitle")}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">{tFeat("accurateBody")}</p>
+                <div className="mt-4 font-display text-3xl font-black text-navy">99.4<span className="text-base text-slate-400 font-medium">%</span></div>
               </div>
             </div>
 
-            {/* Grid of remaining features */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {features.slice(1).map(({ icon, title, body, accent, bg, border }) => (
-                <div key={title} className={`group rounded-2xl p-5 bg-white border border-slate-100 ${border} hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 cursor-default`}>
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${bg} ${accent} group-hover:scale-110 transition-transform duration-200`}>
+            {/* Middle row: wide + narrow */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+              {/* Formats — wide */}
+              <div className="md:col-span-3 rounded-2xl p-7 bg-white border border-slate-100 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 group">
+                <div className="flex items-start justify-between mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-cyan-50 flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform">
+                    <FileText size={20} />
+                  </div>
+                  <span className="text-xs font-bold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">5 formats</span>
+                </div>
+                <h3 className="text-sm font-bold text-slate-900 mb-1">{tFeat("formatsTitle")}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed mb-5">{tFeat("formatsBody")}</p>
+                <div className="flex flex-wrap gap-2">
+                  {["Excel", "CSV", "OFX / Tally", "QFX / QuickBooks", "Google Sheets"].map((f, i) => (
+                    <span key={f} className={`px-3 py-1.5 rounded-xl text-xs font-bold border ${i === 0 ? "bg-emerald-500 text-white border-emerald-500" : i === 4 ? "bg-green-50 text-green-700 border-green-200" : "bg-slate-50 text-slate-600 border-slate-200"}`}>
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Banks count — narrow */}
+              <div className="md:col-span-2 rounded-2xl p-7 relative overflow-hidden group" style={{ background: "linear-gradient(135deg,#7c3aed 0%,#a855f7 100%)" }}>
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 80%,rgba(255,255,255,0.5) 0%,transparent 50%)" }} />
+                <div className="relative z-10 w-11 h-11 rounded-xl bg-white/15 flex items-center justify-center text-white mb-4">
+                  <Globe size={20} />
+                </div>
+                <div className="relative z-10 font-display text-5xl font-black text-white mb-1">30<span className="text-2xl text-white/50 font-bold">+</span></div>
+                <div className="relative z-10 text-sm font-bold text-white mb-1">{tFeat("banksTitle")}</div>
+                <p className="relative z-10 text-xs text-white/50 leading-relaxed">{tFeat("banksBody")}</p>
+              </div>
+            </div>
+
+            {/* Bottom row: 3 small cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                { icon: <Lock size={18} />, title: tFeat("passwordTitle"), body: tFeat("passwordBody"), bg: "bg-rose-50", accent: "text-rose-500" },
+                { icon: <CreditCard size={18} />, title: tFeat("pricingTitle"), body: tFeat("pricingBody"), bg: "bg-orange-50", accent: "text-orange-500" },
+                { icon: <Clock size={18} />, title: tFeat("instantTitle"), body: tFeat("instantBody"), bg: "bg-teal-50", accent: "text-teal-600" },
+              ].map(({ icon, title, body, bg, accent }) => (
+                <div key={title} className="rounded-2xl p-6 bg-white border border-slate-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group">
+                  <div className={`w-10 h-10 rounded-xl ${bg} ${accent} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                     {icon}
                   </div>
-                  <h3 className="font-semibold text-slate-900 text-sm mb-1.5">{title}</h3>
-                  <p className="text-xs text-slate-500 leading-relaxed">{body}</p>
+                  <h3 className="text-sm font-bold text-slate-900 mb-1.5">{title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed">{body}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ─── TESTIMONIALS ─────────────────────────────────────── */}
-        <section className="py-24 bg-white">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-xs font-bold uppercase tracking-widest mb-3">{tTest("label")}</span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900">{tTest("title")}</h2>
-            </div>
+        {/* ─── TESTIMONIALS — INFINITE MARQUEE ──────────────────── */}
+        <section className="py-24 bg-white overflow-hidden">
+          <div className="max-w-6xl mx-auto px-6 mb-12 text-center">
+            <span className="inline-block px-3 py-1 rounded-full bg-amber-50 text-amber-600 text-[11px] font-bold uppercase tracking-widest mb-3">{tTest("label")}</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900">{tTest("title")}</h2>
+          </div>
 
-            {/* Scrollable on mobile, grid on desktop */}
-            <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide">
-              {testimonials.map(({ text, name, role, initial, color }) => (
-                <div key={name} className="shrink-0 w-[85vw] sm:w-[70vw] md:w-auto snap-start bg-white border border-slate-200 rounded-2xl p-6 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                  {/* Large quote mark */}
-                  <div className="font-display text-6xl text-navy/10 leading-none mb-2 group-hover:text-navy/20 transition-colors">&ldquo;</div>
-                  {/* Stars */}
-                  <div className="flex gap-0.5 mb-3 -mt-4">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star key={i} size={13} className="text-amber-400 fill-amber-400" />
+          {/* Marquee of testimonial cards */}
+          <div
+            className="relative"
+            style={{ maskImage: "linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%)", WebkitMaskImage: "linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%)" }}
+          >
+            <div className="flex gap-5 w-max animate-marquee" style={{ animationDuration: "30s" }}>
+              {[...testimonials, ...testimonials].map(({ text, name, role, initial, color }, i) => (
+                <div key={i} className="shrink-0 w-80 rounded-2xl border border-slate-200 bg-white p-6 flex flex-col shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex gap-0.5 mb-3">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star key={j} size={12} className="text-amber-400 fill-amber-400" />
                     ))}
                   </div>
-                  <p className="text-sm text-slate-700 leading-relaxed flex-1 mb-5">{text}</p>
+                  <p className="text-sm text-slate-600 leading-relaxed flex-1 mb-5">{text}</p>
                   <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                    <div className={`w-10 h-10 rounded-full ${color} flex items-center justify-center text-sm font-bold text-white shrink-0`}>{initial}</div>
+                    <div className={`w-9 h-9 rounded-full ${color} flex items-center justify-center text-sm font-bold text-white shrink-0`}>{initial}</div>
                     <div>
                       <p className="text-sm font-bold text-slate-900">{name}</p>
                       <p className="text-xs text-slate-400">{role}</p>
@@ -405,12 +487,12 @@ export default async function HomePage() {
         </section>
 
         {/* ─── PRICING ──────────────────────────────────────────── */}
-        <section id="pricing" className="py-24 bg-slate-50/60">
+        <section id="pricing" className="py-24" style={{ background: "linear-gradient(180deg,#f8fafc 0%,#f1f5f9 100%)" }}>
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-3">Pricing</span>
+              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-[11px] font-bold uppercase tracking-widest mb-3">Pricing</span>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900 mb-3">Simple, transparent pricing</h2>
-              <p className="text-slate-500 text-sm">Start free. Only pay when you need more.</p>
+              <p className="text-slate-400 text-sm">Start free. Only pay when you need more.</p>
             </div>
             <PricingCards />
           </div>
@@ -420,7 +502,7 @@ export default async function HomePage() {
         <section id="faq" className="py-24 bg-white">
           <div className="max-w-2xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-xs font-bold uppercase tracking-widest mb-3">{tFaq("label")}</span>
+              <span className="inline-block px-3 py-1 rounded-full bg-navy/5 text-navy text-[11px] font-bold uppercase tracking-widest mb-3">{tFaq("label")}</span>
               <h2 className="font-display text-3xl sm:text-4xl font-bold text-slate-900">{tFaq("title")}</h2>
             </div>
             <FAQAccordion items={faqs} />
@@ -428,36 +510,43 @@ export default async function HomePage() {
         </section>
 
         {/* ─── CTA ──────────────────────────────────────────────── */}
-        <section className="py-28 relative overflow-hidden" style={{ background: "linear-gradient(135deg, #0d1f6e 0%, #1A47C8 50%, #0d1f6e 100%)" }}>
-          {/* Animated grid */}
-          <div className="absolute inset-0 pointer-events-none opacity-[0.07]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
-          {/* Glow orbs */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(59,91,252,0.25) 0%, transparent 70%)" }} />
-          <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%)" }} />
+        <section className="py-28 relative overflow-hidden" style={{ background: "linear-gradient(160deg,#080e24 0%,#0d1a4a 40%,#1A47C8 70%,#0d1a4a 100%)" }}>
+          <div className="absolute inset-0 pointer-events-none opacity-[0.06]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[700px] h-[300px] rounded-full blur-3xl opacity-20" style={{ background: "radial-gradient(ellipse,rgba(249,115,22,0.6) 0%,transparent 70%)" }} />
+          </div>
 
           <div className="relative max-w-3xl mx-auto px-6 text-center">
-            <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/70 text-xs font-bold uppercase tracking-widest mb-6">
+            <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-6"
+              style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.6)" }}
+            >
               {tCta("label")}
             </span>
-            <h2 className="font-display text-4xl sm:text-5xl font-black text-white mb-5 leading-tight">
+            <h2 className="font-display text-4xl sm:text-5xl font-black text-white mb-5 leading-[1.05]">
               {tCta("title")}
             </h2>
-            <p className="text-white/60 mb-10 max-w-lg mx-auto leading-relaxed">{tCta("subtitle")}</p>
+            <p className="mb-10 max-w-md mx-auto text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+              {tCta("subtitle")}
+            </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/signup"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-bold text-white bg-orange-500 hover:bg-orange-600 transition-all shadow-2xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 relative overflow-hidden"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl text-sm font-bold text-white relative overflow-hidden transition-all hover:-translate-y-0.5"
+                style={{ background: "linear-gradient(135deg,#f97316,#ea580c)", boxShadow: "0 4px 32px rgba(249,115,22,0.4), inset 0 1px 0 rgba(255,255,255,0.15)" }}
               >
-                <span className="absolute inset-0" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)", animation: "shimmerSlide 2.2s ease-in-out infinite" }} />
+                <span className="absolute inset-0" style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", animation: "shimmerSlide 2.2s ease-in-out infinite" }} />
                 <span className="relative z-10">{tCta("button")}</span>
                 <ArrowRight size={15} className="relative z-10" />
               </Link>
-              <Link href="/pricing" className="inline-flex items-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold text-white/80 border border-white/20 hover:border-white/40 hover:text-white transition-all">
-                View pricing
-                <ChevronRight size={14} />
+              <Link
+                href="/pricing"
+                className="inline-flex items-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5"
+                style={{ color: "rgba(255,255,255,0.65)", border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.05)" }}
+              >
+                View pricing <ChevronRight size={14} />
               </Link>
             </div>
-            <p className="mt-6 text-xs text-white/35">{tCta("note")}</p>
+            <p className="mt-8 text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>{tCta("note")}</p>
           </div>
         </section>
 

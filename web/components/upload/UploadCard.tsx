@@ -18,6 +18,7 @@ interface Props {
   billing: BillingContext;
   onBillingUpdate: () => void;
   userEmail?: string;
+  hasSheetsAccess?: boolean;
 }
 
 type UploadState =
@@ -27,7 +28,7 @@ type UploadState =
   | { status: "done"; result: ProcessResult & { is_demo?: boolean } }
   | { status: "error"; message: string };
 
-export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
+export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess }: Props) {
   const [state, setState] = useState<UploadState>({ status: "idle" });
   const [formats, setFormats] = useState<string[]>(["csv"]);
 
@@ -78,7 +79,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail }: Props) {
   const reset = () => setState({ status: "idle" });
 
   if (state.status === "done") {
-    return <ProcessingResult result={state.result} onReset={reset} />;
+    return <ProcessingResult result={state.result} onReset={reset} hasSheetsAccess={hasSheetsAccess} />;
   }
 
   if (state.status === "payment_required") {

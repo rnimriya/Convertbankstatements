@@ -34,6 +34,25 @@ export interface User {
   lastPeriodResetAt: string | null;
   resetToken?: string | null;
   resetTokenExpiry?: string | null;
+  emailVerified?: boolean;
+  emailVerifyToken?: string | null;
+  emailVerifyExpiry?: string | null;
+  googleSheetsRefreshToken?: string | null;
+  teamId?: string | null;
+  teamRole?: "owner" | "member" | null;
+  apiKey?: string | null;
+}
+
+export interface ConversionLog {
+  id: string;
+  userId: string;
+  fileName: string;
+  pageCount: number;
+  transactionCount: number;
+  billingType: string;
+  bankName: string | null;
+  exportFormats: string[];
+  createdAt: string;
 }
 
 // ── Backend selection ────────────────────────────────────────────────────────
@@ -82,6 +101,13 @@ function toHash(u: User): Record<string, string | number> {
     lastPeriodResetAt: u.lastPeriodResetAt ?? "",
     resetToken: u.resetToken ?? "",
     resetTokenExpiry: u.resetTokenExpiry ?? "",
+    emailVerified: u.emailVerified ? "1" : "0",
+    emailVerifyToken: u.emailVerifyToken ?? "",
+    emailVerifyExpiry: u.emailVerifyExpiry ?? "",
+    googleSheetsRefreshToken: u.googleSheetsRefreshToken ?? "",
+    teamId: u.teamId ?? "",
+    teamRole: u.teamRole ?? "",
+    apiKey: u.apiKey ?? "",
   };
 }
 
@@ -103,6 +129,13 @@ function fromHash(h: Record<string, string>): User {
     lastPeriodResetAt: h.lastPeriodResetAt || null,
     resetToken: h.resetToken || null,
     resetTokenExpiry: h.resetTokenExpiry || null,
+    emailVerified: h.emailVerified === "1",
+    emailVerifyToken: h.emailVerifyToken || null,
+    emailVerifyExpiry: h.emailVerifyExpiry || null,
+    googleSheetsRefreshToken: h.googleSheetsRefreshToken || null,
+    teamId: h.teamId || null,
+    teamRole: (h.teamRole || null) as User["teamRole"],
+    apiKey: h.apiKey || null,
   };
 }
 
@@ -511,4 +544,153 @@ export async function markWebhookProcessed(paymentId: string): Promise<boolean> 
     return result === "OK";
   }
   return true; // local dev — always process
+}
+
+// ── Email Verification ────────────────────────────────────────────────────────
+
+const EVK = (token: string) => `cs:evtoken:${token}`;
+
+export async function setEmailVerifyToken(
+  userId: string,
+  token: string,
+  expiry: string
+): Promise<void> {
+  const ttl = Math.max(60, Math.floor((new Date(expiry).getTime() - Date.now()) / 1000));
+  if (useRedis()) {
+    const pipe = r().pipeline();
+    pipe.hset(UK(userId), { emailVerifyToken: token, emailVerifyExpiry: expiry });
+    pipe.set(EVK(token), userId, { ex: ttl });
+    await pipe.exec();
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.emailVerifyToken = token;
+    user.emailVerifyExpiry = expiry;
+    await fileWrite(users);
+  }
+}
+
+export async function verifyEmail(token: string): Promise<boolean> {
+  if (useRedis()) {
+    const userId = await r().get<string>(EVK(token));
+    if (!userId) return false;
+    const hash = await r().hgetall(UK(userId));
+    if (!hash) return false;
+    const user = fromHash(hash as Record<string, string>);
+    if (user.emailVerifyToken !== token) return false;
+    if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return false;
+    const pipe = r().pipeline();
+    pipe.hset(UK(userId), { emailVerified: "1", emailVerifyToken: "", emailVerifyExpiry: "" });
+    pipe.del(EVK(token));
+    await pipe.exec();
+    return true;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.emailVerifyToken === token);
+  if (!user) return false;
+  if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return false;
+  user.emailVerified = true;
+  user.emailVerifyToken = null;
+  user.emailVerifyExpiry = null;
+  await fileWrite(users);
+  return true;
+}
+
+// ── Subscription Cancellation ─────────────────────────────────────────────────
+
+export async function cancelSubscription(userId: string): Promise<void> {
+  if (useRedis()) {
+    await r().hset(UK(userId), {
+      tier: "FREE",
+      monthlyPageLimit: 8,
+      lastPeriodResetAt: new Date().toISOString(),
+    });
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.tier = "FREE";
+    user.monthlyPageLimit = 8;
+    user.lastPeriodResetAt = new Date().toISOString();
+    await fileWrite(users);
+  }
+}
+
+// ── Password change ───────────────────────────────────────────────────────────
+
+export async function changePassword(
+  userId: string,
+  newPasswordHash: string
+): Promise<void> {
+  if (useRedis()) {
+    await r().hset(UK(userId), { passwordHash: newPasswordHash });
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.passwordHash = newPasswordHash;
+    await fileWrite(users);
+  }
+}
+
+// ── Google Sheets ─────────────────────────────────────────────────────────────
+
+export async function setGoogleSheetsToken(userId: string, refreshToken: string): Promise<void> {
+  if (useRedis()) {
+    await r().hset(UK(userId), { googleSheetsRefreshToken: refreshToken });
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.googleSheetsRefreshToken = refreshToken;
+    await fileWrite(users);
+  }
+}
+
+// ── API Key ───────────────────────────────────────────────────────────────────
+
+export async function setApiKey(userId: string, key: string): Promise<void> {
+  if (useRedis()) {
+    await r().hset(UK(userId), { apiKey: key });
+    await r().set(`cs:apikey:${key}`, userId);
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.apiKey = key;
+    await fileWrite(users);
+  }
+}
+
+// ── Conversion Logs ───────────────────────────────────────────────────────────
+
+const CL_KEY = (userId: string) => `cs:logs:${userId}`;
+
+export async function addConversionLog(log: ConversionLog): Promise<void> {
+  if (useRedis()) {
+    await r().lpush(CL_KEY(log.userId), JSON.stringify(log));
+    await r().ltrim(CL_KEY(log.userId), 0, 49); // keep last 50
+    return;
+  }
+  const logFile = path.join(process.cwd(), "data", `logs_${log.userId}.json`);
+  let logs: ConversionLog[] = [];
+  try { logs = JSON.parse(await fs.readFile(logFile, "utf8")); } catch { /* first log */ }
+  logs.unshift(log);
+  if (logs.length > 50) logs = logs.slice(0, 50);
+  await fs.writeFile(logFile, JSON.stringify(logs, null, 2));
+}
+
+export async function getConversionLogs(userId: string): Promise<ConversionLog[]> {
+  if (useRedis()) {
+    const raw = await r().lrange<string>(CL_KEY(userId), 0, 49);
+    return raw.map(s => (typeof s === "string" ? JSON.parse(s) : s)) as ConversionLog[];
+  }
+  const logFile = path.join(process.cwd(), "data", `logs_${userId}.json`);
+  try { return JSON.parse(await fs.readFile(logFile, "utf8")); } catch { return []; }
 }

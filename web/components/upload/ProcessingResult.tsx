@@ -1,6 +1,7 @@
 "use client";
 
-import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp } from "lucide-react";
+import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2 } from "lucide-react";
+import { useState } from "react";
 import type { ProcessResult, Transaction } from "@/types/billing";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -9,6 +10,7 @@ import { Alert } from "@/components/ui/Alert";
 interface Props {
   result: ProcessResult & { is_demo?: boolean };
   onReset: () => void;
+  hasSheetsAccess?: boolean;
 }
 
 const FORMAT_LABELS: Record<string, string> = {
@@ -27,7 +29,32 @@ const FORMAT_EXTENSIONS: Record<string, string> = {
   sheets: "csv",
 };
 
-export function ProcessingResult({ result, onReset }: Props) {
+export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
+  const [sheetsExporting, setSheetsExporting] = useState(false);
+  const [sheetsUrl, setSheetsUrl] = useState<string | null>(null);
+  const [sheetsError, setSheetsError] = useState<string | null>(null);
+
+  const exportToSheets = async () => {
+    setSheetsExporting(true);
+    setSheetsError(null);
+    try {
+      const res = await fetch("/api/google-sheets/export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fileName: result.file_name,
+          transactions: result.transactions,
+          bankName: result.bank_name,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Export failed.");
+      setSheetsUrl(data.url);
+    } catch (err: unknown) {
+      setSheetsError(err instanceof Error ? err.message : "Export failed.");
+    } finally { setSheetsExporting(false); }
+  };
+
   const handleDownload = (fmt: string, url: string) => {
     const ext = FORMAT_EXTENSIONS[fmt] ?? fmt;
     const a = document.createElement("a");
@@ -99,6 +126,42 @@ export function ProcessingResult({ result, onReset }: Props) {
                 <Download className="h-4 w-4 text-white/80" />
               </button>
             ))}
+
+            {/* Google Sheets export (Pro/Business) */}
+            {hasSheetsAccess && (
+              sheetsUrl ? (
+                <a
+                  href={sheetsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-between rounded-xl bg-green-600 hover:bg-green-700 px-4 py-3 text-sm font-semibold text-white transition-all"
+                >
+                  <span className="flex items-center gap-2">
+                    <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white/80"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".5"/></svg>
+                    Open in Google Sheets
+                  </span>
+                  <ExternalLink className="h-4 w-4 text-white/80" />
+                </a>
+              ) : (
+                <button
+                  onClick={exportToSheets}
+                  disabled={sheetsExporting}
+                  className="flex w-full items-center justify-between rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/30 px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400 transition-all disabled:opacity-50"
+                >
+                  <span className="flex items-center gap-2">
+                    {sheetsExporting
+                      ? <Loader2 className="h-4 w-4 animate-spin" />
+                      : <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".4"/></svg>
+                    }
+                    {sheetsExporting ? "Exporting to Google Sheets…" : "Export to Google Sheets"}
+                  </span>
+                  <ExternalLink className="h-4 w-4 opacity-60" />
+                </button>
+              )
+            )}
+            {sheetsError && (
+              <p className="text-xs text-red-600 dark:text-red-400 px-1">{sheetsError}</p>
+            )}
           </div>
         )}
       </div>

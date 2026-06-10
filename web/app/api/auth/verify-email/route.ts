@@ -1,0 +1,17 @@
+import { NextRequest, NextResponse } from "next/server";
+import { verifyEmail } from "@/lib/auth/users";
+
+export async function GET(req: NextRequest) {
+  const token = req.nextUrl.searchParams.get("token");
+  if (!token) {
+    return NextResponse.redirect(new URL("/verify-email?error=missing_token", req.url));
+  }
+
+  const ok = await verifyEmail(token);
+
+  if (ok) {
+    return NextResponse.redirect(new URL("/verify-email?success=1", req.url));
+  } else {
+    return NextResponse.redirect(new URL("/verify-email?error=invalid_token", req.url));
+  }
+}
