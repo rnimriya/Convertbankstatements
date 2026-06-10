@@ -243,90 +243,9 @@ export default async function HomePage() {
               {/* ── RIGHT — Mockup ───────────────────────────────────── */}
               <div className="relative flex items-center justify-center lg:justify-end">
 
-                {/* Glow halo behind the card */}
-                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                  <div className="w-[380px] h-[380px] rounded-full blur-[80px]" style={{ background: "radial-gradient(circle, rgba(59,91,252,0.30) 0%, transparent 70%)" }} />
-                </div>
-
-                {/* Subtle ring decoration */}
-                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                  <div className="w-[500px] h-[500px] rounded-full opacity-10" style={{ border: "1px solid rgba(255,255,255,0.3)" }} />
-                  <div className="absolute w-[380px] h-[380px] rounded-full opacity-8" style={{ border: "1px dashed rgba(255,255,255,0.15)" }} />
-                </div>
-
-                {/* Main card */}
-                <div className="relative z-10 w-full max-w-[400px]">
-                  <div
-                    className="rounded-3xl overflow-hidden"
-                    style={{
-                      boxShadow: "0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.08)",
-                      transform: "perspective(1000px) rotateY(-4deg) rotateX(2deg)",
-                    }}
-                  >
-                    <ConverterMockup />
-                  </div>
-
-                  {/* Floating badge — top left of card */}
-                  <div
-                    className="absolute -left-10 top-10 flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-2xl z-20"
-                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)" }}
-                  >
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(16,185,129,0.20)" }}>
-                      <CheckCircle2 size={16} className="text-emerald-400" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>Processing complete</p>
-                      <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.40)" }}>142 transactions extracted</p>
-                    </div>
-                  </div>
-
-                  {/* Floating badge — bottom right */}
-                  <div
-                    className="absolute -right-8 bottom-14 flex items-center gap-2.5 px-4 py-3 rounded-2xl shadow-2xl z-20"
-                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)" }}
-                  >
-                    <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(251,191,36,0.18)" }}>
-                      <Zap size={16} className="text-amber-400" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-bold" style={{ color: "rgba(255,255,255,0.95)" }}>11.2s avg.</p>
-                      <p className="text-[10px]" style={{ color: "rgba(255,255,255,0.40)" }}>Conversion speed</p>
-                    </div>
-                  </div>
-
-                  {/* Floating badge — top right */}
-                  <div
-                    className="absolute -right-6 top-6 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl shadow-2xl z-20"
-                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)" }}
-                  >
-                    <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: "rgba(139,92,246,0.22)" }}>
-                      <Shield size={13} className="text-violet-400" />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold" style={{ color: "rgba(255,255,255,0.90)" }}>Never stored</p>
-                      <p className="text-[9px]" style={{ color: "rgba(255,255,255,0.38)" }}>100% private</p>
-                    </div>
-                  </div>
-
-                  {/* Mini transaction preview badge — bottom left */}
-                  <div
-                    className="absolute -left-8 bottom-6 rounded-2xl shadow-2xl z-20 overflow-hidden"
-                    style={{ background: "rgba(8,16,50,0.92)", border: "1px solid rgba(255,255,255,0.13)", backdropFilter: "blur(16px)", minWidth: "180px" }}
-                  >
-                    <div className="px-3.5 py-2 border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
-                      <p className="text-[10px] font-bold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.40)" }}>Latest transactions</p>
-                    </div>
-                    {[
-                      { desc: "UPI Transfer", amt: "+₹12,500", color: "text-emerald-400" },
-                      { desc: "HDFC ATM", amt: "−₹3,000", color: "text-rose-400" },
-                      { desc: "Salary Credit", amt: "+₹58,000", color: "text-emerald-400" },
-                    ].map((tx) => (
-                      <div key={tx.desc} className="flex items-center justify-between px-3.5 py-1.5">
-                        <span className="text-[10px] font-medium" style={{ color: "rgba(255,255,255,0.55)" }}>{tx.desc}</span>
-                        <span className={`text-[10px] font-bold tabular-nums ${tx.color}`}>{tx.amt}</span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Self-contained illustration — dark bg, browser window, floating cards all inside */}
+                <div className="relative z-10 w-full flex justify-center lg:justify-end">
+                  <ConverterMockup />
                 </div>
               </div>
 
