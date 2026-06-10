@@ -12,11 +12,11 @@ interface Props {
 }
 
 const FORMAT_LABELS: Record<string, string> = {
-  csv: "CSV",
-  xlsx: "Excel (.xlsx)",
-  ofx: "OFX (QuickBooks / Tally)",
-  qfx: "QFX (Quicken)",
-  sheets: "Google Sheets (CSV)",
+  csv: "Download CSV",
+  xlsx: "Download Excel (.xlsx)",
+  ofx: "Download OFX (QuickBooks / Tally)",
+  qfx: "Download QFX (Quicken)",
+  sheets: "Download Google Sheets (CSV)",
 };
 
 const FORMAT_EXTENSIONS: Record<string, string> = {

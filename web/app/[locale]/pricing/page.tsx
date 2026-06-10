@@ -146,14 +146,25 @@ export default function PricingPage() {
         </div>
       </div>
 
-      <div className="bg-[#0a0f1e] dark:bg-[#0a0f1e] border-y border-brand-900/50 px-6 py-16 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(14,165,233,0.12)_0%,transparent_70%)] pointer-events-none" />
-        <h2 className="relative text-2xl font-extrabold text-white sm:text-3xl">Start with 8 free pages today</h2>
-        <p className="relative mt-2 text-brand-300">No credit card · Pay via UPI when you need more</p>
-        <Link href="/signup" className="relative mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-400 px-8 py-3 font-bold text-black shadow-glow hover:bg-brand-300 transition-all hover:scale-[1.02]">
-          Create free account <ArrowRight className="h-4 w-4" />
-        </Link>
-      </div>
+      <section className="py-24 bg-navy relative overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none opacity-10"
+          style={{
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        <div className="relative max-w-3xl mx-auto px-6 text-center">
+          <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Get started today</p>
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">Start with 8 free pages today</h2>
+          <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay via UPI when you need more · Cancel anytime</p>
+          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold text-navy bg-white hover:bg-slate-50 transition-colors shadow-xl">
+            Create free account
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <p className="mt-5 text-xs text-white/40">No credit card required · Pay via UPI if you need more</p>
+        </div>
+      </section>
       <Footer />
     </div>
   );

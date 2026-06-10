@@ -3,12 +3,13 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import {
   ArrowRight, CheckCircle2, Zap, Lock, Globe,
-  Download, Upload, Shield, Clock, CreditCard, FileCheck, Star,
+  Download, Upload, Shield, Clock, FileCheck, Star,
 } from "lucide-react";
 import ConverterMockup from "@/components/ConverterMockup";
 import { SamplePDFDemo } from "@/components/SamplePDFDemo";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { PricingCards } from "@/components/PricingCards";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://convertstatement.online" },
@@ -29,7 +30,6 @@ export default async function HomePage() {
   const tHow = await getTranslations("howItWorks");
   const tFeat = await getTranslations("features");
   const tTest = await getTranslations("testimonials");
-  const tPrice = await getTranslations("pricing");
   const tFaq = await getTranslations("faq");
   const tCta = await getTranslations("cta");
 
@@ -77,30 +77,6 @@ export default async function HomePage() {
     { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-violet-500" },
     { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-emerald-500" },
     { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-navy" },
-  ];
-
-  const tiers = [
-    {
-      name: tPrice("freeName"), price: "₹0", period: tPrice("freePeriod"),
-      desc: tPrice("freeDesc"), featured: false, href: "/signup", cta: tPrice("freeCta"),
-      features: [tPrice("freeF1"), tPrice("freeF2"), tPrice("freeF3"), tPrice("freeF4")],
-    },
-    {
-      name: tPrice("paygName"), price: "₹49", period: tPrice("paygPeriod"),
-      desc: tPrice("paygDesc"), featured: false, href: "/signup", cta: tPrice("paygCta"),
-      features: [tPrice("paygF1"), tPrice("paygF2"), tPrice("paygF3"), tPrice("paygF4")],
-    },
-    {
-      name: tPrice("proName"), price: "₹1,198", period: tPrice("proPeriod"),
-      desc: tPrice("proDesc"), featured: true, href: "/signup", cta: tPrice("proCta"),
-      badge: tPrice("mostPopular"),
-      features: [tPrice("proF1"), tPrice("proF2"), tPrice("proF3"), tPrice("proF4"), tPrice("proF5")],
-    },
-    {
-      name: tPrice("businessName"), price: "₹4,498", period: tPrice("businessPeriod"),
-      desc: tPrice("businessDesc"), featured: false, href: "/signup", cta: tPrice("businessCta"),
-      features: [tPrice("businessF1"), tPrice("businessF2"), tPrice("businessF3"), tPrice("businessF4"), tPrice("businessF5"), tPrice("businessF6"), tPrice("businessF7")],
-    },
   ];
 
   const faqs = [
@@ -335,41 +311,11 @@ export default async function HomePage() {
         <section id="pricing" className="py-24 bg-slate-50/60">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <p className="text-xs font-semibold text-navy uppercase tracking-widest mb-3">{tPrice("label")}</p>
-              <h2 className="font-display text-[2rem] font-bold text-slate-900 mb-3">{tPrice("title")}</h2>
-              <p className="text-slate-500 text-sm">{tPrice("subtitle")}</p>
-              <p className="text-xs text-slate-400 mt-2 max-w-lg mx-auto">
-                {tPrice("note", { payg: tPrice("payg"), pro: tPrice("proPlans") })}
-              </p>
+              <p className="text-xs font-semibold text-navy uppercase tracking-widest mb-3">Pricing</p>
+              <h2 className="font-display text-[2rem] font-bold text-slate-900 mb-3">Simple, transparent pricing</h2>
+              <p className="text-slate-500 text-sm">Start free. Only pay when you need more.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {tiers.map(({ name, price, period, desc, features: tf, cta, href, featured, badge }) => (
-                <div key={name} className={`relative rounded-2xl p-6 flex flex-col ${featured ? "bg-navy border-2 border-navy shadow-2xl shadow-navy/25 -mt-2 -mb-2 z-10" : "bg-white border border-slate-200"}`}>
-                  {badge && (
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 text-[10px] font-bold text-navy bg-white border border-navy/20 rounded-full whitespace-nowrap shadow-sm">{badge}</span>
-                  )}
-                  <div className="mb-5">
-                    <h3 className={`font-semibold mb-1 ${featured ? "text-white/80 text-sm" : "text-slate-500 text-sm"}`}>{name}</h3>
-                    <div className="flex items-baseline gap-1 mb-1">
-                      <span className={`font-display text-2xl font-bold ${featured ? "text-white" : "text-slate-900"}`}>{price}</span>
-                      <span className={`text-sm ${featured ? "text-white/60" : "text-slate-400"}`}>{period}</span>
-                    </div>
-                    <p className={`text-xs ${featured ? "text-white/60" : "text-slate-400"}`}>{desc}</p>
-                  </div>
-                  <ul className="space-y-2.5 mb-6 flex-1">
-                    {tf.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm">
-                        <CheckCircle2 size={13} className={`shrink-0 ${featured ? "text-white/70" : "text-navy"}`} />
-                        <span className={featured ? "text-white/85" : "text-slate-600"}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Link href={href} className={`w-full py-2.5 rounded-xl text-sm font-semibold text-center transition-all duration-150 hover:opacity-90 ${featured ? "bg-white text-navy hover:bg-slate-50" : "border border-slate-200 text-slate-700 bg-white hover:border-navy/30 hover:text-navy"}`}>
-                    {cta}
-                  </Link>
-                </div>
-              ))}
-            </div>
+            <PricingCards />
           </div>
         </section>
 

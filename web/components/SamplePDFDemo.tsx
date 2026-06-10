@@ -139,7 +139,7 @@ export function SamplePDFDemo() {
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-brand-400 bg-navy/[0.08] dark:bg-brand-400/10 hover:bg-navy/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
           >
             <FileSpreadsheet size={13} />
-            Download Excel
+            Download
           </a>
         )}
         {result?.export_urls.csv && (
@@ -149,7 +149,7 @@ export function SamplePDFDemo() {
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 rounded-lg transition-colors"
           >
             <Download size={13} />
-            Download CSV
+            Download
           </a>
         )}
       </div>
