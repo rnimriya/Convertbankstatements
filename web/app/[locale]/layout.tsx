@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import type { Locale } from "@/i18n/routing";
+import "../globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
