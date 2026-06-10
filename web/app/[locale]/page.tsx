@@ -81,9 +81,15 @@ export default async function HomePage() {
     { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-violet-500" },
     { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-emerald-500" },
     { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-navy" },
+    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial: "V", color: "bg-amber-500" },
+    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial: "M", color: "bg-rose-500" },
+    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial: "D", color: "bg-teal-600" },
     { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-violet-500" },
     { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-emerald-500" },
     { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-navy" },
+    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial: "V", color: "bg-amber-500" },
+    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial: "M", color: "bg-rose-500" },
+    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial: "D", color: "bg-teal-600" },
   ];
 
   const faqs = [

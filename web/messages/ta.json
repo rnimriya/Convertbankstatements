@@ -89,7 +89,16 @@
     "role2": "வரி ஆலோசகர், தில்லி",
     "q3": "HDFC-யின் 12 மாத அறிக்கைகளை பதிவிறக்கி 5 நிமிடத்திற்கும் குறைவாக Excel-ல் பெற்றேன். நம்பமுடியாத நேர சேமிப்பு.",
     "name3": "அஞ்சலி சோனி",
-    "role3": "நிதி மேலாளர், பெங்களூரு"
+    "role3": "நிதி மேலாளர், பெங்களூரு",
+    "q4": "The CSV export is perfect for GST filing. I convert 15–20 statements monthly and it never misses a transaction.",
+    "name4": "Vikram Sharma",
+    "role4": "GST Consultant, Pune",
+    "q5": "Finally a tool that handles SBI statements properly. Every entry matched perfectly — outstanding accuracy.",
+    "name5": "Meena Krishnan",
+    "role5": "Senior Accountant, Chennai",
+    "q6": "Our CA firm uses this for all clients. Saves 2–3 hours per statement. Bulk processing is a game changer.",
+    "name6": "Deepak Joshi",
+    "role6": "CA Firm Partner, Ahmedabad"
   },
   "pricing": {
     "label": "விலை நிர்ணயம்",
