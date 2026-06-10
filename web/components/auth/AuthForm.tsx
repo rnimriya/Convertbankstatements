@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
   Eye, EyeOff, Loader2, AlertCircle, CheckCircle2, ArrowRight,
 } from "lucide-react";
@@ -14,6 +15,7 @@ const INPUT =
   "w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-navy focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10";
 
 export function AuthForm({ mode }: { mode: Mode }) {
+  const t = useTranslations("auth");
   const params = useSearchParams();
   const rawRedirect = params.get("redirectTo") ?? "";
   const redirectTo =
@@ -38,8 +40,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
     setErrorCode(null);
 
     if (mode === "signup") {
-      if (password !== confirmPassword) { setError("Passwords do not match."); return; }
-      if (password.length < 8) { setError("Password must be at least 8 characters."); return; }
+      if (password !== confirmPassword) { setError(t("passwordMismatch")); return; }
+      if (password.length < 8) { setError(t("passwordTooShort")); return; }
     }
 
     setLoading(true);
@@ -81,8 +83,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
             <CheckCircle2 className="h-8 w-8 text-emerald-600" />
           </div>
-          <p className="font-display text-xl font-bold text-slate-900 dark:text-white">Account created!</p>
-          <p className="text-sm text-slate-500 dark:text-gray-400">Redirecting to your dashboard…</p>
+          <p className="font-display text-xl font-bold text-slate-900 dark:text-white">{t("accountCreated")}</p>
+          <p className="text-sm text-slate-500 dark:text-gray-400">{t("redirecting")}</p>
         </div>
       </div>
     );
@@ -90,36 +92,26 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-surface">
-
-      {/* Centered form */}
       <div className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
-
-          {/* Logo + heading */}
           <div className="mb-8 text-center">
             <img src="/logo.svg" alt="Convert Statement" className="mx-auto mb-5 h-12 w-12" />
             <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-              {mode === "login" ? "Welcome back" : "Start for free"}
+              {mode === "login" ? t("loginTitle") : t("signupTitle")}
             </h1>
             <p className="mt-2 text-[0.95rem] text-slate-500 dark:text-gray-400">
-              {mode === "login"
-                ? "Sign in to your account to continue."
-                : "Create your account — 8 pages free, always."}
+              {mode === "login" ? t("loginSubtitle") : t("signupSubtitle")}
             </p>
           </div>
 
-          {/* Card */}
           <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-sm">
-
-            {/* Referral notice */}
             {mode === "signup" && referralCode && (
               <div className="mb-5 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                <p className="font-semibold">You were invited! 🎉</p>
-                <p className="text-xs mt-0.5 text-emerald-600">Sign up now and both you and your friend get 50 bonus free pages.</p>
+                <p className="font-semibold">{t("referralTitle")}</p>
+                <p className="text-xs mt-0.5 text-emerald-600">{t("referralDesc")}</p>
               </div>
             )}
 
-            {/* Error */}
             {error && (
               <div className="mb-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
                 <div className="flex items-start gap-2">
@@ -129,14 +121,14 @@ export function AuthForm({ mode }: { mode: Mode }) {
                     {mode === "login" && errorCode === "USER_NOT_FOUND" && (
                       <p className="mt-1 text-xs">
                         <Link href="/signup" className="font-semibold underline hover:text-red-900">
-                          Create a free account →
+                          {t("createAccountLink")}
                         </Link>
                       </p>
                     )}
                     {mode === "login" && errorCode === "WRONG_PASSWORD" && (
                       <p className="mt-1 text-xs">
                         <Link href="/forgot-password" className="font-semibold underline hover:text-red-900">
-                          Reset your password →
+                          {t("resetPasswordLink")}
                         </Link>
                       </p>
                     )}
@@ -149,14 +141,14 @@ export function AuthForm({ mode }: { mode: Mode }) {
               {mode === "signup" && (
                 <div className="space-y-1.5">
                   <label className="block text-sm font-medium text-slate-700 dark:text-gray-200">
-                    Full name{" "}
-                    <span className="font-normal text-slate-400 dark:text-gray-500">(optional)</span>
+                    {t("nameLabel")}{" "}
+                    <span className="font-normal text-slate-400 dark:text-gray-500">{t("nameOptional")}</span>
                   </label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Rahul Sharma"
+                    placeholder={t("namePlaceholder")}
                     className={INPUT}
                   />
                 </div>
@@ -164,7 +156,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
               <div className="space-y-1.5">
                 <label className="block text-sm font-medium text-slate-700 dark:text-gray-200">
-                  Email address
+                  {t("emailLabel")}
                 </label>
                 <input
                   id="auth-email"
@@ -172,17 +164,17 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
+                  placeholder={t("emailPlaceholder")}
                   className={INPUT}
                 />
               </div>
 
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-700 dark:text-gray-200">Password</label>
+                  <label className="text-sm font-medium text-slate-700 dark:text-gray-200">{t("passwordLabel")}</label>
                   {mode === "login" && (
                     <Link href="/forgot-password" className="text-xs text-navy dark:text-brand-400 hover:underline">
-                      Forgot password?
+                      {t("forgotPassword")}
                     </Link>
                   )}
                 </div>
@@ -193,7 +185,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder={mode === "signup" ? "Min. 8 characters" : "Your password"}
+                    placeholder={mode === "signup" ? t("passwordMinChars") : t("passwordPlaceholder")}
                     className={`${INPUT} pr-11`}
                   />
                   <button
@@ -210,7 +202,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               {mode === "signup" && (
                 <div className="space-y-1.5">
                   <label className="block text-sm font-medium text-slate-700 dark:text-gray-200">
-                    Confirm password
+                    {t("confirmLabel")}
                   </label>
                   <input
                     id="auth-confirm-password"
@@ -218,7 +210,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                     required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Repeat password"
+                    placeholder={t("confirmPlaceholder")}
                     className={INPUT}
                   />
                 </div>
@@ -233,11 +225,11 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 {loading ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    {mode === "login" ? "Signing in…" : "Creating account…"}
+                    {mode === "login" ? t("loginLoading") : t("signupLoading")}
                   </>
                 ) : (
                   <>
-                    {mode === "login" ? "Sign in" : "Create free account"}
+                    {mode === "login" ? t("loginButton") : t("signupButton")}
                     <ArrowRight className="h-4 w-4" />
                   </>
                 )}
@@ -245,24 +237,36 @@ export function AuthForm({ mode }: { mode: Mode }) {
             </form>
 
             <p className="mt-6 text-center text-xs text-slate-400 dark:text-gray-500">
-              By continuing you agree to our{" "}
-              <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
-                Terms
-              </Link>{" "}
-              &amp;{" "}
-              <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
-                Privacy Policy
+              {t.rich("termsText", {
+                terms: (chunks) => (
+                  <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+                    {chunks}
+                  </Link>
+                ),
+                privacy: (chunks) => (
+                  <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+                    {chunks}
+                  </Link>
+                ),
+              })}
+            </p>
+
+            <p className="mt-3 text-center text-sm text-slate-500 dark:text-gray-400">
+              {mode === "login" ? t("switchToSignup") : t("switchToLogin")}{" "}
+              <Link
+                href={mode === "login" ? "/signup" : "/login"}
+                className="font-semibold text-navy dark:text-brand-400 hover:underline"
+              >
+                {mode === "login" ? t("signupLink") : t("loginLink")}
               </Link>
             </p>
           </div>
 
-          {/* Back link */}
           <p className="mt-6 text-center text-sm text-slate-400 dark:text-gray-500">
             <Link href="/" className="hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
-              ← Back to home
+              {t("backToHome")}
             </Link>
           </p>
-
         </div>
       </div>
     </div>

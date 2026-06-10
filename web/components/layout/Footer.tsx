@@ -1,32 +1,5 @@
-import Link from "next/link";
-
-const NAV = [
-  {
-    heading: "Product",
-    links: [
-      { label: "Features",     href: "/#features" },
-      { label: "How it works", href: "/#how-it-works" },
-      { label: "Pricing",      href: "/pricing" },
-      { label: "Blog",         href: "/blog" },
-      { label: "FAQ",          href: "/#faq" },
-    ],
-  },
-  {
-    heading: "Account",
-    links: [
-      { label: "Sign in",      href: "/login" },
-      { label: "Sign up free", href: "/signup" },
-      { label: "Dashboard",    href: "/dashboard" },
-    ],
-  },
-  {
-    heading: "Legal",
-    links: [
-      { label: "Privacy Policy",   href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
-    ],
-  },
-];
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 const SOCIAL = [
   {
@@ -49,27 +22,52 @@ const SOCIAL = [
   },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations("footer");
+
+  const NAV = [
+    {
+      heading: t("product"),
+      links: [
+        { label: t("features"),    href: "/#features" },
+        { label: t("howItWorks"),  href: "/#how-it-works" },
+        { label: t("pricing"),     href: "/pricing" },
+        { label: t("blog"),        href: "/blog" },
+        { label: t("faq"),         href: "/#faq" },
+      ],
+    },
+    {
+      heading: t("account"),
+      links: [
+        { label: t("signIn"),      href: "/login" },
+        { label: t("signUpFree"),  href: "/signup" },
+        { label: t("dashboard"),   href: "/dashboard" },
+      ],
+    },
+    {
+      heading: t("legal"),
+      links: [
+        { label: t("privacyPolicy"),   href: "/privacy" },
+        { label: t("termsOfService"),  href: "/terms" },
+      ],
+    },
+  ];
+
   return (
     <footer className="border-t border-slate-100 dark:border-white/10 bg-white dark:bg-surface">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
-          {/* Brand */}
           <div className="max-w-xs">
             <Link href="/" className="flex items-center gap-2.5">
               <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
               <span className="font-bold text-slate-800 dark:text-white font-display">Convert Statement</span>
             </Link>
             <p className="mt-3 text-xs leading-relaxed text-slate-400 dark:text-gray-500">
-              Convert Indian bank statement PDFs to clean CSV, Excel and OFX data. Your financial
-              documents are never stored on our servers.
+              {t("tagline")}
             </p>
             <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">
-              Payments secured by{" "}
-              <span className="font-semibold text-slate-500 dark:text-gray-400">Razorpay</span> · UPI / Cards / NetBanking
+              {t("payments")}
             </p>
-
-            {/* Social links */}
             <div className="mt-4 flex items-center gap-2">
               {SOCIAL.map(({ label, href, icon }) => (
                 <a
@@ -86,7 +84,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links */}
           <div className="flex gap-10 text-sm sm:gap-14">
             {NAV.map(({ heading, links }) => (
               <div key={heading} className="space-y-2">
@@ -107,8 +104,8 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t border-slate-100 dark:border-white/10 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-slate-400 dark:text-gray-600">
-          <p>© {new Date().getFullYear()} Convert Statement. All rights reserved.</p>
-          <p>All prices in INR · GST applicable · Data never stored</p>
+          <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+          <p>{t("prices")}</p>
         </div>
       </div>
     </footer>

@@ -5,7 +5,7 @@ import { PortalUpload } from "@/components/PortalUpload";
 export const dynamic = "force-dynamic";
 
 interface Props {
-  params: Promise<{ token: string }>;
+  params: Promise<{ token: string; locale: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
