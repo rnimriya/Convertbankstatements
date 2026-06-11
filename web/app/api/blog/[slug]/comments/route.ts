@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCommentsForPost, addComment } from "@/lib/blog/comments";
 import { getPostBySlug } from "@/lib/blog/posts";
 import { getSession } from "@/lib/auth/session";
+import { moderateComment } from "@/lib/blog/moderation";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -30,6 +31,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ slu
     }
     if (content.trim().length > 2000) {
       return NextResponse.json({ error: "Comment must be under 2000 characters." }, { status: 400 });
+    }
+
+    const mod = moderateComment(content);
+    if (!mod.ok) {
+      return NextResponse.json({ error: mod.reason }, { status: 422 });
     }
 
     const comment = await addComment(
