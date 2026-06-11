@@ -69,6 +69,10 @@ function r(): Redis {
     _redis = new Redis({
       url: process.env.UPSTASH_REDIS_REST_URL!,
       token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+      // BUG-11: retry once with a short backoff so transient network blips don't
+      // surface as hard 500s. Upstash REST client uses fetch internally;
+      // retryConfig limits how long we wait before propagating the error.
+      retry: { retries: 1, backoff: (n) => Math.min(200 * 2 ** n, 1000) },
     });
   }
   return _redis;
@@ -112,6 +116,16 @@ function toHash(u: User): Record<string, string | number> {
 }
 
 function fromHash(h: Record<string, string>): User {
+  // BUG-02: guard against corrupted / partially-written Redis hashes.
+  // If a deploy or Redis error left the hash without core fields, accessing
+  // h.id / h.email / h.passwordHash would return undefined, causing every
+  // downstream caller (login, findById, getSession) to crash silently.
+  if (!h.id || !h.email || !h.passwordHash || !h.createdAt) {
+    throw new Error(
+      `Corrupted user record: missing required fields. Present keys: [${Object.keys(h).join(", ")}]`
+    );
+  }
+
   return {
     id: h.id,
     email: h.email,
@@ -344,6 +358,12 @@ export async function createUser(
 }
 
 export async function incrementPages(userId: string, count: number): Promise<void> {
+  // BUG-09: reject non-positive or non-integer counts before they touch storage.
+  // A zero or negative count from a backend bug or malicious internal request
+  // would silently inflate quota (negative) or be a no-op that still marks usage (zero).
+  if (!Number.isInteger(count) || count <= 0) {
+    throw new Error(`incrementPages requires a positive integer pageCount, got: ${count}`);
+  }
   if (useRedis()) {
     // HINCRBY is a single atomic Redis command — safe under any concurrency
     await r().hincrby(UK(userId), "pagesUsed", count);

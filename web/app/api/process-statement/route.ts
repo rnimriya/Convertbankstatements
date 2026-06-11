@@ -58,6 +58,15 @@ export async function POST(req: NextRequest) {
   const start = Date.now();
   const bytes = Buffer.from(await file.arrayBuffer());
   const pageCount = countPdfPages(bytes);
+
+  // BUG-10: reject empty or structurally invalid PDFs before any quota or payment logic.
+  // countPdfPages now returns 0 for files with no detectable pages.
+  if (pageCount === 0) {
+    return NextResponse.json(
+      { error: "Invalid PDF: no pages detected. The file may be corrupted or empty." },
+      { status: 400 }
+    );
+  }
   const _fileHash = sha256Hex(bytes);
 
   // ── Auth & Billing ─────────────────────────────────────────────────────────
@@ -239,22 +248,24 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Record usage & log ─────────────────────────────────────────────────────
-  if (userId) {
+  // BUG-06: Only charge quota for real (non-demo) conversions.
+  // isDemo=true means the FastAPI backend was unavailable and we returned mock data.
+  // Incrementing pages for a failed/mocked result silently burns the user's quota
+  // while giving them nothing of value.
+  if (userId && !isDemo) {
     await incrementPages(userId, pageCount);
-    if (!isDemo) {
-      await addConversionLog({
-        id: randomUUID(),
-        userId,
-        fileName: file.name,
-        pageCount,
-        transactionCount: transactions.length,
-        billingType: tier === "FREE" ? "FREE_TIER" : "SUBSCRIPTION",
-        bankName: bankName ?? null,
-        exportFormats,
-        createdAt: new Date().toISOString(),
-      }).catch(() => {/* non-fatal */});
-    }
-  } else {
+    await addConversionLog({
+      id: randomUUID(),
+      userId,
+      fileName: file.name,
+      pageCount,
+      transactionCount: transactions.length,
+      billingType: tier === "FREE" ? "FREE_TIER" : "SUBSCRIPTION",
+      bankName: bankName ?? null,
+      exportFormats,
+      createdAt: new Date().toISOString(),
+    }).catch(() => {/* non-fatal */});
+  } else if (!userId && !isDemo) {
     jar.set("bs_pages_used", String(pagesUsed + pageCount), {
       httpOnly: true, sameSite: "lax", maxAge: 60 * 60 * 24 * 365,
     });

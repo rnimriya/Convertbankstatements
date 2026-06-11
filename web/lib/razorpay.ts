@@ -19,14 +19,20 @@ export function getRazorpay() {
 }
 
 export function verifyWebhookSignature(body: string, signature: string): boolean {
-  const secret = process.env.RAZORPAY_WEBHOOK_SECRET ?? "";
+  // BUG-05: Reject immediately if secret is not configured.
+  // Defaulting to "" would make HMAC predictable — any attacker knowing the payload
+  // can forge a valid signature, enabling fake subscription activations for free.
+  const secret = process.env.RAZORPAY_WEBHOOK_SECRET;
+  if (!secret) {
+    console.error("[razorpay] RAZORPAY_WEBHOOK_SECRET not configured — rejecting all webhooks");
+    return false;
+  }
+
   const expected = crypto
     .createHmac("sha256", secret)
     .update(body)
     .digest("hex");
   try {
-    // Compare raw bytes (hex-decoded), not UTF-8 string bytes.
-    // timingSafeEqual throws if lengths differ — guard that first.
     const a = Buffer.from(expected, "hex");
     const b = Buffer.from(signature, "hex");
     if (a.length !== b.length) return false;
@@ -45,10 +51,14 @@ export function verifyPaymentSignature(params: {
   const body = `${params.razorpay_order_id}|${params.razorpay_payment_id}`;
   const expected = crypto.createHmac("sha256", secret).update(body).digest("hex");
   try {
-    return crypto.timingSafeEqual(
-      Buffer.from(expected),
-      Buffer.from(params.razorpay_signature)
-    );
+    // BUG-04: both signatures are hex strings — decode to raw bytes before comparing.
+    // Buffer.from(str) without encoding interprets as UTF-8, making a 64-char hex string
+    // 64 bytes. Buffer.from(str, "hex") decodes to 32 bytes. Both must use the same
+    // encoding. Consistent with verifyWebhookSignature above.
+    const a = Buffer.from(expected, "hex");
+    const b = Buffer.from(params.razorpay_signature, "hex");
+    if (a.length !== b.length) return false;
+    return crypto.timingSafeEqual(a, b);
   } catch {
     return false;
   }

@@ -26,9 +26,21 @@ export async function signJWT(payload: JWTPayload): Promise<string> {
 export async function verifyJWT(token: string): Promise<JWTPayload | null> {
   try {
     const { payload } = await jwtVerify(token, secret());
+
+    // BUG-08: validate required claims exist before trusting the payload.
+    // A JWT signed without sub/email (e.g. hand-crafted, or from a future schema change)
+    // would pass verification but produce undefined fields that crash downstream callers
+    // expecting non-null sub/email (findById, getSession, all auth-gated routes).
+    const sub = payload.sub as string | undefined;
+    const email = payload.email as string | undefined;
+    if (!sub || !email) {
+      console.warn("[jwt] Token missing required claims (sub or email)");
+      return null;
+    }
+
     return {
-      sub: payload.sub as string,
-      email: payload.email as string,
+      sub,
+      email,
       name: (payload.name as string | null) ?? null,
     };
   } catch {

@@ -8,7 +8,8 @@ import { createHash } from "crypto";
  *  2. Parse /Count N values; take the smallest one that is >= the physical page count.
  *     Using Math.min (not Math.max) makes it hard to inflate via crafted /Count values
  *     embedded in content streams, annotations, or form fields.
- *  3. Fall back to physical page count alone, then to 1 if none found.
+ *  3. Fall back to physical page count alone, or 0 if truly empty/corrupt.
+ *     Callers must check pageCount === 0 and reject — never assume 1.
  */
 export function countPdfPages(buffer: Buffer): number {
   const text = buffer.toString("latin1");
@@ -34,7 +35,9 @@ export function countPdfPages(buffer: Buffer): number {
     }
   }
 
-  return pageObjCount > 0 ? pageObjCount : 1;
+  // BUG-10: return 0 for files with no detectable pages instead of the old default of 1.
+  // Defaulting to 1 silently charged quota for corrupt/empty PDFs that produced no output.
+  return pageObjCount;
 }
 
 export function sha256Hex(buffer: Buffer): string {

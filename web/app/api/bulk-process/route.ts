@@ -60,9 +60,31 @@ export async function POST(req: NextRequest) {
 
     if (file.name.toLowerCase().endsWith(".zip") || file.type === "application/zip") {
       const zip = await JSZip.loadAsync(bytes);
-      for (const [name, entry] of Object.entries(zip.files)) {
+      const entries = Object.entries(zip.files);
+
+      // BUG-12: guard against ZIP bombs — a ~1 MB ZIP can decompress to gigabytes,
+      // exhausting server memory and crashing the process. Cap both entry count and
+      // total extracted size before touching any entry content.
+      if (entries.length > 500) {
+        return NextResponse.json(
+          { error: "ZIP contains too many files. Maximum 500 entries allowed." },
+          { status: 400 }
+        );
+      }
+
+      let extractedBytes = 0;
+      const MAX_EXTRACTED_BYTES = 500 * 1024 * 1024; // 500 MB across all entries
+
+      for (const [name, entry] of entries) {
         if (!name.toLowerCase().endsWith(".pdf") || entry.dir) continue;
         const buf = Buffer.from(await entry.async("arraybuffer"));
+        extractedBytes += buf.length;
+        if (extractedBytes > MAX_EXTRACTED_BYTES) {
+          return NextResponse.json(
+            { error: "Extracted ZIP contents exceed the 500 MB limit." },
+            { status: 413 }
+          );
+        }
         pdfFiles.push({ name, bytes: buf });
       }
     } else if (file.name.toLowerCase().endsWith(".pdf")) {
