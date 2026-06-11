@@ -668,31 +668,30 @@ export function DashboardClient({
                 iconColor="#f97316"
                 iconBg="#fff7ed"
                 action={
-                  <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-full px-2 py-1">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Supports {">"}30 banks</span>
+                  <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5">
+                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">30+ banks supported</span>
                   </div>
                 }
               />
               <div className="p-5 lg:p-8">
-                <div className="max-w-2xl">
-                  <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 mb-6 max-w-xs shadow-sm">
-                    {(["single", "bulk"] as const).map(m => (
-                      <button
-                        key={m}
-                        onClick={() => setUploadMode(m)}
-                        className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
-                          uploadMode === m ? "bg-navy text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
-                        }`}
-                      >
-                        {m === "single" ? t("singleFile") : t("bulkUpload")}
-                      </button>
-                    ))}
-                  </div>
-                  {uploadMode === "single"
-                    ? <UploadCard billing={billing} onBillingUpdate={refreshBilling} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} />
-                    : <BulkUploadCard billing={billing} onBillingUpdate={refreshBilling} />
-                  }
+                {/* Mode toggle */}
+                <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 mb-6 max-w-xs shadow-sm">
+                  {(["single", "bulk"] as const).map(m => (
+                    <button
+                      key={m}
+                      onClick={() => setUploadMode(m)}
+                      className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
+                        uploadMode === m ? "bg-navy text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
+                      }`}
+                    >
+                      {m === "single" ? t("singleFile") : t("bulkUpload")}
+                    </button>
+                  ))}
                 </div>
+                {uploadMode === "single"
+                  ? <UploadCard billing={billing} onBillingUpdate={refreshBilling} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} />
+                  : <BulkUploadCard billing={billing} onBillingUpdate={refreshBilling} />
+                }
               </div>
             </div>
           )}
