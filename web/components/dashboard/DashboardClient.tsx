@@ -245,19 +245,17 @@ export function DashboardClient({
                     <button
                       key={id}
                       onClick={() => { setTab(id); setSidebarOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all text-left group ${
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all text-left group ${
                         active
-                          ? "text-white shadow-sm"
+                          ? "bg-slate-100 text-slate-900"
                           : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
                       }`}
-                      style={active ? { background: "linear-gradient(135deg,#1A47C8,#2d5ce8)" } : {}}
                     >
                       <Icon
                         size={14}
-                        className={`shrink-0 transition-colors ${active ? "text-white/80" : "text-slate-400 group-hover:text-slate-600"}`}
+                        className={`shrink-0 transition-colors ${active ? "text-slate-700" : "text-slate-400 group-hover:text-slate-600"}`}
                       />
                       <span className="flex-1 truncate">{label}</span>
-                      {active && <div className="w-1.5 h-1.5 rounded-full bg-white/50 shrink-0" />}
                     </button>
                   );
                 })}

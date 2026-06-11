@@ -176,10 +176,10 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
       <div
         {...(isProcessing ? {} : getRootProps())}
         className={cn(
-          "flex-1 relative flex flex-col items-center justify-center overflow-hidden select-none",
+          "flex-1 relative flex flex-col items-center justify-center overflow-y-auto select-none",
           !isProcessing && "cursor-pointer",
         )}
-        style={{ minHeight: 380, background: "#f8fafc" }}
+        style={{ minHeight: 320, background: "#f8fafc" }}
       >
         {!isProcessing && <input {...getInputProps()} />}
 
@@ -241,7 +241,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           </div>
         ) : (
           /* Idle */
-          <div className="relative flex flex-col items-center gap-7 text-center px-8 py-12 max-w-xl">
+          <div className="relative flex flex-col items-center gap-5 text-center px-8 py-8 max-w-xl">
 
             {/* Icon with glow */}
             <div className="relative">
