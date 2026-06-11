@@ -388,7 +388,7 @@ export function DashboardClient({
                   {
                     label: "Docs Converted",
                     value: String(totalDocs),
-                    sub: totalDocs === 0 ? "No files yet" : "Last 50 tracked",
+                    sub: totalDocs === 0 ? "No files yet" : `${totalDocs} file${totalDocs !== 1 ? "s" : ""} converted`,
                     Icon: FileText,
                     gradient: "linear-gradient(135deg,#3b82f6,#6366f1)",
                     bg: "#eff6ff",
@@ -396,8 +396,10 @@ export function DashboardClient({
                   },
                   {
                     label: "Pages Processed",
-                    value: totalPages.toLocaleString("en-IN"),
-                    sub: isBusinessOrPro ? `${billing.pagesUsedThisPeriod} this month` : `of ${billing.monthlyPageLimit} free`,
+                    value: billing.pagesUsedThisPeriod.toLocaleString("en-IN"),
+                    sub: billing.pagesUsedThisPeriod === 0
+                      ? "No pages yet"
+                      : `of ${billing.monthlyPageLimit} ${isBusinessOrPro ? "this period" : "free"}`,
                     Icon: TrendingUp,
                     gradient: "linear-gradient(135deg,#8b5cf6,#a855f7)",
                     bg: "#f5f3ff",
@@ -416,8 +418,10 @@ export function DashboardClient({
                     label: "Plan Usage",
                     value: isBusinessOrPro ? `${usagePercent}%` : billing.tier,
                     sub: isBusinessOrPro
-                      ? `${billing.pagesUsedThisPeriod} / ${billing.monthlyPageLimit} pages`
-                      : billing.tier === "FREE" ? "8 free pages" : "Pay per doc",
+                      ? `${billing.pagesUsedThisPeriod} / ${billing.monthlyPageLimit} pages used`
+                      : billing.tier === "FREE"
+                        ? `${Math.max(0, billing.monthlyPageLimit - billing.pagesUsedThisPeriod)} of ${billing.monthlyPageLimit} pages left`
+                        : "Pay per doc",
                     Icon: Clock,
                     gradient: usagePercent > 80 ? "linear-gradient(135deg,#ef4444,#dc2626)" : "linear-gradient(135deg,#f97316,#ea580c)",
                     bg: usagePercent > 80 ? "#fef2f2" : "#fff7ed",
