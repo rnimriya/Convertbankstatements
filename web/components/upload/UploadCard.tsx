@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 const MAX_FILE_MB = 50;
 const FREE_PAGE_CAP = 8;
 
-const BANKS = ["SBI", "HDFC", "ICICI", "Axis", "Kotak", "PNB", "BOB", "Canara", "Union"];
+const BANKS = ["SBI", "HDFC", "ICICI", "Axis", "Kotak", "PNB", "BOB"];
 
 const FORMATS = [
   { id: "csv",    label: "CSV",    sub: "Universal",    dotColor: "#43A047", dotBg: "#E8F5E9" },
@@ -154,15 +154,6 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   return (
     <div className="flex flex-col h-full">
 
-      {/* ── Usage bar ── */}
-      <div className="shrink-0 px-8 py-3 border-b border-slate-100 bg-white">
-        <FreePagesIndicator
-          tier={billing.tier}
-          pagesUsed={billing.pagesUsedThisPeriod}
-          monthlyPageLimit={billing.monthlyPageLimit}
-        />
-      </div>
-
       {/* ── Error banner ── */}
       {state.status === "error" && (
         <div className="shrink-0 flex items-center gap-3 px-8 py-3 bg-red-50 border-b border-red-100 text-sm text-red-700">
@@ -241,44 +232,33 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           </div>
         ) : (
           /* Idle */
-          <div className="relative flex flex-col items-center gap-5 text-center px-8 py-8 max-w-xl">
+          <div className="relative flex flex-col items-center gap-4 text-center px-8 py-6 max-w-2xl w-full">
 
-            {/* Icon with glow */}
-            <div className="relative">
-              <div
-                className="absolute pointer-events-none rounded-full"
-                style={{
-                  inset: "-24px",
-                  background: "radial-gradient(circle, rgba(26,71,200,0.14) 0%, transparent 65%)",
-                  opacity: isDragActive ? 1 : 0.7,
-                  transition: "opacity 0.3s",
-                }}
-              />
-              <div
-                className="relative w-28 h-28 rounded-[38px] flex items-center justify-center transition-all duration-300"
-                style={{
-                  background: isDragActive
-                    ? "linear-gradient(145deg,#0f35b8,#1A47C8)"
-                    : "linear-gradient(145deg,#1A47C8,#4a78f5)",
-                  boxShadow: isDragActive
-                    ? "0 0 0 16px rgba(26,71,200,0.16), 0 32px 80px rgba(26,71,200,0.50)"
-                    : "0 0 0 12px rgba(26,71,200,0.09), 0 20px 52px rgba(26,71,200,0.28)",
-                  transform: isDragActive ? "scale(1.10) rotate(-4deg)" : "scale(1) rotate(0deg)",
-                }}
-              >
-                {isDragActive
-                  ? <FileText size={58} className="text-white" strokeWidth={1.5} />
-                  : <Upload size={58} className="text-white" strokeWidth={1.5} />
-                }
-              </div>
+            {/* Icon — no glow plate, just the square with a clean drop shadow */}
+            <div
+              className="w-[72px] h-[72px] rounded-[22px] flex items-center justify-center transition-all duration-300 shrink-0"
+              style={{
+                background: isDragActive
+                  ? "linear-gradient(145deg,#0f35b8,#1A47C8)"
+                  : "linear-gradient(145deg,#1A47C8,#4a78f5)",
+                boxShadow: isDragActive
+                  ? "0 16px 48px rgba(26,71,200,0.48)"
+                  : "0 10px 30px rgba(26,71,200,0.26)",
+                transform: isDragActive ? "scale(1.08) rotate(-3deg)" : "scale(1)",
+              }}
+            >
+              {isDragActive
+                ? <FileText size={36} className="text-white" strokeWidth={1.5} />
+                : <Upload size={36} className="text-white" strokeWidth={1.5} />
+              }
             </div>
 
             {/* Heading */}
             <div>
-              <h2 className="text-[40px] lg:text-[48px] font-black text-slate-900 leading-[1.08] mb-3 tracking-tight">
+              <h2 className="text-[28px] lg:text-[34px] font-black text-slate-900 leading-tight mb-1.5 tracking-tight whitespace-nowrap">
                 {isDragActive ? "Release to convert!" : "Drop your bank statement PDF"}
               </h2>
-              <p className="text-slate-400 text-lg">
+              <p className="text-slate-400 text-base">
                 or{" "}
                 <span className="text-navy font-bold underline underline-offset-2 decoration-navy/30 hover:decoration-navy transition-colors">
                   browse files
@@ -287,7 +267,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
 
             {/* Specs */}
-            <div className="flex items-center gap-3 text-sm text-slate-400">
+            <div className="flex items-center gap-2.5 text-[13px] text-slate-400">
               <span>PDF only</span>
               <span className="w-1 h-1 rounded-full bg-slate-300" />
               <span>Max {MAX_FILE_MB} MB</span>
@@ -295,21 +275,21 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               <span>Password protected OK</span>
             </div>
 
-            {/* Bank chips */}
-            <div className="flex flex-wrap justify-center gap-2">
+            {/* Bank chips — single row */}
+            <div className="flex items-center justify-center gap-1.5 flex-wrap">
               {BANKS.map(b => (
                 <span key={b}
-                  className="text-xs font-semibold px-3.5 py-1.5 rounded-full bg-white border border-slate-200 text-slate-500 shadow-sm">
+                  className="text-[11px] font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-500">
                   {b}
                 </span>
               ))}
-              <span className="text-xs font-medium px-3 py-1.5 text-slate-400">+21 more</span>
+              <span className="text-[11px] font-medium px-2 py-1 text-slate-400">+23 more</span>
             </div>
 
             {/* Free pages badge */}
             {billing.tier === "FREE" && freeRemaining > 0 && (
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-emerald-50 border border-emerald-200 text-emerald-700">
-                <CheckCircle2 size={14} />
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-emerald-50 border border-emerald-200 text-emerald-700">
+                <CheckCircle2 size={13} />
                 {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} remaining
               </div>
             )}
@@ -320,7 +300,15 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
       {/* ── FORMAT PICKER BAR ── */}
       {!isProcessing && (
         <div className="shrink-0 border-t border-slate-200 bg-white">
-          <div className="px-8 py-4 flex items-center gap-5 flex-wrap">
+          {/* Usage indicator inside the bar */}
+          <div className="px-8 pt-3 pb-0">
+            <FreePagesIndicator
+              tier={billing.tier}
+              pagesUsed={billing.pagesUsedThisPeriod}
+              monthlyPageLimit={billing.monthlyPageLimit}
+            />
+          </div>
+          <div className="px-8 py-3 flex items-center gap-5 flex-wrap">
             <span className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-400 shrink-0 whitespace-nowrap">
               Output format
             </span>
