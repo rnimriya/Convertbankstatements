@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     const resend = new Resend(key);
     const { error } = await resend.emails.send({
-      from: "Convert Statement Contact <onboarding@resend.dev>",
+      from: "Convert Statement <noreply@convertstatement.online>",
       to: "support@convertstatement.online",
       replyTo: email,
       subject: `[Contact Form] ${subject}`,
