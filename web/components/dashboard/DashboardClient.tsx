@@ -62,21 +62,21 @@ function PageBanner({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="shrink-0 bg-white border-b border-slate-100 px-6 lg:px-8 py-5">
-      <div className="flex items-center justify-between gap-4 max-w-[1200px]">
-        <div className="flex items-center gap-4">
+    <div className="shrink-0 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+        <div className="flex items-center gap-3">
           <div
-            className="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0"
             style={{ background: iconBg }}
           >
-            <Icon size={19} style={{ color: iconColor }} />
+            <Icon size={17} style={{ color: iconColor }} />
           </div>
           <div>
-            <h2 className="text-[17px] font-black text-slate-900 leading-tight">{title}</h2>
-            <p className="text-[13px] text-slate-400 mt-0.5">{subtitle}</p>
+            <h2 className="text-[15px] sm:text-[17px] font-black text-slate-900 leading-tight">{title}</h2>
+            <p className="text-[12px] sm:text-[13px] text-slate-400 mt-0.5 hidden sm:block">{subtitle}</p>
           </div>
         </div>
-        {action && <div className="shrink-0">{action}</div>}
+        {action && <div className="shrink-0 pl-12 sm:pl-0">{action}</div>}
       </div>
     </div>
   );
@@ -303,14 +303,14 @@ export function DashboardClient({
                 <span className="hidden sm:inline">Convert</span>
               </button>
             )}
-            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full pl-1 pr-3 py-1">
+            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full pl-1 pr-2 sm:pr-3 py-1">
               <div
-                className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black text-white"
+                className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black text-white shrink-0"
                 style={{ background: "linear-gradient(135deg,#1A47C8,#3b6ef5)" }}
               >
                 {initial}
               </div>
-              <span className="text-sm text-slate-600 font-medium truncate max-w-[120px]">{displayName}</span>
+              <span className="text-sm text-slate-600 font-medium truncate hidden sm:block max-w-[120px]">{displayName}</span>
             </div>
           </div>
         </header>
