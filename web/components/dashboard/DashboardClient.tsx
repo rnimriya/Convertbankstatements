@@ -671,26 +671,24 @@ export function DashboardClient({
                 iconColor="#f97316"
                 iconBg="#fff7ed"
                 action={
-                  <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-full px-3 py-1.5">
-                    <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">30+ banks supported</span>
+                  /* Mode toggle — lives in the banner action slot */
+                  <div className="flex items-center gap-1 bg-slate-100 border border-slate-200 rounded-xl p-1">
+                    {(["single", "bulk"] as const).map(m => (
+                      <button
+                        key={m}
+                        onClick={() => setUploadMode(m)}
+                        className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
+                          uploadMode === m ? "bg-white text-navy shadow-sm" : "text-slate-500 hover:text-slate-700"
+                        }`}
+                      >
+                        {m === "single" ? t("singleFile") : t("bulkUpload")}
+                      </button>
+                    ))}
                   </div>
                 }
               />
-              <div className="p-5 lg:p-8">
-                {/* Mode toggle */}
-                <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-xl p-1 mb-6 max-w-xs shadow-sm">
-                  {(["single", "bulk"] as const).map(m => (
-                    <button
-                      key={m}
-                      onClick={() => setUploadMode(m)}
-                      className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-all ${
-                        uploadMode === m ? "bg-navy text-white shadow-sm" : "text-slate-500 hover:text-slate-700"
-                      }`}
-                    >
-                      {m === "single" ? t("singleFile") : t("bulkUpload")}
-                    </button>
-                  ))}
-                </div>
+              {/* No padding — UploadCard fills the remaining height */}
+              <div className="flex-1 min-h-0 flex flex-col">
                 {uploadMode === "single"
                   ? <UploadCard billing={billing} onBillingUpdate={refreshBilling} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} />
                   : <BulkUploadCard billing={billing} onBillingUpdate={refreshBilling} />
