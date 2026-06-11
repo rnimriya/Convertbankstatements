@@ -107,7 +107,10 @@ export function DashboardClient({
     } catch { /* non-fatal */ }
   }, []);
 
-  const handleSignOut = () => { window.location.href = "/login?logout=1"; };
+  const handleSignOut = async () => {
+    try { await fetch("/api/auth/logout", { method: "POST" }); } catch { /* ignore */ }
+    window.location.href = "/login";
+  };
 
   const sendVerificationEmail = async () => {
     setSendingVerification(true);
