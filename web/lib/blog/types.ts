@@ -1,3 +1,9 @@
+export interface BlogPostTranslation {
+  title: string;
+  excerpt: string;
+  content?: string;
+}
+
 export interface BlogPost {
   id: string;
   slug: string;
@@ -10,6 +16,7 @@ export interface BlogPost {
   published: boolean;
   createdAt: string;
   updatedAt: string;
+  translations?: Record<string, BlogPostTranslation>;
 }
 
 export interface BlogComment {

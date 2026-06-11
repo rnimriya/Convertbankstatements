@@ -297,5 +297,23 @@
     "emailUs": "Email us directly",
     "supportHours": "Support Hours",
     "hours": "Monday – Saturday, 9 AM – 6 PM IST"
+  },
+  "blog": {
+    "title": "Convert Statement Blog",
+    "subtitle": "Practical guides on Indian bank statements, banking, and personal finance.",
+    "articlesCount": "{count} articles and counting.",
+    "noPostsYet": "No posts yet. Check back soon.",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {current} of {total}",
+    "backToBlog": "← Back to Blog",
+    "by": "By",
+    "relatedPosts": "Related Posts",
+    "readMore": "Read more",
+    "commentsTitle": "Comments",
+    "addComment": "Add a comment",
+    "submitComment": "Post comment",
+    "loginToComment": "Sign in to leave a comment",
+    "noComments": "No comments yet. Be the first!"
   }
 }

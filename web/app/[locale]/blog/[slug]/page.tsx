@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPosts } from "@/lib/blog/posts";
+import { localizePost } from "@/lib/blog/i18n";
 import { getCommentsForPost } from "@/lib/blog/comments";
 import { getSession } from "@/lib/auth/session";
 import { Navbar } from "@/components/layout/Navbar";
@@ -7,13 +8,15 @@ import { Footer } from "@/components/layout/Footer";
 import { CommentSection } from "@/components/blog/CommentSection";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { RELATED_MAP } from "@/lib/blog/related";
+import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post) return { title: "Post not found" };
+export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params;
+  const rawPost = getPostBySlug(slug);
+  if (!rawPost) return { title: "Post not found" };
+  const post = localizePost(rawPost, locale);
   const canonicalUrl = `https://convertstatement.online/blog/${slug}`;
   return {
     title: `${post.title} - Convert Statement`,
@@ -38,10 +41,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
-  if (!post || !post.published) notFound();
+export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
+  const { locale, slug } = await params;
+  const rawPost = getPostBySlug(slug);
+  if (!rawPost || !rawPost.published) notFound();
+
+  const post = localizePost(rawPost, locale);
+  const t = await getTranslations({ locale, namespace: "blog" });
 
   const comments = await getCommentsForPost(slug);
   const session = await getSession();
@@ -49,7 +55,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const relatedSlugs = RELATED_MAP[slug] ?? [];
   const allPosts = getAllPosts();
   const relatedPosts = relatedSlugs
-    .map((s) => allPosts.find((p) => p.slug === s && p.published))
+    .map((s) => {
+      const p = allPosts.find((x) => x.slug === s && x.published);
+      return p ? localizePost(p, locale) : null;
+    })
     .filter(Boolean) as (typeof allPosts)[0][];
 
   const blogPostSchema = {
@@ -124,7 +133,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <span>{post.author}</span>
             <span>·</span>
             <time dateTime={post.createdAt}>
-              {new Date(post.createdAt).toLocaleDateString("en-IN", {
+              {new Date(post.createdAt).toLocaleDateString(locale === "en" ? "en-IN" : locale, {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
@@ -141,10 +150,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           {/* Back link */}
           <div className="mt-12 border-t border-slate-100 dark:border-white/10 pt-8">
             <a
-              href="/blog"
+              href={`/${locale}/blog`}
               className="text-sm font-medium text-brand-500 dark:text-brand-400 hover:underline"
             >
-              ← Back to Blog
+              {t("backToBlog")}
             </a>
           </div>
 

@@ -4,6 +4,7 @@ import { BlogPost } from "./types";
 import { SEED_POSTS } from "./seed";
 import { POST_IMAGES } from "./images";
 import { RELATED_MAP } from "./related";
+import { POST_TRANSLATIONS } from "./i18n";
 
 const DATA_FILE =
   process.env.NODE_ENV === "production"
@@ -44,10 +45,12 @@ function buildRelatedLine(slug: string): string {
 function enrich(post: BlogPost): BlogPost {
   const image = POST_IMAGES[post.slug];
   const relatedLine = buildRelatedLine(post.slug);
+  const translations = POST_TRANSLATIONS[post.slug];
   return {
     ...post,
     featureImage: image ?? post.featureImage,
     content: relatedLine ? post.content + relatedLine : post.content,
+    translations: translations ?? post.translations,
   };
 }
 
