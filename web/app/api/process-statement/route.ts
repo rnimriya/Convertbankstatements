@@ -108,9 +108,11 @@ export async function POST(req: NextRequest) {
   }
 
   if (!isPortalUpload && !session) {
-    // Anonymous: cookie-based tracking (soft limit — requires login for real enforcement)
+    // Anonymous: cookie-based tracking (soft limit — requires login for real enforcement).
+    // On any tampered/invalid cookie value default to FREE_PAGE_CAP so the user hits the
+    // payment wall rather than getting a free reset.
     const raw = parseInt(jar.get("bs_pages_used")?.value ?? "0", 10);
-    pagesUsed = Number.isFinite(raw) && raw >= 0 ? raw : 0;
+    pagesUsed = Number.isInteger(raw) && raw >= 0 && raw <= FREE_PAGE_CAP * 10 ? raw : FREE_PAGE_CAP;
   }
 
   // ── Billing decision ───────────────────────────────────────────────────────
@@ -161,7 +163,7 @@ export async function POST(req: NextRequest) {
   let bankName = inferBankName(file.name, bytes.toString("latin1").slice(0, 2000));
   let isDemo = true;
 
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
+  const backendUrl = process.env.BACKEND_URL_SERVER ?? "http://localhost:8000";
   try {
     const upstreamForm = new FormData();
     upstreamForm.append("file", new Blob([bytes], { type: "application/pdf" }), file.name);

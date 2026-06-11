@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Process each file ──────────────────────────────────────────────────────
-  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8000";
+  const backendUrl = process.env.BACKEND_URL_SERVER ?? "http://localhost:8000";
   const results: FileResult[] = [];
 
   for (const { name, bytes } of pdfFiles) {

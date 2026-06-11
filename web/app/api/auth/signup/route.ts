@@ -31,15 +31,18 @@ export async function POST(req: NextRequest) {
 
     const { email, password, name, referralCode } = parsed.data;
 
-    // Resolve referral code before creating user (non-blocking — ignore invalid codes)
+    const passwordHash = await bcrypt.hash(password, 12);
+    const user = await createUser(email, passwordHash, name);
+
+    // Resolve referral code after user creation so we can guard against self-referral.
     let referrerId: string | null = null;
     if (referralCode) {
       const referrer = await findByReferralCode(referralCode).catch(() => null);
-      if (referrer) referrerId = referrer.id;
+      // Reject self-referral (same account or same email registered twice)
+      if (referrer && referrer.id !== user.id && referrer.email !== email) {
+        referrerId = referrer.id;
+      }
     }
-
-    const passwordHash = await bcrypt.hash(password, 12);
-    const user = await createUser(email, passwordHash, name, referrerId ?? undefined);
 
     // Credit both parties with bonus pages.
     // Isolated in its own try-catch: a Redis failure here must not roll back the
