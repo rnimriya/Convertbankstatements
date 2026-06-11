@@ -9,10 +9,12 @@ export async function GET() {
   const user = await findById(session.sub);
   if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 
-  return NextResponse.json({
+  const res = NextResponse.json({
     tier: user.tier,
     pagesUsedThisPeriod: user.pagesUsed,
     monthlyPageLimit: user.monthlyPageLimit,
     stripeCustomerId: null,
   });
+  res.headers.set("Cache-Control", "private, no-cache, no-store");
+  return res;
 }

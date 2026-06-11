@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { findByEmail, setResetToken } from "@/lib/auth/users";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { randomUUID } from "crypto";
-import { Resend } from "resend";
+import { getResend, EMAIL_FROM } from "@/lib/email";
 
 const SUCCESS_MSG = "If an account exists with that email, a password reset link has been sent.";
 
@@ -42,22 +42,16 @@ export async function POST(req: NextRequest) {
 }
 
 async function sendResetEmail(to: string, resetUrl: string): Promise<void> {
-  const key = process.env.RESEND_API_KEY;
-
-  if (!key) {
-    if (process.env.NODE_ENV !== "production") {
-      console.log(`[DEV] Password reset link for ${to}: ${resetUrl}`);
-    } else {
-      console.error("[forgot-password] RESEND_API_KEY not configured — email not sent");
-    }
+  const resend = getResend();
+  if (!resend) {
+    console.log(`[forgot-password] Link for ${to}: ${resetUrl}`);
     return;
   }
 
   const token = new URL(resetUrl).searchParams.get("token") ?? resetUrl;
-  const resend = new Resend(key);
   const { error } = await resend.emails.send(
     {
-      from: "Convert Statement <noreply@convertstatement.online>",
+      from: EMAIL_FROM,
       to,
       subject: "Reset your Convert Statement password",
       html: `

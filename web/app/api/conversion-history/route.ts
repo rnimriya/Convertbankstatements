@@ -7,5 +7,7 @@ export async function GET(req: NextRequest) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const logs = await getConversionLogs(session.sub);
-  return NextResponse.json(logs);
+  const res = NextResponse.json(logs);
+  res.headers.set("Cache-Control", "private, no-cache, no-store");
+  return res;
 }

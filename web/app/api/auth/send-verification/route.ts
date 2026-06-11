@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "crypto";
-import { Resend } from "resend";
+import { getResend, EMAIL_FROM } from "@/lib/email";
 import { getSession } from "@/lib/auth/session";
 import { findById, setEmailVerifyToken } from "@/lib/auth/users";
 import { checkRateLimit } from "@/lib/rate-limit";
@@ -9,16 +9,15 @@ async function sendVerificationEmail(email: string, name: string | null, token: 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://convertstatement.online";
   const link = `${baseUrl}/verify-email?token=${token}`;
 
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
+  const resend = getResend();
+  if (!resend) {
     console.log(`[email-verify] Link for ${email}: ${link}`);
     return;
   }
 
-  const resend = new Resend(key);
   const { error } = await resend.emails.send(
     {
-      from: "Convert Statement <noreply@convertstatement.online>",
+      from: EMAIL_FROM,
       to: email,
       subject: "Verify your email — Convert Statement",
       html: `

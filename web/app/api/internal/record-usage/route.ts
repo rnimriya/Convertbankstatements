@@ -1,22 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { timingSafeEqual } from "crypto";
 import { incrementPages } from "@/lib/auth/users";
-
-function isValidApiKey(provided: string | null): boolean {
-  const expected = process.env.BACKEND_API_KEY ?? "";
-  if (!expected || !provided) return false;
-  try {
-    const a = Buffer.from(expected);
-    const b = Buffer.from(provided);
-    if (a.length !== b.length) return false;
-    return timingSafeEqual(a, b);
-  } catch {
-    return false;
-  }
-}
+import { validateBackendApiKey } from "@/lib/api-auth";
 
 export async function POST(req: NextRequest) {
-  if (!isValidApiKey(req.headers.get("x-api-key"))) {
+  if (!validateBackendApiKey(req.headers.get("x-api-key"))) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

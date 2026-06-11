@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkRateLimit } from "@/lib/rate-limit";
-import { Resend } from "resend";
+import { getResend, EMAIL_FROM } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   // Rate limit check
@@ -25,9 +25,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
     }
 
-    const key = process.env.RESEND_API_KEY;
+    const resend = getResend();
 
-    if (!key) {
+    if (!resend) {
       // Development / Staging fallback: log to console and simulate success
       console.log("================ CONTACT FORM SUBMISSION ==================");
       printSubmission(name, email, subject, message);
@@ -39,9 +39,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const resend = new Resend(key);
     const { error } = await resend.emails.send({
-      from: "Convert Statement <noreply@convertstatement.online>",
+      from: EMAIL_FROM,
       to: "support@convertstatement.online",
       replyTo: email,
       subject: `[Contact Form] ${subject}`,

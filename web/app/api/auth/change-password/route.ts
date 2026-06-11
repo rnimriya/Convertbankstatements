@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { getSession } from "@/lib/auth/session";
+import { getSession, SESSION_COOKIE } from "@/lib/auth/session";
 import { findById, changePassword } from "@/lib/auth/users";
 import { checkRateLimit } from "@/lib/rate-limit";
 
@@ -34,5 +34,9 @@ export async function POST(req: NextRequest) {
   const hash = await bcrypt.hash(parsed.data.newPassword, 12);
   await changePassword(user.id, hash);
 
-  return NextResponse.json({ ok: true });
+  // Invalidate the current session — forces re-login with the new password.
+  // Closes the window where a stolen/compromised session persists post-change.
+  const res = NextResponse.json({ ok: true });
+  res.cookies.set(SESSION_COOKIE, "", { maxAge: 0, path: "/" });
+  return res;
 }

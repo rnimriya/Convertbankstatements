@@ -9,7 +9,7 @@ export async function GET() {
   const user = await findById(session.sub);
   if (!user) return NextResponse.json({ user: null });
 
-  return NextResponse.json({
+  const res = NextResponse.json({
     user: {
       id: user.id,
       email: user.email,
@@ -19,4 +19,6 @@ export async function GET() {
       monthlyPageLimit: user.monthlyPageLimit,
     },
   });
+  res.headers.set("Cache-Control", "private, no-cache, no-store");
+  return res;
 }
