@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, AlertTriangle, Loader2 } from "lucide-react";
+import { Check, ArrowRight, AlertTriangle, Loader2, CheckCircle2 } from "lucide-react";
 import { RazorpayCheckout } from "@/components/payment/RazorpayCheckout";
 import type { SubTier } from "@/types/billing";
 import { useRouter } from "next/navigation";
@@ -20,7 +20,7 @@ const PLANS = [
     badge: null as string | null,
     features: ["8 pages free, forever", "CSV & Excel export", "All Indian banks", "No credit card required"],
     notIncluded: ["OFX / QFX export", "Google Sheets"],
-    plan: null as "payg" | "pro" | "business" | "pro_annual" | "business_annual" | null,
+    cta: "Free",
     monthlyPlan: null as "payg" | "pro" | "business" | null,
     annualPlan: null as "pro_annual" | "business_annual" | null,
     amountINR: 0,
@@ -39,7 +39,7 @@ const PLANS = [
     badge: null as string | null,
     features: ["₹49 per document", "All export formats", "UPI / Cards / NetBanking", "All Indian banks"],
     notIncluded: ["Monthly page pool"],
-    plan: "payg" as const,
+    cta: "Pay ₹49",
     monthlyPlan: "payg" as const,
     annualPlan: null as null,
     amountINR: 49,
@@ -49,7 +49,7 @@ const PLANS = [
     id: "PRO" as SubTier,
     name: "Pro",
     price: "₹1,198",
-    period: "/ month",
+    period: "/ mo",
     annualPrice: "₹11,499",
     annualPeriod: "/ year",
     annualMonthlyEquiv: "₹958/mo",
@@ -58,7 +58,7 @@ const PLANS = [
     badge: "Most popular",
     features: ["500 pages / month", "All export formats", "Google Sheets export", "Priority processing", "Email support"],
     notIncluded: ["API access", "Team seats"],
-    plan: "pro" as const,
+    cta: "Upgrade to Pro",
     monthlyPlan: "pro" as const,
     annualPlan: "pro_annual" as const,
     amountINR: 1198,
@@ -77,7 +77,7 @@ const PLANS = [
     badge: null as string | null,
     features: ["2,000 pages / month", "All export formats", "Google Sheets export", "Priority processing", "API access", "5 team seats", "Dedicated support"],
     notIncluded: [],
-    plan: "business" as const,
+    cta: "Upgrade to Business",
     monthlyPlan: "business" as const,
     annualPlan: "business_annual" as const,
     amountINR: 4498,
@@ -122,18 +122,18 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
   return (
     <div>
       {/* Payment note */}
-      <p className="text-xs text-slate-400 mb-6">
+      <p className="text-xs text-slate-400 dark:text-gray-500 mb-6">
         Pay via UPI, Credit/Debit Card, Net Banking, or Wallets through Razorpay
       </p>
 
       {/* Monthly / Annual toggle */}
-      <div className="flex items-center justify-center gap-3 mb-8">
+      <div className="flex items-center justify-center gap-3 mb-10">
         <span className={`text-sm font-medium transition-colors ${!annual ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-gray-500"}`}>
           Monthly
         </span>
         <button
           onClick={() => setAnnual(a => !a)}
-          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-navy" : "bg-slate-200 dark:bg-white/20"}`}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-[#3B5BFC]" : "bg-slate-200 dark:bg-white/20"}`}
           role="switch"
           aria-checked={annual}
         >
@@ -143,7 +143,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           Annual
         </span>
         {annual && (
-          <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-full dark:bg-emerald-900/40 dark:text-emerald-400">
+          <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full">
             Save 20%
           </span>
         )}
@@ -155,8 +155,8 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
         </div>
       )}
 
-      {/* Cards — identical layout to /pricing page */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Cards */}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-start">
         {PLANS.map((plan) => {
           const isCurrent = currentTier === plan.id;
           const showAnnual = annual && plan.annualPrice !== null;
@@ -165,112 +165,176 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           const activePlan = showAnnual ? plan.annualPlan : plan.monthlyPlan;
           const activeAmount = showAnnual ? plan.annualAmountINR : plan.amountINR;
 
+          if (plan.highlight) {
+            /* ── PRO — featured card (blue gradient) ── */
+            return (
+              <div key={plan.id} className="relative pt-5">
+                {/* Badge */}
+                <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
+                  {isCurrent ? (
+                    <span className="inline-block bg-emerald-500 rounded-full px-5 py-1.5 text-xs font-black text-white shadow-md whitespace-nowrap">
+                      Current plan
+                    </span>
+                  ) : (
+                    <span className="inline-block bg-white rounded-full px-5 py-1.5 text-xs font-black text-[#3B5BFC] shadow-md whitespace-nowrap border border-white">
+                      {plan.badge}
+                    </span>
+                  )}
+                </div>
+
+                <div
+                  className="relative flex flex-col rounded-3xl p-7 overflow-hidden"
+                  style={{
+                    background: "linear-gradient(160deg,#3B5BFC 0%,#2645e0 100%)",
+                    boxShadow: "0 20px 60px rgba(59,91,252,0.40), 0 4px 20px rgba(59,91,252,0.20)",
+                  }}
+                >
+                  {/* Orb */}
+                  <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle,white,transparent)", transform: "translate(30%,-30%)" }} />
+
+                  <p className="font-black text-white text-lg mb-0.5">{plan.name}</p>
+                  <p className="text-white/60 text-xs mb-5">{plan.tagline}</p>
+
+                  {/* Price */}
+                  <div className="mb-1">
+                    <div className="flex items-end gap-1.5">
+                      <span className="text-5xl font-black text-white tracking-tight">{displayPrice}</span>
+                      {displayPeriod && <span className="text-white/60 text-base mb-1">{displayPeriod}</span>}
+                    </div>
+                    {showAnnual && plan.annualMonthlyEquiv && (
+                      <p className="text-white/55 text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
+                    )}
+                    {!showAnnual && plan.annualPrice && (
+                      <p className="text-white/55 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
+                    )}
+                  </div>
+
+                  {/* Divider */}
+                  <div className="h-px bg-white/15 my-5" />
+
+                  {/* Features */}
+                  <ul className="space-y-3 flex-1 mb-8">
+                    {plan.features.map(f => (
+                      <li key={f} className="flex items-center gap-3 text-sm text-white">
+                        <div className="w-5 h-5 rounded-full border-2 border-white/40 flex items-center justify-center shrink-0">
+                          <Check size={11} className="text-white" />
+                        </div>
+                        {f}
+                      </li>
+                    ))}
+                    {plan.notIncluded.map(f => (
+                      <li key={f} className="flex items-center gap-3 text-sm text-white/30 line-through">
+                        <div className="w-5 h-5 rounded-full border-2 border-white/15 flex items-center justify-center shrink-0">
+                          <span className="text-[9px] text-white/30">✕</span>
+                        </div>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  {isCurrent ? (
+                    <button
+                      disabled
+                      className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-black bg-white/20 text-white cursor-not-allowed opacity-70"
+                    >
+                      Current plan
+                    </button>
+                  ) : !activePlan ? null : (
+                    <RazorpayCheckout
+                      plan={activePlan}
+                      label={plan.cta}
+                      amountINR={activeAmount}
+                      onSuccess={() => router.refresh()}
+                      onError={setError}
+                      className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-black text-[#3B5BFC] bg-white hover:bg-slate-50 transition-colors shadow-lg"
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          }
+
+          /* ── Non-featured cards ── */
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col rounded-2xl border p-6 ${
-                plan.highlight
-                  ? "border-brand-400 bg-brand-400 dark:bg-surface dark:border-brand-400 shadow-glow"
-                  : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm"
-              } ${isCurrent ? "ring-2 ring-emerald-400" : ""}`}
+              className={`relative flex flex-col rounded-3xl border bg-white dark:bg-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
+                isCurrent
+                  ? "border-emerald-400 dark:border-emerald-500 ring-2 ring-emerald-400"
+                  : "border-slate-200 dark:border-white/10"
+              }`}
             >
-              {/* Most popular badge */}
-              {plan.badge && !isCurrent && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-brand-400 px-3 py-1 text-xs font-bold text-black whitespace-nowrap">
-                  {plan.badge}
-                </div>
-              )}
-
-              {/* Current plan badge */}
               {isCurrent && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold text-white whitespace-nowrap">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-emerald-500 px-4 py-1 text-xs font-black text-white whitespace-nowrap shadow-sm">
                   Current plan
                 </div>
               )}
 
-              {/* Name + tagline */}
-              <p className={`font-bold ${plan.highlight ? "text-black dark:text-white" : "text-slate-800 dark:text-white"}`}>
-                {plan.name}
-              </p>
-              <p className={`mt-0.5 text-xs ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-slate-400 dark:text-gray-500"}`}>
-                {plan.tagline}
-              </p>
+              <p className="font-black text-slate-900 dark:text-white text-lg mb-0.5">{plan.name}</p>
+              <p className="text-slate-400 dark:text-gray-500 text-xs mb-5">{plan.tagline}</p>
 
               {/* Price */}
-              <div className="mt-3">
-                <div className="flex items-end gap-0.5">
-                  <span className={`text-3xl font-extrabold ${plan.highlight ? "text-black dark:text-white" : "text-slate-900 dark:text-white"}`}>
-                    {displayPrice}
-                  </span>
-                  {displayPeriod && (
-                    <span className={`mb-1 text-sm ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>
-                      {displayPeriod}
-                    </span>
-                  )}
+              <div className="mb-1">
+                <div className="flex items-end gap-1.5">
+                  <span className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">{displayPrice}</span>
+                  {displayPeriod && <span className="text-slate-400 dark:text-gray-500 text-sm mb-1">{displayPeriod}</span>}
                 </div>
                 {showAnnual && plan.annualMonthlyEquiv && (
-                  <p className={`text-xs mt-0.5 ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>
-                    {plan.annualMonthlyEquiv} equivalent
-                  </p>
+                  <p className="text-slate-400 dark:text-gray-500 text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
                 )}
                 {!showAnnual && plan.annualPrice && (
-                  <p className={`text-xs mt-0.5 ${plan.highlight ? "text-black/60 dark:text-gray-400" : "text-slate-400 dark:text-gray-500"}`}>
-                    or {plan.annualPrice}/yr — save 20%
-                  </p>
+                  <p className="text-slate-400 dark:text-gray-500 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
                 )}
               </div>
 
+              <div className="h-px bg-slate-100 dark:bg-white/10 my-5" />
+
               {/* Features */}
-              <ul className="mt-5 flex-1 space-y-2">
-                {plan.features.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm ${plan.highlight ? "text-black dark:text-gray-200" : "text-slate-600 dark:text-gray-300"}`}>
-                    <CheckCircle2 className={`mt-0.5 h-4 w-4 shrink-0 ${plan.highlight ? "text-black/70 dark:text-brand-400" : "text-emerald-500"}`} />
+              <ul className="space-y-3 flex-1 mb-8">
+                {plan.features.map(f => (
+                  <li key={f} className="flex items-center gap-3 text-sm text-slate-600 dark:text-gray-300">
+                    <div className="w-5 h-5 rounded-full border-2 border-emerald-400 flex items-center justify-center shrink-0">
+                      <Check size={11} className="text-emerald-500" />
+                    </div>
                     {f}
                   </li>
                 ))}
-                {plan.notIncluded.map((f) => (
-                  <li key={f} className={`flex items-start gap-2 text-sm line-through ${plan.highlight ? "text-black/40 dark:text-gray-600 decoration-black/30 dark:decoration-gray-700" : "text-slate-400 dark:text-gray-600 decoration-slate-300 dark:decoration-gray-700"}`}>
-                    <span className="mt-0.5 h-4 w-4 shrink-0 text-center text-xs">✕</span>
+                {plan.notIncluded.map(f => (
+                  <li key={f} className="flex items-center gap-3 text-sm text-slate-300 dark:text-gray-600 line-through">
+                    <div className="w-5 h-5 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0">
+                      <span className="text-[9px] text-slate-300">✕</span>
+                    </div>
                     {f}
                   </li>
                 ))}
               </ul>
 
               {/* CTA */}
-              <div className="mt-6">
-                {isCurrent ? (
-                  <button
-                    disabled
-                    className={`flex w-full items-center justify-center rounded-xl py-2.5 text-sm font-semibold cursor-not-allowed opacity-50 ${
-                      plan.highlight
-                        ? "bg-black/10 dark:bg-surface text-black dark:text-gray-500"
-                        : "border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface text-slate-400 dark:text-gray-500"
-                    }`}
-                  >
-                    Current plan
-                  </button>
-                ) : plan.id === "FREE" || !activePlan ? (
-                  <button
-                    disabled
-                    className="flex w-full items-center justify-center rounded-xl py-2.5 text-sm font-semibold cursor-not-allowed border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface text-slate-400 dark:text-gray-500"
-                  >
-                    Free
-                  </button>
-                ) : (
-                  <RazorpayCheckout
-                    plan={activePlan}
-                    label={`Upgrade to ${plan.name}`}
-                    amountINR={activeAmount}
-                    onSuccess={() => router.refresh()}
-                    onError={setError}
-                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-2.5 text-sm font-semibold transition-colors ${
-                      plan.highlight
-                        ? "bg-black/10 dark:bg-brand-400 dark:text-black text-black hover:bg-black/20 dark:hover:bg-brand-300"
-                        : "border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5"
-                    }`}
-                  />
-                )}
-              </div>
+              {isCurrent ? (
+                <button
+                  disabled
+                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold border-2 border-slate-200 dark:border-white/10 text-slate-400 dark:text-gray-500 cursor-not-allowed opacity-60"
+                >
+                  Current plan
+                </button>
+              ) : plan.id === "FREE" || !activePlan ? (
+                <button
+                  disabled
+                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold border-2 border-slate-200 dark:border-white/10 text-slate-400 dark:text-gray-500 cursor-not-allowed opacity-60"
+                >
+                  Free
+                </button>
+              ) : (
+                <RazorpayCheckout
+                  plan={activePlan}
+                  label={plan.cta}
+                  amountINR={activeAmount}
+                  onSuccess={() => router.refresh()}
+                  onError={setError}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold border-2 border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-200 hover:border-[#3B5BFC] hover:text-[#3B5BFC] dark:hover:border-brand-400 dark:hover:text-brand-400 transition-all"
+                />
+              )}
             </div>
           );
         })}
@@ -323,7 +387,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           <CheckCircle2 size={20} className="text-emerald-600 dark:text-emerald-400 shrink-0" />
           <div>
             <p className="font-semibold text-emerald-800 dark:text-emerald-300">Subscription cancelled</p>
-            <p className="text-sm text-emerald-700 dark:text-emerald-400">You've been moved to the Free plan. Your data is safe.</p>
+            <p className="text-sm text-emerald-700 dark:text-emerald-400">You&apos;ve been moved to the Free plan. Your data is safe.</p>
           </div>
         </div>
       )}
