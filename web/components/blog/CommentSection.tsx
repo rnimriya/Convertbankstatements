@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Loader2, Send, MessageSquare } from "lucide-react";
+import { Loader2, Send, MessageSquare, CornerDownRight } from "lucide-react";
 import type { BlogComment } from "@/lib/blog/types";
 
 interface Props {
@@ -11,31 +11,40 @@ interface Props {
   isLoggedIn: boolean;
 }
 
-export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
-  const [comments, setComments] = useState<BlogComment[]>(initialComments);
+/* ── Small reusable textarea + submit ────────────────────────────── */
+function CommentForm({
+  slug,
+  parentId,
+  placeholder,
+  onPosted,
+  onCancel,
+}: {
+  slug: string;
+  parentId: string | null;
+  placeholder: string;
+  onPosted: (c: BlogComment) => void;
+  onCancel?: () => void;
+}) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!text.trim()) return;
     setLoading(true);
     setError(null);
-    setSuccess(false);
     try {
       const res = await fetch(`/api/blog/${slug}/comments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: text }),
+        body: JSON.stringify({ content: text, parentId }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Failed to post comment.");
-      setComments((prev) => [data, ...prev]);
+      if (!res.ok) throw new Error(data.error ?? "Failed to post.");
+      onPosted(data as BlogComment);
       setText("");
-      setSuccess(true);
-    } catch (err: unknown) {
+    } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setLoading(false);
@@ -43,7 +52,90 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
   };
 
   return (
+    <form onSubmit={submit} className="mt-3">
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder={placeholder}
+        rows={3}
+        maxLength={2000}
+        className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20 resize-none"
+      />
+      <div className="mt-2 flex items-center justify-between gap-2">
+        <span className="text-xs text-slate-400">{text.length}/2000</span>
+        <div className="flex items-center gap-2">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="text-xs font-medium text-slate-400 hover:text-slate-600 transition-colors"
+            >
+              Cancel
+            </button>
+          )}
+          <button
+            type="submit"
+            disabled={loading || !text.trim()}
+            className="flex items-center gap-1.5 rounded-xl bg-brand-400 px-4 py-2 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
+            {parentId ? "Reply" : "Post comment"}
+          </button>
+        </div>
+      </div>
+      {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
+    </form>
+  );
+}
+
+/* ── Avatar initial ──────────────────────────────────────────────── */
+function Avatar({ name, size = "md" }: { name: string; size?: "sm" | "md" }) {
+  const dim = size === "sm" ? "h-7 w-7 text-xs" : "h-9 w-9 text-sm";
+  return (
+    <div className={`flex shrink-0 items-center justify-center rounded-full bg-brand-100 dark:bg-brand-900/30 font-bold text-brand-700 dark:text-brand-300 uppercase ${dim}`}>
+      {name[0]}
+    </div>
+  );
+}
+
+/* ── Formatted date ──────────────────────────────────────────────── */
+function RelativeDate({ iso }: { iso: string }) {
+  const d = new Date(iso);
+  const diffMs = Date.now() - d.getTime();
+  const diffMin = Math.floor(diffMs / 60000);
+  const diffHr = Math.floor(diffMin / 60);
+  const diffDay = Math.floor(diffHr / 24);
+
+  let label: string;
+  if (diffMin < 1) label = "just now";
+  else if (diffMin < 60) label = `${diffMin}m ago`;
+  else if (diffHr < 24) label = `${diffHr}h ago`;
+  else if (diffDay < 7) label = `${diffDay}d ago`;
+  else label = d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+
+  return (
+    <time dateTime={iso} className="text-xs text-slate-400 dark:text-gray-500">
+      {label}
+    </time>
+  );
+}
+
+/* ── Main component ──────────────────────────────────────────────── */
+export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
+  const [comments, setComments] = useState<BlogComment[]>(initialComments);
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+
+  const topLevel = comments.filter((c) => !c.parentId);
+  const repliesOf = (id: string) => comments.filter((c) => c.parentId === id);
+
+  const handlePosted = (c: BlogComment) => {
+    setComments((prev) => [...prev, c]);
+    setReplyingTo(null);
+  };
+
+  return (
     <section className="mt-12 border-t border-slate-100 dark:border-white/10 pt-8">
+      {/* Header */}
       <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
         <MessageSquare className="h-5 w-5 text-brand-500" />
         Comments
@@ -54,41 +146,21 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
         )}
       </h2>
 
-      {/* Comment form */}
+      {/* Top-level comment form */}
       {isLoggedIn ? (
-        <form onSubmit={handleSubmit} className="mt-6">
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Share your thoughts..."
-            rows={3}
-            maxLength={2000}
-            className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20 resize-none"
-          />
-          <div className="mt-2 flex items-center justify-between">
-            <span className="text-xs text-slate-400 dark:text-gray-500">
-              {text.length}/2000
-            </span>
-            <button
-              type="submit"
-              disabled={loading || !text.trim()}
-              className="flex items-center gap-2 rounded-xl bg-brand-400 px-4 py-2 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-              Post comment
-            </button>
-          </div>
-          {error && (
-            <p className="mt-2 text-sm text-red-500 dark:text-red-400">{error}</p>
-          )}
-          {success && (
-            <p className="mt-2 text-sm text-green-600 dark:text-green-400">Comment posted.</p>
-          )}
-        </form>
+        <CommentForm
+          slug={slug}
+          parentId={null}
+          placeholder="Share your thoughts…"
+          onPosted={handlePosted}
+        />
       ) : (
         <div className="mt-6 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-6 py-5 text-center">
           <p className="text-sm text-slate-600 dark:text-gray-400">
-            <Link href={`/login?redirectTo=/blog/${slug}`} className="font-semibold text-brand-500 dark:text-brand-400 hover:underline">
+            <Link
+              href={`/login?redirectTo=/blog/${slug}`}
+              className="font-semibold text-brand-500 dark:text-brand-400 hover:underline"
+            >
               Sign in
             </Link>{" "}
             to leave a comment.
@@ -97,36 +169,80 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
       )}
 
       {/* Comment list */}
-      {comments.length === 0 ? (
+      {topLevel.length === 0 ? (
         <p className="mt-8 text-sm text-slate-400 dark:text-gray-500 text-center">
           No comments yet. Be the first to share your thoughts.
         </p>
       ) : (
-        <ul className="mt-8 space-y-6">
-          {comments.map((c) => (
-            <li key={c.id} className="flex gap-4">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-100 dark:bg-brand-900/30 text-sm font-bold text-brand-700 dark:text-brand-300 uppercase">
-                {(c.userName ?? c.userEmail)[0]}
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-slate-800 dark:text-gray-100">
-                    {c.userName ?? c.userEmail}
-                  </span>
-                  <span className="text-xs text-slate-400 dark:text-gray-500">
-                    {new Date(c.createdAt).toLocaleDateString("en-IN", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </span>
+        <ul className="mt-8 space-y-7">
+          {topLevel.map((comment) => {
+            const replies = repliesOf(comment.id);
+            const isReplying = replyingTo === comment.id;
+
+            return (
+              <li key={comment.id}>
+                {/* Top-level comment */}
+                <div className="flex gap-3">
+                  <Avatar name={comment.userName ?? comment.userEmail} />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-sm font-semibold text-slate-800 dark:text-gray-100">
+                        {comment.userName ?? comment.userEmail}
+                      </span>
+                      <RelativeDate iso={comment.createdAt} />
+                    </div>
+                    <p className="mt-1 text-sm text-slate-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                      {comment.content}
+                    </p>
+
+                    {/* Reply button */}
+                    {isLoggedIn && !isReplying && (
+                      <button
+                        onClick={() => setReplyingTo(comment.id)}
+                        className="mt-2 flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors"
+                      >
+                        <CornerDownRight size={12} />
+                        Reply
+                      </button>
+                    )}
+
+                    {/* Inline reply form */}
+                    {isReplying && (
+                      <CommentForm
+                        slug={slug}
+                        parentId={comment.id}
+                        placeholder={`Replying to ${comment.userName ?? comment.userEmail}…`}
+                        onPosted={handlePosted}
+                        onCancel={() => setReplyingTo(null)}
+                      />
+                    )}
+                  </div>
                 </div>
-                <p className="mt-1 text-sm text-slate-700 dark:text-gray-300 whitespace-pre-wrap">
-                  {c.content}
-                </p>
-              </div>
-            </li>
-          ))}
+
+                {/* Replies (indented) */}
+                {replies.length > 0 && (
+                  <ul className="mt-4 ml-12 space-y-4 border-l-2 border-slate-100 dark:border-white/10 pl-5">
+                    {replies.map((reply) => (
+                      <li key={reply.id} className="flex gap-3">
+                        <Avatar name={reply.userName ?? reply.userEmail} size="sm" />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-semibold text-slate-800 dark:text-gray-100">
+                              {reply.userName ?? reply.userEmail}
+                            </span>
+                            <RelativeDate iso={reply.createdAt} />
+                          </div>
+                          <p className="mt-1 text-sm text-slate-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                            {reply.content}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
     </section>

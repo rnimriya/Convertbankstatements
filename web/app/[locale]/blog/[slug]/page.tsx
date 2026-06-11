@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPostBySlug(slug);
   if (!post || !post.published) notFound();
 
-  const comments = getCommentsForPost(slug);
+  const comments = await getCommentsForPost(slug);
   const session = await getSession();
 
   const relatedSlugs = RELATED_MAP[slug] ?? [];

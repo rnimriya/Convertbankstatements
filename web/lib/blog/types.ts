@@ -20,4 +20,5 @@ export interface BlogComment {
   userEmail: string;
   content: string;
   createdAt: string;
+  parentId: string | null;   // null = top-level, string = reply to that comment id
 }
