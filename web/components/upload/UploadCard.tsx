@@ -234,14 +234,16 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           /* Idle */
           <div className="relative flex flex-col items-center gap-4 text-center px-8 py-6 max-w-2xl w-full">
 
-            {/* Icon */}
+            {/* Icon — no glow plate, just the square with a clean drop shadow */}
             <div
               className="w-[72px] h-[72px] rounded-[22px] flex items-center justify-center transition-all duration-300 shrink-0"
               style={{
-                background: isDragActive ? "#111827" : "#1C1917",
+                background: isDragActive
+                  ? "linear-gradient(145deg,#0f35b8,#1A47C8)"
+                  : "linear-gradient(145deg,#1A47C8,#4a78f5)",
                 boxShadow: isDragActive
-                  ? "0 16px 48px rgba(0,0,0,0.30)"
-                  : "0 10px 30px rgba(0,0,0,0.16)",
+                  ? "0 16px 48px rgba(26,71,200,0.48)"
+                  : "0 10px 30px rgba(26,71,200,0.26)",
                 transform: isDragActive ? "scale(1.08) rotate(-3deg)" : "scale(1)",
               }}
             >
@@ -253,40 +255,40 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
 
             {/* Heading */}
             <div>
-              <h2 className="text-[28px] lg:text-[34px] font-black text-gray-900 leading-tight mb-1.5 tracking-tight whitespace-nowrap">
+              <h2 className="text-[28px] lg:text-[34px] font-black text-slate-900 leading-tight mb-1.5 tracking-tight whitespace-nowrap">
                 {isDragActive ? "Release to convert!" : "Drop your bank statement PDF"}
               </h2>
-              <p className="text-gray-400 text-base">
+              <p className="text-slate-400 text-base">
                 or{" "}
-                <span className="text-gray-700 font-bold underline underline-offset-2 decoration-gray-400 hover:decoration-gray-700 transition-colors">
+                <span className="text-navy font-bold underline underline-offset-2 decoration-navy/30 hover:decoration-navy transition-colors">
                   browse files
                 </span>
               </p>
             </div>
 
             {/* Specs */}
-            <div className="flex items-center gap-2.5 text-[13px] text-gray-400">
+            <div className="flex items-center gap-2.5 text-[13px] text-slate-400">
               <span>PDF only</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
+              <span className="w-1 h-1 rounded-full bg-slate-300" />
               <span>Max {MAX_FILE_MB} MB</span>
-              <span className="w-1 h-1 rounded-full bg-gray-300" />
+              <span className="w-1 h-1 rounded-full bg-slate-300" />
               <span>Password protected OK</span>
             </div>
 
-            {/* Bank chips */}
+            {/* Bank chips — single row */}
             <div className="flex items-center justify-center gap-1.5 flex-wrap">
               {BANKS.map(b => (
                 <span key={b}
-                  className="text-[11px] font-medium px-3 py-1 rounded-full bg-white border border-gray-200 text-gray-500">
+                  className="text-[11px] font-semibold px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-500">
                   {b}
                 </span>
               ))}
-              <span className="text-[11px] px-2 py-1 text-gray-400">+23 more</span>
+              <span className="text-[11px] font-medium px-2 py-1 text-slate-400">+23 more</span>
             </div>
 
             {/* Free pages badge */}
             {billing.tier === "FREE" && freeRemaining > 0 && (
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-emerald-50 border border-emerald-100 text-emerald-700">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[13px] font-semibold bg-emerald-50 border border-emerald-200 text-emerald-700">
                 <CheckCircle2 size={13} />
                 {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} remaining
               </div>
@@ -319,23 +321,24 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     key={f.id}
                     onClick={() => toggleFormat(f.id)}
                     className={cn(
-                      "flex items-center gap-2 pl-2.5 pr-4 py-2 rounded-xl border text-sm font-medium transition-all duration-150 whitespace-nowrap",
+                      "flex items-center gap-2 pl-2.5 pr-4 py-2 rounded-xl border-2 text-sm font-bold transition-all duration-150 whitespace-nowrap",
                       active
-                        ? "bg-gray-900 border-gray-900 text-white shadow-sm"
-                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50"
+                        ? "border-navy text-white shadow-lg shadow-navy/20"
+                        : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
                     )}
+                    style={active ? { background: "linear-gradient(135deg,#1A47C8,#4a78f5)" } : {}}
                   >
                     <span
                       className="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-black shrink-0"
                       style={{
-                        background: active ? "rgba(255,255,255,0.15)" : f.dotBg,
+                        background: active ? "rgba(255,255,255,0.22)" : f.dotBg,
                         color: active ? "#fff" : f.dotColor,
                       }}
                     >
                       {f.label[0]}
                     </span>
                     {f.label}
-                    {active && <CheckCircle2 size={12} className="text-white/70 shrink-0" />}
+                    {active && <CheckCircle2 size={12} className="text-white/75 shrink-0" />}
                   </button>
                 );
               })}
