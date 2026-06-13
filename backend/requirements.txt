@@ -16,12 +16,8 @@ ofxtools==0.9.5
 # AI extraction (Claude Vision for scanned PDFs)
 anthropic==0.40.0
 
-# HTTP client (call Next.js internal APIs)
-httpx==0.28.0
-
 # Config & utilities
 python-dotenv==1.0.1
 pydantic==2.10.3
 pydantic-settings==2.7.0
 aiofiles==24.1.0
-stripe==15.2.0

@@ -15,7 +15,8 @@ interface RazorpayOptions {
   currency: string;
   name: string;
   description: string;
-  order_id: string;
+  order_id?: string;
+  subscription_id?: string;
   handler: (response: RazorpayResponse) => void;
   prefill?: { email?: string; contact?: string };
   theme?: { color?: string };
@@ -23,7 +24,8 @@ interface RazorpayOptions {
 }
 
 interface RazorpayResponse {
-  razorpay_order_id: string;
+  razorpay_order_id?: string;
+  razorpay_subscription_id?: string;
   razorpay_payment_id: string;
   razorpay_signature: string;
 }
@@ -79,6 +81,7 @@ export function RazorpayCheckout({
         name: "Convert Statement",
         description: plan === "payg" ? "Pay-per-document processing" : `${label} Plan`,
         order_id: order.orderId,
+        subscription_id: order.subscriptionId,
         prefill: { email: userEmail },
         theme: { color: "#0284c7" },
         modal: {

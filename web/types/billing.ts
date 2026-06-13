@@ -6,7 +6,7 @@ export interface BillingContext {
   tier: SubTier;
   pagesUsedThisPeriod: number;
   monthlyPageLimit: number;
-  stripeCustomerId: string | null;
+  razorpayCustomerId: string | null;
 }
 
 export interface Transaction {
@@ -22,7 +22,6 @@ export interface BillingDecision {
   billing_type: BillingType;
   pages_charged: number;
   payment_required: boolean;
-  stripe_checkout_url: string | null;
   message: string;
 }
 

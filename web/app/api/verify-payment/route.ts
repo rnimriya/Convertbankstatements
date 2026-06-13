@@ -13,18 +13,19 @@ import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const schema = z.object({
-  razorpay_order_id: z.string(),
+  razorpay_order_id: z.string().optional(),
+  razorpay_subscription_id: z.string().optional(),
   razorpay_payment_id: z.string(),
   razorpay_signature: z.string(),
   plan: z.enum(["payg", "pro", "business", "pro_annual", "business_annual"]),
 });
 
 const PLAN_CONFIG: Record<string, { tier: "FREE" | "PRO" | "BUSINESS"; pageLimit: number; billingCycle: "monthly" | "annual" }> = {
-  pro:              { tier: "PRO",      pageLimit: TIER_CONFIG.PRO.pagesPerMonth,      billingCycle: "monthly" },
-  business:         { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "monthly" },
-  pro_annual:       { tier: "PRO",      pageLimit: TIER_CONFIG.PRO.pagesPerMonth,      billingCycle: "annual"  },
-  business_annual:  { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "annual"  },
-  payg:             { tier: "FREE",     pageLimit: TIER_CONFIG.FREE.pagesPerMonth,     billingCycle: "monthly" },
+  pro: { tier: "PRO", pageLimit: TIER_CONFIG.PRO.pagesPerMonth, billingCycle: "monthly" },
+  business: { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "monthly" },
+  pro_annual: { tier: "PRO", pageLimit: TIER_CONFIG.PRO.pagesPerMonth, billingCycle: "annual" },
+  business_annual: { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "annual" },
+  payg: { tier: "FREE", pageLimit: TIER_CONFIG.FREE.pagesPerMonth, billingCycle: "monthly" },
 };
 
 export async function POST(req: NextRequest) {

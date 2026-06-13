@@ -13,7 +13,7 @@ export async function GET() {
     tier: user.tier,
     pagesUsedThisPeriod: user.pagesUsed,
     monthlyPageLimit: user.monthlyPageLimit,
-    stripeCustomerId: null,
+    razorpayCustomerId: null,
   });
   res.headers.set("Cache-Control", "private, no-cache, no-store");
   return res;

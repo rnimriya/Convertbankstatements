@@ -17,7 +17,7 @@ export default async function DashboardPage() {
     tier: (user?.tier ?? "FREE") as BillingContext["tier"],
     pagesUsedThisPeriod: user?.pagesUsed ?? 0,
     monthlyPageLimit: user?.monthlyPageLimit ?? 8,
-    stripeCustomerId: null,
+    razorpayCustomerId: null,
   };
 
   const recentLogs = user ? await getConversionLogs(user.id) : [];

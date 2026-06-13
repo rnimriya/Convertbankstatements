@@ -22,6 +22,6 @@ export async function GET(req: NextRequest) {
     tier: user.tier,
     pages_used_this_period: user.pagesUsed,
     monthly_page_limit: user.monthlyPageLimit,
-    stripe_customer_id: user.razorpayCustomerId ?? null,
+    razorpay_customer_id: user.razorpayCustomerId ?? null,
   });
 }

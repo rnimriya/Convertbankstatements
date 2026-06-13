@@ -43,18 +43,24 @@ export function verifyWebhookSignature(body: string, signature: string): boolean
 }
 
 export function verifyPaymentSignature(params: {
-  razorpay_order_id: string;
+  razorpay_order_id?: string;
+  razorpay_subscription_id?: string;
   razorpay_payment_id: string;
   razorpay_signature: string;
 }): boolean {
   const secret = process.env.RAZORPAY_KEY_SECRET ?? "";
-  const body = `${params.razorpay_order_id}|${params.razorpay_payment_id}`;
+  
+  let body = "";
+  if (params.razorpay_subscription_id) {
+    body = `${params.razorpay_payment_id}|${params.razorpay_subscription_id}`;
+  } else if (params.razorpay_order_id) {
+    body = `${params.razorpay_order_id}|${params.razorpay_payment_id}`;
+  } else {
+    return false;
+  }
+
   const expected = crypto.createHmac("sha256", secret).update(body).digest("hex");
   try {
-    // BUG-04: both signatures are hex strings — decode to raw bytes before comparing.
-    // Buffer.from(str) without encoding interprets as UTF-8, making a 64-char hex string
-    // 64 bytes. Buffer.from(str, "hex") decodes to 32 bytes. Both must use the same
-    // encoding. Consistent with verifyWebhookSignature above.
     const a = Buffer.from(expected, "hex");
     const b = Buffer.from(params.razorpay_signature, "hex");
     if (a.length !== b.length) return false;
