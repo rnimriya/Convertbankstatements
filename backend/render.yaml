@@ -8,7 +8,9 @@ services:
     rootDir: backend
     dockerfilePath: ./Dockerfile
     healthCheckPath: /health
-    plan: starter
+    # Free tier to start (sleeps after ~15 min idle → first upload may take ~40s
+    # to wake). Upgrade to "starter" in the dashboard later to remove cold starts.
+    plan: free
     envVars:
       - key: APP_ENV
         value: production
