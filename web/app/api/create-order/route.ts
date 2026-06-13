@@ -23,14 +23,14 @@ const schema = z.object({
   pageCount: z.number().optional(),
 });
 
-const PLAN_IDS: Record<string, string | undefined> = {
-  pro: process.env.RAZORPAY_PLAN_PRO_MONTHLY,
-  business: process.env.RAZORPAY_PLAN_BUSINESS_MONTHLY,
-  pro_annual: process.env.RAZORPAY_PLAN_PRO_ANNUAL,
-  business_annual: process.env.RAZORPAY_PLAN_BUSINESS_ANNUAL,
-};
-
 export async function POST(req: NextRequest) {
+  const PLAN_IDS: Record<string, string | undefined> = {
+    pro: process.env.RAZORPAY_PLAN_PRO_MONTHLY,
+    business: process.env.RAZORPAY_PLAN_BUSINESS_MONTHLY,
+    pro_annual: process.env.RAZORPAY_PLAN_PRO_ANNUAL,
+    business_annual: process.env.RAZORPAY_PLAN_BUSINESS_ANNUAL,
+  };
+
   const csrf = checkCsrfOrigin(req);
   if (csrf) return csrf;
 
