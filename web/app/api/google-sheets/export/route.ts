@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { findById } from "@/lib/auth/users";
+import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const schema = z.object({
@@ -33,6 +34,9 @@ async function getAccessToken(refreshToken: string): Promise<string> {
 }
 
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -95,7 +99,8 @@ export async function POST(req: NextRequest) {
     const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;
     return NextResponse.json({ ok: true, url });
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Export failed.";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    // Don't surface raw Google API errors (which can include tokens/IDs) to the client.
+    console.error("[google-sheets/export] error:", err);
+    return NextResponse.json({ error: "Export to Google Sheets failed. Please try again." }, { status: 500 });
   }
 }

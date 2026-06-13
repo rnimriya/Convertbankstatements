@@ -12,10 +12,16 @@ export interface JWTPayload {
   sub: string;
   email: string;
   name: string | null;
+  /** Monotonic session-revocation counter. Bumped on password change / logout-all. */
+  tokenVersion: number;
 }
 
 export async function signJWT(payload: JWTPayload): Promise<string> {
-  return new SignJWT({ email: payload.email, name: payload.name })
+  return new SignJWT({
+    email: payload.email,
+    name: payload.name,
+    tv: payload.tokenVersion ?? 0,
+  })
     .setProtectedHeader({ alg: "HS256" })
     .setSubject(payload.sub)
     .setIssuedAt()
@@ -42,6 +48,7 @@ export async function verifyJWT(token: string): Promise<JWTPayload | null> {
       sub,
       email,
       name: (payload.name as string | null) ?? null,
+      tokenVersion: typeof payload.tv === "number" ? payload.tv : 0,
     };
   } catch {
     return null;

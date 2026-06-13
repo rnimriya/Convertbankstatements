@@ -31,11 +31,10 @@ export async function POST(req: NextRequest) {
 
     await sendResetEmail(user.email, resetUrl);
 
-    return NextResponse.json({
-      ok: true,
-      message: SUCCESS_MSG,
-      ...(process.env.NODE_ENV === "development" ? { resetUrl } : {}),
-    });
+    // Never return the reset URL in the response body — doing so would turn this
+    // endpoint into an account-takeover primitive if the env were misconfigured.
+    // In local dev the link is logged to the server console by sendResetEmail().
+    return NextResponse.json({ ok: true, message: SUCCESS_MSG });
   } catch {
     return NextResponse.json({ error: "Something went wrong." }, { status: 500 });
   }

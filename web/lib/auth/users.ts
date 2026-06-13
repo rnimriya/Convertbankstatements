@@ -40,6 +40,10 @@ export interface User {
   teamId?: string | null;
   teamRole?: "owner" | "member" | null;
   apiKey?: string | null;
+  /** Session-revocation counter — bumped on password change / "log out everywhere". */
+  tokenVersion?: number;
+  /** True once the referral bonus for this account has been granted (on email verify). */
+  referralCredited?: boolean;
 }
 
 export interface ConversionLog {
@@ -110,6 +114,8 @@ function toHash(u: User): Record<string, string | number> {
     teamId: u.teamId ?? "",
     teamRole: u.teamRole ?? "",
     apiKey: u.apiKey ?? "",
+    tokenVersion: u.tokenVersion ?? 0,
+    referralCredited: u.referralCredited ? "1" : "0",
   };
 }
 
@@ -148,6 +154,8 @@ function fromHash(h: Record<string, string>): User {
     teamId: h.teamId || null,
     teamRole: (h.teamRole || null) as User["teamRole"],
     apiKey: h.apiKey || null,
+    tokenVersion: parseInt(h.tokenVersion ?? "0", 10),
+    referralCredited: h.referralCredited === "1",
   };
 }
 
@@ -500,6 +508,8 @@ export async function updatePassword(
       resetToken: "",
       resetTokenExpiry: "",
     });
+    // Bump tokenVersion so every existing session (any device) is invalidated.
+    pipe.hincrby(UK(userId), "tokenVersion", 1);
     if (consumedToken) pipe.del(RK(consumedToken));
     await pipe.exec();
     return;
@@ -510,6 +520,7 @@ export async function updatePassword(
     user.passwordHash = newPasswordHash;
     user.resetToken = null;
     user.resetTokenExpiry = null;
+    user.tokenVersion = (user.tokenVersion ?? 0) + 1;
     await fileWrite(users);
   }
 }
@@ -562,30 +573,77 @@ export async function setEmailVerifyToken(
   }
 }
 
-export async function verifyEmail(token: string): Promise<boolean> {
+/** Verifies an email token. Returns the verified user's id on success, else null. */
+export async function verifyEmail(token: string): Promise<string | null> {
   if (useRedis()) {
     const userId = await r().get<string>(EVK(token));
-    if (!userId) return false;
+    if (!userId) return null;
     const hash = await r().hgetall(UK(userId));
-    if (!hash) return false;
+    if (!hash) return null;
     const user = fromHash(hash as Record<string, string>);
-    if (user.emailVerifyToken !== token) return false;
-    if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return false;
+    if (user.emailVerifyToken !== token) return null;
+    if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return null;
     const pipe = r().pipeline();
     pipe.hset(UK(userId), { emailVerified: "1", emailVerifyToken: "", emailVerifyExpiry: "" });
     pipe.del(EVK(token));
     await pipe.exec();
-    return true;
+    return userId;
   }
   const users = await fileRead();
   const user = users.find(u => u.emailVerifyToken === token);
-  if (!user) return false;
-  if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return false;
+  if (!user) return null;
+  if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return null;
   user.emailVerified = true;
   user.emailVerifyToken = null;
   user.emailVerifyExpiry = null;
   await fileWrite(users);
-  return true;
+  return user.id;
+}
+
+// ── Referral crediting ─────────────────────────────────────────────────────────
+
+/** Bonus granted to each party when a referred account verifies its email. */
+export const REFERRAL_BONUS_PAGES = 50;
+/** Hard cap on total referral pages a single referrer can ever accrue (anti-farming). */
+const REFERRER_MAX_CREDIT_PAGES = 500;
+
+/**
+ * Grants the referral bonus to a newly-verified user and their referrer.
+ *
+ * Crediting is deliberately deferred to *email verification* (not signup) so that
+ * unverified throwaway accounts can't farm free pages. A one-time guard prevents
+ * double-crediting, and the referrer is capped to limit large-scale abuse.
+ */
+export async function creditReferralForUser(userId: string): Promise<void> {
+  const user = await findById(userId);
+  if (!user || !user.referredBy || user.referralCredited) return;
+
+  // Atomic one-time guard so concurrent verifications can't double-credit.
+  if (useRedis()) {
+    const claimed = await r().set(`cs:refcredit:${userId}`, "1", { nx: true });
+    if (!claimed) return;
+    await r().hset(UK(userId), { referralCredited: "1" });
+  } else {
+    const users = await fileRead();
+    const u = users.find((x) => x.id === userId);
+    if (!u || u.referralCredited) return;
+    u.referralCredited = true;
+    await fileWrite(users);
+  }
+
+  // Credit the referee.
+  await creditPages(userId, REFERRAL_BONUS_PAGES);
+
+  // Credit the referrer, guarding against self-referral and respecting the cap.
+  const referrer = await findById(user.referredBy);
+  if (
+    referrer &&
+    referrer.id !== userId &&
+    referrer.email !== user.email &&
+    referrer.referralPagesCredited < REFERRER_MAX_CREDIT_PAGES
+  ) {
+    await creditPages(referrer.id, REFERRAL_BONUS_PAGES);
+  }
 }
 
 // ── Subscription Cancellation ─────────────────────────────────────────────────
@@ -616,13 +674,18 @@ export async function changePassword(
   newPasswordHash: string
 ): Promise<void> {
   if (useRedis()) {
-    await r().hset(UK(userId), { passwordHash: newPasswordHash });
+    const pipe = r().pipeline();
+    pipe.hset(UK(userId), { passwordHash: newPasswordHash });
+    // Invalidate all other active sessions on password change.
+    pipe.hincrby(UK(userId), "tokenVersion", 1);
+    await pipe.exec();
     return;
   }
   const users = await fileRead();
   const user = users.find(u => u.id === userId);
   if (user) {
     user.passwordHash = newPasswordHash;
+    user.tokenVersion = (user.tokenVersion ?? 0) + 1;
     await fileWrite(users);
   }
 }
@@ -640,6 +703,24 @@ export async function setGoogleSheetsToken(userId: string, refreshToken: string)
     user.googleSheetsRefreshToken = refreshToken;
     await fileWrite(users);
   }
+}
+
+// ── Token version (session revocation) ─────────────────────────────────────────
+
+/**
+ * Returns the user's current tokenVersion, or null if the user can't be found.
+ * Used by getSession to reject JWTs minted before a password change / logout-all.
+ */
+export async function getTokenVersion(userId: string): Promise<number | null> {
+  if (useRedis()) {
+    const v = await r().hget<string | number>(UK(userId), "tokenVersion");
+    if (v === null || v === undefined) return 0; // legacy users with no field
+    return typeof v === "number" ? v : parseInt(v, 10) || 0;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (!user) return null;
+  return user.tokenVersion ?? 0;
 }
 
 // ── API Key ───────────────────────────────────────────────────────────────────

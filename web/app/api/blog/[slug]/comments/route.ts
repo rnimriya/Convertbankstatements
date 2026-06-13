@@ -3,6 +3,7 @@ import { getCommentsForPost, addComment } from "@/lib/blog/comments";
 import { getPostBySlug } from "@/lib/blog/posts";
 import { getSession } from "@/lib/auth/session";
 import { moderateComment } from "@/lib/blog/moderation";
+import { checkCsrfOrigin } from "@/lib/csrf";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -11,6 +12,9 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
 }
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "You must be logged in to comment." }, { status: 401 });

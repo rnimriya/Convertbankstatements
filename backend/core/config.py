@@ -8,28 +8,10 @@ class Settings(BaseSettings):
     # App
     app_name: str = "BankStatements API"
     debug: bool = False
-    backend_api_key: str  # shared secret with Next.js
-
-    # Database
-    database_url: str
-
-    # Supabase (JWT verification)
-    supabase_url: str
-    supabase_service_role_key: str
-
-    # Stripe
-    stripe_secret_key: str
-    stripe_price_payg: str
-    stripe_webhook_secret: str
+    backend_api_key: str = ""  # shared secret with Next.js (required in production)
 
     # LLM
-    anthropic_api_key: str
-
-    # Billing constants
-    free_page_limit: int = 8
-    payg_price_cents: int = 199        # $1.99
-    pro_page_limit: int = 200          # pages per billing period
-    business_page_limit: int = 500
+    anthropic_api_key: str = ""
 
     # File handling
     max_upload_size_mb: int = 50

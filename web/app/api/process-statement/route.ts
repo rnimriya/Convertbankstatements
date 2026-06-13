@@ -14,11 +14,29 @@ import { randomUUID } from "crypto";
 import { getPortal } from "@/lib/portals";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
+import { checkUploadRateLimit } from "@/lib/rate-limit";
+import { getRedis } from "@/lib/redis";
+import { isDeployed } from "@/lib/env";
 import { cookies } from "next/headers";
 
 const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;
 
+// Server-side anonymous quota, keyed by client IP. The `bs_pages_used` cookie is
+// user-deletable, so it cannot be the only brake on free usage. This Redis counter
+// (30-day TTL) is the authoritative backstop for unauthenticated uploads.
+const ANON_IP_KEY = (ip: string) => `cs:anon:pages:${ip}`;
+const ANON_TTL_SECONDS = 60 * 60 * 24 * 30;
+
+function clientIp(req: NextRequest): string {
+  return (req.headers.get("x-forwarded-for") ?? "127.0.0.1").split(",")[0].trim();
+}
+
 export async function POST(req: NextRequest) {
+  // Rate limit every upload — each non-demo request can trigger a paid Vision call.
+  // Applied before any work so anonymous abuse can't amplify cost.
+  const limited = await checkUploadRateLimit(req);
+  if (limited) return limited;
+
   // ── Demo mode ──────────────────────────────────────────────────────────────
   // ?demo=true skips file upload, billing, and auth — used by the "Try sample" button.
   if (req.nextUrl.searchParams.get("demo") === "true") {
@@ -108,11 +126,21 @@ export async function POST(req: NextRequest) {
   }
 
   if (!isPortalUpload && !session) {
-    // Anonymous: cookie-based tracking (soft limit — requires login for real enforcement).
-    // On any tampered/invalid cookie value default to FREE_PAGE_CAP so the user hits the
-    // payment wall rather than getting a free reset.
+    // Anonymous: cookie-based tracking, backstopped by a server-side IP counter.
+    // The cookie alone is user-deletable; we take the MAX of the cookie value and
+    // the Redis IP counter so clearing cookies can't reset the free allowance.
+    // On any tampered/invalid cookie value default to FREE_PAGE_CAP.
     const raw = parseInt(jar.get("bs_pages_used")?.value ?? "0", 10);
-    pagesUsed = Number.isInteger(raw) && raw >= 0 && raw <= FREE_PAGE_CAP * 10 ? raw : FREE_PAGE_CAP;
+    const cookiePages =
+      Number.isInteger(raw) && raw >= 0 && raw <= FREE_PAGE_CAP * 10 ? raw : FREE_PAGE_CAP;
+
+    let ipPages = 0;
+    const redis = getRedis();
+    if (redis) {
+      const stored = await redis.get<number>(ANON_IP_KEY(clientIp(req)));
+      ipPages = typeof stored === "number" && stored >= 0 ? stored : 0;
+    }
+    pagesUsed = Math.max(cookiePages, ipPages);
   }
 
   if (tier === "FREE") {
@@ -140,10 +168,11 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // ── Extract transactions: try FastAPI first, fall back to mock ────────────
+  // ── Extract transactions: real backend, then dev-only mock fallback ────────
   let transactions: ReturnType<typeof generateMockTransactions> = [];
   let bankName = inferBankName(file.name, bytes.toString("latin1").slice(0, 2000));
   let isDemo = true;
+  let backendSucceeded = false;
 
   const backendUrl = process.env.BACKEND_URL_SERVER ?? "http://localhost:8000";
   try {
@@ -165,14 +194,23 @@ export async function POST(req: NextRequest) {
       transactions = data.transactions ?? [];
       bankName = data.bank_name ?? bankName;
       isDemo = false;
+      backendSucceeded = true;
     }
   } catch {
-    // FastAPI not running — fall through to mock
+    // FastAPI unreachable — handled below.
   }
 
-  if (transactions.length === 0) {
+  // In a deployed environment we must NEVER fabricate financial data. If the real
+  // extraction backend is unavailable, surface an honest error instead of mock
+  // transactions. The mock generator is retained only for local development.
+  if (!backendSucceeded) {
+    if (isDeployed()) {
+      return NextResponse.json(
+        { error: "Extraction service is temporarily unavailable. Please try again shortly." },
+        { status: 503 }
+      );
+    }
     isDemo = true;
-
     transactions = generateMockTransactions(pageCount);
   }
 
@@ -225,6 +263,14 @@ export async function POST(req: NextRequest) {
     jar.set("bs_pages_used", String(pagesUsed + pageCount), {
       httpOnly: true, sameSite: "lax", maxAge: 60 * 60 * 24 * 365,
     });
+    // Mirror into the authoritative server-side IP counter so the quota survives
+    // cookie deletion. INCRBY is atomic; refresh the TTL on each write.
+    const redis = getRedis();
+    if (redis) {
+      const key = ANON_IP_KEY(clientIp(req));
+      await redis.incrby(key, pageCount);
+      await redis.expire(key, ANON_TTL_SECONDS);
+    }
   }
 
   return NextResponse.json({

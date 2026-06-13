@@ -9,6 +9,7 @@ import { CommentSection } from "@/components/blog/CommentSection";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { RELATED_MAP } from "@/lib/blog/related";
 import { getTranslations } from "next-intl/server";
+import DOMPurify from "isomorphic-dompurify";
 
 export const dynamic = "force-dynamic";
 
@@ -144,7 +145,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           {/* Content */}
           <article
             className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            // Sanitize before injecting: defense-in-depth so authored/seed HTML
+            // can never introduce script/onload-style XSS.
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
           />
 
           {/* Back link */}

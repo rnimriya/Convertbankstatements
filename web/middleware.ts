@@ -18,12 +18,9 @@ export async function middleware(request: NextRequest) {
   const isProtected = PROTECTED.some((p) => strippedPath.startsWith(p));
   const isAuthPage = AUTH_PAGES.some((p) => strippedPath.startsWith(p));
 
-  // Explicit logout: clear cookie and redirect to /login
-  if (request.nextUrl.searchParams.has("logout")) {
-    const res = NextResponse.redirect(new URL("/login", request.url));
-    res.cookies.delete("bs_token");
-    return res;
-  }
+  // NOTE: logout is handled exclusively by POST /api/auth/logout. A GET-based
+  // "?logout" handler was removed because it allowed CSRF forced-logout
+  // (e.g. <img src="…/?logout">) — GET must never mutate session state.
 
   // Run intl middleware for all non-auth, non-protected paths
   if (!isProtected && !isAuthPage) return intlMiddleware(request);

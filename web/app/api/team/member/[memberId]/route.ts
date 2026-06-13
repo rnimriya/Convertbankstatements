@@ -2,11 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { findById } from "@/lib/auth/users";
 import { getRedis } from "@/lib/redis";
+import { checkCsrfOrigin } from "@/lib/csrf";
 
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ memberId: string }> }
 ) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const { memberId } = await params;
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
