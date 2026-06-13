@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { checkCsrfOrigin } from "@/lib/csrf";
 import { getResend, EMAIL_FROM } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   // Rate limit check
   const limited = await checkRateLimit(req);
   if (limited) return limited;

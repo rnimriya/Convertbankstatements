@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { createUser, findByReferralCode, creditPages } from "@/lib/auth/users";
+import { createUser, findByReferralCode } from "@/lib/auth/users";
 import { signJWT } from "@/lib/auth/jwt";
 import { sessionCookieOptions, SESSION_COOKIE } from "@/lib/auth/session";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
-
-const REFERRAL_BONUS_PAGES = 50;
 
 const schema = z.object({
   email: z.string().email("Invalid email address."),
@@ -31,42 +29,41 @@ export async function POST(req: NextRequest) {
 
     const { email, password, name, referralCode } = parsed.data;
 
-    const passwordHash = await bcrypt.hash(password, 12);
-    const user = await createUser(email, passwordHash, name);
-
-    // Resolve referral code after user creation so we can guard against self-referral.
-    let referrerId: string | null = null;
+    // Resolve the referrer up front and persist it on the new account. Crediting
+    // is deferred until the user verifies their email (see creditReferralForUser),
+    // so unverified throwaway accounts can't farm free pages.
+    let referrerId: string | undefined;
     if (referralCode) {
       const referrer = await findByReferralCode(referralCode).catch(() => null);
-      // Reject self-referral (same account or same email registered twice)
-      if (referrer && referrer.id !== user.id && referrer.email !== email) {
+      // Reject self-referral (same email registered twice).
+      if (referrer && referrer.email !== email.toLowerCase()) {
         referrerId = referrer.id;
       }
     }
 
-    // Credit both parties with bonus pages.
-    // Isolated in its own try-catch: a Redis failure here must not roll back the
-    // signup or leak an error message — the account is already created and the
-    // JWT is about to be issued. Lost referral pages are non-critical and can be
-    // corrected manually if needed.
-    if (referrerId) {
-      try {
-        await Promise.all([
-          creditPages(user.id, REFERRAL_BONUS_PAGES),
-          creditPages(referrerId, REFERRAL_BONUS_PAGES),
-        ]);
-      } catch (err) {
-        console.error("[signup] referral credit failed for user", user.id, err);
-      }
-    }
+    const passwordHash = await bcrypt.hash(password, 12);
+    const user = await createUser(email, passwordHash, name, referrerId);
 
-    const token = await signJWT({ sub: user.id, email: user.email, name: user.name });
+    const token = await signJWT({
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+      tokenVersion: user.tokenVersion ?? 0,
+    });
 
     const res = NextResponse.json({ ok: true, email: user.email });
     res.cookies.set(SESSION_COOKIE, token, sessionCookieOptions());
     return res;
   } catch (err: unknown) {
-    const message = err instanceof Error ? err.message : "Signup failed.";
-    return NextResponse.json({ error: message }, { status: 400 });
+    // Do not echo internal errors or explicitly confirm that an email is already
+    // registered — that enables account enumeration. Return a neutral message
+    // that's identical whether the email exists or another error occurred.
+    const isDuplicate =
+      err instanceof Error && /already exists/i.test(err.message);
+    if (!isDuplicate) console.error("[signup] error:", err);
+    return NextResponse.json(
+      { error: "Could not complete signup. If you already have an account, try logging in." },
+      { status: 400 }
+    );
   }
 }

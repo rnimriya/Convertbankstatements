@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { deactivatePortal } from "@/lib/portals";
+import { checkCsrfOrigin } from "@/lib/csrf";
 
 /** DELETE /api/portals/{token} — deactivate (soft-delete) a portal */
 export async function DELETE(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ token: string }> }
 ) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

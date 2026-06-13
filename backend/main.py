@@ -33,9 +33,14 @@ log = logging.getLogger(__name__)
 
 app = FastAPI(title="BankStatements API", version="1.0.0")
 
+# Only allow configured origins — drop empty entries so an unset WEB_URL doesn't
+# register a blank "" origin. (This API is normally called server-to-server with
+# the BACKEND_API_KEY; CORS is a secondary control.)
+_allowed_origins = [o for o in ["http://localhost:3000", os.getenv("WEB_URL", "")] if o]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", os.getenv("WEB_URL", "")],
+    allow_origins=_allowed_origins,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -43,12 +48,24 @@ app.add_middleware(
 
 # ─── Internal API key guard ───────────────────────────────────────────────────
 
+def _is_local_dev() -> bool:
+    """True only for genuine local development. Anything deployed (Render/Fly/etc.
+    set their own markers, or we set APP_ENV=production) is treated as production
+    so the API-key guard FAILS CLOSED rather than open."""
+    return os.getenv("APP_ENV", "development").lower() not in ("production", "staging")
+
+
 def _verify_api_key(x_api_key: str = Header(default="")):
-    """Require BACKEND_API_KEY header on all processing endpoints.
-    In dev (key not set) the check is skipped so local testing works without config."""
+    """Require the BACKEND_API_KEY header on all processing endpoints.
+
+    Fails CLOSED: if the key is not configured in a deployed environment we reject
+    every request (503) instead of allowing all. The check is only skipped for
+    genuine local development where no key is set."""
     expected = os.getenv("BACKEND_API_KEY", "")
     if not expected:
-        return  # dev mode: no key configured → allow all
+        if _is_local_dev():
+            return  # local dev convenience: no key configured → allow
+        raise HTTPException(status_code=503, detail="Backend not configured.")
     if not secrets.compare_digest(x_api_key, expected):
         raise HTTPException(status_code=403, detail="Forbidden.")
 
@@ -410,12 +427,27 @@ def detect_bank(text: str) -> Optional[str]:
 
 # ─── CSV export ───────────────────────────────────────────────────────────────
 
+def _csv_safe(value) -> str:
+    """Neutralise CSV/spreadsheet formula injection: prefix cells that begin with
+    =, +, -, @, or a control char with a single quote so they aren't evaluated as
+    formulas when the exported file is opened in Excel/LibreOffice/Sheets."""
+    s = "" if value is None else str(value)
+    return "'" + s if s[:1] in ("=", "+", "-", "@", "\t", "\r") else s
+
+
 def to_csv_b64(txns: list[Transaction]) -> str:
     buf = io.StringIO()
     w = csv.writer(buf)
     w.writerow(["Date", "Description", "Amount (INR)", "Balance (INR)", "Category", "Reference"])
     for t in txns:
-        w.writerow([t.date, t.description, t.amount, t.balance or "", t.category or "", t.reference or ""])
+        w.writerow([
+            _csv_safe(t.date),
+            _csv_safe(t.description),
+            t.amount,
+            t.balance or "",
+            _csv_safe(t.category or ""),
+            _csv_safe(t.reference or ""),
+        ])
     return base64.b64encode(buf.getvalue().encode()).decode()
 
 
@@ -476,4 +508,9 @@ async def process_statement(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_level="info")
+    # Bind to loopback by default so the service isn't exposed on all interfaces.
+    # Override with HOST=0.0.0.0 only when the platform requires it (and ensure
+    # BACKEND_API_KEY is set so the endpoint stays authenticated).
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run("main:app", host=host, port=port, reload=True, log_level="info")

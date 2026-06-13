@@ -66,7 +66,9 @@ export async function POST(req: NextRequest) {
       keyId: process.env.RAZORPAY_KEY_ID,
     });
   } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : "Order creation failed.";
-    return NextResponse.json({ error: msg }, { status: 500 });
+    // Log the real (possibly Razorpay-internal) error server-side; return a
+    // generic message so we don't leak provider internals to the client.
+    console.error("[create-order] error:", err);
+    return NextResponse.json({ error: "Order creation failed. Please try again." }, { status: 500 });
   }
 }

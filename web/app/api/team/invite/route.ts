@@ -6,6 +6,7 @@ import { findById } from "@/lib/auth/users";
 import { getRedis } from "@/lib/redis";
 import { getResend, EMAIL_FROM } from "@/lib/email";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { checkCsrfOrigin } from "@/lib/csrf";
 
 const schema = z.object({
   email: z.string().email("Invalid email address."),
@@ -39,6 +40,9 @@ async function sendInviteEmail(to: string, inviterName: string | null, token: st
 }
 
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const limited = await checkRateLimit(req);
   if (limited) return limited;
 

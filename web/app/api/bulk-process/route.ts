@@ -20,6 +20,8 @@ import {
 } from "@/lib/mock-transactions";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
+import { checkUploadRateLimit } from "@/lib/rate-limit";
+import { isDeployed } from "@/lib/env";
 import JSZip from "jszip";
 
 const MAX_FILES = 20;
@@ -36,6 +38,9 @@ interface FileResult {
 }
 
 export async function POST(req: NextRequest) {
+  const limited = await checkUploadRateLimit(req);
+  if (limited) return limited;
+
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -129,6 +134,7 @@ export async function POST(req: NextRequest) {
     try {
       let transactions = generateMockTransactions(countPdfPages(bytes));
       let bankName: string | null = inferBankName(name);
+      let backendSucceeded = false;
 
       // Try FastAPI upstream
       try {
@@ -145,8 +151,22 @@ export async function POST(req: NextRequest) {
           const d = await up.json();
           transactions = d.transactions ?? transactions;
           bankName = d.bank_name ?? bankName;
+          backendSucceeded = true;
         }
-      } catch { /* FastAPI not running, use mock */ }
+      } catch { /* FastAPI unreachable — handled below */ }
+
+      // Never return fabricated transactions in a deployed environment.
+      if (!backendSucceeded && isDeployed()) {
+        results.push({
+          fileName: name,
+          pageCount: 0,
+          transactionCount: 0,
+          bankName,
+          exportUrls: {},
+          error: "Extraction service unavailable",
+        });
+        continue;
+      }
 
       const exportUrls: { csv?: string; xlsx?: string } = {};
       if (exportFormats.includes("csv")) {

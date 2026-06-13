@@ -4,6 +4,7 @@ import { z } from "zod";
 import { getSession, SESSION_COOKIE } from "@/lib/auth/session";
 import { findById, changePassword } from "@/lib/auth/users";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { checkCsrfOrigin } from "@/lib/csrf";
 
 const schema = z.object({
   oldPassword: z.string().min(1),
@@ -11,6 +12,9 @@ const schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const limited = await checkRateLimit(req);
   if (limited) return limited;
 

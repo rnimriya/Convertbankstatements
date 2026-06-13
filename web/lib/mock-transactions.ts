@@ -91,17 +91,32 @@ export function generateMockTransactions(pageCount: number): Transaction[] {
   return transactions.sort((a, b) => b.date.localeCompare(a.date));
 }
 
+/**
+ * Neutralise CSV/spreadsheet formula injection. A cell beginning with =, +, -, @,
+ * or a control char is treated as a formula by Excel/LibreOffice/Sheets when the
+ * file is opened. Transaction text comes from uploaded (possibly attacker-supplied,
+ * e.g. via a client portal) PDFs, so we prefix such values with a single quote.
+ */
+function csvSafe(value: string): string {
+  return /^[=+\-@\t\r]/.test(value) ? `'${value}` : value;
+}
+
+/** Wrap a string cell for CSV: sanitise formulas, then quote and escape. */
+function csvCell(value: string): string {
+  return `"${csvSafe(value).replace(/"/g, '""')}"`;
+}
+
 export function transactionsToCSV(transactions: Transaction[]): string {
   const header = "Date,Description,Amount (INR),Balance (INR),Category,Reference\n";
   const rows = transactions
     .map((t) =>
       [
-        t.date,
-        `"${t.description.replace(/"/g, '""')}"`,
+        csvCell(t.date),
+        csvCell(t.description),
         t.amount.toFixed(2),
         t.balance?.toFixed(2) ?? "",
-        t.category ?? "",
-        t.reference ?? "",
+        csvCell(t.category ?? ""),
+        csvCell(t.reference ?? ""),
       ].join(",")
     )
     .join("\n");

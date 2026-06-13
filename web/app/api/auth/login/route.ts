@@ -45,7 +45,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
 
-    const token = await signJWT({ sub: user.id, email: user.email, name: user.name });
+    const token = await signJWT({
+      sub: user.id,
+      email: user.email,
+      name: user.name,
+      tokenVersion: user.tokenVersion ?? 0,
+    });
 
     const res = NextResponse.json({ ok: true, email: user.email });
     res.cookies.set(SESSION_COOKIE, token, sessionCookieOptions());

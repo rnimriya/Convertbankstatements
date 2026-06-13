@@ -8,6 +8,7 @@
  * Returns a 403 NextResponse if the origin is disallowed, null if it is fine.
  */
 import { NextRequest, NextResponse } from "next/server";
+import { isLocalDev } from "@/lib/env";
 
 const ALLOWED_ORIGINS = new Set([
   "https://convertstatement.online",
@@ -15,8 +16,9 @@ const ALLOWED_ORIGINS = new Set([
 ]);
 
 export function checkCsrfOrigin(req: NextRequest): NextResponse | null {
-  // In development, skip the check (localhost has no sensible origin to enforce).
-  if (process.env.NODE_ENV !== "production") return null;
+  // Skip only in genuine local development; any deployed environment enforces.
+  // (Fail secure — never key this on NODE_ENV alone.)
+  if (isLocalDev()) return null;
 
   const origin = req.headers.get("origin") ?? "";
   if (!ALLOWED_ORIGINS.has(origin)) {

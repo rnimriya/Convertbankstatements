@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { createPortal, listPortals } from "@/lib/portals";
+import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const createSchema = z.object({
@@ -18,6 +19,9 @@ export async function GET() {
 
 /** POST /api/portals — create a new portal */
 export async function POST(req: NextRequest) {
+  const csrf = checkCsrfOrigin(req);
+  if (csrf) return csrf;
+
   const session = await getSession();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
