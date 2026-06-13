@@ -1,6 +1,6 @@
 /**
  * POST /api/create-order
- * Creates a Razorpay order for PAYG (₹49) or subscription plans.
+ * Creates a Razorpay order for subscription plans.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
