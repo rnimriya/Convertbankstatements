@@ -1,0 +1,21 @@
+# Render Blueprint for the FastAPI extraction backend.
+# In Render: New → Blueprint → point at this repo (root dir: backend).
+# Then set the two `sync: false` secrets in the dashboard.
+services:
+  - type: web
+    name: convertstatement-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    plan: starter
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: WEB_URL
+        value: https://www.convertstatement.online
+      # Secrets — set these in the Render dashboard (do not commit values):
+      - key: BACKEND_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
