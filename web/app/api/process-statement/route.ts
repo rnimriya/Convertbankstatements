@@ -14,9 +14,9 @@ import { randomUUID } from "crypto";
 import { getPortal } from "@/lib/portals";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
+import { extractTransactions } from "@/lib/extraction/extract";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
 import { getRedis } from "@/lib/redis";
-import { isDeployed } from "@/lib/env";
 import { cookies } from "next/headers";
 
 const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;
@@ -168,50 +168,29 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // ── Extract transactions: real backend, then dev-only mock fallback ────────
+  // ── Extract transactions in-app (no external backend required) ─────────────
+  // Text PDFs are parsed locally; scanned PDFs use Claude Vision when
+  // ANTHROPIC_API_KEY is set. We never fabricate financial data.
   let transactions: ReturnType<typeof generateMockTransactions> = [];
   let bankName = inferBankName(file.name, bytes.toString("latin1").slice(0, 2000));
-  let isDemo = true;
-  let backendSucceeded = false;
+  const isDemo = false;
 
-  const backendUrl = process.env.BACKEND_URL_SERVER ?? "http://localhost:8000";
-  try {
-    const upstreamForm = new FormData();
-    upstreamForm.append("file", new Blob([bytes], { type: "application/pdf" }), file.name);
-    upstreamForm.append("export_formats", exportFormats.join(","));
+  const extraction = await extractTransactions(bytes, file.name);
+  transactions = extraction.transactions;
+  bankName = extraction.bankName ?? bankName;
 
-    const upstream = await fetch(`${backendUrl}/api/process-statement`, {
-      method: "POST",
-      body: upstreamForm,
-      signal: AbortSignal.timeout(300_000),
-      headers: {
-        "x-api-key": process.env.BACKEND_API_KEY ?? "",
+  if (extraction.method === "none" || transactions.length === 0) {
+    // A valid PDF we couldn't read (likely scanned with no Vision configured).
+    // Be honest rather than returning fake rows.
+    return NextResponse.json(
+      {
+        error: "NO_TRANSACTIONS_FOUND",
+        message:
+          "We couldn't read any transactions from this PDF. If it's a scanned/photo statement, scanned-document support must be enabled. Otherwise the file may be password-protected or in an unsupported layout.",
+        page_count: pageCount,
       },
-    });
-
-    if (upstream.ok) {
-      const data = await upstream.json();
-      transactions = data.transactions ?? [];
-      bankName = data.bank_name ?? bankName;
-      isDemo = false;
-      backendSucceeded = true;
-    }
-  } catch {
-    // FastAPI unreachable — handled below.
-  }
-
-  // In a deployed environment we must NEVER fabricate financial data. If the real
-  // extraction backend is unavailable, surface an honest error instead of mock
-  // transactions. The mock generator is retained only for local development.
-  if (!backendSucceeded) {
-    if (isDeployed()) {
-      return NextResponse.json(
-        { error: "Extraction service is temporarily unavailable. Please try again shortly." },
-        { status: 503 }
-      );
-    }
-    isDemo = true;
-    transactions = generateMockTransactions(pageCount);
+      { status: 422 }
+    );
   }
 
   // ── Build export URLs ──────────────────────────────────────────────────────
