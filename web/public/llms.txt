@@ -24,7 +24,7 @@ SBI (State Bank of India), HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank
 
 ## Pricing
 - Free tier: First 8 pages free, no credit card required
-- Pay-per-document: ₹49 per document (any format, all banks)
+
 - Pro plan: ₹399/month — 200 pages/month, all formats, Google Sheets, priority processing
 - Business plan: ₹999/month — 500 pages/month, for CA firms and fintech teams
 

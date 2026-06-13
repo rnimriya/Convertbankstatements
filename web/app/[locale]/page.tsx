@@ -114,7 +114,7 @@ export default async function HomePage() {
     description: "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
     offers: [
       { "@type": "Offer", name: "Free tier", price: "0", priceCurrency: "INR" },
-      { "@type": "Offer", name: "Pay-per-document", price: "49", priceCurrency: "INR" },
+
       { "@type": "Offer", name: "Pro", price: "1198", priceCurrency: "INR" },
       { "@type": "Offer", name: "Business", price: "4498", priceCurrency: "INR" },
     ],

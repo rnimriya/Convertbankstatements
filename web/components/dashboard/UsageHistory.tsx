@@ -19,7 +19,6 @@ interface Log {
 const BILLING_BADGE: Record<string, { label: string; variant: "success" | "brand" | "warning" }> = {
   FREE_TIER:    { label: "Free",         variant: "success" },
   SUBSCRIPTION: { label: "Subscription", variant: "brand"   },
-  PAY_AS_YOU_GO:{ label: "₹49",          variant: "warning"  },
 };
 
 export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }) {
