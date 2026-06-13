@@ -7,26 +7,26 @@ import { PricingCards } from "@/components/PricingCards";
 export const metadata = {
   title: "Pricing — Convert Statement",
   description:
-    "Start free with 8 pages, then pay ₹49 per document or choose a monthly plan. Pro at ₹1,198/month (500 pages) and Business at ₹4,498/month (2,000 pages) for CAs and teams.",
+    "Start free with 8 pages, then choose a Pro plan at ₹1,198/month (500 pages) or Business at ₹4,498/month (2,000 pages) for CAs and teams.",
   alternates: { canonical: "https://convertstatement.online/pricing" },
   openGraph: {
     title: "Pricing — Convert Statement",
-    description: "8 pages free · ₹49 per document · Pro ₹1,198/mo · Business ₹4,498/mo",
+    description: "8 pages free · Pro ₹1,198/mo · Business ₹4,498/mo",
     url: "https://convertstatement.online/pricing",
   },
 };
 
 
 const COMPARE_ROWS = [
-  { feature: "Pages included", free: "8 total", payg: "—", pro: "500 / mo", business: "2,000 / mo" },
-  { feature: "Price per document", free: "Free", payg: "₹49", pro: "Included", business: "Included" },
-  { feature: "CSV export", free: "✓", payg: "✓", pro: "✓", business: "✓" },
-  { feature: "Excel export", free: "✓", payg: "✓", pro: "✓", business: "✓" },
-  { feature: "OFX / QFX export", free: "—", payg: "✓", pro: "✓", business: "✓" },
-  { feature: "Google Sheets", free: "—", payg: "✓", pro: "✓", business: "✓" },
-  { feature: "API access", free: "—", payg: "—", pro: "—", business: "✓" },
-  { feature: "Team seats", free: "1", payg: "1", pro: "1", business: "5" },
-  { feature: "Payment methods", free: "—", payg: "UPI/Card/NB", pro: "UPI/Card/NB", business: "UPI/Card/NB" },
+  { feature: "Pages included", free: "8 total", pro: "500 / mo", business: "2,000 / mo" },
+  { feature: "Price per document", free: "Free", pro: "Included", business: "Included" },
+  { feature: "CSV export", free: "✓", pro: "✓", business: "✓" },
+  { feature: "Excel export", free: "✓", pro: "✓", business: "✓" },
+  { feature: "OFX / QFX export", free: "—", pro: "✓", business: "✓" },
+  { feature: "Google Sheets", free: "—", pro: "✓", business: "✓" },
+  { feature: "API access", free: "—", pro: "—", business: "✓" },
+  { feature: "Team seats", free: "1", pro: "1", business: "5" },
+  { feature: "Payment methods", free: "—", pro: "UPI/Card/NB", business: "UPI/Card/NB" },
 ];
 
 const pricingSchema = {
@@ -44,15 +44,6 @@ const pricingSchema = {
       price: "0",
       priceCurrency: "INR",
       description: "8 pages free forever, no credit card required",
-      availability: "https://schema.org/InStock",
-      url: "https://convertstatement.online/signup",
-    },
-    {
-      "@type": "Offer",
-      name: "Pay-per-document",
-      price: "49",
-      priceCurrency: "INR",
-      description: "₹49 per document, all formats, all Indian banks",
       availability: "https://schema.org/InStock",
       url: "https://convertstatement.online/signup",
     },
@@ -126,16 +117,16 @@ export default function PricingPage() {
               <thead>
                 <tr className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-gray-400">Feature</th>
-                  {["Free", "Pay-per-doc", "Pro", "Business"].map((h) => (
+                  {["Free", "Pro", "Business"].map((h) => (
                     <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-500 dark:text-brand-400" : "text-slate-500 dark:text-gray-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {COMPARE_ROWS.map(({ feature, free, payg, pro, business }, i) => (
+                {COMPARE_ROWS.map(({ feature, free, pro, business }, i) => (
                   <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-surface" : "bg-slate-50/50 dark:bg-surface/50"}>
                     <td className="px-5 py-3 font-medium text-slate-700 dark:text-gray-300">{feature}</td>
-                    {[free, payg, pro, business].map((val, j) => (
+                    {[free, pro, business].map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-slate-300 dark:text-gray-700" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-slate-600 dark:text-gray-300"}`}>{val}</td>
                     ))}
                   </tr>

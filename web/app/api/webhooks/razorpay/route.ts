@@ -77,41 +77,5 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Handle one-time PAYG payments
-  else if (eventType === "payment.captured") {
-    const payment = (event.payload as Record<string, unknown>)?.payment as Record<string, unknown> | undefined;
-    const entity = payment?.entity as Record<string, unknown> | undefined;
-    const paymentId: string = (entity?.id as string) ?? "";
-    const notes = (entity?.notes as Record<string, string>) ?? {};
-    const plan: string = notes.plan ?? "";
-    const userId: string = notes.userId ?? "";
-
-    if (!paymentId) {
-      console.warn("[razorpay-webhook] payment.captured missing paymentId — skipping");
-      return NextResponse.json({ received: true, skipped: "missing_payment_id" });
-    }
-
-    if (!userId || !plan) {
-      console.error(`[razorpay-webhook] payment.captured missing userId or plan: paymentId=${paymentId}`);
-      return NextResponse.json({ received: true, skipped: "missing_user_or_plan" });
-    }
-
-    if (!(await markWebhookProcessed(paymentId))) {
-      return NextResponse.json({ received: true, skipped: "duplicate" });
-    }
-
-    if (SUBSCRIPTION_PLANS.has(plan)) {
-      const user = await findById(userId);
-      if (!user) {
-        console.error(`[razorpay-webhook] User not found for subscription: userId=${userId}, paymentId=${paymentId}, plan=${plan}`);
-        return NextResponse.json({ received: true, error: "user_not_found" });
-      }
-
-      const tier = plan.startsWith("pro") ? "PRO" : "BUSINESS";
-      const cycle = plan.endsWith("_annual") ? "annual" : "monthly";
-      await upgradeTier(userId, tier, TIER_CONFIG[tier as "PRO" | "BUSINESS"].pagesPerMonth, cycle);
-    }
-  }
-
   return NextResponse.json({ received: true });
 }

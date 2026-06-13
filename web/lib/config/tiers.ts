@@ -3,11 +3,11 @@
  * Import from here — never hardcode these values in route handlers.
  */
 
-export type Tier = "FREE" | "PAYG" | "PRO" | "BUSINESS";
+export type Tier = "FREE" | "PRO" | "BUSINESS";
 export type BillingCycle = "monthly" | "annual";
 
 export interface TierConfig {
-  /** Pages included per month (or per conversion for PAYG). */
+  /** Pages included per month. */
   pagesPerMonth: number;
   /** Monthly price in paise (₹1 = 100 paise). 0 for FREE. */
   monthlyPricePaise: number;
@@ -19,11 +19,6 @@ export const TIER_CONFIG = {
   FREE: {
     pagesPerMonth: 8,
     monthlyPricePaise: 0,
-    annualPricePaise: null,
-  },
-  PAYG: {
-    pagesPerMonth: 0,            // not monthly — per-conversion model
-    monthlyPricePaise: 4_900,    // ₹49 per conversion
     annualPricePaise: null,
   },
   PRO: {

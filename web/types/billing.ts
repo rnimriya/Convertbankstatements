@@ -1,5 +1,5 @@
-export type SubTier = "FREE" | "PAYG" | "PRO" | "BUSINESS";
-export type BillingType = "FREE_TIER" | "SUBSCRIPTION" | "PAY_AS_YOU_GO";
+export type SubTier = "FREE" | "PRO" | "BUSINESS";
+export type BillingType = "FREE_TIER" | "SUBSCRIPTION";
 export type PaymentStatus = "PENDING" | "SUCCEEDED" | "FAILED" | "REFUNDED";
 
 export interface BillingContext {

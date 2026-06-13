@@ -132,7 +132,6 @@ To exercise any of these rights, email us at privacy@convertstatement.online. We
 
 - **Session cookie** (bs_token) — An HttpOnly, secure JWT cookie used to keep you logged in. Expires after 30 days.
 - **Usage cookie** (bs_pages_used) — Tracks free page usage for anonymous users. Expires after 1 year.
-- **Payment cookie** (bs_payg_cleared) — A short-lived cookie (30 minutes) confirming a PAYG payment was verified before allowing file processing.
 
 We do not use third-party tracking cookies, advertising cookies, or analytics cookies.`,
  },

@@ -75,16 +75,5 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     );
   }
 
-  // PAYG
-  return (
-    <div className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface">
-      <div className="w-7 h-7 rounded-full bg-navy/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
-        <span className="text-[11px] font-bold text-navy dark:text-brand-400">₹</span>
-      </div>
-      <div>
-        <p className="text-sm font-semibold text-slate-800 dark:text-white">Pay-as-you-go</p>
-        <p className="text-xs text-slate-500 dark:text-gray-400">₹49 per document · No monthly limit</p>
-      </div>
-    </div>
-  );
+  return null;
 }

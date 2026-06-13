@@ -10,7 +10,6 @@ import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const AMOUNTS: Record<string, number> = {
-  payg:             TIER_CONFIG.PAYG.monthlyPricePaise,
   pro:              TIER_CONFIG.PRO.monthlyPricePaise,
   business:         TIER_CONFIG.BUSINESS.monthlyPricePaise,
   pro_annual:       TIER_CONFIG.PRO.annualPricePaise!,
@@ -18,7 +17,7 @@ const AMOUNTS: Record<string, number> = {
 };
 
 const schema = z.object({
-  plan: z.enum(["payg", "pro", "business", "pro_annual", "business_annual"]),
+  plan: z.enum(["pro", "business", "pro_annual", "business_annual"]),
   fileName: z.string().optional(),
   pageCount: z.number().optional(),
 });
@@ -46,48 +45,26 @@ export async function POST(req: NextRequest) {
   try {
     const rp = getRazorpay();
 
-    if (plan === "payg") {
-      const order = await rp.orders.create({
-        amount: AMOUNTS[plan],
-        currency: "INR",
-        receipt: `rcpt_${Date.now()}`,
-        notes: {
-          userId: session.sub,
-          userEmail: session.email,
-          plan,
-          fileName: fileName ?? "",
-          pageCount: String(pageCount ?? 0),
-        },
-      });
+    const planId = PLAN_IDS[plan];
+    if (!planId) throw new Error(`Razorpay plan ID for ${plan} is not configured.`);
 
-      return NextResponse.json({
-        orderId: order.id,
-        amount: order.amount,
-        currency: order.currency,
-        keyId: process.env.RAZORPAY_KEY_ID,
-      });
-    } else {
-      const planId = PLAN_IDS[plan];
-      if (!planId) throw new Error(`Razorpay plan ID for ${plan} is not configured.`);
+    const subscription = await rp.subscriptions.create({
+      plan_id: planId,
+      total_count: plan.includes("annual") ? 10 : 120, // 10 years or 10 years in months
+      customer_notify: 1,
+      notes: {
+        userId: session.sub,
+        userEmail: session.email,
+        plan,
+      },
+    });
 
-      const subscription = await rp.subscriptions.create({
-        plan_id: planId,
-        total_count: plan.includes("annual") ? 10 : 120, // 10 years or 10 years in months
-        customer_notify: 1,
-        notes: {
-          userId: session.sub,
-          userEmail: session.email,
-          plan,
-        },
-      });
-
-      return NextResponse.json({
-        subscriptionId: subscription.id,
-        amount: AMOUNTS[plan],
-        currency: "INR",
-        keyId: process.env.RAZORPAY_KEY_ID,
-      });
-    }
+    return NextResponse.json({
+      subscriptionId: subscription.id,
+      amount: AMOUNTS[plan],
+      currency: "INR",
+      keyId: process.env.RAZORPAY_KEY_ID,
+    });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "Order creation failed.";
     return NextResponse.json({ error: msg }, { status: 500 });

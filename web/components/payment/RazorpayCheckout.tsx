@@ -31,7 +31,7 @@ interface RazorpayResponse {
 }
 
 interface Props {
-  plan: "payg" | "pro" | "business" | "pro_annual" | "business_annual";
+  plan: "pro" | "business" | "pro_annual" | "business_annual";
   label: string;
   amountINR: number;
   userEmail?: string;
@@ -79,7 +79,7 @@ export function RazorpayCheckout({
         amount: order.amount,
         currency: "INR",
         name: "Convert Statement",
-        description: plan === "payg" ? "Pay-per-document processing" : `${label} Plan`,
+        description: `${label} Plan`,
         order_id: order.orderId,
         subscription_id: order.subscriptionId,
         prefill: { email: userEmail },

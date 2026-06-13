@@ -19,7 +19,7 @@ interface Props {
   userEmail: string;
 }
 
-const MAX_SEATS: Record<string, number> = { BUSINESS: 5, PRO: 0, FREE: 0, PAYG: 0 };
+const MAX_SEATS: Record<string, number> = { BUSINESS: 5, PRO: 0, FREE: 0 };
 
 export function TeamPanel({ tier, userEmail }: Props) {
   const [members, setMembers] = useState<Member[]>([]);

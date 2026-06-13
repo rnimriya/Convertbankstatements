@@ -8,9 +8,9 @@ import {
 } from "lucide-react";
 import { FreePagesIndicator } from "./FreePagesIndicator";
 import { ProcessingResult } from "./ProcessingResult";
-import { RazorpayCheckout } from "@/components/payment/RazorpayCheckout";
 import type { BillingContext, ProcessResult } from "@/types/billing";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const MAX_FILE_MB = 50;
 const FREE_PAGE_CAP = 8;
@@ -124,22 +124,16 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           <p className="mt-1 text-sm font-medium text-slate-600">{payState.file.name}</p>
           <p className="mt-1 text-sm text-slate-500">{payState.message}</p>
           <div className="mt-5 mb-1">
-            <span className="text-5xl font-extrabold text-slate-900">₹49</span>
-            <span className="ml-2 text-sm text-slate-500">one-time · per document</span>
+            <span className="text-xl font-extrabold text-slate-900">Upgrade Required</span>
           </div>
-          <p className="text-xs text-slate-400 mb-6">Secure via Razorpay · UPI / Cards / NetBanking</p>
+          <p className="text-xs text-slate-400 mb-6">Unlock more pages with a Pro or Business plan.</p>
           <div className="flex flex-col gap-2">
-            <RazorpayCheckout
-              plan="payg"
-              label={`Pay ₹49 & Convert (${payState.pageCount} pages)`}
-              amountINR={49}
-              userEmail={userEmail}
-              fileName={payState.file.name}
-              pageCount={payState.pageCount}
-              onSuccess={async () => { await uploadFile(payState.file); }}
-              onError={(msg) => setState({ status: "error", message: msg })}
+            <Link
+              href="/pricing"
               className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white bg-navy hover:opacity-90 transition-opacity"
-            />
+            >
+              View Upgrade Plans
+            </Link>
             <button onClick={reset} className="w-full py-3 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">Cancel</button>
           </div>
         </div>

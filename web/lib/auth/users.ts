@@ -6,7 +6,6 @@
  *   cs:user:{id}       → HASH   (all user fields; HINCRBY for atomic page increments)
  *   cs:email:{email}   → STRING userId   (email lookup index, SET NX for atomic signup)
  *   cs:rtoken:{token}  → STRING userId   (reset-token reverse index, TTL = 1 h)
- *   cs:payg:{payId}    → STRING userId   (one-time PAYG payment markers, TTL = 2 h)
  *   cs:webhook:{payId} → STRING "1"      (webhook idempotency, TTL = 25 h)
  */
 import fs from "fs/promises";
@@ -83,7 +82,6 @@ function r(): Redis {
 const UK = (id: string) => `cs:user:${id}`;
 const EK = (email: string) => `cs:email:${email.toLowerCase()}`;
 const RK = (token: string) => `cs:rtoken:${token}`;
-const PK = (payId: string) => `cs:payg:${payId}`;
 
 // ── Type marshalling ─────────────────────────────────────────────────────────
 
@@ -516,34 +514,6 @@ export async function updatePassword(
   }
 }
 
-/**
- * Atomically mark a Razorpay payment ID as consumed for a PAYG upload.
- *
- * Redis SET NX EX is a single atomic command — two concurrent requests with
- * the same payment ID can only succeed once (the TOCTOU race is closed).
- *
- * Returns true  — first use, proceed with upload.
- * Returns false — already used, reject (replay / concurrent duplicate).
- */
-export async function markPaygUsed(paymentId: string, userId: string): Promise<boolean> {
-  if (useRedis()) {
-    const result = await r().set(PK(paymentId), userId, { nx: true, ex: 7200 });
-    return result === "OK";
-  }
-  return true; // local dev — no real payments
-}
-
-/**
- * Reverses a PAYG payment consumption — deletes the Redis idempotency key so
- * the payment can be retried. Call this when processing fails after the payment
- * was already consumed (e.g. backend unavailable). The PAYG cookie must also be
- * re-set by the caller so the user can retry the upload.
- */
-export async function reversePaygConsumption(paymentId: string): Promise<void> {
-  if (useRedis()) {
-    await r().del(PK(paymentId));
-  }
-}
 
 const WK = (paymentId: string) => `cs:webhook:${paymentId}`;
 
