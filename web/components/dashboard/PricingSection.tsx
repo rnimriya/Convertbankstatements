@@ -137,7 +137,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
       )}
 
       {/* Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-start">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto">
         {PLANS.map((plan) => {
           const isCurrent = currentTier === plan.id;
           const showAnnual = annual && plan.annualPrice !== null;

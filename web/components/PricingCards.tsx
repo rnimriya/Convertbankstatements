@@ -83,7 +83,7 @@ export function PricingCards() {
       </div>
 
       {/* Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-start">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto">
         {MONTHLY_PLANS.map((plan) => {
           const showAnnual = annual && plan.annualPrice !== null;
           const displayPrice = showAnnual ? plan.annualPrice! : plan.price;
