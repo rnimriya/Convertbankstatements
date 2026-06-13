@@ -14,14 +14,13 @@ import { getSession } from "@/lib/auth/session";
 import { findById, incrementPages } from "@/lib/auth/users";
 import { countPdfPages } from "@/lib/pdf-utils";
 import {
-  generateMockTransactions,
   transactionsToCSV,
   transactionsToExcel,
 } from "@/lib/mock-transactions";
+import { extractTransactions } from "@/lib/extraction/extract";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
-import { isDeployed } from "@/lib/env";
 import JSZip from "jszip";
 
 const MAX_FILES = 20;
@@ -127,43 +126,23 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Process each file ──────────────────────────────────────────────────────
-  const backendUrl = process.env.BACKEND_URL_SERVER ?? "http://localhost:8000";
   const results: FileResult[] = [];
 
   for (const { name, bytes } of pdfFiles) {
     try {
-      let transactions = generateMockTransactions(countPdfPages(bytes));
-      let bankName: string | null = inferBankName(name);
-      let backendSucceeded = false;
+      // In-app extraction (no external backend). Never fabricate data.
+      const extraction = await extractTransactions(bytes, name);
+      const transactions = extraction.transactions;
+      const bankName: string | null = extraction.bankName ?? inferBankName(name);
 
-      // Try FastAPI upstream
-      try {
-        const fd = new FormData();
-        fd.append("file", new Blob([bytes.buffer as ArrayBuffer], { type: "application/pdf" }), name);
-        fd.append("export_formats", exportFormats.join(","));
-        const up = await fetch(`${backendUrl}/api/process-statement`, {
-          method: "POST",
-          body: fd,
-          signal: AbortSignal.timeout(120_000),
-          headers: { "x-api-key": process.env.BACKEND_API_KEY ?? "" } as HeadersInit,
-        });
-        if (up.ok) {
-          const d = await up.json();
-          transactions = d.transactions ?? transactions;
-          bankName = d.bank_name ?? bankName;
-          backendSucceeded = true;
-        }
-      } catch { /* FastAPI unreachable — handled below */ }
-
-      // Never return fabricated transactions in a deployed environment.
-      if (!backendSucceeded && isDeployed()) {
+      if (extraction.method === "none" || transactions.length === 0) {
         results.push({
           fileName: name,
           pageCount: 0,
           transactionCount: 0,
           bankName,
           exportUrls: {},
-          error: "Extraction service unavailable",
+          error: "No transactions found (scanned PDF needs Vision, or unsupported layout)",
         });
         continue;
       }
