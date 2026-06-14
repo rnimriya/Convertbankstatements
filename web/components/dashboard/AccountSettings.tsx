@@ -347,28 +347,6 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             )}
           </div>
 
-          <div className={ROW}>
-            <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-slate-50 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                  <path className="text-slate-500" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/>
-                </svg>
-              </div>
-              <div>
-                <p className={LABEL}>REST API</p>
-                <p className={DESC}>
-                  {tier === "BUSINESS" ? "Your API key is available below" : "Upgrade to Business for API access"}
-                </p>
-              </div>
-            </div>
-            {tier === "BUSINESS" ? (
-              <button className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors">
-                <KeyRound size={12} /> View key
-              </button>
-            ) : (
-              <span className="text-xs text-slate-400">Business required</span>
-            )}
-          </div>
         </div>
       </div>
 

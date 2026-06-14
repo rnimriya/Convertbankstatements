@@ -41,7 +41,6 @@ export interface User {
   googleSheetsRefreshToken?: string | null;
   teamId?: string | null;
   teamRole?: "owner" | "member" | null;
-  apiKey?: string | null;
   /** Session-revocation counter — bumped on password change / "log out everywhere". */
   tokenVersion?: number;
   /** True once the referral bonus for this account has been granted (on email verify). */
@@ -125,7 +124,6 @@ function toHash(u: User): Record<string, string | number> {
     googleSheetsRefreshToken: encryptField(u.googleSheetsRefreshToken),
     teamId: u.teamId ?? "",
     teamRole: u.teamRole ?? "",
-    apiKey: u.apiKey ?? "",
     tokenVersion: u.tokenVersion ?? 0,
     referralCredited: u.referralCredited ? "1" : "0",
   };
@@ -165,7 +163,6 @@ function fromHash(h: Record<string, string>): User {
     googleSheetsRefreshToken: decryptField(h.googleSheetsRefreshToken) || null,
     teamId: h.teamId || null,
     teamRole: (h.teamRole || null) as User["teamRole"],
-    apiKey: h.apiKey || null,
     tokenVersion: parseInt(h.tokenVersion ?? "0", 10),
     referralCredited: h.referralCredited === "1",
   };
@@ -739,22 +736,6 @@ export async function getTokenVersion(userId: string): Promise<number | null> {
   const user = users.find(u => u.id === userId);
   if (!user) return null;
   return user.tokenVersion ?? 0;
-}
-
-// ── API Key ───────────────────────────────────────────────────────────────────
-
-export async function setApiKey(userId: string, key: string): Promise<void> {
-  if (useRedis()) {
-    await r().hset(UK(userId), { apiKey: key });
-    await r().set(`cs:apikey:${key}`, userId);
-    return;
-  }
-  const users = await fileRead();
-  const user = users.find(u => u.id === userId);
-  if (user) {
-    user.apiKey = key;
-    await fileWrite(users);
-  }
 }
 
 // ── Conversion Logs ───────────────────────────────────────────────────────────

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Users, Mail, X, Crown, UserPlus, Loader2, Shield, Copy, CheckCircle2 } from "lucide-react";
+import { Users, Mail, X, Crown, UserPlus, Loader2 } from "lucide-react";
 import type { SubTier } from "@/types/billing";
 import { EmptyState } from "@/components/ui/EmptyState";
 
@@ -28,9 +28,6 @@ export function TeamPanel({ tier, userEmail }: Props) {
   const [inviting, setInviting] = useState(false);
   const [inviteMsg, setInviteMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [removing, setRemoving] = useState<string | null>(null);
-  const [apiKey, setApiKey] = useState<string | null>(null);
-  const [apiKeyVisible, setApiKeyVisible] = useState(false);
-  const [apiKeyCopied, setApiKeyCopied] = useState(false);
 
   const maxSeats = MAX_SEATS[tier] ?? 0;
 
@@ -78,21 +75,6 @@ export function TeamPanel({ tier, userEmail }: Props) {
       await fetch(`/api/team/member/${memberId}`, { method: "DELETE" });
       setMembers(m => m.filter(x => x.id !== memberId));
     } finally { setRemoving(null); }
-  };
-
-  const generateApiKey = async () => {
-    const res = await fetch("/api/team/api-key", { method: "POST" });
-    const data = await res.json();
-    setApiKey(data.key);
-    setApiKeyVisible(true);
-  };
-
-  const copyApiKey = () => {
-    if (apiKey) {
-      navigator.clipboard.writeText(apiKey);
-      setApiKeyCopied(true);
-      setTimeout(() => setApiKeyCopied(false), 2000);
-    }
   };
 
   if (tier !== "BUSINESS") {
@@ -225,42 +207,6 @@ export function TeamPanel({ tier, userEmail }: Props) {
               />
             ))}
           </div>
-        )}
-      </div>
-
-      {/* Business API key */}
-      <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-5 shadow-sm">
-        <h3 className="font-semibold text-slate-800 dark:text-gray-200 mb-1 flex items-center gap-2">
-          <Shield size={16} className="text-slate-400" />
-          Business API Key
-        </h3>
-        <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
-          Use this key to access the Convert Statement API from your own systems.
-        </p>
-
-        {apiKey ? (
-          <div className="flex items-center gap-2">
-            <code className="flex-1 font-mono text-xs bg-slate-50 dark:bg-surface border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 truncate text-slate-600 dark:text-gray-300">
-              {apiKeyVisible ? apiKey : "cs_live_" + "•".repeat(40)}
-            </code>
-            <button onClick={copyApiKey} className="p-2.5 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
-              {apiKeyCopied ? <CheckCircle2 size={16} className="text-emerald-500" /> : <Copy size={16} className="text-slate-400" />}
-            </button>
-          </div>
-        ) : (
-          <button
-            onClick={generateApiKey}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-sm font-semibold hover:opacity-90 transition-opacity"
-          >
-            <Shield size={14} />
-            Generate API key
-          </button>
-        )}
-
-        {apiKey && (
-          <p className="mt-2 text-xs text-amber-600 dark:text-amber-400">
-            Keep this key secret. It grants full API access to your account.
-          </p>
         )}
       </div>
 
