@@ -9,6 +9,7 @@ import { CommentSection } from "@/components/blog/CommentSection";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { RELATED_MAP } from "@/lib/blog/related";
 import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import DOMPurify from "isomorphic-dompurify";
 
 export const dynamic = "force-dynamic";
@@ -52,6 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   const comments = await getCommentsForPost(slug);
   const session = await getSession();
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   const relatedSlugs = RELATED_MAP[slug] ?? [];
   const allPosts = getAllPosts();
@@ -93,10 +95,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   return (
     <>
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostSchema) }}
       />
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />

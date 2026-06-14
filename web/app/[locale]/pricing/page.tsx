@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { headers } from "next/headers";
 import { IndianRupee, ArrowRight } from "lucide-react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -80,10 +81,12 @@ const pricingSchema = {
   ],
 };
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <div className="min-h-screen bg-white dark:bg-surface">
       <script
+        nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
       />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 import { Link } from "@/i18n/navigation";
 import {
   ArrowRight, CheckCircle2, Zap, Lock, Globe,
@@ -34,6 +35,7 @@ export default async function HomePage() {
   const tTest  = await getTranslations("testimonials");
   const tFaq   = await getTranslations("faq");
   const tCta   = await getTranslations("cta");
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   const TRUST_INITIALS = [
     { i: "R", bg: "bg-violet-500" },
@@ -132,8 +134,8 @@ export default async function HomePage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main className="overflow-x-hidden">
 
