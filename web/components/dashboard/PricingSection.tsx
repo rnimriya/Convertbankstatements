@@ -29,7 +29,7 @@ const PLANS = [
   {
     id: "BASIC" as SubTier,
     name: "Basic",
-    price: "₹28",
+    price: "₹25",
     period: "/ mo",
     annualPrice: "₹248" as string | null,
     annualPeriod: "/ year" as string | null,
@@ -42,7 +42,7 @@ const PLANS = [
     cta: "Upgrade to Basic",
     monthlyPlan: "basic" as "basic" | "pro" | "business" | null,
     annualPlan: "basic_annual" as "basic_annual" | "pro_annual" | "business_annual" | null,
-    amountINR: 28,
+    amountINR: 25,
     annualAmountINR: 248,
   },
   {

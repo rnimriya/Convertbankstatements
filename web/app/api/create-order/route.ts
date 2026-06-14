@@ -27,7 +27,7 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   const PLAN_IDS: Record<string, string | undefined> = {
     // Create these Basic plans in the Razorpay dashboard and set the env vars
-    // (₹28/month and ₹248/year).
+    // (₹25/month and ₹248/year).
     basic: process.env.RAZORPAY_PLAN_BASIC_MONTHLY,
     basic_annual: process.env.RAZORPAY_PLAN_BASIC_ANNUAL,
     pro: process.env.RAZORPAY_PLAN_PRO_MONTHLY || "plan_T14Sj6GkD8svJ2",

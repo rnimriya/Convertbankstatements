@@ -22,7 +22,7 @@ const MONTHLY_PLANS = [
   },
   {
     name: "Basic",
-    price: "₹28",
+    price: "₹25",
     period: "/ mo",
     annualPrice: "₹248",
     annualPeriod: "/ year",
