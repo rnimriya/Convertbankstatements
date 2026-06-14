@@ -48,11 +48,21 @@ export async function POST(req: NextRequest) {
 
   const { plan, fileName, pageCount } = parsed.data;
 
+  // Distinct from a Razorpay API failure: a missing plan id is a configuration
+  // gap (the env var isn't set), so surface a clear, actionable message and log
+  // exactly which env var to set rather than a generic "try again".
+  const planId = PLAN_IDS[plan];
+  if (!planId) {
+    const envVar = `RAZORPAY_PLAN_${plan.toUpperCase()}`;
+    console.error(`[create-order] Missing Razorpay plan id for "${plan}". Create the plan in Razorpay and set ${envVar}.`);
+    return NextResponse.json(
+      { error: "This plan isn't available yet. Please pick another plan or contact support." },
+      { status: 503 }
+    );
+  }
+
   try {
     const rp = getRazorpay();
-
-    const planId = PLAN_IDS[plan];
-    if (!planId) throw new Error(`Razorpay plan ID for ${plan} is not configured.`);
 
     const subscription = await rp.subscriptions.create({
       plan_id: planId,
@@ -72,9 +82,23 @@ export async function POST(req: NextRequest) {
       keyId: process.env.RAZORPAY_KEY_ID,
     });
   } catch (err: unknown) {
-    // Log the real (possibly Razorpay-internal) error server-side; return a
-    // generic message so we don't leak provider internals to the client.
     console.error("[create-order] error:", err);
-    return NextResponse.json({ error: "Order creation failed. Please try again." }, { status: 500 });
+    // Surface the Razorpay error description (e.g. "plan_id is invalid",
+    // "Authentication failed") so checkout failures are diagnosable. This is a
+    // short, safe reason string — not a stack trace or secret.
+    const reason = razorpayReason(err);
+    return NextResponse.json(
+      { error: reason ? `Order creation failed: ${reason}` : "Order creation failed. Please try again." },
+      { status: 500 }
+    );
   }
+}
+
+/** Extract a human-readable reason from a Razorpay SDK error, if present. */
+function razorpayReason(err: unknown): string | null {
+  if (err && typeof err === "object") {
+    const e = err as { error?: { description?: string; reason?: string }; description?: string; message?: string };
+    return e.error?.description ?? e.error?.reason ?? e.description ?? e.message ?? null;
+  }
+  return null;
 }
