@@ -156,7 +156,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
       )}
 
       {/* Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-start max-w-6xl mx-auto">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch max-w-6xl mx-auto">
         {PLANS.map((plan) => {
           const isCurrent = currentTier === plan.id;
           const showAnnual = annual && plan.annualPrice !== null;
@@ -168,7 +168,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           if (plan.highlight) {
             /* ── PRO — featured card (blue gradient) ── */
             return (
-              <div key={plan.id} className="relative pt-5">
+              <div key={plan.id} className="relative pt-5 h-full">
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
                   {isCurrent ? (
@@ -183,7 +183,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 </div>
 
                 <div
-                  className="relative flex flex-col rounded-3xl p-7 overflow-hidden"
+                  className="relative flex flex-col h-full rounded-3xl p-7 overflow-hidden"
                   style={{
                     background: "linear-gradient(160deg,#3B5BFC 0%,#2645e0 100%)",
                     boxShadow: "0 20px 60px rgba(59,91,252,0.40), 0 4px 20px rgba(59,91,252,0.20)",
@@ -259,7 +259,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col rounded-3xl border bg-white dark:bg-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
+              className={`relative flex flex-col h-full rounded-3xl border bg-white dark:bg-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
                 isCurrent
                   ? "border-emerald-400 dark:border-emerald-500 ring-2 ring-emerald-400"
                   : "border-slate-200 dark:border-white/10"
@@ -286,6 +286,8 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 {!showAnnual && plan.annualPrice && (
                   <p className="text-slate-400 dark:text-gray-500 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
                 )}
+                {/* Reserve the sub-line height (e.g. Free has no annual price) so all dividers align */}
+                {!plan.annualPrice && <p className="text-xs mt-1 invisible" aria-hidden="true">.</p>}
               </div>
 
               <div className="h-px bg-slate-100 dark:bg-white/10 my-5" />
