@@ -22,10 +22,11 @@ const MONTHLY_PLANS = [
   },
   {
     name: "Basic",
-    price: "₹10",
+    price: "₹28",
     period: "/ mo",
-    annualPrice: null,
-    annualPeriod: null,
+    annualPrice: "₹248",
+    annualPeriod: "/ year",
+    annualMonthlyEquiv: "₹21/mo",
     tagline: "For light, occasional use",
     highlight: false,
     badge: null,
@@ -33,7 +34,7 @@ const MONTHLY_PLANS = [
     notIncluded: ["Google Sheets", "OFX / QFX export"],
     cta: "Start Basic",
     href: "/signup?plan=basic",
-    annualHref: "/signup?plan=basic",
+    annualHref: "/signup?plan=basic_annual",
   },
   {
     name: "Pro",

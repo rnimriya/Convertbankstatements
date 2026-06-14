@@ -31,7 +31,7 @@ interface RazorpayResponse {
 }
 
 interface Props {
-  plan: "basic" | "pro" | "business" | "pro_annual" | "business_annual";
+  plan: "basic" | "basic_annual" | "pro" | "business" | "pro_annual" | "business_annual";
   label: string;
   amountINR: number;
   userEmail?: string;

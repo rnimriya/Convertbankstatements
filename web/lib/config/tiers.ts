@@ -23,8 +23,8 @@ export const TIER_CONFIG = {
   },
   BASIC: {
     pagesPerMonth: 25,
-    monthlyPricePaise: 1_000,     // ₹10 / month
-    annualPricePaise: null,       // monthly only
+    monthlyPricePaise: 2_800,     // ₹28 / month
+    annualPricePaise: 24_800,     // ₹248 / year (≈ ₹21/mo)
   },
   PRO: {
     pagesPerMonth: 500,

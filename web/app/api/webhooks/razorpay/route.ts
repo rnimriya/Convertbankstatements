@@ -8,11 +8,12 @@ import { verifyWebhookSignature } from "@/lib/razorpay";
 import { upgradeTier, findById, markWebhookProcessed } from "@/lib/auth/users";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 
-const SUBSCRIPTION_PLANS = new Set(["basic", "pro", "business", "pro_annual", "business_annual"]);
+const SUBSCRIPTION_PLANS = new Set(["basic", "basic_annual", "pro", "business", "pro_annual", "business_annual"]);
 
 // Maps a Razorpay plan note → our tier. Annual/monthly is derived separately.
 const PLAN_TIER: Record<string, "BASIC" | "PRO" | "BUSINESS"> = {
   basic: "BASIC",
+  basic_annual: "BASIC",
   pro: "PRO",
   pro_annual: "PRO",
   business: "BUSINESS",
