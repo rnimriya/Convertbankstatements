@@ -10,7 +10,7 @@
  */
 import fs from "fs/promises";
 import path from "path";
-import { randomUUID } from "crypto";
+import { randomUUID, createHash } from "crypto";
 import { Redis } from "@upstash/redis";
 import { encryptField, decryptField } from "@/lib/crypto";
 import { isDeployed } from "@/lib/env";
@@ -88,6 +88,16 @@ function r(): Redis {
 const UK = (id: string) => `cs:user:${id}`;
 const EK = (email: string) => `cs:email:${email.toLowerCase()}`;
 const RK = (token: string) => `cs:rtoken:${token}`;
+
+/**
+ * Reset / email-verify tokens are stored and indexed as a SHA-256 hash, never
+ * in the clear. The raw token only ever exists in the email link; a store leak
+ * therefore can't be replayed into an account takeover. Lookups hash the
+ * caller-supplied raw token and compare hashes.
+ */
+function hashToken(token: string): string {
+  return createHash("sha256").update(token).digest("hex");
+}
 
 // ── Type marshalling ─────────────────────────────────────────────────────────
 
@@ -452,42 +462,43 @@ export async function setResetToken(
   token: string,
   expiry: string
 ): Promise<void> {
+  const h = hashToken(token);
   if (useRedis()) {
     const id = await r().get<string>(EK(email));
     if (!id) return;
     const ttl = Math.max(60, Math.floor((new Date(expiry).getTime() - Date.now()) / 1000));
-    // Store token on user hash AND a reverse-index key with matching TTL
+    // Store the token HASH on the user hash AND a reverse-index key with matching TTL
     const pipe = r().pipeline();
-    pipe.hset(UK(id), { resetToken: token, resetTokenExpiry: expiry });
-    pipe.set(RK(token), id, { ex: ttl });
+    pipe.hset(UK(id), { resetToken: h, resetTokenExpiry: expiry });
+    pipe.set(RK(h), id, { ex: ttl });
     await pipe.exec();
     return;
   }
   const users = await fileRead();
   const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
   if (user) {
-    user.resetToken = token;
+    user.resetToken = h;
     user.resetTokenExpiry = expiry;
     await fileWrite(users);
   }
 }
 
 export async function findUserByResetToken(token: string): Promise<User | null> {
+  const h = hashToken(token);
   if (useRedis()) {
     // O(1) reverse-index lookup — no SCAN needed
-    const id = await r().get<string>(RK(token));
+    const id = await r().get<string>(RK(h));
     if (!id) return null;
     const hash = await r().hgetall(UK(id));
     if (!hash) return null;
     const user = fromHash(hash as Record<string, string>);
-    // Verify the stored token matches — prevents reuse after updatePassword clears it.
-    // The RK reverse-index TTL (1h) keeps the key alive but this guard makes it inert.
-    if (!user.resetToken || user.resetToken !== token) return null;
+    // Verify the stored hash matches — prevents reuse after updatePassword clears it.
+    if (!user.resetToken || user.resetToken !== h) return null;
     if (user.resetTokenExpiry && new Date(user.resetTokenExpiry) < new Date()) return null;
     return user;
   }
   const users = await fileRead();
-  const user = users.find(u => u.resetToken === token);
+  const user = users.find(u => u.resetToken === h);
   if (!user) return null;
   if (user.resetTokenExpiry && new Date(user.resetTokenExpiry) < new Date()) return null;
   return user;
@@ -512,7 +523,7 @@ export async function updatePassword(
     });
     // Bump tokenVersion so every existing session (any device) is invalidated.
     pipe.hincrby(UK(userId), "tokenVersion", 1);
-    if (consumedToken) pipe.del(RK(consumedToken));
+    if (consumedToken) pipe.del(RK(hashToken(consumedToken)));
     await pipe.exec();
     return;
   }
@@ -562,17 +573,18 @@ export async function setEmailVerifyToken(
   expiry: string
 ): Promise<void> {
   const ttl = Math.max(60, Math.floor((new Date(expiry).getTime() - Date.now()) / 1000));
+  const h = hashToken(token);
   if (useRedis()) {
     const pipe = r().pipeline();
-    pipe.hset(UK(userId), { emailVerifyToken: token, emailVerifyExpiry: expiry });
-    pipe.set(EVK(token), userId, { ex: ttl });
+    pipe.hset(UK(userId), { emailVerifyToken: h, emailVerifyExpiry: expiry });
+    pipe.set(EVK(h), userId, { ex: ttl });
     await pipe.exec();
     return;
   }
   const users = await fileRead();
   const user = users.find(u => u.id === userId);
   if (user) {
-    user.emailVerifyToken = token;
+    user.emailVerifyToken = h;
     user.emailVerifyExpiry = expiry;
     await fileWrite(users);
   }
@@ -580,22 +592,23 @@ export async function setEmailVerifyToken(
 
 /** Verifies an email token. Returns the verified user's id on success, else null. */
 export async function verifyEmail(token: string): Promise<string | null> {
+  const h = hashToken(token);
   if (useRedis()) {
-    const userId = await r().get<string>(EVK(token));
+    const userId = await r().get<string>(EVK(h));
     if (!userId) return null;
     const hash = await r().hgetall(UK(userId));
     if (!hash) return null;
     const user = fromHash(hash as Record<string, string>);
-    if (user.emailVerifyToken !== token) return null;
+    if (user.emailVerifyToken !== h) return null;
     if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return null;
     const pipe = r().pipeline();
     pipe.hset(UK(userId), { emailVerified: "1", emailVerifyToken: "", emailVerifyExpiry: "" });
-    pipe.del(EVK(token));
+    pipe.del(EVK(h));
     await pipe.exec();
     return userId;
   }
   const users = await fileRead();
-  const user = users.find(u => u.emailVerifyToken === token);
+  const user = users.find(u => u.emailVerifyToken === h);
   if (!user) return null;
   if (user.emailVerifyExpiry && new Date(user.emailVerifyExpiry) < new Date()) return null;
   user.emailVerified = true;
