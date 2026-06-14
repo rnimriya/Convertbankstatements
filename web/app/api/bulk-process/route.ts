@@ -23,6 +23,9 @@ import { inferBankName } from "@/lib/config/banks";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
 import JSZip from "jszip";
 
+// Bulk Vision extraction across many files can run long; allow the max.
+export const maxDuration = 60;
+
 const MAX_FILES = 20;
 const MAX_SIZE_MB = 50;
 const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;

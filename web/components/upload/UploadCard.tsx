@@ -55,7 +55,9 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
         setState({ status: "payment_required", file, pageCount: data.page_count, message: data.message });
         return;
       }
-      if (!res.ok) throw new Error(data.error ?? "Processing failed.");
+      // Prefer the human-readable `message` (e.g. the "couldn't read any
+      // transactions" explanation) over the machine `error` code.
+      if (!res.ok) throw new Error(data.message ?? data.error ?? "Processing failed.");
       setState({ status: "done", result: data });
       onBillingUpdate();
     } catch (e) {

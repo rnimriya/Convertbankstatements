@@ -19,6 +19,10 @@ import { checkUploadRateLimit } from "@/lib/rate-limit";
 import { getRedis } from "@/lib/redis";
 import { cookies } from "next/headers";
 
+// Claude Vision extraction of scanned PDFs can take 20–60s; give the function
+// room so it isn't killed mid-extraction (Vercel default is short).
+export const maxDuration = 60;
+
 const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;
 
 // Server-side anonymous quota, keyed by client IP. The `bs_pages_used` cookie is
