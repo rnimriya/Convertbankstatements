@@ -48,11 +48,21 @@ export async function POST(req: NextRequest) {
 
   const { plan, fileName, pageCount } = parsed.data;
 
+  // Distinct from a Razorpay API failure: a missing plan id is a configuration
+  // gap (the env var isn't set), so surface a clear, actionable message and log
+  // exactly which env var to set rather than a generic "try again".
+  const planId = PLAN_IDS[plan];
+  if (!planId) {
+    const envVar = `RAZORPAY_PLAN_${plan.toUpperCase()}`;
+    console.error(`[create-order] Missing Razorpay plan id for "${plan}". Create the plan in Razorpay and set ${envVar}.`);
+    return NextResponse.json(
+      { error: "This plan isn't available yet. Please pick another plan or contact support." },
+      { status: 503 }
+    );
+  }
+
   try {
     const rp = getRazorpay();
-
-    const planId = PLAN_IDS[plan];
-    if (!planId) throw new Error(`Razorpay plan ID for ${plan} is not configured.`);
 
     const subscription = await rp.subscriptions.create({
       plan_id: planId,
