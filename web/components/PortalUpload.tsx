@@ -173,7 +173,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
         </div>
 
         <p className="text-center text-xs text-slate-400 dark:text-gray-500 mt-6">
-          Secured by <span className="font-medium">Convert Statement</span> · Your file is processed in memory and never stored
+          Secured by <span className="font-medium">Convert Statement</span> · Not stored on our servers. Scanned PDFs are sent to our AI provider for extraction.
         </p>
       </div>
     </div>

@@ -299,7 +299,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     </span>
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
-                    <span className="flex items-center gap-1 text-[11px] text-slate-400"><Lock size={11} /> Never stored</span>
+                    <span className="flex items-center gap-1 text-[11px] text-slate-400"><Lock size={11} /> Not stored on our servers</span>
                     <span className="flex items-center gap-1 text-[11px] text-slate-400"><Zap size={11} className="text-amber-400" /> ~11s</span>
                   </div>
                 </div>

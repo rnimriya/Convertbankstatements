@@ -39,6 +39,10 @@ interface FileResult {
   error?: string;
 }
 
+function clientIp(req: NextRequest): string {
+  return (req.headers.get("x-forwarded-for") ?? "127.0.0.1").split(",")[0].trim();
+}
+
 export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
@@ -134,7 +138,7 @@ export async function POST(req: NextRequest) {
   for (const { name, bytes } of pdfFiles) {
     try {
       // In-app extraction (no external backend). Never fabricate data.
-      const extraction = await extractTransactions(bytes, name);
+      const extraction = await extractTransactions(bytes, name, clientIp(req));
       const transactions = extraction.transactions;
       const bankName: string | null = extraction.bankName ?? inferBankName(name);
 

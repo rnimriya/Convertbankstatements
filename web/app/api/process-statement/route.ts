@@ -24,6 +24,7 @@ import { cookies } from "next/headers";
 export const maxDuration = 60;
 
 const FREE_PAGE_CAP = TIER_CONFIG.FREE.pagesPerMonth;
+const MAX_PAGES = 300; // upper bound per document to bound parser resource use
 
 // Server-side anonymous quota, keyed by client IP. The `bs_pages_used` cookie is
 // user-deletable, so it cannot be the only brake on free usage. This Redis counter
@@ -79,14 +80,30 @@ export async function POST(req: NextRequest) {
 
   const start = Date.now();
   const bytes = Buffer.from(await file.arrayBuffer());
+
+  // Validate real PDF content (magic bytes) — reject files that merely carry a
+  // .pdf name/type before handing untrusted bytes to the PDF parser.
+  if (!bytes.subarray(0, 5).toString("latin1").startsWith("%PDF-")) {
+    return NextResponse.json(
+      { error: "File does not appear to be a valid PDF." },
+      { status: 415 }
+    );
+  }
+
   const pageCount = countPdfPages(bytes);
 
   // BUG-10: reject empty or structurally invalid PDFs before any quota or payment logic.
-  // countPdfPages now returns 0 for files with no detectable pages.
   if (pageCount === 0) {
     return NextResponse.json(
       { error: "Invalid PDF: no pages detected. The file may be corrupted or empty." },
       { status: 400 }
+    );
+  }
+  // Cap pages to bound parser CPU/memory (decompression-bomb / pathological PDFs).
+  if (pageCount > MAX_PAGES) {
+    return NextResponse.json(
+      { error: `This PDF has ${pageCount} pages. The maximum is ${MAX_PAGES}. Please split it and try again.` },
+      { status: 413 }
     );
   }
   const _fileHash = sha256Hex(bytes);
@@ -179,7 +196,7 @@ export async function POST(req: NextRequest) {
   let bankName = inferBankName(file.name, bytes.toString("latin1").slice(0, 2000));
   const isDemo = false;
 
-  const extraction = await extractTransactions(bytes, file.name);
+  const extraction = await extractTransactions(bytes, file.name, clientIp(req));
   transactions = extraction.transactions;
   bankName = extraction.bankName ?? bankName;
 

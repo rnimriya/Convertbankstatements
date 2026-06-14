@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getPostBySlug, updatePost, deletePost } from "@/lib/blog/posts";
-import { getSession } from "@/lib/auth/session";
+import { getAdminSession } from "@/lib/auth/admin";
 import { checkCsrfOrigin } from "@/lib/csrf";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
@@ -16,8 +16,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ slug
   const csrf = checkCsrfOrigin(req);
   if (csrf) return csrf;
 
-  const session = await getSession();
-  if (!session || session.email !== process.env.ADMIN_EMAIL) {
+  if (!(await getAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { slug } = await params;
@@ -41,8 +40,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ s
   const csrf = checkCsrfOrigin(req);
   if (csrf) return csrf;
 
-  const session = await getSession();
-  if (!session || session.email !== process.env.ADMIN_EMAIL) {
+  if (!(await getAdminSession())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { slug } = await params;

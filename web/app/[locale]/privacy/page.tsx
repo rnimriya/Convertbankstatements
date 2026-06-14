@@ -93,7 +93,8 @@ We do not sell your data to any third party under any circumstances.`,
 - All connections use TLS 1.3 encryption (HTTPS)
 - Passwords are hashed using bcrypt with a work factor of 12
 - Session tokens use 256-bit HMAC-signed JWTs with 30-day expiry
-- PDF files are processed in memory — never written to disk
+- PDF files are processed in memory and are not stored on our servers
+- Scanned/image PDFs are sent to our AI provider (Anthropic) solely to extract the transactions, then discarded — text-based PDFs are read locally and never leave our servers
 - Payment data flows only through Razorpay's PCI-DSS certified systems
 - Regular security audits and vulnerability assessments
 

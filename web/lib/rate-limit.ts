@@ -7,6 +7,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
+import { isDeployed } from "@/lib/env";
+
+let _warnedNoRedis = false;
 
 interface Bucket {
   /** Max requests allowed per window. */
@@ -61,6 +64,13 @@ function clientIp(req: NextRequest): string {
 async function enforce(req: NextRequest, bucket: Bucket): Promise<NextResponse | null> {
   const ip = clientIp(req);
   const rl = getRatelimit(bucket);
+
+  // Per-instance in-memory limiting is largely ineffective on serverless — alert
+  // loudly if we've fallen back to it in a deployed environment.
+  if (!rl && isDeployed() && !_warnedNoRedis) {
+    _warnedNoRedis = true;
+    console.error("[security][rate-limit] Redis not configured in production — rate limiting is per-instance and bypassable. Set UPSTASH_REDIS_REST_URL/TOKEN.");
+  }
 
   const allowed = rl
     ? (await rl.limit(ip)).success

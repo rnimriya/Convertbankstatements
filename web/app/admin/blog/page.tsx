@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getSession } from "@/lib/auth/session";
+import { getAdminSession } from "@/lib/auth/admin";
 import { getAllPosts } from "@/lib/blog/posts";
 import { AdminDeleteButton } from "@/components/blog/AdminDeleteButton";
 
@@ -9,8 +9,7 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Admin - Blog Posts" };
 
 export default async function AdminBlogPage() {
-  const session = await getSession();
-  if (!session || session.email !== process.env.ADMIN_EMAIL) {
+  if (!(await getAdminSession())) {
     redirect("/login");
   }
 

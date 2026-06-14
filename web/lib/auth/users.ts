@@ -12,6 +12,8 @@ import fs from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
 import { Redis } from "@upstash/redis";
+import { encryptField, decryptField } from "@/lib/crypto";
+import { isDeployed } from "@/lib/env";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -110,7 +112,7 @@ function toHash(u: User): Record<string, string | number> {
     emailVerified: u.emailVerified ? "1" : "0",
     emailVerifyToken: u.emailVerifyToken ?? "",
     emailVerifyExpiry: u.emailVerifyExpiry ?? "",
-    googleSheetsRefreshToken: u.googleSheetsRefreshToken ?? "",
+    googleSheetsRefreshToken: encryptField(u.googleSheetsRefreshToken),
     teamId: u.teamId ?? "",
     teamRole: u.teamRole ?? "",
     apiKey: u.apiKey ?? "",
@@ -150,7 +152,7 @@ function fromHash(h: Record<string, string>): User {
     emailVerified: h.emailVerified === "1",
     emailVerifyToken: h.emailVerifyToken || null,
     emailVerifyExpiry: h.emailVerifyExpiry || null,
-    googleSheetsRefreshToken: h.googleSheetsRefreshToken || null,
+    googleSheetsRefreshToken: decryptField(h.googleSheetsRefreshToken) || null,
     teamId: h.teamId || null,
     teamRole: (h.teamRole || null) as User["teamRole"],
     apiKey: h.apiKey || null,
@@ -544,6 +546,9 @@ export async function markWebhookProcessed(paymentId: string): Promise<boolean> 
     const result = await r().set(WK(paymentId), "1", { nx: true, ex: 90_000 });
     return result === "OK";
   }
+  if (isDeployed()) {
+    console.error("[security][webhook] Redis not configured in production — webhook idempotency is DISABLED (replays possible). Set UPSTASH_REDIS_REST_URL/TOKEN.");
+  }
   return true; // local dev — always process
 }
 
@@ -694,7 +699,7 @@ export async function changePassword(
 
 export async function setGoogleSheetsToken(userId: string, refreshToken: string): Promise<void> {
   if (useRedis()) {
-    await r().hset(UK(userId), { googleSheetsRefreshToken: refreshToken });
+    await r().hset(UK(userId), { googleSheetsRefreshToken: encryptField(refreshToken) });
     return;
   }
   const users = await fileRead();

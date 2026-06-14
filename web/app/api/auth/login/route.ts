@@ -4,6 +4,7 @@ import { findByEmail } from "@/lib/auth/users";
 import { signJWT } from "@/lib/auth/jwt";
 import { sessionCookieOptions, SESSION_COOKIE } from "@/lib/auth/session";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { logSecurityEvent, ipFromHeaders } from "@/lib/security-log";
 import { z } from "zod";
 
 const schema = z.object({
@@ -33,17 +34,23 @@ export async function POST(req: NextRequest) {
     const { email, password } = parsed.data;
     const user = await findByEmail(email);
 
+    const ip = ipFromHeaders(req.headers);
+
     if (!user) {
       // Always run a full bcrypt comparison to keep timing identical to
       // the valid-user path — prevents enumeration via response latency.
       await bcrypt.compare(password, await DUMMY_HASH_PROMISE);
+      logSecurityEvent("auth.login.failure", { ip, reason: "no_user" });
       return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
 
     const valid = await bcrypt.compare(password, user.passwordHash);
     if (!valid) {
+      logSecurityEvent("auth.login.failure", { ip, reason: "bad_password", userId: user.id });
       return NextResponse.json({ error: "Invalid email or password." }, { status: 401 });
     }
+
+    logSecurityEvent("auth.login.success", { ip, userId: user.id });
 
     const token = await signJWT({
       sub: user.id,

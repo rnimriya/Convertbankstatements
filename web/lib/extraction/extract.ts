@@ -11,6 +11,29 @@ import { extractText, getDocumentProxy } from "unpdf";
 import Anthropic from "@anthropic-ai/sdk";
 import type { Transaction } from "@/types/billing";
 import { inferBankName } from "@/lib/config/banks";
+import { getRedis } from "@/lib/redis";
+
+// Denial-of-wallet guard: each Vision call is billed to our Anthropic account.
+// Cap invocations per IP/day and globally/day so abuse can't run up spend.
+const VISION_DAILY_CAP = parseInt(process.env.VISION_DAILY_CAP ?? "2000", 10);
+const VISION_IP_DAILY_CAP = parseInt(process.env.VISION_IP_DAILY_CAP ?? "25", 10);
+
+async function visionBudgetExceeded(clientIp?: string): Promise<boolean> {
+  const redis = getRedis();
+  if (!redis) return false; // no durable store (local dev) — can't enforce
+  const day = new Date().toISOString().slice(0, 10);
+  const ttl = 93_600; // ~26h
+  const g = await redis.incr(`cs:vision:global:${day}`);
+  if (g === 1) await redis.expire(`cs:vision:global:${day}`, ttl);
+  if (g > VISION_DAILY_CAP) return true;
+  if (clientIp) {
+    const ipKey = `cs:vision:ip:${clientIp}:${day}`;
+    const c = await redis.incr(ipKey);
+    if (c === 1) await redis.expire(ipKey, ttl);
+    if (c > VISION_IP_DAILY_CAP) return true;
+  }
+  return false;
+}
 
 export type ExtractionMethod = "text" | "vision" | "none";
 
@@ -158,9 +181,13 @@ Rules:
 - Skip header rows, totals, and page footers
 - If no transactions found return an empty array`;
 
-async function extractWithVision(bytes: Buffer): Promise<VisionOutcome> {
+async function extractWithVision(bytes: Buffer, clientIp?: string): Promise<VisionOutcome> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return { status: "no_key" };
+
+  if (await visionBudgetExceeded(clientIp)) {
+    return { status: "error", detail: "Daily scanned-document limit reached — please try again later." };
+  }
 
   const client = new Anthropic({ apiKey });
   try {
@@ -218,7 +245,7 @@ async function extractWithVision(bytes: Buffer): Promise<VisionOutcome> {
  * calls), then Claude Vision for scanned PDFs when ANTHROPIC_API_KEY is set.
  * Never fabricates data — returns method "none" with an empty list if nothing reads.
  */
-export async function extractTransactions(bytes: Buffer, fileName: string): Promise<ExtractionResult> {
+export async function extractTransactions(bytes: Buffer, fileName: string, clientIp?: string): Promise<ExtractionResult> {
   let firstPageText = "";
   try {
     const { lines, firstPageText: fpt } = await extractPdfText(bytes);
@@ -232,7 +259,7 @@ export async function extractTransactions(bytes: Buffer, fileName: string): Prom
   }
 
   // No text-layer transactions → likely scanned. Try Vision if configured.
-  const vision = await extractWithVision(bytes);
+  const vision = await extractWithVision(bytes, clientIp);
   if (vision.status === "ok" && vision.transactions.length > 0) {
     return {
       transactions: vision.transactions,

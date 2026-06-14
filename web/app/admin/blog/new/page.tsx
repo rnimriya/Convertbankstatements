@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getSession } from "@/lib/auth/session";
+import { getAdminSession } from "@/lib/auth/admin";
 import { NewPostForm } from "@/components/blog/NewPostForm";
 
 export const dynamic = "force-dynamic";
@@ -7,8 +7,7 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Admin - New Blog Post" };
 
 export default async function NewBlogPostPage() {
-  const session = await getSession();
-  if (!session || session.email !== process.env.ADMIN_EMAIL) {
+  if (!(await getAdminSession())) {
     redirect("/login");
   }
   return (

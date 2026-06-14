@@ -7,6 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/razorpay";
 import { upgradeTier, findById, markWebhookProcessed } from "@/lib/auth/users";
 import { TIER_CONFIG } from "@/lib/config/tiers";
+import { logSecurityEvent, ipFromHeaders } from "@/lib/security-log";
 
 const SUBSCRIPTION_PLANS = new Set(["basic", "basic_annual", "pro", "business", "pro_annual", "business_annual"]);
 
@@ -25,6 +26,7 @@ export async function POST(req: NextRequest) {
   const body = await req.text();
 
   if (!verifyWebhookSignature(body, signature)) {
+    logSecurityEvent("webhook.signature_invalid", { ip: ipFromHeaders(req.headers) });
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
