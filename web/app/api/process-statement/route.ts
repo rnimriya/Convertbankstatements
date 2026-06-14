@@ -184,15 +184,16 @@ export async function POST(req: NextRequest) {
   bankName = extraction.bankName ?? bankName;
 
   if (extraction.method === "none" || transactions.length === 0) {
-    // A valid PDF we couldn't read (likely scanned with no Vision configured).
-    // Be honest rather than returning fake rows.
+    // A valid PDF we couldn't read. Be honest rather than returning fake rows,
+    // and say precisely WHY so it's fixable (missing key vs key error vs empty).
+    const message =
+      extraction.reason === "no_vision_key"
+        ? "This looks like a scanned/image PDF. Scanned-document support isn't enabled on the server yet — set ANTHROPIC_API_KEY (admin) and redeploy."
+        : extraction.reason === "vision_error"
+        ? `Scanned-document extraction failed${extraction.detail ? `: ${extraction.detail}` : ""}. Check ANTHROPIC_API_KEY is valid and the Anthropic account has credit.`
+        : "We read the document but found no transactions. Please confirm it's a bank statement (not a cover/summary page) and not password-protected.";
     return NextResponse.json(
-      {
-        error: "NO_TRANSACTIONS_FOUND",
-        message:
-          "We couldn't read any transactions from this PDF. If it's a scanned/photo statement, scanned-document support must be enabled. Otherwise the file may be password-protected or in an unsupported layout.",
-        page_count: pageCount,
-      },
+      { error: "NO_TRANSACTIONS_FOUND", reason: extraction.reason, message, page_count: pageCount },
       { status: 422 }
     );
   }

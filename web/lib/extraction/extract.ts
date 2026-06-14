@@ -14,12 +14,24 @@ import { inferBankName } from "@/lib/config/banks";
 
 export type ExtractionMethod = "text" | "vision" | "none";
 
+/** Why extraction produced nothing — drives a precise user/admin message. */
+export type ExtractionReason = "no_vision_key" | "vision_error" | "empty";
+
 export interface ExtractionResult {
   transactions: Transaction[];
   bankName: string | null;
   /** "text"/"vision" = a real extractor ran; "none" = nothing could read the file. */
   method: ExtractionMethod;
+  /** Set when method === "none". */
+  reason?: ExtractionReason;
+  /** Extra context for "vision_error" (e.g. the Anthropic error message). */
+  detail?: string;
 }
+
+type VisionOutcome =
+  | { status: "ok"; transactions: Transaction[]; bankName: string | null }
+  | { status: "no_key" }
+  | { status: "error"; detail: string };
 
 // ── Categorisation (ported from backend _categorise) ───────────────────────────
 
@@ -146,9 +158,9 @@ Rules:
 - Skip header rows, totals, and page footers
 - If no transactions found return an empty array`;
 
-async function extractWithVision(bytes: Buffer): Promise<ExtractionResult | null> {
+async function extractWithVision(bytes: Buffer): Promise<VisionOutcome> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) return null; // Vision unavailable — caller treats as "no extraction"
+  if (!apiKey) return { status: "no_key" };
 
   const client = new Anthropic({ apiKey });
   try {
@@ -170,7 +182,9 @@ async function extractWithVision(bytes: Buffer): Promise<ExtractionResult | null
     });
 
     const textBlock = message.content.find((b) => b.type === "text");
-    if (!textBlock || textBlock.type !== "text") return null;
+    if (!textBlock || textBlock.type !== "text") {
+      return { status: "error", detail: "Vision returned no text" };
+    }
 
     let raw = textBlock.text.trim();
     if (raw.startsWith("```")) raw = raw.split("\n").slice(1, -1).join("\n");
@@ -189,10 +203,11 @@ async function extractWithVision(bytes: Buffer): Promise<ExtractionResult | null
       reference: null,
     }));
 
-    return { transactions, bankName: parsed.bank_name ?? null, method: "vision" };
+    return { status: "ok", transactions, bankName: parsed.bank_name ?? null };
   } catch (err) {
     console.error("[extraction] Vision failed:", err);
-    return null;
+    const detail = err instanceof Error ? err.message.slice(0, 200) : "unknown error";
+    return { status: "error", detail };
   }
 }
 
@@ -218,9 +233,22 @@ export async function extractTransactions(bytes: Buffer, fileName: string): Prom
 
   // No text-layer transactions → likely scanned. Try Vision if configured.
   const vision = await extractWithVision(bytes);
-  if (vision && vision.transactions.length > 0) {
-    return { ...vision, bankName: vision.bankName ?? inferBankName(fileName, firstPageText) };
+  if (vision.status === "ok" && vision.transactions.length > 0) {
+    return {
+      transactions: vision.transactions,
+      bankName: vision.bankName ?? inferBankName(fileName, firstPageText),
+      method: "vision",
+    };
   }
 
-  return { transactions: [], bankName: inferBankName(fileName, firstPageText), method: "none" };
+  // Nothing read — say precisely why so the issue is fixable.
+  const reason: ExtractionReason =
+    vision.status === "no_key" ? "no_vision_key" : vision.status === "error" ? "vision_error" : "empty";
+  return {
+    transactions: [],
+    bankName: inferBankName(fileName, firstPageText),
+    method: "none",
+    reason,
+    detail: vision.status === "error" ? vision.detail : undefined,
+  };
 }
