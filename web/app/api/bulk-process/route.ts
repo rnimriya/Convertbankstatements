@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
         totalPages,
       }, { status: 402 });
     }
-  } else if (["PRO", "BUSINESS"].includes(tier)) {
+  } else if (["BASIC", "PRO", "BUSINESS"].includes(tier)) {
     if (pagesUsed + totalPages > monthlyPageLimit) {
       return NextResponse.json({
         error: "PAYMENT_REQUIRED",

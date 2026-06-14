@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
         { status: 402 }
       );
     }
-  } else if (["PRO", "BUSINESS"].includes(tier)) {
+  } else if (["BASIC", "PRO", "BUSINESS"].includes(tier)) {
     if (pagesUsed + pageCount > monthlyPageLimit) {
       return NextResponse.json(
         {

@@ -2,6 +2,8 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 
 
+export const BASIC_AMOUNT_PAISE = 2500;       // ₹25/month
+export const BASIC_ANNUAL_PAISE = 24800;      // ₹248/year (≈ ₹21/mo)
 export const PRO_AMOUNT_PAISE = 119800;       // ₹1,198/month
 export const BIZ_AMOUNT_PAISE = 449800;       // ₹4,498/month
 // Annual = monthly × 12 × 0.80 (20% discount), billed in one charge

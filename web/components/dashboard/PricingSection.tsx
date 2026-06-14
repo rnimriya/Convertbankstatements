@@ -21,10 +21,29 @@ const PLANS = [
     features: ["8 pages free, forever", "CSV & Excel export", "All Indian banks", "No credit card required"],
     notIncluded: ["OFX / QFX export", "Google Sheets"],
     cta: "Free",
-    monthlyPlan: null as "pro" | "business" | null,
+    monthlyPlan: null as "basic" | "pro" | "business" | null,
     annualPlan: null as "pro_annual" | "business_annual" | null,
     amountINR: 0,
     annualAmountINR: 0,
+  },
+  {
+    id: "BASIC" as SubTier,
+    name: "Basic",
+    price: "₹25",
+    period: "/ mo",
+    annualPrice: "₹248" as string | null,
+    annualPeriod: "/ year" as string | null,
+    annualMonthlyEquiv: "₹21/mo" as string | null,
+    tagline: "For light, occasional use",
+    highlight: false,
+    badge: null as string | null,
+    features: ["25 pages / month", "CSV & Excel export", "All Indian banks", "Email support"],
+    notIncluded: ["Google Sheets", "OFX / QFX export", "API access"],
+    cta: "Upgrade to Basic",
+    monthlyPlan: "basic" as "basic" | "pro" | "business" | null,
+    annualPlan: "basic_annual" as "basic_annual" | "pro_annual" | "business_annual" | null,
+    amountINR: 25,
+    annualAmountINR: 248,
   },
   {
     id: "PRO" as SubTier,
@@ -137,7 +156,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
       )}
 
       {/* Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-start max-w-6xl mx-auto">
         {PLANS.map((plan) => {
           const isCurrent = currentTier === plan.id;
           const showAnnual = annual && plan.annualPrice !== null;
@@ -322,7 +341,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
       </div>
 
       {/* Cancellation */}
-      {(currentTier === "PRO" || currentTier === "BUSINESS") && !cancelled && (
+      {currentTier !== "FREE" && !cancelled && (
         <div className="mt-8 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-5">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
@@ -357,7 +376,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           {cancelConfirm && (
             <div className="mt-3 flex items-start gap-2 text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-xl px-4 py-3">
               <AlertTriangle size={14} className="shrink-0 mt-0.5" />
-              You will lose access to {currentTier === "PRO" ? "500" : "2,000"} pages/month, all export formats, and other Pro features. Are you sure?
+              You will lose access to {currentTier === "PRO" ? "500" : currentTier === "BUSINESS" ? "2,000" : "25"} pages/month and your paid features. Are you sure?
             </div>
           )}
         </div>

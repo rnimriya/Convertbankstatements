@@ -21,7 +21,7 @@ export interface User {
   name: string | null;
   passwordHash: string;
   pagesUsed: number;
-  tier: "FREE" | "PRO" | "BUSINESS";
+  tier: "FREE" | "BASIC" | "PRO" | "BUSINESS";
   monthlyPageLimit: number;
   billingCycle: "monthly" | "annual";
   razorpayCustomerId: string | null;

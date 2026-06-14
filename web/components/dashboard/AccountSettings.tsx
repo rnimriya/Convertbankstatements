@@ -159,6 +159,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
                 tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
                 tier === "PRO"      ? "bg-violet-100 text-violet-700" :
+                tier === "BASIC"    ? "bg-teal-100 text-teal-700" :
                 "bg-slate-100 text-slate-600"
               }`}>
                 {tier}

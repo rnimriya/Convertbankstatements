@@ -10,6 +10,8 @@ import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const AMOUNTS: Record<string, number> = {
+  basic:            TIER_CONFIG.BASIC.monthlyPricePaise,
+  basic_annual:     TIER_CONFIG.BASIC.annualPricePaise!,
   pro:              TIER_CONFIG.PRO.monthlyPricePaise,
   business:         TIER_CONFIG.BUSINESS.monthlyPricePaise,
   pro_annual:       TIER_CONFIG.PRO.annualPricePaise!,
@@ -17,13 +19,17 @@ const AMOUNTS: Record<string, number> = {
 };
 
 const schema = z.object({
-  plan: z.enum(["pro", "business", "pro_annual", "business_annual"]),
+  plan: z.enum(["basic", "basic_annual", "pro", "business", "pro_annual", "business_annual"]),
   fileName: z.string().optional(),
   pageCount: z.number().optional(),
 });
 
 export async function POST(req: NextRequest) {
   const PLAN_IDS: Record<string, string | undefined> = {
+    // Create these Basic plans in the Razorpay dashboard and set the env vars
+    // (₹25/month and ₹248/year).
+    basic: process.env.RAZORPAY_PLAN_BASIC_MONTHLY,
+    basic_annual: process.env.RAZORPAY_PLAN_BASIC_ANNUAL,
     pro: process.env.RAZORPAY_PLAN_PRO_MONTHLY || "plan_T14Sj6GkD8svJ2",
     business: process.env.RAZORPAY_PLAN_BUSINESS_MONTHLY || "plan_T14TRWQvERqGf5",
     pro_annual: process.env.RAZORPAY_PLAN_PRO_ANNUAL || "plan_T14UgoFUfRdt5Z",

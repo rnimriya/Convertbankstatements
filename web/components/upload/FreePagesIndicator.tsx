@@ -11,7 +11,8 @@ interface Props {
 }
 
 export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props) {
-  if (tier === "PRO" || tier === "BUSINESS") {
+  // Any paid tier (Basic/Pro/Business) shows the monthly-quota indicator.
+  if (tier !== "FREE") {
     const remaining = Math.max(0, monthlyPageLimit - pagesUsed);
     const pct = Math.min(100, (pagesUsed / monthlyPageLimit) * 100);
     const low = pct > 85;
