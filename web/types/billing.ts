@@ -1,4 +1,4 @@
-export type SubTier = "FREE" | "PRO" | "BUSINESS";
+export type SubTier = "FREE" | "BASIC" | "PRO" | "BUSINESS";
 export type BillingType = "FREE_TIER" | "SUBSCRIPTION";
 export type PaymentStatus = "PENDING" | "SUCCEEDED" | "FAILED" | "REFUNDED";
 

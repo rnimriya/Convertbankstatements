@@ -23,7 +23,8 @@ const schema = z.object({
   razorpay_signature: z.string(),
 });
 
-const PLAN_CONFIG: Record<string, { tier: "FREE" | "PRO" | "BUSINESS"; pageLimit: number; billingCycle: "monthly" | "annual" }> = {
+const PLAN_CONFIG: Record<string, { tier: "FREE" | "BASIC" | "PRO" | "BUSINESS"; pageLimit: number; billingCycle: "monthly" | "annual" }> = {
+  basic: { tier: "BASIC", pageLimit: TIER_CONFIG.BASIC.pagesPerMonth, billingCycle: "monthly" },
   pro: { tier: "PRO", pageLimit: TIER_CONFIG.PRO.pagesPerMonth, billingCycle: "monthly" },
   business: { tier: "BUSINESS", pageLimit: TIER_CONFIG.BUSINESS.pagesPerMonth, billingCycle: "monthly" },
   pro_annual: { tier: "PRO", pageLimit: TIER_CONFIG.PRO.pagesPerMonth, billingCycle: "annual" },

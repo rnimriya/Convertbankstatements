@@ -21,6 +21,21 @@ const MONTHLY_PLANS = [
     annualHref: "/signup",
   },
   {
+    name: "Basic",
+    price: "₹10",
+    period: "/ mo",
+    annualPrice: null,
+    annualPeriod: null,
+    tagline: "For light, occasional use",
+    highlight: false,
+    badge: null,
+    features: ["25 pages / month", "CSV & Excel export", "All Indian banks", "Email support"],
+    notIncluded: ["Google Sheets", "OFX / QFX export"],
+    cta: "Start Basic",
+    href: "/signup?plan=basic",
+    annualHref: "/signup?plan=basic",
+  },
+  {
     name: "Pro",
     price: "₹1,198",
     period: "/ mo",
@@ -83,7 +98,7 @@ export function PricingCards() {
       </div>
 
       {/* Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-start max-w-5xl mx-auto">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-start max-w-6xl mx-auto">
         {MONTHLY_PLANS.map((plan) => {
           const showAnnual = annual && plan.annualPrice !== null;
           const displayPrice = showAnnual ? plan.annualPrice! : plan.price;

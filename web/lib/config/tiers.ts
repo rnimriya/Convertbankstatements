@@ -3,7 +3,7 @@
  * Import from here — never hardcode these values in route handlers.
  */
 
-export type Tier = "FREE" | "PRO" | "BUSINESS";
+export type Tier = "FREE" | "BASIC" | "PRO" | "BUSINESS";
 export type BillingCycle = "monthly" | "annual";
 
 export interface TierConfig {
@@ -21,6 +21,11 @@ export const TIER_CONFIG = {
     monthlyPricePaise: 0,
     annualPricePaise: null,
   },
+  BASIC: {
+    pagesPerMonth: 25,
+    monthlyPricePaise: 1_000,     // ₹10 / month
+    annualPricePaise: null,       // monthly only
+  },
   PRO: {
     pagesPerMonth: 500,
     monthlyPricePaise: 119_800,  // ₹1,198
@@ -33,7 +38,7 @@ export const TIER_CONFIG = {
   },
 } satisfies Record<Tier, TierConfig>;
 
-/** Page limit for a given tier + billing cycle, ready to store in Redis. */
-export function pageLimit(tier: "PRO" | "BUSINESS"): number {
+/** Page limit for a given paid tier, ready to store in Redis. */
+export function pageLimit(tier: "BASIC" | "PRO" | "BUSINESS"): number {
   return TIER_CONFIG[tier].pagesPerMonth;
 }

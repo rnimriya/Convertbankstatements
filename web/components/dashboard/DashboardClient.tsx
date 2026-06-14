@@ -122,7 +122,7 @@ export function DashboardClient({
 
   const displayName = userName ?? userEmail.split("@")[0];
   const initial = displayName[0]?.toUpperCase();
-  const isBusinessOrPro = billing.tier === "PRO" || billing.tier === "BUSINESS";
+  const isPaid = billing.tier !== "FREE"; // Basic / Pro / Business all have a monthly quota
   const isBusiness = billing.tier === "BUSINESS";
 
   const usagePercent = billing.monthlyPageLimit > 0
@@ -200,6 +200,7 @@ export function DashboardClient({
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg ${
               billing.tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
               billing.tier === "PRO"      ? "bg-violet-100 text-violet-700" :
+              billing.tier === "BASIC"    ? "bg-teal-100 text-teal-700" :
               "bg-slate-200 text-slate-500"
             }`}>
               {billing.tier}
@@ -215,7 +216,7 @@ export function DashboardClient({
               </span>
             )}
           </div>
-          {isBusinessOrPro && (
+          {isPaid && (
             <div className="mt-2.5">
               <div className="flex justify-between text-[10px] text-slate-400 mb-1">
                 <span>Pages</span>
@@ -399,7 +400,7 @@ export function DashboardClient({
                     value: billing.pagesUsedThisPeriod.toLocaleString("en-IN"),
                     sub: billing.pagesUsedThisPeriod === 0
                       ? "No pages yet"
-                      : `of ${billing.monthlyPageLimit} ${isBusinessOrPro ? "this period" : "free"}`,
+                      : `of ${billing.monthlyPageLimit} ${isPaid ? "this period" : "free"}`,
                     Icon: TrendingUp,
                     gradient: "linear-gradient(135deg,#8b5cf6,#a855f7)",
                     bg: "#f5f3ff",
@@ -416,8 +417,8 @@ export function DashboardClient({
                   },
                   {
                     label: "Plan Usage",
-                    value: isBusinessOrPro ? `${usagePercent}%` : billing.tier,
-                    sub: isBusinessOrPro
+                    value: isPaid ? `${usagePercent}%` : billing.tier,
+                    sub: isPaid
                       ? `${billing.pagesUsedThisPeriod} / ${billing.monthlyPageLimit} pages used`
                       : billing.tier === "FREE"
                         ? `${Math.max(0, billing.monthlyPageLimit - billing.pagesUsedThisPeriod)} of ${billing.monthlyPageLimit} pages left`
@@ -560,13 +561,14 @@ export function DashboardClient({
                       <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
                         billing.tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
                         billing.tier === "PRO"      ? "bg-violet-100 text-violet-700" :
+                        billing.tier === "BASIC"    ? "bg-teal-100 text-teal-700" :
                         "bg-slate-100 text-slate-600"
                       }`}>
                         {billing.tier === "FREE" ? "Free forever" : "Active"}
                       </span>
                     </div>
 
-                    {isBusinessOrPro ? (
+                    {isPaid ? (
                       <div className="flex items-center gap-4">
                         <div className="relative w-16 h-16 shrink-0">
                           <svg width="64" height="64" viewBox="0 0 64 64" className="-rotate-90">
