@@ -14,7 +14,12 @@ export interface JWTPayload {
   name: string | null;
   /** Monotonic session-revocation counter. Bumped on password change / logout-all. */
   tokenVersion: number;
+  /** Expiry (unix seconds), populated on verify — used for sliding renewal. */
+  exp?: number;
 }
+
+/** Access-token lifetime. Sessions idle longer than this require re-login. */
+export const SESSION_TTL_SECONDS = 7 * 24 * 60 * 60; // 7 days
 
 export async function signJWT(payload: JWTPayload): Promise<string> {
   return new SignJWT({
@@ -25,7 +30,7 @@ export async function signJWT(payload: JWTPayload): Promise<string> {
     .setProtectedHeader({ alg: "HS256" })
     .setSubject(payload.sub)
     .setIssuedAt()
-    .setExpirationTime("30d")
+    .setExpirationTime("7d")
     .sign(secret());
 }
 
@@ -49,6 +54,7 @@ export async function verifyJWT(token: string): Promise<JWTPayload | null> {
       email,
       name: (payload.name as string | null) ?? null,
       tokenVersion: typeof payload.tv === "number" ? payload.tv : 0,
+      exp: typeof payload.exp === "number" ? payload.exp : undefined,
     };
   } catch {
     return null;
