@@ -44,14 +44,14 @@ export default async function HomePage() {
     badge?: string; chips?: string[];
   };
   const FEATURES: Feature[] = [
-    { icon: <Zap size={22} className="text-zinc-700" />, gradient: "", glow: "", stat: "15", statSuffix: "s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
-    { icon: <Shield size={22} className="text-zinc-700" />, gradient: "", glow: "", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge: "Zero storage" },
-    { icon: <FileCheck size={22} className="text-zinc-700" />, gradient: "", glow: "", stat: "99.4", statSuffix: "%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
-    { icon: <FileText size={22} className="text-zinc-700" />, gradient: "", glow: "", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel", "CSV", "OFX / Tally", "QFX / QuickBooks", "Google Sheets"] },
-    { icon: <Globe size={22} className="text-zinc-700" />, gradient: "", glow: "", stat: "30", statSuffix: "+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
-    { icon: <Lock size={20} className="text-zinc-700" />, gradient: "", glow: "", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
-    { icon: <CreditCard size={20} className="text-zinc-700" />, gradient: "", glow: "", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
-    { icon: <Clock size={20} className="text-zinc-700" />, gradient: "", glow: "", title: tFeat("instantTitle"), body: tFeat("instantBody") },
+    { icon: <Zap size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", stat: "15", statSuffix: "s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
+    { icon: <Shield size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge: "Zero storage" },
+    { icon: <FileCheck size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", stat: "99.4", statSuffix: "%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
+    { icon: <FileText size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel", "CSV", "OFX / Tally", "QFX / QuickBooks", "Google Sheets"] },
+    { icon: <Globe size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", stat: "30", statSuffix: "+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
+    { icon: <Lock size={20} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
+    { icon: <CreditCard size={20} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
+    { icon: <Clock size={20} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("instantTitle"), body: tFeat("instantBody") },
   ];
 
 
