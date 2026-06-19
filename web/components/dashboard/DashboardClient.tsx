@@ -603,7 +603,7 @@ export function DashboardClient({
                           <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-zinc-100 dark:bg-zinc-800">
                             <Icon size={13} className="text-zinc-600 dark:text-zinc-400" />
                           </div>
-                          <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-100 flex-1">{label}</span>
+                          <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 flex-1">{label}</span>
                           <ChevronRight size={12} className="text-zinc-300 group-hover:text-zinc-500 dark:text-zinc-400 transition-colors" />
                         </button>
                       ))}

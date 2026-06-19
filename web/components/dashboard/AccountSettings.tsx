@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import type { SubTier } from "@/types/billing";
 
-const SECTION = "rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 divide-y divide-slate-100 overflow-hidden shadow-sm";
+const SECTION = "rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
 const ROW = "flex items-center justify-between px-5 py-4 gap-4";
 const LABEL = "text-sm font-medium text-zinc-800 dark:text-zinc-200";
 const DESC = "text-xs text-zinc-400 dark:text-zinc-500 mt-0.5";

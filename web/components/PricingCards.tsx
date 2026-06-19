@@ -112,7 +112,7 @@ export function PricingCards() {
               <div key={plan.name} className="relative pt-5 h-full">
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-block bg-white dark:bg-zinc-950 rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 border border-zinc-200 whitespace-nowrap">
+                  <span className="inline-block bg-white dark:bg-zinc-950 rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 whitespace-nowrap">
                     {plan.badge}
                   </span>
                 </div>
