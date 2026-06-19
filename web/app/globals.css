@@ -142,22 +142,14 @@
   .animation-delay-700 { animation-delay: 700ms; }
 
   .bg-graph-paper {
-    background-image: 
-      linear-gradient(rgba(24, 24, 27, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(24, 24, 27, 0.035) 1px, transparent 1px),
-      linear-gradient(rgba(24, 24, 27, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(24, 24, 27, 0.06) 1px, transparent 1px);
-    background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
-    background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+    background-image: radial-gradient(rgba(15, 23, 42, 0.1) 1.5px, transparent 1.5px), radial-gradient(rgba(15, 23, 42, 0.1) 1.5px, transparent 1.5px);
+    background-position: 0 0, 24px 24px;
+    background-size: 48px 48px;
   }
 
   .bg-graph-paper-dark {
-    background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
-    background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px), radial-gradient(rgba(255, 255, 255, 0.08) 1.5px, transparent 1.5px);
+    background-position: 0 0, 24px 24px;
+    background-size: 48px 48px;
   }
 }

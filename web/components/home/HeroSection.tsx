@@ -27,7 +27,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
   return (
     <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
       {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-40 dark:opacity-10 bg-zinc-300 dark:bg-zinc-800 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-blue-500 dark:bg-blue-600 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
       <div 

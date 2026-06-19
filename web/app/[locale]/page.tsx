@@ -328,7 +328,7 @@ export default async function HomePage() {
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-28 relative overflow-hidden bg-zinc-900">
           {/* Background glow */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-10 bg-white dark:bg-zinc-950 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-blue-500 rounded-full blur-[120px] pointer-events-none" />
 
           {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
           <div 
