@@ -275,8 +275,11 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         )}
                       >
                         <span
-                          className="flex h-4 w-4 items-center justify-center rounded text-[9px] font-black"
-                          style={{ background: active ? "rgba(255,255,255,0.22)" : f.dotBg, color: active ? "#fff" : f.dotColor }}
+                          className={cn(
+                            "flex h-4 w-4 items-center justify-center rounded text-[9px] font-black",
+                            active && "bg-white/20 text-white dark:bg-black/10 dark:text-black"
+                          )}
+                          style={active ? {} : { background: f.dotBg, color: f.dotColor }}
                         >
                           {f.label[0]}
                         </span>
