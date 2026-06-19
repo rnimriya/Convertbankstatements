@@ -129,13 +129,13 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
             <IndianRupee className="h-8 w-8 text-amber-600" />
           </div>
-          <h3 className="text-xl font-black text-slate-900">Payment Required</h3>
-          <p className="mt-1 text-sm font-medium text-slate-600">{payState.file.name}</p>
-          <p className="mt-1 text-sm text-slate-500">{payState.message}</p>
+          <h3 className="text-xl font-black text-zinc-900 dark:text-zinc-100">Payment Required</h3>
+          <p className="mt-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">{payState.file.name}</p>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{payState.message}</p>
           <div className="mt-5 mb-1">
-            <span className="text-xl font-extrabold text-slate-900">Upgrade Required</span>
+            <span className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Upgrade Required</span>
           </div>
-          <p className="text-xs text-slate-400 mb-6">Unlock more pages with a Pro or Business plan.</p>
+          <p className="text-xs text-zinc-400 dark:text-zinc-500 mb-6">Unlock more pages with a Pro or Business plan.</p>
           <div className="flex flex-col gap-2">
             <Link
               href="/pricing"
@@ -143,7 +143,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             >
               View Upgrade Plans
             </Link>
-            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-white text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
+            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-white dark:bg-zinc-950 text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
           </div>
         </div>
       </div>
@@ -200,8 +200,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       </div>
                     </div>
                     <div>
-                      <p className="text-lg font-black text-slate-900 dark:text-white">Converting…</p>
-                      <p className="mt-0.5 max-w-[260px] truncate text-sm text-slate-400">{procState.fileName}</p>
+                      <p className="text-lg font-black text-zinc-900 dark:text-white">Converting…</p>
+                      <p className="mt-0.5 max-w-[260px] truncate text-sm text-zinc-400 dark:text-zinc-500">{procState.fileName}</p>
                     </div>
                     <div className="h-1.5 w-48 overflow-hidden rounded-full bg-zinc-200">
                       <div className="h-full rounded-full" style={{
@@ -233,16 +233,16 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       or <span className="font-bold text-zinc-900 dark:text-zinc-100 underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
                     </p>
 
-                    <div className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+                    <div className="mt-3 flex items-center gap-2 text-xs text-zinc-400 dark:text-zinc-500">
                       <span>PDF only</span>
-                      <span className="h-1 w-1 rounded-full bg-slate-300" />
+                      <span className="h-1 w-1 rounded-full bg-zinc-300" />
                       <span>Max {MAX_FILE_MB} MB</span>
-                      <span className="h-1 w-1 rounded-full bg-slate-300" />
+                      <span className="h-1 w-1 rounded-full bg-zinc-300" />
                       <span>Password OK</span>
                     </div>
 
-                    <p className="mt-2 text-[11px] text-slate-400 dark:text-gray-500">
-                      {BANKS.join(" · ")} <span className="text-slate-300 dark:text-gray-600">+23 more</span>
+                    <p className="mt-2 text-[11px] text-zinc-400 dark:text-gray-500">
+                      {BANKS.join(" · ")} <span className="text-zinc-300 dark:text-gray-600">+23 more</span>
                     </p>
 
                     {billing.tier === "FREE" && freeRemaining > 0 && (
@@ -260,7 +260,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               <div className="border-t border-zinc-100 dark:border-zinc-800 px-4 py-3.5">
                 {/* Format pills */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Format</span>
+                  <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">Format</span>
                   {FORMATS.map(f => {
                     const active = formats.includes(f.id);
                     return (
@@ -289,17 +289,17 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                 {/* Pages usage + trust */}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                   <div className="flex min-w-0 max-w-[260px] flex-1 items-center gap-2.5">
-                    <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Pages</span>
+                    <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">Pages</span>
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
                       <div className={cn("h-full rounded-full transition-all", lowPages ? "bg-amber-400" : "bg-zinc-900 dark:bg-zinc-100")} style={{ width: `${usedPct}%` }} />
                     </div>
-                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ? "text-amber-600" : "text-slate-500 dark:text-gray-400")}>
+                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ? "text-amber-600" : "text-zinc-500 dark:text-gray-400")}>
                       {pagesRemaining}/{pageLimit}
                     </span>
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
-                    <span className="flex items-center gap-1 text-[11px] text-slate-400"><Lock size={11} /> Not stored on our servers</span>
-                    <span className="flex items-center gap-1 text-[11px] text-slate-400"><Zap size={11} className="text-amber-400" /> ~11s</span>
+                    <span className="flex items-center gap-1 text-[11px] text-zinc-400 dark:text-zinc-500"><Lock size={11} /> Not stored on our servers</span>
+                    <span className="flex items-center gap-1 text-[11px] text-zinc-400 dark:text-zinc-500"><Zap size={11} className="text-amber-400" /> ~11s</span>
                   </div>
                 </div>
               </div>

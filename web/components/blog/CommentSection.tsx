@@ -59,16 +59,16 @@ function CommentForm({
         placeholder={placeholder}
         rows={3}
         maxLength={2000}
-        className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20 resize-none"
+        className="w-full rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20 resize-none"
       />
       <div className="mt-2 flex items-center justify-between gap-2">
-        <span className="text-xs text-slate-400">{text.length}/2000</span>
+        <span className="text-xs text-zinc-400 dark:text-zinc-500">{text.length}/2000</span>
         <div className="flex items-center gap-2">
           {onCancel && (
             <button
               type="button"
               onClick={onCancel}
-              className="text-xs font-medium text-slate-400 hover:text-slate-600 transition-colors"
+              className="text-xs font-medium text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 transition-colors"
             >
               Cancel
             </button>
@@ -114,7 +114,7 @@ function RelativeDate({ iso }: { iso: string }) {
   else label = d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
 
   return (
-    <time dateTime={iso} className="text-xs text-slate-400 dark:text-gray-500">
+    <time dateTime={iso} className="text-xs text-zinc-400 dark:text-gray-500">
       {label}
     </time>
   );
@@ -134,13 +134,13 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
   };
 
   return (
-    <section className="mt-12 border-t border-slate-100 dark:border-white/10 pt-8">
+    <section className="mt-12 border-t border-zinc-100 dark:border-white/10 pt-8">
       {/* Header */}
-      <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+      <h2 className="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
         <MessageSquare className="h-5 w-5 text-brand-500" />
         Comments
         {comments.length > 0 && (
-          <span className="ml-1 rounded-full bg-slate-100 dark:bg-white/10 px-2 py-0.5 text-xs font-semibold text-slate-600 dark:text-gray-300">
+          <span className="ml-1 rounded-full bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 px-2 py-0.5 text-xs font-semibold text-zinc-600 dark:text-gray-300">
             {comments.length}
           </span>
         )}
@@ -155,8 +155,8 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
           onPosted={handlePosted}
         />
       ) : (
-        <div className="mt-6 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-6 py-5 text-center">
-          <p className="text-sm text-slate-600 dark:text-gray-400">
+        <div className="mt-6 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-6 py-5 text-center">
+          <p className="text-sm text-zinc-600 dark:text-gray-400">
             <Link
               href={`/login?redirectTo=/blog/${slug}`}
               className="font-semibold text-brand-500 dark:text-brand-400 hover:underline"
@@ -170,7 +170,7 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
 
       {/* Comment list */}
       {topLevel.length === 0 ? (
-        <p className="mt-8 text-sm text-slate-400 dark:text-gray-500 text-center">
+        <p className="mt-8 text-sm text-zinc-400 dark:text-gray-500 text-center">
           No comments yet. Be the first to share your thoughts.
         </p>
       ) : (
@@ -186,12 +186,12 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
                   <Avatar name={comment.userName ?? comment.userEmail} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-semibold text-slate-800 dark:text-gray-100">
+                      <span className="text-sm font-semibold text-zinc-800 dark:text-gray-100">
                         {comment.userName ?? comment.userEmail}
                       </span>
                       <RelativeDate iso={comment.createdAt} />
                     </div>
-                    <p className="mt-1 text-sm text-slate-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                    <p className="mt-1 text-sm text-zinc-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
                       {comment.content}
                     </p>
 
@@ -199,7 +199,7 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
                     {isLoggedIn && !isReplying && (
                       <button
                         onClick={() => setReplyingTo(comment.id)}
-                        className="mt-2 flex items-center gap-1 text-xs font-medium text-slate-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors"
+                        className="mt-2 flex items-center gap-1 text-xs font-medium text-zinc-400 dark:text-zinc-500 hover:text-brand-500 dark:hover:text-brand-400 transition-colors"
                       >
                         <CornerDownRight size={12} />
                         Reply
@@ -221,18 +221,18 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
 
                 {/* Replies (indented) */}
                 {replies.length > 0 && (
-                  <ul className="mt-4 ml-12 space-y-4 border-l-2 border-slate-100 dark:border-white/10 pl-5">
+                  <ul className="mt-4 ml-12 space-y-4 border-l-2 border-zinc-100 dark:border-white/10 pl-5">
                     {replies.map((reply) => (
                       <li key={reply.id} className="flex gap-3">
                         <Avatar name={reply.userName ?? reply.userEmail} size="sm" />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm font-semibold text-slate-800 dark:text-gray-100">
+                            <span className="text-sm font-semibold text-zinc-800 dark:text-gray-100">
                               {reply.userName ?? reply.userEmail}
                             </span>
                             <RelativeDate iso={reply.createdAt} />
                           </div>
-                          <p className="mt-1 text-sm text-slate-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                          <p className="mt-1 text-sm text-zinc-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
                             {reply.content}
                           </p>
                         </div>

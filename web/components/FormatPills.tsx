@@ -20,8 +20,8 @@ export default function FormatPills() {
           onClick={() => setActive(i)}
           className={`px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-150 ${
             i === active
-              ? "bg-navy text-white border-navy"
-              : "bg-white text-slate-600 border-slate-200 hover:border-navy hover:text-navy"
+              ? "bg-zinc-900 dark:bg-zinc-950 text-white border-navy"
+              : "bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800 hover:border-navy hover:text-zinc-900 dark:text-zinc-100"
           }`}
         >
           {f.label}

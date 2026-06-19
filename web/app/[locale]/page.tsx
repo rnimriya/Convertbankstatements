@@ -162,7 +162,7 @@ export default async function HomePage() {
             <div className="text-center mb-14">
               <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tHow("label")}</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50 mb-3">{tHow("title")}</h2>
-              <p className="text-slate-400 max-w-xs mx-auto text-sm">{tHow("subtitle")}</p>
+              <p className="text-zinc-400 dark:text-zinc-500 max-w-xs mx-auto text-sm">{tHow("subtitle")}</p>
             </div>
 
             <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
@@ -204,7 +204,7 @@ export default async function HomePage() {
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-white hover:bg-zinc-50 transition-colors"
+                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-950 hover:bg-zinc-50 transition-colors"
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
                     <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
@@ -328,7 +328,7 @@ export default async function HomePage() {
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-28 relative overflow-hidden bg-zinc-900">
           {/* Background glow */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-10 bg-white rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-10 bg-white dark:bg-zinc-950 rounded-full blur-[100px] pointer-events-none" />
 
           {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
           <div 
@@ -352,7 +352,7 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/signup"
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl text-sm font-bold text-zinc-900 bg-white hover:bg-zinc-100 transition-colors"
+                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl text-sm font-bold text-zinc-900 bg-white dark:bg-zinc-950 hover:bg-zinc-100 transition-colors"
               >
                 <span>{tCta("button")}</span>
                 <ArrowRight size={15} />

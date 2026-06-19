@@ -14,13 +14,13 @@ const VARIANTS = {
     "dark:bg-brand-400 dark:text-black dark:hover:bg-brand-300 " +
     "focus-visible:ring-brand-400",
   secondary:
-    "border border-slate-200 dark:border-white/[0.07] bg-white dark:bg-surface text-slate-700 dark:text-gray-200 " +
-    "hover:bg-slate-50 dark:hover:bg-surface-raised active:bg-slate-100 dark:active:bg-surface-raised " +
-    "focus-visible:ring-slate-400",
+    "border border-zinc-200 dark:border-white/[0.07] bg-white dark:bg-surface text-zinc-700 dark:text-gray-200 " +
+    "hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-surface-raised active:bg-zinc-100 dark:bg-zinc-800 dark:active:bg-surface-raised " +
+    "focus-visible:ring-zinc-400",
   ghost:
-    "text-slate-600 dark:text-gray-300 " +
-    "hover:bg-slate-100 dark:hover:bg-surface active:bg-slate-200 dark:active:bg-surface-raised " +
-    "focus-visible:ring-slate-400",
+    "text-zinc-600 dark:text-gray-300 " +
+    "hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-surface active:bg-zinc-200 dark:bg-zinc-700 dark:active:bg-surface-raised " +
+    "focus-visible:ring-zinc-400",
   danger:
     "bg-red-600 text-white shadow-sm shadow-red-200 dark:shadow-red-900/30 " +
     "hover:bg-red-700 active:bg-red-800 " +

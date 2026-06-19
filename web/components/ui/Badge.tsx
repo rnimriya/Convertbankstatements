@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS = {
   default:
-    "bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-gray-300",
+    "bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 text-zinc-700 dark:text-gray-300",
   brand:
     "bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300",
   success:
@@ -35,7 +35,7 @@ export interface BadgeProps {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 const DOT_COLORS: Record<keyof typeof VARIANTS, string> = {
-  default: "bg-slate-400",
+  default: "bg-zinc-400",
   brand:   "bg-brand-500",
   success: "bg-emerald-500",
   warning: "bg-amber-500",

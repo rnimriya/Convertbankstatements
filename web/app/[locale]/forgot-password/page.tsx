@@ -42,20 +42,20 @@ export default function ForgotPasswordPage() {
           <Link href="/">
             <img src="/logo.svg" alt="Convert Statement" className="h-12 w-12 transition hover:scale-105" />
           </Link>
-          <span className="mt-3 text-xl font-bold text-slate-800 dark:text-white">Convert Statement</span>
-          <span className="text-xs text-slate-400 dark:text-gray-500">India&apos;s bank statement converter</span>
+          <span className="mt-3 text-xl font-bold text-zinc-800 dark:text-white">Convert Statement</span>
+          <span className="text-xs text-zinc-400 dark:text-gray-500">India&apos;s bank statement converter</span>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-xl shadow-slate-200/50 dark:shadow-black/50">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-xl dark:shadow-none shadow-slate-200/50 dark:shadow-black/50">
           {submitted ? (
             <div className="flex flex-col items-center gap-4 text-center py-4">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-900/20 ring-4 ring-emerald-100 dark:ring-emerald-900/40">
                 <CheckCircle2 className="h-8 w-8 text-emerald-500" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-slate-900 dark:text-white">Check your inbox</h1>
-                <p className="mt-2 text-sm text-slate-500 dark:text-gray-400 leading-relaxed">
-                  If <span className="font-semibold text-slate-700 dark:text-gray-200">{email}</span> is registered,
+                <h1 className="text-xl font-bold text-zinc-900 dark:text-white">Check your inbox</h1>
+                <p className="mt-2 text-sm text-zinc-500 dark:text-gray-400 leading-relaxed">
+                  If <span className="font-semibold text-zinc-700 dark:text-gray-200">{email}</span> is registered,
                   you&apos;ll receive a password reset link shortly.
                 </p>
               </div>
@@ -80,9 +80,9 @@ export default function ForgotPasswordPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
                   <Mail className="h-5 w-5 text-brand-600 dark:text-brand-400" />
                 </div>
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Forgot password?</h1>
+                <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Forgot password?</h1>
               </div>
-              <p className="mt-1 mb-6 text-sm text-slate-500 dark:text-gray-400">
+              <p className="mt-1 mb-6 text-sm text-zinc-500 dark:text-gray-400">
                 No worries! Enter your email and we&apos;ll send you a reset link.
               </p>
 
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-gray-200">
+                  <label className="mb-1.5 block text-sm font-medium text-zinc-700 dark:text-gray-200">
                     Email address
                   </label>
                   <input
@@ -105,7 +105,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                    className="w-full rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-surface px-4 py-2.5 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                   />
                 </div>
 
@@ -120,7 +120,7 @@ export default function ForgotPasswordPage() {
                 </button>
               </form>
 
-              <p className="mt-6 text-center text-sm text-slate-500 dark:text-gray-400">
+              <p className="mt-6 text-center text-sm text-zinc-500 dark:text-gray-400">
                 Remember your password?{" "}
                 <Link href="/login" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">
                   Sign in
@@ -130,9 +130,9 @@ export default function ForgotPasswordPage() {
           )}
         </div>
 
-        <p className="mt-5 text-center text-xs text-slate-400 dark:text-gray-500">
+        <p className="mt-5 text-center text-xs text-zinc-400 dark:text-gray-500">
           Need help?{" "}
-          <a href="mailto:support@convertstatement.online" className="underline hover:text-slate-600 dark:hover:text-gray-300">
+          <a href="mailto:support@convertstatement.online" className="underline hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300">
             Contact support
           </a>
         </p>

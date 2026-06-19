@@ -20,7 +20,7 @@ export default async function NewBlogPostPage() {
           >
             ← Back to posts
           </a>
-          <h1 className="mt-3 text-2xl font-extrabold text-slate-900 dark:text-white">New Blog Post</h1>
+          <h1 className="mt-3 text-2xl font-extrabold text-zinc-900 dark:text-white">New Blog Post</h1>
         </div>
         <NewPostForm />
       </div>

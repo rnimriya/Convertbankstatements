@@ -112,8 +112,8 @@ export default function ConverterMockup() {
           </div>
 
           <div className="flex-1 min-w-0">
-            <p className="text-[13px] font-bold text-slate-800 leading-none mb-0.5">{bank.name}</p>
-            <p className="text-[11px] truncate text-slate-400">
+            <p className="text-[13px] font-bold text-zinc-800 dark:text-zinc-200 leading-none mb-0.5">{bank.name}</p>
+            <p className="text-[11px] truncate text-zinc-400 dark:text-zinc-500">
               {FILES[bankIdx]}
             </p>
           </div>
@@ -145,7 +145,7 @@ export default function ConverterMockup() {
         {/* ── TRANSACTION FEED ── */}
         <div className="px-4 pt-4 pb-3">
           {/* Column headers */}
-          <div className="flex items-center gap-2 px-3 mb-2.5 text-[9px] font-bold uppercase tracking-[0.12em] text-slate-400">
+          <div className="flex items-center gap-2 px-3 mb-2.5 text-[9px] font-bold uppercase tracking-[0.12em] text-zinc-400 dark:text-zinc-500">
             <span className="w-6 shrink-0" />
             <span className="flex-1">Description</span>
             <span className="w-20 text-right">Amount</span>
@@ -174,7 +174,7 @@ export default function ConverterMockup() {
                   }
                 </div>
 
-                <span className="flex-1 text-[12px] font-medium text-slate-700 truncate" style={{ fontVariantNumeric: "tabular-nums" }}>
+                <span className="flex-1 text-[12px] font-medium text-zinc-700 dark:text-zinc-300 truncate" style={{ fontVariantNumeric: "tabular-nums" }}>
                   {txn.desc}
                 </span>
 
@@ -185,7 +185,7 @@ export default function ConverterMockup() {
                   {txn.amt}
                 </span>
 
-                <span className="w-12 text-right text-[10px] text-slate-400 shrink-0">
+                <span className="w-12 text-right text-[10px] text-zinc-400 dark:text-zinc-500 shrink-0">
                   {txn.date}
                 </span>
               </div>
@@ -197,7 +197,7 @@ export default function ConverterMockup() {
                 <div className="w-6 h-6 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
                   <Loader2 size={11} className="animate-spin text-blue-500" />
                 </div>
-                <span className="text-[12px] text-slate-400">Extracting…</span>
+                <span className="text-[12px] text-zinc-400 dark:text-zinc-500">Extracting…</span>
                 <div className="flex gap-1 ml-1">
                   {[0, 1, 2].map(i => (
                     <div

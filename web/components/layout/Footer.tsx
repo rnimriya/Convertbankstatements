@@ -55,14 +55,14 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="border-t border-zinc-200 dark:border-white/10 bg-white dark:bg-surface">
+    <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
-            <p className="text-xs leading-relaxed text-zinc-500 dark:text-gray-500">
+            <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
               {t("tagline")}
             </p>
-            <p className="mt-2 text-xs text-zinc-500 dark:text-gray-500">
+            <p className="mt-2 text-xs text-zinc-500 dark:text-zinc-400">
               {t("payments")}
             </p>
             <div className="mt-4 flex items-center gap-2">
@@ -73,7 +73,7 @@ export async function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-gray-500 hover:border-zinc-400 hover:text-zinc-900 dark:hover:border-brand-400/40 dark:hover:text-brand-400 transition-colors"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:border-zinc-400 hover:text-zinc-900 dark:hover:border-zinc-600 dark:hover:text-zinc-100 transition-colors"
                 >
                   {icon}
                 </a>
@@ -84,12 +84,12 @@ export async function Footer() {
           <div className="flex gap-10 text-sm sm:gap-14">
             {NAV.map(({ heading, links }) => (
               <div key={heading} className="space-y-2">
-                <p className="font-semibold text-zinc-900 dark:text-gray-200">{heading}</p>
+                <p className="font-semibold text-zinc-900 dark:text-zinc-100">{heading}</p>
                 {links.map(({ label, href }) => (
                   <p key={label}>
                     <Link
                       href={href}
-                      className="text-zinc-500 dark:text-gray-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
+                      className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                     >
                       {label}
                     </Link>
@@ -100,7 +100,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-zinc-200 dark:border-white/10 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-500 dark:text-gray-600">
+        <div className="mt-8 border-t border-zinc-200 dark:border-zinc-800 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-500 dark:text-zinc-400">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("prices")}</p>
         </div>

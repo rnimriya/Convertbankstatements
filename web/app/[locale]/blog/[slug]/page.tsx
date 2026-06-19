@@ -142,12 +142,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
 
           {/* Title */}
-          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
+          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight">
             {post.title}
           </h1>
 
           {/* Meta */}
-          <div className="mt-4 flex items-center gap-3 text-sm text-slate-400 dark:text-gray-500">
+          <div className="mt-4 flex items-center gap-3 text-sm text-zinc-400 dark:text-gray-500">
             <span>{post.author}</span>
             <span>·</span>
             <time dateTime={post.createdAt}>
@@ -166,7 +166,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           />
 
           {/* Back link */}
-          <div className="mt-12 border-t border-slate-100 dark:border-white/10 pt-8">
+          <div className="mt-12 border-t border-zinc-100 dark:border-white/10 pt-8">
             <a
               href={`/${locale}/blog`}
               className="text-sm font-medium text-brand-500 dark:text-brand-400 hover:underline"

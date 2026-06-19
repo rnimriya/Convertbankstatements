@@ -210,7 +210,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-white border border-zinc-200 dark:bg-surface p-3 text-center">
+    <div className="rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:bg-surface p-3 text-center">
       <p className="text-xl font-bold text-zinc-900 dark:text-gray-200">{value}</p>
       <p className="text-xs text-zinc-500 dark:text-gray-500">{label}</p>
     </div>

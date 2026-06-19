@@ -12,7 +12,7 @@ type Mode = "login" | "signup";
 type ErrorCode = "USER_NOT_FOUND" | "WRONG_PASSWORD" | null;
 
 const INPUT =
-  "w-full rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-navy focus:bg-white dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10";
+  "w-full rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-surface px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-navy focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10";
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const t = useTranslations("auth");
@@ -78,33 +78,33 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-surface px-4">
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-surface px-4">
         <div className="flex flex-col items-center gap-4 rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-white dark:bg-surface p-12 text-center shadow-sm">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
             <CheckCircle2 className="h-8 w-8 text-emerald-600" />
           </div>
-          <p className="font-display text-xl font-bold text-slate-900 dark:text-white">{t("accountCreated")}</p>
-          <p className="text-sm text-slate-500 dark:text-gray-400">{t("redirecting")}</p>
+          <p className="font-display text-xl font-bold text-zinc-900 dark:text-white">{t("accountCreated")}</p>
+          <p className="text-sm text-zinc-500 dark:text-gray-400">{t("redirecting")}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 dark:bg-surface">
+    <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-surface">
       <div className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="mb-8 text-center">
             <img src="/logo.svg" alt="Convert Statement" className="mx-auto mb-5 h-12 w-12" />
-            <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
               {mode === "login" ? t("loginTitle") : t("signupTitle")}
             </h1>
-            <p className="mt-2 text-[0.95rem] text-slate-500 dark:text-gray-400">
+            <p className="mt-2 text-[0.95rem] text-zinc-500 dark:text-gray-400">
               {mode === "login" ? t("loginSubtitle") : t("signupSubtitle")}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-sm">
+          <div className="rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface p-8 shadow-sm">
             {mode === "signup" && referralCode && (
               <div className="mb-5 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
                 <p className="font-semibold">{t("referralTitle")}</p>
@@ -140,9 +140,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
             <form onSubmit={handleSubmit} className="space-y-4">
               {mode === "signup" && (
                 <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-200">
+                  <label className="block text-sm font-medium text-zinc-700 dark:text-gray-200">
                     {t("nameLabel")}{" "}
-                    <span className="font-normal text-slate-400 dark:text-gray-500">{t("nameOptional")}</span>
+                    <span className="font-normal text-zinc-400 dark:text-gray-500">{t("nameOptional")}</span>
                   </label>
                   <input
                     type="text"
@@ -155,7 +155,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               )}
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-slate-700 dark:text-gray-200">
+                <label className="block text-sm font-medium text-zinc-700 dark:text-gray-200">
                   {t("emailLabel")}
                 </label>
                 <input
@@ -171,7 +171,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium text-slate-700 dark:text-gray-200">{t("passwordLabel")}</label>
+                  <label className="text-sm font-medium text-zinc-700 dark:text-gray-200">{t("passwordLabel")}</label>
                   {mode === "login" && (
                     <Link href="/forgot-password" className="text-xs text-navy dark:text-brand-400 hover:underline">
                       {t("forgotPassword")}
@@ -191,7 +191,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-gray-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors"
                     aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -201,7 +201,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
               {mode === "signup" && (
                 <div className="space-y-1.5">
-                  <label className="block text-sm font-medium text-slate-700 dark:text-gray-200">
+                  <label className="block text-sm font-medium text-zinc-700 dark:text-gray-200">
                     {t("confirmLabel")}
                   </label>
                   <input
@@ -220,7 +220,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 id="auth-submit"
                 type="submit"
                 disabled={loading}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-navy py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -236,22 +236,22 @@ export function AuthForm({ mode }: { mode: Mode }) {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-xs text-slate-400 dark:text-gray-500">
+            <p className="mt-6 text-center text-xs text-zinc-400 dark:text-gray-500">
               {t.rich("termsText", {
                 terms: (chunks) => (
-                  <Link href="/terms" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+                  <Link href="/terms" className="underline hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors">
                     {chunks}
                   </Link>
                 ),
                 privacy: (chunks) => (
-                  <Link href="/privacy" className="underline hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+                  <Link href="/privacy" className="underline hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors">
                     {chunks}
                   </Link>
                 ),
               })}
             </p>
 
-            <p className="mt-3 text-center text-sm text-slate-500 dark:text-gray-400">
+            <p className="mt-3 text-center text-sm text-zinc-500 dark:text-gray-400">
               {mode === "login" ? t("switchToSignup") : t("switchToLogin")}{" "}
               <Link
                 href={mode === "login" ? "/signup" : "/login"}
@@ -262,8 +262,8 @@ export function AuthForm({ mode }: { mode: Mode }) {
             </p>
           </div>
 
-          <p className="mt-6 text-center text-sm text-slate-400 dark:text-gray-500">
-            <Link href="/" className="hover:text-slate-600 dark:hover:text-gray-300 transition-colors">
+          <p className="mt-6 text-center text-sm text-zinc-400 dark:text-gray-500">
+            <Link href="/" className="hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors">
               {t("backToHome")}
             </Link>
           </p>

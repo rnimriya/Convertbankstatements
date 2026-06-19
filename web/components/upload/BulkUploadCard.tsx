@@ -117,7 +117,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
           </div>
           <button
             onClick={() => { setPhase("idle"); setResults([]); setMergeUrl(null); }}
-            className="text-xs text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 flex items-center gap-1"
+            className="text-xs text-zinc-400 dark:text-gray-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 flex items-center gap-1"
           >
             <X size={12} /> Reset
           </button>
@@ -125,16 +125,16 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {/* Multi-bank merge offer */}
         {hasMultipleBanks && successCount > 1 && (
-          <div className="bg-navy/5 dark:bg-brand-400/5 border border-navy/20 dark:border-brand-400/20 rounded-2xl p-4 flex items-center justify-between gap-4">
+          <div className="bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 border border-navy/20 dark:border-brand-400/20 rounded-2xl p-4 flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-navy dark:text-brand-400">Multiple banks detected</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400 mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
+              <p className="text-xs text-zinc-500 dark:text-gray-400 mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
             </div>
             {mergeUrl ? (
               <a
                 href={mergeUrl}
                 download="Merged_Statements.xlsx"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-navy text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 <Download size={12} /> Download merged
               </a>
@@ -142,7 +142,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               <button
                 onClick={mergeAll}
                 disabled={merging}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-navy text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
               >
                 {merging ? <Loader2 size={12} className="animate-spin" /> : <Merge size={12} />}
                 {merging ? "Merging…" : "Merge all banks"}
@@ -154,31 +154,31 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         {/* Individual file results */}
         <div className="space-y-2">
           {results.map((r, i) => (
-            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ? "border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" : "border-slate-200 dark:border-white/10 bg-white dark:bg-surface"}`}>
+            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ? "border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" : "border-zinc-200 dark:border-white/10 bg-white dark:bg-surface"}`}>
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0" />
               ) : (
                 <FileSpreadsheet size={16} className="text-emerald-500 shrink-0" />
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-800 dark:text-white truncate">{r.fileName}</p>
+                <p className="text-sm font-medium text-zinc-800 dark:text-white truncate">{r.fileName}</p>
                 {r.error ? (
                   <p className="text-xs text-red-500 dark:text-red-400">{r.error}</p>
                 ) : (
-                  <p className="text-xs text-slate-400 dark:text-gray-500">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` : ""}</p>
+                  <p className="text-xs text-zinc-400 dark:text-gray-500">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` : ""}</p>
                 )}
               </div>
               {!r.error && (
                 <div className="flex gap-1.5 shrink-0">
                   {r.exportUrls.xlsx && (
                     <a href={r.exportUrls.xlsx} download={r.fileName.replace(".pdf", ".xlsx")}
-                      className="px-2.5 py-1.5 rounded-lg bg-navy/10 dark:bg-brand-400/10 text-navy dark:text-brand-400 text-xs font-semibold hover:bg-navy/20 dark:hover:bg-brand-400/20 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 text-navy dark:text-brand-400 text-xs font-semibold hover:bg-zinc-900 dark:bg-zinc-950/20 dark:hover:bg-brand-400/20 transition-colors">
                       .xlsx
                     </a>
                   )}
                   {r.exportUrls.csv && (
                     <a href={r.exportUrls.csv} download={r.fileName.replace(".pdf", ".csv")}
-                      className="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-slate-600 dark:text-gray-300 text-xs font-semibold hover:border-slate-300 dark:hover:border-white/20 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-gray-300 text-xs font-semibold hover:border-zinc-300 dark:border-zinc-700 dark:hover:border-white/20 transition-colors">
                       .csv
                     </a>
                   )}
@@ -207,8 +207,8 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
           "relative flex min-h-[240px] cursor-pointer flex-col items-center justify-center gap-4",
           "rounded-2xl border-2 border-dashed px-8 py-12 text-center transition-all duration-200 select-none",
           isDragActive
-            ? "border-navy bg-navy/5 scale-[1.01]"
-            : "border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-surface/60 hover:border-navy/40 dark:hover:border-brand-400/40 hover:bg-navy/[0.02]",
+            ? "border-navy bg-zinc-900 dark:bg-zinc-950/5 scale-[1.01]"
+            : "border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900/60 dark:bg-surface/60 hover:border-zinc-900/40 dark:border-zinc-800 dark:hover:border-brand-400/40 hover:bg-zinc-900 dark:bg-zinc-950/[0.02]",
           phase === "processing" && "pointer-events-none opacity-70"
         )}
       >
@@ -216,28 +216,28 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {phase === "processing" ? (
           <>
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-navy/10 dark:bg-brand-400/10">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
               <Loader2 className="h-8 w-8 text-navy dark:text-brand-400 animate-spin" />
             </div>
             <div>
-              <p className="font-semibold text-slate-800 dark:text-white">Processing files…</p>
-              <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">Converting sequentially · please wait</p>
+              <p className="font-semibold text-zinc-800 dark:text-white">Processing files…</p>
+              <p className="mt-1 text-sm text-zinc-400 dark:text-gray-500">Converting sequentially · please wait</p>
             </div>
           </>
         ) : (
           <>
             <div className={cn(
               "flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-200",
-              isDragActive ? "bg-navy text-white scale-110" : "bg-white dark:bg-surface border-2 border-slate-200 dark:border-white/10 text-slate-400 dark:text-gray-500"
+              isDragActive ? "bg-zinc-900 dark:bg-zinc-950 text-white scale-110" : "bg-white dark:bg-surface border-2 border-zinc-200 dark:border-white/10 text-zinc-400 dark:text-gray-500"
             )}>
               {isDragActive ? <FileText className="h-8 w-8" /> : <Upload className="h-8 w-8" />}
             </div>
             <div>
-              <p className="text-base font-semibold text-slate-700 dark:text-gray-200">
+              <p className="text-base font-semibold text-zinc-700 dark:text-gray-200">
                 {isDragActive ? "Drop files here!" : "Drop multiple PDFs or a ZIP file"}
               </p>
-              <p className="mt-1 text-sm text-slate-400 dark:text-gray-500">or <span className="font-semibold text-navy dark:text-brand-400 underline underline-offset-2">browse files</span></p>
-              <p className="mt-2 text-xs text-slate-400 dark:text-gray-500">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
+              <p className="mt-1 text-sm text-zinc-400 dark:text-gray-500">or <span className="font-semibold text-navy dark:text-brand-400 underline underline-offset-2">browse files</span></p>
+              <p className="mt-2 text-xs text-zinc-400 dark:text-gray-500">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
             </div>
           </>
         )}

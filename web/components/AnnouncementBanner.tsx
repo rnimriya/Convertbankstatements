@@ -22,7 +22,7 @@ export function AnnouncementBanner() {
   if (!visible) return null;
 
   return (
-    <div className="relative z-[60] bg-navy text-white text-sm">
+    <div className="relative z-[60] bg-zinc-900 dark:bg-zinc-950 dark:border-b dark:border-zinc-800 text-white text-sm">
       <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-center gap-2.5">
         <Zap size={14} className="shrink-0 text-amber-300 fill-amber-300" />
         <p className="text-center leading-snug">
@@ -35,7 +35,7 @@ export function AnnouncementBanner() {
         <button
           onClick={dismiss}
           aria-label="Dismiss banner"
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-white/10 transition-colors"
+          className="absolute right-4 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-white dark:bg-zinc-950/10 transition-colors"
         >
           <X size={14} />
         </button>

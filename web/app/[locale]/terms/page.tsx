@@ -191,18 +191,18 @@ export default function TermsPage() {
  <Navbar />
 
  {/* Header */}
- <div className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface px-6 py-10">
+ <div className="border-b border-zinc-100 dark:border-white/10 bg-zinc-50 dark:bg-surface px-6 py-10">
  <div className="mx-auto max-w-3xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy/10 dark:bg-brand-400/10">
+ <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
  <ScrollText className="h-5 w-5 text-navy dark:text-brand-400" />
  </div>
  <div>
- <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Terms of Service</h1>
- <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+ <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Terms of Service</h1>
+ <p className="text-xs text-zinc-400 dark:text-gray-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
- <p className="mt-4 text-sm leading-relaxed text-slate-500 dark:text-gray-400">
+ <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-gray-400">
  These Terms govern your use of Convert Statement. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
  </p>
 
@@ -213,9 +213,9 @@ export default function TermsPage() {
  { label: "Refunds", value: "7 days for subscriptions" },
  { label: "Jurisdiction", value: "Laws of India" },
  ].map(({ label, value }) => (
- <div key={label} className="rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface px-4 py-3">
- <p className="text-xs text-slate-400 dark:text-gray-500">{label}</p>
- <p className="mt-0.5 text-sm font-semibold text-slate-700 dark:text-gray-200">{value}</p>
+ <div key={label} className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface px-4 py-3">
+ <p className="text-xs text-zinc-400 dark:text-gray-500">{label}</p>
+ <p className="mt-0.5 text-sm font-semibold text-zinc-700 dark:text-gray-200">{value}</p>
  </div>
  ))}
  </div>
@@ -225,8 +225,8 @@ export default function TermsPage() {
  {/* Content */}
  <div className="mx-auto max-w-3xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-surface p-5">
- <p className="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-gray-500">Contents</p>
+ <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-surface p-5">
+ <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-gray-500">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
  <a
@@ -244,7 +244,7 @@ export default function TermsPage() {
  <div className="space-y-10">
  {SECTIONS.map(({ id, title, content }) => (
  <section key={id} id={id} className="scroll-mt-20">
- <h2 className="mb-3 text-lg font-bold text-slate-900 dark:text-white">{title}</h2>
+ <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-white">{title}</h2>
  <div className="space-y-3">
  {content.split("\n\n").map((para, i) => {
  const lines = para.split("\n");
@@ -253,16 +253,16 @@ export default function TermsPage() {
  if (isHeading) {
  return (
  <div key={i}>
- <p className="mb-1 text-sm font-semibold text-slate-800 dark:text-gray-200">
+ <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-gray-200">
  {lines[0].replace(/\*\*/g, "")}
  </p>
  {lines.slice(1).map((line, j) => {
  const parts = line.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={j} className="text-sm leading-relaxed text-slate-600 dark:text-gray-400">
+ <p key={j} className="text-sm leading-relaxed text-zinc-600 dark:text-gray-400">
  {parts.map((part, k) =>
  part.startsWith("**") ? (
- <strong key={k} className="font-semibold text-slate-800 dark:text-gray-200">
+ <strong key={k} className="font-semibold text-zinc-800 dark:text-gray-200">
  {part.replace(/\*\*/g, "")}
  </strong>
  ) : part
@@ -276,10 +276,10 @@ export default function TermsPage() {
 
  const parts = para.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={i} className="text-sm leading-relaxed text-slate-600 dark:text-gray-400">
+ <p key={i} className="text-sm leading-relaxed text-zinc-600 dark:text-gray-400">
  {parts.map((part, j) =>
  part.startsWith("**") ? (
- <strong key={j} className="font-semibold text-slate-800 ">
+ <strong key={j} className="font-semibold text-zinc-800 dark:text-zinc-200 ">
  {part.replace(/\*\*/g, "")}
  </strong>
  ) : part
@@ -293,7 +293,7 @@ export default function TermsPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-navy/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-brand-400">
+ <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-brand-400">
  <p className="font-semibold">Questions about these Terms?</p>
  <p className="mt-1 text-navy dark:text-brand-400">
  Email us at{" "}
@@ -304,9 +304,9 @@ export default function TermsPage() {
  </p>
  </div>
 
- <div className="mt-6 flex items-center justify-center gap-6 text-xs text-slate-400 dark:text-gray-500">
- <Link href="/privacy" className="hover:text-slate-900 dark:hover:text-white underline underline-offset-2">Privacy Policy</Link>
- <Link href="/" className="hover:text-slate-600 dark:hover:text-gray-300">← Back to home</Link>
+ <div className="mt-6 flex items-center justify-center gap-6 text-xs text-zinc-400 dark:text-gray-500">
+ <Link href="/privacy" className="hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-white underline underline-offset-2">Privacy Policy</Link>
+ <Link href="/" className="hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300">← Back to home</Link>
  </div>
  </div>
 

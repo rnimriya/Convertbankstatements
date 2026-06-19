@@ -37,11 +37,11 @@ export default async function BlogPage({
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-surface">
         {/* Hero */}
-        <section className="border-b border-slate-100 dark:border-white/10 bg-slate-50 dark:bg-surface py-14 px-6 text-center">
-          <h1 className="font-display text-4xl font-extrabold text-slate-900 dark:text-white">
+        <section className="border-b border-zinc-100 dark:border-white/10 bg-zinc-50 dark:bg-surface py-14 px-6 text-center">
+          <h1 className="font-display text-4xl font-extrabold text-zinc-900 dark:text-white">
             {t("title")}
           </h1>
-          <p className="mt-3 text-base text-slate-500 dark:text-gray-400 max-w-xl mx-auto">
+          <p className="mt-3 text-base text-zinc-500 dark:text-gray-400 max-w-xl mx-auto">
             {t("subtitle")}
             {total > 0 && <span className="ml-1">{t("articlesCount", { count: total })}</span>}
           </p>
@@ -50,13 +50,13 @@ export default async function BlogPage({
         {/* Grid */}
         <section className="mx-auto max-w-6xl px-6 py-12">
           {posts.length === 0 ? (
-            <p className="text-center text-slate-500 dark:text-gray-400">{t("noPostsYet")}</p>
+            <p className="text-center text-zinc-500 dark:text-gray-400">{t("noPostsYet")}</p>
           ) : (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="group flex flex-col rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-surface overflow-hidden hover:shadow-lg dark:hover:shadow-white/5 transition-shadow"
+                  className="group flex flex-col rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface overflow-hidden hover:shadow-lg dark:hover:shadow-white/5 transition-shadow"
                 >
                   <Link href={`/${locale}/blog/${post.slug}`} className="block overflow-hidden">
                     <img
@@ -77,14 +77,14 @@ export default async function BlogPage({
                       ))}
                     </div>
                     <Link href={`/${locale}/blog/${post.slug}`}>
-                      <h2 className="font-display font-bold text-slate-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+                      <h2 className="font-display font-bold text-zinc-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
                         {post.title}
                       </h2>
                     </Link>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-gray-400 line-clamp-3 flex-1">
+                    <p className="mt-2 text-sm text-zinc-500 dark:text-gray-400 line-clamp-3 flex-1">
                       {post.excerpt}
                     </p>
-                    <div className="mt-4 flex items-center justify-between text-xs text-slate-400 dark:text-gray-500">
+                    <div className="mt-4 flex items-center justify-between text-xs text-zinc-400 dark:text-gray-500">
                       <span>{post.author}</span>
                       <span>{new Date(post.createdAt).toLocaleDateString(locale === "en" ? "en-IN" : locale, { day: "numeric", month: "short", year: "numeric" })}</span>
                     </div>
@@ -100,18 +100,18 @@ export default async function BlogPage({
               {page > 1 && (
                 <Link
                   href={`/${locale}/blog?page=${page - 1}`}
-                  className="rounded-lg border border-slate-200 dark:border-white/10 px-4 py-2 text-sm font-medium text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+                  className="rounded-lg border border-zinc-200 dark:border-white/10 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-gray-200 hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5 transition-colors"
                 >
                   {t("previous")}
                 </Link>
               )}
-              <span className="text-sm text-slate-500 dark:text-gray-400">
+              <span className="text-sm text-zinc-500 dark:text-gray-400">
                 {t("page", { current: page, total: pages })}
               </span>
               {page < pages && (
                 <Link
                   href={`/${locale}/blog?page=${page + 1}`}
-                  className="rounded-lg border border-slate-200 dark:border-white/10 px-4 py-2 text-sm font-medium text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+                  className="rounded-lg border border-zinc-200 dark:border-white/10 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-gray-200 hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5 transition-colors"
                 >
                   {t("next")}
                 </Link>

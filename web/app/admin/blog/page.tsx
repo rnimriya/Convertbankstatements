@@ -20,8 +20,8 @@ export default async function AdminBlogPage() {
       <div className="mx-auto max-w-5xl">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Blog Posts</h1>
-            <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
+            <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Blog Posts</h1>
+            <p className="mt-1 text-sm text-zinc-500 dark:text-gray-400">
               {posts.length} total posts
             </p>
           </div>
@@ -33,31 +33,31 @@ export default async function AdminBlogPage() {
           </Link>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
+        <div className="rounded-2xl border border-zinc-200 dark:border-white/10 overflow-hidden">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10">
-                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300">Title</th>
-                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300 hidden sm:table-cell">Author</th>
-                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300 hidden md:table-cell">Date</th>
-                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300">Status</th>
-                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300">Actions</th>
+              <tr className="bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 border-b border-zinc-200 dark:border-white/10">
+                <th className="px-4 py-3 text-left font-semibold text-zinc-600 dark:text-gray-300">Title</th>
+                <th className="px-4 py-3 text-left font-semibold text-zinc-600 dark:text-gray-300 hidden sm:table-cell">Author</th>
+                <th className="px-4 py-3 text-left font-semibold text-zinc-600 dark:text-gray-300 hidden md:table-cell">Date</th>
+                <th className="px-4 py-3 text-left font-semibold text-zinc-600 dark:text-gray-300">Status</th>
+                <th className="px-4 py-3 text-left font-semibold text-zinc-600 dark:text-gray-300">Actions</th>
               </tr>
             </thead>
             <tbody>
               {posts.map((post, i) => (
                 <tr
                   key={post.id}
-                  className={`border-b border-slate-100 dark:border-white/5 ${i % 2 === 0 ? "" : "bg-slate-50/50 dark:bg-white/[0.02]"}`}
+                  className={`border-b border-zinc-100 dark:border-white/5 ${i % 2 === 0 ? "" : "bg-zinc-50 dark:bg-zinc-900/50 dark:bg-white dark:bg-zinc-950/[0.02]"}`}
                 >
                   <td className="px-4 py-3">
                     <div>
-                      <p className="font-medium text-slate-900 dark:text-white line-clamp-1">{post.title}</p>
-                      <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">{post.slug}</p>
+                      <p className="font-medium text-zinc-900 dark:text-white line-clamp-1">{post.title}</p>
+                      <p className="text-xs text-zinc-400 dark:text-gray-500 mt-0.5">{post.slug}</p>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-slate-500 dark:text-gray-400 hidden sm:table-cell">{post.author}</td>
-                  <td className="px-4 py-3 text-slate-500 dark:text-gray-400 hidden md:table-cell">
+                  <td className="px-4 py-3 text-zinc-500 dark:text-gray-400 hidden sm:table-cell">{post.author}</td>
+                  <td className="px-4 py-3 text-zinc-500 dark:text-gray-400 hidden md:table-cell">
                     {new Date(post.createdAt).toLocaleDateString("en-IN")}
                   </td>
                   <td className="px-4 py-3">
@@ -65,7 +65,7 @@ export default async function AdminBlogPage() {
                       className={`inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold ${
                         post.published
                           ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
-                          : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-gray-400"
+                          : "bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 text-zinc-500 dark:text-gray-400"
                       }`}
                     >
                       {post.published ? "Published" : "Draft"}

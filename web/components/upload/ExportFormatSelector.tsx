@@ -105,7 +105,7 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
           >
             {/* Active check badge */}
             {active && (
-              <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-white/20 flex items-center justify-center">
+              <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-white dark:bg-zinc-950/20 flex items-center justify-center">
                 <Check size={10} className="text-white" />
               </div>
             )}
@@ -113,10 +113,10 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
             <Icon />
 
             <div>
-              <p className={`text-sm font-bold leading-tight ${active ? "text-white" : "text-slate-800"}`}>
+              <p className={`text-sm font-bold leading-tight ${active ? "text-white" : "text-zinc-800 dark:text-zinc-200"}`}>
                 {label}
               </p>
-              <p className={`text-[10px] mt-0.5 leading-tight ${active ? "text-white/65" : "text-slate-400"}`}>
+              <p className={`text-[10px] mt-0.5 leading-tight ${active ? "text-white/65" : "text-zinc-400 dark:text-zinc-500"}`}>
                 {sub}
               </p>
             </div>

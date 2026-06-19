@@ -62,7 +62,7 @@ function PageBanner({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="shrink-0 bg-white border-b border-slate-100 px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
+    <div className="shrink-0 bg-white dark:bg-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3">
           <div
@@ -72,8 +72,8 @@ function PageBanner({
             <Icon size={17} style={{ color: iconColor }} />
           </div>
           <div>
-            <h2 className="text-[15px] sm:text-[17px] font-black text-slate-900 leading-tight">{title}</h2>
-            <p className="text-[12px] sm:text-[13px] text-slate-400 mt-0.5 hidden sm:block">{subtitle}</p>
+            <h2 className="text-[15px] sm:text-[17px] font-black text-zinc-900 dark:text-zinc-100 leading-tight">{title}</h2>
+            <p className="text-[12px] sm:text-[13px] text-zinc-400 dark:text-zinc-500 mt-0.5 hidden sm:block">{subtitle}</p>
           </div>
         </div>
         {action && <div className="shrink-0 pl-12 sm:pl-0">{action}</div>}
@@ -169,15 +169,15 @@ export function DashboardClient({
 
       {/* ── SIDEBAR ─────────────────────────────────────────── */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-30 w-[220px] flex flex-col bg-white border-r border-slate-200/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed lg:static inset-y-0 left-0 z-30 w-[220px] flex flex-col bg-white dark:bg-zinc-950 border-r border-zinc-200 dark:border-zinc-800/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 px-5 py-[18px] border-b border-slate-100">
+        <div className="flex items-center gap-2.5 px-5 py-[18px] border-b border-zinc-100 dark:border-zinc-800">
           <a href="/" className="flex items-center gap-2.5">
             <img src="/logo.svg" alt="Convert Statement" className="h-7 w-7" />
             <div className="leading-none">
-              <span className="font-display font-bold text-slate-900 text-[14px] tracking-tight block">Convert</span>
-              <span className="text-[10px] font-semibold text-slate-400 tracking-[0.1em] uppercase">Statement</span>
+              <span className="font-display font-bold text-zinc-900 dark:text-zinc-100 text-[14px] tracking-tight block">Convert</span>
+              <span className="text-[10px] font-semibold text-zinc-400 dark:text-zinc-500 tracking-[0.1em] uppercase">Statement</span>
             </div>
           </a>
         </div>
@@ -192,8 +192,8 @@ export function DashboardClient({
               {initial}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-semibold text-slate-800 truncate leading-tight">{displayName}</p>
-              <p className="text-[10px] text-slate-400 truncate leading-tight">{userEmail}</p>
+              <p className="text-[13px] font-semibold text-zinc-800 dark:text-zinc-200 truncate leading-tight">{displayName}</p>
+              <p className="text-[10px] text-zinc-400 dark:text-zinc-500 truncate leading-tight">{userEmail}</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5 flex-wrap">
@@ -201,7 +201,7 @@ export function DashboardClient({
               billing.tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
               billing.tier === "PRO"      ? "bg-violet-100 text-violet-700" :
               billing.tier === "BASIC"    ? "bg-teal-100 text-teal-700" :
-              "bg-slate-200 text-slate-500"
+              "bg-zinc-200 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400"
             }`}>
               {billing.tier}
             </span>
@@ -218,11 +218,11 @@ export function DashboardClient({
           </div>
           {isPaid && (
             <div className="mt-2.5">
-              <div className="flex justify-between text-[10px] text-slate-400 mb-1">
+              <div className="flex justify-between text-[10px] text-zinc-400 dark:text-zinc-500 mb-1">
                 <span>Pages</span>
-                <span className="font-semibold text-slate-600">{billing.pagesUsedThisPeriod}/{billing.monthlyPageLimit}</span>
+                <span className="font-semibold text-zinc-600 dark:text-zinc-400">{billing.pagesUsedThisPeriod}/{billing.monthlyPageLimit}</span>
               </div>
-              <div className="h-1 bg-white rounded-full overflow-hidden">
+              <div className="h-1 bg-white dark:bg-zinc-950 rounded-full overflow-hidden">
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{ width: `${usagePercent}%`, background: usagePercent > 80 ? "#ef4444" : "linear-gradient(90deg,#1A47C8,#3b6ef5)" }}
@@ -236,7 +236,7 @@ export function DashboardClient({
         <nav className="flex-1 overflow-y-auto px-3 py-2 space-y-4">
           {navSections.map(section => (
             <div key={section.label}>
-              <p className="px-3 mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400">
+              <p className="px-3 mb-1 text-[9px] font-bold uppercase tracking-[0.16em] text-zinc-400 dark:text-zinc-500">
                 {section.label}
               </p>
               <div className="space-y-0.5">
@@ -248,13 +248,13 @@ export function DashboardClient({
                       onClick={() => { setTab(id); setSidebarOpen(false); }}
                       className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all text-left group ${
                         active
-                          ? "bg-slate-100 text-slate-900"
-                          : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"
+                          ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+                          : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-50 dark:bg-zinc-900 hover:text-zinc-800 dark:text-zinc-200"
                       }`}
                     >
                       <Icon
                         size={14}
-                        className={`shrink-0 transition-colors ${active ? "text-slate-700" : "text-slate-400 group-hover:text-slate-600"}`}
+                        className={`shrink-0 transition-colors ${active ? "text-zinc-700 dark:text-zinc-300" : "text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-600 dark:text-zinc-400"}`}
                       />
                       <span className="flex-1 truncate">{label}</span>
                     </button>
@@ -266,10 +266,10 @@ export function DashboardClient({
         </nav>
 
         {/* Sign out */}
-        <div className="p-3 border-t border-slate-100">
+        <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-slate-400 hover:bg-red-50 hover:text-red-600 transition-all"
+            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-zinc-400 dark:text-zinc-500 hover:bg-red-50 hover:text-red-600 transition-all"
           >
             <LogOut size={14} />
             {isDemo ? t("goHome") : t("signOut")}
@@ -281,9 +281,9 @@ export function DashboardClient({
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
 
         {/* Top bar */}
-        <header className="flex items-center gap-3 px-4 lg:px-6 py-3 bg-white border-b border-slate-200 shrink-0">
+        <header className="flex items-center gap-3 px-4 lg:px-6 py-3 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 shrink-0">
           <button
-            className="lg:hidden flex items-center justify-center w-8 h-8 rounded-lg hover:bg-slate-100 transition-colors shrink-0"
+            className="lg:hidden flex items-center justify-center w-8 h-8 rounded-lg hover:bg-zinc-100 dark:bg-zinc-800 transition-colors shrink-0"
             onClick={() => setSidebarOpen(v => !v)}
             aria-label="Toggle sidebar"
           >
@@ -304,14 +304,14 @@ export function DashboardClient({
                 <span className="hidden sm:inline">Convert</span>
               </button>
             )}
-            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-full pl-1 pr-2 sm:pr-3 py-1">
+            <div className="flex items-center gap-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full pl-1 pr-2 sm:pr-3 py-1">
               <div
                 className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black text-white shrink-0"
                 style={{ background: "linear-gradient(135deg,#1A47C8,#3b6ef5)" }}
               >
                 {initial}
               </div>
-              <span className="text-sm text-slate-600 font-medium truncate hidden sm:block max-w-[120px]">{displayName}</span>
+              <span className="text-sm text-zinc-600 dark:text-zinc-400 font-medium truncate hidden sm:block max-w-[120px]">{displayName}</span>
             </div>
           </div>
         </header>
@@ -352,19 +352,19 @@ export function DashboardClient({
             <div className="p-5 lg:p-7 space-y-5 max-w-[1400px]">
 
               {/* Welcome strip */}
-              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-white dark:bg-surface border border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-white dark:bg-surface border border-zinc-200 dark:border-white/10 shadow-sm">
                 <div className="relative">
-                  <p className="text-slate-400 dark:text-gray-500 text-xs font-medium mb-0.5">
+                  <p className="text-zinc-400 dark:text-gray-500 text-xs font-medium mb-0.5">
                     {new Date().toLocaleDateString("en-IN", { weekday: "long", month: "long", day: "numeric" })}
                   </p>
-                  <h2 className="text-xl lg:text-2xl font-black text-slate-900 dark:text-white leading-tight">
+                  <h2 className="text-xl lg:text-2xl font-black text-zinc-900 dark:text-white leading-tight">
                     Welcome back, {displayName}! 👋
                   </h2>
-                  <p className="text-slate-500 dark:text-gray-400 text-sm mt-1">Here&apos;s your statement conversion overview.</p>
+                  <p className="text-zinc-500 dark:text-gray-400 text-sm mt-1">Here&apos;s your statement conversion overview.</p>
                 </div>
                 <button
                   onClick={() => setTab("upload")}
-                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-navy text-white transition-opacity hover:opacity-90"
+                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-950 text-white transition-opacity hover:opacity-90"
                   style={{ boxShadow: "0 4px 14px rgba(26,71,200,0.28)" }}
                 >
                   <Upload size={14} />
@@ -418,7 +418,7 @@ export function DashboardClient({
                     iconColor: usagePercent > 80 ? "#ef4444" : "#f97316",
                   },
                 ].map(card => (
-                  <div key={card.label} className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
+                  <div key={card.label} className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
                       <div
                         className="w-9 h-9 rounded-xl flex items-center justify-center"
@@ -431,9 +431,9 @@ export function DashboardClient({
                         style={{ background: card.gradient }}
                       />
                     </div>
-                    <p className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight mb-0.5">{card.value}</p>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{card.label}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{card.sub}</p>
+                    <p className="text-2xl lg:text-3xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight mb-0.5">{card.value}</p>
+                    <p className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">{card.label}</p>
+                    <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">{card.sub}</p>
                   </div>
                 ))}
               </div>
@@ -442,18 +442,18 @@ export function DashboardClient({
               <div className="grid xl:grid-cols-3 gap-5">
 
                 {/* Recent conversions */}
-                <div className="xl:col-span-2 bg-white rounded-2xl border border-slate-200/70 shadow-sm overflow-hidden">
-                  <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+                <div className="xl:col-span-2 bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800/70 shadow-sm overflow-hidden">
+                  <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div>
-                      <h3 className="text-sm font-bold text-slate-900">Recent Conversions</h3>
-                      <p className="text-xs text-slate-400 mt-0.5">
+                      <h3 className="text-sm font-bold text-zinc-900 dark:text-zinc-100">Recent Conversions</h3>
+                      <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">
                         {recentLogs.length === 0 ? "No documents yet" : `Last ${Math.min(5, recentLogs.length)} processed`}
                       </p>
                     </div>
                     {recentLogs.length > 5 && (
                       <button
                         onClick={() => setTab("history")}
-                        className="flex items-center gap-1 text-xs font-semibold text-navy hover:text-navy/80 transition-colors"
+                        className="flex items-center gap-1 text-xs font-semibold text-zinc-900 dark:text-zinc-100 hover:text-zinc-900 dark:text-zinc-100/80 transition-colors"
                       >
                         View all <ArrowUpRight size={12} />
                       </button>
@@ -468,8 +468,8 @@ export function DashboardClient({
                       >
                         <FileText size={24} className="text-blue-500" />
                       </div>
-                      <p className="font-bold text-slate-800 text-base">No documents yet</p>
-                      <p className="text-sm text-slate-400 mt-1 max-w-xs">
+                      <p className="font-bold text-zinc-800 dark:text-zinc-200 text-base">No documents yet</p>
+                      <p className="text-sm text-zinc-400 dark:text-zinc-500 mt-1 max-w-xs">
                         Upload your first Indian bank statement PDF to get started.
                       </p>
                       <button
@@ -482,7 +482,7 @@ export function DashboardClient({
                     </div>
                   ) : (
                     <div>
-                      <div className="grid grid-cols-12 px-5 py-2.5 bg-slate-50 border-b border-slate-100 text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                      <div className="grid grid-cols-12 px-5 py-2.5 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                         <div className="col-span-5">File</div>
                         <div className="col-span-2 hidden sm:block">Bank</div>
                         <div className="col-span-2 text-center">Pages</div>
@@ -491,25 +491,25 @@ export function DashboardClient({
                       </div>
                       <div className="divide-y divide-slate-100">
                         {recentLogs.slice(0, 5).map(log => (
-                          <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-slate-50/60 transition-colors">
+                          <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-zinc-50 dark:bg-zinc-900/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
                               <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
                                 <FileText size={14} className="text-blue-500" />
                               </div>
                               <div className="min-w-0">
-                                <p className="text-sm font-semibold text-slate-800 truncate">{log.fileName}</p>
+                                <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 truncate">{log.fileName}</p>
                                 <div className="flex gap-1 mt-0.5">
                                   {log.exportFormats.slice(0, 2).map(f => (
-                                    <span key={f} className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-500 uppercase">{f}</span>
+                                    <span key={f} className="text-[9px] font-bold px-1.5 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 uppercase">{f}</span>
                                   ))}
                                 </div>
                               </div>
                             </div>
                             <div className="col-span-2 hidden sm:block">
-                              <span className="text-xs text-slate-500 truncate">{log.bankName ?? "—"}</span>
+                              <span className="text-xs text-zinc-500 dark:text-zinc-400 truncate">{log.bankName ?? "—"}</span>
                             </div>
                             <div className="col-span-2 text-center">
-                              <span className="text-sm font-semibold text-slate-700">{log.pageCount}</span>
+                              <span className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">{log.pageCount}</span>
                             </div>
                             <div className="col-span-2 text-center">
                               <span
@@ -520,7 +520,7 @@ export function DashboardClient({
                               </span>
                             </div>
                             <div className="col-span-1 text-right hidden sm:block">
-                              <span className="text-xs text-slate-400">
+                              <span className="text-xs text-zinc-400 dark:text-zinc-500">
                                 {new Date(log.createdAt).toLocaleDateString("en-IN", { month: "short", day: "numeric" })}
                               </span>
                             </div>
@@ -528,8 +528,8 @@ export function DashboardClient({
                         ))}
                       </div>
                       {recentLogs.length > 5 && (
-                        <div className="px-5 py-3 border-t border-slate-100 text-center">
-                          <button onClick={() => setTab("history")} className="text-xs font-semibold text-navy hover:text-navy/80 transition-colors">
+                        <div className="px-5 py-3 border-t border-zinc-100 dark:border-zinc-800 text-center">
+                          <button onClick={() => setTab("history")} className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 hover:text-zinc-900 dark:text-zinc-100/80 transition-colors">
                             View all {recentLogs.length} conversions →
                           </button>
                         </div>
@@ -541,17 +541,17 @@ export function DashboardClient({
                 {/* Right column */}
                 <div className="space-y-4">
                   {/* Plan card */}
-                  <div className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-5">
+                  <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800/70 shadow-sm p-5">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">Current Plan</p>
-                        <p className="text-xl font-black text-slate-900">{billing.tier}</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-1">Current Plan</p>
+                        <p className="text-xl font-black text-zinc-900 dark:text-zinc-100">{billing.tier}</p>
                       </div>
                       <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
                         billing.tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
                         billing.tier === "PRO"      ? "bg-violet-100 text-violet-700" :
                         billing.tier === "BASIC"    ? "bg-teal-100 text-teal-700" :
-                        "bg-slate-100 text-slate-600"
+                        "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
                       }`}>
                         {billing.tier === "FREE" ? "Free forever" : "Active"}
                       </span>
@@ -572,13 +572,13 @@ export function DashboardClient({
                             />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-black text-slate-900">{usagePercent}%</span>
+                            <span className="text-xs font-black text-zinc-900 dark:text-zinc-100">{usagePercent}%</span>
                           </div>
                         </div>
                         <div className="flex-1">
-                          <p className="text-sm font-bold text-slate-800">{billing.monthlyPageLimit - billing.pagesUsedThisPeriod} pages left</p>
-                          <p className="text-xs text-slate-400 mt-0.5">{billing.pagesUsedThisPeriod} of {billing.monthlyPageLimit} used</p>
-                          <p className="text-xs text-slate-400">Resets next month</p>
+                          <p className="text-sm font-bold text-zinc-800 dark:text-zinc-200">{billing.monthlyPageLimit - billing.pagesUsedThisPeriod} pages left</p>
+                          <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">{billing.pagesUsedThisPeriod} of {billing.monthlyPageLimit} used</p>
+                          <p className="text-xs text-zinc-400 dark:text-zinc-500">Resets next month</p>
                         </div>
                       </div>
                     ) : (
@@ -586,7 +586,7 @@ export function DashboardClient({
                         {["8 pages free, forever", "CSV & Excel export", "All Indian banks"].map(f => (
                           <div key={f} className="flex items-center gap-2">
                             <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />
-                            <span className="text-xs text-slate-500">{f}</span>
+                            <span className="text-xs text-zinc-500 dark:text-zinc-400">{f}</span>
                           </div>
                         ))}
                       </div>
@@ -604,7 +604,7 @@ export function DashboardClient({
                     {billing.tier === "PRO" && (
                       <button
                         onClick={() => setTab("billing")}
-                        className="mt-4 w-full py-2 rounded-xl text-xs font-semibold text-slate-500 border border-slate-200 hover:border-slate-300 transition-colors"
+                        className="mt-4 w-full py-2 rounded-xl text-xs font-semibold text-zinc-500 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:border-zinc-700 transition-colors"
                       >
                         Manage plan
                       </button>
@@ -612,8 +612,8 @@ export function DashboardClient({
                   </div>
 
                   {/* Quick actions */}
-                  <div className="bg-white rounded-2xl border border-slate-200/70 shadow-sm p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Quick Actions</p>
+                  <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800/70 shadow-sm p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-3">Quick Actions</p>
                     <div className="space-y-0.5">
                       {[
                         { label: "Convert a statement", Icon: Upload,     dest: "upload" as Tab,   color: "#f97316", bg: "#fff7ed" },
@@ -624,13 +624,13 @@ export function DashboardClient({
                         <button
                           key={label}
                           onClick={() => setTab(dest)}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group text-left"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:bg-zinc-900 transition-colors group text-left"
                         >
                           <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: bg }}>
                             <Icon size={13} style={{ color }} />
                           </div>
-                          <span className="text-sm font-medium text-slate-600 group-hover:text-slate-900 flex-1">{label}</span>
-                          <ChevronRight size={12} className="text-slate-300 group-hover:text-slate-500 transition-colors" />
+                          <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-100 flex-1">{label}</span>
+                          <ChevronRight size={12} className="text-zinc-300 group-hover:text-zinc-500 dark:text-zinc-400 transition-colors" />
                         </button>
                       ))}
                     </div>
@@ -643,7 +643,7 @@ export function DashboardClient({
                       <p className="text-xs text-white/60 mb-4">All formats, Google Sheets, priority processing</p>
                       <button
                         onClick={() => setTab("billing")}
-                        className="w-full py-2.5 rounded-xl text-sm font-bold text-navy bg-white hover:bg-white/90 transition-colors"
+                        className="w-full py-2.5 rounded-xl text-sm font-bold text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-950 hover:bg-white dark:bg-zinc-950/90 transition-colors"
                       >
                         See plans →
                       </button>
@@ -665,13 +665,13 @@ export function DashboardClient({
                 iconBg="#fff7ed"
                 action={
                   /* Mode toggle — lives in the banner action slot */
-                  <div className="flex items-center gap-1 bg-slate-100 border border-slate-200 rounded-xl p-1">
+                  <div className="flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-xl p-1">
                     {(["single", "bulk"] as const).map(m => (
                       <button
                         key={m}
                         onClick={() => setUploadMode(m)}
                         className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
-                          uploadMode === m ? "bg-white text-navy shadow-sm" : "text-slate-500 hover:text-slate-700"
+                          uploadMode === m ? "bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 shadow-sm" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300"
                         }`}
                       >
                         {m === "single" ? t("singleFile") : t("bulkUpload")}
@@ -701,7 +701,7 @@ export function DashboardClient({
                 iconBg="#eff6ff"
                 action={
                   recentLogs.length > 0 ? (
-                    <span className="text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-3 py-1.5 rounded-xl">
+                    <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 rounded-xl">
                       {recentLogs.length} total
                     </span>
                   ) : undefined
@@ -742,7 +742,7 @@ export function DashboardClient({
                   <span className={`text-xs font-bold px-3 py-1.5 rounded-xl ${
                     billing.tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
                     billing.tier === "PRO"      ? "bg-violet-100 text-violet-700" :
-                    "bg-slate-100 text-slate-600"
+                    "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
                   }`}>
                     {billing.tier} plan
                   </span>
@@ -812,7 +812,7 @@ export function DashboardClient({
       </div>
 
       {/* ── MOBILE BOTTOM NAV ──────────────────────────────── */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-20 flex">
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 z-20 flex">
         {[
           { id: "home" as Tab,     label: "Home",    Icon: LayoutDashboard },
           { id: "upload" as Tab,   label: "Convert", Icon: Upload },
@@ -826,7 +826,7 @@ export function DashboardClient({
               key={id}
               onClick={() => setTab(id)}
               className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-semibold transition-colors ${
-                active ? "text-navy" : "text-slate-400 hover:text-slate-600"
+                active ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400"
               }`}
             >
               <Icon size={17} />

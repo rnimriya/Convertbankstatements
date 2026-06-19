@@ -17,7 +17,7 @@ export async function Navbar() {
   const initial = displayName?.[0]?.toUpperCase() ?? "";
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800">
+    <nav className="sticky top-0 z-50 w-full bg-white dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
 
@@ -72,7 +72,7 @@ export async function Navbar() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13.5px] font-semibold text-white bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13.5px] font-semibold text-white bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:bg-zinc-950 dark:text-zinc-900 dark:hover:bg-zinc-200 transition-colors"
                 >
                   Free Trial
                 </Link>

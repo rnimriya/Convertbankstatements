@@ -65,33 +65,33 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-surface flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-zinc-50 dark:bg-surface flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <img src="/logo.svg" alt="Convert Statement" className="h-10 w-10 mx-auto mb-4" />
-          <h1 className="font-display text-2xl font-bold text-slate-900 dark:text-white">{portalLabel}</h1>
-          <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">Upload your bank statement PDF below. Your document will be converted and shared securely.</p>
+          <h1 className="font-display text-2xl font-bold text-zinc-900 dark:text-white">{portalLabel}</h1>
+          <p className="text-sm text-zinc-500 dark:text-gray-400 mt-1">Upload your bank statement PDF below. Your document will be converted and shared securely.</p>
         </div>
 
         {/* Upload card */}
-        <div className="bg-white dark:bg-surface rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-surface rounded-2xl border border-zinc-200 dark:border-white/10 shadow-sm overflow-hidden">
           {phase === "idle" && (
             <div
               onClick={() => inputRef.current?.click()}
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={onDrop}
-              className={`flex flex-col items-center justify-center gap-4 p-10 cursor-pointer transition-colors ${dragOver ? "bg-navy/5 dark:bg-brand-400/5 border-navy/30" : "hover:bg-slate-50 dark:hover:bg-white/5"}`}
+              className={`flex flex-col items-center justify-center gap-4 p-10 cursor-pointer transition-colors ${dragOver ? "bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 border-zinc-900/30 dark:border-zinc-800" : "hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5"}`}
             >
-              <div className="w-14 h-14 rounded-2xl bg-navy/10 dark:bg-brand-400/10 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-2xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center">
                 <Upload size={24} className="text-navy dark:text-brand-400" />
               </div>
               <div className="text-center">
-                <p className="font-semibold text-slate-800 dark:text-white">Drop your PDF here</p>
-                <p className="text-sm text-slate-400 dark:text-gray-500 mt-0.5">or click to browse</p>
+                <p className="font-semibold text-zinc-800 dark:text-white">Drop your PDF here</p>
+                <p className="text-sm text-zinc-400 dark:text-gray-500 mt-0.5">or click to browse</p>
               </div>
-              <p className="text-xs text-slate-300 dark:text-gray-600">PDF only · Max 50 MB</p>
+              <p className="text-xs text-zinc-300 dark:text-gray-600">PDF only · Max 50 MB</p>
               <input ref={inputRef} type="file" accept=".pdf,application/pdf" className="hidden" onChange={onFileSelect} />
             </div>
           )}
@@ -100,8 +100,8 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
             <div className="flex flex-col items-center justify-center gap-4 p-10">
               <Loader2 size={36} className="text-navy dark:text-brand-400 animate-spin" />
               <div className="text-center">
-                <p className="font-semibold text-slate-800 dark:text-white">Converting…</p>
-                <p className="text-sm text-slate-400 dark:text-gray-500 truncate max-w-[260px]">{fileName}</p>
+                <p className="font-semibold text-zinc-800 dark:text-white">Converting…</p>
+                <p className="text-sm text-zinc-400 dark:text-gray-500 truncate max-w-[260px]">{fileName}</p>
               </div>
             </div>
           )}
@@ -113,8 +113,8 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                   <CheckCircle2 size={20} className="text-emerald-600" />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-900 dark:text-white">Conversion complete!</p>
-                  <p className="text-xs text-slate-400 dark:text-gray-500">{txCount} transactions · {bankName}</p>
+                  <p className="font-semibold text-zinc-900 dark:text-white">Conversion complete!</p>
+                  <p className="text-xs text-zinc-400 dark:text-gray-500">{txCount} transactions · {bankName}</p>
                 </div>
               </div>
 
@@ -123,7 +123,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                   <a
                     href={exportUrls.xlsx}
                     download={fileName.replace(".pdf", ".xlsx")}
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-navy text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
                   >
                     <FileSpreadsheet size={15} />
                     Download Excel (.xlsx)
@@ -146,7 +146,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
 
               <button
                 onClick={() => { setPhase("idle"); setFileName(""); setExportUrls({}); }}
-                className="mt-4 w-full text-sm text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 transition-colors text-center"
+                className="mt-4 w-full text-sm text-zinc-400 dark:text-gray-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors text-center"
               >
                 Upload another file
               </button>
@@ -159,12 +159,12 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                 <AlertCircle size={22} className="text-red-500" />
               </div>
               <div>
-                <p className="font-semibold text-slate-900 dark:text-white">Upload failed</p>
-                <p className="text-sm text-slate-500 dark:text-gray-400 mt-1">{errorMsg}</p>
+                <p className="font-semibold text-zinc-900 dark:text-white">Upload failed</p>
+                <p className="text-sm text-zinc-500 dark:text-gray-400 mt-1">{errorMsg}</p>
               </div>
               <button
                 onClick={() => { setPhase("idle"); setErrorMsg(""); }}
-                className="px-5 py-2.5 rounded-xl bg-navy text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                className="px-5 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               >
                 Try again
               </button>
@@ -172,7 +172,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
           )}
         </div>
 
-        <p className="text-center text-xs text-slate-400 dark:text-gray-500 mt-6">
+        <p className="text-center text-xs text-zinc-400 dark:text-gray-500 mt-6">
           Secured by <span className="font-medium">Convert Statement</span> · Not stored on our servers. Scanned PDFs are sent to our AI provider for extraction.
         </p>
       </div>

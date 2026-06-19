@@ -82,17 +82,17 @@ export function PricingCards() {
         </span>
         <button
           onClick={() => setAnnual(a => !a)}
-          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-zinc-900" : "bg-zinc-200 dark:bg-white/20"}`}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-200 dark:bg-zinc-800"}`}
           role="switch"
           aria-checked={annual}
         >
-          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform duration-200 ${annual ? "translate-x-5" : "translate-x-0"}`} />
+          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full transition-transform duration-200 ${annual ? "translate-x-5" : "translate-x-0"}`} />
         </button>
         <span className={`text-sm font-medium transition-colors ${annual ? "text-zinc-900 dark:text-white" : "text-zinc-400"}`}>
           Annual
         </span>
         {annual && (
-          <span className="bg-zinc-100 text-zinc-900 text-xs font-bold px-2.5 py-1 rounded-full border border-zinc-200">
+          <span className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs font-bold px-2.5 py-1 rounded-full border border-zinc-200 dark:border-zinc-700">
             Save 20%
           </span>
         )}
@@ -112,7 +112,7 @@ export function PricingCards() {
               <div key={plan.name} className="relative pt-5 h-full">
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-block bg-white rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 border border-zinc-200 whitespace-nowrap">
+                  <span className="inline-block bg-white dark:bg-zinc-950 rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 border border-zinc-200 whitespace-nowrap">
                     {plan.badge}
                   </span>
                 </div>
@@ -162,7 +162,7 @@ export function PricingCards() {
 
                   <Link
                     href={href}
-                    className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-black text-zinc-900 bg-white hover:bg-zinc-100 transition-colors"
+                    className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-black text-zinc-900 bg-white dark:bg-zinc-950 hover:bg-zinc-100 transition-colors"
                   >
                     {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -175,10 +175,10 @@ export function PricingCards() {
           return (
             <div
               key={plan.name}
-              className="relative flex flex-col h-full rounded-3xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface p-7 hover:bg-zinc-50 transition-colors"
+              className="relative flex flex-col h-full rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-7 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
             >
               {plan.badge && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white px-4 py-1 text-xs font-bold text-zinc-900 whitespace-nowrap border border-zinc-200">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white dark:bg-zinc-900 px-4 py-1 text-xs font-bold text-zinc-900 dark:text-zinc-100 whitespace-nowrap border border-zinc-200 dark:border-zinc-700">
                   {plan.badge}
                 </div>
               )}
@@ -201,20 +201,20 @@ export function PricingCards() {
                 {!plan.annualPrice && <p className="text-xs mt-1 invisible" aria-hidden="true">.</p>}
               </div>
 
-              <div className="h-px bg-zinc-200 dark:bg-white/10 my-5" />
+              <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-5" />
 
               <ul className="space-y-3 flex-1 mb-8">
                 {plan.features.map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-300">
-                    <div className="w-5 h-5 rounded-full border border-zinc-300 flex items-center justify-center shrink-0">
+                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
+                    <div className="w-5 h-5 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center shrink-0">
                       <Check size={11} className="text-zinc-400" />
                     </div>
                     {f}
                   </li>
                 ))}
                 {plan.notIncluded.map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-400 dark:text-gray-600 line-through">
-                    <div className="w-5 h-5 rounded-full border border-zinc-200 dark:border-white/10 flex items-center justify-center shrink-0">
+                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-400 dark:text-zinc-600 line-through">
+                    <div className="w-5 h-5 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shrink-0">
                       <span className="text-[9px] text-zinc-400">✕</span>
                     </div>
                     {f}
@@ -224,7 +224,7 @@ export function PricingCards() {
 
               <Link
                 href={href}
-                className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-gray-200 hover:border-zinc-900 transition-all"
+                className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-200 hover:border-zinc-900 dark:hover:border-zinc-100 transition-all"
               >
                 {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
               </Link>
