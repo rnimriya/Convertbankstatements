@@ -297,8 +297,7 @@ export function DashboardClient({
             {tab !== "upload" && (
               <button
                 onClick={() => setTab("upload")}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold text-white hover:opacity-90 transition-opacity"
-                style={{ background: "linear-gradient(135deg,#f97316,#ea580c)", boxShadow: "0 2px 10px rgba(249,115,22,0.30)" }}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
               >
                 <Upload size={13} />
                 <span className="hidden sm:inline">Convert</span>
@@ -474,8 +473,7 @@ export function DashboardClient({
                       </p>
                       <button
                         onClick={() => setTab("upload")}
-                        className="mt-5 px-6 py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5"
-                        style={{ background: "linear-gradient(135deg,#f97316,#ea580c)", boxShadow: "0 4px 14px rgba(249,115,22,0.35)" }}
+                        className="mt-5 px-6 py-2.5 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
                       >
                         Convert your first statement →
                       </button>
@@ -595,8 +593,7 @@ export function DashboardClient({
                     {billing.tier === "FREE" && (
                       <button
                         onClick={() => setTab("billing")}
-                        className="mt-4 w-full py-2.5 rounded-xl text-sm font-bold text-white transition-all hover:-translate-y-0.5"
-                        style={{ background: "linear-gradient(135deg,#1A47C8,#3b6ef5)", boxShadow: "0 4px 14px rgba(26,71,200,0.30)" }}
+                        className="mt-4 w-full py-2.5 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
                       >
                         Upgrade to Pro →
                       </button>
@@ -637,13 +634,13 @@ export function DashboardClient({
                   </div>
 
                   {billing.tier === "FREE" && (
-                    <div className="rounded-2xl p-5 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#0f1f5c 0%,#1A47C8 100%)" }}>
-                      <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-10" style={{ background: "radial-gradient(circle,white,transparent)", transform: "translate(30%,-30%)" }} />
-                      <p className="text-sm font-bold text-white mb-1">Go Pro — 500 pages/mo</p>
-                      <p className="text-xs text-white/60 mb-4">All formats, Google Sheets, priority processing</p>
+                    <div className="rounded-2xl p-5 relative overflow-hidden bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black">
+                      <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-5 bg-white dark:bg-black" style={{ transform: "translate(30%,-30%)" }} />
+                      <p className="text-sm font-bold mb-1">Go Pro — 500 pages/mo</p>
+                      <p className="text-xs opacity-60 mb-4">All formats, Google Sheets, priority processing</p>
                       <button
                         onClick={() => setTab("billing")}
-                        className="w-full py-2.5 rounded-xl text-sm font-bold text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-950 hover:bg-white dark:bg-zinc-950/90 transition-colors"
+                        className="w-full py-2.5 rounded-xl text-sm font-bold bg-white text-black hover:bg-zinc-200 dark:bg-black dark:text-white dark:hover:bg-zinc-800 transition-colors"
                       >
                         See plans →
                       </button>
