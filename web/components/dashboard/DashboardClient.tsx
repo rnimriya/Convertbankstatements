@@ -11,6 +11,7 @@ import { PortalsPanel } from "@/components/dashboard/PortalsPanel";
 import { TeamPanel } from "@/components/dashboard/TeamPanel";
 import { AccountSettings } from "@/components/dashboard/AccountSettings";
 import { QueuePanel } from "@/components/dashboard/QueuePanel";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import type { BillingContext } from "@/types/billing";
 import {
   Upload, History, CreditCard, LogOut, Link2, Users, Settings,
@@ -66,10 +67,9 @@ function PageBanner({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3">
           <div
-            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0"
-            style={{ background: iconBg }}
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 bg-zinc-100 dark:bg-zinc-900"
           >
-            <Icon size={17} style={{ color: iconColor }} />
+            <Icon size={17} className="text-zinc-900 dark:text-zinc-100" />
           </div>
           <div>
             <h2 className="text-[15px] sm:text-[17px] font-black text-zinc-900 dark:text-zinc-100 leading-tight">{title}</h2>
@@ -160,7 +160,7 @@ export function DashboardClient({
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden" style={{ background: "#f0f3f9" }}>
+    <div className="flex h-screen overflow-hidden bg-zinc-50 dark:bg-black">
 
       {/* ── SIDEBAR OVERLAY (mobile) ─────────────────────────── */}
       {sidebarOpen && (
@@ -183,11 +183,10 @@ export function DashboardClient({
         </div>
 
         {/* User card */}
-        <div className="mx-3 mt-3 mb-2 p-3 rounded-2xl" style={{ background: "#f5f7ff", border: "1px solid #e0e7ff" }}>
+        <div className="mx-3 mt-3 mb-2 p-3 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
           <div className="flex items-center gap-2.5 mb-2.5">
             <div
-              className="h-8 w-8 rounded-xl flex items-center justify-center text-xs font-black text-white shrink-0"
-              style={{ background: "linear-gradient(135deg,#1A47C8 0%,#3b6ef5 100%)" }}
+              className="h-8 w-8 rounded-xl flex items-center justify-center text-xs font-black bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black shrink-0"
             >
               {initial}
             </div>
@@ -294,6 +293,7 @@ export function DashboardClient({
           </a>
           <div className="flex-1 min-w-0" />
           <div className="flex items-center gap-2 shrink-0">
+            <ThemeToggle />
             {tab !== "upload" && (
               <button
                 onClick={() => setTab("upload")}
@@ -305,8 +305,7 @@ export function DashboardClient({
             )}
             <div className="flex items-center gap-2 bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-full pl-1 pr-2 sm:pr-3 py-1">
               <div
-                className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black text-white shrink-0"
-                style={{ background: "linear-gradient(135deg,#1A47C8,#3b6ef5)" }}
+                className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black shrink-0"
               >
                 {initial}
               </div>
@@ -363,8 +362,7 @@ export function DashboardClient({
                 </div>
                 <button
                   onClick={() => setTab("upload")}
-                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-950 text-white transition-opacity hover:opacity-90"
-                  style={{ boxShadow: "0 4px 14px rgba(26,71,200,0.28)" }}
+                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-100 dark:text-black text-white transition-opacity hover:opacity-90"
                 >
                   <Upload size={14} />
                   Start Converting
@@ -379,9 +377,6 @@ export function DashboardClient({
                     value: String(totalDocs),
                     sub: totalDocs === 0 ? "No files yet" : `${totalDocs} file${totalDocs !== 1 ? "s" : ""} converted`,
                     Icon: FileText,
-                    gradient: "linear-gradient(135deg,#3b82f6,#6366f1)",
-                    bg: "#eff6ff",
-                    iconColor: "#3b82f6",
                   },
                   {
                     label: "Pages Processed",
@@ -390,18 +385,12 @@ export function DashboardClient({
                       ? "No pages yet"
                       : `of ${billing.monthlyPageLimit} ${isPaid ? "this period" : "free"}`,
                     Icon: TrendingUp,
-                    gradient: "linear-gradient(135deg,#8b5cf6,#a855f7)",
-                    bg: "#f5f3ff",
-                    iconColor: "#8b5cf6",
                   },
                   {
                     label: "Transactions",
                     value: totalTxns.toLocaleString("en-IN"),
                     sub: totalTxns > 0 ? "Auto-extracted" : "Upload to start",
                     Icon: Zap,
-                    gradient: "linear-gradient(135deg,#10b981,#059669)",
-                    bg: "#f0fdf4",
-                    iconColor: "#10b981",
                   },
                   {
                     label: "Plan Usage",
@@ -412,23 +401,13 @@ export function DashboardClient({
                         ? `${Math.max(0, billing.monthlyPageLimit - billing.pagesUsedThisPeriod)} of ${billing.monthlyPageLimit} pages left`
                         : "Pay per doc",
                     Icon: Clock,
-                    gradient: usagePercent > 80 ? "linear-gradient(135deg,#ef4444,#dc2626)" : "linear-gradient(135deg,#f97316,#ea580c)",
-                    bg: usagePercent > 80 ? "#fef2f2" : "#fff7ed",
-                    iconColor: usagePercent > 80 ? "#ef4444" : "#f97316",
                   },
                 ].map(card => (
                   <div key={card.label} className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
-                      <div
-                        className="w-9 h-9 rounded-xl flex items-center justify-center"
-                        style={{ background: card.bg }}
-                      >
-                        <card.Icon size={16} style={{ color: card.iconColor }} />
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-zinc-100 dark:bg-zinc-900">
+                        <card.Icon size={16} className="text-zinc-900 dark:text-zinc-100" />
                       </div>
-                      <div
-                        className="h-1 w-12 rounded-full opacity-60"
-                        style={{ background: card.gradient }}
-                      />
                     </div>
                     <p className="text-2xl lg:text-3xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight mb-0.5">{card.value}</p>
                     <p className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">{card.label}</p>
@@ -462,10 +441,9 @@ export function DashboardClient({
                   {recentLogs.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
                       <div
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-                        style={{ background: "linear-gradient(135deg,#eff6ff,#e0e7ff)" }}
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 bg-zinc-100 dark:bg-zinc-900"
                       >
-                        <FileText size={24} className="text-blue-500" />
+                        <FileText size={24} className="text-zinc-900 dark:text-zinc-100" />
                       </div>
                       <p className="font-bold text-zinc-800 dark:text-zinc-200 text-base">No documents yet</p>
                       <p className="text-sm text-zinc-400 dark:text-zinc-500 mt-1 max-w-xs">
@@ -491,8 +469,8 @@ export function DashboardClient({
                         {recentLogs.slice(0, 5).map(log => (
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-zinc-50 dark:bg-zinc-900/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
-                              <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
-                                <FileText size={14} className="text-blue-500" />
+                              <div className="w-8 h-8 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center shrink-0">
+                                <FileText size={14} className="text-zinc-900 dark:text-zinc-100" />
                               </div>
                               <div className="min-w-0">
                                 <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-200 truncate">{log.fileName}</p>
@@ -511,8 +489,7 @@ export function DashboardClient({
                             </div>
                             <div className="col-span-2 text-center">
                               <span
-                                className="text-sm font-bold px-2 py-0.5 rounded-lg"
-                                style={{ background: "#f0fdf4", color: "#059669" }}
+                                className="text-sm font-bold px-2 py-0.5 rounded-lg bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
                               >
                                 {log.transactionCount}
                               </span>
@@ -559,14 +536,14 @@ export function DashboardClient({
                       <div className="flex items-center gap-4">
                         <div className="relative w-16 h-16 shrink-0">
                           <svg width="64" height="64" viewBox="0 0 64 64" className="-rotate-90">
-                            <circle cx="32" cy="32" r={RING_R} fill="none" stroke="#f1f5f9" strokeWidth="8" />
+                            <circle cx="32" cy="32" r={RING_R} fill="none" className="stroke-zinc-100 dark:stroke-zinc-800" strokeWidth="8" />
                             <circle
                               cx="32" cy="32" r={RING_R} fill="none"
-                              stroke={usagePercent > 80 ? "#ef4444" : "#1A47C8"}
+                              stroke={usagePercent > 80 ? "#ef4444" : "currentColor"}
                               strokeWidth="8" strokeLinecap="round"
                               strokeDasharray={RING_C}
                               strokeDashoffset={RING_C * (1 - usagePercent / 100)}
-                              className="transition-all duration-700"
+                              className="transition-all duration-700 text-zinc-900 dark:text-zinc-100"
                             />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
@@ -613,18 +590,18 @@ export function DashboardClient({
                     <p className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-3">Quick Actions</p>
                     <div className="space-y-0.5">
                       {[
-                        { label: "Convert a statement", Icon: Upload,     dest: "upload" as Tab,   color: "#f97316", bg: "#fff7ed" },
-                        { label: "View history",         Icon: History,    dest: "history" as Tab,  color: "#3b82f6", bg: "#eff6ff" },
-                        { label: "Manage billing",       Icon: CreditCard, dest: "billing" as Tab,  color: "#8b5cf6", bg: "#f5f3ff" },
-                        { label: "Account settings",     Icon: Settings,   dest: "settings" as Tab, color: "#64748b", bg: "#f8fafc" },
-                      ].map(({ label, Icon, dest, color, bg }) => (
+                        { label: "Convert a statement", Icon: Upload,     dest: "upload" as Tab },
+                        { label: "View history",         Icon: History,    dest: "history" as Tab },
+                        { label: "Manage billing",       Icon: CreditCard, dest: "billing" as Tab },
+                        { label: "Account settings",     Icon: Settings,   dest: "settings" as Tab },
+                      ].map(({ label, Icon, dest }) => (
                         <button
                           key={label}
                           onClick={() => setTab(dest)}
                           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:bg-zinc-900 transition-colors group text-left"
                         >
-                          <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ background: bg }}>
-                            <Icon size={13} style={{ color }} />
+                          <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-zinc-100 dark:bg-zinc-800">
+                            <Icon size={13} className="text-zinc-600 dark:text-zinc-400" />
                           </div>
                           <span className="text-sm font-medium text-zinc-600 dark:text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-100 flex-1">{label}</span>
                           <ChevronRight size={12} className="text-zinc-300 group-hover:text-zinc-500 dark:text-zinc-400 transition-colors" />
