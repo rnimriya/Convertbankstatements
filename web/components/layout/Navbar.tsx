@@ -72,7 +72,7 @@ export async function Navbar() {
                 </Link>
                 <Link
                   href="/signup"
-                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13.5px] font-semibold text-white bg-zinc-900 hover:bg-zinc-800 dark:bg-white dark:bg-zinc-950 dark:text-zinc-900 dark:hover:bg-zinc-200 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13.5px] font-semibold text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 dark:from-violet-500 dark:to-fuchsia-500 dark:text-white dark:hover:from-violet-600 dark:hover:to-fuchsia-600 transition-colors border-0"
                 >
                   Free Trial
                 </Link>

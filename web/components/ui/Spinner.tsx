@@ -10,9 +10,9 @@ const SIZES = {
 
 const COLORS = {
   current: "text-current",
-  brand:   "text-brand-600 dark:text-brand-400",
+  brand:   "text-brand-600 dark:text-violet-400",
   white:   "text-white",
-  muted:   "text-zinc-400 dark:text-gray-500",
+  muted:   "text-zinc-400 dark:text-zinc-500",
 } as const;
 
 export interface SpinnerProps {
@@ -70,7 +70,7 @@ export function SpinnerOverlay({ label = "Loading…" }: { label?: string }) {
       aria-label={label}
     >
       <Spinner size="lg" color="brand" />
-      <p className="text-sm text-zinc-500 dark:text-gray-400">{label}</p>
+      <p className="text-sm text-zinc-500 dark:text-zinc-400">{label}</p>
     </div>
   );
 }

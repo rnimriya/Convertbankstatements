@@ -122,13 +122,13 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
   return (
     <div>
       {/* Payment note */}
-      <p className="text-xs text-zinc-400 dark:text-gray-500 mb-6">
+      <p className="text-xs text-zinc-400 dark:text-zinc-500 mb-6">
         Pay via UPI, Credit/Debit Card, Net Banking, or Wallets through Razorpay
       </p>
 
       {/* Monthly / Annual toggle */}
       <div className="flex items-center justify-center gap-3 mb-10">
-        <span className={`text-sm font-medium transition-colors ${!annual ? "text-zinc-900 dark:text-white" : "text-zinc-400 dark:text-gray-500"}`}>
+        <span className={`text-sm font-medium transition-colors ${!annual ? "text-zinc-900 dark:text-white" : "text-zinc-400 dark:text-zinc-500"}`}>
           Monthly
         </span>
         <button
@@ -139,7 +139,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
         >
           <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-950 rounded-full shadow transition-transform duration-200 ${annual ? "translate-x-5" : "translate-x-0"}`} />
         </button>
-        <span className={`text-sm font-medium transition-colors ${annual ? "text-zinc-900 dark:text-white" : "text-zinc-400 dark:text-gray-500"}`}>
+        <span className={`text-sm font-medium transition-colors ${annual ? "text-zinc-900 dark:text-white" : "text-zinc-400 dark:text-zinc-500"}`}>
           Annual
         </span>
         {annual && (
@@ -259,10 +259,10 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col h-full rounded-3xl border bg-white dark:bg-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
+              className={`relative flex flex-col h-full rounded-3xl border bg-white dark:bg-zinc-950 p-7 shadow-sm hover:shadow-md transition-shadow ${
                 isCurrent
                   ? "border-emerald-400 dark:border-emerald-500 ring-2 ring-emerald-400"
-                  : "border-zinc-200 dark:border-white/10"
+                  : "border-zinc-200 dark:border-zinc-800"
               }`}
             >
               {isCurrent && (
@@ -272,19 +272,19 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
               )}
 
               <p className="font-black text-zinc-900 dark:text-white text-lg mb-0.5">{plan.name}</p>
-              <p className="text-zinc-400 dark:text-gray-500 text-xs mb-5">{plan.tagline}</p>
+              <p className="text-zinc-400 dark:text-zinc-500 text-xs mb-5">{plan.tagline}</p>
 
               {/* Price */}
               <div className="mb-1">
                 <div className="flex items-end gap-1.5">
                   <span className="text-4xl font-black text-zinc-900 dark:text-white tracking-tight">{displayPrice}</span>
-                  {displayPeriod && <span className="text-zinc-400 dark:text-gray-500 text-sm mb-1">{displayPeriod}</span>}
+                  {displayPeriod && <span className="text-zinc-400 dark:text-zinc-500 text-sm mb-1">{displayPeriod}</span>}
                 </div>
                 {showAnnual && plan.annualMonthlyEquiv && (
-                  <p className="text-zinc-400 dark:text-gray-500 text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
+                  <p className="text-zinc-400 dark:text-zinc-500 text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
                 )}
                 {!showAnnual && plan.annualPrice && (
-                  <p className="text-zinc-400 dark:text-gray-500 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
+                  <p className="text-zinc-400 dark:text-zinc-500 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
                 )}
                 {/* Reserve the sub-line height (e.g. Free has no annual price) so all dividers align */}
                 {!plan.annualPrice && <p className="text-xs mt-1 invisible" aria-hidden="true">.</p>}
@@ -295,7 +295,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
               {/* Features */}
               <ul className="space-y-3 flex-1 mb-8">
                 {plan.features.map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-gray-300">
+                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
                     <div className="w-5 h-5 rounded-full border-2 border-emerald-400 flex items-center justify-center shrink-0">
                       <Check size={11} className="text-emerald-500" />
                     </div>
@@ -303,8 +303,8 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                   </li>
                 ))}
                 {plan.notIncluded.map(f => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-300 dark:text-gray-600 line-through">
-                    <div className="w-5 h-5 rounded-full border-2 border-zinc-200 dark:border-white/10 flex items-center justify-center shrink-0">
+                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-300 dark:text-zinc-600 line-through">
+                    <div className="w-5 h-5 rounded-full border-2 border-zinc-200 dark:border-zinc-800 flex items-center justify-center shrink-0">
                       <span className="text-[9px] text-zinc-300">✕</span>
                     </div>
                     {f}
@@ -316,14 +316,14 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
               {isCurrent ? (
                 <button
                   disabled
-                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-white/10 text-zinc-400 dark:text-gray-500 cursor-not-allowed opacity-60"
+                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 cursor-not-allowed opacity-60"
                 >
                   Current plan
                 </button>
               ) : plan.id === "FREE" || !activePlan ? (
                 <button
                   disabled
-                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-white/10 text-zinc-400 dark:text-gray-500 cursor-not-allowed opacity-60"
+                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 cursor-not-allowed opacity-60"
                 >
                   Free
                 </button>
@@ -334,7 +334,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                   amountINR={activeAmount}
                   onSuccess={() => router.refresh()}
                   onError={setError}
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-gray-200 hover:border-[#3B5BFC] hover:text-[#3B5BFC] dark:hover:border-brand-400 dark:hover:text-brand-400 transition-all"
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-200 hover:border-[#3B5BFC] hover:text-[#3B5BFC] dark:hover:border-brand-400 dark:hover:text-violet-400 transition-all"
                 />
               )}
             </div>
@@ -344,11 +344,11 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
 
       {/* Cancellation */}
       {currentTier !== "FREE" && !cancelled && (
-        <div className="mt-8 rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface p-5">
+        <div className="mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <p className="font-semibold text-zinc-800 dark:text-gray-200">Cancel subscription</p>
-              <p className="mt-0.5 text-sm text-zinc-400 dark:text-gray-500">
+              <p className="font-semibold text-zinc-800 dark:text-zinc-200">Cancel subscription</p>
+              <p className="mt-0.5 text-sm text-zinc-400 dark:text-zinc-500">
                 Your plan will revert to Free at end of current billing period.
               </p>
             </div>
@@ -367,7 +367,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
                   cancelConfirm
                     ? "bg-red-600 text-white hover:bg-red-700"
-                    : "border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-gray-400 hover:border-red-300 hover:text-red-600 dark:hover:text-red-400"
+                    : "border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-red-300 hover:text-red-600 dark:hover:text-red-400"
                 } disabled:opacity-50`}
               >
                 {cancelling && <Loader2 size={14} className="animate-spin" />}

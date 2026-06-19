@@ -84,7 +84,7 @@ const pricingSchema = {
 export default async function PricingPage() {
   const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
-    <div className="min-h-screen bg-white dark:bg-surface">
+    <div className="min-h-screen bg-white dark:bg-zinc-950">
       <script
         nonce={nonce}
         type="application/ld+json"
@@ -92,16 +92,16 @@ export default async function PricingPage() {
       />
       <Navbar />
 
-      <div className="border-b border-zinc-100 dark:border-white/10 bg-zinc-50 dark:bg-surface px-6 py-8">
+      <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Simple, transparent pricing</h1>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-gray-400">
+            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
               Start free · All prices in INR · No hidden charges
             </p>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface px-4 py-2 text-xs font-medium text-zinc-500 dark:text-gray-400 shadow-sm w-fit">
-            <IndianRupee className="h-3.5 w-3.5 text-brand-500" />
+          <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">
+            <IndianRupee className="h-3.5 w-3.5 text-violet-500" />
             UPI · Cards · Net Banking · Wallets
           </div>
         </div>
@@ -112,25 +112,25 @@ export default async function PricingPage() {
       </div>
 
       {/* Comparison table */}
-      <div className="bg-zinc-50 dark:bg-surface px-6 py-20">
+      <div className="bg-zinc-50 dark:bg-zinc-950 px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-8 text-center text-2xl font-extrabold text-zinc-900 dark:text-white">Full comparison</h2>
-          <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zinc-100 dark:border-white/10 bg-zinc-50 dark:bg-surface">
-                  <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-gray-400">Feature</th>
+                <tr className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
+                  <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Feature</th>
                   {["Free", "Pro", "Business"].map((h) => (
-                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-brand-500 dark:text-brand-400" : "text-zinc-500 dark:text-gray-400"}`}>{h}</th>
+                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h === "Pro" ? "text-violet-500 dark:text-violet-400" : "text-zinc-500 dark:text-zinc-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {COMPARE_ROWS.map(({ feature, free, pro, business }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-surface" : "bg-zinc-50 dark:bg-zinc-900/50 dark:bg-surface/50"}>
-                    <td className="px-5 py-3 font-medium text-zinc-700 dark:text-gray-300">{feature}</td>
+                  <tr key={feature} className={i % 2 === 0 ? "bg-white dark:bg-zinc-950" : "bg-zinc-50 dark:bg-zinc-900/50 dark:bg-zinc-950/50"}>
+                    <td className="px-5 py-3 font-medium text-zinc-700 dark:text-zinc-300">{feature}</td>
                     {[free, pro, business].map((val, j) => (
-                      <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-zinc-300 dark:text-gray-700" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-zinc-600 dark:text-gray-300"}`}>{val}</td>
+                      <td key={j} className={`px-4 py-3 text-center ${val === "—" ? "text-zinc-300 dark:text-zinc-700" : val === "✓" ? "text-emerald-500 font-bold text-base" : "text-zinc-600 dark:text-zinc-300"}`}>{val}</td>
                     ))}
                   </tr>
                 ))}
@@ -152,7 +152,7 @@ export default async function PricingPage() {
           <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Get started today</p>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">Start with 8 free pages today</h2>
           <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay via UPI when you need more · Cancel anytime</p>
-          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold text-zinc-900 dark:text-zinc-100 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:bg-zinc-900 transition-colors shadow-xl dark:shadow-none">
+          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold transition-colors shadow-xl dark:shadow-none text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 dark:from-violet-500 dark:to-fuchsia-500 dark:hover:from-violet-600 dark:hover:to-fuchsia-600 border-0">
             Create free account
             <ArrowRight className="h-4 w-4" />
           </Link>

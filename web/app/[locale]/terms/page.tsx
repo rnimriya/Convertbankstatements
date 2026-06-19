@@ -187,22 +187,22 @@ For questions about these Terms, contact us at legal@convertstatement.online.`,
 
 export default function TermsPage() {
  return (
- <div className="min-h-screen bg-white dark:bg-surface">
+ <div className="min-h-screen bg-white dark:bg-zinc-950">
  <Navbar />
 
  {/* Header */}
- <div className="border-b border-zinc-100 dark:border-white/10 bg-zinc-50 dark:bg-surface px-6 py-10">
+ <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
  <div className="mx-auto max-w-3xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <ScrollText className="h-5 w-5 text-navy dark:text-brand-400" />
+ <ScrollText className="h-5 w-5 text-navy dark:text-violet-400" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Terms of Service</h1>
- <p className="text-xs text-zinc-400 dark:text-gray-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+ <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
- <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-gray-400">
+ <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
  These Terms govern your use of Convert Statement. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
  </p>
 
@@ -213,9 +213,9 @@ export default function TermsPage() {
  { label: "Refunds", value: "7 days for subscriptions" },
  { label: "Jurisdiction", value: "Laws of India" },
  ].map(({ label, value }) => (
- <div key={label} className="rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-surface px-4 py-3">
- <p className="text-xs text-zinc-400 dark:text-gray-500">{label}</p>
- <p className="mt-0.5 text-sm font-semibold text-zinc-700 dark:text-gray-200">{value}</p>
+ <div key={label} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-3">
+ <p className="text-xs text-zinc-400 dark:text-zinc-500">{label}</p>
+ <p className="mt-0.5 text-sm font-semibold text-zinc-700 dark:text-zinc-200">{value}</p>
  </div>
  ))}
  </div>
@@ -225,14 +225,14 @@ export default function TermsPage() {
  {/* Content */}
  <div className="mx-auto max-w-3xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-surface p-5">
- <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-gray-500">Contents</p>
+ <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-5">
+ <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy dark:text-brand-400 hover:underline underline-offset-2"
+ className="text-sm text-navy dark:text-violet-400 hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -253,16 +253,16 @@ export default function TermsPage() {
  if (isHeading) {
  return (
  <div key={i}>
- <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-gray-200">
+ <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-zinc-200">
  {lines[0].replace(/\*\*/g, "")}
  </p>
  {lines.slice(1).map((line, j) => {
  const parts = line.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={j} className="text-sm leading-relaxed text-zinc-600 dark:text-gray-400">
+ <p key={j} className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
  {parts.map((part, k) =>
  part.startsWith("**") ? (
- <strong key={k} className="font-semibold text-zinc-800 dark:text-gray-200">
+ <strong key={k} className="font-semibold text-zinc-800 dark:text-zinc-200">
  {part.replace(/\*\*/g, "")}
  </strong>
  ) : part
@@ -276,7 +276,7 @@ export default function TermsPage() {
 
  const parts = para.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={i} className="text-sm leading-relaxed text-zinc-600 dark:text-gray-400">
+ <p key={i} className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
  {parts.map((part, j) =>
  part.startsWith("**") ? (
  <strong key={j} className="font-semibold text-zinc-800 dark:text-zinc-200 ">
@@ -293,9 +293,9 @@ export default function TermsPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-brand-400">
+ <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-violet-400">
  <p className="font-semibold">Questions about these Terms?</p>
- <p className="mt-1 text-navy dark:text-brand-400">
+ <p className="mt-1 text-navy dark:text-violet-400">
  Email us at{" "}
  <a href="mailto:legal@convertstatement.online" className="underline hover:no-underline">
  legal@convertstatement.online
@@ -304,7 +304,7 @@ export default function TermsPage() {
  </p>
  </div>
 
- <div className="mt-6 flex items-center justify-center gap-6 text-xs text-zinc-400 dark:text-gray-500">
+ <div className="mt-6 flex items-center justify-center gap-6 text-xs text-zinc-400 dark:text-zinc-500">
  <Link href="/privacy" className="hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-white underline underline-offset-2">Privacy Policy</Link>
  <Link href="/" className="hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300">← Back to home</Link>
  </div>

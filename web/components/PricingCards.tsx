@@ -162,7 +162,7 @@ export function PricingCards() {
 
                   <Link
                     href={href}
-                    className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-black text-zinc-900 bg-white dark:bg-zinc-950 hover:bg-zinc-100 transition-colors"
+                    className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold transition-colors shadow-sm text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 dark:from-violet-500 dark:to-fuchsia-500 dark:hover:from-violet-600 dark:hover:to-fuchsia-600 border-0"
                   >
                     {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
@@ -224,7 +224,7 @@ export function PricingCards() {
 
               <Link
                 href={href}
-                className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold border-2 border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-zinc-200 hover:border-zinc-900 dark:hover:border-zinc-100 transition-all"
+                className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold transition-all shadow-sm text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 dark:from-violet-500 dark:to-fuchsia-500 dark:hover:from-violet-600 dark:hover:to-fuchsia-600 border-0"
               >
                 {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
               </Link>

@@ -63,15 +63,15 @@ export function PortalsPanel() {
     <div className="max-w-2xl">
       {/* Create form */}
       {showForm ? (
-        <div className="bg-white dark:bg-surface border border-zinc-200 dark:border-white/10 rounded-2xl p-5 mb-6">
-          <p className="text-sm font-semibold text-zinc-700 dark:text-gray-200 mb-3">New upload portal</p>
+        <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5 mb-6">
+          <p className="text-sm font-semibold text-zinc-700 dark:text-zinc-200 mb-3">New upload portal</p>
           <div className="flex gap-2">
             <input
               type="text"
               value={newLabel}
               onChange={e => setNewLabel(e.target.value)}
               placeholder="e.g. HDFC Statements – Sharma & Sons"
-              className="flex-1 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-surface px-4 py-2.5 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
+              className="flex-1 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 py-2.5 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
               onKeyDown={e => e.key === "Enter" && createPortal()}
               autoFocus
             />
@@ -83,7 +83,7 @@ export function PortalsPanel() {
               {creating ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
               Create
             </button>
-            <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 text-zinc-500 dark:text-gray-400 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-gray-200 text-sm transition-colors">
+            <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-gray-200 text-sm transition-colors">
               Cancel
             </button>
           </div>
@@ -100,17 +100,17 @@ export function PortalsPanel() {
 
       {/* List */}
       {loading ? (
-        <div className="flex items-center gap-2 text-zinc-400 dark:text-gray-500 text-sm py-8 justify-center">
+        <div className="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-sm py-8 justify-center">
           <Loader2 size={16} className="animate-spin" />
           Loading portals…
         </div>
       ) : activePortals.length === 0 ? (
         <div className="flex flex-col items-center gap-3 py-16 text-center">
-          <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-surface flex items-center justify-center">
-            <Link2 size={20} className="text-zinc-300 dark:text-gray-600" />
+          <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-950 flex items-center justify-center">
+            <Link2 size={20} className="text-zinc-300 dark:text-zinc-600" />
           </div>
-          <p className="text-sm font-medium text-zinc-500 dark:text-gray-400">No portal links yet</p>
-          <p className="text-xs text-zinc-400 dark:text-gray-500 max-w-xs">Create a link to share with a client. They upload their PDF; you get the converted file billed to your account.</p>
+          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">No portal links yet</p>
+          <p className="text-xs text-zinc-400 dark:text-zinc-500 max-w-xs">Create a link to share with a client. They upload their PDF; you get the converted file billed to your account.</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -118,13 +118,13 @@ export function PortalsPanel() {
             const url = typeof window !== "undefined" ? `${window.location.origin}/p/${portal.token}` : `/p/${portal.token}`;
             const isCopied = copiedToken === portal.token;
             return (
-              <div key={portal.token} className="bg-white dark:bg-surface border border-zinc-200 dark:border-white/10 rounded-2xl p-4 flex items-center gap-3">
+              <div key={portal.token} className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
-                  <Link2 size={15} className="text-navy dark:text-brand-400" />
+                  <Link2 size={15} className="text-navy dark:text-violet-400" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-white truncate">{portal.label}</p>
-                  <p className="text-xs text-zinc-400 dark:text-gray-500 truncate font-mono">/p/{portal.token.slice(0, 12)}…</p>
+                  <p className="text-xs text-zinc-400 dark:text-zinc-500 truncate font-mono">/p/{portal.token.slice(0, 12)}…</p>
                 </div>
                 <button
                   onClick={() => copyUrl(portal.token)}

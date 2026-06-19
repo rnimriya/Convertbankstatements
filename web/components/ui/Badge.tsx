@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS = {
   default:
-    "bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 text-zinc-700 dark:text-gray-300",
+    "bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 text-zinc-700 dark:text-zinc-300",
   brand:
     "bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300",
   success:

@@ -352,15 +352,15 @@ export function DashboardClient({
             <div className="p-5 lg:p-7 space-y-5 max-w-[1400px]">
 
               {/* Welcome strip */}
-              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-white dark:bg-surface border border-zinc-200 dark:border-white/10 shadow-sm">
+              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-sm">
                 <div className="relative">
-                  <p className="text-zinc-400 dark:text-gray-500 text-xs font-medium mb-0.5">
+                  <p className="text-zinc-400 dark:text-zinc-500 text-xs font-medium mb-0.5">
                     {new Date().toLocaleDateString("en-IN", { weekday: "long", month: "long", day: "numeric" })}
                   </p>
                   <h2 className="text-xl lg:text-2xl font-black text-zinc-900 dark:text-white leading-tight">
                     Welcome back, {displayName}! 👋
                   </h2>
-                  <p className="text-zinc-500 dark:text-gray-400 text-sm mt-1">Here&apos;s your statement conversion overview.</p>
+                  <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-1">Here&apos;s your statement conversion overview.</p>
                 </div>
                 <button
                   onClick={() => setTab("upload")}

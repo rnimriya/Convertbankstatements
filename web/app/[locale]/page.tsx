@@ -350,10 +350,7 @@ export default async function HomePage() {
               {tCta("subtitle")}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/signup"
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl text-sm font-bold text-zinc-900 bg-white dark:bg-zinc-950 hover:bg-zinc-100 transition-colors"
-              >
+              <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold transition-colors shadow-xl dark:shadow-none text-white bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700 dark:from-violet-500 dark:to-fuchsia-500 dark:hover:from-violet-600 dark:hover:to-fuchsia-600 border-0">
                 <span>{tCta("button")}</span>
                 <ArrowRight size={15} />
               </Link>

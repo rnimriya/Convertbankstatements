@@ -118,7 +118,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
-      <main className="min-h-screen bg-white dark:bg-surface">
+      <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* Feature image */}
         <div className="h-64 sm:h-80 w-full overflow-hidden">
           <img
@@ -134,7 +134,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full bg-brand-50 dark:bg-brand-900/20 px-2.5 py-0.5 text-xs font-semibold text-brand-600 dark:text-brand-400"
+                className="rounded-full bg-brand-50 dark:bg-brand-900/20 px-2.5 py-0.5 text-xs font-semibold text-brand-600 dark:text-violet-400"
               >
                 {tag}
               </span>
@@ -147,7 +147,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </h1>
 
           {/* Meta */}
-          <div className="mt-4 flex items-center gap-3 text-sm text-zinc-400 dark:text-gray-500">
+          <div className="mt-4 flex items-center gap-3 text-sm text-zinc-400 dark:text-zinc-500">
             <span>{post.author}</span>
             <span>·</span>
             <time dateTime={post.createdAt}>
@@ -166,10 +166,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           />
 
           {/* Back link */}
-          <div className="mt-12 border-t border-zinc-100 dark:border-white/10 pt-8">
+          <div className="mt-12 border-t border-zinc-100 dark:border-zinc-800 pt-8">
             <a
               href={`/${locale}/blog`}
-              className="text-sm font-medium text-brand-500 dark:text-brand-400 hover:underline"
+              className="text-sm font-medium text-violet-500 dark:text-violet-400 hover:underline"
             >
               {t("backToBlog")}
             </a>

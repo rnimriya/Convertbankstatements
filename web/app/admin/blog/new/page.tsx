@@ -16,7 +16,7 @@ export default async function NewBlogPostPage() {
         <div className="mb-8">
           <a
             href="/admin/blog"
-            className="text-sm text-brand-500 dark:text-brand-400 hover:underline"
+            className="text-sm text-violet-500 dark:text-violet-400 hover:underline"
           >
             ← Back to posts
           </a>

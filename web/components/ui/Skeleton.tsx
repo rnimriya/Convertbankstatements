@@ -63,7 +63,7 @@ export function SkeletonRow({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex items-center gap-3 rounded-2xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-surface px-5 py-4",
+        "flex items-center gap-3 rounded-2xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-zinc-950 px-5 py-4",
         className
       )}
       aria-hidden="true"
@@ -84,7 +84,7 @@ export function SkeletonStatCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "rounded-xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-surface p-4 space-y-2",
+        "rounded-xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-zinc-950 p-4 space-y-2",
         className
       )}
       aria-hidden="true"
@@ -100,7 +100,7 @@ export function SkeletonStatCard({ className }: { className?: string }) {
 export function SkeletonUploadResult({ className }: { className?: string }) {
   return (
     <div className={cn("space-y-4", className)} aria-hidden="true">
-      <div className="rounded-2xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-surface p-5 space-y-4">
+      <div className="rounded-2xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-zinc-950 p-5 space-y-4">
         <div className="flex items-center gap-3">
           <SkeletonBase className="h-6 w-6 rounded-full shrink-0" />
           <div className="flex-1 space-y-1.5">
@@ -120,7 +120,7 @@ export function SkeletonUploadResult({ className }: { className?: string }) {
           ))}
         </div>
       </div>
-      <div className="rounded-2xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-surface overflow-hidden">
+      <div className="rounded-2xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-zinc-950 overflow-hidden">
         <div className="px-5 py-3 border-b border-zinc-50 dark:border-white/5">
           <SkeletonBase className="h-4 w-40" />
         </div>

@@ -162,22 +162,22 @@ We are committed to resolving complaints about our collection or use of your per
 
 export default function PrivacyPage() {
  return (
- <div className="min-h-screen bg-white dark:bg-surface">
+ <div className="min-h-screen bg-white dark:bg-zinc-950">
  <Navbar />
 
  {/* Header */}
- <div className="border-b border-zinc-100 dark:border-white/10 bg-zinc-50 dark:bg-surface px-6 py-10">
+ <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
  <div className="mx-auto max-w-3xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <Shield className="h-5 w-5 text-navy dark:text-brand-400" />
+ <Shield className="h-5 w-5 text-navy dark:text-violet-400" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Privacy Policy</h1>
- <p className="text-xs text-zinc-400 dark:text-gray-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+ <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
- <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-gray-400">
+ <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
  We built Convert Statement with privacy at its core. Your financial documents are never stored on our servers — they are processed in memory and deleted the moment your converted data is ready. This policy explains exactly what we do (and don&apos;t do) with your data.
  </p>
  </div>
@@ -186,14 +186,14 @@ export default function PrivacyPage() {
  {/* Content */}
  <div className="mx-auto max-w-3xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-white/10 bg-zinc-50 dark:bg-surface p-5">
- <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-gray-500">Contents</p>
+ <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-5">
+ <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy dark:text-brand-400 hover:underline underline-offset-2"
+ className="text-sm text-navy dark:text-violet-400 hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -210,7 +210,7 @@ export default function PrivacyPage() {
  {content.split("\n\n").map((para, i) => {
  if (para.startsWith("**") && para.split("\n").length === 1) {
  return (
- <p key={i} className="text-sm font-semibold text-zinc-800 dark:text-gray-200">
+ <p key={i} className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
  {para.replace(/\*\*/g, "")}
  </p>
  );
@@ -218,10 +218,10 @@ export default function PrivacyPage() {
  // Render bold inline text
  const parts = para.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={i} className="text-sm leading-relaxed text-zinc-600 dark:text-gray-400">
+ <p key={i} className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
  {parts.map((part, j) =>
  part.startsWith("**") ? (
- <strong key={j} className="font-semibold text-zinc-800 dark:text-gray-200">
+ <strong key={j} className="font-semibold text-zinc-800 dark:text-zinc-200">
  {part.replace(/\*\*/g, "")}
  </strong>
  ) : (
@@ -244,9 +244,9 @@ export default function PrivacyPage() {
  </p>
  </div>
 
- <div className="mt-8 text-center text-xs text-zinc-400 dark:text-gray-500">
+ <div className="mt-8 text-center text-xs text-zinc-400 dark:text-zinc-500">
  Questions?{" "}
- <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-brand-400 hover:underline">
+ <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-violet-400 hover:underline">
  privacy@convertstatement.online
  </a>
  </div>

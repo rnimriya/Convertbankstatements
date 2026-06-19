@@ -89,7 +89,7 @@ export function EmptyState({
           className={cn(
             "flex items-center justify-center",
             "bg-zinc-100 dark:bg-white dark:bg-zinc-950/5",
-            "text-zinc-400 dark:text-gray-500",
+            "text-zinc-400 dark:text-zinc-500",
             s.iconBox
           )}
           aria-hidden="true"
@@ -101,7 +101,7 @@ export function EmptyState({
       {/* Text */}
       <p className={cn("text-zinc-800 dark:text-gray-100", s.title)}>{title}</p>
       {description && (
-        <p className={cn("text-zinc-500 dark:text-gray-400 max-w-xs", s.description)}>
+        <p className={cn("text-zinc-500 dark:text-zinc-400 max-w-xs", s.description)}>
           {description}
         </p>
       )}

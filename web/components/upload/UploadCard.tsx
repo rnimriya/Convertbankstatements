@@ -241,8 +241,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       <span>Password OK</span>
                     </div>
 
-                    <p className="mt-2 text-[11px] text-zinc-400 dark:text-gray-500">
-                      {BANKS.join(" · ")} <span className="text-zinc-300 dark:text-gray-600">+23 more</span>
+                    <p className="mt-2 text-[11px] text-zinc-400 dark:text-zinc-500">
+                      {BANKS.join(" · ")} <span className="text-zinc-300 dark:text-zinc-600">+23 more</span>
                     </p>
 
                     {billing.tier === "FREE" && freeRemaining > 0 && (
@@ -293,7 +293,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
                       <div className={cn("h-full rounded-full transition-all", lowPages ? "bg-amber-400" : "bg-zinc-900 dark:bg-zinc-100")} style={{ width: `${usedPct}%` }} />
                     </div>
-                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ? "text-amber-600" : "text-zinc-500 dark:text-gray-400")}>
+                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ? "text-amber-600" : "text-zinc-500 dark:text-zinc-400")}>
                       {pagesRemaining}/{pageLimit}
                     </span>
                   </div>
