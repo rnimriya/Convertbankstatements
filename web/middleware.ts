@@ -64,7 +64,7 @@ export async function middleware(request: NextRequest) {
   requestHeaders.set("content-security-policy", csp);
 
   const intlRequest = new NextRequest(request, { headers: requestHeaders });
-  const response = intlMiddleware(intlRequest);
+  const response = intlMiddleware(intlRequest as any);
   response.headers.set("content-security-policy", csp);
 
   // Sliding session renewal: if the token is still valid but older than the

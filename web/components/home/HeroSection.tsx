@@ -19,10 +19,11 @@ const AVATAR_INITIALS = ["R", "S", "P", "A", "K"];
 interface Props {
   billing: BillingContext;
   onBillingUpdate: () => void;
+  userEmail?: string;
   hasSheetsAccess?: boolean;
 }
 
-export function HeroSection({ billing, onBillingUpdate, hasSheetsAccess }: Props) {
+export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAccess }: Props) {
   return (
     <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
       {/* Background glow */}
@@ -56,7 +57,7 @@ export function HeroSection({ billing, onBillingUpdate, hasSheetsAccess }: Props
 
         {/* ── Upload Card — full width with max-w ── */}
         <div className="w-full max-w-5xl mx-auto">
-          <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
+          <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
 
           {/* Security note */}
           <div className="mt-4 flex items-center justify-center gap-2">
