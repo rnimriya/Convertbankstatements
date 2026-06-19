@@ -1,0 +1,65 @@
+# ConvertStatement — LLM Context
+
+## What is ConvertStatement?
+ConvertStatement (convertstatement.online) is an Indian SaaS tool that converts bank statement PDFs into structured data formats: CSV, Excel (XLSX), OFX (for Tally and QuickBooks), QFX (for Quicken), and Google Sheets.
+
+It is designed for Indian users — chartered accountants (CAs), bookkeepers, freelancers, small businesses, and individuals who need to extract transaction data from PDF bank statements without manual data entry.
+
+## Problem it solves
+Indian bank account statements are delivered as PDF files. Manually copying transactions into Excel or accounting software (Tally, QuickBooks) is time-consuming. ConvertStatement automates this extraction in under 15 seconds.
+
+## Supported banks (30+ Indian banks)
+SBI (State Bank of India), HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank (PNB), Bank of Baroda, Canara Bank, Union Bank of India, IndusInd Bank, Yes Bank, IDFC FIRST Bank, Federal Bank, RBL Bank, Bandhan Bank, Indian Bank, Central Bank of India, UCO Bank, Bank of India, AU Small Finance Bank, and more cooperative and payment banks.
+
+## Key features
+- Supports 30+ Indian banks
+- 5 export formats: CSV, Excel, OFX, QFX, Google Sheets
+- Works on password-protected PDFs (date-of-birth or mobile number passwords)
+- Works on scanned PDFs
+- Auto-categorises transactions (groceries, fuel, EMI, salary, UPI, utilities)
+- Processing time: under 15 seconds for a 300-transaction, 12-month statement
+- Data is never stored — PDFs are processed in memory and deleted immediately
+- GDPR and India IT Act 2000 compliant
+- Payments via Razorpay (UPI, debit/credit cards, net banking, wallets)
+
+## Pricing
+- Free tier: First 8 pages free, no credit card required
+
+- Pro plan: ₹399/month — 200 pages/month, all formats, Google Sheets, priority processing
+- Business plan: ₹999/month — 500 pages/month, for CA firms and fintech teams
+
+## Who uses it
+- Chartered Accountants (CAs) doing bank reconciliation
+- Bookkeepers importing transactions into Tally, QuickBooks, or Zoho Books
+- Freelancers tracking income and expenses
+- Small business owners needing monthly transaction data
+- Fintech teams processing multiple client statements
+
+## How it works
+1. Upload a bank statement PDF (drag and drop, any Indian bank, any year)
+2. The system extracts all transactions: dates, descriptions, amounts, balances
+3. Download in your preferred format (CSV, Excel, OFX, QFX) or push to Google Sheets
+
+## Import into Tally
+Export as OFX from ConvertStatement, then import into Tally ERP or Tally Prime via the Bank Reconciliation module (takes about 2 minutes).
+
+## Import into QuickBooks
+Export as OFX from ConvertStatement and import via QuickBooks' bank feed import feature.
+
+## Security
+- PDFs are processed in-memory and deleted immediately after conversion
+- Nothing is stored on disk or in a database
+- TLS 1.3 for all connections
+- No data shared with third parties
+- Password-protected PDFs: passwords are used only during processing and are never stored
+
+## Contact and company
+Website: https://convertstatement.online
+Country: India
+Currency: INR (Indian Rupee)
+Payment processor: Razorpay
+
+## Content
+Blog: https://convertstatement.online/blog — practical guides on Indian bank statements, banking, and personal finance.
+Pricing: https://convertstatement.online/pricing
+Sign up: https://convertstatement.online/signup

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Email Template Gallery — ConvertStatement</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0f1e; color: #e2e8f0; min-height: 100vh; }
+  .hero { background: linear-gradient(160deg, #06111f 0%, #0c2a4a 60%, #0c4a6e 100%); padding: 56px 24px 52px; text-align: center; border-bottom: 1px solid #1a3a5a; }
+  .logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .logo-icon { width: 40px; height: 40px; background: #1aace2; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-family: 'Arial Black', Arial, sans-serif; font-weight: 900; font-size: 22px; color: #fff; flex-shrink: 0; }
+  .logo-name { font-size: 20px; font-weight: 700; color: #fff; }
+  .logo-badge { background: rgba(56,189,248,.15); border: 1px solid rgba(56,189,248,.45); color: #38bdf8; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: .8px; }
+  .hero h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 800; color: #f8fafc; letter-spacing: -.5px; line-height: 1.15; margin-bottom: 14px; }
+  .hero p { color: #7dd3fc; font-size: 17px; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 24px; }
+  .chip { background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.25); color: #7dd3fc; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; max-width: 1280px; margin: 0 auto; padding: 48px 24px; }
+  .card { background: #0d1929; border: 1px solid #1a3050; border-radius: 16px; overflow: hidden; transition: transform .2s, border-color .2s, box-shadow .2s; }
+  .card:hover { transform: translateY(-4px); border-color: #38bdf8; box-shadow: 0 12px 40px rgba(56,189,248,.12); }
+  .preview-wrap { position: relative; background: #f0f9ff; overflow: hidden; cursor: pointer; }
+  .preview-wrap iframe { width: 600px; height: 700px; border: none; transform-origin: top left; pointer-events: none; display: block; }
+  .preview-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(6,17,31,0); transition: background .2s; }
+  .card:hover .preview-overlay { background: rgba(6,17,31,.55); }
+  .preview-btn { opacity: 0; transform: scale(.9); transition: opacity .2s, transform .2s; background: #38bdf8; color: #06111f; font-weight: 700; font-size: 14px; padding: 11px 24px; border-radius: 10px; border: none; cursor: pointer; text-decoration: none; }
+  .card:hover .preview-btn { opacity: 1; transform: scale(1); }
+  .card-body { padding: 20px 22px 22px; }
+  .tag { display: inline-block; background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.2); color: #38bdf8; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; letter-spacing: .5px; margin-bottom: 10px; text-transform: uppercase; }
+  .card-title { font-size: 17px; font-weight: 700; color: #f1f5f9; margin-bottom: 7px; line-height: 1.25; }
+  .card-desc { font-size: 13px; color: #64748b; line-height: 1.6; margin-bottom: 16px; }
+  .card-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge { background: #162032; color: #94a3b8; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
+  .badge.green { background: rgba(16,185,129,.1); color: #34d399; }
+  .card-footer { padding: 0 22px 20px; display: flex; gap: 10px; }
+  .btn-open { flex: 1; background: #38bdf8; color: #06111f; border: none; border-radius: 9px; padding: 10px 16px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; }
+  .btn-open:hover { background: #7dd3fc; }
+  .btn-copy { background: #162032; color: #94a3b8; border: 1px solid #1e3a5f; border-radius: 9px; padding: 10px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-copy:hover { border-color: #38bdf8; color: #38bdf8; }
+  .vars-section { max-width: 1280px; margin: 0 auto 60px; padding: 0 24px; }
+  .vars-title { font-size: 20px; font-weight: 700; color: #f1f5f9; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #1a3050; }
+  .vars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .var-pill { background: #0d1929; border: 1px solid #1a3050; border-radius: 8px; padding: 10px 14px; }
+  .var-pill code { color: #38bdf8; font-size: 13px; font-family: 'Courier New', monospace; display: block; margin-bottom: 4px; }
+  .var-pill span { color: #64748b; font-size: 11px; }
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #38bdf8; color: #06111f; font-weight: 700; font-size: 14px; padding: 12px 20px; border-radius: 12px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 100; }
+  .toast.show { opacity: 1; }
+  @media(max-width:640px){ .grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="logo">
+    <div class="logo-icon">X</div>
+    <span class="logo-name">ConvertStatement</span>
+    <span class="logo-badge">INDIA</span>
+  </div>
+  <h1>Email Template Gallery</h1>
+  <p>4 world-class transactional email templates. Compatible with Gmail, Outlook, and Apple Mail. Dark mode ready.</p>
+  <div class="chips">
+    <span class="chip">✓ Outlook VML buttons</span>
+    <span class="chip">✓ Dark mode</span>
+    <span class="chip">✓ Mobile responsive</span>
+    <span class="chip">✓ Gmail compatible</span>
+    <span class="chip">✓ WCAG accessible</span>
+    <span class="chip">✓ Inline CSS</span>
+  </div>
+</div>
+
+<div class="grid">
+
+  <!-- Welcome -->
+  <div class="card">
+    <div class="preview-wrap" style="height:220px;">
+      <iframe src="welcome.html" title="Welcome email preview"
+        style="transform:scale(0.367);" scrolling="no"></iframe>
+      <div class="preview-overlay">
+        <a href="welcome.html" target="_blank" class="preview-btn">Open Preview</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="tag">Onboarding</span>
+      <p class="card-title">Welcome Email</p>
+      <p class="card-desc">Triggered on signup. Builds trust, explains key features, 3-step how-it-works, stats, testimonial and two CTAs.</p>
+      <div class="card-meta">
+        <span class="badge">welcome.html</span>
+        <span class="badge green">High conversion</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="welcome.html" target="_blank" class="btn-open">Open →</a>
+      <button class="btn-copy" onclick="copyFile('welcome.html')">Copy path</button>
+    </div>
+  </div>
+
+  <!-- Verify -->
+  <div class="card">
+    <div class="preview-wrap" style="height:220px;">
+      <iframe src="verify.html" title="Verification email preview"
+        style="transform:scale(0.367);" scrolling="no"></iframe>
+      <div class="preview-overlay">
+        <a href="verify.html" target="_blank" class="preview-btn">Open Preview</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="tag">Auth</span>
+      <p class="card-title">Email Verification</p>
+      <p class="card-desc">OTP code display with button fallback, 15-minute expiry warning, and security notice. Minimal and focused.</p>
+      <div class="card-meta">
+        <span class="badge">verify.html</span>
+        <span class="badge">OTP + Link</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="verify.html" target="_blank" class="btn-open">Open →</a>
+      <button class="btn-copy" onclick="copyFile('verify.html')">Copy path</button>
+    </div>
+  </div>
+
+  <!-- Conversion Complete -->
+  <div class="card">
+    <div class="preview-wrap" style="height:220px;">
+      <iframe src="conversion-complete.html" title="Conversion complete email preview"
+        style="transform:scale(0.367);" scrolling="no"></iframe>
+      <div class="preview-overlay">
+        <a href="conversion-complete.html" target="_blank" class="preview-btn">Open Preview</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="tag">Transactional</span>
+      <p class="card-title">Conversion Complete</p>
+      <p class="card-desc">File ready notification with input→output card, transaction stats, format pills, 24h expiry and upsell block.</p>
+      <div class="card-meta">
+        <span class="badge">conversion-complete.html</span>
+        <span class="badge green">Revenue driver</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="conversion-complete.html" target="_blank" class="btn-open">Open →</a>
+      <button class="btn-copy" onclick="copyFile('conversion-complete.html')">Copy path</button>
+    </div>
+  </div>
+
+  <!-- Upgrade -->
+  <div class="card">
+    <div class="preview-wrap" style="height:220px;">
+      <iframe src="upgrade.html" title="Upgrade email preview"
+        style="transform:scale(0.367);" scrolling="no"></iframe>
+      <div class="preview-overlay">
+        <a href="upgrade.html" target="_blank" class="preview-btn">Open Preview</a>
+      </div>
+    </div>
+    <div class="card-body">
+      <span class="tag">Conversion</span>
+      <p class="card-title">Upgrade CTA</p>
+      <p class="card-desc">Free-to-paid upgrade email. Plan comparison, price callout, FAQ section, testimonial and two strong CTAs.</p>
+      <div class="card-meta">
+        <span class="badge">upgrade.html</span>
+        <span class="badge green">Max revenue</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <a href="upgrade.html" target="_blank" class="btn-open">Open →</a>
+      <button class="btn-copy" onclick="copyFile('upgrade.html')">Copy path</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Template variables reference -->
+<div class="vars-section">
+  <p class="vars-title">Template Variables</p>
+  <div class="vars-grid">
+    <div class="var-pill"><code>{{first_name}}</code><span>User's first name</span></div>
+    <div class="var-pill"><code>{{cta_url}}</code><span>Dashboard URL</span></div>
+    <div class="var-pill"><code>{{otp}}</code><span>6-digit OTP code</span></div>
+    <div class="var-pill"><code>{{verify_url}}</code><span>Email verify link</span></div>
+    <div class="var-pill"><code>{{input_filename}}</code><span>Uploaded PDF name</span></div>
+    <div class="var-pill"><code>{{output_filename}}</code><span>Converted file name</span></div>
+    <div class="var-pill"><code>{{bank_name}}</code><span>Detected bank (SBI etc.)</span></div>
+    <div class="var-pill"><code>{{page_count}}</code><span>Pages processed</span></div>
+    <div class="var-pill"><code>{{transaction_count}}</code><span>Transactions extracted</span></div>
+    <div class="var-pill"><code>{{download_url}}</code><span>24h download link</span></div>
+    <div class="var-pill"><code>{{dashboard_url}}</code><span>Dashboard link</span></div>
+    <div class="var-pill"><code>{{upgrade_url}}</code><span>Pricing/checkout URL</span></div>
+    <div class="var-pill"><code>{{unsubscribe_url}}</code><span>1-click unsubscribe</span></div>
+  </div>
+</div>
+
+<div id="toast" class="toast">Copied to clipboard ✓</div>
+
+<script>
+function copyFile(name) {
+  const path = window.location.href.replace(/\/[^/]*$/, '/') + name;
+  navigator.clipboard.writeText(path).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2200);
+  });
+}
+</script>
+</body>
+</html>

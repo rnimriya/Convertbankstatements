@@ -1,0 +1,97 @@
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { getAdminSession } from "@/lib/auth/admin";
+import { getAllPosts } from "@/lib/blog/posts";
+import { AdminDeleteButton } from "@/components/blog/AdminDeleteButton";
+
+export const dynamic = "force-dynamic";
+
+export const metadata = { title: "Admin - Blog Posts" };
+
+export default async function AdminBlogPage() {
+  if (!(await getAdminSession())) {
+    redirect("/login");
+  }
+
+  const posts = getAllPosts();
+
+  return (
+    <main className="min-h-screen bg-white dark:bg-[#0a0a0a] px-6 py-10">
+      <div className="mx-auto max-w-5xl">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Blog Posts</h1>
+            <p className="mt-1 text-sm text-slate-500 dark:text-gray-400">
+              {posts.length} total posts
+            </p>
+          </div>
+          <Link
+            href="/admin/blog/new"
+            className="rounded-xl bg-brand-400 px-4 py-2.5 text-sm font-bold text-black hover:bg-brand-300 transition-colors shadow-glow-sm"
+          >
+            + New Post
+          </Link>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/10">
+                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300">Title</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300 hidden sm:table-cell">Author</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300 hidden md:table-cell">Date</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300">Status</th>
+                <th className="px-4 py-3 text-left font-semibold text-slate-600 dark:text-gray-300">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.map((post, i) => (
+                <tr
+                  key={post.id}
+                  className={`border-b border-slate-100 dark:border-white/5 ${i % 2 === 0 ? "" : "bg-slate-50/50 dark:bg-white/[0.02]"}`}
+                >
+                  <td className="px-4 py-3">
+                    <div>
+                      <p className="font-medium text-slate-900 dark:text-white line-clamp-1">{post.title}</p>
+                      <p className="text-xs text-slate-400 dark:text-gray-500 mt-0.5">{post.slug}</p>
+                    </div>
+                  </td>
+                  <td className="px-4 py-3 text-slate-500 dark:text-gray-400 hidden sm:table-cell">{post.author}</td>
+                  <td className="px-4 py-3 text-slate-500 dark:text-gray-400 hidden md:table-cell">
+                    {new Date(post.createdAt).toLocaleDateString("en-IN")}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className={`inline-block rounded-full px-2 py-0.5 text-[11px] font-semibold ${
+                        post.published
+                          ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400"
+                          : "bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-gray-400"
+                      }`}
+                    >
+                      {post.published ? "Published" : "Draft"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        target="_blank"
+                        className="text-brand-500 dark:text-brand-400 hover:underline text-xs"
+                      >
+                        View
+                      </Link>
+                      {!post.id.startsWith("seed-") && (
+                        <AdminDeleteButton postId={post.slug} />
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  );
+}
+

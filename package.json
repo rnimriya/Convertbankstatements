@@ -1,0 +1,19 @@
+{
+  "name": "bankstatements-saas",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "web",
+    "mobile",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace=web",
+    "dev:mobile": "npm run start --workspace=mobile",
+    "build:web": "npm run build --workspace=web",
+    "db:generate": "npm run db:generate --workspace=web",
+    "db:push": "npm run db:push --workspace=web",
+    "db:migrate": "npm run db:migrate --workspace=web",
+    "db:studio": "npm run db:studio --workspace=web"
+  }
+}

@@ -1,0 +1,79 @@
+import { NextRequest, NextResponse } from "next/server";
+import { randomBytes } from "crypto";
+import { getResend, EMAIL_FROM } from "@/lib/email";
+import { getSession } from "@/lib/auth/session";
+import { findById, setEmailVerifyToken } from "@/lib/auth/users";
+import { checkRateLimit } from "@/lib/rate-limit";
+
+async function sendVerificationEmail(email: string, name: string | null, token: string): Promise<boolean> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://convertstatement.online";
+  const link = `${baseUrl}/verify-email?token=${token}`;
+
+  const resend = getResend();
+  if (!resend) {
+    console.log(`[email-verify] Link for ${email}: ${link}`);
+    return false; // email delivery not configured (RESEND_API_KEY missing)
+  }
+
+  const { error } = await resend.emails.send(
+    {
+      from: EMAIL_FROM,
+      to: email,
+      subject: "Verify your email — Convert Statement",
+      html: `
+        <div style="font-family:sans-serif;max-width:520px;margin:0 auto;padding:40px 24px;">
+          <img src="${baseUrl}/logo.svg" alt="Convert Statement" width="40" style="margin-bottom:24px"/>
+          <h2 style="margin:0 0 8px;font-size:22px;color:#0f172a;">Verify your email</h2>
+          <p style="margin:0 0 24px;color:#64748b;font-size:15px;">
+            Hi ${name ?? "there"}, click the button below to verify your email address.
+          </p>
+          <a href="${link}" style="display:inline-block;background:#1a47c8;color:#fff;font-weight:700;font-size:15px;padding:12px 28px;border-radius:12px;text-decoration:none;">
+            Verify email
+          </a>
+          <p style="margin:24px 0 0;color:#94a3b8;font-size:13px;">
+            Or copy this link: ${link}<br/>This link expires in 24 hours.
+          </p>
+        </div>
+      `,
+    },
+    { idempotencyKey: `email-verify/${token}` }
+  );
+
+  if (error) {
+    console.error("[email-verify] Resend error:", error);
+    return false;
+  }
+  return true;
+}
+
+export async function POST(req: NextRequest) {
+  const limited = await checkRateLimit(req);
+  if (limited) return limited;
+
+  const session = await getSession();
+  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const user = await findById(session.sub);
+  if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
+
+  if (user.emailVerified) {
+    return NextResponse.json({ ok: true, message: "Already verified" });
+  }
+
+  const token = randomBytes(32).toString("hex");
+  const expiry = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+  await setEmailVerifyToken(user.id, token, expiry);
+  const sent = await sendVerificationEmail(user.email, user.name, token);
+
+  if (!sent) {
+    // Don't claim success when nothing was sent — surface a real error so the
+    // user (and logs) know email delivery is misconfigured or failing.
+    return NextResponse.json(
+      { error: "We couldn't send the verification email right now. Please try again later or contact support." },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({ ok: true });
+}
