@@ -79,7 +79,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
-        <div className="flex flex-col items-center gap-4 rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-white dark:bg-zinc-950 p-12 text-center shadow-sm">
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-white dark:bg-zinc-900 p-12 text-center shadow-sm">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
             <CheckCircle2 className="h-8 w-8 text-emerald-600" />
           </div>
@@ -104,7 +104,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-8 shadow-sm">
+          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm">
             {mode === "signup" && referralCode && (
               <div className="mb-5 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
                 <p className="font-semibold">{t("referralTitle")}</p>
@@ -220,7 +220,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 id="auth-submit"
                 type="submit"
                 disabled={loading}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 dark:bg-white py-3 text-sm font-bold text-white dark:text-black shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
