@@ -198,7 +198,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
         <div className={SECTION}>
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+              <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
                 <User size={16} />
               </div>
               <div>
@@ -211,7 +211,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+              <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
                 <Mail size={16} />
               </div>
               <div>
@@ -248,7 +248,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className="px-5 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+                <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
                   <KeyRound size={16} />
                 </div>
                 <div>
@@ -378,7 +378,7 @@ function NotifRow({ label, description, value, onChange }: {
   return (
     <div className="flex items-center justify-between px-5 py-4 gap-4">
       <div className="flex items-center gap-3">
-        <div className="h-9 w-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+        <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
           <Bell size={16} />
         </div>
         <div>
