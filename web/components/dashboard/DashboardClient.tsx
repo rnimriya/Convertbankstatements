@@ -323,9 +323,9 @@ export function DashboardClient({
           </div>
         )}
         {!emailVerified && !isDemo && (
-          <div className="bg-amber-50 dark:bg-amber-500/10 border-b border-amber-200 dark:border-amber-500/20 px-6 py-2.5 flex items-center gap-3 flex-wrap shrink-0">
-            <AlertTriangle size={14} className="text-amber-600 dark:text-amber-500 shrink-0" />
-            <p className="text-sm text-amber-800 dark:text-amber-200 flex-1">Please verify your email to unlock all features.</p>
+          <div className="bg-zinc-100 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 px-6 py-2.5 flex items-center gap-3 flex-wrap shrink-0">
+            <AlertTriangle size={14} className="text-zinc-600 dark:text-zinc-400 shrink-0" />
+            <p className="text-sm text-zinc-800 dark:text-zinc-200 flex-1">Please verify your email to unlock all features.</p>
             {verificationSent ? (
               <span className="text-sm font-medium text-emerald-600 flex items-center gap-1">
                 <CheckCircle2 size={13} /> Check your inbox
@@ -458,14 +458,14 @@ export function DashboardClient({
                     </div>
                   ) : (
                     <div>
-                      <div className="grid grid-cols-12 px-5 py-2.5 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-100 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+                      <div className="grid grid-cols-12 px-5 py-2.5 bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800 text-[10px] font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
                         <div className="col-span-5">File</div>
                         <div className="col-span-2 hidden sm:block">Bank</div>
                         <div className="col-span-2 text-center">Pages</div>
                         <div className="col-span-2 text-center">Txns</div>
                         <div className="col-span-1 text-right hidden sm:block">Date</div>
                       </div>
-                      <div className="divide-y divide-slate-100">
+                      <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
                         {recentLogs.slice(0, 5).map(log => (
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-zinc-50 dark:bg-zinc-900/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
@@ -598,7 +598,7 @@ export function DashboardClient({
                         <button
                           key={label}
                           onClick={() => setTab(dest)}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:bg-zinc-900 transition-colors group text-left"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors group text-left"
                         >
                           <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-zinc-100 dark:bg-zinc-800">
                             <Icon size={13} className="text-zinc-600 dark:text-zinc-400" />

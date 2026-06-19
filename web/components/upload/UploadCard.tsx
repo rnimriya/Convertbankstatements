@@ -131,7 +131,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           </div>
           <h3 className="text-xl font-black text-zinc-900 dark:text-zinc-100">Payment Required</h3>
           <p className="mt-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">{payState.file.name}</p>
-          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{payState.message}</p>
+          <p className="mt-2 text-base text-zinc-500 dark:text-zinc-400">{payState.message}</p>
           <div className="mt-5 mb-1">
             <span className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Upgrade Required</span>
           </div>
@@ -157,7 +157,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   return (
     <div className="h-full overflow-y-auto">
       <div className="min-h-full flex items-center justify-center p-4 sm:p-6">
-        <div className={cn("w-full", fullWidth ? "max-w-full" : "max-w-xl")}>
+        <div className={cn("w-full", fullWidth ? "max-w-full" : "max-w-4xl")}>
 
           {/* Error banner */}
           {state.status === "error" && (
@@ -175,7 +175,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               <div
                 {...(isProcessing ? {} : getRootProps())}
                 className={cn(
-                  "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-8 text-center transition-colors select-none",
+                  "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 lg:py-16 text-center transition-colors select-none",
                   isProcessing
                     ? "border-zinc-200"
                     : "cursor-pointer",
@@ -226,7 +226,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         : <Upload size={26} className="text-white" strokeWidth={1.6} />}
                     </div>
 
-                    <h2 className="text-xl font-black tracking-tight text-zinc-900 dark:text-zinc-50">
+                    <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-zinc-900 dark:text-zinc-50">
                       {isDragActive ? "Release to convert" : "Drop your statement PDF"}
                     </h2>
                     <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
