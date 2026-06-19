@@ -8,11 +8,10 @@ import { cn } from "@/lib/utils";
 
 const VARIANTS = {
   primary:
-    "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white font-bold border-0 " +
-    "shadow-sm hover:shadow active:shadow-none " +
-    "hover:from-violet-700 hover:to-fuchsia-700 active:from-violet-800 active:to-fuchsia-800 " +
-    "dark:from-violet-500 dark:to-fuchsia-500 dark:text-white dark:hover:from-violet-600 dark:hover:to-fuchsia-600 " +
-    "focus-visible:ring-violet-500",
+    "bg-black text-white font-bold border-0 shadow-none " +
+    "hover:bg-zinc-800 active:bg-zinc-900 " +
+    "dark:bg-white dark:text-black dark:hover:bg-zinc-200 dark:active:bg-zinc-300 " +
+    "focus-visible:ring-black dark:focus-visible:ring-white",
   secondary:
     "border border-zinc-200 dark:border-white/[0.07] bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-200 " +
     "hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-surface-raised active:bg-zinc-100 dark:bg-zinc-800 dark:active:bg-surface-raised " +
