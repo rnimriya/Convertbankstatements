@@ -119,13 +119,12 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           {/* Avatar */}
           <div className="relative shrink-0">
             <div
-              className="w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center"
-              style={{ background: avatarUrl ? undefined : "linear-gradient(135deg,#1A47C8,#3b6ef5)" }}
+              className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center ${avatarUrl ? "" : "bg-zinc-900 dark:bg-zinc-100"}`}
             >
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-3xl font-black text-white">{initial}</span>
+                <span className="text-3xl font-black text-white dark:text-black">{initial}</span>
               )}
             </div>
 
@@ -391,9 +390,9 @@ function NotifRow({ label, description, value, onChange }: {
         onClick={() => onChange(!value)}
         role="switch"
         aria-checked={value}
-        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-navy/20 ${value ? "bg-zinc-900 dark:bg-zinc-950" : "bg-zinc-200 dark:bg-zinc-700"}`}
+        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-200 dark:bg-zinc-800"}`}
       >
-        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-950 rounded-full shadow transition-transform duration-200 ${value ? "translate-x-5" : "translate-x-0"}`} />
+        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full shadow transition-transform duration-200 ${value ? "translate-x-5" : "translate-x-0"}`} />
       </button>
     </div>
   );

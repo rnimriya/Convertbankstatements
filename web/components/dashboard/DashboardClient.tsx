@@ -316,16 +316,16 @@ export function DashboardClient({
 
         {/* System banners */}
         {isDemo && (
-          <div className="bg-amber-50 border-b border-amber-200 py-2 text-center text-sm text-amber-800 px-4 shrink-0">
+          <div className="bg-amber-50 dark:bg-amber-500/10 border-b border-amber-200 dark:border-amber-500/20 py-2 text-center text-sm text-amber-800 dark:text-amber-200 px-4 shrink-0">
             Demo mode —{" "}
             <Link href="/signup" className="font-bold underline hover:no-underline">Sign up free</Link>{" "}
             to save history and unlock full features.
           </div>
         )}
         {!emailVerified && !isDemo && (
-          <div className="bg-amber-50 border-b border-amber-200 px-6 py-2.5 flex items-center gap-3 flex-wrap shrink-0">
-            <AlertTriangle size={14} className="text-amber-600 shrink-0" />
-            <p className="text-sm text-amber-800 flex-1">Please verify your email to unlock all features.</p>
+          <div className="bg-amber-50 dark:bg-amber-500/10 border-b border-amber-200 dark:border-amber-500/20 px-6 py-2.5 flex items-center gap-3 flex-wrap shrink-0">
+            <AlertTriangle size={14} className="text-amber-600 dark:text-amber-500 shrink-0" />
+            <p className="text-sm text-amber-800 dark:text-amber-200 flex-1">Please verify your email to unlock all features.</p>
             {verificationSent ? (
               <span className="text-sm font-medium text-emerald-600 flex items-center gap-1">
                 <CheckCircle2 size={13} /> Check your inbox
