@@ -54,12 +54,6 @@ export async function Navbar() {
 
             {user && displayName ? (
               <>
-                <Link
-                  href="/dashboard"
-                  className="hidden sm:inline-flex items-center gap-1.5 text-[13.5px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
-                >
-                  Dashboard
-                </Link>
                 <NavUserMenu displayName={displayName} email={user.email} initial={initial} />
               </>
             ) : (
