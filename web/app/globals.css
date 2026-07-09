@@ -3,15 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --bg:             255 255 255;
-  --surface:        248 250 252;
+  /* LIGHT THEME (Crisp & Trustworthy) */
+  --bg: 255 255 255; 
+  --surface: 248 250 252;
   --surface-raised: 241 245 249;
-  --border-subtle:  226 232 240;
+  --border-subtle: 226 232 240;
+
+  --color-bg: 250 250 252;
+  --color-surface: 255 255 255;
+  --color-primary: 37 99 235; /* Royal Blue */
+  --color-secondary: 16 185 129; /* Emerald */
+  --color-text-main: 15 23 42; /* Slate 900 */
+  --color-text-muted: 100 116 139; /* Slate 500 */
+  --color-border: 226 232 240; /* Slate 200 */
+}
+
+.dark {
+  /* DARK THEME (Deep Midnight) */
+  --bg: 2 6 23; /* Slate 950 */
+  --surface: 15 23 42; /* Slate 900 */
+  --surface-raised: 30 41 59; /* Slate 800 */
+  --border-subtle: 51 65 85; /* Slate 700 */
+
+  --color-bg: 2 6 23; 
+  --color-surface: 15 23 42;
+  --color-primary: 99 102 241; /* Indigo 500 */
+  --color-secondary: 6 182 212; /* Cyan 500 */
+  --color-text-main: 248 250 252; /* Slate 50 */
+  --color-text-muted: 148 163 184; /* Slate 400 */
+  --color-border: 30 41 59; /* Slate 800 */
 }
 
 @layer base {
   body {
-    @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50;
+    @apply bg-brand-bg text-brand-text transition-colors duration-300;
   }
 }
 

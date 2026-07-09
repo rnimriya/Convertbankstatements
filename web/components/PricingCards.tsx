@@ -7,14 +7,14 @@ import { Check, ArrowRight } from "lucide-react";
 const MONTHLY_PLANS = [
   {
     name: "Free",
-    price: "₹0",
+    price: "$0",
     period: "",
     annualPrice: null,
     annualPeriod: null,
     tagline: "Try it out — no card needed",
     highlight: false,
     badge: null,
-    features: ["8 pages free, forever", "CSV & Excel export", "All Indian banks", "No credit card required"],
+    features: ["8 pages free, forever", "CSV & Excel export", "Global banks support", "No credit card required"],
     notIncluded: ["OFX / QFX export", "Google Sheets"],
     cta: "Start free",
     href: "/signup",
@@ -22,15 +22,15 @@ const MONTHLY_PLANS = [
   },
   {
     name: "Basic",
-    price: "₹25",
+    price: "$5",
     period: "/ mo",
-    annualPrice: "₹248",
+    annualPrice: "$48",
     annualPeriod: "/ year",
-    annualMonthlyEquiv: "₹21/mo",
+    annualMonthlyEquiv: "$4/mo",
     tagline: "For light, occasional use",
     highlight: false,
     badge: null,
-    features: ["25 pages / month", "CSV & Excel export", "All Indian banks", "Email support"],
+    features: ["25 pages / month", "CSV & Excel export", "Global banks support", "Email support"],
     notIncluded: ["Google Sheets", "OFX / QFX export"],
     cta: "Start Basic",
     href: "/signup?plan=basic",
@@ -38,11 +38,11 @@ const MONTHLY_PLANS = [
   },
   {
     name: "Pro",
-    price: "₹1,198",
+    price: "$20",
     period: "/ mo",
-    annualPrice: "₹11,499",
+    annualPrice: "$192",
     annualPeriod: "/ year",
-    annualMonthlyEquiv: "₹958/mo",
+    annualMonthlyEquiv: "$16/mo",
     tagline: "Perfect for CAs & individuals",
     highlight: true,
     badge: "Most popular",
@@ -54,11 +54,11 @@ const MONTHLY_PLANS = [
   },
   {
     name: "Business",
-    price: "₹4,498",
+    price: "$75",
     period: "/ month",
-    annualPrice: "₹43,178",
+    annualPrice: "$720",
     annualPeriod: "/ year",
-    annualMonthlyEquiv: "₹3,598/mo",
+    annualMonthlyEquiv: "$60/mo",
     tagline: "For CA firms & fintech teams",
     highlight: false,
     badge: null,
@@ -82,7 +82,7 @@ export function PricingCards() {
         </span>
         <button
           onClick={() => setAnnual(a => !a)}
-          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-200 dark:bg-zinc-800"}`}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-zinc-900 dark:bg-zinc-100" : "bg-brand-border"}`}
           role="switch"
           aria-checked={annual}
         >
@@ -112,7 +112,7 @@ export function PricingCards() {
               <div key={plan.name} className="relative pt-5 h-full">
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-block bg-white dark:bg-zinc-950 rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800 whitespace-nowrap">
+                  <span className="inline-block bg-brand-bg rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 dark:text-zinc-100 border border-brand-border whitespace-nowrap">
                     {plan.badge}
                   </span>
                 </div>
@@ -130,10 +130,10 @@ export function PricingCards() {
                       {displayPeriod && <span className="text-zinc-400 text-base mb-1">{displayPeriod}</span>}
                     </div>
                     {showAnnual && "annualMonthlyEquiv" in plan && plan.annualMonthlyEquiv && (
-                      <p className="text-zinc-500 text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
+                      <p className="text-brand-muted text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
                     )}
                     {!showAnnual && plan.annualPrice && (
-                      <p className="text-zinc-500 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
+                      <p className="text-brand-muted text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
                     )}
                   </div>
 
@@ -175,7 +175,7 @@ export function PricingCards() {
           return (
             <div
               key={plan.name}
-              className="relative flex flex-col h-full rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-7 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+              className="relative flex flex-col h-full rounded-3xl border border-brand-border bg-brand-bg p-7 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
             >
               {plan.badge && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white dark:bg-zinc-900 px-4 py-1 text-xs font-bold text-zinc-900 dark:text-zinc-100 whitespace-nowrap border border-zinc-200 dark:border-zinc-700">
@@ -184,29 +184,29 @@ export function PricingCards() {
               )}
 
               <p className="font-black text-zinc-900 dark:text-white text-lg mb-0.5">{plan.name}</p>
-              <p className="text-zinc-500 text-xs mb-5">{plan.tagline}</p>
+              <p className="text-brand-muted text-xs mb-5">{plan.tagline}</p>
 
               <div className="mb-1">
                 <div className="flex items-end gap-1.5">
                   <span className="text-4xl font-black text-zinc-900 dark:text-white tracking-tight">{displayPrice}</span>
-                  {displayPeriod && <span className="text-zinc-500 text-sm mb-1">{displayPeriod}</span>}
+                  {displayPeriod && <span className="text-brand-muted text-sm mb-1">{displayPeriod}</span>}
                 </div>
                 {showAnnual && "annualMonthlyEquiv" in plan && (plan as typeof plan & { annualMonthlyEquiv: string }).annualMonthlyEquiv && (
-                  <p className="text-zinc-500 text-xs mt-1">{(plan as typeof plan & { annualMonthlyEquiv: string }).annualMonthlyEquiv} equivalent</p>
+                  <p className="text-brand-muted text-xs mt-1">{(plan as typeof plan & { annualMonthlyEquiv: string }).annualMonthlyEquiv} equivalent</p>
                 )}
                 {!showAnnual && plan.annualPrice && (
-                  <p className="text-zinc-500 text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
+                  <p className="text-brand-muted text-xs mt-1">or {plan.annualPrice}/yr — save 20%</p>
                 )}
                 {/* Reserve the sub-line height (e.g. Free has no annual price) so all dividers align */}
                 {!plan.annualPrice && <p className="text-xs mt-1 invisible" aria-hidden="true">.</p>}
               </div>
 
-              <div className="h-px bg-zinc-200 dark:bg-zinc-800 my-5" />
+              <div className="h-px bg-brand-border my-5" />
 
               <ul className="space-y-3 flex-1 mb-8">
                 {plan.features.map(f => (
                   <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
-                    <div className="w-5 h-5 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center shrink-0">
+                    <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
                       <Check size={11} className="text-zinc-400" />
                     </div>
                     {f}
@@ -214,7 +214,7 @@ export function PricingCards() {
                 ))}
                 {plan.notIncluded.map(f => (
                   <li key={f} className="flex items-center gap-3 text-sm text-zinc-400 dark:text-zinc-600 line-through">
-                    <div className="w-5 h-5 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center shrink-0">
+                    <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
                       <span className="text-[9px] text-zinc-400">✕</span>
                     </div>
                     {f}

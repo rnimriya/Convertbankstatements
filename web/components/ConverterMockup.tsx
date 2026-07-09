@@ -6,17 +6,17 @@ import { ArrowDownLeft, ArrowUpRight, Download, Loader2, CheckCircle2 } from "lu
 type Phase = "idle" | "processing" | "done";
 
 const BANKS = [
-  { name: "HDFC Bank",  initial: "H", hex: "#dc2626" },
-  { name: "SBI",        initial: "S", hex: "#1d4ed8" },
-  { name: "ICICI Bank", initial: "I", hex: "#b45309" },
-  { name: "Axis Bank",  initial: "A", hex: "#7c3aed" },
+  { name: "JPMorgan Chase", initial: "J", hex: "#005EB8" },
+  { name: "Barclays",       initial: "B", hex: "#00AEEF" },
+  { name: "SBI",            initial: "S", hex: "#1d4ed8" },
+  { name: "Commonwealth",   initial: "C", hex: "#FFCC00" },
 ];
 
 const FILES = [
-  "HDFC_Statement_Jan2025.pdf",
-  "SBI_Account_Nov2024.pdf",
-  "ICICI_Q3_2025.pdf",
-  "Axis_Dec2024.pdf",
+  "Chase_Statement_Jan2025.pdf",
+  "Barclays_Account_Nov2024.pdf",
+  "SBI_Q3_2025.pdf",
+  "CBA_Dec2024.pdf",
 ];
 
 const TXNS = [

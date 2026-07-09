@@ -18,8 +18,8 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
           key={i}
           className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
             open === i
-              ? "border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shadow-sm"
-              : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:border-zinc-300 dark:hover:border-zinc-700"
+              ? "border-brand-border bg-brand-surface shadow-sm"
+              : "border-brand-border bg-brand-bg hover:border-zinc-300 dark:hover:border-zinc-700"
           }`}
         >
           <button
@@ -32,7 +32,7 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
             </span>
             <ChevronDown
               size={16}
-              className={`shrink-0 text-zinc-400 dark:text-zinc-500 transition-transform duration-300 ${open === i ? "rotate-180 text-zinc-900 dark:text-zinc-100" : ""}`}
+              className={`shrink-0 text-zinc-400 dark:text-brand-muted transition-transform duration-300 ${open === i ? "rotate-180 text-zinc-900 dark:text-zinc-100" : ""}`}
             />
           </button>
           <div
@@ -40,7 +40,7 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
               open === i ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <p className="px-5 pb-5 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed border-t border-zinc-100 dark:border-zinc-800 pt-3">
+            <p className="px-5 pb-5 text-sm text-brand-muted leading-relaxed border-t border-zinc-100 dark:border-zinc-800 pt-3">
               {a}
             </p>
           </div>

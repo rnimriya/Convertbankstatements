@@ -13,19 +13,15 @@ import { Navbar } from "@/components/layout/Navbar";
 import { PricingCards } from "@/components/PricingCards";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { HeroSectionWrapper } from "@/components/home/HeroSectionWrapper";
+import { BankMarquee } from "@/components/home/BankMarquee";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://convertstatement.online" },
 };
 
-const BANKS = [
-  "SBI", "HDFC Bank", "ICICI Bank", "Axis Bank", "Kotak Bank",
-  "PNB", "Bank of Baroda", "Canara Bank", "Union Bank", "IndusInd",
-  "Yes Bank", "IDFC First", "Federal Bank", "RBL Bank", "Bandhan Bank",
-  "Indian Bank", "Central Bank", "UCO Bank", "Bank of India", "AU Bank",
-  "South Indian", "City Union", "IOB", "Andhra Bank", "Karnataka Bank",
-];
+import { SUPPORTED_BANKS } from "@/lib/config/banks";
 
+const BANKS = Array.from(new Set(SUPPORTED_BANKS.map((b) => b[1])));
 export default async function HomePage() {
   const tHero  = await getTranslations("hero");
   const tStats = await getTranslations("stats");
@@ -44,14 +40,14 @@ export default async function HomePage() {
     badge?: string; chips?: string[];
   };
   const FEATURES: Feature[] = [
-    { icon: <Zap size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", stat: "15", statSuffix: "s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
-    { icon: <Shield size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge: "Zero storage" },
-    { icon: <FileCheck size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", stat: "99.4", statSuffix: "%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
-    { icon: <FileText size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel", "CSV", "OFX / Tally", "QFX / QuickBooks", "Google Sheets"] },
-    { icon: <Globe size={22} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", stat: "30", statSuffix: "+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
-    { icon: <Lock size={20} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
-    { icon: <CreditCard size={20} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
-    { icon: <Clock size={20} className="text-zinc-700 dark:text-zinc-100" />, gradient: "", glow: "", title: tFeat("instantTitle"), body: tFeat("instantBody") },
+    { icon: <Zap size={22} className="text-brand-text" />, gradient: "", glow: "", stat: "15", statSuffix: "s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
+    { icon: <Shield size={22} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge: "Zero storage" },
+    { icon: <FileCheck size={22} className="text-brand-text" />, gradient: "", glow: "", stat: "99.4", statSuffix: "%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
+    { icon: <FileText size={22} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel", "CSV", "OFX / Tally", "QFX / QuickBooks", "Google Sheets"] },
+    { icon: <Globe size={22} className="text-brand-text" />, gradient: "", glow: "", stat: "30", statSuffix: "+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
+    { icon: <Lock size={20} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
+    { icon: <CreditCard size={20} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
+    { icon: <Clock size={20} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("instantTitle"), body: tFeat("instantBody") },
   ];
 
 
@@ -61,7 +57,7 @@ export default async function HomePage() {
     { value: "15s",   label: tStats("conversion"), icon: "⚡" },
     { value: "30+",   label: tStats("banks"),       icon: "🏦" },
     { value: "99.4%", label: tStats("accuracy"),    icon: "✓" },
-    { value: "₹49",   label: tStats("perDoc"),      icon: "₹" },
+    { value: "$1",   label: tStats("perDoc"),      icon: "₹" },
   ];
 
   const steps = [
@@ -125,7 +121,7 @@ export default async function HomePage() {
     applicationCategory: "FinanceApplication",
     operatingSystem: "Web",
     url: "https://convertstatement.online",
-    description: "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
+    description: "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
     offers: [
       { "@type": "Offer", name: "Free tier", price: "0", priceCurrency: "INR" },
 
@@ -157,30 +153,30 @@ export default async function HomePage() {
 
 
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
-        <section id="how-it-works" className="py-24 bg-white dark:bg-zinc-950">
+        <section id="how-it-works" className="py-24 bg-brand-bg">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tHow("label")}</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50 mb-3">{tHow("title")}</h2>
-              <p className="text-zinc-400 dark:text-zinc-500 max-w-xs mx-auto text-sm">{tHow("subtitle")}</p>
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tHow("label")}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">{tHow("title")}</h2>
+              <p className="text-zinc-400 dark:text-brand-muted max-w-xs mx-auto text-sm">{tHow("subtitle")}</p>
             </div>
 
-            <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
+            <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800 border border-brand-border rounded-2xl overflow-hidden">
               {steps.map(({ n, icon, title, body, gradient }, idx) => (
                 <div
                   key={n}
-                  className="relative group flex flex-col p-8 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-300"
+                  className="relative group flex flex-col p-8 bg-brand-bg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-300"
                 >
                   <div className="absolute top-6 right-6 text-4xl font-black select-none text-zinc-100">{n}</div>
 
-                  <div className={`relative w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800`}>
+                  <div className={`relative w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-brand-surface text-zinc-900 dark:text-zinc-100 border border-brand-border`}>
                     {icon}
                   </div>
                   <h3 className="relative text-[0.95rem] font-bold text-zinc-900 dark:text-zinc-100 mb-2">{title}</h3>
-                  <p className="relative text-sm text-zinc-500 leading-relaxed">{body}</p>
+                  <p className="relative text-sm text-brand-muted leading-relaxed">{body}</p>
 
                   {idx < 2 && (
-                    <div className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 items-center justify-center">
+                    <div className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-brand-border items-center justify-center">
                       <ChevronRight size={13} className="text-zinc-400" />
                     </div>
                   )}
@@ -191,35 +187,35 @@ export default async function HomePage() {
         </section>
 
         {/* ─── FEATURES — ADVANCED BENTO ────────────────────────── */}
-        <section id="features" className="relative py-24 bg-zinc-50 dark:bg-zinc-900/50">
+        <section id="features" className="relative py-24 bg-brand-surface">
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[11px] font-bold uppercase tracking-widest mb-3">{tFeat("label")}</span>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-zinc-900 dark:text-zinc-50">{tFeat("title")}</h2>
-              <p className="text-zinc-500 max-w-sm mx-auto text-sm">{tFeat("subtitle")}</p>
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-border text-brand-text text-[11px] font-bold uppercase tracking-widest mb-3">{tFeat("label")}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-brand-text">{tFeat("title")}</h2>
+              <p className="text-brand-muted max-w-sm mx-auto text-sm">{tFeat("subtitle")}</p>
             </div>
 
             {/* Fancy feature grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden bg-white dark:bg-zinc-950 [&>*:nth-child(n)]:border-b [&>*:nth-child(n)]:border-r [&>*:nth-child(n)]:border-zinc-200 dark:[&>*:nth-child(n)]:border-zinc-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 border border-brand-border rounded-2xl overflow-hidden bg-brand-bg [&>*:nth-child(n)]:border-b [&>*:nth-child(n)]:border-r [&>*:nth-child(n)]:border-zinc-200 dark:[&>*:nth-child(n)]:border-zinc-800">
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-950 hover:bg-zinc-50 transition-colors"
+                  className="group relative flex flex-col overflow-hidden p-8 bg-brand-bg hover:bg-zinc-50 transition-colors"
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
-                    <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
+                    <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand-border flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
                       {f.icon}
                     </div>
 
                     {f.stat && (
                       <div className="text-4xl font-black mb-1 leading-none">
                         <span className="text-zinc-900 dark:text-zinc-100">{f.stat}</span>
-                        <span className="text-xl text-zinc-400 dark:text-zinc-500 font-bold">{f.statSuffix}</span>
+                        <span className="text-xl text-zinc-400 dark:text-brand-muted font-bold">{f.statSuffix}</span>
                       </div>
                     )}
 
                     <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 mt-1">{f.title}</h3>
-                    <p className="text-sm text-zinc-500 leading-relaxed flex-1">{f.body}</p>
+                    <p className="text-sm text-brand-muted leading-relaxed flex-1">{f.body}</p>
 
                     {f.badge && (
                       <div className="mt-4 inline-flex items-center gap-1.5 self-start text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
@@ -232,7 +228,7 @@ export default async function HomePage() {
                         {f.chips.map((c, i) => (
                           <span
                             key={c}
-                            className="px-2.5 py-1 rounded-lg text-[11px] font-bold border bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 border-zinc-200 dark:border-zinc-800"
+                            className="px-2.5 py-1 rounded-lg text-[11px] font-bold border bg-brand-surface text-zinc-600 dark:text-zinc-400 border-brand-border"
                           >
                             {c}
                           </span>
@@ -247,10 +243,10 @@ export default async function HomePage() {
         </section>
 
         {/* ─── TESTIMONIALS — INFINITE MARQUEE ──────────────────── */}
-        <section className="py-24 bg-white dark:bg-zinc-950 overflow-hidden border-t border-zinc-200 dark:border-zinc-800">
+        <section className="py-24 bg-brand-bg overflow-hidden border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6 mb-12 text-center">
-            <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tTest("label")}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50">{tTest("title")}</h2>
+            <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tTest("label")}</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-brand-text">{tTest("title")}</h2>
           </div>
 
           {/* Marquee of testimonial cards */}
@@ -260,7 +256,7 @@ export default async function HomePage() {
           >
             <div className="flex gap-5 w-max animate-marquee" style={{ animationDuration: "30s" }}>
               {[...testimonials, ...testimonials].map(({ text, name, role, initial, color }, i) => (
-                <div key={i} className="shrink-0 w-80 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 flex flex-col hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+                <div key={i} className="shrink-0 w-80 rounded-2xl border border-brand-border bg-white dark:bg-zinc-900 p-6 flex flex-col hover:bg-brand-surface/80 transition-colors">
                   <div className="flex gap-0.5 mb-3">
                     {Array.from({ length: 5 }).map((_, j) => (
                       <Star key={j} size={12} className="text-zinc-400 fill-zinc-400" />
@@ -271,7 +267,7 @@ export default async function HomePage() {
                     <div className={`w-9 h-9 rounded-full ${color} flex items-center justify-center text-sm font-bold shrink-0`}>{initial}</div>
                     <div>
                       <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{name}</p>
-                      <p className="text-xs text-zinc-500">{role}</p>
+                      <p className="text-xs text-brand-muted">{role}</p>
                     </div>
                   </div>
                 </div>
@@ -281,46 +277,38 @@ export default async function HomePage() {
         </section>
 
         {/* ─── PRICING ──────────────────────────────────────────── */}
-        <section id="pricing" className="py-24 bg-zinc-50 dark:bg-zinc-900/50 border-t border-zinc-200 dark:border-zinc-800">
+        <section id="pricing" className="py-24 bg-brand-surface border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 text-[11px] font-bold uppercase tracking-widest mb-3">Pricing</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50 mb-3">Simple, transparent pricing</h2>
-              <p className="text-zinc-500 text-sm">Start free. Only pay when you need more.</p>
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-border text-brand-text text-[11px] font-bold uppercase tracking-widest mb-3">Pricing</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">Simple, transparent pricing</h2>
+              <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
             </div>
             <PricingCards />
           </div>
         </section>
 
         {/* ─── FAQ ──────────────────────────────────────────────── */}
-        <section id="faq" className="py-24 bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800">
+        <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
           <div className="max-w-2xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tFaq("label")}</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50">{tFaq("title")}</h2>
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tFaq("label")}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text">{tFaq("title")}</h2>
             </div>
             <FAQAccordion items={faqs} />
           </div>
         </section>
 
         {/* ─── SUPPORTED BANKS ──────────────────────────────────── */}
-        <section className="py-24 bg-zinc-50 dark:bg-zinc-900/50 border-y border-zinc-200 dark:border-zinc-800">
+        <section className="py-24 bg-brand-surface border-y border-brand-border">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="inline-block px-3 py-1 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-300 dark:border-zinc-700 text-[11px] font-bold uppercase tracking-widest mb-3">Coverage</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-50 mb-4">Supports every major Indian bank</h2>
-              <p className="text-zinc-500 max-w-xl mx-auto text-sm">We process statements from 30+ top banks with 99.4% accuracy. If your bank is missing, contact us to add it.</p>
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-border text-brand-text border border-brand-border text-[11px] font-bold uppercase tracking-widest mb-3">Coverage</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-4">Supports major banks globally</h2>
+              <p className="text-brand-muted max-w-xl mx-auto text-sm">We process statements from top banks worldwide with 99.4% accuracy. If your bank is missing, contact us to add it.</p>
             </div>
-            <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-              {BANKS.map((bank) => (
-                <div key={bank} className="px-5 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-default flex items-center gap-2">
-                  <CheckCircle2 size={14} className="text-emerald-500" />
-                  {bank}
-                </div>
-              ))}
-              <div className="px-5 py-2.5 bg-zinc-100 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 border-dashed rounded-xl text-sm font-semibold text-zinc-500 flex items-center gap-2">
-                + Many more
-              </div>
+            <div className="mt-8">
+              <BankMarquee banks={BANKS} />
             </div>
           </div>
         </section>
@@ -361,7 +349,7 @@ export default async function HomePage() {
                 View pricing <ChevronRight size={14} />
               </Link>
             </div>
-            <p className="mt-8 text-xs text-zinc-500">{tCta("note")}</p>
+            <p className="mt-8 text-xs text-brand-muted">{tCta("note")}</p>
           </div>
         </section>
 

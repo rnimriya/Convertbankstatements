@@ -28,7 +28,7 @@ We reserve the right to update these Terms at any time. Continued use of the Ser
 - Returns the extracted data in structured formats including CSV, Excel (.xlsx), OFX, and QFX
 - Optionally exports data to Google Sheets via the Google Sheets API
 
-The Service supports statements from major Indian banks including SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, and 25+ others. Results may vary depending on PDF quality and bank format.
+The Service supports statements from major banks including SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, and 25+ others. Results may vary depending on PDF quality and bank format.
 
 **Important:** The Service is a data conversion tool only. It does not provide financial advice, accounting services, or tax advice. Always verify extracted data against your original bank statement before relying on it for financial or tax purposes.`,
  },
@@ -72,13 +72,13 @@ Violation of these restrictions may result in immediate account termination with
  content: `**Free Tier**
 Every registered account receives 8 pages of processing completely free. No payment method is required to access the free tier.
 
-**Pay-As-You-Go (₹49 per document)**
-After exhausting your free pages, you may pay ₹49 per document. Payment is processed through Razorpay before the document is converted. All prices are in Indian Rupees (INR) and are exclusive of applicable taxes.
+**Pay-As-You-Go ($1 per document)**
+After exhausting your free pages, you may pay $1 per document. Payment is processed through Razorpay before the document is converted. All prices are in Indian Rupees (INR) and are exclusive of applicable taxes.
 
-**Pro Plan (₹1,198/month)**
+**Pro Plan ($20/month)**
 Provides 500 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
-**Business Plan (₹4,498/month)**
+**Business Plan ($75/month)**
 Provides 2,000 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
 **Payment Methods**

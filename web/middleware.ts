@@ -33,9 +33,7 @@ function buildCsp(nonce: string): string {
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
-  // Strip locale prefix to get the canonical path for auth checks
-  const localePattern = /^\/(hi|ta|te|kn|ml|mr|gu|pa)(\/|$)/;
-  const strippedPath = path.replace(localePattern, "/");
+  const strippedPath = path;
 
   const isProtected = PROTECTED.some((p) => strippedPath.startsWith(p));
   const isAuthPage = AUTH_PAGES.some((p) => strippedPath.startsWith(p));

@@ -8,11 +8,11 @@ import { PricingCards } from "@/components/PricingCards";
 export const metadata = {
   title: "Pricing — Convert Statement",
   description:
-    "Start free with 8 pages, then choose a Pro plan at ₹1,198/month (500 pages) or Business at ₹4,498/month (2,000 pages) for CAs and teams.",
+    "Start free with 8 pages, then choose a Pro plan at $20/month (500 pages) or Business at $75/month (2,000 pages) for CAs and teams.",
   alternates: { canonical: "https://convertstatement.online/pricing" },
   openGraph: {
     title: "Pricing — Convert Statement",
-    description: "8 pages free · Pro ₹1,198/mo · Business ₹4,498/mo",
+    description: "8 pages free · Pro $20/mo · Business $75/mo",
     url: "https://convertstatement.online/pricing",
   },
 };
@@ -35,7 +35,7 @@ const pricingSchema = {
   "@type": "Product",
   name: "Convert Statement",
   description:
-    "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
+    "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
   url: "https://convertstatement.online",
   brand: { "@type": "Brand", name: "Convert Statement" },
   offers: [

@@ -132,7 +132,7 @@ export function deletePost(id: string): boolean {
 }
 
 const ALL_TITLES: Record<string, string> = {
-  "how-to-read-indian-bank-statement": "How to Read an Indian Bank Statement",
+  "how-to-read-indian-bank-statement": "How to Read an Bank Statement",
   "sbi-bank-statement-download-guide": "How to Download Your SBI Bank Statement",
   "hdfc-bank-statement-download": "How to Download Your HDFC Bank Statement",
   "icici-bank-statement-download": "How to Download Your ICICI Bank Statement",
@@ -164,7 +164,7 @@ const ALL_TITLES: Record<string, string> = {
   "bank-statement-for-rent-agreement": "Bank Statement for Rent Agreements",
   "how-bank-statements-work-for-freelancers": "How Bank Statements Work for Freelancers",
   "bank-statement-password-removal-guide": "How to Remove the Password from a Bank Statement PDF",
-  "indian-bank-statement-formats-differences": "Indian Bank Statement Formats Compared",
+  "indian-bank-statement-formats-differences": "Bank Statement Formats Compared",
   "how-to-use-bank-statement-for-budgeting": "Using Your Bank Statement for Monthly Budgeting",
   "nri-bank-account-statement-india": "NRI Bank Account Statements: NRE vs NRO",
   "how-to-read-hdfc-bank-statement-pdf": "How to Read an HDFC Bank Statement",

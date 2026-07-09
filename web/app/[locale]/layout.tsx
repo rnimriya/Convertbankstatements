@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: "%s | Convert Statement",
   },
   description:
-    "Convert Indian bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free.",
+    "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free.",
   keywords: [
     "bank statement PDF to Excel India",
     "SBI statement to CSV",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     "PDF to OFX Tally",
     "bank statement to Google Sheets",
     "CA bank reconciliation tool",
-    "Indian bank PDF converter",
+    "bank PDF converter",
     "bank statement extractor",
     "PDF to QFX QuickBooks India",
   ],
@@ -55,13 +55,13 @@ export const metadata: Metadata = {
     siteName: "Convert Statement",
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
-      "30+ Indian banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Pay ₹49 per document after that.",
+      "Global banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Pay $1 per document after that.",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Convert Statement — PDF to Excel converter for Indian banks",
+        alt: "Convert Statement — PDF to Excel converter for banks",
       },
     ],
   },
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
-      "30+ Indian banks. CSV, Excel, OFX, QFX. First 8 pages free. Pay ₹49/doc.",
+      "Global banks. CSV, Excel, OFX, QFX. First 8 pages free. Pay $1/doc.",
     images: ["/opengraph-image"],
   },
   icons: {

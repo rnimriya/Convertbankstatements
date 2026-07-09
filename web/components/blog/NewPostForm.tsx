@@ -76,7 +76,7 @@ export function NewPostForm() {
           type="text"
           value={title}
           onChange={(e) => handleTitleChange(e.target.value)}
-          placeholder="How to Read an Indian Bank Statement"
+          placeholder="How to Read a Bank Statement"
           className={INPUT}
           required
         />

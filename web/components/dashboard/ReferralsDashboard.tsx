@@ -31,7 +31,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
   }
 
   const shareMessage = encodeURIComponent(
-    `Convert Indian bank statement PDFs to Excel/CSV in seconds. Get 50 free bonus pages when you sign up: ${referralUrl}`
+    `Convert bank statement PDFs to Excel/CSV in seconds. Get 50 free bonus pages when you sign up: ${referralUrl}`
   );
   const whatsappUrl = `https://wa.me/?text=${shareMessage}`;
 

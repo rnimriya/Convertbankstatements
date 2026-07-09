@@ -165,7 +165,7 @@ async function extractPdfText(bytes: Buffer): Promise<{ lines: string[]; firstPa
 
 // ── Claude Vision (scanned PDFs) ─────────────────────────────────────────────────
 
-const VISION_PROMPT = `You are extracting Indian bank statement transactions.
+const VISION_PROMPT = `You are extracting bank statement transactions.
 Return ONLY a valid JSON object — no markdown, no explanation:
 
 {

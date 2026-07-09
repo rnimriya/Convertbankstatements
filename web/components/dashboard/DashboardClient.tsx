@@ -447,7 +447,7 @@ export function DashboardClient({
                       </div>
                       <p className="font-bold text-zinc-800 dark:text-zinc-200 text-base">No documents yet</p>
                       <p className="text-sm text-zinc-400 dark:text-zinc-500 mt-1 max-w-xs">
-                        Upload your first Indian bank statement PDF to get started.
+                        Upload your first bank statement PDF to get started.
                       </p>
                       <button
                         onClick={() => setTab("upload")}
@@ -558,7 +558,7 @@ export function DashboardClient({
                       </div>
                     ) : (
                       <div className="space-y-1.5 mb-4">
-                        {["8 pages free, forever", "CSV & Excel export", "All Indian banks"].map(f => (
+                        {["8 pages free, forever", "CSV & Excel export", "Global banks support"].map(f => (
                           <div key={f} className="flex items-center gap-2">
                             <CheckCircle2 size={12} className="text-emerald-500 shrink-0" />
                             <span className="text-xs text-zinc-500 dark:text-zinc-400">{f}</span>

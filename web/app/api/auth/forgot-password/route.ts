@@ -69,7 +69,7 @@ async function sendResetEmail(to: string, resetUrl: string): Promise<void> {
           </p>
           <hr style="border:none;border-top:1px solid #e5e7eb;margin:24px 0">
           <p style="color:#9ca3af;font-size:12px">
-            Convert Statement &mdash; Convert Indian bank statements to Excel
+            Convert Statement &mdash; Convert bank statements to Excel
           </p>
         </div>
       `,

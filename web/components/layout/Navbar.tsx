@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { cookies } from "next/headers";
 import { Link } from "@/i18n/navigation";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+
 import { NavUserMenu } from "./NavUserMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { verifyJWT } from "@/lib/auth/jwt";
@@ -17,7 +17,7 @@ export async function Navbar() {
   const initial = displayName?.[0]?.toUpperCase() ?? "";
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white dark:bg-zinc-950/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800">
+    <nav className="sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
 
@@ -40,7 +40,7 @@ export async function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className="text-[13.5px] font-medium text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"
+                className="text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"
               >
                 {label}
               </Link>
@@ -50,7 +50,7 @@ export async function Navbar() {
           {/* ── Right side ── */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <LanguageSwitcher />
+
 
             {user && displayName ? (
               <>

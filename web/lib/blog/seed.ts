@@ -4,7 +4,7 @@ export const SEED_POSTS: BlogPost[] = [
   {
     id: "seed-1",
     slug: "how-to-read-indian-bank-statement",
-    title: "How to Read an Indian Bank Statement",
+    title: "How to Read an Bank Statement",
     excerpt: "Bank statements look confusing at first. Here is what every column means and how to make sense of your account history.",
     featureImage: "https://picsum.photos/seed/how-to-read-indian-bank-statement/800/450",
     author: "ConvertStatement Team",
@@ -193,20 +193,20 @@ export const SEED_POSTS: BlogPost[] = [
     id: "seed-10",
     slug: "convert-bank-statement-pdf-to-excel",
     title: "How to Convert a Bank Statement PDF to Excel",
-    excerpt: "Converting a PDF bank statement to Excel lets you sort, filter, and analyze your transactions. Here are the best methods that actually work for Indian banks.",
+    excerpt: "Converting a PDF bank statement to Excel lets you sort, filter, and analyze your transactions. Here are the best methods that actually work for banks.",
     featureImage: "https://picsum.photos/seed/convert-bank-statement-pdf-to-excel/800/450",
     author: "ConvertStatement Team",
     tags: ["PDF", "Excel", "convert"],
     published: true,
     createdAt: "2024-02-25T08:00:00Z",
     updatedAt: "2024-02-25T08:00:00Z",
-    content: `<p>Indian bank statement PDFs are notoriously hard to convert. Banks format them differently, some use scanned images, and most standard PDF-to-Excel tools miss columns or scramble data.</p>
+    content: `<p>bank statement PDFs are notoriously hard to convert. Banks format them differently, some use scanned images, and most standard PDF-to-Excel tools miss columns or scramble data.</p>
 <h2>Why standard tools fail</h2>
-<p>Adobe Acrobat and most online converters treat PDFs as text boxes. They do not understand table structure. For Indian bank statements, the result is usually a mess of merged cells, missing columns, and jumbled numbers.</p>
+<p>Adobe Acrobat and most online converters treat PDFs as text boxes. They do not understand table structure. For bank statements, the result is usually a mess of merged cells, missing columns, and jumbled numbers.</p>
 <h2>Using a specialized converter</h2>
-<p>Tools built specifically for Indian bank statements understand the structure of SBI, HDFC, ICICI, Axis, and other bank formats. They extract the date, narration, debit, credit, and balance columns correctly without manual cleanup.</p>
+<p>Tools built specifically for bank statements understand the structure of SBI, HDFC, ICICI, Axis, and other bank formats. They extract the date, narration, debit, credit, and balance columns correctly without manual cleanup.</p>
 <h2>Using Excel's built-in import</h2>
-<p>Excel 2019 and later has a "Get Data from PDF" option under the Data tab. It works reasonably well for clean PDFs but still struggles with Indian bank statement formatting. You will usually need to fix columns manually.</p>
+<p>Excel 2019 and later has a "Get Data from PDF" option under the Data tab. It works reasonably well for clean PDFs but still struggles with bank statement formatting. You will usually need to fix columns manually.</p>
 <h2>Manual copy-paste</h2>
 <p>For a small number of transactions, open the PDF in Adobe Acrobat, select all text, and paste into Excel. Then use "Text to Columns" to split the data. This works for a few dozen transactions but becomes tedious at scale.</p>`,
   },
@@ -277,7 +277,7 @@ export const SEED_POSTS: BlogPost[] = [
     id: "seed-14",
     slug: "understanding-bank-charges-on-statement",
     title: "Understanding Bank Charges on Your Statement",
-    excerpt: "Indian banks deduct dozens of small charges throughout the year. Knowing what each one is helps you avoid paying unnecessary fees.",
+    excerpt: "banks deduct dozens of small charges throughout the year. Knowing what each one is helps you avoid paying unnecessary fees.",
     featureImage: "https://picsum.photos/seed/understanding-bank-charges-on-statement/800/450",
     author: "ConvertStatement Team",
     tags: ["bank charges", "fees", "basics"],
@@ -389,7 +389,7 @@ export const SEED_POSTS: BlogPost[] = [
     published: true,
     createdAt: "2024-04-10T08:00:00Z",
     updatedAt: "2024-04-10T08:00:00Z",
-    content: `<p>IDFC FIRST Bank is one of the newer private sector banks in India. It formed from the merger of IDFC Bank and Capital First in 2018. Its digital experience is generally considered among the better ones in Indian banking.</p>
+    content: `<p>IDFC FIRST Bank is one of the newer private sector banks in India. It formed from the merger of IDFC Bank and Capital First in 2018. Its digital experience is generally considered among the better ones in banking.</p>
 <h2>Via IDFC FIRST App</h2>
 <p>Open the IDFC FIRST Bank app. Tap on your account balance at the top. Go to "Account Statement." Select a date range and tap download. The PDF saves to your device immediately.</p>
 <h2>Via Internet Banking</h2>
@@ -466,7 +466,7 @@ export const SEED_POSTS: BlogPost[] = [
     id: "seed-23",
     slug: "what-is-neft-rtgs-imps-in-bank-statement",
     title: "NEFT, RTGS, and IMPS: What These Mean in Your Bank Statement",
-    excerpt: "Three abbreviations appear constantly in Indian bank statements. Here is the difference between them and when each one applies.",
+    excerpt: "Three abbreviations appear constantly in bank statements. Here is the difference between them and when each one applies.",
     featureImage: "https://picsum.photos/seed/what-is-neft-rtgs-imps-in-bank-statement/800/450",
     author: "ConvertStatement Team",
     tags: ["NEFT", "RTGS", "IMPS", "basics"],
@@ -654,7 +654,7 @@ export const SEED_POSTS: BlogPost[] = [
   {
     id: "seed-32",
     slug: "bank-statement-password-removal-guide",
-    title: "How to Remove the Password from an Indian Bank Statement PDF",
+    title: "How to Remove the Password from an Bank Statement PDF",
     excerpt: "Password-protected bank statement PDFs are standard in India. Here is how to work with them without losing any data.",
     featureImage: "https://picsum.photos/seed/bank-statement-password-removal-guide/800/450",
     author: "ConvertStatement Team",
@@ -662,9 +662,9 @@ export const SEED_POSTS: BlogPost[] = [
     published: true,
     createdAt: "2024-06-15T08:00:00Z",
     updatedAt: "2024-06-15T08:00:00Z",
-    content: `<p>Almost every Indian bank sends password-protected statement PDFs. The password is meant to prevent unauthorized access if the email is intercepted. Once you have the password, you can unlock the PDF for easier use.</p>
+    content: `<p>Almost every bank sends password-protected statement PDFs. The password is meant to prevent unauthorized access if the email is intercepted. Once you have the password, you can unlock the PDF for easier use.</p>
 <h2>Common bank PDF passwords</h2>
-<p>Most Indian banks use your date of birth in DDMMYYYY format. Some combine the first few letters of your name with your DOB. HDFC uses customer ID + DOB. ICICI uses DOB alone. Axis uses DOB or the last 4 digits of the mobile number. Check your bank's official help page if the standard format does not work.</p>
+<p>Most banks use your date of birth in DDMMYYYY format. Some combine the first few letters of your name with your DOB. HDFC uses customer ID + DOB. ICICI uses DOB alone. Axis uses DOB or the last 4 digits of the mobile number. Check your bank's official help page if the standard format does not work.</p>
 <h2>Using Adobe Acrobat</h2>
 <p>Open the PDF in Adobe Acrobat (the paid version). Enter the password when prompted. Go to File, then Properties, then Security. Change Security Method to "No Security." Save the file. The new file is now unprotected.</p>
 <h2>Using a browser</h2>
@@ -675,8 +675,8 @@ export const SEED_POSTS: BlogPost[] = [
   {
     id: "seed-33",
     slug: "indian-bank-statement-formats-differences",
-    title: "Indian Bank Statement Formats: How Each Bank Does It Differently",
-    excerpt: "No two Indian banks format their PDFs the same way. Here is how SBI, HDFC, ICICI, Axis, and other major banks differ.",
+    title: "Bank Statement Formats: How Each Bank Does It Differently",
+    excerpt: "No two banks format their PDFs the same way. Here is how SBI, HDFC, ICICI, Axis, and other major banks differ.",
     featureImage: "https://picsum.photos/seed/indian-bank-statement-formats-differences/800/450",
     author: "ConvertStatement Team",
     tags: ["formats", "PDF", "comparison"],
@@ -725,7 +725,7 @@ export const SEED_POSTS: BlogPost[] = [
     published: true,
     createdAt: "2024-07-05T08:00:00Z",
     updatedAt: "2024-07-05T08:00:00Z",
-    content: `<p>Non-Resident Indians (NRIs) typically hold two types of Indian bank accounts: NRE (Non-Resident External) and NRO (Non-Resident Ordinary). Each has different tax rules and repatriation rules.</p>
+    content: `<p>Non-Resident Indians (NRIs) typically hold two types of bank accounts: NRE (Non-Resident External) and NRO (Non-Resident Ordinary). Each has different tax rules and repatriation rules.</p>
 <h2>NRE account statements</h2>
 <p>NRE accounts hold money you earned abroad and converted to rupees. Interest earned is fully tax-free in India. The full balance is freely repatriable to your country of residence. Your NRE statement shows mostly international wire transfers as credits and local spending or transfers as debits. There is no TDS on NRE interest.</p>
 <h2>NRO account statements</h2>
@@ -746,7 +746,7 @@ export const SEED_POSTS: BlogPost[] = [
     published: true,
     createdAt: "2024-07-10T08:00:00Z",
     updatedAt: "2024-07-10T08:00:00Z",
-    content: `<p>HDFC Bank statements are among the cleaner formats in Indian banking, but there are still a few details that confuse first-time readers.</p>
+    content: `<p>HDFC Bank statements are among the cleaner formats in banking, but there are still a few details that confuse first-time readers.</p>
 <h2>The header section</h2>
 <p>At the top of every HDFC statement you will find your account number, branch address, IFSC code, customer ID, and the statement period. There is also a summary showing opening balance, total debits, total credits, and closing balance. Check these summary figures first.</p>
 <h2>Transaction columns</h2>
@@ -1002,9 +1002,9 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>The Account Aggregator network</h2>
 <p>The AA network, backed by RBI, gives licensed financial information users (FIUs) access to consented financial data from account aggregators. To use it, you need to be a licensed FIU. SAHAMATI (sahamati.org.in) is the industry body for the AA ecosystem. This is the official, consent-first approach for Indian fintech.</p>
 <h2>PDF parsing APIs</h2>
-<p>Several companies provide APIs that accept bank statement PDFs and return structured JSON with transaction data. These typically handle 30+ Indian bank formats. The parsed output includes transaction date, description, amount, type (debit/credit), and balance. This approach does not require the AA license.</p>
+<p>Several companies provide APIs that accept bank statement PDFs and return structured JSON with transaction data. These typically handle 30+ bank formats. The parsed output includes transaction date, description, amount, type (debit/credit), and balance. This approach does not require the AA license.</p>
 <h2>Bank-specific APIs</h2>
-<p>A few Indian banks have opened direct APIs for fintechs to access account data with customer consent. These are available through partnerships and the IndiaStack ecosystem. Typical use cases include loan underwriting, account verification, and cash flow analysis.</p>
+<p>A few banks have opened direct APIs for fintechs to access account data with customer consent. These are available through partnerships and the IndiaStack ecosystem. Typical use cases include loan underwriting, account verification, and cash flow analysis.</p>
 <h2>Building your own parser</h2>
 <p>If you are a developer parsing PDFs yourself, the main challenge is handling the format differences across 30+ banks. Each bank has a different PDF structure, date format, and narration style. A robust parser needs to detect the bank from the PDF header and apply bank-specific extraction rules.</p>`,
   },
@@ -1040,7 +1040,7 @@ export const SEED_POSTS: BlogPost[] = [
     published: true,
     createdAt: "2024-09-25T08:00:00Z",
     updatedAt: "2024-09-25T08:00:00Z",
-    content: `<p>The Indian banking system is undergoing its biggest structural change since liberalization. Statements, once printed documents collected at branch counters, are now programmatic data feeds that flow through consent-based infrastructure.</p>
+    content: `<p>The banking system is undergoing its biggest structural change since liberalization. Statements, once printed documents collected at branch counters, are now programmatic data feeds that flow through consent-based infrastructure.</p>
 <h2>Real-time statements</h2>
 <p>Traditional statements show you yesterday's data at best. With the Account Aggregator network and UPI's instant notification system, financial data is increasingly real-time. Within a few years, asking your bank for a "statement" will likely produce a live, authenticated data feed rather than a static PDF.</p>
 <h2>AI-powered categorization</h2>

@@ -23,18 +23,18 @@ export const TIER_CONFIG = {
   },
   BASIC: {
     pagesPerMonth: 25,
-    monthlyPricePaise: 2_500,     // ₹25 / month
-    annualPricePaise: 24_800,     // ₹248 / year (≈ ₹21/mo)
+    monthlyPricePaise: 500,       // $5 / month
+    annualPricePaise: 4800,       // $48 / year (≈ $4/mo)
   },
   PRO: {
     pagesPerMonth: 500,
-    monthlyPricePaise: 119_800,  // ₹1,198
-    annualPricePaise: 1_149_900, // ₹11,499  (≈ ₹958/mo, 20% off)
+    monthlyPricePaise: 2000,      // $20
+    annualPricePaise: 19200,      // $192  (≈ $16/mo, 20% off)
   },
   BUSINESS: {
     pagesPerMonth: 2_000,
-    monthlyPricePaise: 449_800,  // ₹4,498
-    annualPricePaise: 4_317_800, // ₹43,178 (≈ ₹3,598/mo, 20% off)
+    monthlyPricePaise: 7500,      // $75
+    annualPricePaise: 72000,      // $720 (≈ $60/mo, 20% off)
   },
 } satisfies Record<Tier, TierConfig>;
 
