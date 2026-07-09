@@ -14,7 +14,7 @@ const SECTIONS = [
  title:"1. Acceptance of Terms",
  content: `By creating an account or using the Convert Statement service ("Service") at convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
 
-These Terms constitute a legally binding agreement between you and Convert Statement ("Company","we","us", or"our"). These Terms are governed by the laws of India, and any disputes shall be subject to the exclusive jurisdiction of courts in India.
+These Terms constitute a legally binding agreement between you and Convert Statement ("Company","we","us", or"our"). These Terms are governed by the laws of the State of Delaware, USA, and any disputes shall be subject to the exclusive jurisdiction of courts in Delaware.
 
 We reserve the right to update these Terms at any time. Continued use of the Service after changes constitutes acceptance.`,
  },
@@ -73,7 +73,7 @@ Violation of these restrictions may result in immediate account termination with
 Every registered account receives 8 pages of processing completely free. No payment method is required to access the free tier.
 
 **Pay-As-You-Go ($1 per document)**
-After exhausting your free pages, you may pay $1 per document. Payment is processed through Razorpay before the document is converted. All prices are in Indian Rupees (INR) and are exclusive of applicable taxes.
+After exhausting your free pages, you may pay $1 per document. Payment is processed securely before the document is converted. All prices are in US Dollars (USD) and are exclusive of applicable taxes.
 
 **Pro Plan ($20/month)**
 Provides 500 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
@@ -82,10 +82,10 @@ Provides 500 pages of processing per billing month. Billed monthly in advance. P
 Provides 2,000 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
 **Payment Methods**
-We accept UPI, Credit/Debit Cards (Visa, Mastercard, RuPay), Net Banking, and Wallets through Razorpay. All transactions are subject to Razorpay's payment terms.
+We accept Credit/Debit Cards (Visa, Mastercard, Amex), Apple Pay, and Google Pay through Stripe. All transactions are subject to Stripe's payment terms.
 
 **GST**
-Applicable Goods and Services Tax (GST) will be added to all subscription and pay-as-you-go payments as required by Indian law.
+Applicable taxes will be added to all subscription and pay-as-you-go payments as required by your local jurisdiction.
 
 **Refunds**
 Pay-as-you-go payments are non-refundable once a document has been processed. For subscription plans, refunds are available within 7 days of the initial subscription if no documents have been processed. Contact billing@convertstatement.online to request a refund.
@@ -157,13 +157,11 @@ Upon termination, your right to use the Service ceases immediately. Any outstand
  {
  id:"governing-law",
  title:"11. Governing Law & Disputes",
- content: `These Terms are governed by and construed in accordance with the laws of India, without regard to conflict of law provisions.
+ content: `These Terms are governed by and construed in accordance with the laws of the State of Delaware, USA, without regard to conflict of law provisions.
 
-**Dispute Resolution**
-We encourage you to contact us first at support@convertstatement.online to resolve any dispute informally. If a dispute cannot be resolved informally within 30 days, it shall be submitted to binding arbitration under the Arbitration and Conciliation Act, 1996, conducted in English in India.
+We encourage you to contact us first at support@convertstatement.online to resolve any dispute informally. If a dispute cannot be resolved informally within 30 days, it shall be submitted to binding arbitration conducted in English in Delaware.
 
-**Jurisdiction**
-For matters not subject to arbitration, you submit to the exclusive jurisdiction of courts located in India.`,
+For matters not subject to arbitration, you submit to the exclusive jurisdiction of courts located in Delaware.`,
  },
  {
  id:"general",
@@ -211,7 +209,7 @@ export default function TermsPage() {
  {[
  { label:"Your data", value:"Never stored after processing" },
  { label:"Refunds", value:"7 days for subscriptions" },
- { label:"Jurisdiction", value:"Laws of India" },
+ { label:"Jurisdiction", value:"Laws of Delaware, USA" },
  ].map(({ label, value }) => (
  <div key={label} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-3">
  <p className="text-xs text-zinc-400 dark:text-zinc-500">{label}</p>

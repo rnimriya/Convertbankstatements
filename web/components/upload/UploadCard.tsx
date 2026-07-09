@@ -3,7 +3,7 @@
 import { useCallback, useState } from"react";
 import { useDropzone } from"react-dropzone";
 import {
-  Upload, FileText, IndianRupee, AlertCircle,
+  Upload, FileText, DollarSign, AlertCircle,
   CheckCircle2, Lock, Zap,
 } from"lucide-react";
 import { FreePagesIndicator } from"./FreePagesIndicator";
@@ -127,7 +127,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
         <FreePagesIndicator tier={billing.tier} pagesUsed={billing.pagesUsedThisPeriod} monthlyPageLimit={billing.monthlyPageLimit} />
         <div className="rounded-3xl border border-amber-200 bg-amber-50 p-8 text-center">
           <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
-            <IndianRupee className="h-8 w-8 text-amber-600 text-rose-500 dark:text-rose-400" />
+            <DollarSign className="h-8 w-8 text-amber-600 text-rose-500 dark:text-rose-400" />
           </div>
           <h3 className="text-xl font-black text-brand-text">Payment Required</h3>
           <p className="mt-1 text-sm font-medium text-brand-muted">{payState.file.name}</p>

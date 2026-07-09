@@ -14,7 +14,7 @@ const SECTIONS = [
  title:"1. Overview",
  content: `Convert Statement ("we","us", or"our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at convertstatement.online ("Service").
 
-We comply with the Information Technology Act, 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 (SPDI Rules), and applicable data protection laws of India.
+We comply with international data protection standards, including the GDPR (General Data Protection Regulation) and the CCPA (California Consumer Privacy Act).
 
 By using our Service, you consent to the practices described in this Policy.`,
  },
@@ -108,7 +108,7 @@ While we implement robust protections, no system can guarantee 100% security. We
 - **Account information** — Retained for the lifetime of your account. Deleted within 30 days of account closure.
 - **PDF files** — Not retained. Deleted immediately after processing.
 - **Transaction data** — Not retained after the session ends.
-- **Billing records** — Retained for 7 years as required by Indian GST and accounting laws.
+- **Billing records** — Retained for 7 years as required by global accounting and tax laws.
 - **Usage logs** (page counts, document counts) — Retained for the duration of your account for billing purposes.
 
 You may request deletion of your account and all associated data at any time by contacting us.`,
@@ -116,7 +116,7 @@ You may request deletion of your account and all associated data at any time by 
  {
  id:"your-rights",
  title:"8. Your Rights",
- content: `Under applicable Indian and international data protection laws, you have the right to:
+ content: `Under applicable international data protection laws, you have the right to:
 
 - **Access** — Request a copy of the personal data we hold about you
 - **Correction** — Request correction of inaccurate personal data

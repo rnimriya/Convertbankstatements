@@ -1,6 +1,6 @@
 import Link from"next/link";
 import { headers } from"next/headers";
-import { IndianRupee, ArrowRight } from"lucide-react";
+import { DollarSign, ArrowRight } from"lucide-react";
 import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
 import { PricingCards } from"@/components/PricingCards";
@@ -92,7 +92,7 @@ export default async function PricingPage() {
             </p>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">
-            <IndianRupee className="h-3.5 w-3.5 text-violet-500 text-rose-500 dark:text-rose-400" />
+            <DollarSign className="h-3.5 w-3.5 text-violet-500 text-rose-500 dark:text-rose-400" />
             UPI · Cards · Net Banking · Wallets
           </div>
         </div>

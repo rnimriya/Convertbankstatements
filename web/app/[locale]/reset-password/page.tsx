@@ -212,7 +212,7 @@ export default function ResetPasswordPage() {
             <img src="/logo.svg" alt="Convert Statement" className="h-12 w-12 transition hover:scale-105" />
           </Link>
           <span className="mt-3 text-xl font-bold text-zinc-800 dark:text-white">Convert Statement</span>
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">India&apos;s bank statement converter</span>
+          <span className="text-xs text-brand-muted">Global bank statement converter</span>
         </div>
 
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-8 shadow-xl dark:shadow-none shadow-slate-200/50 dark:shadow-black/50">

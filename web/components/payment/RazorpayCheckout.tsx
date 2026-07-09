@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from"react";
-import { Loader2, IndianRupee } from"lucide-react";
+import { Loader2, DollarSign } from"lucide-react";
 
 declare global {
   interface Window {
@@ -117,7 +117,7 @@ export function RazorpayCheckout({
       {loading ? (
         <Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" />
       ) : (
-        <IndianRupee className="h-4 w-4 text-rose-500 dark:text-rose-400" />
+        <DollarSign className="h-4 w-4 text-rose-500 dark:text-rose-400" />
       )}
       {loading ?"Opening payment…" : label}
     </button>

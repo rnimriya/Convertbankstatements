@@ -98,7 +98,7 @@ export function SamplePDFDemo() {
           <p className="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">Pages</p>
         </div>
         <div className="px-4 py-3 text-center">
-          <p className="text-lg font-bold text-zinc-900 dark:text-white text-[13px] leading-tight mt-0.5">{result?.bank_name?.replace("State Bank of India","SBI")}</p>
+          <p className="text-lg font-bold text-zinc-900 dark:text-white text-[13px] leading-tight mt-0.5">{result?.bank_name}</p>
           <p className="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">Bank</p>
         </div>
       </div>
