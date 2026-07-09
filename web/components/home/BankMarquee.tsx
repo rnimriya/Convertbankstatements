@@ -24,9 +24,9 @@ export function BankMarquee({ banks }: BankMarqueeProps) {
         {[...items, ...items].map((bank, i) => (
           <div
             key={i}
-            className="px-5 py-3 mx-2 bg-brand-surface border border-brand-border rounded-xl text-sm font-semibold text-brand-text shadow-sm flex items-center gap-2 flex-shrink-0 backdrop-blur-sm bg-brand-surface/50 hover:bg-brand-surface transition-colors"
+            className="px-5 py-3 mx-2 text-sm font-medium text-brand-text/70 hover:text-brand-text flex items-center gap-2.5 flex-shrink-0 transition-colors"
           >
-            <CheckCircle2 size={15} className="text-emerald-500 dark:text-emerald-400" />
+            <CheckCircle2 size={16} className="text-brand-secondary" />
             {bank}
           </div>
         ))}
