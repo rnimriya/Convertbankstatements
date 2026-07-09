@@ -20,13 +20,13 @@
 
 .dark {
   /* DARK THEME (Deep Midnight) */
-  --bg: 15 23 42; /* Slate 900 (#0f172a) */
-  --surface: 30 41 59; /* Slate 800 */
-  --surface-raised: 51 65 85; /* Slate 700 */
-  --border-subtle: 71 85 105; /* Slate 600 */
+  --bg: 2 6 23; /* Slate 950 */
+  --surface: 15 23 42; /* Slate 900 */
+  --surface-raised: 30 41 59; /* Slate 800 */
+  --border-subtle: 51 65 85; /* Slate 700 */
 
-  --color-bg: 15 23 42; 
-  --color-surface: 30 41 59;
+  --color-bg: 2 6 23; 
+  --color-surface: 15 23 42;
   --color-primary: 99 102 241; /* Indigo 500 */
   --color-secondary: 6 182 212; /* Cyan 500 */
   --color-text-main: 248 250 252; /* Slate 50 */
