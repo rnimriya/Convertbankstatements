@@ -160,7 +160,7 @@ export function DashboardClient({
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-zinc-50 dark:bg-black">
+    <div className="flex h-screen overflow-hidden bg-brand-bg">
 
       {/* ── SIDEBAR OVERLAY (mobile) ─────────────────────────── */}
       {sidebarOpen && (

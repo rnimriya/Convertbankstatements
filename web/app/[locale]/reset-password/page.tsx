@@ -202,7 +202,7 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-black px-4 py-12">
+    <div className="flex min-h-screen items-center justify-center bg-brand-bg px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center relative">
           <div className="absolute right-0 top-0">
