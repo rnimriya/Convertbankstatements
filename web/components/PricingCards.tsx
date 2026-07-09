@@ -1,72 +1,72 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { Check, ArrowRight } from "lucide-react";
+import { useState } from"react";
+import Link from"next/link";
+import { Check, ArrowRight } from"lucide-react";
 
 const MONTHLY_PLANS = [
   {
-    name: "Free",
-    price: "$0",
-    period: "",
+    name:"Free",
+    price:"$0",
+    period:"",
     annualPrice: null,
     annualPeriod: null,
-    tagline: "Try it out — no card needed",
+    tagline:"Try it out — no card needed",
     highlight: false,
     badge: null,
-    features: ["8 pages free, forever", "CSV & Excel export", "Global banks support", "No credit card required"],
-    notIncluded: ["OFX / QFX export", "Google Sheets"],
-    cta: "Start free",
-    href: "/signup",
-    annualHref: "/signup",
+    features: ["8 pages free, forever","CSV & Excel export","Global banks support","No credit card required"],
+    notIncluded: ["OFX / QFX export","Google Sheets"],
+    cta:"Start free",
+    href:"/signup",
+    annualHref:"/signup",
   },
   {
-    name: "Basic",
-    price: "$5",
-    period: "/ mo",
-    annualPrice: "$48",
-    annualPeriod: "/ year",
-    annualMonthlyEquiv: "$4/mo",
-    tagline: "For light, occasional use",
+    name:"Basic",
+    price:"$5",
+    period:"/ mo",
+    annualPrice:"$48",
+    annualPeriod:"/ year",
+    annualMonthlyEquiv:"$4/mo",
+    tagline:"For light, occasional use",
     highlight: false,
     badge: null,
-    features: ["25 pages / month", "CSV & Excel export", "Global banks support", "Email support"],
-    notIncluded: ["Google Sheets", "OFX / QFX export"],
-    cta: "Start Basic",
-    href: "/signup?plan=basic",
-    annualHref: "/signup?plan=basic_annual",
+    features: ["25 pages / month","CSV & Excel export","Global banks support","Email support"],
+    notIncluded: ["Google Sheets","OFX / QFX export"],
+    cta:"Start Basic",
+    href:"/signup?plan=basic",
+    annualHref:"/signup?plan=basic_annual",
   },
   {
-    name: "Pro",
-    price: "$20",
-    period: "/ mo",
-    annualPrice: "$192",
-    annualPeriod: "/ year",
-    annualMonthlyEquiv: "$16/mo",
-    tagline: "Perfect for CAs & individuals",
+    name:"Pro",
+    price:"$20",
+    period:"/ mo",
+    annualPrice:"$192",
+    annualPeriod:"/ year",
+    annualMonthlyEquiv:"$16/mo",
+    tagline:"Perfect for CAs & individuals",
     highlight: true,
-    badge: "Most popular",
-    features: ["500 pages / month", "All export formats", "Google Sheets export", "Priority processing", "Email support"],
-    notIncluded: ["API access", "Team seats"],
-    cta: "Start Pro",
-    href: "/signup?plan=pro",
-    annualHref: "/signup?plan=pro_annual",
+    badge:"Most popular",
+    features: ["500 pages / month","All export formats","Google Sheets export","Priority processing","Email support"],
+    notIncluded: ["API access","Team seats"],
+    cta:"Start Pro",
+    href:"/signup?plan=pro",
+    annualHref:"/signup?plan=pro_annual",
   },
   {
-    name: "Business",
-    price: "$75",
-    period: "/ month",
-    annualPrice: "$720",
-    annualPeriod: "/ year",
-    annualMonthlyEquiv: "$60/mo",
-    tagline: "For CA firms & fintech teams",
+    name:"Business",
+    price:"$75",
+    period:"/ month",
+    annualPrice:"$720",
+    annualPeriod:"/ year",
+    annualMonthlyEquiv:"$60/mo",
+    tagline:"For CA firms & fintech teams",
     highlight: false,
     badge: null,
-    features: ["2,000 pages / month", "All export formats", "Google Sheets export", "Priority processing", "API access", "5 team seats", "Dedicated support"],
+    features: ["2,000 pages / month","All export formats","Google Sheets export","Priority processing","API access","5 team seats","Dedicated support"],
     notIncluded: [],
-    cta: "Start Business",
-    href: "/signup?plan=business",
-    annualHref: "/signup?plan=business_annual",
+    cta:"Start Business",
+    href:"/signup?plan=business",
+    annualHref:"/signup?plan=business_annual",
   },
 ];
 
@@ -77,18 +77,18 @@ export function PricingCards() {
     <>
       {/* Billing toggle */}
       <div className="flex items-center justify-center gap-3 mb-10">
-        <span className={`text-sm font-medium transition-colors ${!annual ? "text-zinc-900 dark:text-white" : "text-zinc-400"}`}>
+        <span className={`text-sm font-medium transition-colors ${!annual ?"text-zinc-900 dark:text-white" :"text-zinc-400"}`}>
           Monthly
         </span>
         <button
           onClick={() => setAnnual(a => !a)}
-          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ? "bg-zinc-900 dark:bg-zinc-100" : "bg-brand-border"}`}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ?"bg-zinc-900 dark:bg-zinc-100" :"bg-brand-border"}`}
           role="switch"
           aria-checked={annual}
         >
-          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full transition-transform duration-200 ${annual ? "translate-x-5" : "translate-x-0"}`} />
+          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full transition-transform duration-200 ${annual ?"translate-x-5" :"translate-x-0"}`} />
         </button>
-        <span className={`text-sm font-medium transition-colors ${annual ? "text-zinc-900 dark:text-white" : "text-zinc-400"}`}>
+        <span className={`text-sm font-medium transition-colors ${annual ?"text-zinc-900 dark:text-white" :"text-zinc-400"}`}>
           Annual
         </span>
         {annual && (
@@ -129,7 +129,7 @@ export function PricingCards() {
                       <span className="text-5xl font-black text-white tracking-tight">{displayPrice}</span>
                       {displayPeriod && <span className="text-zinc-400 text-base mb-1">{displayPeriod}</span>}
                     </div>
-                    {showAnnual && "annualMonthlyEquiv" in plan && plan.annualMonthlyEquiv && (
+                    {showAnnual &&"annualMonthlyEquiv" in plan && plan.annualMonthlyEquiv && (
                       <p className="text-brand-muted text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
                     )}
                     {!showAnnual && plan.annualPrice && (
@@ -145,7 +145,7 @@ export function PricingCards() {
                     {plan.features.map(f => (
                       <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
                         <div className="w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center shrink-0">
-                          <Check size={11} className="text-zinc-400" />
+                          <Check size={11} className="text-emerald-500 dark:text-emerald-400" />
                         </div>
                         {f}
                       </li>
@@ -164,7 +164,7 @@ export function PricingCards() {
                     href={href}
                     className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold transition-colors shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
                   >
-                    {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
+                    {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
                   </Link>
                 </div>
               </div>
@@ -191,7 +191,7 @@ export function PricingCards() {
                   <span className="text-4xl font-black text-zinc-900 dark:text-white tracking-tight">{displayPrice}</span>
                   {displayPeriod && <span className="text-brand-muted text-sm mb-1">{displayPeriod}</span>}
                 </div>
-                {showAnnual && "annualMonthlyEquiv" in plan && (plan as typeof plan & { annualMonthlyEquiv: string }).annualMonthlyEquiv && (
+                {showAnnual &&"annualMonthlyEquiv" in plan && (plan as typeof plan & { annualMonthlyEquiv: string }).annualMonthlyEquiv && (
                   <p className="text-brand-muted text-xs mt-1">{(plan as typeof plan & { annualMonthlyEquiv: string }).annualMonthlyEquiv} equivalent</p>
                 )}
                 {!showAnnual && plan.annualPrice && (
@@ -207,7 +207,7 @@ export function PricingCards() {
                 {plan.features.map(f => (
                   <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
                     <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
-                      <Check size={11} className="text-zinc-400" />
+                      <Check size={11} className="text-emerald-500 dark:text-emerald-400" />
                     </div>
                     {f}
                   </li>
@@ -226,7 +226,7 @@ export function PricingCards() {
                 href={href}
                 className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold transition-all shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
               >
-                {plan.cta} <ArrowRight className="h-3.5 w-3.5" />
+                {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
               </Link>
             </div>
           );

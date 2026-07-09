@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
+import { useState } from"react";
+import { ChevronDown } from"lucide-react";
 
 interface FAQItem {
   q: string;
@@ -18,8 +18,8 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
           key={i}
           className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
             open === i
-              ? "border-brand-border bg-brand-surface shadow-sm"
-              : "border-brand-border bg-brand-bg hover:border-zinc-300 dark:hover:border-zinc-700"
+              ?"border-brand-border bg-brand-surface shadow-sm"
+              :"border-brand-border bg-brand-bg hover:border-zinc-300 dark:hover:border-zinc-700"
           }`}
         >
           <button
@@ -27,17 +27,17 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
           >
-            <span className={`text-sm font-semibold leading-snug ${open === i ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-800 dark:text-zinc-300"}`}>
+            <span className={`text-sm font-semibold leading-snug ${open === i ?"text-zinc-900 dark:text-zinc-100" :"text-zinc-800 dark:text-zinc-300"}`}>
               {q}
             </span>
             <ChevronDown
               size={16}
-              className={`shrink-0 text-zinc-400 dark:text-brand-muted transition-transform duration-300 ${open === i ? "rotate-180 text-zinc-900 dark:text-zinc-100" : ""}`}
+              className={`shrink-0 dark:transition-transform duration-300 ${open === i ?"rotate-180 dark:" :""}`}
             />
           </button>
           <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              open === i ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+              open === i ?"max-h-60 opacity-100" :"max-h-0 opacity-0"
             }`}
           >
             <p className="px-5 pb-5 text-sm text-brand-muted leading-relaxed border-t border-zinc-100 dark:border-zinc-800 pt-3">

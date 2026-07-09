@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from"react";
 import {
   User, Mail, Shield, Bell, CheckCircle2, AlertTriangle,
   ExternalLink, ChevronRight, KeyRound, Loader2, Camera,
-} from "lucide-react";
-import type { SubTier } from "@/types/billing";
+} from"lucide-react";
+import type { SubTier } from"@/types/billing";
 
-const SECTION = "rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
-const ROW = "flex items-center justify-between px-5 py-4 gap-4";
-const LABEL = "text-sm font-medium text-zinc-800 dark:text-zinc-200";
-const DESC = "text-xs text-zinc-400 dark:text-zinc-500 mt-0.5";
+const SECTION ="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
+const ROW ="flex items-center justify-between px-5 py-4 gap-4";
+const LABEL ="text-sm font-medium text-zinc-800 dark:text-zinc-200";
+const DESC ="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5";
 
-const AVATAR_KEY = "cs_avatar";
+const AVATAR_KEY ="cs_avatar";
 
 interface Props {
   userEmail: string;
@@ -29,7 +29,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [pwLoading, setPwLoading] = useState(false);
-  const [pwMsg, setPwMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [pwMsg, setPwMsg] = useState<{ type:"success" |"error"; text: string } | null>(null);
   const [sheetsConnected, setSheetsConnected] = useState(false);
   const [sheetsConnecting, setSheetsConnecting] = useState(false);
   const [notifEmail, setNotifEmail] = useState(true);
@@ -39,7 +39,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const displayName = userName ?? userEmail.split("@")[0];
-  const initial = displayName[0]?.toUpperCase() ?? "U";
+  const initial = displayName[0]?.toUpperCase() ??"U";
 
   useEffect(() => {
     const saved = localStorage.getItem(AVATAR_KEY);
@@ -67,13 +67,13 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
   const removeAvatar = () => {
     localStorage.removeItem(AVATAR_KEY);
     setAvatarUrl(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    if (fileInputRef.current) fileInputRef.current.value ="";
   };
 
   const sendVerification = async () => {
     setSending(true);
     try {
-      await fetch("/api/auth/send-verification", { method: "POST" });
+      await fetch("/api/auth/send-verification", { method:"POST" });
       setSent(true);
       onVerificationSent();
     } finally { setSending(false); }
@@ -85,17 +85,17 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
     setPwMsg(null);
     try {
       const res = await fetch("/api/auth/change-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ oldPassword: oldPw, newPassword: newPw }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Failed to change password.");
-      setPwMsg({ type: "success", text: "Password updated successfully." });
+      if (!res.ok) throw new Error(data.error ??"Failed to change password.");
+      setPwMsg({ type:"success", text:"Password updated successfully." });
       setOldPw(""); setNewPw("");
       setChangingPw(false);
     } catch (err: unknown) {
-      setPwMsg({ type: "error", text: err instanceof Error ? err.message : "Failed." });
+      setPwMsg({ type:"error", text: err instanceof Error ? err.message :"Failed." });
     } finally { setPwLoading(false); }
   };
 
@@ -119,7 +119,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           {/* Avatar */}
           <div className="relative shrink-0">
             <div
-              className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center ${avatarUrl ? "" : "bg-zinc-900 dark:bg-zinc-100"}`}
+              className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center ${avatarUrl ?"" :"bg-zinc-900 dark:bg-zinc-100"}`}
             >
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
@@ -136,8 +136,8 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               title="Upload photo"
             >
               {avatarUploading
-                ? <Loader2 size={13} className="text-white animate-spin" />
-                : <Camera size={13} className="text-white" />
+                ? <Loader2 size={13} className="text-white animate-spin text-purple-500 dark:text-purple-400" />
+                : <Camera size={13} className="text-white text-blue-500 dark:text-blue-400" />
               }
             </button>
 
@@ -156,16 +156,15 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <p className="text-sm text-zinc-400 dark:text-zinc-500 truncate">{userEmail}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
-                tier === "BUSINESS" ? "bg-blue-100 text-blue-700" :
-                tier === "PRO"      ? "bg-violet-100 text-violet-700" :
-                tier === "BASIC"    ? "bg-teal-100 text-teal-700" :
-                "bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                tier ==="BUSINESS" ?"bg-blue-100 text-blue-700" :
+                tier ==="PRO"      ?"bg-violet-100 text-violet-700" :
+                tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
               }`}>
                 {tier}
               </span>
               {emailVerified
-                ? <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-600"><CheckCircle2 size={11} /> Verified</span>
-                : <span className="flex items-center gap-1 text-[11px] font-medium text-amber-600"><AlertTriangle size={11} /> Unverified</span>
+                ? <span className="flex items-center gap-1 text-[11px] font-medium text-emerald-600"><CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={11} /> Verified</span>
+                : <span className="flex items-center gap-1 text-[11px] font-medium text-amber-600"><AlertTriangle className="text-amber-500 dark:text-amber-400"  size={11} /> Unverified</span>
               }
             </div>
           </div>
@@ -177,7 +176,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               disabled={avatarUploading}
               className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-zinc-900 dark:bg-zinc-950 hover:bg-zinc-900 dark:bg-zinc-950/90 transition-colors disabled:opacity-50"
             >
-              {avatarUploading ? "Uploading…" : "Change photo"}
+              {avatarUploading ?"Uploading…" :"Change photo"}
             </button>
             {avatarUrl && (
               <button
@@ -199,11 +198,11 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className={ROW}>
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
-                <User size={16} />
+                <User className="text-purple-500 dark:text-purple-400"  size={16} />
               </div>
               <div>
                 <p className={LABEL}>Display name</p>
-                <p className={DESC}>{userName ?? "Not set"}</p>
+                <p className={DESC}>{userName ??"Not set"}</p>
               </div>
             </div>
             <span className="text-xs text-zinc-400 dark:text-zinc-500">Coming soon</span>
@@ -212,7 +211,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className={ROW}>
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
-                <Mail size={16} />
+                <Mail className="text-blue-500 dark:text-blue-400"  size={16} />
               </div>
               <div>
                 <p className={LABEL}>Email address</p>
@@ -221,11 +220,11 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             </div>
             {emailVerified ? (
               <span className="flex items-center gap-1 text-xs font-medium text-emerald-600">
-                <CheckCircle2 size={13} /> Verified
+                <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={13} /> Verified
               </span>
             ) : sent ? (
               <span className="flex items-center gap-1 text-xs font-medium text-amber-600">
-                <CheckCircle2 size={13} /> Email sent
+                <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={13} /> Email sent
               </span>
             ) : (
               <button
@@ -233,7 +232,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                 disabled={sending}
                 className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:underline disabled:opacity-50"
               >
-                {sending ? <Loader2 size={12} className="animate-spin" /> : <AlertTriangle size={12} />}
+                {sending ? <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" /> : <AlertTriangle className="text-amber-500 dark:text-amber-400"  size={12} />}
                 Verify email
               </button>
             )}
@@ -249,7 +248,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
-                  <KeyRound size={16} />
+                  <KeyRound className="text-indigo-500 dark:text-indigo-400"  size={16} />
                 </div>
                 <div>
                   <p className={LABEL}>Password</p>
@@ -260,14 +259,14 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                 onClick={() => setChangingPw(v => !v)}
                 className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 hover:underline flex items-center gap-1"
               >
-                {changingPw ? "Cancel" : "Change"} <ChevronRight size={12} />
+                {changingPw ?"Cancel" :"Change"} <ChevronRight className="text-rose-500 dark:text-rose-400"  size={12} />
               </button>
             </div>
 
             {changingPw && (
               <form onSubmit={handlePasswordChange} className="mt-4 space-y-3">
                 {pwMsg && (
-                  <p className={`text-xs px-3 py-2 rounded-lg ${pwMsg.type === "success" ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"}`}>
+                  <p className={`text-xs px-3 py-2 rounded-lg ${pwMsg.type ==="success" ?"bg-emerald-50 text-emerald-700" :"bg-red-50 text-red-700"}`}>
                     {pwMsg.text}
                   </p>
                 )}
@@ -293,7 +292,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   disabled={pwLoading}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50"
                 >
-                  {pwLoading && <Loader2 size={14} className="animate-spin" />}
+                  {pwLoading && <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" />}
                   Update password
                 </button>
               </form>
@@ -320,16 +319,16 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               <div>
                 <p className={LABEL}>Google Sheets</p>
                 <p className={DESC}>
-                  {(tier === "PRO" || tier === "BUSINESS")
-                    ? "Export conversions directly to your Sheets"
-                    : "Upgrade to Pro to enable Google Sheets export"}
+                  {(tier ==="PRO" || tier ==="BUSINESS")
+                    ?"Export conversions directly to your Sheets"
+                    :"Upgrade to Pro to enable Google Sheets export"}
                 </p>
               </div>
             </div>
-            {(tier === "PRO" || tier === "BUSINESS") ? (
+            {(tier ==="PRO" || tier ==="BUSINESS") ? (
               sheetsConnected ? (
                 <span className="flex items-center gap-1 text-xs font-medium text-emerald-600">
-                  <CheckCircle2 size={13} /> Connected
+                  <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={13} /> Connected
                 </span>
               ) : (
                 <button
@@ -337,7 +336,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   disabled={sheetsConnecting}
                   className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-green-50 text-green-700 hover:bg-green-100 transition-colors disabled:opacity-50"
                 >
-                  {sheetsConnecting ? <Loader2 size={12} className="animate-spin" /> : <ExternalLink size={12} />}
+                  {sheetsConnecting ? <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" /> : <ExternalLink className="text-cyan-500 dark:text-cyan-400"  size={12} />}
                   Connect
                 </button>
               )
@@ -379,7 +378,7 @@ function NotifRow({ label, description, value, onChange }: {
     <div className="flex items-center justify-between px-5 py-4 gap-4">
       <div className="flex items-center gap-3">
         <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
-          <Bell size={16} />
+          <Bell className="text-amber-500 dark:text-amber-400"  size={16} />
         </div>
         <div>
           <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">{label}</p>
@@ -390,9 +389,9 @@ function NotifRow({ label, description, value, onChange }: {
         onClick={() => onChange(!value)}
         role="switch"
         aria-checked={value}
-        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ? "bg-zinc-900 dark:bg-zinc-100" : "bg-zinc-200 dark:bg-zinc-800"}`}
+        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ?"bg-zinc-900 dark:bg-zinc-100" :"bg-zinc-200 dark:bg-zinc-800"}`}
       >
-        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full shadow transition-transform duration-200 ${value ? "translate-x-5" : "translate-x-0"}`} />
+        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full shadow transition-transform duration-200 ${value ?"translate-x-5" :"translate-x-0"}`} />
       </button>
     </div>
   );

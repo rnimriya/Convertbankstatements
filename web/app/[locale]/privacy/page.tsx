@@ -1,26 +1,26 @@
-import Link from "next/link";
-import { Shield } from "lucide-react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import Link from"next/link";
+import { Shield } from"lucide-react";
+import { Navbar } from"@/components/layout/Navbar";
+import { Footer } from"@/components/layout/Footer";
 
 export const metadata = {
- title: "Privacy Policy — Convert Statement",
- description: "How Convert Statement collects, uses, and protects your personal and financial data.",
+ title:"Privacy Policy — Convert Statement",
+ description:"How Convert Statement collects, uses, and protects your personal and financial data.",
 };
 
 const SECTIONS = [
  {
- id: "overview",
- title: "1. Overview",
- content: `Convert Statement ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at convertstatement.online ("Service").
+ id:"overview",
+ title:"1. Overview",
+ content: `Convert Statement ("we","us", or"our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at convertstatement.online ("Service").
 
 We comply with the Information Technology Act, 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 (SPDI Rules), and applicable data protection laws of India.
 
 By using our Service, you consent to the practices described in this Policy.`,
  },
  {
- id: "data-collected",
- title: "2. Information We Collect",
+ id:"data-collected",
+ title:"2. Information We Collect",
  content: `We collect only what is necessary to provide the Service:
 
 **Account Information**
@@ -44,8 +44,8 @@ By using our Service, you consent to the practices described in this Policy.`,
 - We do not store any card numbers, UPI IDs, or bank account details. All payment processing is handled by Razorpay, which is PCI-DSS compliant. We receive only a transaction reference ID and payment status.`,
  },
  {
- id: "how-we-use",
- title: "3. How We Use Your Information",
+ id:"how-we-use",
+ title:"3. How We Use Your Information",
  content: `We use the information we collect to:
 
 - Provide, operate, and improve the Service
@@ -59,8 +59,8 @@ By using our Service, you consent to the practices described in this Policy.`,
 We do not use your financial data for advertising, profiling, or any purpose other than providing the conversion service you requested.`,
  },
  {
- id: "data-not-stored",
- title: "4. What We Do NOT Store",
+ id:"data-not-stored",
+ title:"4. What We Do NOT Store",
  content: `We explicitly do not:
 
 - Store your uploaded PDF bank statements after processing
@@ -73,8 +73,8 @@ We do not use your financial data for advertising, profiling, or any purpose oth
 Your financial documents belong to you. Once processing is complete, they are gone from our systems.`,
  },
  {
- id: "data-sharing",
- title: "5. Data Sharing & Third Parties",
+ id:"data-sharing",
+ title:"5. Data Sharing & Third Parties",
  content: `We share data only with trusted service providers required to operate the Service:
 
 **Razorpay** — Payment processing (PCI-DSS Level 1 certified). Razorpay's Privacy Policy governs data shared during payment transactions.
@@ -86,8 +86,8 @@ Your financial documents belong to you. Once processing is complete, they are go
 We do not sell your data to any third party under any circumstances.`,
  },
  {
- id: "data-security",
- title: "6. Data Security",
+ id:"data-security",
+ title:"6. Data Security",
  content: `We implement industry-standard security measures:
 
 - All connections use TLS 1.3 encryption (HTTPS)
@@ -101,8 +101,8 @@ We do not sell your data to any third party under any circumstances.`,
 While we implement robust protections, no system can guarantee 100% security. We encourage you to use a strong unique password and to log out after each session.`,
  },
  {
- id: "retention",
- title: "7. Data Retention",
+ id:"retention",
+ title:"7. Data Retention",
  content: `We retain different data for different periods:
 
 - **Account information** — Retained for the lifetime of your account. Deleted within 30 days of account closure.
@@ -114,8 +114,8 @@ While we implement robust protections, no system can guarantee 100% security. We
 You may request deletion of your account and all associated data at any time by contacting us.`,
  },
  {
- id: "your-rights",
- title: "8. Your Rights",
+ id:"your-rights",
+ title:"8. Your Rights",
  content: `Under applicable Indian and international data protection laws, you have the right to:
 
 - **Access** — Request a copy of the personal data we hold about you
@@ -127,8 +127,8 @@ You may request deletion of your account and all associated data at any time by 
 To exercise any of these rights, email us at privacy@convertstatement.online. We will respond within 30 days.`,
  },
  {
- id: "cookies",
- title: "9. Cookies & Local Storage",
+ id:"cookies",
+ title:"9. Cookies & Local Storage",
  content: `We use minimal, essential cookies only:
 
 - **Session cookie** (bs_token) — An HttpOnly, secure JWT cookie used to keep you logged in. Expires after 30 days.
@@ -137,20 +137,20 @@ To exercise any of these rights, email us at privacy@convertstatement.online. We
 We do not use third-party tracking cookies, advertising cookies, or analytics cookies.`,
  },
  {
- id: "children",
- title: "10. Children's Privacy",
+ id:"children",
+ title:"10. Children's Privacy",
  content: `Our Service is not directed to individuals under the age of 18. We do not knowingly collect personal information from minors. If you believe a minor has provided us personal information, please contact us and we will promptly delete it.`,
  },
  {
- id: "changes",
- title: "11. Changes to This Policy",
+ id:"changes",
+ title:"11. Changes to This Policy",
  content: `We may update this Privacy Policy from time to time. When we make material changes, we will notify you by email or by displaying a prominent notice on our website. Continued use of the Service after the effective date of any changes constitutes your acceptance of the updated Policy.
 
 The date this Policy was last updated is shown at the top of this page.`,
  },
  {
- id: "contact",
- title: "12. Contact Us",
+ id:"contact",
+ title:"12. Contact Us",
  content: `For privacy-related questions, requests, or concerns, please contact our Privacy Officer:
 
 **Email:** privacy@convertstatement.online
@@ -170,7 +170,7 @@ export default function PrivacyPage() {
  <div className="mx-auto max-w-3xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <Shield className="h-5 w-5 text-navy dark:text-violet-400" />
+ <Shield className="h-5 w-5 text-navy dark:text-violet-400 text-purple-500 dark:text-purple-400" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Privacy Policy</h1>
@@ -211,7 +211,7 @@ export default function PrivacyPage() {
  if (para.startsWith("**") && para.split("\n").length === 1) {
  return (
  <p key={i} className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
- {para.replace(/\*\*/g, "")}
+ {para.replace(/\*\*/g,"")}
  </p>
  );
  }
@@ -222,7 +222,7 @@ export default function PrivacyPage() {
  {parts.map((part, j) =>
  part.startsWith("**") ? (
  <strong key={j} className="font-semibold text-zinc-800 dark:text-zinc-200">
- {part.replace(/\*\*/g, "")}
+ {part.replace(/\*\*/g,"")}
  </strong>
  ) : (
  part
@@ -245,7 +245,7 @@ export default function PrivacyPage() {
  </div>
 
  <div className="mt-8 text-center text-xs text-zinc-400 dark:text-zinc-500">
- Questions?{" "}
+ Questions?{""}
  <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-violet-400 hover:underline">
  privacy@convertstatement.online
  </a>

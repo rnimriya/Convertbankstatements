@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Zap, Download, CheckCircle2, Loader2, X, FileSpreadsheet } from "lucide-react";
+import { useState } from"react";
+import { Zap, Download, CheckCircle2, Loader2, X, FileSpreadsheet } from"lucide-react";
 
-type DemoState = "idle" | "loading" | "done" | "error";
+type DemoState ="idle" |"loading" |"done" |"error";
 
 interface Transaction {
   date: string;
@@ -28,7 +28,7 @@ export function SamplePDFDemo() {
   async function runDemo() {
     setState("loading");
     try {
-      const res = await fetch("/api/process-statement?demo=true", { method: "POST" });
+      const res = await fetch("/api/process-statement?demo=true", { method:"POST" });
       if (!res.ok) throw new Error("Demo failed");
       const data = await res.json();
       setResult(data);
@@ -43,31 +43,31 @@ export function SamplePDFDemo() {
     setResult(null);
   }
 
-  if (state === "idle") {
+  if (state ==="idle") {
     return (
       <button
         onClick={runDemo}
         className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-900/40 dark:border-zinc-800 dark:hover:border-brand-400/40 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-violet-400 bg-white dark:bg-zinc-950 transition-colors"
       >
-        <Zap size={15} className="text-amber-500" />
+        <Zap size={15} className="text-amber-500 text-amber-500 dark:text-amber-400" />
         Try with sample PDF
       </button>
     );
   }
 
-  if (state === "loading") {
+  if (state ==="loading") {
     return (
       <button disabled className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 cursor-wait">
-        <Loader2 size={15} className="animate-spin" />
+        <Loader2 size={15} className="animate-spin text-purple-500 dark:text-purple-400" />
         Converting SBI sample…
       </button>
     );
   }
 
-  if (state === "error") {
+  if (state ==="error") {
     return (
       <button onClick={reset} className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-rose-600 border border-rose-200 dark:border-rose-800 bg-rose-50 dark:bg-rose-900/20 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition-colors">
-        <X size={15} />
+        <X className="text-rose-500 dark:text-rose-400"  size={15} />
         Demo failed — try again
       </button>
     );
@@ -79,11 +79,11 @@ export function SamplePDFDemo() {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-emerald-50 dark:bg-emerald-900/20 border-b border-emerald-100 dark:border-emerald-800">
         <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
-          <CheckCircle2 size={15} className="text-emerald-500" />
+          <CheckCircle2 size={15} className="text-emerald-500 text-emerald-500 dark:text-emerald-400" />
           <span className="text-sm font-semibold">Converted in {result?.processing_ms}ms</span>
         </div>
         <button onClick={reset} className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors">
-          <X size={14} />
+          <X className="text-rose-500 dark:text-rose-400"  size={14} />
         </button>
       </div>
 
@@ -98,7 +98,7 @@ export function SamplePDFDemo() {
           <p className="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">Pages</p>
         </div>
         <div className="px-4 py-3 text-center">
-          <p className="text-lg font-bold text-zinc-900 dark:text-white text-[13px] leading-tight mt-0.5">{result?.bank_name?.replace("State Bank of India", "SBI")}</p>
+          <p className="text-lg font-bold text-zinc-900 dark:text-white text-[13px] leading-tight mt-0.5">{result?.bank_name?.replace("State Bank of India","SBI")}</p>
           <p className="text-[10px] text-zinc-400 dark:text-zinc-500 uppercase tracking-wide">Bank</p>
         </div>
       </div>
@@ -117,11 +117,11 @@ export function SamplePDFDemo() {
             </thead>
             <tbody>
               {result?.transactions.slice(0, 3).map((tx, i) => (
-                <tr key={i} className={i % 2 === 0 ? "bg-white dark:bg-zinc-950" : "bg-zinc-50 dark:bg-zinc-900/50 dark:bg-white dark:bg-zinc-950/5"}>
+                <tr key={i} className={i % 2 === 0 ?"bg-white dark:bg-zinc-950" :"bg-zinc-50 dark:bg-zinc-900/50 dark:bg-white dark:bg-zinc-950/5"}>
                   <td className="px-2.5 py-2 text-zinc-600 dark:text-zinc-300 whitespace-nowrap">{tx.date}</td>
                   <td className="px-2.5 py-2 text-zinc-600 dark:text-zinc-300 truncate max-w-[120px]">{tx.description}</td>
-                  <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type === "credit" ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 dark:text-rose-400"}`}>
-                    {tx.type === "credit" ? "+" : "−"}₹{Math.abs(tx.amount).toLocaleString("en-IN")}
+                  <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type ==="credit" ?"text-emerald-600 dark:text-emerald-400" :"text-rose-500 dark:text-rose-400"}`}>
+                    {tx.type ==="credit" ?"+" :"−"}₹{Math.abs(tx.amount).toLocaleString("en-IN")}
                   </td>
                 </tr>
               ))}
@@ -138,7 +138,7 @@ export function SamplePDFDemo() {
             download="SBI_Sample_Converted.xlsx"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-violet-400 bg-zinc-900 dark:bg-zinc-950/[0.08] dark:bg-brand-400/10 hover:bg-zinc-900 dark:bg-zinc-950/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
           >
-            <FileSpreadsheet size={13} />
+            <FileSpreadsheet className="text-indigo-500 dark:text-indigo-400"  size={13} />
             Download
           </a>
         )}
@@ -148,7 +148,7 @@ export function SamplePDFDemo() {
             download="SBI_Sample_Converted.csv"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:border-zinc-700 dark:hover:border-white/20 rounded-lg transition-colors"
           >
-            <Download size={13} />
+            <Download className="text-emerald-500 dark:text-emerald-400"  size={13} />
             Download
           </a>
         )}

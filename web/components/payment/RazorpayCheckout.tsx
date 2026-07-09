@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Loader2, IndianRupee } from "lucide-react";
+import { useState } from"react";
+import { Loader2, IndianRupee } from"lucide-react";
 
 declare global {
   interface Window {
@@ -31,7 +31,7 @@ interface RazorpayResponse {
 }
 
 interface Props {
-  plan: "basic" | "basic_annual" | "pro" | "business" | "pro_annual" | "business_annual";
+  plan:"basic" |"basic_annual" |"pro" |"business" |"pro_annual" |"business_annual";
   label: string;
   amountINR: number;
   userEmail?: string;
@@ -46,7 +46,7 @@ function loadRazorpay(): Promise<boolean> {
   return new Promise((resolve) => {
     if (window.Razorpay) { resolve(true); return; }
     const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.src ="https://checkout.razorpay.com/v1/checkout.js";
     script.onload = () => resolve(true);
     script.onerror = () => resolve(false);
     document.body.appendChild(script);
@@ -66,43 +66,43 @@ export function RazorpayCheckout({
 
       // Create order on server
       const orderRes = await fetch("/api/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ plan, fileName, pageCount }),
       });
       const order = await orderRes.json();
-      if (!orderRes.ok) throw new Error(order.error ?? "Order creation failed.");
+      if (!orderRes.ok) throw new Error(order.error ??"Order creation failed.");
 
       // Open Razorpay checkout
       const rzp = new window.Razorpay({
         key: order.keyId,
         amount: order.amount,
-        currency: "INR",
-        name: "Convert Statement",
+        currency:"INR",
+        name:"Convert Statement",
         description: `${label} Plan`,
         order_id: order.orderId,
         subscription_id: order.subscriptionId,
         prefill: { email: userEmail },
-        theme: { color: "#0284c7" },
+        theme: { color:"#0284c7" },
         modal: {
           ondismiss: () => setLoading(false),
         },
         handler: async (response: RazorpayResponse) => {
           // Verify payment on server
           const verRes = await fetch("/api/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
+            method:"POST",
+            headers: {"Content-Type":"application/json" },
             body: JSON.stringify({ ...response, plan }),
           });
           const verData = await verRes.json();
-          if (!verRes.ok) throw new Error(verData.error ?? "Payment verification failed.");
+          if (!verRes.ok) throw new Error(verData.error ??"Payment verification failed.");
           onSuccess(plan);
           setLoading(false);
         },
       });
       rzp.open();
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Payment failed.";
+      const msg = err instanceof Error ? err.message :"Payment failed.";
       onError?.(msg);
       setLoading(false);
     }
@@ -115,11 +115,11 @@ export function RazorpayCheckout({
       className={className}
     >
       {loading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+        <Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" />
       ) : (
-        <IndianRupee className="h-4 w-4" />
+        <IndianRupee className="h-4 w-4 text-rose-500 dark:text-rose-400" />
       )}
-      {loading ? "Opening payment…" : label}
+      {loading ?"Opening payment…" : label}
     </button>
   );
 }

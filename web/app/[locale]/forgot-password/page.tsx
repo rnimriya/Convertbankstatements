@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import Link from "next/link";
-import { FileText, AlertCircle, CheckCircle2, Loader2, Mail, ArrowLeft } from "lucide-react";
+import { useState, FormEvent } from"react";
+import Link from"next/link";
+import { FileText, AlertCircle, CheckCircle2, Loader2, Mail, ArrowLeft } from"lucide-react";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -18,18 +18,18 @@ export default function ForgotPasswordPage() {
 
     try {
       const res = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ email: email.trim() }),
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Something went wrong.");
+      if (!res.ok) throw new Error(data.error ??"Something went wrong.");
 
       setSubmitted(true);
       if (data.resetUrl) setDevResetUrl(data.resetUrl);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message :"Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -50,7 +50,7 @@ export default function ForgotPasswordPage() {
           {submitted ? (
             <div className="flex flex-col items-center gap-4 text-center py-4">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-900/20 ring-4 ring-emerald-100 dark:ring-emerald-900/40">
-                <CheckCircle2 className="h-8 w-8 text-emerald-500" />
+                <CheckCircle2 className="h-8 w-8 text-emerald-500 text-emerald-500 dark:text-emerald-400" />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-zinc-900 dark:text-white">Check your inbox</h1>
@@ -70,7 +70,7 @@ export default function ForgotPasswordPage() {
                 </div>
               )}
               <Link href="/login" className="mt-2 flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-violet-400 hover:underline">
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="h-4 w-4 text-blue-500 dark:text-blue-400" />
                 Back to sign in
               </Link>
             </div>
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
             <>
               <div className="flex items-center gap-3 mb-2">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
-                  <Mail className="h-5 w-5 text-brand-600 dark:text-violet-400" />
+                  <Mail className="h-5 w-5 dark:text-violet-400 text-blue-500 dark:text-blue-400" />
                 </div>
                 <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Forgot password?</h1>
               </div>
@@ -88,7 +88,7 @@ export default function ForgotPasswordPage() {
 
               {error && (
                 <div className="mb-5 flex items-start gap-2 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
-                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 dark:text-amber-400" />
                   {error}
                 </div>
               )}
@@ -115,13 +115,13 @@ export default function ForgotPasswordPage() {
                   id="forgot-submit"
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
                 >
-                  {loading && <Loader2 className="h-4 w-4 animate-spin" />}
-                  {loading ? "Sending…" : "Send reset link"}
+                  {loading && <Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" />}
+                  {loading ?"Sending…" :"Send reset link"}
                 </button>
               </form>
 
               <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
-                Remember your password?{" "}
+                Remember your password?{""}
                 <Link href="/login" className="font-semibold text-brand-600 dark:text-violet-400 hover:underline">
                   Sign in
                 </Link>
@@ -131,7 +131,7 @@ export default function ForgotPasswordPage() {
         </div>
 
         <p className="mt-5 text-center text-xs text-zinc-400 dark:text-zinc-500">
-          Need help?{" "}
+          Need help?{""}
           <a href="mailto:support@convertstatement.online" className="underline hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300">
             Contact support
           </a>

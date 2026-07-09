@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from"react";
 import {
   Layers, CheckCircle2, XCircle, Clock, Loader2, RefreshCw,
   FileText, ChevronDown, Download, AlertTriangle,
-} from "lucide-react";
-import type { SubTier } from "@/types/billing";
-import { EmptyState } from "@/components/ui/EmptyState";
-import { Badge } from "@/components/ui/Badge";
+} from"lucide-react";
+import type { SubTier } from"@/types/billing";
+import { EmptyState } from"@/components/ui/EmptyState";
+import { Badge } from"@/components/ui/Badge";
 
 interface Job {
   id: string;
   fileName: string;
-  status: "queued" | "processing" | "done" | "failed";
+  status:"queued" |"processing" |"done" |"failed";
   pageCount: number | null;
   transactionCount: number | null;
   bankName: string | null;
@@ -28,11 +28,11 @@ interface Props {
   tier: SubTier;
 }
 
-const STATUS_CONFIG: Record<Job["status"], { label: string; icon: React.ReactNode; variant: "success" | "warning" | "brand" | "default" }> = {
-  queued:     { label: "Queued",     icon: <Clock size={12} />,      variant: "default" },
-  processing: { label: "Processing", icon: <Loader2 size={12} className="animate-spin" />, variant: "brand" },
-  done:       { label: "Done",       icon: <CheckCircle2 size={12} />, variant: "success" },
-  failed:     { label: "Failed",     icon: <XCircle size={12} />,    variant: "warning" },
+const STATUS_CONFIG: Record<Job["status"], { label: string; icon: React.ReactNode; variant:"success" |"warning" |"brand" |"default" }> = {
+  queued:     { label:"Queued",     icon: <Clock className="text-amber-500 dark:text-amber-400"  size={12} />,      variant:"default" },
+  processing: { label:"Processing", icon: <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" />, variant:"brand" },
+  done:       { label:"Done",       icon: <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={12} />, variant:"success" },
+  failed:     { label:"Failed",     icon: <XCircle className="text-rose-500 dark:text-rose-400"  size={12} />,    variant:"warning" },
 };
 
 export function QueuePanel({ userEmail, tier }: Props) {
@@ -56,7 +56,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
     // Poll every 5 s while there are active jobs
     const id = setInterval(() => {
       setJobs(prev => {
-        const hasActive = prev.some(j => j.status === "queued" || j.status === "processing");
+        const hasActive = prev.some(j => j.status ==="queued" || j.status ==="processing");
         if (hasActive) fetchJobs(true);
         return prev;
       });
@@ -67,7 +67,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
   const handleDownload = (fileName: string, fmt: string, url: string) => {
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${fileName.replace(".pdf", "")}_transactions.${fmt}`;
+    a.download = `${fileName.replace(".pdf","")}_transactions.${fmt}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -76,7 +76,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-40">
-        <Loader2 className="h-6 w-6 animate-spin text-zinc-400 dark:text-zinc-500" />
+        <Loader2 className="h-6 w-6 animate-spin dark: text-purple-500 dark:text-purple-400" />
       </div>
     );
   }
@@ -85,7 +85,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
     return (
       <div className="rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
         <EmptyState
-          icon={<Layers className="h-full w-full" />}
+          icon={<Layers className="h-full w-full text-amber-500 dark:text-amber-400" />}
           title="No jobs in queue"
           description="Async conversions submitted via Bulk Upload or the API will appear here."
         />
@@ -93,8 +93,8 @@ export function QueuePanel({ userEmail, tier }: Props) {
     );
   }
 
-  const active = jobs.filter(j => j.status === "queued" || j.status === "processing");
-  const done = jobs.filter(j => j.status === "done" || j.status === "failed");
+  const active = jobs.filter(j => j.status ==="queued" || j.status ==="processing");
+  const done = jobs.filter(j => j.status ==="done" || j.status ==="failed");
 
   return (
     <div className="space-y-4">
@@ -103,10 +103,10 @@ export function QueuePanel({ userEmail, tier }: Props) {
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           {active.length > 0 ? (
             <span className="flex items-center gap-1.5 text-navy dark:text-violet-400 font-medium">
-              <Loader2 size={14} className="animate-spin" /> {active.length} job{active.length > 1 ? "s" : ""} in progress…
+              <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> {active.length} job{active.length > 1 ?"s" :""} in progress…
             </span>
           ) : (
-            `${done.length} completed job${done.length !== 1 ? "s" : ""}`
+            `${done.length} completed job${done.length !== 1 ?"s" :""}`
           )}
         </p>
         <button
@@ -114,7 +114,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
           disabled={refreshing}
           className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 dark:hover:text-gray-200 transition-colors disabled:opacity-50"
         >
-          <RefreshCw size={13} className={refreshing ? "animate-spin" : ""} />
+          <RefreshCw size={13} className={refreshing ?"animate-spin" :""} />
           Refresh
         </button>
       </div>
@@ -125,7 +125,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
           const isExpanded = expanded === job.id;
           const hasDownloads = Object.keys(job.exportUrls).length > 0;
           const date = new Date(job.createdAt).toLocaleString("en-IN", {
-            month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
+            month:"short", day:"numeric", hour:"2-digit", minute:"2-digit",
           });
 
           return (
@@ -135,9 +135,9 @@ export function QueuePanel({ userEmail, tier }: Props) {
                 onClick={() => setExpanded(isExpanded ? null : job.id)}
               >
                 <div className="h-10 w-10 shrink-0 rounded-xl bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
-                  {job.status === "processing"
-                    ? <Loader2 size={20} className="text-brand-600 dark:text-violet-400 animate-spin" />
-                    : <FileText size={20} className="text-brand-600 dark:text-violet-400" />
+                  {job.status ==="processing"
+                    ? <Loader2 size={20} className="dark:text-violet-400 animate-spin text-purple-500 dark:text-purple-400" />
+                    : <FileText size={20} className="dark:text-violet-400 text-indigo-500 dark:text-indigo-400" />
                   }
                 </div>
 
@@ -161,7 +161,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                   {(hasDownloads || job.error) && (
                     <ChevronDown
                       size={16}
-                      className={`text-zinc-400 dark:text-zinc-500 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                      className={`dark:transition-transform ${isExpanded ?"rotate-180" :""}`}
                     />
                   )}
                 </div>
@@ -171,7 +171,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                 <div className="border-t border-zinc-100 dark:border-zinc-800 px-5 py-4 space-y-3">
                   {job.error && (
                     <div className="flex items-start gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-xl px-4 py-3">
-                      <AlertTriangle size={14} className="shrink-0 mt-0.5" />
+                      <AlertTriangle size={14} className="shrink-0 mt-0.5 text-amber-500 dark:text-amber-400" />
                       {job.error}
                     </div>
                   )}
@@ -185,17 +185,17 @@ export function QueuePanel({ userEmail, tier }: Props) {
                           className="flex w-full items-center justify-between rounded-xl bg-orange-500 hover:bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.3)] transition-all"
                         >
                           <span className="flex items-center gap-2">
-                            <FileText size={14} className="opacity-80" />
+                            <FileText size={14} className="opacity-80 text-indigo-500 dark:text-indigo-400" />
                             Download {fmt.toUpperCase()}
                           </span>
-                          <Download size={14} className="opacity-80" />
+                          <Download size={14} className="opacity-80 text-emerald-500 dark:text-emerald-400" />
                         </button>
                       ))}
                     </div>
                   )}
                   <p className="text-xs text-zinc-400 dark:text-zinc-500">
                     Submitted {date}
-                    {job.completedAt && ` · Completed ${new Date(job.completedAt).toLocaleString("en-IN", { hour: "2-digit", minute: "2-digit" })}`}
+                    {job.completedAt && ` · Completed ${new Date(job.completedAt).toLocaleString("en-IN", { hour:"2-digit", minute:"2-digit" })}`}
                   </p>
                 </div>
               )}

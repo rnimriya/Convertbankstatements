@@ -2,19 +2,19 @@
 
 import {
   CheckCircle2, Lock, Zap, Shield, BarChart3, Star,
-} from "lucide-react";
-import type { BillingContext } from "@/types/billing";
-import { UploadCard } from "@/components/upload/UploadCard";
+} from"lucide-react";
+import type { BillingContext } from"@/types/billing";
+import { UploadCard } from"@/components/upload/UploadCard";
 
 const TRUST_STATS = [
-  { icon: <Zap size={13} className="text-amber-400" />,    label: "~11s conversion" },
-  { icon: <Shield size={13} className="text-emerald-500" />, label: "Bank-grade security" },
-  { icon: <Lock size={13} className="text-sky-500" />,     label: "Files deleted instantly" },
-  { icon: <BarChart3 size={13} className="text-violet-500" />, label: "99.4% accuracy" },
+  { icon: <Zap size={13} className="text-amber-400 text-amber-500 dark:text-amber-400" />,    label:"~11s conversion" },
+  { icon: <Shield size={13} className="text-emerald-500 text-purple-500 dark:text-purple-400" />, label:"Bank-grade security" },
+  { icon: <Lock size={13} className="text-sky-500 text-rose-500 dark:text-rose-400" />,     label:"Files deleted instantly" },
+  { icon: <BarChart3 size={13} className="text-violet-500 text-purple-500 dark:text-purple-400" />, label:"99.4% accuracy" },
 ];
 
-const AVATAR_COLORS = ["bg-violet-500", "bg-emerald-500", "bg-amber-500", "bg-blue-600", "bg-rose-500"];
-const AVATAR_INITIALS = ["R", "S", "P", "A", "K"];
+const AVATAR_COLORS = ["bg-violet-500","bg-emerald-500","bg-amber-500","bg-blue-600","bg-rose-500"];
+const AVATAR_INITIALS = ["R","S","P","A","K"];
 
 interface Props {
   billing: BillingContext;
@@ -46,7 +46,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
         <div className="text-center mb-6 max-w-4xl mx-auto">
           <h1
             className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
-            style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
+            style={{ fontSize:"clamp(1.6rem, 3vw, 2.4rem)" }}
           >
             Free Bank Statement Converter
           </h1>
@@ -61,10 +61,10 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
 
           {/* Security note */}
           <div className="mt-4 flex items-center justify-center gap-2">
-            <CheckCircle2 size={14} className="text-zinc-500 shrink-0" />
+            <CheckCircle2 size={14} className="shrink-0 text-emerald-500 dark:text-emerald-400" />
             <p className="text-[12.5px] text-zinc-500">
               <span className="font-semibold text-zinc-700 dark:text-zinc-300">Bank-grade security</span>
-              {" "}— Files processed securely and deleted immediately
+              {""}— Files processed securely and deleted immediately
             </p>
           </div>
         </div>
@@ -88,7 +88,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="flex gap-0.5">
-                  {[0,1,2,3,4].map(i => <Star key={i} size={11} className="text-zinc-400 fill-zinc-400" />)}
+                  {[0,1,2,3,4].map(i => <Star key={i} size={11} className="fill-zinc-400 text-amber-500 dark:text-amber-400" />)}
                 </div>
                 <span className="text-[12px] text-zinc-500 font-medium">10,000+ users</span>
               </div>

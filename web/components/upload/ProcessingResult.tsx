@@ -1,11 +1,11 @@
 "use client";
 
-import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2 } from "lucide-react";
-import { useState } from "react";
-import type { ProcessResult, Transaction } from "@/types/billing";
-import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
-import { Alert } from "@/components/ui/Alert";
+import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2 } from"lucide-react";
+import { useState } from"react";
+import type { ProcessResult, Transaction } from"@/types/billing";
+import { Button } from"@/components/ui/Button";
+import { Badge } from"@/components/ui/Badge";
+import { Alert } from"@/components/ui/Alert";
 
 interface Props {
   result: ProcessResult & { is_demo?: boolean };
@@ -14,19 +14,19 @@ interface Props {
 }
 
 const FORMAT_LABELS: Record<string, string> = {
-  csv: "Download CSV",
-  xlsx: "Download Excel (.xlsx)",
-  ofx: "Download OFX (QuickBooks / Tally)",
-  qfx: "Download QFX (Quicken)",
-  sheets: "Download Google Sheets (CSV)",
+  csv:"Download CSV",
+  xlsx:"Download Excel (.xlsx)",
+  ofx:"Download OFX (QuickBooks / Tally)",
+  qfx:"Download QFX (Quicken)",
+  sheets:"Download Google Sheets (CSV)",
 };
 
 const FORMAT_EXTENSIONS: Record<string, string> = {
-  csv: "csv",
-  xlsx: "xlsx",
-  ofx: "ofx",
-  qfx: "qfx",
-  sheets: "csv",
+  csv:"csv",
+  xlsx:"xlsx",
+  ofx:"ofx",
+  qfx:"qfx",
+  sheets:"csv",
 };
 
 export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
@@ -39,8 +39,8 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
     setSheetsError(null);
     try {
       const res = await fetch("/api/google-sheets/export", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({
           fileName: result.file_name,
           transactions: result.transactions,
@@ -48,10 +48,10 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Export failed.");
+      if (!res.ok) throw new Error(data.error ??"Export failed.");
       setSheetsUrl(data.url);
     } catch (err: unknown) {
-      setSheetsError(err instanceof Error ? err.message : "Export failed.");
+      setSheetsError(err instanceof Error ? err.message :"Export failed.");
     } finally { setSheetsExporting(false); }
   };
 
@@ -59,7 +59,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
     const ext = FORMAT_EXTENSIONS[fmt] ?? fmt;
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${result.file_name.replace(".pdf", "")}_transactions.${ext}`;
+    a.download = `${result.file_name.replace(".pdf","")}_transactions.${ext}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -70,10 +70,10 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
       {/* Demo notice */}
       {result.is_demo && (
         <Alert variant="info" title="Sample data">
-          This is a demo using a sample SBI statement.{" "}
+          This is a demo using a sample SBI statement.{""}
           <a href="/signup" className="font-semibold underline hover:no-underline">
             Sign up free
-          </a>{" "}
+          </a>{""}
           to convert your own bank statements.
         </Alert>
       )}
@@ -81,7 +81,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
       {/* Success card */}
       <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 p-5 shadow-sm">
         <div className="flex items-start gap-3">
-          <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-emerald-500" />
+          <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-emerald-500 text-emerald-500 dark:text-emerald-400" />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="font-bold text-zinc-900 dark:text-zinc-200">Processing complete!</h3>
@@ -120,10 +120,10 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 className="flex w-full items-center justify-between rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.99] transition-all px-4 py-3 text-sm font-semibold text-white"
               >
                 <span className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-white/80" />
+                  <FileSpreadsheet className="h-4 w-4 text-white/80 text-indigo-500 dark:text-indigo-400" />
                   {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
                 </span>
-                <Download className="h-4 w-4 text-white/80" />
+                <Download className="h-4 w-4 text-white/80 text-emerald-500 dark:text-emerald-400" />
               </button>
             ))}
 
@@ -140,7 +140,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                     <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white/80"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".5"/></svg>
                     Open in Google Sheets
                   </span>
-                  <ExternalLink className="h-4 w-4 text-white/80" />
+                  <ExternalLink className="h-4 w-4 text-white/80 text-cyan-500 dark:text-cyan-400" />
                 </a>
               ) : (
                 <button
@@ -150,12 +150,12 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 >
                   <span className="flex items-center gap-2">
                     {sheetsExporting
-                      ? <Loader2 className="h-4 w-4 animate-spin" />
+                      ? <Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" />
                       : <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".4"/></svg>
                     }
-                    {sheetsExporting ? "Exporting to Google Sheets…" : "Export to Google Sheets"}
+                    {sheetsExporting ?"Exporting to Google Sheets…" :"Export to Google Sheets"}
                   </span>
-                  <ExternalLink className="h-4 w-4 opacity-60" />
+                  <ExternalLink className="h-4 w-4 opacity-60 text-cyan-500 dark:text-cyan-400" />
                 </button>
               )
             )}
@@ -171,7 +171,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-5 py-3 bg-zinc-50">
             <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-200">
-              <TrendingUp className="h-4 w-4 text-zinc-500 dark:text-violet-400" />
+              <TrendingUp className="h-4 w-4 dark:text-violet-400 text-cyan-500 dark:text-cyan-400" />
               Transaction preview
             </div>
             <Badge variant="default" size="sm">
@@ -187,8 +187,8 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                     {txn.date}{txn.category && ` · ${txn.category}`}
                   </p>
                 </div>
-                <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-zinc-900 dark:text-zinc-300"}`}>
-                  {txn.amount >= 0 ? "+" : ""}₹{Math.abs(txn.amount).toFixed(2)}
+                <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ?"text-emerald-600 dark:text-emerald-400" :"text-zinc-900 dark:text-zinc-300"}`}>
+                  {txn.amount >= 0 ?"+" :""}₹{Math.abs(txn.amount).toFixed(2)}
                 </span>
               </div>
             ))}
@@ -199,7 +199,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
       <Button
         variant="secondary"
         fullWidth
-        leftIcon={<RefreshCw className="h-4 w-4" />}
+        leftIcon={<RefreshCw className="h-4 w-4 text-rose-500 dark:text-rose-400" />}
         onClick={onReset}
       >
         Process another statement

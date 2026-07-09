@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check } from"lucide-react";
 
 function IconCSV() {
   return (
@@ -59,11 +59,11 @@ function IconSheets() {
 }
 
 const FORMATS = [
-  { id: "csv",    label: "CSV",           sub: "Universal",   Icon: IconCSV    },
-  { id: "xlsx",   label: "Excel",         sub: ".xlsx",       Icon: IconExcel  },
-  { id: "ofx",    label: "OFX",           sub: "Tally / Xero",Icon: IconOFX    },
-  { id: "qfx",    label: "QFX",           sub: "Quicken",     Icon: IconQFX    },
-  { id: "sheets", label: "Google Sheets", sub: "Direct sync", Icon: IconSheets },
+  { id:"csv",    label:"CSV",           sub:"Universal",   Icon: IconCSV    },
+  { id:"xlsx",   label:"Excel",         sub:".xlsx",       Icon: IconExcel  },
+  { id:"ofx",    label:"OFX",           sub:"Tally / Xero",Icon: IconOFX    },
+  { id:"qfx",    label:"QFX",           sub:"Quicken",     Icon: IconQFX    },
+  { id:"sheets", label:"Google Sheets", sub:"Direct sync", Icon: IconSheets },
 ] as const;
 
 interface Props {
@@ -93,30 +93,30 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
             style={
               active
                 ? {
-                    background: "linear-gradient(135deg,#1A47C8,#3b6ef5)",
-                    borderColor: "#1A47C8",
-                    boxShadow: "0 6px 20px rgba(26,71,200,0.28)",
+                    background:"linear-gradient(135deg,#1A47C8,#3b6ef5)",
+                    borderColor:"#1A47C8",
+                    boxShadow:"0 6px 20px rgba(26,71,200,0.28)",
                   }
                 : {
-                    background: "#ffffff",
-                    borderColor: "#e2e8f0",
+                    background:"#ffffff",
+                    borderColor:"#e2e8f0",
                   }
             }
           >
             {/* Active check badge */}
             {active && (
               <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-white dark:bg-zinc-950/20 flex items-center justify-center">
-                <Check size={10} className="text-white" />
+                <Check size={10} className="text-white text-emerald-500 dark:text-emerald-400" />
               </div>
             )}
 
             <Icon />
 
             <div>
-              <p className={`text-sm font-bold leading-tight ${active ? "text-white" : "text-zinc-800 dark:text-zinc-200"}`}>
+              <p className={`text-sm font-bold leading-tight ${active ?"text-white" :"text-zinc-800 dark:text-zinc-200"}`}>
                 {label}
               </p>
-              <p className={`text-[10px] mt-0.5 leading-tight ${active ? "text-white/65" : "text-zinc-400 dark:text-zinc-500"}`}>
+              <p className={`text-[10px] mt-0.5 leading-tight ${active ?"text-white/65" :"text-zinc-400 dark:text-zinc-500"}`}>
                 {sub}
               </p>
             </div>

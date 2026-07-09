@@ -1,25 +1,25 @@
-import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import { getTranslations } from "next-intl/server";
-import { headers } from "next/headers";
-import { Link } from "@/i18n/navigation";
+import type { Metadata } from"next";
+import type { ReactNode } from"react";
+import { getTranslations } from"next-intl/server";
+import { headers } from"next/headers";
+import { Link } from"@/i18n/navigation";
 import {
   ArrowRight, CheckCircle2, Zap, Lock, Globe,
   Download, Upload, Shield, Clock, CreditCard, FileCheck, Star,
   Sparkles, ChevronRight, FileText, BarChart3,
-} from "lucide-react";
-import { Footer } from "@/components/layout/Footer";
-import { Navbar } from "@/components/layout/Navbar";
-import { PricingCards } from "@/components/PricingCards";
-import { FAQAccordion } from "@/components/home/FAQAccordion";
-import { HeroSectionWrapper } from "@/components/home/HeroSectionWrapper";
-import { BankMarquee } from "@/components/home/BankMarquee";
+} from"lucide-react";
+import { Footer } from"@/components/layout/Footer";
+import { Navbar } from"@/components/layout/Navbar";
+import { PricingCards } from"@/components/PricingCards";
+import { FAQAccordion } from"@/components/home/FAQAccordion";
+import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
+import { BankMarquee } from"@/components/home/BankMarquee";
 
 export const metadata: Metadata = {
-  alternates: { canonical: "https://convertstatement.online" },
+  alternates: { canonical:"https://convertstatement.online" },
 };
 
-import { SUPPORTED_BANKS } from "@/lib/config/banks";
+import { SUPPORTED_BANKS } from"@/lib/config/banks";
 
 const BANKS = Array.from(new Set(SUPPORTED_BANKS.map((b) => b[1])));
 export default async function HomePage() {
@@ -40,66 +40,66 @@ export default async function HomePage() {
     badge?: string; chips?: string[];
   };
   const FEATURES: Feature[] = [
-    { icon: <Zap size={22} className="text-brand-text" />, gradient: "", glow: "", stat: "15", statSuffix: "s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
-    { icon: <Shield size={22} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge: "Zero storage" },
-    { icon: <FileCheck size={22} className="text-brand-text" />, gradient: "", glow: "", stat: "99.4", statSuffix: "%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
-    { icon: <FileText size={22} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel", "CSV", "OFX / Tally", "QFX / QuickBooks", "Google Sheets"] },
-    { icon: <Globe size={22} className="text-brand-text" />, gradient: "", glow: "", stat: "30", statSuffix: "+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
-    { icon: <Lock size={20} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
-    { icon: <CreditCard size={20} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
-    { icon: <Clock size={20} className="text-brand-text" />, gradient: "", glow: "", title: tFeat("instantTitle"), body: tFeat("instantBody") },
+    { icon: <Zap size={22} className="text-amber-500 dark:text-amber-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
+    { icon: <Shield size={22} className="text-purple-500 dark:text-purple-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage" },
+    { icon: <FileCheck size={22} className="text-purple-500 dark:text-purple-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
+    { icon: <FileText size={22} className="text-indigo-500 dark:text-indigo-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","OFX / Tally","QFX / QuickBooks","Google Sheets"] },
+    { icon: <Globe size={22} className="text-cyan-500 dark:text-cyan-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
+    { icon: <Lock size={20} className="text-rose-500 dark:text-rose-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
+    { icon: <CreditCard size={20} className="text-purple-500 dark:text-purple-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
+    { icon: <Clock size={20} className="text-amber-500 dark:text-amber-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody") },
   ];
 
 
 
 
   const stats = [
-    { value: "15s",   label: tStats("conversion"), icon: "⚡" },
-    { value: "30+",   label: tStats("banks"),       icon: "🏦" },
-    { value: "99.4%", label: tStats("accuracy"),    icon: "✓" },
-    { value: "$1",   label: tStats("perDoc"),      icon: "₹" },
+    { value:"15s",   label: tStats("conversion"), icon:"⚡" },
+    { value:"30+",   label: tStats("banks"),       icon:"🏦" },
+    { value:"99.4%", label: tStats("accuracy"),    icon:"✓" },
+    { value:"$1",   label: tStats("perDoc"),      icon:"₹" },
   ];
 
   const steps = [
     {
-      n: "01",
-      icon: <Upload size={20} />,
+      n:"01",
+      icon: <Upload className="text-blue-500 dark:text-blue-400"  size={20} />,
       title: tHow("step1Title"),
       body: tHow("step1Body"),
-      gradient: "bg-zinc-100 text-zinc-900",
-      glow: "",
+      gradient:"bg-zinc-100 text-zinc-900",
+      glow:"",
     },
     {
-      n: "02",
-      icon: <FileCheck size={20} />,
+      n:"02",
+      icon: <FileCheck className="text-purple-500 dark:text-purple-400"  size={20} />,
       title: tHow("step2Title"),
       body: tHow("step2Body"),
-      gradient: "bg-zinc-100 text-zinc-900",
-      glow: "",
+      gradient:"bg-zinc-100 text-zinc-900",
+      glow:"",
     },
     {
-      n: "03",
-      icon: <Download size={20} />,
+      n:"03",
+      icon: <Download className="text-emerald-500 dark:text-emerald-400"  size={20} />,
       title: tHow("step3Title"),
       body: tHow("step3Body"),
-      gradient: "bg-zinc-100 text-zinc-900",
-      glow: "",
+      gradient:"bg-zinc-100 text-zinc-900",
+      glow:"",
     },
   ];
 
   const testimonials = [
-    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial: "V", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial: "M", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial: "D", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial: "P", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial: "R", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial: "A", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial: "V", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial: "M", color: "bg-zinc-200 text-zinc-800" },
-    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial: "D", color: "bg-zinc-200 text-zinc-800" },
+    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial:"P", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial:"R", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial:"A", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial:"V", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial:"M", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial:"D", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial:"P", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial:"R", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial:"A", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial:"V", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial:"M", color:"bg-zinc-200 text-zinc-800" },
+    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial:"D", color:"bg-zinc-200 text-zinc-800" },
   ];
 
   const faqs = [
@@ -114,29 +114,24 @@ export default async function HomePage() {
   const doubled  = [...BANKS, ...BANKS];
   const doubled2 = [...BANKS.slice(12), ...BANKS, ...BANKS.slice(0, 12)];
 
-  const softwareAppSchema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Convert Statement",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "Web",
-    url: "https://convertstatement.online",
-    description: "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
+  const softwareAppSchema = {"@context":"https://schema.org","@type":"SoftwareApplication",
+    name:"Convert Statement",
+    applicationCategory:"FinanceApplication",
+    operatingSystem:"Web",
+    url:"https://convertstatement.online",
+    description:"Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
     offers: [
-      { "@type": "Offer", name: "Free tier", price: "0", priceCurrency: "INR" },
+      {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"INR" },
 
-      { "@type": "Offer", name: "Pro", price: "1198", priceCurrency: "INR" },
-      { "@type": "Offer", name: "Business", price: "4498", priceCurrency: "INR" },
+      {"@type":"Offer", name:"Pro", price:"1198", priceCurrency:"INR" },
+      {"@type":"Offer", name:"Business", price:"4498", priceCurrency:"INR" },
     ],
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map(({ q, a }) => ({
-      "@type": "Question",
+  const faqSchema = {"@context":"https://schema.org","@type":"FAQPage",
+    mainEntity: faqs.map(({ q, a }) => ({"@type":"Question",
       name: q,
-      acceptedAnswer: { "@type": "Answer", text: a },
+      acceptedAnswer: {"@type":"Answer", text: a },
     })),
   };
 
@@ -177,7 +172,7 @@ export default async function HomePage() {
 
                   {idx < 2 && (
                     <div className="hidden md:flex absolute -right-3.5 top-1/2 -translate-y-1/2 z-20 w-7 h-7 rounded-full bg-white dark:bg-zinc-900 border border-brand-border items-center justify-center">
-                      <ChevronRight size={13} className="text-zinc-400" />
+                      <ChevronRight size={13} className="text-rose-500 dark:text-rose-400" />
                     </div>
                   )}
                 </div>
@@ -219,7 +214,7 @@ export default async function HomePage() {
 
                     {f.badge && (
                       <div className="mt-4 inline-flex items-center gap-1.5 self-start text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
-                        <CheckCircle2 size={11} /> {f.badge}
+                        <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={11} /> {f.badge}
                       </div>
                     )}
 
@@ -252,14 +247,14 @@ export default async function HomePage() {
           {/* Marquee of testimonial cards */}
           <div
             className="relative"
-            style={{ maskImage: "linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%)", WebkitMaskImage: "linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%)" }}
+            style={{ maskImage:"linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%)", WebkitMaskImage:"linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%)" }}
           >
-            <div className="flex gap-5 w-max animate-marquee" style={{ animationDuration: "30s" }}>
+            <div className="flex gap-5 w-max animate-marquee" style={{ animationDuration:"30s" }}>
               {[...testimonials, ...testimonials].map(({ text, name, role, initial, color }, i) => (
                 <div key={i} className="shrink-0 w-80 rounded-2xl border border-brand-border bg-white dark:bg-zinc-900 p-6 flex flex-col hover:bg-brand-surface/80 transition-colors">
                   <div className="flex gap-0.5 mb-3">
                     {Array.from({ length: 5 }).map((_, j) => (
-                      <Star key={j} size={12} className="text-zinc-400 fill-zinc-400" />
+                      <Star key={j} size={12} className="fill-zinc-400 text-amber-500 dark:text-amber-400" />
                     ))}
                   </div>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1 mb-5">{text}</p>
@@ -340,13 +335,13 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold transition-colors shadow-xl dark:shadow-none bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none">
                 <span>{tCta("button")}</span>
-                <ArrowRight size={15} />
+                <ArrowRight className="text-amber-500 dark:text-amber-400"  size={15} />
               </Link>
               <Link
                 href="/pricing"
                 className="inline-flex items-center gap-2 px-6 py-4 rounded-xl text-sm font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors"
               >
-                View pricing <ChevronRight size={14} />
+                View pricing <ChevronRight className="text-rose-500 dark:text-rose-400"  size={14} />
               </Link>
             </div>
             <p className="mt-8 text-xs text-brand-muted">{tCta("note")}</p>

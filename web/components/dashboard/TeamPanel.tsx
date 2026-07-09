@@ -1,17 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Users, Mail, X, Crown, UserPlus, Loader2 } from "lucide-react";
-import type { SubTier } from "@/types/billing";
-import { EmptyState } from "@/components/ui/EmptyState";
+import { useState, useEffect } from"react";
+import { Users, Mail, X, Crown, UserPlus, Loader2 } from"lucide-react";
+import type { SubTier } from"@/types/billing";
+import { EmptyState } from"@/components/ui/EmptyState";
 
 interface Member {
   id: string;
   email: string;
   name: string | null;
-  role: "owner" | "member";
+  role:"owner" |"member";
   joinedAt: string;
-  status: "active" | "pending";
+  status:"active" |"pending";
 }
 
 interface Props {
@@ -26,13 +26,13 @@ export function TeamPanel({ tier, userEmail }: Props) {
   const [loading, setLoading] = useState(true);
   const [inviteEmail, setInviteEmail] = useState("");
   const [inviting, setInviting] = useState(false);
-  const [inviteMsg, setInviteMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [inviteMsg, setInviteMsg] = useState<{ type:"success" |"error"; text: string } | null>(null);
   const [removing, setRemoving] = useState<string | null>(null);
 
   const maxSeats = MAX_SEATS[tier] ?? 0;
 
   useEffect(() => {
-    if (tier !== "BUSINESS") { setLoading(false); return; }
+    if (tier !=="BUSINESS") { setLoading(false); return; }
     fetch("/api/team")
       .then(r => r.json())
       .then(d => setMembers(d.members ?? []))
@@ -47,24 +47,24 @@ export function TeamPanel({ tier, userEmail }: Props) {
     setInviteMsg(null);
     try {
       const res = await fetch("/api/team/invite", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ email: inviteEmail.trim() }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Failed to send invite.");
-      setInviteMsg({ type: "success", text: `Invitation sent to ${inviteEmail}` });
+      if (!res.ok) throw new Error(data.error ??"Failed to send invite.");
+      setInviteMsg({ type:"success", text: `Invitation sent to ${inviteEmail}` });
       setInviteEmail("");
       setMembers(m => [...m, {
         id: data.memberId ?? Math.random().toString(),
         email: inviteEmail.trim(),
         name: null,
-        role: "member",
+        role:"member",
         joinedAt: new Date().toISOString(),
-        status: "pending",
+        status:"pending",
       }]);
     } catch (err: unknown) {
-      setInviteMsg({ type: "error", text: err instanceof Error ? err.message : "Failed." });
+      setInviteMsg({ type:"error", text: err instanceof Error ? err.message :"Failed." });
     } finally { setInviting(false); }
   };
 
@@ -72,19 +72,19 @@ export function TeamPanel({ tier, userEmail }: Props) {
     if (!confirm(`Remove ${memberEmail} from your team?`)) return;
     setRemoving(memberId);
     try {
-      await fetch(`/api/team/member/${memberId}`, { method: "DELETE" });
+      await fetch(`/api/team/member/${memberId}`, { method:"DELETE" });
       setMembers(m => m.filter(x => x.id !== memberId));
     } finally { setRemoving(null); }
   };
 
-  if (tier !== "BUSINESS") {
+  if (tier !=="BUSINESS") {
     return (
       <div className="rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
         <EmptyState
-          icon={<Users className="h-full w-full" />}
+          icon={<Users className="h-full w-full text-purple-500 dark:text-purple-400" />}
           title="Team seats require Business plan"
           description="Upgrade to Business to add up to 5 team members and get API access."
-          cta={{ label: "View Business plan", href: "#billing", variant: "primary", size: "sm" }}
+          cta={{ label:"View Business plan", href:"#billing", variant:"primary", size:"sm" }}
         />
       </div>
     );
@@ -93,13 +93,13 @@ export function TeamPanel({ tier, userEmail }: Props) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-40">
-        <Loader2 className="h-6 w-6 animate-spin text-zinc-400 dark:text-zinc-500" />
+        <Loader2 className="h-6 w-6 animate-spin dark: text-purple-500 dark:text-purple-400" />
       </div>
     );
   }
 
-  const activeMembers = members.filter(m => m.status === "active");
-  const pendingMembers = members.filter(m => m.status === "pending");
+  const activeMembers = members.filter(m => m.status ==="active");
+  const pendingMembers = members.filter(m => m.status ==="pending");
   const seatsFilled = members.length;
   const seatsLeft = maxSeats - seatsFilled;
 
@@ -111,7 +111,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
-              <Users size={20} className="text-blue-600 dark:text-blue-400" />
+              <Users size={20} className="text-blue-600 dark:text-blue-400 text-purple-500 dark:text-purple-400" />
             </div>
             <div>
               <p className="font-semibold text-zinc-800 dark:text-zinc-200">Team seats</p>
@@ -137,15 +137,15 @@ export function TeamPanel({ tier, userEmail }: Props) {
       {seatsLeft > 0 && (
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-5 shadow-sm">
           <h3 className="font-semibold text-zinc-800 dark:text-zinc-200 mb-4 flex items-center gap-2">
-            <UserPlus size={16} className="text-zinc-400 dark:text-zinc-500" />
+            <UserPlus size={16} className="dark: text-purple-500 dark:text-purple-400" />
             Invite team member
           </h3>
 
           {inviteMsg && (
             <div className={`mb-4 px-4 py-3 rounded-xl text-sm ${
-              inviteMsg.type === "success"
-                ? "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
-                : "bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"
+              inviteMsg.type ==="success"
+                ?"bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
+                :"bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"
             }`}>
               {inviteMsg.text}
             </div>
@@ -165,7 +165,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
               disabled={inviting}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
             >
-              {inviting ? <Loader2 size={14} className="animate-spin" /> : <Mail size={14} />}
+              {inviting ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <Mail className="text-blue-500 dark:text-blue-400"  size={14} />}
               Send invite
             </button>
           </form>
@@ -217,14 +217,14 @@ export function TeamPanel({ tier, userEmail }: Props) {
 function MemberRow({ email, name, role, status, joinedAt, onRemove, removing }: {
   email: string;
   name: string | null;
-  role: "owner" | "member";
-  status: "active" | "pending";
+  role:"owner" |"member";
+  status:"active" |"pending";
   joinedAt: string;
   onRemove: (() => void) | null;
   removing: boolean;
 }) {
   const initial = (name ?? email)[0].toUpperCase();
-  const date = new Date(joinedAt).toLocaleDateString("en-IN", { month: "short", day: "numeric", year: "numeric" });
+  const date = new Date(joinedAt).toLocaleDateString("en-IN", { month:"short", day:"numeric", year:"numeric" });
 
   return (
     <div className="flex items-center gap-3 px-5 py-3.5">
@@ -234,27 +234,27 @@ function MemberRow({ email, name, role, status, joinedAt, onRemove, removing }: 
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 flex-wrap">
           <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200 truncate">{name ?? email}</p>
-          {role === "owner" && (
+          {role ==="owner" && (
             <span className="flex items-center gap-0.5 text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-1.5 py-0.5 rounded-full">
-              <Crown size={9} /> Owner
+              <Crown className="text-emerald-500 dark:text-emerald-400"  size={9} /> Owner
             </span>
           )}
-          {status === "pending" && (
+          {status ==="pending" && (
             <span className="text-[10px] font-bold text-zinc-400 dark:text-zinc-500 bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 px-1.5 py-0.5 rounded-full">
               Pending
             </span>
           )}
         </div>
-        <p className="text-xs text-zinc-400 dark:text-zinc-500">{name ? email : ""} · Joined {date}</p>
+        <p className="text-xs text-zinc-400 dark:text-zinc-500">{name ? email :""} · Joined {date}</p>
       </div>
-      {onRemove && role !== "owner" && (
+      {onRemove && role !=="owner" && (
         <button
           onClick={onRemove}
           disabled={removing}
           className="p-1.5 rounded-lg text-zinc-400 dark:text-zinc-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50"
           title="Remove member"
         >
-          {removing ? <Loader2 size={14} className="animate-spin" /> : <X size={14} />}
+          {removing ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <X className="text-rose-500 dark:text-rose-400"  size={14} />}
         </button>
       )}
     </div>

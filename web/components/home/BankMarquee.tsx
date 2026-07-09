@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from"lucide-react";
 
 interface BankMarqueeProps {
   banks: string[];
@@ -13,20 +13,20 @@ export function BankMarquee({ banks }: BankMarqueeProps) {
   const row3 = banks.slice(Math.ceil((banks.length * 2) / 3));
 
   // Duplicating the list to create a seamless infinite loop
-  const Row = ({ items, reverse = false, speedClass = "animate-marquee" }: { items: string[], reverse?: boolean, speedClass?: string }) => (
+  const Row = ({ items, reverse = false, speedClass ="animate-marquee" }: { items: string[], reverse?: boolean, speedClass?: string }) => (
     <div className="flex overflow-hidden relative w-full group mask-image-fade">
       <div
         className={`flex whitespace-nowrap min-w-full ${speedClass} ${
-          reverse ? "animation-direction-reverse" : ""
+          reverse ?"animation-direction-reverse" :""
         } group-hover:[animation-play-state:paused]`}
-        style={{ animationDirection: reverse ? "reverse" : "normal" }}
+        style={{ animationDirection: reverse ?"reverse" :"normal" }}
       >
         {[...items, ...items].map((bank, i) => (
           <div
             key={i}
             className="px-5 py-3 mx-2 bg-brand-surface border border-brand-border rounded-xl text-sm font-semibold text-brand-text shadow-sm flex items-center gap-2 flex-shrink-0 backdrop-blur-sm bg-brand-surface/50 hover:bg-brand-surface transition-colors"
           >
-            <CheckCircle2 size={15} className="text-brand-secondary" />
+            <CheckCircle2 size={15} className="text-emerald-500 dark:text-emerald-400" />
             {bank}
           </div>
         ))}

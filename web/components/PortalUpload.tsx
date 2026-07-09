@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { Upload, Loader2, CheckCircle2, FileSpreadsheet, Download, AlertCircle } from "lucide-react";
+import { useState, useRef } from"react";
+import { Upload, Loader2, CheckCircle2, FileSpreadsheet, Download, AlertCircle } from"lucide-react";
 
 interface Props {
   portalToken: string;
   portalLabel: string;
 }
 
-type Phase = "idle" | "uploading" | "done" | "error";
+type Phase ="idle" |"uploading" |"done" |"error";
 
 interface ExportUrls { csv?: string; xlsx?: string }
 
@@ -34,20 +34,20 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
 
     const fd = new FormData();
     fd.append("file", file);
-    fd.append("export_formats", "csv,xlsx");
+    fd.append("export_formats","csv,xlsx");
     fd.append("portal_token", portalToken);
 
     try {
-      const res = await fetch("/api/process-statement", { method: "POST", body: fd });
+      const res = await fetch("/api/process-statement", { method:"POST", body: fd });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message ?? data.error ?? "Processing failed");
+      if (!res.ok) throw new Error(data.message ?? data.error ??"Processing failed");
 
       setTxCount(data.transaction_count ?? 0);
-      setBankName(data.bank_name ?? "Unknown bank");
+      setBankName(data.bank_name ??"Unknown bank");
       setExportUrls(data.export_urls ?? {});
       setPhase("done");
     } catch (err: unknown) {
-      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
+      setErrorMsg(err instanceof Error ? err.message :"Something went wrong.");
       setPhase("error");
     }
   }
@@ -76,16 +76,16 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
 
         {/* Upload card */}
         <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm overflow-hidden">
-          {phase === "idle" && (
+          {phase ==="idle" && (
             <div
               onClick={() => inputRef.current?.click()}
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={onDrop}
-              className={`flex flex-col items-center justify-center gap-4 p-10 cursor-pointer transition-colors ${dragOver ? "bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 border-zinc-900/30 dark:border-zinc-800" : "hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5"}`}
+              className={`flex flex-col items-center justify-center gap-4 p-10 cursor-pointer transition-colors ${dragOver ?"bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 border-zinc-900/30 dark:border-zinc-800" :"hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5"}`}
             >
               <div className="w-14 h-14 rounded-2xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center">
-                <Upload size={24} className="text-navy dark:text-violet-400" />
+                <Upload size={24} className="text-navy dark:text-violet-400 text-blue-500 dark:text-blue-400" />
               </div>
               <div className="text-center">
                 <p className="font-semibold text-zinc-800 dark:text-white">Drop your PDF here</p>
@@ -96,9 +96,9 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
             </div>
           )}
 
-          {phase === "uploading" && (
+          {phase ==="uploading" && (
             <div className="flex flex-col items-center justify-center gap-4 p-10">
-              <Loader2 size={36} className="text-navy dark:text-violet-400 animate-spin" />
+              <Loader2 size={36} className="text-navy dark:text-violet-400 animate-spin text-purple-500 dark:text-purple-400" />
               <div className="text-center">
                 <p className="font-semibold text-zinc-800 dark:text-white">Converting…</p>
                 <p className="text-sm text-zinc-400 dark:text-zinc-500 truncate max-w-[260px]">{fileName}</p>
@@ -106,11 +106,11 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
             </div>
           )}
 
-          {phase === "done" && (
+          {phase ==="done" && (
             <div className="p-8">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={20} className="text-emerald-600" />
+                  <CheckCircle2 size={20} className="text-emerald-600 text-emerald-500 dark:text-emerald-400" />
                 </div>
                 <div>
                   <p className="font-semibold text-zinc-900 dark:text-white">Conversion complete!</p>
@@ -122,24 +122,24 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                 {exportUrls.xlsx && (
                   <a
                     href={exportUrls.xlsx}
-                    download={fileName.replace(".pdf", ".xlsx")}
+                    download={fileName.replace(".pdf",".xlsx")}
                     className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
                   >
-                    <FileSpreadsheet size={15} />
+                    <FileSpreadsheet className="text-indigo-500 dark:text-indigo-400"  size={15} />
                     Download Excel (.xlsx)
                   </a>
                 )}
                 {exportUrls.csv && (
                   <a
                     href={exportUrls.csv}
-                    download={fileName.replace(".pdf", ".csv")}
+                    download={fileName.replace(".pdf",".csv")}
                     className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold transition-all shadow-[0_2px_12px_rgba(249,115,22,0.35)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.45)]"
                   >
                     <span className="flex items-center gap-2">
-                      <Download size={15} />
+                      <Download className="text-emerald-500 dark:text-emerald-400"  size={15} />
                       Download CSV
                     </span>
-                    <Download size={15} className="text-white/70" />
+                    <Download size={15} className="text-white/70 text-emerald-500 dark:text-emerald-400" />
                   </a>
                 )}
               </div>
@@ -153,10 +153,10 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
             </div>
           )}
 
-          {phase === "error" && (
+          {phase ==="error" && (
             <div className="p-8 flex flex-col items-center gap-4 text-center">
               <div className="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                <AlertCircle size={22} className="text-red-500" />
+                <AlertCircle size={22} className="text-red-500 text-amber-500 dark:text-amber-400" />
               </div>
               <div>
                 <p className="font-semibold text-zinc-900 dark:text-white">Upload failed</p>

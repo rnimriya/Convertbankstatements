@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { useState, FormEvent } from"react";
+import { useRouter } from"next/navigation";
+import { Loader2 } from"lucide-react";
 
-const INPUT =
-  "w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
+const INPUT ="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
 
 export function NewPostForm() {
   const router = useRouter();
@@ -31,8 +30,8 @@ export function NewPostForm() {
   const autoSlug = (s: string) =>
     s
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
+      .replace(/[^a-z0-9]+/g,"-")
+      .replace(/^-|-$/g,"");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -44,25 +43,25 @@ export function NewPostForm() {
     setLoading(true);
     try {
       const res = await fetch("/api/blog", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({
           title: title.trim(),
           slug: slug.trim(),
           excerpt: excerpt.trim(),
           content: content.trim(),
           featureImage: featureImage.trim() || undefined,
-          author: author.trim() || "Convert Statement Team",
+          author: author.trim() ||"Convert Statement Team",
           tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
           published,
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Failed to create post.");
+      if (!res.ok) throw new Error(data.error ??"Failed to create post.");
       router.push("/admin/blog");
       router.refresh();
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message :"Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -92,7 +91,7 @@ export function NewPostForm() {
           className={INPUT}
           required
         />
-        <p className="text-xs text-zinc-400 dark:text-zinc-500">URL: /blog/{slug || "your-slug"}</p>
+        <p className="text-xs text-zinc-400 dark:text-zinc-500">URL: /blog/{slug ||"your-slug"}</p>
       </div>
 
       <div className="space-y-1.5">
@@ -102,7 +101,7 @@ export function NewPostForm() {
           onChange={(e) => setExcerpt(e.target.value)}
           placeholder="Short description shown in the blog listing..."
           rows={2}
-          className={INPUT + " resize-none"}
+          className={INPUT +" resize-none"}
         />
       </div>
 
@@ -113,7 +112,7 @@ export function NewPostForm() {
           onChange={(e) => setContent(e.target.value)}
           placeholder="<p>Your content here...</p><h2>Section</h2><p>...</p>"
           rows={14}
-          className={INPUT + " resize-y font-mono text-xs"}
+          className={INPUT +" resize-y font-mono text-xs"}
           required
         />
         <p className="text-xs text-zinc-400 dark:text-zinc-500">Enter HTML content. Use &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt; tags.</p>
@@ -176,7 +175,7 @@ export function NewPostForm() {
         disabled={loading}
         className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Creating...</> : "Create Post"}
+        {loading ? <><Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" /> Creating...</> :"Create Post"}
       </button>
     </form>
   );

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { useTranslations } from "next-intl";
-import { Mail, Clock, Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import React, { useState } from"react";
+import { useTranslations } from"next-intl";
+import { Mail, Clock, Send, CheckCircle2, AlertCircle, Loader2 } from"lucide-react";
 
 export function ContactForm() {
   const t = useTranslations("contact");
@@ -26,8 +26,8 @@ export function ContactForm() {
 
     try {
       const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ name, email, subject, message }),
       });
 
@@ -55,7 +55,7 @@ export function ContactForm() {
       <div className="md:col-span-1 space-y-6">
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 p-6 shadow-sm">
           <h2 className="text-lg font-bold text-zinc-800 dark:text-white flex items-center gap-2">
-            <Mail className="h-5 w-5 text-violet-500" />
+            <Mail className="h-5 w-5 text-violet-500 text-blue-500 dark:text-blue-400" />
             {t("emailUs")}
           </h2>
           <a
@@ -68,7 +68,7 @@ export function ContactForm() {
 
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 p-6 shadow-sm">
           <h2 className="text-lg font-bold text-zinc-800 dark:text-white flex items-center gap-2">
-            <Clock className="h-5 w-5 text-violet-500" />
+            <Clock className="h-5 w-5 text-violet-500 text-amber-500 dark:text-amber-400" />
             {t("supportHours")}
           </h2>
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 font-medium">
@@ -83,7 +83,7 @@ export function ContactForm() {
           {success ? (
             <div className="py-8 text-center space-y-4">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 dark:bg-emerald-950/30">
-                <CheckCircle2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+                <CheckCircle2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400 text-emerald-500 dark:text-emerald-400" />
               </div>
               <h3 className="text-xl font-bold text-zinc-800 dark:text-white">
                 {t("success")}
@@ -102,7 +102,7 @@ export function ContactForm() {
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
                 <div className="flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 p-4 text-sm text-red-600 dark:text-red-400">
-                  <AlertCircle className="h-5 w-5 shrink-0" />
+                  <AlertCircle className="h-5 w-5 shrink-0 text-amber-500 dark:text-amber-400" />
                   <span>{error}</span>
                 </div>
               )}
@@ -176,12 +176,12 @@ export function ContactForm() {
               >
                 {loading ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" />
                     <span>{t("submitting")}</span>
                   </>
                 ) : (
                   <>
-                    <Send className="h-4 w-4" />
+                    <Send className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
                     <span>{t("submit")}</span>
                   </>
                 )}

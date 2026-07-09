@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { LayoutDashboard, Settings, LogOut, ChevronDown } from "lucide-react";
+import { useState, useRef, useEffect } from"react";
+import { LayoutDashboard, Settings, LogOut, ChevronDown } from"lucide-react";
 
 interface Props {
   displayName: string;
@@ -23,8 +23,8 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
   }, []);
 
   const handleLogout = async () => {
-    try { await fetch("/api/auth/logout", { method: "POST" }); } catch { /* ignore */ }
-    window.location.href = "/";
+    try { await fetch("/api/auth/logout", { method:"POST" }); } catch { /* ignore */ }
+    window.location.href ="/";
   };
 
   return (
@@ -41,14 +41,14 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
         </span>
         <ChevronDown
           size={13}
-          className={`text-zinc-400 dark:text-zinc-500 transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+          className={`dark:transition-transform duration-150 ${open ?"rotate-180" :""}`}
         />
       </button>
 
       {open && (
         <div
           className="absolute right-0 mt-2 w-52 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xl dark:shadow-none overflow-hidden z-50"
-          style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
+          style={{ boxShadow:"0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
         >
           {/* User info */}
           <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800">
@@ -62,14 +62,14 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
               href="/dashboard"
               className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             >
-              <LayoutDashboard size={14} className="text-zinc-400 dark:text-zinc-500" />
+              <LayoutDashboard size={14} className="dark: text-blue-500 dark:text-blue-400" />
               Dashboard
             </a>
             <a
               href="/dashboard"
               className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             >
-              <Settings size={14} className="text-zinc-400 dark:text-zinc-500" />
+              <Settings size={14} className="dark: text-purple-500 dark:text-purple-400" />
               Settings
             </a>
           </div>
@@ -79,7 +79,7 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
               onClick={handleLogout}
               className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-zinc-500 dark:text-zinc-400 hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 dark:hover:text-red-400 transition-colors text-left"
             >
-              <LogOut size={14} />
+              <LogOut className="text-rose-500 dark:text-rose-400"  size={14} />
               Sign out
             </button>
           </div>

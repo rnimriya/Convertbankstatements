@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { Copy, CheckCircle2, Gift, Users, ArrowLeft } from "lucide-react";
+import { useState } from"react";
+import Link from"next/link";
+import { Copy, CheckCircle2, Gift, Users, ArrowLeft } from"lucide-react";
 
 interface Props {
   referralUrl: string;
@@ -39,7 +39,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-10">
       <div className="mx-auto max-w-2xl">
         <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 dark:hover:text-white transition-colors mb-8">
-          <ArrowLeft size={14} />
+          <ArrowLeft className="text-blue-500 dark:text-blue-400"  size={14} />
           Back to dashboard
         </Link>
 
@@ -52,7 +52,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
         <div className="grid grid-cols-2 gap-4 mb-8">
           <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5">
             <div className="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs font-semibold uppercase tracking-wide mb-2">
-              <Gift size={13} />
+              <Gift className="text-pink-500 dark:text-pink-400"  size={13} />
               Pages earned
             </div>
             <p className="font-display text-3xl font-bold text-navy dark:text-violet-400">{pagesCredited}</p>
@@ -60,7 +60,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
           </div>
           <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-5">
             <div className="flex items-center gap-2 text-zinc-400 dark:text-zinc-500 text-xs font-semibold uppercase tracking-wide mb-2">
-              <Users size={13} />
+              <Users className="text-purple-500 dark:text-purple-400"  size={13} />
               Per referral
             </div>
             <p className="font-display text-3xl font-bold text-emerald-600 dark:text-emerald-400">50</p>
@@ -79,14 +79,14 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
               onClick={copyLink}
               className={`flex items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all shrink-0 ${
                 copied
-                  ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
-                  : "bg-zinc-900 dark:bg-zinc-950 text-white hover:opacity-90"
+                  ?"bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
+                  :"bg-zinc-900 dark:bg-zinc-950 text-white hover:opacity-90"
               }`}
             >
               {copied ? (
-                <><CheckCircle2 size={14} /> Copied!</>
+                <><CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={14} /> Copied!</>
               ) : (
-                <><Copy size={14} /> Copy</>
+                <><Copy className="text-cyan-500 dark:text-cyan-400"  size={14} /> Copy</>
               )}
             </button>
           </div>
@@ -106,7 +106,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
             onClick={copyLink}
             className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-sm font-semibold text-zinc-700 dark:text-zinc-200 hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-violet-400 transition-colors"
           >
-            <Copy size={14} />
+            <Copy className="text-cyan-500 dark:text-cyan-400"  size={14} />
             Copy link
           </button>
         </div>

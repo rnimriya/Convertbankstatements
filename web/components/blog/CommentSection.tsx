@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { Loader2, Send, MessageSquare, CornerDownRight } from "lucide-react";
-import type { BlogComment } from "@/lib/blog/types";
+import { useState } from"react";
+import Link from"next/link";
+import { Loader2, Send, MessageSquare, CornerDownRight } from"lucide-react";
+import type { BlogComment } from"@/lib/blog/types";
 
 interface Props {
   slug: string;
@@ -36,16 +36,16 @@ function CommentForm({
     setError(null);
     try {
       const res = await fetch(`/api/blog/${slug}/comments`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ content: text, parentId }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Failed to post.");
+      if (!res.ok) throw new Error(data.error ??"Failed to post.");
       onPosted(data as BlogComment);
       setText("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message :"Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -78,8 +78,8 @@ function CommentForm({
             disabled={loading || !text.trim()}
             className="flex items-center gap-1.5 rounded-xl bg-brand-400 px-4 py-2 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
-            {parentId ? "Reply" : "Post comment"}
+            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-500 dark:text-purple-400" /> : <Send className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />}
+            {parentId ?"Reply" :"Post comment"}
           </button>
         </div>
       </div>
@@ -89,8 +89,8 @@ function CommentForm({
 }
 
 /* ── Avatar initial ──────────────────────────────────────────────── */
-function Avatar({ name, size = "md" }: { name: string; size?: "sm" | "md" }) {
-  const dim = size === "sm" ? "h-7 w-7 text-xs" : "h-9 w-9 text-sm";
+function Avatar({ name, size ="md" }: { name: string; size?:"sm" |"md" }) {
+  const dim = size ==="sm" ?"h-7 w-7 text-xs" :"h-9 w-9 text-sm";
   return (
     <div className={`flex shrink-0 items-center justify-center rounded-full bg-brand-100 dark:bg-brand-900/30 font-bold text-brand-700 dark:text-brand-300 uppercase ${dim}`}>
       {name[0]}
@@ -107,11 +107,11 @@ function RelativeDate({ iso }: { iso: string }) {
   const diffDay = Math.floor(diffHr / 24);
 
   let label: string;
-  if (diffMin < 1) label = "just now";
+  if (diffMin < 1) label ="just now";
   else if (diffMin < 60) label = `${diffMin}m ago`;
   else if (diffHr < 24) label = `${diffHr}h ago`;
   else if (diffDay < 7) label = `${diffDay}d ago`;
-  else label = d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  else label = d.toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" });
 
   return (
     <time dateTime={iso} className="text-xs text-zinc-400 dark:text-zinc-500">
@@ -137,7 +137,7 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
     <section className="mt-12 border-t border-zinc-100 dark:border-zinc-800 pt-8">
       {/* Header */}
       <h2 className="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-        <MessageSquare className="h-5 w-5 text-violet-500" />
+        <MessageSquare className="h-5 w-5 text-violet-500 text-rose-500 dark:text-rose-400" />
         Comments
         {comments.length > 0 && (
           <span className="ml-1 rounded-full bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 px-2 py-0.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300">
@@ -162,7 +162,7 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
               className="font-semibold text-violet-500 dark:text-violet-400 hover:underline"
             >
               Sign in
-            </Link>{" "}
+            </Link>{""}
             to leave a comment.
           </p>
         </div>
@@ -201,7 +201,7 @@ export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
                         onClick={() => setReplyingTo(comment.id)}
                         className="mt-2 flex items-center gap-1 text-xs font-medium text-zinc-400 dark:text-zinc-500 hover:text-violet-500 dark:hover:text-violet-400 transition-colors"
                       >
-                        <CornerDownRight size={12} />
+                        <CornerDownRight className="text-indigo-500 dark:text-indigo-400"  size={12} />
                         Reply
                       </button>
                     )}
