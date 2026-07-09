@@ -18,7 +18,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     const low = pct > 85;
 
     return (
-      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border bg-brand-bg ${low ? "border-amber-200 dark:border-amber-700" : "border-brand-border"}`}>
+      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border bg-brand-surface ${low ? "border-amber-200 dark:border-amber-700" : "border-brand-border"}`}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5">
             <span className="text-xs font-semibold text-brand-muted uppercase tracking-wide">Monthly pages</span>
@@ -48,7 +48,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     const isDepleted = remaining === 0;
 
     return (
-      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border ${isDepleted ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20" : "border-brand-border bg-brand-bg"}`}>
+      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border ${isDepleted ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20" : "border-brand-border bg-brand-surface"}`}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5">
             <span className="text-xs font-semibold text-brand-muted uppercase tracking-wide">Free pages</span>

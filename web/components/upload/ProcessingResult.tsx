@@ -168,7 +168,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
       {/* Transaction preview */}
       {result.transactions.length > 0 && (
-        <div className="rounded-2xl border border-brand-border bg-brand-bg overflow-hidden">
+        <div className="rounded-2xl border border-brand-border bg-brand-surface overflow-hidden">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-5 py-3 bg-zinc-50">
             <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-200">
               <TrendingUp className="h-4 w-4 dark:text-violet-400 text-cyan-500 dark:text-cyan-400" />
@@ -210,7 +210,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-brand-bg border border-zinc-200 dark:bg-zinc-950 p-3 text-center">
+    <div className="rounded-xl bg-brand-surface border border-zinc-200 dark:bg-zinc-950 p-3 text-center">
       <p className="text-xl font-bold text-zinc-900 dark:text-zinc-200">{value}</p>
       <p className="text-xs text-brand-muted dark:text-brand-muted">{label}</p>
     </div>

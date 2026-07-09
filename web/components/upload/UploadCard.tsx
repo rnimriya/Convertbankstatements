@@ -143,7 +143,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             >
               View Upgrade Plans
             </Link>
-            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-brand-bg text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
+            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-brand-surface text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
           </div>
         </div>
       </div>
@@ -168,7 +168,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div className="rounded-3xl border border-brand-border bg-brand-bg shadow-sm overflow-hidden">
+          <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
             {/* ── Drop zone ── */}
             <div className="p-3">
@@ -269,7 +269,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         className={cn("flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[13px] font-bold transition-all",
                           active
                             ?"border-transparent text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900"
-                            :"border-brand-border bg-brand-bg text-brand-muted hover:border-zinc-300 dark:hover:border-zinc-700"
+                            :"border-brand-border bg-brand-surface text-brand-muted hover:border-zinc-300 dark:hover:border-zinc-700"
                         )}
                       >
                         <span

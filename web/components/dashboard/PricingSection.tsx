@@ -137,7 +137,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           role="switch"
           aria-checked={annual}
         >
-          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-brand-bg rounded-full shadow transition-transform duration-200 ${annual ?"translate-x-5" :"translate-x-0"}`} />
+          <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-brand-surface rounded-full shadow transition-transform duration-200 ${annual ?"translate-x-5" :"translate-x-0"}`} />
         </button>
         <span className={`text-sm font-medium transition-colors ${annual ?"text-brand-text" :"text-brand-muted"}`}>
           Annual
@@ -176,7 +176,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                       Current plan
                     </span>
                   ) : (
-                    <span className="inline-block bg-brand-bg rounded-full px-5 py-1.5 text-xs font-black text-brand-text shadow-md whitespace-nowrap border border-brand-border">
+                    <span className="inline-block bg-brand-surface rounded-full px-5 py-1.5 text-xs font-black text-brand-text shadow-md whitespace-nowrap border border-brand-border">
                       {plan.badge}
                     </span>
                   )}
@@ -232,7 +232,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                   {isCurrent ? (
                     <button
                       disabled
-                      className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-black bg-brand-bg/20 text-white cursor-not-allowed opacity-70"
+                      className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-black bg-brand-surface/20 text-white cursor-not-allowed opacity-70"
                     >
                       Current plan
                     </button>
@@ -255,7 +255,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col h-full rounded-3xl border bg-brand-bg p-7 shadow-sm hover:shadow-md transition-shadow ${
+              className={`relative flex flex-col h-full rounded-3xl border bg-brand-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
                 isCurrent ?"border-zinc-900 dark:border-zinc-100 ring-2 ring-zinc-900 dark:ring-zinc-100" :"border-brand-border"
               }`}
             >
@@ -338,7 +338,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
 
       {/* Cancellation */}
       {currentTier !=="FREE" && !cancelled && (
-        <div className="mt-8 rounded-2xl border border-brand-border bg-brand-bg p-5">
+        <div className="mt-8 rounded-2xl border border-brand-border bg-brand-surface p-5">
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <p className="font-semibold text-brand-text">Cancel subscription</p>

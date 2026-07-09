@@ -63,7 +63,7 @@ function PageBanner({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="shrink-0 bg-brand-bg border-b border-zinc-100 dark:border-zinc-800 px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
+    <div className="shrink-0 bg-brand-surface border-b border-zinc-100 dark:border-zinc-800 px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3">
           <div
@@ -169,7 +169,7 @@ export function DashboardClient({
 
       {/* ── SIDEBAR ─────────────────────────────────────────── */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-30 w-[220px] flex flex-col bg-brand-bg border-r border-brand-border/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ?"translate-x-0" :"-translate-x-full"}`}
+        className={`fixed lg:static inset-y-0 left-0 z-30 w-[220px] flex flex-col bg-brand-surface border-r border-brand-border/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ?"translate-x-0" :"-translate-x-full"}`}
       >
         {/* Logo */}
         <div className="flex items-center gap-2.5 px-5 py-[18px] border-b border-zinc-100 dark:border-zinc-800">
@@ -279,7 +279,7 @@ export function DashboardClient({
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
 
         {/* Top bar */}
-        <header className="flex items-center gap-3 px-4 lg:px-6 py-3 bg-brand-bg border-b border-brand-border shrink-0">
+        <header className="flex items-center gap-3 px-4 lg:px-6 py-3 bg-brand-surface border-b border-brand-border shrink-0">
           <button
             className="lg:hidden flex items-center justify-center w-8 h-8 rounded-lg hover:bg-brand-surface transition-colors shrink-0"
             onClick={() => setSidebarOpen(v => !v)}
@@ -349,7 +349,7 @@ export function DashboardClient({
             <div className="p-5 lg:p-7 space-y-5 max-w-[1400px]">
 
               {/* Welcome strip */}
-              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-brand-bg border border-brand-border shadow-sm">
+              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-brand-surface border border-brand-border shadow-sm">
                 <div className="relative">
                   <p className="text-brand-muted text-xs font-medium mb-0.5">
                     {new Date().toLocaleDateString("en-IN", { weekday:"long", month:"long", day:"numeric" })}
@@ -402,7 +402,7 @@ export function DashboardClient({
                     Icon: Clock,
                   },
                 ].map(card => (
-                  <div key={card.label} className="bg-brand-bg rounded-2xl border border-brand-border/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
+                  <div key={card.label} className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
                       <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-brand-surface">
                         <card.Icon size={16} className="text-brand-text" />
@@ -419,7 +419,7 @@ export function DashboardClient({
               <div className="grid xl:grid-cols-3 gap-5">
 
                 {/* Recent conversions */}
-                <div className="xl:col-span-2 bg-brand-bg rounded-2xl border border-brand-border/70 shadow-sm overflow-hidden">
+                <div className="xl:col-span-2 bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm overflow-hidden">
                   <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div>
                       <h3 className="text-sm font-bold text-brand-text">Recent Conversions</h3>
@@ -515,7 +515,7 @@ export function DashboardClient({
                 {/* Right column */}
                 <div className="space-y-4">
                   {/* Plan card */}
-                  <div className="bg-brand-bg rounded-2xl border border-brand-border/70 shadow-sm p-5">
+                  <div className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-5">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-1">Current Plan</p>
@@ -584,7 +584,7 @@ export function DashboardClient({
                   </div>
 
                   {/* Quick actions */}
-                  <div className="bg-brand-bg rounded-2xl border border-brand-border/70 shadow-sm p-4">
+                  <div className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-3">Quick Actions</p>
                     <div className="space-y-0.5">
                       {[
@@ -643,7 +643,7 @@ export function DashboardClient({
                         key={m}
                         onClick={() => setUploadMode(m)}
                         className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
-                          uploadMode === m ?"bg-brand-bg text-brand-text shadow-sm" :"text-brand-muted hover:text-brand-text"
+                          uploadMode === m ?"bg-brand-surface text-brand-text shadow-sm" :"text-brand-muted hover:text-brand-text"
                         }`}
                       >
                         {m ==="single" ? t("singleFile") : t("bulkUpload")}
@@ -673,7 +673,7 @@ export function DashboardClient({
                 iconBg="#eff6ff"
                 action={
                   recentLogs.length > 0 ? (
-                    <span className="text-xs font-semibold text-brand-muted bg-brand-bg border border-brand-border px-3 py-1.5 rounded-xl">
+                    <span className="text-xs font-semibold text-brand-muted bg-brand-surface border border-brand-border px-3 py-1.5 rounded-xl">
                       {recentLogs.length} total
                     </span>
                   ) : undefined
@@ -783,7 +783,7 @@ export function DashboardClient({
       </div>
 
       {/* ── MOBILE BOTTOM NAV ──────────────────────────────── */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-brand-bg border-t border-brand-border z-20 flex">
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 bg-brand-surface border-t border-brand-border z-20 flex">
         {[
           { id:"home" as Tab,     label:"Home",    Icon: LayoutDashboard },
           { id:"upload" as Tab,   label:"Convert", Icon: Upload },

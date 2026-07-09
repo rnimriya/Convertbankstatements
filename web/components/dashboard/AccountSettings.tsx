@@ -7,7 +7,7 @@ import {
 } from"lucide-react";
 import type { SubTier } from"@/types/billing";
 
-const SECTION ="rounded-2xl border border-brand-border bg-brand-bg divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
+const SECTION ="rounded-2xl border border-brand-border bg-brand-surface divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
 const ROW ="flex items-center justify-between px-5 py-4 gap-4";
 const LABEL ="text-sm font-medium text-brand-text";
 const DESC ="text-xs text-brand-muted mt-0.5";
@@ -114,7 +114,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
     <div className="space-y-6 max-w-2xl">
 
       {/* ── AVATAR / PROFILE HEADER ── */}
-      <div className="bg-brand-bg rounded-2xl border border-brand-border shadow-sm p-6">
+      <div className="bg-brand-surface rounded-2xl border border-brand-border shadow-sm p-6">
         <div className="flex items-center gap-6">
           {/* Avatar */}
           <div className="relative shrink-0">
@@ -391,7 +391,7 @@ function NotifRow({ label, description, value, onChange }: {
         aria-checked={value}
         className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ?"bg-zinc-900 dark:bg-zinc-100" :"bg-brand-border"}`}
       >
-        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-brand-bg rounded-full shadow transition-transform duration-200 ${value ?"translate-x-5" :"translate-x-0"}`} />
+        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-brand-surface rounded-full shadow transition-transform duration-200 ${value ?"translate-x-5" :"translate-x-0"}`} />
       </button>
     </div>
   );

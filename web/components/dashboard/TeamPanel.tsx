@@ -79,7 +79,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
 
   if (tier !=="BUSINESS") {
     return (
-      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
+      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface">
         <EmptyState
           icon={<Users className="h-full w-full text-purple-500 dark:text-purple-400" />}
           title="Team seats require Business plan"
@@ -107,7 +107,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
     <div className="space-y-6 max-w-2xl">
 
       {/* Seats overview */}
-      <div className="rounded-2xl border border-brand-border bg-brand-bg p-5 shadow-sm">
+      <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
@@ -135,7 +135,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
 
       {/* Invite form */}
       {seatsLeft > 0 && (
-        <div className="rounded-2xl border border-brand-border bg-brand-bg p-5 shadow-sm">
+        <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 shadow-sm">
           <h3 className="font-semibold text-brand-text mb-4 flex items-center gap-2">
             <UserPlus size={16} className="dark: text-purple-500 dark:text-purple-400" />
             Invite team member
@@ -158,7 +158,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
               placeholder="colleague@company.com"
               value={inviteEmail}
               onChange={e => setInviteEmail(e.target.value)}
-              className="flex-1 rounded-xl border border-brand-border bg-brand-bg px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 dark:focus:ring-brand-400/20 focus:border-navy dark:focus:border-brand-400"
+              className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 dark:focus:ring-brand-400/20 focus:border-navy dark:focus:border-brand-400"
             />
             <button
               type="submit"
@@ -173,7 +173,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
       )}
 
       {/* Members list */}
-      <div className="rounded-2xl border border-brand-border bg-brand-bg overflow-hidden shadow-sm">
+      <div className="rounded-2xl border border-brand-border bg-brand-surface overflow-hidden shadow-sm">
         <div className="px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
           <h3 className="font-semibold text-brand-text">Team members</h3>
         </div>

@@ -25,7 +25,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
   if (logs.length === 0) {
     if (isDemo) {
       return (
-        <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
+        <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface">
           <EmptyState
             icon={<Info className="h-full w-full" />}
             title="History not available in demo mode"
@@ -37,7 +37,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
     }
 
     return (
-      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
+      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface">
         <EmptyState
           icon={<Clock className="h-full w-full" />}
           title="No documents yet"
@@ -55,7 +55,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
         return (
           <div
             key={log.id}
-            className="flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-bg px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
+            className="flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-surface px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
               <FileText className="h-5 w-5 dark:text-violet-400 text-indigo-500 dark:text-indigo-400" />

@@ -83,7 +83,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
 
   if (jobs.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
+      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface">
         <EmptyState
           icon={<Layers className="h-full w-full text-amber-500 dark:text-amber-400" />}
           title="No jobs in queue"
@@ -129,7 +129,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
           });
 
           return (
-            <div key={job.id} className="rounded-2xl border border-brand-border bg-brand-bg shadow-sm overflow-hidden">
+            <div key={job.id} className="rounded-2xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
               <div
                 className="flex items-center gap-4 px-5 py-4 cursor-pointer select-none"
                 onClick={() => setExpanded(isExpanded ? null : job.id)}

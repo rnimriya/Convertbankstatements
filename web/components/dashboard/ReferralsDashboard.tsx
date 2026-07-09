@@ -50,7 +50,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
 
         {/* Stats */}
         <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="bg-brand-bg rounded-2xl border border-brand-border p-5">
+          <div className="bg-brand-surface rounded-2xl border border-brand-border p-5">
             <div className="flex items-center gap-2 text-brand-muted text-xs font-semibold uppercase tracking-wide mb-2">
               <Gift className="text-pink-500 dark:text-pink-400"  size={13} />
               Pages earned
@@ -58,7 +58,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
             <p className="font-display text-3xl font-bold text-navy dark:text-violet-400">{pagesCredited}</p>
             <p className="text-xs text-brand-muted mt-0.5">via referrals</p>
           </div>
-          <div className="bg-brand-bg rounded-2xl border border-brand-border p-5">
+          <div className="bg-brand-surface rounded-2xl border border-brand-border p-5">
             <div className="flex items-center gap-2 text-brand-muted text-xs font-semibold uppercase tracking-wide mb-2">
               <Users className="text-purple-500 dark:text-purple-400"  size={13} />
               Per referral
@@ -69,10 +69,10 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
         </div>
 
         {/* Link card */}
-        <div className="bg-brand-bg rounded-2xl border border-brand-border p-6 mb-6">
+        <div className="bg-brand-surface rounded-2xl border border-brand-border p-6 mb-6">
           <p className="text-sm font-semibold text-brand-text mb-3">Your referral link</p>
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-brand-bg border border-brand-border rounded-xl px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 font-mono truncate">
+            <div className="flex-1 bg-brand-surface border border-brand-border rounded-xl px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 font-mono truncate">
               {referralUrl}
             </div>
             <button
@@ -98,13 +98,13 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-bg text-sm font-semibold text-brand-text hover:border-emerald-300 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-emerald-300 dark:hover:border-emerald-700 hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors"
           >
             Share on WhatsApp
           </a>
           <button
             onClick={copyLink}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-bg text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-violet-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-violet-400 transition-colors"
           >
             <Copy className="text-cyan-500 dark:text-cyan-400"  size={14} />
             Copy link

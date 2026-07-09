@@ -151,7 +151,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         {/* Individual file results */}
         <div className="space-y-2">
           {results.map((r, i) => (
-            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ?"border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" :"border-brand-border bg-brand-bg"}`}>
+            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ?"border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" :"border-brand-border bg-brand-surface"}`}>
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0 text-amber-500 dark:text-amber-400" />
               ) : (
@@ -220,7 +220,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         ) : (
           <>
             <div className={cn("flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-200",
-              isDragActive ?"bg-zinc-900 dark:bg-zinc-950 text-white scale-110" :"bg-brand-bg border-2 border-brand-border text-brand-muted"
+              isDragActive ?"bg-zinc-900 dark:bg-zinc-950 text-white scale-110" :"bg-brand-surface border-2 border-brand-border text-brand-muted"
             )}>
               {isDragActive ? <FileText className="h-8 w-8 text-indigo-500 dark:text-indigo-400" /> : <Upload className="h-8 w-8 text-blue-500 dark:text-blue-400" />}
             </div>

@@ -63,7 +63,7 @@ export function PortalsPanel() {
     <div className="max-w-2xl">
       {/* Create form */}
       {showForm ? (
-        <div className="bg-brand-bg border border-brand-border rounded-2xl p-5 mb-6">
+        <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 mb-6">
           <p className="text-sm font-semibold text-brand-text mb-3">New upload portal</p>
           <div className="flex gap-2">
             <input
@@ -71,7 +71,7 @@ export function PortalsPanel() {
               value={newLabel}
               onChange={e => setNewLabel(e.target.value)}
               placeholder="e.g. HDFC Statements – Sharma & Sons"
-              className="flex-1 rounded-xl border border-brand-border bg-brand-bg px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-bg dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
+              className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
               onKeyDown={e => e.key ==="Enter" && createPortal()}
               autoFocus
             />
@@ -118,7 +118,7 @@ export function PortalsPanel() {
             const url = typeof window !=="undefined" ? `${window.location.origin}/p/${portal.token}` : `/p/${portal.token}`;
             const isCopied = copiedToken === portal.token;
             return (
-              <div key={portal.token} className="bg-brand-bg border border-brand-border rounded-2xl p-4 flex items-center gap-3">
+              <div key={portal.token} className="bg-brand-surface border border-brand-border rounded-2xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
                   <Link2 size={15} className="text-navy dark:text-violet-400 text-emerald-500 dark:text-emerald-400" />
                 </div>
