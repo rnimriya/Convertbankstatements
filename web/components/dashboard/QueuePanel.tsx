@@ -83,7 +83,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
 
   if (jobs.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
         <EmptyState
           icon={<Layers className="h-full w-full text-amber-500 dark:text-amber-400" />}
           title="No jobs in queue"
@@ -100,7 +100,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
     <div className="space-y-4">
       {/* Refresh */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm text-brand-muted">
           {active.length > 0 ? (
             <span className="flex items-center gap-1.5 text-navy dark:text-violet-400 font-medium">
               <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> {active.length} job{active.length > 1 ?"s" :""} in progress…
@@ -112,7 +112,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
         <button
           onClick={() => fetchJobs(true)}
           disabled={refreshing}
-          className="flex items-center gap-1.5 text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:text-zinc-200 dark:hover:text-gray-200 transition-colors disabled:opacity-50"
+          className="flex items-center gap-1.5 text-xs font-medium text-brand-muted hover:text-brand-text dark:hover:text-gray-200 transition-colors disabled:opacity-50"
         >
           <RefreshCw size={13} className={refreshing ?"animate-spin" :""} />
           Refresh
@@ -129,7 +129,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
           });
 
           return (
-            <div key={job.id} className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm overflow-hidden">
+            <div key={job.id} className="rounded-2xl border border-brand-border bg-brand-bg shadow-sm overflow-hidden">
               <div
                 className="flex items-center gap-4 px-5 py-4 cursor-pointer select-none"
                 onClick={() => setExpanded(isExpanded ? null : job.id)}
@@ -142,8 +142,8 @@ export function QueuePanel({ userEmail, tier }: Props) {
                 </div>
 
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-zinc-800 dark:text-zinc-200">{job.fileName}</p>
-                  <p className="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500">
+                  <p className="truncate text-sm font-semibold text-brand-text">{job.fileName}</p>
+                  <p className="mt-0.5 text-xs text-brand-muted">
                     {job.bankName && <span className="font-medium">{job.bankName} · </span>}
                     {job.pageCount != null && `${job.pageCount}p`}
                     {job.transactionCount != null && ` · ${job.transactionCount} txns`}
@@ -177,7 +177,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                   )}
                   {hasDownloads && (
                     <div className="space-y-2">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Downloads</p>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Downloads</p>
                       {Object.entries(job.exportUrls).map(([fmt, url]) => (
                         <button
                           key={fmt}
@@ -193,7 +193,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                       ))}
                     </div>
                   )}
-                  <p className="text-xs text-zinc-400 dark:text-zinc-500">
+                  <p className="text-xs text-brand-muted">
                     Submitted {date}
                     {job.completedAt && ` · Completed ${new Date(job.completedAt).toLocaleString("en-IN", { hour:"2-digit", minute:"2-digit" })}`}
                   </p>

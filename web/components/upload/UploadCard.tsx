@@ -129,13 +129,13 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
             <IndianRupee className="h-8 w-8 text-amber-600 text-rose-500 dark:text-rose-400" />
           </div>
-          <h3 className="text-xl font-black text-zinc-900 dark:text-zinc-100">Payment Required</h3>
-          <p className="mt-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">{payState.file.name}</p>
-          <p className="mt-2 text-base text-zinc-500 dark:text-zinc-400">{payState.message}</p>
+          <h3 className="text-xl font-black text-brand-text">Payment Required</h3>
+          <p className="mt-1 text-sm font-medium text-brand-muted">{payState.file.name}</p>
+          <p className="mt-2 text-base text-brand-muted">{payState.message}</p>
           <div className="mt-5 mb-1">
-            <span className="text-xl font-extrabold text-zinc-900 dark:text-zinc-100">Upgrade Required</span>
+            <span className="text-xl font-extrabold text-brand-text">Upgrade Required</span>
           </div>
-          <p className="text-xs text-zinc-400 dark:text-zinc-500 mb-6">Unlock more pages with a Pro or Business plan.</p>
+          <p className="text-xs text-brand-muted mb-6">Unlock more pages with a Pro or Business plan.</p>
           <div className="flex flex-col gap-2">
             <Link
               href="/pricing"
@@ -143,7 +143,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             >
               View Upgrade Plans
             </Link>
-            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-white dark:bg-zinc-950 text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
+            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-brand-bg text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
           </div>
         </div>
       </div>
@@ -168,7 +168,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div className="rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm overflow-hidden">
+          <div className="rounded-3xl border border-brand-border bg-brand-bg shadow-sm overflow-hidden">
 
             {/* ── Drop zone ── */}
             <div className="p-3">
@@ -179,8 +179,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     ?"border-zinc-200"
                     :"cursor-pointer",
                   !isProcessing && (isDragActive
-                    ?"border-zinc-900 dark:border-zinc-100 bg-zinc-100 dark:bg-zinc-900"
-                    :"border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800")
+                    ?"border-zinc-900 dark:border-zinc-100 bg-brand-surface"
+                    :"border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
                 )}
               >
                 {!isProcessing && <input {...getInputProps()} />}
@@ -199,8 +199,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       </div>
                     </div>
                     <div>
-                      <p className="text-lg font-black text-zinc-900 dark:text-white">Converting…</p>
-                      <p className="mt-0.5 max-w-[260px] truncate text-sm text-zinc-400 dark:text-zinc-500">{procState.fileName}</p>
+                      <p className="text-lg font-black text-brand-text">Converting…</p>
+                      <p className="mt-0.5 max-w-[260px] truncate text-sm text-brand-muted">{procState.fileName}</p>
                     </div>
                     <div className="h-1.5 w-48 overflow-hidden rounded-full bg-zinc-200">
                       <div className="h-full rounded-full" style={{
@@ -225,14 +225,14 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         : <Upload size={26} className="text-white text-blue-500 dark:text-blue-400" strokeWidth={1.6} />}
                     </div>
 
-                    <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-zinc-900 dark:text-zinc-50">
+                    <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
                       {isDragActive ?"Release to convert" :"Drop your statement PDF"}
                     </h2>
-                    <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-                      or <span className="font-bold text-zinc-900 dark:text-zinc-100 underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
+                    <p className="mt-1 text-sm text-brand-muted">
+                      or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
                     </p>
 
-                    <div className="mt-3 flex items-center gap-2 text-xs text-zinc-400 dark:text-zinc-500">
+                    <div className="mt-3 flex items-center gap-2 text-xs text-brand-muted">
                       <span>PDF only</span>
                       <span className="h-1 w-1 rounded-full bg-zinc-300" />
                       <span>Max {MAX_FILE_MB} MB</span>
@@ -240,7 +240,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       <span>Password OK</span>
                     </div>
 
-                    <p className="mt-2 text-[11px] text-zinc-400 dark:text-zinc-500">
+                    <p className="mt-2 text-[11px] text-brand-muted">
                       {BANKS.join(" ·")} <span className="text-zinc-300 dark:text-zinc-600">+23 more</span>
                     </p>
 
@@ -259,7 +259,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               <div className="border-t border-zinc-100 dark:border-zinc-800 px-4 py-3.5">
                 {/* Format pills */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">Format</span>
+                  <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
                   {FORMATS.map(f => {
                     const active = formats.includes(f.id);
                     return (
@@ -269,7 +269,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         className={cn("flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[13px] font-bold transition-all",
                           active
                             ?"border-transparent text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900"
-                            :"border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 text-zinc-600 dark:text-zinc-400 hover:border-zinc-300 dark:hover:border-zinc-700"
+                            :"border-brand-border bg-brand-bg text-brand-muted hover:border-zinc-300 dark:hover:border-zinc-700"
                         )}
                       >
                         <span
@@ -289,17 +289,17 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                 {/* Pages usage + trust */}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                   <div className="flex min-w-0 max-w-[260px] flex-1 items-center gap-2.5">
-                    <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-500">Pages</span>
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800">
+                    <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Pages</span>
+                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-surface">
                       <div className={cn("h-full rounded-full transition-all", lowPages ?"bg-amber-400" :"bg-zinc-900 dark:bg-zinc-100")} style={{ width: `${usedPct}%` }} />
                     </div>
-                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ?"text-amber-600" :"text-zinc-500 dark:text-zinc-400")}>
+                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ?"text-amber-600" :"text-brand-muted")}>
                       {pagesRemaining}/{pageLimit}
                     </span>
                   </div>
                   <div className="flex shrink-0 items-center gap-3">
-                    <span className="flex items-center gap-1 text-[11px] text-zinc-400 dark:text-zinc-500"><Lock className="text-rose-500 dark:text-rose-400"  size={11} /> Not stored on our servers</span>
-                    <span className="flex items-center gap-1 text-[11px] text-zinc-400 dark:text-zinc-500"><Zap size={11} className="text-amber-400 text-amber-500 dark:text-amber-400" /> ~11s</span>
+                    <span className="flex items-center gap-1 text-[11px] text-brand-muted"><Lock className="text-rose-500 dark:text-rose-400"  size={11} /> Not stored on our servers</span>
+                    <span className="flex items-center gap-1 text-[11px] text-brand-muted"><Zap size={11} className="text-amber-400 text-amber-500 dark:text-amber-400" /> ~11s</span>
                   </div>
                 </div>
               </div>

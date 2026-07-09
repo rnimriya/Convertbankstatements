@@ -114,7 +114,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
           </div>
           <button
             onClick={() => { setPhase("idle"); setResults([]); setMergeUrl(null); }}
-            className="text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 flex items-center gap-1"
+            className="text-xs text-brand-muted hover:text-brand-muted dark:hover:text-gray-300 flex items-center gap-1"
           >
             <X className="text-rose-500 dark:text-rose-400"  size={12} /> Reset
           </button>
@@ -122,10 +122,10 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {/* Multi-bank merge offer */}
         {hasMultipleBanks && successCount > 1 && (
-          <div className="bg-zinc-900 dark:bg-zinc-950/5 dark:bg-zinc-800/40 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex items-center justify-between gap-4">
+          <div className="bg-zinc-900 dark:bg-zinc-950/5 dark:bg-zinc-800/40 border border-brand-border rounded-2xl p-4 flex items-center justify-between gap-4">
             <div>
-              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Multiple banks detected</p>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
+              <p className="text-sm font-semibold text-brand-text">Multiple banks detected</p>
+              <p className="text-xs text-brand-muted mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
             </div>
             {mergeUrl ? (
               <a
@@ -151,7 +151,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         {/* Individual file results */}
         <div className="space-y-2">
           {results.map((r, i) => (
-            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ?"border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" :"border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950"}`}>
+            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ?"border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" :"border-brand-border bg-brand-bg"}`}>
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0 text-amber-500 dark:text-amber-400" />
               ) : (
@@ -162,20 +162,20 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                 {r.error ? (
                   <p className="text-xs text-red-500 dark:text-red-400">{r.error}</p>
                 ) : (
-                  <p className="text-xs text-zinc-400 dark:text-zinc-500">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` :""}</p>
+                  <p className="text-xs text-brand-muted">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` :""}</p>
                 )}
               </div>
               {!r.error && (
                 <div className="flex gap-1.5 shrink-0">
                   {r.exportUrls.xlsx && (
                     <a href={r.exportUrls.xlsx} download={r.fileName.replace(".pdf",".xlsx")}
-                      className="px-2.5 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 text-zinc-900 dark:text-zinc-100 text-xs font-semibold hover:bg-zinc-900 dark:bg-zinc-950/20 dark:hover:bg-brand-400/20 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 text-brand-text text-xs font-semibold hover:bg-zinc-900 dark:bg-zinc-950/20 dark:hover:bg-brand-400/20 transition-colors">
                       .xlsx
                     </a>
                   )}
                   {r.exportUrls.csv && (
                     <a href={r.exportUrls.csv} download={r.fileName.replace(".pdf",".csv")}
-                      className="px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-300 text-xs font-semibold hover:border-zinc-300 dark:border-zinc-700 dark:hover:border-white/20 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg border border-brand-border text-zinc-600 dark:text-zinc-300 text-xs font-semibold hover:border-brand-border dark:hover:border-white/20 transition-colors">
                       .csv
                     </a>
                   )}
@@ -201,7 +201,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
       <div
         {...getRootProps()}
         className={cn("relative flex min-h-[240px] cursor-pointer flex-col items-center justify-center gap-4","rounded-2xl border-2 border-dashed px-8 py-12 text-center transition-all duration-200 select-none",
-          isDragActive ?"border-zinc-900 dark:border-zinc-100 bg-zinc-100 dark:bg-zinc-900 scale-[1.01]" :"border-zinc-200 dark:border-zinc-800 bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800",
+          isDragActive ?"border-zinc-900 dark:border-zinc-100 bg-brand-surface scale-[1.01]" :"border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80",
           phase ==="processing" &&"pointer-events-none opacity-70"
         )}
       >
@@ -209,27 +209,27 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {phase ==="processing" ? (
           <>
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-900">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-surface">
               <Loader2 className="h-8 w-8 dark:animate-spin text-purple-500 dark:text-purple-400" />
             </div>
             <div>
               <p className="font-semibold text-zinc-800 dark:text-white">Processing files…</p>
-              <p className="mt-1 text-sm text-zinc-400 dark:text-zinc-500">Converting sequentially · please wait</p>
+              <p className="mt-1 text-sm text-brand-muted">Converting sequentially · please wait</p>
             </div>
           </>
         ) : (
           <>
             <div className={cn("flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-200",
-              isDragActive ?"bg-zinc-900 dark:bg-zinc-950 text-white scale-110" :"bg-white dark:bg-zinc-950 border-2 border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500"
+              isDragActive ?"bg-zinc-900 dark:bg-zinc-950 text-white scale-110" :"bg-brand-bg border-2 border-brand-border text-brand-muted"
             )}>
               {isDragActive ? <FileText className="h-8 w-8 text-indigo-500 dark:text-indigo-400" /> : <Upload className="h-8 w-8 text-blue-500 dark:text-blue-400" />}
             </div>
             <div>
-              <p className="text-base font-semibold text-zinc-700 dark:text-zinc-200">
+              <p className="text-base font-semibold text-brand-text">
                 {isDragActive ?"Drop files here!" :"Drop multiple PDFs or a ZIP file"}
               </p>
-              <p className="mt-1 text-sm text-zinc-400 dark:text-zinc-500">or <span className="font-semibold text-zinc-900 dark:text-zinc-100 underline underline-offset-2">browse files</span></p>
-              <p className="mt-2 text-xs text-zinc-400 dark:text-zinc-500">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
+              <p className="mt-1 text-sm text-brand-muted">or <span className="font-semibold text-brand-text underline underline-offset-2">browse files</span></p>
+              <p className="mt-2 text-xs text-brand-muted">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
             </div>
           </>
         )}

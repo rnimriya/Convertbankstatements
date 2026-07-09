@@ -87,7 +87,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               <h3 className="font-bold text-zinc-900 dark:text-zinc-200">Processing complete!</h3>
               <Badge variant="success" size="sm" dot>Done</Badge>
             </div>
-            <p className="mt-0.5 truncate text-sm text-zinc-500 dark:text-zinc-400">{result.file_name}</p>
+            <p className="mt-0.5 truncate text-sm text-brand-muted">{result.file_name}</p>
           </div>
         </div>
 
@@ -99,7 +99,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         </div>
 
         {result.bank_name && (
-          <p className="mt-3 text-center text-xs text-zinc-400 dark:text-zinc-500">
+          <p className="mt-3 text-center text-xs text-brand-muted">
             Detected: <span className="font-semibold text-zinc-600 dark:text-zinc-300">{result.bank_name}</span>
           </p>
         )}
@@ -112,7 +112,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         {/* Downloads */}
         {Object.keys(result.export_urls).length > 0 && (
           <div className="mt-4 space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Downloads</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Downloads</p>
             {Object.entries(result.export_urls).map(([fmt, url]) => (
               <button
                 key={fmt}
@@ -168,7 +168,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
       {/* Transaction preview */}
       {result.transactions.length > 0 && (
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden">
+        <div className="rounded-2xl border border-brand-border bg-brand-bg overflow-hidden">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-5 py-3 bg-zinc-50">
             <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-200">
               <TrendingUp className="h-4 w-4 dark:text-violet-400 text-cyan-500 dark:text-cyan-400" />
@@ -183,7 +183,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               <div key={i} className="flex items-center gap-3 px-5 py-2.5 hover:bg-zinc-50 transition-colors">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-xs font-medium text-zinc-900 dark:text-zinc-200">{txn.description}</p>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-500">
+                  <p className="text-xs text-brand-muted dark:text-brand-muted">
                     {txn.date}{txn.category && ` · ${txn.category}`}
                   </p>
                 </div>
@@ -210,9 +210,9 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:bg-zinc-950 p-3 text-center">
+    <div className="rounded-xl bg-brand-bg border border-zinc-200 dark:bg-zinc-950 p-3 text-center">
       <p className="text-xl font-bold text-zinc-900 dark:text-zinc-200">{value}</p>
-      <p className="text-xs text-zinc-500 dark:text-zinc-500">{label}</p>
+      <p className="text-xs text-brand-muted dark:text-brand-muted">{label}</p>
     </div>
   );
 }

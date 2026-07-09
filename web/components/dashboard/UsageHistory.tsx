@@ -25,7 +25,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
   if (logs.length === 0) {
     if (isDemo) {
       return (
-        <div className="rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+        <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
           <EmptyState
             icon={<Info className="h-full w-full" />}
             title="History not available in demo mode"
@@ -37,7 +37,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
     }
 
     return (
-      <div className="rounded-2xl border border-dashed border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
+      <div className="rounded-2xl border border-dashed border-brand-border bg-brand-bg">
         <EmptyState
           icon={<Clock className="h-full w-full" />}
           title="No documents yet"
@@ -55,15 +55,15 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
         return (
           <div
             key={log.id}
-            className="flex items-center gap-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
+            className="flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-bg px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
               <FileText className="h-5 w-5 dark:text-violet-400 text-indigo-500 dark:text-indigo-400" />
             </div>
 
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-zinc-800 dark:text-zinc-200">{log.fileName}</p>
-              <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
+              <p className="truncate text-sm font-semibold text-brand-text">{log.fileName}</p>
+              <p className="mt-0.5 text-xs text-brand-muted">
                 {log.bankName && <span className="font-medium">{log.bankName} · </span>}
                 {log.pageCount}p · {log.transactionCount} txns
                 {log.exportFormats.length > 0 && ` · ${log.exportFormats.join(",").toUpperCase()}`}
@@ -76,7 +76,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
               ) : (
                 <Badge variant="default" size="sm">{log.billingType}</Badge>
               )}
-              <span className="text-xs text-zinc-400 dark:text-zinc-500">
+              <span className="text-xs text-brand-muted">
                 {date.toLocaleDateString("en-US", { month:"short", day:"numeric" })}
               </span>
             </div>

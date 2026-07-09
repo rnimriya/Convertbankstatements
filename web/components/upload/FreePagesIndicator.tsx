@@ -18,15 +18,15 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     const low = pct > 85;
 
     return (
-      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border bg-white dark:bg-zinc-950 ${low ? "border-amber-200 dark:border-amber-700" : "border-zinc-200 dark:border-zinc-800"}`}>
+      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border bg-brand-bg ${low ? "border-amber-200 dark:border-amber-700" : "border-brand-border"}`}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">Monthly pages</span>
+            <span className="text-xs font-semibold text-brand-muted uppercase tracking-wide">Monthly pages</span>
             <span className={`text-xs font-bold ${low ? "text-amber-600 dark:text-amber-400" : "text-navy dark:text-violet-400"}`}>
               {remaining.toLocaleString()} / {monthlyPageLimit.toLocaleString()} left
             </span>
           </div>
-          <div className="h-1.5 w-full bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-zinc-100 dark:bg-brand-bg/10 rounded-full overflow-hidden">
             <div
               className={`h-1.5 rounded-full transition-all duration-500 ${low ? "bg-amber-400" : "bg-navy dark:bg-brand-400"}`}
               style={{ width: `${pct}%` }}
@@ -48,15 +48,15 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
     const isDepleted = remaining === 0;
 
     return (
-      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border ${isDepleted ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20" : "border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950"}`}>
+      <div className={`flex items-center gap-4 px-4 py-3 rounded-xl border ${isDepleted ? "border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20" : "border-brand-border bg-brand-bg"}`}>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wide">Free pages</span>
+            <span className="text-xs font-semibold text-brand-muted uppercase tracking-wide">Free pages</span>
             <span className={`text-xs font-bold tabular-nums ${isDepleted ? "text-amber-600 dark:text-amber-400" : "text-navy dark:text-violet-400"}`}>
               {remaining} / {FREE_PAGE_CAP} remaining
             </span>
           </div>
-          <div className="h-1.5 w-full bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-zinc-100 dark:bg-brand-bg/10 rounded-full overflow-hidden">
             <div
               className={`h-1.5 rounded-full transition-all duration-700 ${isDepleted ? "bg-amber-400" : "bg-navy dark:bg-brand-400"}`}
               style={{ width: `${pct}%` }}

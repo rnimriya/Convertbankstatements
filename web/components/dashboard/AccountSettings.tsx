@@ -7,10 +7,10 @@ import {
 } from"lucide-react";
 import type { SubTier } from"@/types/billing";
 
-const SECTION ="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
+const SECTION ="rounded-2xl border border-brand-border bg-brand-bg divide-y divide-zinc-200 dark:divide-zinc-800 overflow-hidden shadow-sm";
 const ROW ="flex items-center justify-between px-5 py-4 gap-4";
-const LABEL ="text-sm font-medium text-zinc-800 dark:text-zinc-200";
-const DESC ="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5";
+const LABEL ="text-sm font-medium text-brand-text";
+const DESC ="text-xs text-brand-muted mt-0.5";
 
 const AVATAR_KEY ="cs_avatar";
 
@@ -114,7 +114,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
     <div className="space-y-6 max-w-2xl">
 
       {/* ── AVATAR / PROFILE HEADER ── */}
-      <div className="bg-white dark:bg-zinc-950 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
+      <div className="bg-brand-bg rounded-2xl border border-brand-border shadow-sm p-6">
         <div className="flex items-center gap-6">
           {/* Avatar */}
           <div className="relative shrink-0">
@@ -152,13 +152,13 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
           {/* Info */}
           <div className="flex-1 min-w-0">
-            <p className="text-lg font-black text-zinc-900 dark:text-zinc-100 truncate">{displayName}</p>
-            <p className="text-sm text-zinc-400 dark:text-zinc-500 truncate">{userEmail}</p>
+            <p className="text-lg font-black text-brand-text truncate">{displayName}</p>
+            <p className="text-sm text-brand-muted truncate">{userEmail}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
                 tier ==="BUSINESS" ?"bg-blue-100 text-blue-700" :
                 tier ==="PRO"      ?"bg-violet-100 text-violet-700" :
-                tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400"
+                tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-brand-surface text-brand-muted"
               }`}>
                 {tier}
               </span>
@@ -188,16 +188,16 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             )}
           </div>
         </div>
-        <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-4">JPG, PNG or WebP · Max 2 MB · Stored locally in your browser</p>
+        <p className="text-xs text-brand-muted mt-4">JPG, PNG or WebP · Max 2 MB · Stored locally in your browser</p>
       </div>
 
       {/* Profile */}
       <div>
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3 px-1">Profile</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-brand-muted mb-3 px-1">Profile</h2>
         <div className={SECTION}>
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+              <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
                 <User className="text-purple-500 dark:text-purple-400"  size={16} />
               </div>
               <div>
@@ -205,12 +205,12 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                 <p className={DESC}>{userName ??"Not set"}</p>
               </div>
             </div>
-            <span className="text-xs text-zinc-400 dark:text-zinc-500">Coming soon</span>
+            <span className="text-xs text-brand-muted">Coming soon</span>
           </div>
 
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+              <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
                 <Mail className="text-blue-500 dark:text-blue-400"  size={16} />
               </div>
               <div>
@@ -242,12 +242,12 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
       {/* Security */}
       <div>
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3 px-1">Security</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-brand-muted mb-3 px-1">Security</h2>
         <div className={SECTION}>
           <div className="px-5 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+                <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
                   <KeyRound className="text-indigo-500 dark:text-indigo-400"  size={16} />
                 </div>
                 <div>
@@ -257,7 +257,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               </div>
               <button
                 onClick={() => setChangingPw(v => !v)}
-                className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 hover:underline flex items-center gap-1"
+                className="text-xs font-semibold text-brand-text hover:underline flex items-center gap-1"
               >
                 {changingPw ?"Cancel" :"Change"} <ChevronRight className="text-rose-500 dark:text-rose-400"  size={12} />
               </button>
@@ -276,7 +276,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   value={oldPw}
                   onChange={e => setOldPw(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
+                  className="w-full rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
                 />
                 <input
                   type="password"
@@ -285,7 +285,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   onChange={e => setNewPw(e.target.value)}
                   required
                   minLength={8}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
+                  className="w-full rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
                 />
                 <button
                   type="submit"
@@ -303,7 +303,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
       {/* Integrations */}
       <div>
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3 px-1">Integrations</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-brand-muted mb-3 px-1">Integrations</h2>
         <div className={SECTION}>
           <div className={ROW}>
             <div className="flex items-center gap-3">
@@ -341,7 +341,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                 </button>
               )
             ) : (
-              <span className="text-xs text-zinc-400 dark:text-zinc-500">Pro required</span>
+              <span className="text-xs text-brand-muted">Pro required</span>
             )}
           </div>
 
@@ -350,7 +350,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
       {/* Notifications */}
       <div>
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3 px-1">Notifications</h2>
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-brand-muted mb-3 px-1">Notifications</h2>
         <div className={SECTION}>
           <NotifRow
             label="Email notifications"
@@ -377,21 +377,21 @@ function NotifRow({ label, description, value, onChange }: {
   return (
     <div className="flex items-center justify-between px-5 py-4 gap-4">
       <div className="flex items-center gap-3">
-        <div className="h-9 w-9 rounded-xl bg-zinc-100 dark:bg-zinc-900 flex items-center justify-center text-zinc-900 dark:text-zinc-100">
+        <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
           <Bell className="text-amber-500 dark:text-amber-400"  size={16} />
         </div>
         <div>
-          <p className="text-sm font-medium text-zinc-800 dark:text-zinc-200">{label}</p>
-          <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">{description}</p>
+          <p className="text-sm font-medium text-brand-text">{label}</p>
+          <p className="text-xs text-brand-muted mt-0.5">{description}</p>
         </div>
       </div>
       <button
         onClick={() => onChange(!value)}
         role="switch"
         aria-checked={value}
-        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ?"bg-zinc-900 dark:bg-zinc-100" :"bg-zinc-200 dark:bg-zinc-800"}`}
+        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ?"bg-zinc-900 dark:bg-zinc-100" :"bg-brand-border"}`}
       >
-        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full shadow transition-transform duration-200 ${value ?"translate-x-5" :"translate-x-0"}`} />
+        <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-brand-bg rounded-full shadow transition-transform duration-200 ${value ?"translate-x-5" :"translate-x-0"}`} />
       </button>
     </div>
   );
