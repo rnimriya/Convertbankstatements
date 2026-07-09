@@ -36,10 +36,6 @@ export function BankMarquee({ banks }: BankMarqueeProps) {
 
   return (
     <div className="w-full max-w-[100vw] overflow-hidden -mx-6 px-6 relative py-10 flex flex-col gap-4">
-      {/* Subtle fade edges for the marquee */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-brand-bg to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand-bg to-transparent z-10 pointer-events-none" />
-
       <Row items={row1} speedClass="animate-marquee duration-[120s]" />
       <Row items={row2} reverse speedClass="animate-marquee duration-[100s]" />
       <Row items={row3} speedClass="animate-marquee duration-[140s]" />
