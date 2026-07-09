@@ -160,7 +160,7 @@ export default async function HomePage() {
               {steps.map(({ n, icon, title, body, gradient }, idx) => (
                 <div
                   key={n}
-                  className="relative group flex flex-col p-8 bg-brand-bg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors duration-300"
+                  className="relative group flex flex-col p-8 bg-brand-bg hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="absolute top-6 right-6 text-4xl font-black select-none text-zinc-100">{n}</div>
 
@@ -195,7 +195,7 @@ export default async function HomePage() {
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-brand-bg hover:bg-zinc-50 transition-colors"
+                  className="group relative flex flex-col overflow-hidden p-8 bg-brand-bg hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
                     <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand-border flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
