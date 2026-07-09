@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
 const config: Config = {
   darkMode: "class",
@@ -9,6 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        zinc: colors.slate,
         brand: {
           bg: "rgb(var(--color-bg) / <alpha-value>)",
           surface: "rgb(var(--color-surface) / <alpha-value>)",
