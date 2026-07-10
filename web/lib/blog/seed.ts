@@ -11,7 +11,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["basics", "bank statement", "guide"],
     published: true,
     createdAt: "2024-01-10T08:00:00Z",
-    updatedAt: "2024-01-10T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>A bank statement shows every transaction in your account for a given period. Most banks in India follow a similar format, so learning to read one means you can read them all.</p>
 <h2>The main columns</h2>
 <p>Every statement has a date, a description (called narration or particulars), and two amount columns: debit and credit. Debit means money left your account. Credit means money came in. The final column shows the running balance after each transaction.</p>
@@ -19,7 +19,14 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Opening and closing balance</h2>
 <p>The opening balance is what you had at the start of the period. The closing balance is what you have at the end. Add all credits and subtract all debits from the opening balance and you should get the closing balance. If the numbers do not match, contact your bank.</p>
 <h2>Charges and fees</h2>
-<p>Look for lines with descriptions like "SMS charges," "annual maintenance charge," or "minimum balance charge." These are bank fees. Track them so you know exactly what you are paying each year.</p>`,
+<p>Look for lines with descriptions like "SMS charges," "annual maintenance charge," or "minimum balance charge." These are bank fees. Track them so you know exactly what you are paying each year.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/banks/state-bank-of-india-sbi">Convert SBI Statements to Excel</a></li>
+<li><a href="/banks/hdfc-bank">Convert HDFC Statements to Excel</a></li>
+<li><a href="/banks/icici-bank">Convert ICICI Statements to Excel</a></li>
+<li><a href="/blog/convert-bank-statement-pdf-to-excel">How to Convert PDF to Excel</a></li>
+</ul>`,
   },
   {
     id: "seed-2",
@@ -31,7 +38,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["SBI", "download", "guide"],
     published: true,
     createdAt: "2024-01-15T08:00:00Z",
-    updatedAt: "2024-01-15T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>State Bank of India is the largest bank in India. Getting your statement from SBI takes under two minutes once you know where to look.</p>
 <h2>Via SBI Net Banking</h2>
 <p>Log in at onlinesbi.sbi. Go to "My Accounts" and then "Account Statement." Pick your account, select a date range, and click "Go." You can download the statement as PDF. For longer periods, SBI lets you download up to 12 months at a time.</p>
@@ -40,7 +47,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Via SMS</h2>
 <p>Send "ESTMT account_number email_id" to 09223588888 from your registered mobile number. SBI sends a mini statement to your email address within minutes.</p>
 <h2>At the branch</h2>
-<p>Visit any SBI branch with your passbook and a photo ID. The teller can print a statement for any period you need. There may be a small fee for printing more than a few months.</p>`,
+<p>Visit any SBI branch with your passbook and a photo ID. The teller can print a statement for any period you need. There may be a small fee for printing more than a few months.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/banks/state-bank-of-india-sbi">Convert SBI Statements to Excel, CSV, OFX</a></li>
+<li><a href="/blog/how-to-read-sbi-bank-statement">How to Read an SBI Statement</a></li>
+<li><a href="/blog/convert-bank-statement-pdf-to-excel">Convert Any Bank PDF to Excel</a></li>
+</ul>`,
   },
   {
     id: "seed-3",
@@ -52,7 +65,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["HDFC", "download", "guide"],
     published: true,
     createdAt: "2024-01-20T08:00:00Z",
-    updatedAt: "2024-01-20T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>HDFC Bank is one of the easiest banks for downloading statements. You can get a PDF or an Excel file depending on your preference.</p>
 <h2>Via NetBanking</h2>
 <p>Log in at netbanking.hdfcbank.com. Click on "Accounts" and then "Request." Select "Account Statement." Choose your date range and the format you want - PDF or XLS. Hit submit and the file downloads immediately.</p>
@@ -61,7 +74,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Via email request</h2>
 <p>Send an email to your relationship manager or the bank's customer service with your account number and the period you need. HDFC typically responds within one working day with a password-protected PDF.</p>
 <h2>Password for the PDF</h2>
-<p>HDFC statement PDFs are password-protected. The default password is your customer ID followed by your date of birth in DDMMYYYY format. For example: 12345678 with DOB 15 June 1990 gives password 1234567815061990.</p>`,
+<p>HDFC statement PDFs are password-protected. The default password is your customer ID followed by your date of birth in DDMMYYYY format. For example: 12345678 with DOB 15 June 1990 gives password 1234567815061990.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/banks/hdfc-bank">Convert HDFC Statements to Excel, CSV, OFX</a></li>
+<li><a href="/blog/how-to-read-hdfc-bank-statement-pdf">How to Read an HDFC Statement</a></li>
+<li><a href="/blog/convert-bank-statement-pdf-to-excel">Convert Any Bank PDF to Excel</a></li>
+</ul>`,
   },
   {
     id: "seed-4",
@@ -73,7 +92,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["ICICI", "download", "guide"],
     published: true,
     createdAt: "2024-01-25T08:00:00Z",
-    updatedAt: "2024-01-25T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>ICICI Bank statement downloads are straightforward through both the web portal and mobile app. The PDF format works for most purposes.</p>
 <h2>Via ICICI Internet Banking</h2>
 <p>Log in at icicibank.com. Go to "Accounts" then "Account Statement." Pick your account from the dropdown, set the date range, and select PDF. Click "Generate Statement." The file downloads in seconds.</p>
@@ -82,7 +101,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Password protection</h2>
 <p>ICICI statement PDFs use your date of birth as the password. The format is DDMMYYYY. If that does not work, try your account number or contact customer care at 1800-1080.</p>
 <h2>Email delivery option</h2>
-<p>ICICI also sends monthly e-statements to your registered email. Check your inbox for emails from statements@icicibank.com. They arrive within the first few days of each month.</p>`,
+<p>ICICI also sends monthly e-statements to your registered email. Check your inbox for emails from statements@icicibank.com. They arrive within the first few days of each month.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/banks/icici-bank">Convert ICICI Statements to Excel, CSV, OFX</a></li>
+<li><a href="/blog/how-to-read-icici-bank-statement">How to Read an ICICI Statement</a></li>
+<li><a href="/blog/convert-bank-statement-pdf-to-excel">Convert Any Bank PDF to Excel</a></li>
+</ul>`,
   },
   {
     id: "seed-5",
@@ -136,7 +161,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["income tax", "ITR", "documents"],
     published: true,
     createdAt: "2024-02-10T08:00:00Z",
-    updatedAt: "2024-02-10T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>When you file your income tax return in India, your bank statement is the foundation. It helps you verify income, claim deductions, and spot discrepancies before the IT department does.</p>
 <h2>Which transactions matter for ITR</h2>
 <p>Credits matter most. Every large credit to your account - salary, freelance payments, rent received, interest income - needs to match what you declare. Debits matter for deductions like insurance premiums paid, home loan EMIs, and PPF contributions.</p>
@@ -145,7 +170,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Reconciling with Form 26AS</h2>
 <p>Download Form 26AS from the income tax portal. Compare the TDS entries there against your bank statement. Any credit where tax was deducted should appear in 26AS. If they do not match, contact the deductor to correct it before filing.</p>
 <h2>How many months to keep</h2>
-<p>Download statements for all 12 months of the financial year (April to March). Keep them for 7 years. The IT department can reopen assessments up to 6 years back, so having clean records matters.</p>`,
+<p>Download statements for all 12 months of the financial year (April to March). Keep them for 7 years. The IT department can reopen assessments up to 6 years back, so having clean records matters.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/how-to-prepare-bank-statement-for-ca">How to Prepare Statements for Your CA</a></li>
+<li><a href="/banks/state-bank-of-india-sbi">Convert SBI Statements</a></li>
+<li><a href="/compare/bankstatementconverter">Convert Statement vs BankStatementConverter.com</a></li>
+</ul>`,
   },
   {
     id: "seed-8",
@@ -157,7 +188,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["visa", "travel", "documents"],
     published: true,
     createdAt: "2024-02-15T08:00:00Z",
-    updatedAt: "2024-02-15T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Every visa application asks for bank statements. Consulates use them to decide if you can support yourself abroad and if you have enough reason to return home.</p>
 <h2>How much balance do you need</h2>
 <p>There is no universal rule. For a 10-day Europe trip, most consultants suggest Rs 1.5 to 2 lakh in your account at the time of application. For longer trips or multiple-entry visas, aim higher. The key is that the balance looks consistent, not artificially inflated.</p>
@@ -166,7 +197,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>How many months to include</h2>
 <p>Most embassies ask for 3 to 6 months of statements. US, UK, and Schengen visas typically want 6 months. Always include the full statement including the bank's letterhead and account holder details.</p>
 <h2>Getting a bank-certified statement</h2>
-<p>For visa purposes, get a statement printed on the bank's letterhead with a branch seal and officer signature. Most banks provide this at the counter for a fee of Rs 100 to Rs 500. Digital statements without a seal are often rejected.</p>`,
+<p>For visa purposes, get a statement printed on the bank's letterhead with a branch seal and officer signature. Most banks provide this at the counter for a fee of Rs 100 to Rs 500. Digital statements without a seal are often rejected.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/how-to-get-certified-bank-statement">How to Get a Certified Bank Statement</a></li>
+<li><a href="/banks/hsbc">Convert HSBC Statements to Excel</a></li>
+<li><a href="/banks/barclays">Convert Barclays Statements to Excel</a></li>
+</ul>`,
   },
   {
     id: "seed-9",
@@ -178,7 +215,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["home loan", "mortgage", "documents"],
     published: true,
     createdAt: "2024-02-20T08:00:00Z",
-    updatedAt: "2024-02-20T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>When you apply for a home loan, the lender studies your bank statement more carefully than almost any other document. They are looking for income stability, spending patterns, and existing debt obligations.</p>
 <h2>Regular income credits</h2>
 <p>Lenders want to see salary credited on roughly the same date each month. Self-employed applicants need to show consistent business deposits. Irregular credits or gaps in income reduce your chances of approval or lead to a lower loan amount.</p>
@@ -187,7 +224,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Cheque bounces</h2>
 <p>A bounced cheque in your statement is a serious negative signal. Lenders see it as poor financial management. Even one bounce in the past 12 months can result in rejection or a higher interest rate.</p>
 <h2>How much history to provide</h2>
-<p>Most banks ask for 6 months of statements from all your active accounts. Some lenders ask for 12 months, especially for self-employed borrowers. Provide statements from every account you use for income or major expenses.</p>`,
+<p>Most banks ask for 6 months of statements from all your active accounts. Some lenders ask for 12 months, especially for self-employed borrowers. Provide statements from every account you use for income or major expenses.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/bank-statement-for-personal-loan">Bank Statement for Personal Loans</a></li>
+<li><a href="/banks/wells-fargo">Convert Wells Fargo Statements</a></li>
+<li><a href="/compare/nanonets">Convert Statement vs Nanonets</a></li>
+</ul>`,
   },
   {
     id: "seed-10",
@@ -199,7 +242,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["PDF", "Excel", "convert"],
     published: true,
     createdAt: "2024-02-25T08:00:00Z",
-    updatedAt: "2024-02-25T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>bank statement PDFs are notoriously hard to convert. Banks format them differently, some use scanned images, and most standard PDF-to-Excel tools miss columns or scramble data.</p>
 <h2>Why standard tools fail</h2>
 <p>Adobe Acrobat and most online converters treat PDFs as text boxes. They do not understand table structure. For bank statements, the result is usually a mess of merged cells, missing columns, and jumbled numbers.</p>
@@ -208,7 +251,14 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Using Excel's built-in import</h2>
 <p>Excel 2019 and later has a "Get Data from PDF" option under the Data tab. It works reasonably well for clean PDFs but still struggles with bank statement formatting. You will usually need to fix columns manually.</p>
 <h2>Manual copy-paste</h2>
-<p>For a small number of transactions, open the PDF in Adobe Acrobat, select all text, and paste into Excel. Then use "Text to Columns" to split the data. This works for a few dozen transactions but becomes tedious at scale.</p>`,
+<p>For a small number of transactions, open the PDF in Adobe Acrobat, select all text, and paste into Excel. Then use "Text to Columns" to split the data. This works for a few dozen transactions but becomes tedious at scale.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/banks/wells-fargo">Convert Wells Fargo Statements to Excel</a></li>
+<li><a href="/banks/jpmorgan-chase">Convert JPMorgan Chase Statements to Excel</a></li>
+<li><a href="/compare/nanonets">Convert Statement vs Nanonets — Feature Comparison</a></li>
+<li><a href="/compare/bankstatementconverter">Convert Statement vs BankStatementConverter.com</a></li>
+</ul>`,
   },
   {
     id: "seed-11",
@@ -241,7 +291,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["accounting", "CA", "analysis"],
     published: true,
     createdAt: "2024-03-05T08:00:00Z",
-    updatedAt: "2024-03-05T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>CAs and accountants spend significant time reconciling bank statements against books. The right workflow cuts that time by more than half.</p>
 <h2>Start with the totals</h2>
 <p>Before looking at individual transactions, check the opening balance, total credits, total debits, and closing balance. If the closing balance does not equal opening + credits - debits, there is an error somewhere that you need to find first.</p>
@@ -250,7 +300,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Look for unusual patterns</h2>
 <p>Large round-number transactions, frequent transfers to the same account, multiple credits just below Rs 2 lakh (the TDS threshold) - these patterns sometimes indicate accounting issues that need deeper investigation.</p>
 <h2>Digital statements save hours</h2>
-<p>A bank statement converted to Excel or CSV can be sorted, filtered, and summed in minutes. Doing the same work on a printed PDF takes hours. If your clients still bring printed statements, ask them to start downloading digital copies instead.</p>`,
+<p>A bank statement converted to Excel or CSV can be sorted, filtered, and summed in minutes. Doing the same work on a printed PDF takes hours. If your clients still bring printed statements, ask them to start downloading digital copies instead.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/how-to-reconcile-bank-statement">How to Reconcile Your Bank Statement</a></li>
+<li><a href="/compare/nanonets">Convert Statement vs Nanonets</a></li>
+<li><a href="/banks/u-s-bank">Convert U.S. Bank Statements</a></li>
+</ul>`,
   },
   {
     id: "seed-13",
@@ -262,7 +318,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["reconciliation", "accounting", "basics"],
     published: true,
     createdAt: "2024-03-10T08:00:00Z",
-    updatedAt: "2024-03-10T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Bank reconciliation is comparing what your books say your bank balance is against what the bank actually shows. Any difference needs an explanation.</p>
 <h2>The basic process</h2>
 <p>Start with your bank statement closing balance. Add any deposits you recorded in your books that have not yet cleared the bank. Subtract any cheques you issued that have not yet been presented. The result should match your book balance.</p>
@@ -271,7 +327,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>What to do when they do not match</h2>
 <p>Go line by line. Compare every debit and credit in your books against the bank statement. Mark matched items. Anything left unmarked on either side is a discrepancy. The most common causes are recording errors, missed bank charges, and transactions recorded in the wrong month.</p>
 <h2>How often to reconcile</h2>
-<p>Monthly is the minimum for businesses. Weekly works better for accounts with high transaction volumes. Reconciling once a year makes the process much harder and riskier.</p>`,
+<p>Monthly is the minimum for businesses. Weekly works better for accounts with high transaction volumes. Reconciling once a year makes the process much harder and riskier.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/bank-statement-analysis-for-accountants">Bank Statement Analysis for Accountants</a></li>
+<li><a href="/compare/bankstatementconverters-ai">Convert Statement vs BankStatementConverters.ai</a></li>
+<li><a href="/banks/citibank">Convert Citibank Statements to Excel</a></li>
+</ul>`,
   },
   {
     id: "seed-14",
@@ -363,7 +425,7 @@ export const SEED_POSTS: BlogPost[] = [
     title: "How to Download Your Yes Bank Statement",
     excerpt: "Yes Bank's internet banking and YES PAY mobile app both give you quick access to account statements.",
     featureImage: "https://picsum.photos/seed/yes-bank-statement-download/800/450",
-    author: "David Chen, CPA",
+    author: "Emily Roberts, Financial Analyst",
     tags: ["Yes Bank", "download", "guide"],
     published: true,
     createdAt: "2024-04-05T08:00:00Z",
@@ -493,7 +555,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["fraud", "security", "banking"],
     published: true,
     createdAt: "2024-05-05T08:00:00Z",
-    updatedAt: "2024-05-05T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Cybercriminals in India stole over Rs 1,750 crore through online banking fraud in 2023 alone. Most victims discovered the theft days or weeks after it happened. Checking your statement weekly reduces that gap.</p>
 <h2>What to look for</h2>
 <p>Flag any transaction you do not recognize. Small test debits of Rs 1-10 often precede larger fraud. Multiple transactions to the same unfamiliar account or UPI ID in a short period are a warning sign. Debits in the middle of the night when you were not using your phone deserve a second look.</p>
@@ -502,7 +564,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>What to do when you find a suspicious transaction</h2>
 <p>Call your bank immediately. Most banks have a 24-hour helpline. Report the transaction and ask for a temporary block on your account or card. File an FIR at your local police station if the amount is significant. Also report the fraud to the national cybercrime portal at cybercrime.gov.in.</p>
 <h2>The 30-day dispute window</h2>
-<p>RBI rules give you 30 days to dispute an unauthorized transaction and be eligible for a full refund from the bank. Beyond 30 days, liability rules change and recovery becomes harder. Do not wait.</p>`,
+<p>RBI rules give you 30 days to dispute an unauthorized transaction and be eligible for a full refund from the bank. Beyond 30 days, liability rules change and recovery becomes harder. Do not wait.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/bank-statement-data-security-best-practices">Bank Statement Data Security Best Practices</a></li>
+<li><a href="/banks/bank-of-america">Convert Bank of America Statements</a></li>
+<li><a href="/compare/bankstatementconverters-ai">Convert Statement vs BankStatementConverters.ai</a></li>
+</ul>`,
   },
   {
     id: "seed-25",
@@ -514,7 +582,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["budgeting", "expense tracking", "personal finance"],
     published: true,
     createdAt: "2024-05-10T08:00:00Z",
-    updatedAt: "2024-05-10T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Most personal finance apps ask you to manually enter transactions. Your bank statement has all of that data already. Using it saves hours of data entry.</p>
 <h2>Download and import</h2>
 <p>Download your statement as Excel or CSV. Open it in Google Sheets or Excel. Your transactions are already in rows with dates and amounts. Add a column called "Category" and start tagging each row: Food, Transport, Bills, Shopping, and so on.</p>
@@ -523,7 +591,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Finding subscriptions you forgot about</h2>
 <p>Sort your statement by the narration column. Subscription charges appear as recurring debits with the same narration every month. Count them up. Many people find 5-10 active subscriptions they barely use. Canceling two or three can save Rs 500-2,000 per month.</p>
 <h2>Setting a monthly target</h2>
-<p>Once you have two or three months of categorized data, you can see your actual spending patterns. Set realistic limits for each category based on what you spent, not what you think you should spend. Gradual cuts work better than sudden ones.</p>`,
+<p>Once you have two or three months of categorized data, you can see your actual spending patterns. Set realistic limits for each category based on what you spent, not what you think you should spend. Gradual cuts work better than sudden ones.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/convert-bank-statement-pdf-to-excel">Convert Bank Statement PDF to Excel</a></li>
+<li><a href="/banks/capital-one">Convert Capital One Statements</a></li>
+<li><a href="/banks/pnc-bank">Convert PNC Bank Statements</a></li>
+</ul>`,
   },
   {
     id: "seed-26",
@@ -661,7 +735,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["PDF", "password", "tips"],
     published: true,
     createdAt: "2024-06-15T08:00:00Z",
-    updatedAt: "2024-06-15T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Almost every bank sends password-protected statement PDFs. The password is meant to prevent unauthorized access if the email is intercepted. Once you have the password, you can unlock the PDF for easier use.</p>
 <h2>Common bank PDF passwords</h2>
 <p>Most banks use your date of birth in DDMMYYYY format. Some combine the first few letters of your name with your DOB. HDFC uses customer ID + DOB. ICICI uses DOB alone. Axis uses DOB or the last 4 digits of the mobile number. Check your bank's official help page if the standard format does not work.</p>
@@ -670,7 +744,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Using a browser</h2>
 <p>Open the PDF in Chrome or Edge. Enter the password when prompted. Press Ctrl+P to open the print dialog. Select "Save as PDF" as the destination. Click Save. The new file has no password. This is the quickest method and requires no extra software.</p>
 <h2>Security caution</h2>
-<p>Only remove passwords on files you own and that are stored on your own device. Never upload your bank statement to an unknown online tool to remove the password. You do not know what those sites do with your financial data after processing.</p>`,
+<p>Only remove passwords on files you own and that are stored on your own device. Never upload your bank statement to an unknown online tool to remove the password. You do not know what those sites do with your financial data after processing.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/convert-bank-statement-pdf-to-excel">Convert Bank Statement PDF to Excel</a></li>
+<li><a href="/banks/hdfc-bank">Convert HDFC Statements</a></li>
+<li><a href="/compare/bankstatementconverters-ai">Convert Statement vs BankStatementConverters.ai</a></li>
+</ul>`,
   },
   {
     id: "seed-33",
@@ -762,7 +842,7 @@ export const SEED_POSTS: BlogPost[] = [
     title: "How to Read an SBI Bank Statement",
     excerpt: "SBI statements use specific column names and abbreviations. Here is a complete guide to reading one.",
     featureImage: "https://picsum.photos/seed/how-to-read-sbi-bank-statement/800/450",
-    author: "David Chen, CPA",
+    author: "Emily Roberts, Financial Analyst",
     tags: ["SBI", "read", "guide"],
     published: true,
     createdAt: "2024-07-15T08:00:00Z",
@@ -888,7 +968,7 @@ export const SEED_POSTS: BlogPost[] = [
     title: "How to Read an ICICI Bank Statement",
     excerpt: "ICICI bank statements have specific columns and abbreviations. Here is a guide to each part.",
     featureImage: "https://picsum.photos/seed/how-to-read-icici-bank-statement/800/450",
-    author: "David Chen, CPA",
+    author: "Emily Roberts, Financial Analyst",
     tags: ["ICICI", "read", "guide"],
     published: true,
     createdAt: "2024-08-15T08:00:00Z",
@@ -913,7 +993,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["security", "privacy", "data protection"],
     published: true,
     createdAt: "2024-08-20T08:00:00Z",
-    updatedAt: "2024-08-20T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Bank statements contain your name, account number, IFSC code, address, and complete transaction history. In the wrong hands, this data can be used for identity theft, phishing attacks, or financial fraud.</p>
 <h2>Storing statements safely</h2>
 <p>Keep your downloaded PDFs in a folder on your device that is protected by a screen lock. Do not store them in cloud services unless you are confident in the security of those services. For long-term storage, a password-protected archive or a personal encrypted drive is safer than a shared cloud folder.</p>
@@ -922,7 +1002,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Online tools caution</h2>
 <p>Be careful about uploading your bank statement to online PDF tools, converters, or viewers. Any site that processes your file may store a copy on its servers. Use only tools from trusted companies with clear privacy policies. Bank statements uploaded to unknown sites in 2023 have appeared in data breach databases.</p>
 <h2>Email security</h2>
-<p>Your bank sends monthly statements to your email. If someone gains access to your email account, they get years of your financial history. Enable two-factor authentication on your email. Use a strong, unique password. This is the single most important step for protecting your statement data.</p>`,
+<p>Your bank sends monthly statements to your email. If someone gains access to your email account, they get years of your financial history. Enable two-factor authentication on your email. Use a strong, unique password. This is the single most important step for protecting your statement data.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/how-to-spot-fraudulent-transactions-bank-statement">How to Spot Fraudulent Transactions</a></li>
+<li><a href="/banks/td-bank">Convert TD Bank Statements</a></li>
+<li><a href="/compare/bankstatementconverter">Convert Statement vs BankStatementConverter.com</a></li>
+</ul>`,
   },
   {
     id: "seed-45",
@@ -1018,7 +1104,7 @@ export const SEED_POSTS: BlogPost[] = [
     tags: ["CA", "tax", "organization"],
     published: true,
     createdAt: "2024-09-20T08:00:00Z",
-    updatedAt: "2024-09-20T08:00:00Z",
+    updatedAt: "2026-07-10T08:00:00Z",
     content: `<p>Every year before ITR season, millions of Indians scramble to collect their bank statements and hand them to their chartered accountant. A bit of preparation makes the process faster and reduces back-and-forth.</p>
 <h2>Collect all accounts</h2>
 <p>List every bank account you have: savings, current, fixed deposits, joint accounts. Your CA needs statements from all of them for the financial year. Missing an account can lead to income discrepancies that attract IT notices later.</p>
@@ -1027,7 +1113,13 @@ export const SEED_POSTS: BlogPost[] = [
 <h2>Annotate unusual transactions</h2>
 <p>If your statement has large credits that are not income (loan disbursements, sale of property, gifts from family), annotate them. Add a note in the PDF or a separate Word document explaining each unusual item. This saves your CA from asking and saves you from providing documentation under pressure later.</p>
 <h2>Convert to Excel for faster work</h2>
-<p>If your CA works in Excel or Tally, providing statements in Excel or CSV format saves significant time over PDFs. Many CAs spend hours manually typing transactions from PDFs. An Excel file with clean columns can be imported directly into accounting software. Ask your CA which format they prefer.</p>`,
+<p>If your CA works in Excel or Tally, providing statements in Excel or CSV format saves significant time over PDFs. Many CAs spend hours manually typing transactions from PDFs. An Excel file with clean columns can be imported directly into accounting software. Ask your CA which format they prefer.</p>
+<h2>Related Resources</h2>
+<ul>
+<li><a href="/blog/bank-statement-for-income-tax-return">Bank Statement for Income Tax Return</a></li>
+<li><a href="/blog/bank-statement-analysis-for-accountants">Analysis for Accountants</a></li>
+<li><a href="/compare/nanonets">Convert Statement vs Nanonets</a></li>
+</ul>`,
   },
   {
     id: "seed-50",
