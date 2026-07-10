@@ -39,6 +39,7 @@ export interface User {
   emailVerifyToken?: string | null;
   emailVerifyExpiry?: string | null;
   googleSheetsRefreshToken?: string | null;
+  quickbooksRefreshToken?: string | null;
   teamId?: string | null;
   teamRole?: "owner" | "member" | null;
   /** Session-revocation counter — bumped on password change / "log out everywhere". */
@@ -119,9 +120,10 @@ function toHash(u: User): Record<string, string | number> {
     resetToken: u.resetToken ?? "",
     resetTokenExpiry: u.resetTokenExpiry ?? "",
     emailVerified: u.emailVerified ? "1" : "0",
-    emailVerifyToken: u.emailVerifyToken ?? "",
+    emailVerifyToken: u.emailVerifyToken ? encryptField(u.emailVerifyToken) : "",
     emailVerifyExpiry: u.emailVerifyExpiry ?? "",
     googleSheetsRefreshToken: encryptField(u.googleSheetsRefreshToken),
+    quickbooksRefreshToken: encryptField(u.quickbooksRefreshToken),
     teamId: u.teamId ?? "",
     teamRole: u.teamRole ?? "",
     tokenVersion: u.tokenVersion ?? 0,
@@ -158,9 +160,10 @@ function fromHash(h: Record<string, string>): User {
     resetToken: h.resetToken || null,
     resetTokenExpiry: h.resetTokenExpiry || null,
     emailVerified: h.emailVerified === "1",
-    emailVerifyToken: h.emailVerifyToken || null,
+    emailVerifyToken: h.emailVerifyToken ? decryptField(h.emailVerifyToken) : null,
     emailVerifyExpiry: h.emailVerifyExpiry || null,
     googleSheetsRefreshToken: decryptField(h.googleSheetsRefreshToken) || null,
+    quickbooksRefreshToken: decryptField(h.quickbooksRefreshToken) || null,
     teamId: h.teamId || null,
     teamRole: (h.teamRole || null) as User["teamRole"],
     tokenVersion: parseInt(h.tokenVersion ?? "0", 10),
@@ -707,16 +710,29 @@ export async function changePassword(
 
 // ── Google Sheets ─────────────────────────────────────────────────────────────
 
-export async function setGoogleSheetsToken(userId: string, refreshToken: string): Promise<void> {
+export async function setGoogleSheetsToken(userId: string, refreshToken: string) {
   if (useRedis()) {
     await r().hset(UK(userId), { googleSheetsRefreshToken: encryptField(refreshToken) });
-    return;
+  } else {
+    const users = await fileRead();
+    const user = users.find((u) => u.id === userId);
+    if (user) {
+      user.googleSheetsRefreshToken = refreshToken;
+      await fileWrite(users);
+    }
   }
-  const users = await fileRead();
-  const user = users.find(u => u.id === userId);
-  if (user) {
-    user.googleSheetsRefreshToken = refreshToken;
-    await fileWrite(users);
+}
+
+export async function saveQuickbooksRefreshToken(userId: string, refreshToken: string) {
+  if (useRedis()) {
+    await r().hset(UK(userId), { quickbooksRefreshToken: encryptField(refreshToken) });
+  } else {
+    const users = await fileRead();
+    const user = users.find((u) => u.id === userId);
+    if (user) {
+      user.quickbooksRefreshToken = refreshToken;
+      await fileWrite(users);
+    }
   }
 }
 
