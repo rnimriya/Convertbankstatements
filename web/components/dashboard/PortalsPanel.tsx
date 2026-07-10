@@ -15,6 +15,7 @@ export function PortalsPanel() {
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [newLabel, setNewLabel] = useState("");
+  const [newSlug, setNewSlug] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
 
@@ -32,13 +33,16 @@ export function PortalsPanel() {
       const res = await fetch("/api/portals", {
         method:"POST",
         headers: {"Content-Type":"application/json" },
-        body: JSON.stringify({ label: newLabel }),
+        body: JSON.stringify({ label: newLabel, slug: newSlug }),
       });
       const data = await res.json();
       if (res.ok) {
         setPortals(p => [data.portal, ...p]);
         setNewLabel("");
+        setNewSlug("");
         setShowForm(false);
+      } else {
+        alert(data.error || "Failed to create portal");
       }
     } catch { /* non-fatal */ }
     setCreating(false);
@@ -65,27 +69,49 @@ export function PortalsPanel() {
       {showForm ? (
         <div className="bg-brand-surface border border-brand-border rounded-2xl p-5 mb-6">
           <p className="text-sm font-semibold text-brand-text mb-3">New upload portal</p>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={newLabel}
-              onChange={e => setNewLabel(e.target.value)}
-              placeholder="e.g. HDFC Statements – Sharma & Sons"
-              className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
-              onKeyDown={e => e.key ==="Enter" && createPortal()}
-              autoFocus
-            />
-            <button
-              onClick={createPortal}
-              disabled={creating}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
-            >
-              {creating ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <Plus className="text-blue-500 dark:text-blue-400"  size={14} />}
-              Create
-            </button>
-            <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-xl border border-brand-border text-brand-muted hover:text-brand-text dark:hover:text-gray-200 text-sm transition-colors">
-              Cancel
-            </button>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="text"
+                value={newLabel}
+                onChange={e => setNewLabel(e.target.value)}
+                placeholder="Internal Label (e.g. HDFC Statements – Sharma & Sons)"
+                className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
+                autoFocus
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-2 items-center">
+              <div className="flex-1 flex items-center rounded-xl border border-brand-border bg-brand-surface overflow-hidden focus-within:ring-2 focus-within:ring-navy/10 focus-within:border-navy transition-all">
+                <span className="px-3 py-2.5 text-sm text-brand-muted bg-zinc-50 dark:bg-zinc-900 border-r border-brand-border hidden sm:block">
+                  convertstatement.online/p/
+                </span>
+                <span className="px-2 py-2.5 text-sm text-brand-muted bg-zinc-50 dark:bg-zinc-900 border-r border-brand-border sm:hidden">
+                  /p/
+                </span>
+                <input
+                  type="text"
+                  value={newSlug}
+                  onChange={e => setNewSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))}
+                  placeholder="custom-slug (optional)"
+                  className="flex-1 bg-transparent px-3 py-2.5 text-sm text-brand-text placeholder-slate-400 outline-none w-full"
+                  onKeyDown={e => e.key ==="Enter" && createPortal()}
+                />
+              </div>
+              
+              <div className="flex gap-2 w-full sm:w-auto">
+                <button
+                  onClick={createPortal}
+                  disabled={creating}
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
+                >
+                  {creating ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <Plus className="text-blue-500 dark:text-blue-400"  size={14} />}
+                  Create
+                </button>
+                <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-xl border border-brand-border text-brand-muted hover:text-brand-text dark:hover:text-gray-200 text-sm transition-colors">
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       ) : (

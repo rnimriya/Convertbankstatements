@@ -39,8 +39,20 @@ const UPK = (uid: string) => `cs:portals-by-user:${uid}`;
 
 // ── Public API ────────────────────────────────────────────────────────────────
 
-export async function createPortal(ownerId: string, label: string): Promise<Portal> {
-  const token = randomBytes(16).toString("hex"); // 32-char hex token
+export async function createPortal(ownerId: string, label: string, customSlug?: string): Promise<Portal> {
+  let token = customSlug 
+    ? customSlug.toLowerCase().replace(/[^a-z0-9-]/g, "").replace(/(^-|-$)+/g, "")
+    : randomBytes(16).toString("hex");
+
+  if (!token) {
+    token = randomBytes(16).toString("hex");
+  }
+
+  // Check for collision
+  const existing = await getPortal(token);
+  if (existing) {
+    throw new Error("Slug is already taken");
+  }
   const portal: Portal = {
     token,
     ownerId,

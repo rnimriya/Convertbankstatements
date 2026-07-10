@@ -6,6 +6,7 @@ import { z } from "zod";
 
 const createSchema = z.object({
   label: z.string().max(80).optional(),
+  slug: z.string().max(80).optional(),
 });
 
 /** GET /api/portals — list caller's portals */
@@ -29,7 +30,12 @@ export async function POST(req: NextRequest) {
   const parsed = createSchema.safeParse(body);
   if (!parsed.success) return NextResponse.json({ error: "Invalid request" }, { status: 400 });
 
-  const portal = await createPortal(session.sub, parsed.data.label ?? "");
+  let portal;
+  try {
+    portal = await createPortal(session.sub, parsed.data.label ?? "", parsed.data.slug);
+  } catch (err: unknown) {
+    return NextResponse.json({ error: err instanceof Error ? err.message : "Creation failed" }, { status: 400 });
+  }
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://convertstatement.online";
 
   return NextResponse.json({
