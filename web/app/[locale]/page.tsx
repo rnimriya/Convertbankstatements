@@ -119,26 +119,18 @@ export default async function HomePage() {
     applicationCategory:"FinanceApplication",
     operatingSystem:"Web",
     url:"https://convertstatement.online",
-    description:"Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and 25+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
+    description:"Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
     offers: [
-      {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"INR" },
-
-      {"@type":"Offer", name:"Pro", price:"1198", priceCurrency:"INR" },
-      {"@type":"Offer", name:"Business", price:"4498", priceCurrency:"INR" },
+      {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"USD" },
+      {"@type":"Offer", name:"Basic", price:"5", priceCurrency:"USD" },
+      {"@type":"Offer", name:"Pro", price:"20", priceCurrency:"USD" },
+      {"@type":"Offer", name:"Business", price:"75", priceCurrency:"USD" },
     ],
-  };
-
-  const faqSchema = {"@context":"https://schema.org","@type":"FAQPage",
-    mainEntity: faqs.map(({ q, a }) => ({"@type":"Question",
-      name: q,
-      acceptedAnswer: {"@type":"Answer", text: a },
-    })),
   };
 
   return (
     <>
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
-      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main className="overflow-x-hidden">
 

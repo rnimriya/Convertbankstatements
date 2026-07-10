@@ -94,7 +94,10 @@ const organizationSchema = {
   name: "Convert Statement",
   url: BASE,
   logo: `${BASE}/logo.svg`,
-  sameAs: [],
+  sameAs: [
+    "https://x.com/convertstatement",
+    "https://linkedin.com/company/convertstatement"
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
