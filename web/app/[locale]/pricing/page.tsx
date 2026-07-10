@@ -88,7 +88,7 @@ export default async function PricingPage() {
           <div>
             <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Simple, transparent pricing</h1>
             <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
-              Start free · All prices in INR · No hidden charges
+              Start free · All prices in USD · No hidden charges
             </p>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">

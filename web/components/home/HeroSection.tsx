@@ -51,7 +51,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
             Free Bank Statement Converter
           </h1>
           <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Upload any SBI, HDFC, ICICI, Axis, or Kotak statement — get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. No manual typing.
+            Upload any Wells Fargo, Citibank, U.S. Bank, Cadence Bank, or Kotak statement — get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. No manual typing.
           </p>
         </div>
 
