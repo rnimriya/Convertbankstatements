@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2 } from"lucide-react";
+import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2, ArrowUpRight } from"lucide-react";
 import { useState } from"react";
 import type { ProcessResult, Transaction } from"@/types/billing";
 import { Button } from"@/components/ui/Button";
@@ -12,6 +12,7 @@ interface Props {
   result: ProcessResult & { is_demo?: boolean };
   onReset: () => void;
   hasSheetsAccess?: boolean;
+  hasQuickbooksAccess?: boolean;
 }
 
 const FORMAT_LABELS: Record<string, string> = {
@@ -30,10 +31,22 @@ const FORMAT_EXTENSIONS: Record<string, string> = {
   sheets:"csv",
 };
 
-export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
+export function ProcessingResult({ result, onReset, hasSheetsAccess, hasQuickbooksAccess }: Props) {
   const [sheetsExporting, setSheetsExporting] = useState(false);
+  const [syncingQb, setSyncingQb] = useState(false);
+  const [qbSynced, setQbSynced] = useState(false);
   const [sheetsUrl, setSheetsUrl] = useState<string | null>(null);
   const [sheetsError, setSheetsError] = useState<string | null>(null);
+
+  const handleQbSync = async () => {
+    setSyncingQb(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setQbSynced(true);
+    } finally {
+      setSyncingQb(false);
+    }
+  };
 
   const exportToSheets = async () => {
     setSheetsExporting(true);
@@ -131,6 +144,27 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 <Download className="h-4 w-4 text-white/80 text-emerald-500 dark:text-emerald-400" />
               </button>
             ))}
+
+            {/* QuickBooks export (Mock) */}
+            {hasQuickbooksAccess && result.transactions && result.transactions.length > 0 && (
+              <button
+                onClick={handleQbSync}
+                disabled={syncingQb || qbSynced}
+                className="flex w-full items-center justify-between rounded-xl bg-green-600 hover:bg-green-700 disabled:bg-green-800 disabled:opacity-70 px-4 py-3 text-sm font-semibold text-white transition-all"
+              >
+                <span className="flex items-center gap-2">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/QuickBooks_logo_2020.svg/2560px-QuickBooks_logo_2020.svg.png" className="h-4 w-4 object-contain brightness-0 invert" alt="QB" onError={e => (e.currentTarget.style.display = 'none')} />
+                  {qbSynced ? "Synced to QuickBooks!" : syncingQb ? "Syncing..." : "Sync to QuickBooks Online"}
+                </span>
+                {qbSynced ? (
+                  <CheckCircle2 className="h-4 w-4 text-white" />
+                ) : syncingQb ? (
+                  <Loader2 className="h-4 w-4 text-white animate-spin" />
+                ) : (
+                  <ArrowUpRight className="h-4 w-4 text-white/80" />
+                )}
+              </button>
+            )}
 
             {/* Google Sheets export (Pro/Business) */}
             {hasSheetsAccess && (

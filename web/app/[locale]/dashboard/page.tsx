@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth/session";
 import { findById, findByEmail, getConversionLogs } from "@/lib/auth/users";
 import { DashboardClient } from "@/components/dashboard/DashboardClient";
+import { cookies } from "next/headers";
 import { Footer } from "@/components/layout/Footer";
 import type { BillingContext } from "@/types/billing";
 
@@ -22,6 +23,9 @@ export default async function DashboardPage() {
 
   const recentLogs = user ? await getConversionLogs(user.id) : [];
 
+  const cookieStore = await cookies();
+  const hasQuickbooksAccess = cookieStore.get("qb_mock_connected")?.value === "true";
+
   return (
     <DashboardClient
       billing={billing}
@@ -33,6 +37,7 @@ export default async function DashboardPage() {
       userName={user?.name ?? session.name}
       emailVerified={user?.emailVerified ?? false}
       hasSheetsAccess={Boolean(user?.googleSheetsRefreshToken)}
+      hasQuickbooksAccess={hasQuickbooksAccess}
       isDemo={false}
       footer={<Footer />}
     />
