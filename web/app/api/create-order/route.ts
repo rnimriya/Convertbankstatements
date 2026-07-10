@@ -26,14 +26,13 @@ const schema = z.object({
 
 export async function POST(req: NextRequest) {
   const PLAN_IDS: Record<string, string | undefined> = {
-    // Create these Basic plans in the Razorpay dashboard and set the env vars
-    // ($5/month and $48/year).
+    // Create these plans in the Razorpay dashboard (USD currency) and set the env vars.
     basic: process.env.RAZORPAY_PLAN_BASIC_MONTHLY,
     basic_annual: process.env.RAZORPAY_PLAN_BASIC_ANNUAL,
-    pro: process.env.RAZORPAY_PLAN_PRO_MONTHLY || "plan_T14Sj6GkD8svJ2",
-    business: process.env.RAZORPAY_PLAN_BUSINESS_MONTHLY || "plan_T14TRWQvERqGf5",
-    pro_annual: process.env.RAZORPAY_PLAN_PRO_ANNUAL || "plan_T14UgoFUfRdt5Z",
-    business_annual: process.env.RAZORPAY_PLAN_BUSINESS_ANNUAL || "plan_T14VWIqFnSbBMF",
+    pro: process.env.RAZORPAY_PLAN_PRO_MONTHLY,
+    business: process.env.RAZORPAY_PLAN_BUSINESS_MONTHLY,
+    pro_annual: process.env.RAZORPAY_PLAN_PRO_ANNUAL,
+    business_annual: process.env.RAZORPAY_PLAN_BUSINESS_ANNUAL,
   };
 
   const csrf = checkCsrfOrigin(req);
