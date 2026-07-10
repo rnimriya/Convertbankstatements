@@ -5,7 +5,8 @@ import { useState } from"react";
 import type { ProcessResult, Transaction } from"@/types/billing";
 import { Button } from"@/components/ui/Button";
 import { Badge } from"@/components/ui/Badge";
-import { Alert } from"@/components/ui/Alert";
+import { Alert } from "@/components/ui/Alert";
+import { AnalyticsDashboard } from "./AnalyticsDashboard";
 
 interface Props {
   result: ProcessResult & { is_demo?: boolean };
@@ -90,7 +91,6 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
             <p className="mt-0.5 truncate text-sm text-brand-muted">{result.file_name}</p>
           </div>
         </div>
-
         {/* Stats row */}
         <div className="mt-4 grid grid-cols-3 gap-3">
           <StatCard label="Pages" value={result.page_count} />
@@ -108,6 +108,11 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         <p className="mt-2 text-center text-xs text-emerald-600 dark:text-emerald-400 font-medium">
           {result.billing.message}
         </p>
+
+        {/* Analytics Dashboard */}
+        {result.transactions && result.transactions.length > 0 && (
+          <AnalyticsDashboard transactions={result.transactions} />
+        )}
 
         {/* Downloads */}
         {Object.keys(result.export_urls).length > 0 && (
