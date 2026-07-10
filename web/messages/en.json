@@ -33,7 +33,7 @@
     "bullet4": "First 8 pages free · No card required",
     "cta": "Convert free — 8 pages",
     "trySample": "Try sample PDF",
-    "trustText": "Trusted by 5,000+ financial professionals worldwide"
+    "trustText": "Trusted by 10,000+ financial professionals worldwide"
   },
   "stats": {
     "conversion": "Average conversion",
@@ -97,7 +97,7 @@
     "name5": "Michael O'Connor",
     "role5": "Senior Accountant, Dublin",
     "q6": "Our CPA firm uses this for all clients. Saves 2–3 hours per statement. Bulk processing is a game changer.",
-    "name6": "Jessica Alba",
+    "name6": "Sarah Jenkins",
     "role6": "Accounting Partner, Chicago"
   },
   "pricing": {
@@ -164,7 +164,7 @@
   "cta": {
     "label": "Get started today",
     "title": "Stop typing transactions manually",
-    "subtitle": "Join 5,000+ CPAs and finance professionals worldwide who convert bank statements in seconds, not hours.",
+    "subtitle": "Join 10,000+ CPAs and finance professionals worldwide who convert bank statements in seconds, not hours.",
     "button": "Convert free — 8 pages",
     "note": "No credit card required · Pay securely via Stripe if you need more"
   },

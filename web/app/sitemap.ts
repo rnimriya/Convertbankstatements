@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog/posts";
 import { locales } from "@/i18n/routing";
+import { getTopBanksForSEO } from "@/lib/seo/banks";
+import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
 
 const BASE = "https://convertstatement.online";
 
@@ -63,5 +65,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticEntries, ...blogEntries];
+  // 3. Bank SEO Pages (Programmatic)
+  const banks = getTopBanksForSEO(50);
+  const bankEntries: MetadataRoute.Sitemap = banks.map((bank) => {
+    const bankPath = `/banks/${bank.slug}`;
+    return {
+      url: getUrl(bankPath),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: buildAlternates(bankPath),
+    };
+  });
+
+  // 4. Competitor Comparison Pages (Programmatic)
+  const competitorSlugs = getAllCompetitorSlugs();
+  const compareEntries: MetadataRoute.Sitemap = competitorSlugs.map((slug) => {
+    const comparePath = `/compare/${slug}`;
+    return {
+      url: getUrl(comparePath),
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: buildAlternates(comparePath),
+    };
+  });
+
+  return [...staticEntries, ...blogEntries, ...bankEntries, ...compareEntries];
 }

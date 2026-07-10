@@ -92,7 +92,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       logo: { "@type": "ImageObject", url: "https://convertstatement.online/logo.svg" },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `https://convertstatement.online/blog/${slug}` },
-    keywords: post.tags.join(", "),
   };
 
   const breadcrumbSchema = {
@@ -157,6 +156,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 year: "numeric",
               })}
             </time>
+            {post.updatedAt && post.updatedAt !== post.createdAt && (
+              <>
+                <span>·</span>
+                <span className="italic">
+                  Last updated on {new Date(post.updatedAt).toLocaleDateString(locale === "en" ? "en-IN" : locale, {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </span>
+              </>
+            )}
           </div>
 
           {/* Content */}

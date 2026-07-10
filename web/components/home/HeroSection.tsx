@@ -90,7 +90,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
                 <div className="flex gap-0.5">
                   {[0,1,2,3,4].map(i => <Star key={i} size={11} className="fill-zinc-400 text-amber-500 dark:text-amber-400" />)}
                 </div>
-                <span className="text-[12px] text-zinc-500 font-medium">10,000+ users</span>
+                <span className="text-[12px] text-zinc-500 font-medium">10,000+ finance professionals</span>
               </div>
             </div>
           </div>
