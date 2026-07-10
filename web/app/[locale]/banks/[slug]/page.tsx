@@ -8,9 +8,9 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
 
-// Only render the top 50 banks at build time.
+// Generate all 400+ supported banks
 export async function generateStaticParams() {
-  const banks = getTopBanksForSEO(50);
+  const banks = getTopBanksForSEO(1000); // High limit to include all
   return banks.map((bank) => ({
     slug: bank.slug,
   }));
