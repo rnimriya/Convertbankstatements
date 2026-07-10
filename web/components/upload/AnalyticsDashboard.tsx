@@ -9,24 +9,36 @@ interface Props {
 }
 
 export function AnalyticsDashboard({ transactions }: Props) {
-  const { totalIn, totalOut, netChange } = useMemo(() => {
+  const { totalIn, totalOut, netChange, topCategories } = useMemo(() => {
     let inflow = 0;
     let outflow = 0;
+    const categoryTotals: Record<string, number> = {};
 
     for (const t of transactions) {
       if (typeof t.amount === "number" && !isNaN(t.amount)) {
         if (t.amount > 0) {
           inflow += t.amount;
         } else {
-          outflow += Math.abs(t.amount);
+          const absAmount = Math.abs(t.amount);
+          outflow += absAmount;
+          
+          if (t.category && t.category !== "Others") {
+            categoryTotals[t.category] = (categoryTotals[t.category] || 0) + absAmount;
+          }
         }
       }
     }
+
+    const sortedCategories = Object.entries(categoryTotals)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([name, amount]) => ({ name, amount }));
 
     return {
       totalIn: inflow,
       totalOut: outflow,
       netChange: inflow - outflow,
+      topCategories: sortedCategories,
     };
   }, [transactions]);
 
@@ -80,6 +92,25 @@ export function AnalyticsDashboard({ transactions }: Props) {
           </div>
         </div>
       </div>
+
+      {topCategories.length > 0 && (
+        <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Top Expense Categories</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800">
+              SMART CATEGORIZATION
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {topCategories.map(cat => (
+              <div key={cat.name} className="flex flex-col gap-1 p-3 rounded-lg bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800">
+                <span className="text-xs text-brand-muted truncate">{cat.name}</span>
+                <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{formatCurrency(cat.amount)}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
