@@ -3,6 +3,7 @@ import { getAllPosts } from "@/lib/blog/posts";
 import { locales } from "@/i18n/routing";
 import { getTopBanksForSEO } from "@/lib/seo/banks";
 import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
+import { getAllClusterSlugs } from "@/lib/seo/clusters";
 
 const BASE = "https://convertstatement.online";
 
@@ -91,5 +92,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticEntries, ...blogEntries, ...bankEntries, ...compareEntries];
+  // 5. SEO Content Clusters (Pillar Pages)
+  const clusterSlugs = getAllClusterSlugs();
+  const guideEntries: MetadataRoute.Sitemap = clusterSlugs.map((slug) => {
+    const guidePath = `/guides/${slug}`;
+    return {
+      url: getUrl(guidePath),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+      alternates: buildAlternates(guidePath),
+    };
+  });
+
+  return [...staticEntries, ...blogEntries, ...bankEntries, ...compareEntries, ...guideEntries];
 }
