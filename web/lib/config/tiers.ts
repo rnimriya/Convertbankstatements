@@ -9,32 +9,32 @@ export type BillingCycle = "monthly" | "annual";
 export interface TierConfig {
   /** Pages included per month. */
   pagesPerMonth: number;
-  /** Monthly price in paise (₹1 = 100 paise). 0 for FREE. */
-  monthlyPricePaise: number;
-  /** Annual price in paise (total charge, not monthly). null if no annual option. */
-  annualPricePaise: number | null;
+  /** Monthly price in cents ($1 = 100 cents). 0 for FREE. */
+  monthlyPriceCents: number;
+  /** Annual price in cents (total charge, not monthly). null if no annual option. */
+  annualPriceCents: number | null;
 }
 
 export const TIER_CONFIG = {
   FREE: {
     pagesPerMonth: 8,
-    monthlyPricePaise: 0,
-    annualPricePaise: null,
+    monthlyPriceCents: 0,
+    annualPriceCents: null,
   },
   BASIC: {
     pagesPerMonth: 25,
-    monthlyPricePaise: 500,       // $5 / month
-    annualPricePaise: 4800,       // $48 / year (≈ $4/mo)
+    monthlyPriceCents: 500,       // $5 / month
+    annualPriceCents: 4800,       // $48 / year (≈ $4/mo)
   },
   PRO: {
     pagesPerMonth: 500,
-    monthlyPricePaise: 2000,      // $20
-    annualPricePaise: 19200,      // $192  (≈ $16/mo, 20% off)
+    monthlyPriceCents: 2000,      // $20 / month
+    annualPriceCents: 19200,      // $192 / year (≈ $16/mo, 20% off)
   },
   BUSINESS: {
     pagesPerMonth: 2_000,
-    monthlyPricePaise: 7500,      // $75
-    annualPricePaise: 72000,      // $720 (≈ $60/mo, 20% off)
+    monthlyPriceCents: 7500,      // $75 / month
+    annualPriceCents: 72000,      // $720 / year (≈ $60/mo, 20% off)
   },
 } satisfies Record<Tier, TierConfig>;
 

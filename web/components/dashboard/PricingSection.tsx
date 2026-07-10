@@ -23,8 +23,8 @@ const PLANS = [
     cta:"Free",
     monthlyPlan: null as"basic" |"pro" |"business" | null,
     annualPlan: null as"pro_annual" |"business_annual" | null,
-    amountINR: 0,
-    annualAmountINR: 0,
+    amountUSD: 0,
+    annualAmountUSD: 0,
   },
   {
     id:"BASIC" as SubTier,
@@ -42,8 +42,8 @@ const PLANS = [
     cta:"Upgrade to Basic",
     monthlyPlan:"basic" as"basic" |"pro" |"business" | null,
     annualPlan:"basic_annual" as"basic_annual" |"pro_annual" |"business_annual" | null,
-    amountINR: 25,
-    annualAmountINR: 248,
+    amountUSD: 500,
+    annualAmountUSD: 4800,
   },
   {
     id:"PRO" as SubTier,
@@ -61,8 +61,8 @@ const PLANS = [
     cta:"Upgrade to Pro",
     monthlyPlan:"pro" as const,
     annualPlan:"pro_annual" as const,
-    amountINR: 1198,
-    annualAmountINR: 11499,
+    amountUSD: 2000,
+    annualAmountUSD: 19200,
   },
   {
     id:"BUSINESS" as SubTier,
@@ -80,8 +80,8 @@ const PLANS = [
     cta:"Upgrade to Business",
     monthlyPlan:"business" as const,
     annualPlan:"business_annual" as const,
-    amountINR: 4498,
-    annualAmountINR: 43178,
+    amountUSD: 7500,
+    annualAmountUSD: 72000,
   },
 ];
 
@@ -163,7 +163,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           const displayPrice = showAnnual ? plan.annualPrice! : plan.price;
           const displayPeriod = showAnnual ? plan.annualPeriod! : plan.period;
           const activePlan = showAnnual ? plan.annualPlan : plan.monthlyPlan;
-          const activeAmount = showAnnual ? plan.annualAmountINR : plan.amountINR;
+          const activeAmount = showAnnual ? plan.annualAmountUSD : plan.amountUSD;
 
           if (plan.highlight) {
             /* ── PRO — featured card (blue gradient) ── */
@@ -240,7 +240,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                     <RazorpayCheckout
                       plan={activePlan}
                       label={plan.cta}
-                      amountINR={activeAmount}
+                      amountUSD={activeAmount}
                       onSuccess={() => router.refresh()}
                       onError={setError}
                       className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold bg-white text-black hover:bg-zinc-100 transition-colors shadow-sm"
@@ -325,7 +325,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 <RazorpayCheckout
                   plan={activePlan}
                   label={plan.cta}
-                  amountINR={activeAmount}
+                  amountUSD={activeAmount}
                   onSuccess={() => router.refresh()}
                   onError={setError}
                   className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"

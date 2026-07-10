@@ -2,13 +2,13 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 
 
-export const BASIC_AMOUNT_PAISE = 500;        // $5/month
-export const BASIC_ANNUAL_PAISE = 4800;       // $48/year (≈ $4/mo)
-export const PRO_AMOUNT_PAISE = 2000;         // $20/month
-export const BIZ_AMOUNT_PAISE = 7500;         // $75/month
+export const BASIC_AMOUNT_CENTS = 500;        // $5/month
+export const BASIC_ANNUAL_CENTS = 4800;       // $48/year (≈ $4/mo)
+export const PRO_AMOUNT_CENTS = 2000;         // $20/month
+export const BIZ_AMOUNT_CENTS = 7500;         // $75/month
 // Annual = monthly × 12 × 0.80 (20% discount), billed in one charge
-export const PRO_ANNUAL_PAISE = 19200;        // $192/year ($16/mo equiv)
-export const BIZ_ANNUAL_PAISE = 72000;        // $720/year ($60/mo equiv)
+export const PRO_ANNUAL_CENTS = 19200;        // $192/year ($16/mo equiv)
+export const BIZ_ANNUAL_CENTS = 72000;        // $720/year ($60/mo equiv)
 
 export function getRazorpay() {
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {

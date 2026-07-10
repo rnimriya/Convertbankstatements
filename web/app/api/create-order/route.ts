@@ -10,12 +10,12 @@ import { checkCsrfOrigin } from "@/lib/csrf";
 import { z } from "zod";
 
 const AMOUNTS: Record<string, number> = {
-  basic:            TIER_CONFIG.BASIC.monthlyPricePaise,
-  basic_annual:     TIER_CONFIG.BASIC.annualPricePaise!,
-  pro:              TIER_CONFIG.PRO.monthlyPricePaise,
-  business:         TIER_CONFIG.BUSINESS.monthlyPricePaise,
-  pro_annual:       TIER_CONFIG.PRO.annualPricePaise!,
-  business_annual:  TIER_CONFIG.BUSINESS.annualPricePaise!,
+  basic:            TIER_CONFIG.BASIC.monthlyPriceCents,
+  basic_annual:     TIER_CONFIG.BASIC.annualPriceCents!,
+  pro:              TIER_CONFIG.PRO.monthlyPriceCents,
+  business:         TIER_CONFIG.BUSINESS.monthlyPriceCents,
+  pro_annual:       TIER_CONFIG.PRO.annualPriceCents!,
+  business_annual:  TIER_CONFIG.BUSINESS.annualPriceCents!,
 };
 
 const schema = z.object({

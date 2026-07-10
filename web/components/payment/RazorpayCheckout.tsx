@@ -33,7 +33,7 @@ interface RazorpayResponse {
 interface Props {
   plan:"basic" |"basic_annual" |"pro" |"business" |"pro_annual" |"business_annual";
   label: string;
-  amountINR: number;
+  amountUSD: number;
   userEmail?: string;
   fileName?: string;
   pageCount?: number;
@@ -54,7 +54,7 @@ function loadRazorpay(): Promise<boolean> {
 }
 
 export function RazorpayCheckout({
-  plan, label, amountINR, userEmail, fileName, pageCount, onSuccess, onError, className,
+  plan, label, amountUSD, userEmail, fileName, pageCount, onSuccess, onError, className,
 }: Props) {
   const [loading, setLoading] = useState(false);
 
@@ -77,7 +77,7 @@ export function RazorpayCheckout({
       const rzp = new window.Razorpay({
         key: order.keyId,
         amount: order.amount,
-        currency:"INR",
+        currency:"USD",
         name:"Convert Statement",
         description: `${label} Plan`,
         order_id: order.orderId,
