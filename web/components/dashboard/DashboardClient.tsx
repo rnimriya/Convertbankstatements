@@ -184,51 +184,62 @@ export function DashboardClient({
         </div>
 
         {/* User card */}
-        <div className="mx-3 mt-3 mb-2 p-3 rounded-2xl bg-brand-surface border border-brand-border">
-          <div className="flex items-center gap-2.5 mb-2.5">
-            <div
-              className="h-8 w-8 rounded-xl flex items-center justify-center text-xs font-black bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black shrink-0"
-            >
-              {initial}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-semibold text-brand-text truncate leading-tight">{displayName}</p>
-              <p className="text-[10px] text-brand-muted truncate leading-tight">{userEmail}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg ${
-              billing.tier ==="BUSINESS" ?"bg-blue-100 text-blue-700" :
-              billing.tier ==="PRO"      ?"bg-violet-100 text-violet-700" :
-              billing.tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-zinc-200 dark:bg-zinc-700 text-brand-muted"
-            }`}>
-              {billing.tier}
-            </span>
-            {!emailVerified && !verificationSent && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-amber-100 text-amber-700 flex items-center gap-1">
-                <AlertTriangle className="text-amber-500 dark:text-amber-400"  size={8} /> Unverified
-              </span>
-            )}
-            {verificationSent && (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-emerald-100 text-emerald-700 flex items-center gap-1">
-                <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={8} /> Email sent
-              </span>
-            )}
-          </div>
-          {isPaid && (
-            <div className="mt-2.5">
-              <div className="flex justify-between text-[10px] text-brand-muted mb-1">
-                <span>Pages</span>
-                <span className="font-semibold text-brand-muted">{billing.pagesUsedThisPeriod}/{billing.monthlyPageLimit}</span>
+        <div className="mx-3 mt-3 mb-2 relative overflow-hidden rounded-2xl bg-gradient-to-b from-zinc-50 to-zinc-100/50 dark:from-zinc-900/80 dark:to-zinc-900/30 border border-zinc-200/80 dark:border-zinc-800/80 shadow-sm transition-all duration-300 hover:shadow-md group">
+          {/* Subtle top highlight */}
+          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-text/10 dark:via-brand-text/20 to-transparent opacity-50" />
+          
+          <div className="p-3.5">
+            <div className="flex items-center gap-3">
+              <div
+                className="h-9 w-9 rounded-full flex items-center justify-center text-[13px] font-black bg-gradient-to-br from-zinc-800 to-zinc-950 text-white dark:from-zinc-100 dark:to-zinc-300 dark:text-zinc-900 shadow-inner shrink-0"
+              >
+                {initial}
               </div>
-              <div className="h-1 bg-brand-bg rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full transition-all duration-500"
-                  style={{ width: `${usagePercent}%`, background: usagePercent > 80 ?"#ef4444" :"linear-gradient(90deg,#1A47C8,#3b6ef5)" }}
-                />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 truncate tracking-tight">{displayName}</p>
+                  <span className={`shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider ${
+                    billing.tier ==="BUSINESS" ?"bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400" :
+                    billing.tier ==="PRO"      ?"bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-400" :
+                    billing.tier ==="BASIC"    ?"bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400" :"bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                  }`}>
+                    {billing.tier}
+                  </span>
+                </div>
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">{userEmail}</p>
               </div>
             </div>
-          )}
+
+            {(!emailVerified || verificationSent) && (
+              <div className="mt-3 flex items-center gap-2">
+                {!emailVerified && !verificationSent && (
+                  <span className="w-full text-[10px] font-semibold px-2 py-1 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-400 flex items-center justify-center gap-1.5">
+                    <AlertTriangle size={10} /> Email unverified
+                  </span>
+                )}
+                {verificationSent && (
+                  <span className="w-full text-[10px] font-semibold px-2 py-1 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400 flex items-center justify-center gap-1.5">
+                    <CheckCircle2 size={10} /> Verification sent
+                  </span>
+                )}
+              </div>
+            )}
+            
+            {isPaid && (
+              <div className="mt-3 bg-white dark:bg-zinc-950/50 rounded-xl p-2.5 border border-zinc-100 dark:border-zinc-800/50">
+                <div className="flex justify-between items-end mb-1.5">
+                  <span className="text-[9px] font-bold tracking-[0.1em] text-zinc-400 dark:text-zinc-500 uppercase">Usage</span>
+                  <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">{billing.pagesUsedThisPeriod} <span className="text-zinc-400 font-normal">/ {billing.monthlyPageLimit} pgs</span></span>
+                </div>
+                <div className="h-1.5 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden shadow-inner">
+                  <div
+                    className="h-full rounded-full transition-all duration-700 ease-out"
+                    style={{ width: `${usagePercent}%`, background: usagePercent > 80 ?"#ef4444" :"linear-gradient(90deg, #6366f1, #a855f7)" }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Nav */}
