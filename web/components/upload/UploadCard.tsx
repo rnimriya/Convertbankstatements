@@ -30,7 +30,6 @@ interface Props {
   onBillingUpdate: () => void;
   userEmail?: string;
   hasSheetsAccess?: boolean;
-  hasQuickbooksAccess?: boolean;
   fullWidth?: boolean;
 }
 
@@ -41,7 +40,7 @@ type UploadState =
   | { status:"done"; result: ProcessResult & { is_demo?: boolean } }
   | { status:"error"; message: string };
 
-export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, hasQuickbooksAccess, fullWidth }: Props) {
+export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth }: Props) {
   const [state, setState] = useState<UploadState>({ status:"idle" });
   const [formats, setFormats] = useState<string[]>(["csv"]);
 
@@ -118,7 +117,6 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
         <ProcessingResult 
           result={state.result} 
           hasSheetsAccess={hasSheetsAccess} 
-          hasQuickbooksAccess={hasQuickbooksAccess}
           onReset={reset} 
         />
       </div>

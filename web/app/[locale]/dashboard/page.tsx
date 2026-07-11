@@ -33,7 +33,6 @@ export default async function DashboardPage() {
       userName={user?.name ?? session.name}
       emailVerified={user?.emailVerified ?? false}
       hasSheetsAccess={Boolean(user?.googleSheetsRefreshToken)}
-      hasQuickbooksAccess={Boolean(user?.quickbooksRefreshToken)}
       isDemo={false}
       footer={<Footer />}
     />

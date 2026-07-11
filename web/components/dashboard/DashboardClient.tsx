@@ -40,7 +40,7 @@ interface Props {
   isDemo?: boolean;
   emailVerified?: boolean;
   hasSheetsAccess?: boolean;
-  hasQuickbooksAccess?: boolean;
+
   footer?: React.ReactNode;
 }
 
@@ -91,7 +91,6 @@ export function DashboardClient({
   isDemo,
   emailVerified = true,
   hasSheetsAccess = false,
-  hasQuickbooksAccess = false,
   footer,
 }: Props) {
   const t = useTranslations("dashboard");
@@ -662,7 +661,6 @@ export function DashboardClient({
                     onBillingUpdate={refreshBilling} 
                     userEmail={userEmail} 
                     hasSheetsAccess={hasSheetsAccess}
-                    hasQuickbooksAccess={hasQuickbooksAccess}
                     fullWidth={false}
                   />
                 ) : (
@@ -706,38 +704,7 @@ export function DashboardClient({
                 iconBg="#f5f3ff"
               />
               <div className="p-5 lg:p-8">
-                <div className="bg-brand-surface rounded-2xl border border-brand-border overflow-hidden mb-8">
-                  <div className="p-4 sm:p-6 sm:pb-5">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Zap className="text-emerald-500" size={18} />
-                      <h2 className="text-[17px] font-black text-brand-text">Connected Apps</h2>
-                    </div>
-                    <p className="text-[13px] text-brand-muted mb-6">Manage external integrations and APIs.</p>
-                    
-                    <div className="space-y-3">
-                      <div className="p-4 rounded-xl border border-brand-border bg-zinc-50 dark:bg-zinc-900/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center shrink-0">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/QuickBooks_logo_2020.svg/2560px-QuickBooks_logo_2020.svg.png" className="w-6 h-6 object-contain" alt="QuickBooks" onError={e => (e.currentTarget.style.display = 'none')} />
-                          </div>
-                          <div>
-                            <h3 className="text-[14px] font-semibold text-brand-text">QuickBooks Online</h3>
-                            <p className="text-[12px] text-brand-muted">Push data directly to QuickBooks via OAuth.</p>
-                          </div>
-                        </div>
-                        {hasQuickbooksAccess ? (
-                          <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-semibold">
-                            <CheckCircle2 size={14} /> Connected
-                          </span>
-                        ) : (
-                          <a href="/api/quickbooks/auth-url" className="flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-semibold transition-colors w-full sm:w-auto">
-                            Connect
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
                 <QueuePanel userEmail={userEmail} tier={billing.tier} />
               </div>
             </div>
