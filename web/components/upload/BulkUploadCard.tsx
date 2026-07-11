@@ -189,51 +189,90 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
   }
 
   return (
-    <div className="space-y-4">
-      {phase ==="error" && (
-        <div className="flex items-start gap-3 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-700 dark:text-red-400">
-          <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-500 text-amber-500 dark:text-amber-400" />
-          <span className="flex-1">{errorMsg}</span>
-          <button onClick={() => setPhase("idle")} className="shrink-0 text-red-400 hover:text-red-600 font-medium">✕</button>
+    <div className="h-full overflow-y-auto w-full">
+      <div className="min-h-full flex items-center justify-center p-4 sm:p-6">
+        <div className="w-full max-w-4xl space-y-4">
+          {phase ==="error" && (
+            <div className="flex items-start gap-3 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-700 dark:text-red-400">
+              <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-500 text-amber-500 dark:text-amber-400" />
+              <span className="flex-1">{errorMsg}</span>
+              <button onClick={() => setPhase("idle")} className="shrink-0 text-red-400 hover:text-red-600 font-medium">✕</button>
+            </div>
+          )}
+
+          <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+            <div className="p-3">
+              <div
+                {...getRootProps()}
+                className={cn("relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 lg:py-16 text-center transition-colors select-none",
+                  phase === "processing"
+                    ? "border-zinc-200 pointer-events-none opacity-70"
+                    : "cursor-pointer",
+                  phase !== "processing" && (isDragActive
+                    ? "border-zinc-900 dark:border-zinc-100 bg-brand-surface"
+                    : "border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
+                )}
+              >
+                <input {...getInputProps()} />
+
+                {phase === "processing" ? (
+                  <div className="flex flex-col items-center gap-4 py-2">
+                    <div className="relative h-16 w-16">
+                      <svg className="h-full w-full animate-spin" style={{ animationDuration: "2s" }} viewBox="0 0 112 112">
+                        <circle cx="56" cy="56" r="48" fill="none" stroke="#e4e4e7" strokeWidth="6" />
+                        <circle cx="56" cy="56" r="48" fill="none" stroke="#18181b" strokeWidth="6" strokeLinecap="round"
+                          strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <FileText size={24} className="text-indigo-500 dark:text-indigo-400" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-lg font-black text-brand-text">Processing files…</p>
+                      <p className="mt-0.5 text-sm text-brand-muted">Converting sequentially · please wait</p>
+                    </div>
+                    <div className="h-1.5 w-48 overflow-hidden rounded-full bg-zinc-200">
+                      <div className="h-full rounded-full" style={{
+                        background: "linear-gradient(90deg,#52525b,#18181b,#52525b)",
+                        backgroundSize: "300% 100%",
+                        animation: "progressShimmer 1.8s linear infinite",
+                      }} />
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
+                      style={{
+                        background: isDragActive ? "#09090b" : "#18181b",
+                        transform: isDragActive ? "scale(1.06)" : "scale(1)",
+                      }}
+                    >
+                      {isDragActive
+                        ? <FileText size={26} className="text-white text-indigo-500 dark:text-indigo-400" strokeWidth={1.6} />
+                        : <Upload size={26} className="text-white text-blue-500 dark:text-blue-400" strokeWidth={1.6} />}
+                    </div>
+
+                    <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
+                      {isDragActive ? "Release to convert" : "Drop multiple PDFs or a ZIP file"}
+                    </h2>
+                    <p className="mt-1 text-sm text-brand-muted">
+                      or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
+                    </p>
+
+                    <div className="mt-3 flex items-center gap-2 text-xs text-brand-muted">
+                      <span>Max {MAX_FILES} PDFs or 1 ZIP</span>
+                      <span className="h-1 w-1 rounded-full bg-zinc-300" />
+                      <span>Max {MAX_SIZE_MB} MB each</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
-      )}
-
-      <div
-        {...getRootProps()}
-        className={cn("relative flex min-h-[240px] cursor-pointer flex-col items-center justify-center gap-4","rounded-2xl border-2 border-dashed px-8 py-12 text-center transition-all duration-200 select-none",
-          isDragActive ?"border-zinc-900 dark:border-zinc-100 bg-brand-surface scale-[1.01]" :"border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80",
-          phase ==="processing" &&"pointer-events-none opacity-70"
-        )}
-      >
-        <input {...getInputProps()} />
-
-        {phase ==="processing" ? (
-          <>
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-brand-surface">
-              <Loader2 className="h-8 w-8 dark:animate-spin text-purple-500 dark:text-purple-400" />
-            </div>
-            <div>
-              <p className="font-semibold text-zinc-800 dark:text-white">Processing files…</p>
-              <p className="mt-1 text-sm text-brand-muted">Converting sequentially · please wait</p>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={cn("flex h-16 w-16 items-center justify-center rounded-2xl transition-all duration-200",
-              isDragActive ?"bg-zinc-900 dark:bg-zinc-950 text-white scale-110" :"bg-brand-surface border-2 border-brand-border text-brand-muted"
-            )}>
-              {isDragActive ? <FileText className="h-8 w-8 text-indigo-500 dark:text-indigo-400" /> : <Upload className="h-8 w-8 text-blue-500 dark:text-blue-400" />}
-            </div>
-            <div>
-              <p className="text-base font-semibold text-brand-text">
-                {isDragActive ?"Drop files here!" :"Drop multiple PDFs or a ZIP file"}
-              </p>
-              <p className="mt-1 text-sm text-brand-muted">or <span className="font-semibold text-brand-text underline underline-offset-2">browse files</span></p>
-              <p className="mt-2 text-xs text-brand-muted">Up to {MAX_FILES} PDFs or one .zip · max {MAX_SIZE_MB} MB each</p>
-            </div>
-          </>
-        )}
       </div>
     </div>
   );
 }
+
