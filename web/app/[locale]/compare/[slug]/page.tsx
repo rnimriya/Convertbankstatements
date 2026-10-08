@@ -6,6 +6,10 @@ import { COMPETITORS, getCompetitorBySlug, getAllCompetitorSlugs } from "@/lib/s
 import { Check, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+// Same fix as banks/[slug]: with next-intl's as-needed locale prefix,
+// generateStaticParams alone (missing the locale segment) 500s in production.
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return getAllCompetitorSlugs().map((slug) => ({ slug }));
 }

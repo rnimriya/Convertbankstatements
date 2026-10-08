@@ -24,6 +24,7 @@ export function BankMarquee({ banks }: BankMarqueeProps) {
         {[...items, ...items].map((bank, i) => (
           <div
             key={i}
+            aria-hidden={i >= items.length ? true : undefined}
             className="px-5 py-3 mx-2 text-sm font-medium text-brand-text/70 hover:text-brand-text flex items-center gap-2.5 flex-shrink-0 transition-colors"
           >
             <CheckCircle2 size={16} className="text-brand-secondary" />

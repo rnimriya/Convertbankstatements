@@ -111,9 +111,6 @@ export default async function HomePage() {
     { q: tFaq("q6"), a: tFaq("a6") },
   ];
 
-  const doubled  = [...BANKS, ...BANKS];
-  const doubled2 = [...BANKS.slice(12), ...BANKS, ...BANKS.slice(0, 12)];
-
   const softwareAppSchema = {"@context":"https://schema.org","@type":"SoftwareApplication",
     name:"Convert Statement",
     applicationCategory:"FinanceApplication",
@@ -128,9 +125,15 @@ export default async function HomePage() {
     ],
   };
 
+  const faqPageSchema = {"@context":"https://schema.org","@type":"FAQPage",
+    mainEntity: faqs.map((f) => ({"@type":"Question", name: f.q,
+      acceptedAnswer: {"@type":"Answer", text: f.a}})),
+  };
+
   return (
     <>
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
       <Navbar />
       <main className="overflow-x-hidden">
 
