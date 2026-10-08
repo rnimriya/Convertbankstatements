@@ -77,6 +77,31 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     })
     .filter(Boolean) as (typeof allPosts)[0][];
 
+  // Build a table of contents from h2 headings (jump links = better UX + SEO).
+  const tocHeadings: { id: string; text: string }[] = [];
+  const contentWithIds = safeContent.replace(
+    /<h2([^>]*)>([\s\S]*?)<\/h2>/gi,
+    (_match, attrs: string, inner: string) => {
+      const text = inner.replace(/<[^>]+>/g, "").trim();
+      if (!text) return `<h2${attrs}>${inner}</h2>`;
+      let id = text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)+/g, "");
+      if (tocHeadings.some((h) => h.id === id)) {
+        id = `${id}-${tocHeadings.length + 1}`;
+      }
+      tocHeadings.push({ id, text });
+      if (/id=/.test(attrs)) return `<h2${attrs}>${inner}</h2>`;
+      return `<h2${attrs} id="${id}">${inner}</h2>`;
+    }
+  );
+  const showToc = tocHeadings.length >= 3;
+
+  // Estimated reading time for the meta row.
+  const wordCount = safeContent.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+  const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
   const blogPostSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -150,17 +175,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             <span>{post.author}</span>
             <span>·</span>
             <time dateTime={post.createdAt}>
-              {new Date(post.createdAt).toLocaleDateString(locale === "en" ? "en-IN" : locale, {
+              {new Date(post.createdAt).toLocaleDateString("en-US", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
               })}
             </time>
+            <span>·</span>
+            <span>{readingMinutes} min read</span>
             {post.updatedAt && post.updatedAt !== post.createdAt && (
               <>
                 <span>·</span>
                 <span className="italic">
-                  Last updated on {new Date(post.updatedAt).toLocaleDateString(locale === "en" ? "en-IN" : locale, {
+                  Last updated on {new Date(post.updatedAt).toLocaleDateString("en-US", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
@@ -170,11 +197,49 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             )}
           </div>
 
+          {/* Table of contents */}
+          {showToc && (
+            <nav
+              aria-label="Table of contents"
+              className="mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-6"
+            >
+              <p className="font-bold text-zinc-900 dark:text-white mb-3 text-sm uppercase tracking-wide">
+                In this article
+              </p>
+              <ul className="space-y-2">
+                {tocHeadings.map((h) => (
+                  <li key={h.id}>
+                    <a
+                      href={`#${h.id}`}
+                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 hover:underline"
+                    >
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
           {/* Content */}
           <article
-            className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: safeContent }}
+            className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed prose-h2:scroll-mt-24"
+            dangerouslySetInnerHTML={{ __html: contentWithIds }}
           />
+
+          {/* In-article CTA */}
+          <div className="mt-12 rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 p-8 text-center text-white">
+            <h2 className="text-2xl font-bold mb-2">Skip the manual work</h2>
+            <p className="text-violet-100 mb-6 text-sm sm:text-base">
+              Convert your bank statement PDF to Excel, CSV or OFX in under 15 seconds — first 8 pages free.
+            </p>
+            <a
+              href="/signup"
+              className="inline-block bg-white text-violet-900 font-bold px-8 py-3 rounded-2xl hover:bg-violet-50 transition-colors"
+            >
+              Try it free
+            </a>
+          </div>
 
           {/* Back link */}
           <div className="mt-12 border-t border-zinc-100 dark:border-zinc-800 pt-8">

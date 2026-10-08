@@ -18,6 +18,16 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
+  compress: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
+  },
+  experimental: {
+    // Tree-shake lucide-react aggressively — the icon set is imported
+    // across dozens of components and dominates client JS otherwise.
+    optimizePackageImports: ["lucide-react"],
+  },
   async headers() {
     return [
       {

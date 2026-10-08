@@ -36,7 +36,7 @@ export function BankMarquee({ banks }: BankMarqueeProps) {
   );
 
   return (
-    <div className="w-full max-w-[100vw] overflow-hidden -mx-6 px-6 relative py-10 flex flex-col gap-4">
+    <div className="w-full max-w-[100vw] overflow-hidden -mx-6 px-6 relative py-10 flex flex-col gap-4 [content-visibility:auto]">
       <Row items={row1} speedClass="animate-marquee duration-[120s]" />
       <Row items={row2} reverse speedClass="animate-marquee duration-[100s]" />
       <Row items={row3} speedClass="animate-marquee duration-[140s]" />
