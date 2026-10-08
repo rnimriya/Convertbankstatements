@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { BlogPost } from "./types";
 import { SEED_POSTS } from "./seed";
+import { GENERATED_POSTS } from "./generated";
 import { POST_IMAGES } from "./images";
 import { RELATED_MAP } from "./related";
 import { POST_TRANSLATIONS } from "./i18n";
@@ -65,7 +66,7 @@ export function getAllPosts(): BlogPost[] {
   if (_cache && now < _cacheExpiresAt) return _cache;
 
   const custom = readCustomPosts();
-  const sorted = [...SEED_POSTS, ...custom]
+  const sorted = [...SEED_POSTS, ...GENERATED_POSTS, ...custom]
     .map(enrich)
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
