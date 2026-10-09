@@ -28,6 +28,17 @@ const nextConfig = {
     // across dozens of components and dominates client JS otherwise.
     optimizePackageImports: ["lucide-react"],
   },
+  async redirects() {
+    // Redirect removed locale prefixes (kn/mr/te/hi etc.) to the canonical
+    // English URLs. These old locale URLs are indexed in Google but now 404
+    // since the site only supports English. 301 preserves SEO value.
+    const removedLocales = ["kn", "mr", "te", "hi", "ta", "bn", "gu", "ml", "pa", "or"];
+    return removedLocales.map((locale) => ({
+      source: `/${locale}/:path*`,
+      destination: "/:path*",
+      permanent: true,
+    }));
+  },
   async headers() {
     return [
       {

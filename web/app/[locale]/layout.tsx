@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600"],
 });
 
-const BASE = "https://convertstatement.online";
+const BASE = "https://www.convertstatement.online";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
@@ -135,6 +135,14 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="yMseDO6GsCeGGbrHzYqqoSkfIf7GtYFkAYbbWJwGEyI" />
+        {/* Google Analytics 4 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9" />
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9P4SZSM3B9');`,
+          }}
+        />
         <script
           nonce={nonce}
           type="application/ld+json"

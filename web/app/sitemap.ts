@@ -5,7 +5,7 @@ import { getTopBanksForSEO } from "@/lib/seo/banks";
 import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { getAllClusterSlugs } from "@/lib/seo/clusters";
 
-const BASE = "https://convertstatement.online";
+const BASE = "https://www.convertstatement.online";
 
 interface RouteConfig {
   path: string;
