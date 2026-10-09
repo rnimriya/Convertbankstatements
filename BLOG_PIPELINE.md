@@ -67,6 +67,19 @@ Zero mistakes tolerance.
 
 ## Push access
 
-`export GIT_SSH_COMMAND="ssh -i ~/.ssh/convertstatement-deploy -o StrictHostKeyChecking=no"`
-before any git push. If push fails with permission denied, the GitHub deploy
-key has not been added yet → commit locally and report it clearly.
+Pushes go over HTTPS using the git credential store (`~/.git-credentials`,
+mode 600). The stored credential is a fine-grained GitHub PAT scoped to this
+repo, supplied by the repo owner for the daily pipeline. Set up once with:
+
+  git config --global credential.helper store
+  # then approve the https://x-access-token:<PAT>@github.com credential once,
+  # or write the ~/.git-credentials line directly (one line):
+  # https://x-access-token:<PAT>@github.com
+
+Then plain `git push origin main` works with no further prompts.
+If push fails with 401/403, the token was revoked — commit locally and report
+it clearly as the blocker. Never print or log the token.
+
+NOTE (2026-10-08): SSH deploy keys do NOT work from this environment — the
+egress proxy blocks SSH to GitHub (verified: ssh.github.com unreachable,
+github.com:443 only). Always use HTTPS.
