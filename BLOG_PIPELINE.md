@@ -83,3 +83,21 @@ it clearly as the blocker. Never print or log the token.
 NOTE (2026-10-08): SSH deploy keys do NOT work from this environment — the
 egress proxy blocks SSH to GitHub (verified: ssh.github.com unreachable,
 github.com:443 only). Always use HTTPS.
+
+## Search Console submission (fast indexing)
+
+After new articles are live (HTTP 200 verified), submit every new blog URL to
+Google Search Console for fast indexing. There is no reliable API for this —
+use the live browser:
+
+1. Open https://search.google.com/search-console (Google account
+   xookad@gmail.com — session persists in the browser profile; if login is
+   needed, ask the user for help rather than failing silently).
+2. Select the convertstatement.online property.
+3. Paste each new blog URL into the top Inspect bar, wait for inspection to
+   finish, click "Request indexing".
+4. If Google shows a daily quota/limit message, stop and report how many
+   were submitted.
+
+Report per-URL: indexing requested OK / failed + reason. This step is part of
+the daily cron (added 2026-10-10 at owner's request).
