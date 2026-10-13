@@ -713,4 +713,268 @@ export const GENERATED_POSTS: BlogPost[] = [
 <p><strong>How do I handle transfers between my own TD accounts?</strong><br />Record each transfer once and do not categorize it as income or expense — it is your own money moving. Make sure both sides of every transfer are present in the master sheet.</p>
 <p>A year of neglected bookkeeping feels overwhelming until you break it into the assembly line: download, unlock, convert, merge, categorize. Start the line today with <a href="/pricing">ConvertStatement</a> — free for your first files — and turn this year's scramble into next year's thirty-minute routine.</p>`,
   },
+  {
+    id: "gen-2026-10-13-01",
+    slug: "scotiabank-statements-for-tax-filing",
+    title: "Convert Scotiabank Statement PDF to Excel for Tax Filing",
+    excerpt: "Turn a year of Scotiabank PDFs into one Excel workbook your accountant can use. Freelancers: categorize income and expenses, track HST, and file with confidence.",
+    featureImage: "/blog/scotiabank-statements-for-tax-filing.jpg",
+    author: "Sarah Mitchell",
+    tags: ["scotiabank", "tax-filing", "excel", "freelancers"],
+    published: true,
+    createdAt: "2026-10-13T06:30:00Z",
+    updatedAt: "2026-10-13T06:30:00Z",
+    content: `<p>Every February, the same sinking feeling hits Canadian freelancers: your accountant needs twelve months of transactions, and Scotiabank gave you twelve PDFs. You can <strong>convert Scotiabank statement PDF to Excel</strong> and turn that annual scramble into a one-hour assembly line. A clean spreadsheet lets you separate client income from business expenses, track HST collected versus HST paid, and hand your accountant a file they can import instead of a stack of documents they will bill you to retype. This guide walks through the freelancer workflow for Scotiabank accounts, from downloading the right PDFs to building an income-and-expense workbook that maps cleanly onto your T2125 tax form.</p>
+<h2>Why the T2125 rewards spreadsheet-ready books</h2>
+<p>The T2125 Statement of Business Activities does not ask for PDFs — it asks for totals: gross income, cost of goods sold, and expenses by category (advertising, meals and entertainment, office supplies, professional fees, and dozens more). Every one of those lines is a question a spreadsheet answers in seconds and a PDF answers never. When your twelve Scotiabank statements live in one workbook, each with a Category column, your T2125 becomes a pivot table instead of a weekend of data entry. The second payoff is the HST/GST return: if you are registered, you report HST collected on sales and claim input tax credits on business purchases. A spreadsheet filtered by category shows both totals instantly. Freelancers who wait until tax season to organize also miss deductions — the home-office internet bill from last March is invisible in a PDF stack but obvious in a categorized spreadsheet. For the general method behind all of this, our <a href="/blog/convert-bank-statement-pdf-to-excel">PDF-to-Excel conversion guide</a> covers the mechanics that work for any bank.</p>
+<h2>Step 1: Download a full year of Scotiabank statements</h2>
+<p>Start with complete source documents from Scotiabank online banking:</p>
+<ol>
+<li>Sign in at scotiabank.com and open the account that holds your freelance income — many freelancers use one chequing account for the business, which makes this trivial.</li>
+<li>Go to the <strong>Statements</strong> section and select each month of the tax year, January through December.</li>
+<li>Download every statement as a <strong>PDF</strong> — the official monthly statement, not a transaction-history export, because it carries the opening and closing balances your accountant reconciles against.</li>
+<li>If you pay yourself from the business account, download the personal chequing statements too; commingled money is the number one thing that complicates a freelancer's books.</li>
+<li>Name the files clearly, like <em>scotiabank-biz-2026-01.pdf</em>, so the conversion batch stays in order.</li>
+</ol>
+<p>Scotiabank keeps several years of statements available, so pulling a full year is straightforward. If any PDF is password protected, have the password ready — the converter handles it directly. For more on the Scotiabank statement format, see our <a href="/banks/scotiabank">Scotiabank bank page</a>.</p>
+<h2>Step 2: Convert every PDF to Excel in one session</h2>
+<p>Do the conversions as a batch while the routine is fresh. Open Convert Statement in your browser, drop in each Scotiabank PDF, and download the Excel version — each one takes seconds, and nothing needs installing. A few tips keep the batch clean:</p>
+<ul>
+<li><strong>Convert in calendar order</strong> so merging later is a straight paste-down.</li>
+<li><strong>Use the same export settings</strong> on every file so column order stays identical — this is what makes the merge painless.</li>
+<li><strong>Spot-check one file thoroughly</strong> (compare its totals to the PDF) rather than spot-checking all twelve superficially.</li>
+<li><strong>Free tier math:</strong> most monthly statements convert free; unusually busy months might take a second look, so start with the big ones.</li>
+</ul>
+<p>Then merge: paste every month's data rows under the first month's header into one <em>All 2026</em> tab. One continuous table beats twelve tabs for filtering, pivoting, and handing to an accountant.</p>
+<h2>Step 3: Categorize income and expenses the way the T2125 does</h2>
+<p>Add a Category column and tag every row. Use the T2125's own line names as your categories so the workbook maps straight onto the form:</p>
+<ul>
+<li><strong>Gross business income:</strong> every client payment, platform payout, and contract deposit. Mark transfers between your own accounts separately — moving money from savings to chequing is not income.</li>
+<li><strong>Advertising and promotion:</strong> ads, portfolio hosting, business cards.</li>
+<li><strong>Office supplies and home office:</strong> software subscriptions, equipment, the business-use share of internet and phone.</li>
+<li><strong>Professional fees:</strong> your accountant, lawyer, bookkeeper.</li>
+<li><strong>Meals and entertainment:</strong> tag these at 50% — the CRA only allows half, so a Meals50 tag now saves your accountant an adjustment later.</li>
+<li><strong>Vehicle:</strong> business kilometres logged against each fuel and maintenance receipt.</li>
+</ul>
+<p>A pivot table of Category by Month then gives you every T2125 line total in one view. Two columns also make your HST return trivial: one for HST collected on income rows, one for HST paid on expense rows, with the net difference ready for the return. Our guide to <a href="/blog/how-to-reconcile-bank-statement">reconciling bank statements</a> shows how to confirm the workbook ties to the PDFs before you file.</p>
+<h2>Step 4: Reconcile before anything goes to your accountant</h2>
+<p>Run this verification pass before you file or hand off the file. Confirm the opening balance matches January's PDF and the closing balance matches December's. Scan for duplicate rows from overlapping statement periods — the classic merged-workbook bug. Check that no owner transfers are sitting in income or expense categories. If your accountant uses QuickBooks, export the categorized sheet as CSV for import; the <a href="/guides/convert-bank-statement-to-csv">CSV conversion guide</a> explains the format they expect. And when you send the file, use your accountant's secure portal — a full year of business banking is exactly the kind of document our <a href="/blog/bank-statement-data-security-best-practices">data-security best practices</a> say should never travel as a plain email attachment.</p>
+<h2>Frequently asked questions</h2>
+<h3>Should I send my accountant the PDFs or the Excel file?</h3>
+<p>Send both. The PDFs are the source documents for the tax file; the Excel workbook is the working file your accountant imports and categorizes from. Sending only PDFs means paying for data entry; sending only the spreadsheet means they cannot verify against the originals.</p>
+<h3>How do I separate business and personal spending if I use one Scotiabank account?</h3>
+<p>Add a Business/Personal column to the workbook and tag every row honestly, then filter to business-only for the T2125. For next year, open a separate business chequing account — it is the single biggest simplification a freelancer can make.</p>
+<h3>Can I claim expenses paid in US dollars from a Canadian account?</h3>
+<p>Yes, converted at the exchange rate on the transaction date. Record the original amount and the CAD equivalent in separate columns so the conversion is auditable.</p>
+<h3>What if I forgot to track HST separately all year?</h3>
+<p>Reconstruct it from the categorized spreadsheet: HST collected is 13% (or your provincial rate) of your income rows if you were registered and charging it; HST paid on expenses is the tax portion of business-purchase rows. Your accountant will confirm the reconstruction, and next year you will track it monthly.</p>
+<p>Tax season is a data problem wearing a deadline. <a href="/">Convert your Scotiabank statements to Excel free</a> today, build the categorized workbook once, and file your T2125 from a pivot table instead of a shoebox — or see <a href="/pricing">pricing</a> when a full year of statements exceeds the free tier.</p>`,
+  },
+  {
+    id: "gen-2026-10-13-02",
+    slug: "bmo-statements-for-tax-filing",
+    title: "Convert BMO Statement PDF to Excel: Easy Tax Filing Guide",
+    excerpt: "Turn BMO rental activity into one Excel ledger: rent in, deductible expenses out. Categorize mortgage interest and repairs, then file your T776 with confidence.",
+    featureImage: "/blog/bmo-statements-for-tax-filing.jpg",
+    author: "James Park",
+    tags: ["bmo", "tax-filing", "rental-income", "excel"],
+    published: true,
+    createdAt: "2026-10-13T06:30:00Z",
+    updatedAt: "2026-10-13T06:30:00Z",
+    content: `<p>Landlords have a special tax-season problem: the numbers the CRA wants are scattered across mortgage statements, insurance bills, repair receipts, and one BMO account that holds it all together. When you <strong>convert BMO statement PDF to Excel</strong>, your rental activity becomes one searchable ledger — rent in, expenses out, transfers flagged — instead of twelve PDFs nobody can analyze. This guide shows BMO customers how to build a rental-property workbook from their statements: downloading the right files, converting them in a batch, categorizing the expenses the CRA actually allows, and reconciling the final numbers before your T1 goes in.</p>
+<h2>Why rental income reporting lives or dies on transaction detail</h2>
+<p>Rental income is reported on form T776, and the CRA allows a specific set of deductions: mortgage interest (not principal), property taxes, insurance, maintenance and repairs, utilities you pay, advertising, and professional fees. Every one of those is a line item hiding in your BMO transactions. The difference between a good year and a bad year on T776 is rarely the rent — it is whether you captured every deductible expense. PDFs make this nearly impossible: they cannot be filtered, sorted, or summed, so small deductible charges get missed and big ones get misremembered. A spreadsheet with a Category column makes the T776 nearly self-assembling. Our <a href="/blog/convert-bank-statement-pdf-to-excel">PDF-to-Excel conversion guide</a> covers the general technique this workflow builds on.</p>
+<h2>Step 1: Download your BMO statements for the tax year</h2>
+<ol>
+<li>Sign in to BMO online banking and open the chequing account your rental income and expenses flow through.</li>
+<li>Under <strong>Statements & Documents</strong>, download each month of the tax year as a PDF.</li>
+<li>If you hold a separate BMO account for the property, download that too — dedicated property accounts make the workbook dramatically simpler.</li>
+<li>Grab the annual mortgage interest statement (the T5/interest summary BMO issues) alongside the monthly PDFs; interest is your biggest deduction and it needs its own verification.</li>
+<li>Name files clearly: <em>bmo-rental-2026-01.pdf</em> keeps the batch in calendar order.</li>
+</ol>
+<p>Have the PDF password ready if your BMO statements are password protected — conversion handles it directly. More BMO specifics live on our <a href="/banks/bmo">BMO bank page</a>.</p>
+<h2>Step 2: Convert the PDFs into one Excel ledger</h2>
+<p>Upload each BMO PDF to Convert Statement in your browser — no software to install — and download the Excel file. Work in a single batch session: convert all twelve months, then merge every month's rows under the first month's header into one continuous table. Three checks make the merge trustworthy: the row count should roughly match a year of rental activity, dates should run January to December with no gaps, and the closing balance of the merged sheet must equal the closing balance on the December PDF. The free tier covers most monthly statements; unusually busy months are worth converting individually. If your bookkeeper imports into accounting software, keep a CSV copy too — the <a href="/guides/convert-bank-statement-to-csv">CSV format guide</a> explains what QuickBooks and Xero expect.</p>
+<h2>Step 3: Categorize expenses the way the CRA allows them</h2>
+<p>Add a Category column and tag every row using deduction-friendly labels:</p>
+<ul>
+<li><strong>Rent received:</strong> every tenant payment. Note the unit and month in a Notes column — the CRA wants to see the income stream clearly.</li>
+<li><strong>Mortgage interest:</strong> tag only the interest portion of each payment. The principal is not deductible, so split payments into Interest and Principal columns and verify the annual interest total against BMO's interest statement.</li>
+<li><strong>Property tax, insurance, utilities:</strong> direct T776 lines — tag them individually.</li>
+<li><strong>Repairs vs. capital:</strong> this is the distinction auditors care about. A $300 plumbing fix is a current expense; a $30,000 new roof is capital and goes into the CCA schedule instead. Tag repairs separately from improvements and flag anything ambiguous for your accountant.</li>
+<li><strong>Owner transfers:</strong> money you move in or out of the account is neither income nor expense — tag it Transfer so it never pollutes the T776 totals.</li>
+</ul>
+<p>A pivot table of Category by Month now gives you every T776 line. If you manage the property yourself, this same sheet is your annual performance report: net cash flow per month, expense ratios, and the vacancy months that hurt.</p>
+<h2>Step 4: Reconcile to the T1 before you file</h2>
+<p>Final pass before the return. Verify the workbook's opening and closing balances against the January and December PDFs. Confirm no transfer rows are sitting in income or expense categories. Cross-check the mortgage-interest total against BMO's annual interest figure — the two must match exactly. Scan for duplicate rows from overlapping statement periods, the classic merged-sheet bug our <a href="/blog/how-to-reconcile-bank-statement">reconciliation guide</a> warns about. Then send the workbook through your accountant's secure portal, never plain email — a year of banking data deserves the handling our <a href="/blog/bank-statement-data-security-best-practices">data-security best practices</a> describe.</p>
+<h2>Frequently asked questions</h2>
+<h3>Can I deduct the full mortgage payment?</h3>
+<p>No — only the interest portion is deductible; principal repayment is not. Split each payment into interest and principal columns, and verify the yearly interest total against BMO's interest statement before filing.</p>
+<h3>What if I own the property personally but the rent goes through a joint BMO account?</h3>
+<p>Add an Owner/Notes column and tag every row to the correct person or property. For next year, a dedicated property account eliminates this entirely — it is the highest-value change a landlord can make.</p>
+<h3>Do I need to keep the original BMO PDFs?</h3>
+<p>Yes. Keep them as source documents alongside the workbook — the CRA can request supporting documents, and the Excel file is your working copy, not the evidence.</p>
+<h3>How do I handle a month where I bought furniture for the unit?</h3>
+<p>Furniture and appliances for a rental are usually capital (CCA) rather than current expenses. Tag them Capital in the workbook and let your accountant place them on the CCA schedule — do not bury them in repairs.</p>
+<p>Your rental books are only as good as their detail. <a href="/">Convert your BMO statements to Excel free</a> today, categorize once, and file your T776 from a pivot table — or check <a href="/pricing">pricing</a> when a full year of busy statements goes beyond the free tier.</p>`,
+  },
+  {
+    id: "gen-2026-10-13-03",
+    slug: "cibc-statements-for-tax-filing",
+    title: "Convert CIBC Statement PDF to Excel for Faster Tax Filing",
+    excerpt: "Hand your bookkeeper clean Excel rows instead of CIBC PDFs. Convert a full year in one batch, run the 20-minute cleanup pass, and close your year-end in days, not weeks.",
+    featureImage: "/blog/cibc-statements-for-tax-filing.jpg",
+    author: "David Chen, CPA",
+    tags: ["cibc", "tax-filing", "small-business", "excel"],
+    published: true,
+    createdAt: "2026-10-13T06:30:00Z",
+    updatedAt: "2026-10-13T06:30:00Z",
+    content: `<p>Small-business year-end has a familiar rhythm: your bookkeeper asks for the books, you email a dozen CIBC PDFs, and the invoice that comes back includes hours of data entry you paid for. When you <strong>convert CIBC statement PDF to Excel</strong> before the handoff, you cut that invoice and speed up everything downstream. Clean transaction rows import directly into QuickBooks or Xero, categorize in minutes, and give your bookkeeper a reconciled starting point instead of a data-entry project. This guide covers the CIBC small-business workflow end to end: downloading a complete year, converting in one batch, running the cleanup pass that separates a usable file from a messy one, and handing it off so your year-end close takes days instead of weeks.</p>
+<h2>The year-end scramble, and how to skip it</h2>
+<p>Most small businesses run on a simple reality: the bank account is the book of record, and the bookkeeper's first job is turning it into a ledger. PDFs force that job to start with retyping — every date, payee, and amount keyed by hand or scraped by software that then needs auditing. An Excel export skips the retyping entirely: one row per transaction, dates as real dates, amounts in numeric columns. The second win is categorization quality. CIBC descriptions truncate payees the way all banks do, and a PDF reader cannot expand them — but in a spreadsheet you can sort by description, group identical merchants, and label them once for the whole year. That one cleanup session produces the categorized ledger your bookkeeper would otherwise build at hourly rates. See our <a href="/blog/bank-statement-analysis-for-accountants">bank statement analysis for accountants</a> for what happens on their side of the desk when the file arrives clean.</p>
+<h2>Step 1: Download the complete CIBC year</h2>
+<ol>
+<li>Sign in to CIBC online banking and open the business chequing account.</li>
+<li>Go to <strong>Account Documents / Statements</strong> and download all twelve months of the fiscal year as PDFs — the official statements, not CSV exports, so running balances stay in the record.</li>
+<li>Download the business savings and any CIBC business credit card statements too; your bookkeeper needs the full picture, including transfers between them.</li>
+<li>If your fiscal year does not end in December, pull the twelve months that match your year-end, plus the prior month's closing balance as the opening tie-out.</li>
+<li>Name everything consistently: <em>cibc-biz-chequing-2026-01.pdf</em> keeps a multi-account batch sortable.</li>
+</ol>
+<p>CIBC statements are sometimes password protected — have the password ready, since the converter accepts it directly. More CIBC details are on our <a href="/banks/cibc">CIBC bank page</a>.</p>
+<h2>Step 2: Convert in one batch session</h2>
+<p>Open Convert Statement in your browser and convert each CIBC PDF to Excel — no install, no setup, seconds per file. Keep the batch disciplined:</p>
+<ul>
+<li><strong>Same settings every file</strong> so column order is identical across all twelve months.</li>
+<li><strong>Convert in calendar order</strong> and merge into one <em>Full Year</em> sheet by pasting rows under the first header.</li>
+<li><strong>One thorough spot-check beats twelve shallow ones:</strong> verify a month's totals against its PDF completely, then glance-check the rest.</li>
+<li><strong>Handle multi-account files separately</strong> — one merged sheet per account, with the account name in the filename, then let the bookkeeper consolidate.</li>
+</ul>
+<p>Most monthly CIBC business statements fit the free tier comfortably. Our general <a href="/blog/convert-bank-statement-pdf-to-excel">PDF-to-Excel conversion guide</a> has the verification checklist to run before you trust a batch.</p>
+<h2>Step 3: The 20-minute cleanup pass your bookkeeper will notice</h2>
+<p>Raw exports are 95% ready; this pass delivers the last 5%:</p>
+<ol>
+<li><strong>Verify the totals.</strong> Sum the debit and credit columns and compare against each PDF's printed totals and the December closing balance. Mismatches mean a merged or split row — fix against the PDF.</li>
+<li><strong>Expand cryptic payees.</strong> Turn truncated CIBC descriptions into plain English while the year is still fresh in your memory.</li>
+<li><strong>Mark internal transfers.</strong> Flag every movement between your own CIBC accounts — it is not revenue and not an expense, and double-counted transfers are the most common bookkeeping error.</li>
+<li><strong>Flag the odd ones.</strong> Put a "?" in a Notes column next to anything unrecognized. An honest flag is cheaper than a wrongly categorized batch.</li>
+<li><strong>Freeze headers, add filters.</strong> One click turns a long list into a searchable ledger your bookkeeper can slice by payee or amount.</li>
+</ol>
+<p>Our <a href="/blog/how-to-prepare-bank-statement-for-ca">guide to preparing statements for your CA</a> covers this same routine from the accountant's side.</p>
+<h2>Step 4: Hand off the file like a professional</h2>
+<p>Send the workbook through your bookkeeper's secure portal — never as a plain email attachment. A full year of business banking contains account numbers, balances, and vendor relationships; our <a href="/blog/bank-statement-data-security-best-practices">data-security best practices</a> explain the safe way to share it. Include the original PDFs in the same handoff so the bookkeeper can verify against source documents. Add a cover note with the account list, the fiscal period, and anything unusual (a new loan, an owner draw, a one-time asset purchase) — the three lines of context that save three rounds of follow-up emails. Then run a final reconciliation: opening balance matches the first PDF, closing matches the last, no gaps in the date sequence. The <a href="/blog/how-to-reconcile-bank-statement">reconciliation guide</a> walks through the full checklist.</p>
+<h2>Frequently asked questions</h2>
+<h3>My bookkeeper uses QuickBooks — Excel or CSV?</h3>
+<p>Send Excel as the working file and keep a CSV copy for import — QuickBooks maps CSV columns on import. Our <a href="/guides/convert-bank-statement-to-csv">CSV conversion guide</a> shows the column layout import tools expect.</p>
+<h3>Should I categorize everything myself or leave it to the bookkeeper?</h3>
+<p>Do the obvious bulk categories yourself (rent, payroll, recurring vendors) and leave judgment calls flagged with "?". That split gets you the biggest invoice reduction with the least risk of miscategorization.</p>
+<h3>What if I discover a month is missing?</h3>
+<p>Re-download it from CIBC and slot it into the merged sheet in calendar order, then re-verify the totals. A missing month discovered by your bookkeeper costs more than one you find yourself.</p>
+<h3>Can this same workflow run monthly instead of yearly?</h3>
+<p>Yes — and it should. Converting each month's statement as it arrives turns year-end into a thirty-minute merge instead of a week-long project.</p>
+<p>Stop paying for retyping. <a href="/">Convert your CIBC statements to Excel free</a> today, run the cleanup pass once, and hand your bookkeeper a file that closes your year in days — or see <a href="/pricing">pricing</a> when a full year of business statements needs more than the free tier.</p>`,
+  },
+  {
+    id: "gen-2026-10-13-04",
+    slug: "commonwealth-bank-cba-statements-for-tax-filing",
+    title: "Convert Commonwealth Bank Statement PDF to Excel — Tax Guide",
+    excerpt: "Turn a financial year of CommBank PDFs into one Excel ledger. Sole traders: categorize deductions, tag GST for your BAS, and give your tax agent clean data.",
+    featureImage: "/blog/commonwealth-bank-cba-statements-for-tax-filing.jpg",
+    author: "Sarah Mitchell",
+    tags: ["commonwealth-bank", "tax-filing", "australia", "excel"],
+    published: true,
+    createdAt: "2026-10-13T06:30:00Z",
+    updatedAt: "2026-10-13T06:30:00Z",
+    content: `<p>Australian sole traders live in their bank statements at tax time — every business deduction, every GST credit, and every dollar of income the ATO expects to see is sitting in a Commonwealth Bank PDF. When you <strong>convert Commonwealth Bank statement PDF to Excel</strong>, that pile of documents becomes one working ledger: income separated from expenses, GST tagged, deductions categorized the way your tax agent needs them. This guide walks through the CommBank workflow for sole traders: downloading a complete year from NetBank, converting in a batch, building the deduction categories the ATO recognizes, and reconciling the final workbook before your return goes in.</p>
+<h2>What the ATO expects from a sole trader's records</h2>
+<p>The ATO requires business records that explain every transaction — what it was, when it happened, and how much GST was involved. For a sole trader, the bank statement is usually the primary record, and PDFs are a poor version of it: they cannot be filtered, summed, or searched, which makes substantiating deductions and reconciling BAS figures painful. A spreadsheet solves the structural problem. One row per transaction with real dates and numeric amounts means your accountant can filter to business-only activity, pivot by category, and tie every reported figure back to the source. If you are registered for GST, the same workbook produces your BAS: GST collected on sales minus GST credits on purchases, quarter by quarter. Our <a href="/blog/convert-bank-statement-pdf-to-excel">PDF-to-Excel conversion guide</a> covers the general technique behind this workflow.</p>
+<h2>Step 1: Download a full year from NetBank</h2>
+<ol>
+<li>Log in to CommBank NetBank (or the CommBank app) and open the account your business runs through.</li>
+<li>Go to <strong>Statements</strong> and download each month of the financial year — July to June — as a PDF.</li>
+<li>Download the official monthly statements, not transaction-history exports: the statement carries opening and closing balances your tax agent reconciles against.</li>
+<li>If business and personal money share the account, download the personal statements too — separating them in the workbook is honest work, but it is necessary work.</li>
+<li>Name files clearly: <em>commbank-biz-2025-07.pdf</em> keeps a July-to-June batch in order.</li>
+</ol>
+<p>CommBank keeps several years of statements online, so a full financial year is easy to assemble. More CommBank specifics are on our <a href="/banks/commonwealth-bank-cba">Commonwealth Bank page</a>.</p>
+<h2>Step 2: Convert every PDF to Excel in one session</h2>
+<p>Upload each CommBank PDF to Convert Statement in your browser — nothing to install — and download the Excel file. Batch discipline matters:</p>
+<ul>
+<li><strong>Convert in financial-year order</strong> (July first) so the merge lands chronologically.</li>
+<li><strong>Identical settings every file</strong> so column order matches across all twelve months.</li>
+<li><strong>Spot-check one month completely</strong> — totals against the PDF — rather than glancing at all twelve.</li>
+<li><strong>Merge into one sheet</strong> by pasting every month's rows under the first header: one continuous table beats twelve tabs.</li>
+</ul>
+<p>Most monthly CommBank statements convert within the free tier. If your tax agent imports into accounting software, keep a CSV copy as well — the <a href="/guides/convert-bank-statement-to-csv">CSV guide</a> shows the expected column layout.</p>
+<h2>Step 3: Build ATO-friendly deduction categories</h2>
+<p>Add a Category column and tag every row with labels your tax agent can map straight to the return:</p>
+<ul>
+<li><strong>Business income:</strong> every client payment and platform payout. Mark transfers between your own accounts separately — moving money is not income.</li>
+<li><strong>Cost of sales:</strong> materials and subcontractors directly tied to jobs.</li>
+<li><strong>Home office:</strong> the business-use share of internet, phone, and utilities. Tag the full bill and note the business percentage in a separate column — your agent applies the apportionment.</li>
+<li><strong>Motor vehicle:</strong> fuel, servicing, insurance, and registration, with business kilometres logged against each.</li>
+<li><strong>Software and subscriptions:</strong> the tools that run the business, all deductible.</li>
+<li><strong>GST tag:</strong> add a GST column marking which expenses carried GST — this is what makes the BAS a filter instead of a forensic exercise.</li>
+</ul>
+<p>A pivot table of Category by Month gives your tax agent every line of the return. Two habits multiply the value: expand CommBank's truncated payee descriptions into plain English while the year is fresh, and flag anything you cannot identify with a "?" rather than guessing. Our <a href="/blog/how-to-reconcile-bank-statement">reconciliation guide</a> shows how to prove the workbook ties to the PDFs before it goes anywhere.</p>
+<h2>Step 4: Reconcile and hand off securely</h2>
+<p>Final verification before filing: opening balance matches the July PDF, closing matches the June PDF, no duplicate rows from overlapping periods, and no owner transfers sitting in income or expense categories. Then send the workbook through your tax agent's secure portal — never plain email. A full year of banking data is exactly the kind of document our <a href="/blog/bank-statement-data-security-best-practices">data-security best practices</a> are written to protect. Include the original PDFs so the agent can verify against source documents, and add a one-line cover note with the account list and anything unusual (a new loan, an asset purchase). That context saves rounds of follow-up questions.</p>
+<h2>Frequently asked questions</h2>
+<h3>Do I need to keep the original CommBank PDFs?</h3>
+<p>Yes. The ATO can request supporting documents, and the PDF is the source record — the Excel workbook is your working copy. Keep both for at least five years.</p>
+<h3>What if I mix business and personal spending in one CommBank account?</h3>
+<p>Add a Business/Personal column and tag every row. Then open a separate business account for next year — it is the single biggest simplification a sole trader can make.</p>
+<h3>Can I claim GST credits on expenses from the workbook?</h3>
+<p>Yes, if you are GST-registered: filter to business expenses with the GST tag and total the GST column per quarter. Your tax agent will confirm the claim, and the workbook makes the evidence trivial to show.</p>
+<h3>What about income in US dollars?</h3>
+<p>Record the original amount and the AUD equivalent at the transaction date in separate columns. The ATO wants AUD figures, but the audit trail should show the original currency.</p>
+<p>Your deductions are only as good as your records. <a href="/">Convert your Commonwealth Bank statements to Excel free</a> today, categorize once, and hand your tax agent a workbook instead of a headache — or check <a href="/pricing">pricing</a> when a full financial year exceeds the free tier.</p>`,
+  },
+  {
+    id: "gen-2026-10-13-05",
+    slug: "westpac-statements-for-tax-filing",
+    title: "Convert Westpac Statement PDF to Excel for Tax Season",
+    excerpt: "Turn a year of Westpac cash movements into one Excel investing ledger. Track parcels, dividends with franking credits, and fees — then file from data, not memory.",
+    featureImage: "/blog/westpac-statements-for-tax-filing.jpg",
+    author: "James Park",
+    tags: ["westpac", "tax-filing", "investing", "excel"],
+    published: true,
+    createdAt: "2026-10-13T06:30:00Z",
+    updatedAt: "2026-10-13T06:30:00Z",
+    content: `<p>Investors have the messiest tax paperwork of anyone: buys and sells scattered across months, dividends with franking credits, interest, fees — and the ATO wants every dollar accounted for. When you <strong>convert Westpac statement PDF to Excel</strong>, your cash account becomes the single source of truth for your investing year: every settlement, every dividend, every fee in one sortable ledger. This guide shows Westpac customers how to build an investor tax workbook from their statements: downloading the right PDFs, converting in a batch, tracking cost bases and dividends, and reconciling the final numbers before your return goes in.</p>
+<h2>Why investors need their own statement workflow</h2>
+<p>Your broker sends contract notes, but your Westpac cash account is where the money actually moved — and it is the record that ties everything together. Capital gains tax needs purchase and sale dates, proceeds, and cost base per parcel; dividend income needs payment dates and franking credits; deductible costs need dates and amounts. PDFs hold all of this but yield none of it: you cannot filter a PDF for "all dividend payments in 2026" or sum "total brokerage fees." A spreadsheet makes each of those a one-line operation. The second reason is reconciliation: your broker's annual tax statement should agree with your cash account, and a spreadsheet lets you prove it line by line instead of hoping. The general method is covered in our <a href="/blog/convert-bank-statement-pdf-to-excel">PDF-to-Excel conversion guide</a>.</p>
+<h2>Step 1: Download your Westpac statements for the year</h2>
+<ol>
+<li>Log in to Westpac online banking and open the cash account linked to your brokerage.</li>
+<li>Under <strong>Statements</strong>, download all twelve months of the financial year as PDFs — the official statements with opening and closing balances.</li>
+<li>If dividends land in a different Westpac account, download that too; income split across accounts is the classic way dividends get missed.</li>
+<li>Grab your broker's annual tax/dividend statements alongside the bank PDFs — you will reconcile the two in Step 4.</li>
+<li>Name files clearly: <em>westpac-invest-2025-07.pdf</em> keeps a July-to-June batch sortable.</li>
+</ol>
+<p>Westpac keeps multiple years of statements online, so assembling the full year is straightforward. More Westpac specifics are on our <a href="/banks/westpac">Westpac bank page</a>.</p>
+<h2>Step 2: Convert the PDFs into one investing ledger</h2>
+<p>Upload each Westpac PDF to Convert Statement in your browser — no install, seconds per file — and download the Excel version. Then merge all twelve months into one continuous sheet. Three checks make the merge trustworthy: row counts should match a year of investing activity, dates should run the full financial year with no gaps, and the closing balance must equal the June PDF's closing balance. If your tax agent imports into software, keep a CSV copy too — the <a href="/guides/convert-bank-statement-to-csv">CSV format guide</a> explains what import tools expect. Most monthly Westpac statements convert within the free tier.</p>
+<h2>Step 3: Track parcels, dividends, and deductible costs</h2>
+<p>This is where the investor workbook earns its keep. Add columns beyond the basics:</p>
+<ul>
+<li><strong>Event type:</strong> Buy, Sell, Dividend, Interest, Fee, Transfer. Filtering by event type is how you pull every sale for the CGT schedule in seconds.</li>
+<li><strong>Security and parcel:</strong> note the stock/ETF and which parcel a sale came from. Australia's CGT discount (assets held over 12 months) depends on parcel-level dates, so record the purchase date against each sale.</li>
+<li><strong>Cost base adjustments:</strong> brokerage on buys adds to cost base; brokerage on sells reduces proceeds. Tag fees clearly so your agent applies them correctly.</li>
+<li><strong>Dividends and franking:</strong> tag every dividend with its payment date and franking credit amount. Missed franking credits are missed tax offsets.</li>
+<li><strong>Transfers:</strong> money moving between your own accounts is neither income nor expense — tag it so it never pollutes the totals.</li>
+</ul>
+<p>Sort by Event type = Sell and you have your disposal list; filter Dividend and you have the dividend schedule. Expand Westpac's truncated descriptions into security names while the year is fresh — "BPAY 847291" means nothing in twelve months. Our <a href="/blog/how-to-reconcile-bank-statement">reconciliation guide</a> shows the verification routine before the workbook goes to your agent.</p>
+<h2>Step 4: Reconcile against your broker before filing</h2>
+<p>Cross-check the workbook against your broker's annual statements: every buy and sell in the broker record should have a matching cash movement in Westpac, and every dividend the broker reports should appear in the ledger. Investigate mismatches now — a missing dividend payment or an unmatched settlement is a filing error waiting to happen. Then send the workbook through your tax agent's secure portal, never plain email: a year of investing data deserves the handling in our <a href="/blog/bank-statement-data-security-best-practices">data-security best practices</a>. Include the original PDFs and a cover note listing the accounts and any corporate actions (splits, buybacks, DRP participation) that affect cost bases.</p>
+<h2>Frequently asked questions</h2>
+<h3>Do I report every buy and sell, or just the net gain?</h3>
+<p>Your agent needs every disposal with dates, proceeds, and cost base — the workbook's Event type filter produces exactly that list. Buys matter too, because they establish the cost base of what you still hold.</p>
+<h3>What about the CGT discount for assets held over 12 months?</h3>
+<p>Record the purchase date on each sale row. Assets held more than 12 months generally qualify for the 50% CGT discount for individuals — your agent applies it, but only if the dates are in the data.</p>
+<h3>Can I deduct brokerage fees?</h3>
+<p>Brokerage on purchases forms part of the cost base; brokerage on sales reduces capital proceeds. Either way it lowers your taxable gain — which is why every fee needs tagging in the workbook.</p>
+<h3>What if a dividend never arrived in my Westpac account?</h3>
+<p>That is exactly what the broker cross-check catches. Chase it with the share registry before filing — unclaimed dividends are common and fixable, but only if you notice.</p>
+<p>Your tax return is only as accurate as your records. <a href="/">Convert your Westpac statements to Excel free</a> today, build the investor ledger once, and file from data instead of memory — or see <a href="/pricing">pricing</a> when a full year of active trading exceeds the free tier.</p>`,
+  },
 ];
