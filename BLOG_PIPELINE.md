@@ -41,7 +41,11 @@ Zero mistakes tolerance.
     between `<h2>` sections for a premium, catchy look. Each as
     `<figure><img src="/blog/{slug}-inline-N.jpg" alt="..." width="1200" height="800" loading="lazy" /><figcaption>short caption</figcaption></figure>`,
     saved to `web/public/blog/` at 1200px wide (feature image stays 1920px).
-    Topical finance scenes only, no readable text, no logos. The blog template
+    **IMAGE STYLE (owner rule, 2026-10-14):** every image — feature and inline —
+    must be generated to match the surrounding section's content and must look
+    like a REAL photograph (photorealistic, DSLR-style office/desk scenes,
+    screens and papers slightly out of focus). NO abstract art, NO colorful
+    grid/dashboard illustrations, no readable text, no logos. The blog template
     styles content images with rounded corners + shadow automatically.
 - `tags`: 3–4 relevant tags
 - `author`: rotate "David Chen, CPA" / "Sarah Mitchell" / "James Park"
