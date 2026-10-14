@@ -977,4 +977,209 @@ export const GENERATED_POSTS: BlogPost[] = [
 <p>That is exactly what the broker cross-check catches. Chase it with the share registry before filing — unclaimed dividends are common and fixable, but only if you notice.</p>
 <p>Your tax return is only as accurate as your records. <a href="/">Convert your Westpac statements to Excel free</a> today, build the investor ledger once, and file from data instead of memory — or see <a href="/pricing">pricing</a> when a full year of active trading exceeds the free tier.</p>`,
   },
+  {
+    id: "gen-2026-10-14-01",
+    slug: "anz-convert-to-excel",
+    title: "How to Convert ANZ Bank Statement PDF to Excel in 2026",
+    excerpt:
+      "Convert your ANZ bank statement PDF to Excel in seconds — free for the first 8 pages — and turn goMoney transactions into a clean, tax-ready expense tracker.",
+    featureImage: "/blog/anz-convert-to-excel.jpg",
+    author: "David Chen, CPA",
+    tags: ["anz", "excel", "freelancers", "how-to"],
+    published: true,
+    createdAt: "2026-10-14T06:30:00Z",
+    updatedAt: "2026-10-14T06:30:00Z",
+    content: `<p>If you freelance in Australia and bank with ANZ, you already know the monthly ritual: the goMoney app or ANZ Internet Banking hands you a neat PDF statement, and then your real work begins — retyping dozens of transactions into a spreadsheet by hand. Learning to <strong>convert ANZ bank statement PDF to Excel</strong> shrinks that chore to about fifteen seconds, and it hands you a clean, sortable dataset you can filter by client, project, or deduction category.</p>
+<p>This guide shows freelancers and contractors the fastest reliable way to convert ANZ statements, how to turn the result into a tax-ready expense tracker, and what to check before handing the file to your accountant.</p>
+<h2>Why freelancers convert ANZ statements to Excel</h2>
+<p>PDF statements are read-only. Excel is a tool. The moment your ANZ transactions live in a spreadsheet, you can sort by description to group client payments, filter by date to isolate a single quarter, and use SUM formulas to total deductible expenses — none of which is possible inside a PDF viewer.</p>
+<p>For Australian freelancers, the timing matters. Income tax returns are due October 31, and most contractors spend the weeks before it reconstructing a year's worth of income from PDFs. An Excel export flips that process: download twelve monthly ANZ statements once, convert them all in a few minutes, and you have the raw material for a profit-and-loss view of your entire financial year.</p>
+<p>Manual entry also introduces errors that cost real money. A mistyped invoice payment can mean a missed deduction or an overstated expense — both of which surface during a tax review. Automated conversion reads the statement's actual table data, so what lands in Excel matches the PDF row for row.</p>
+<h2>Get your statement PDF from ANZ Internet Banking</h2>
+<p>ANZ makes it easy to pull statements in the format a converter needs. On desktop, log in to ANZ Internet Banking, choose the account, and look for the statement or transaction history view — you can select a statement period (last statement, last 6 months, or a custom range) and download it as a PDF. The goMoney app offers the same option: open the account, tap the menu, and choose to share or email yourself a statement PDF for the period you need.</p>
+<p>Two tips before you download. First, pick a date range that matches your reporting period — a full financial year (July to June in Australia) in one export saves you from converting twelve files later. Second, save the PDF somewhere you can find it, like a folder named "Tax 2026", so the converted files sit next to the originals.</p>
+<h2>Convert your ANZ statement in 3 steps</h2>
+<p><strong>Step 1 — Upload the PDF.</strong> Head to <a href="/">Convert Statement</a> and drop in your ANZ statement. The file is processed in your browser session — no software to install and no account to create for the free tier.</p>
+<p><strong>Step 2 — Choose Excel.</strong> Select the Excel format. Dates arrive as real date values, amounts stay numeric (so your formulas work), and the description column keeps the full merchant text ANZ prints on the statement.</p>
+<p><strong>Step 3 — Download and open.</strong> Save the .xlsx file and open it in Excel or Google Sheets. ANZ statements can be long — several hundred rows for an active account — and every row converts in the same pass, usually in under a minute.</p>
+<p>For the broader method, our walkthrough on <a href="/blog/convert-bank-statement-pdf-to-excel">how PDF-to-Excel conversion works</a> covers edge cases like scanned statements and multi-account files.</p>
+<h2>Turn the spreadsheet into a tax-ready expense tracker</h2>
+<p>The conversion is the easy part; the value comes from what you do next. Add a "Category" column to the spreadsheet and label each row — Client A income, software subscriptions, home office, travel, meals. Once categorized, a pivot table gives you totals by category for any date range, which is exactly what your accountant wants to see.</p>
+<p>Freelancers with variable income get an extra benefit: monthly totals of incoming payments show cash-flow patterns across the year. If January always dips, you can plan for it instead of discovering it at tax time. Filter out transfers between your own ANZ accounts first, since internal transfers inflate both income and expense columns and distort the picture.</p>
+<p>When your return is due, export the categorized sheet and send it alongside your receipts. Clean source data turns an expensive, back-and-forth tax appointment into a quick review — and if the ATO ever asks questions, you have a row-by-row trail back to the original PDFs.</p>
+<h2>Frequently asked questions</h2>
+<p><strong>Is it free to convert an ANZ statement to Excel?</strong><br />Yes — your first 8 pages are free on Convert Statement, no credit card required. Most monthly ANZ statements fall within that limit.</p>
+<p><strong>Will this work with ANZ business or joint accounts?</strong><br />Yes. ANZ personal, business, and joint statements share the same PDF table structure, so all of them convert identically.</p>
+<p><strong>What about ANZ's two-letter transaction codes?</strong><br />ANZ prints codes like "BP" (bill payment) or "POS" on some statements. These carry over into the description column as printed, and the <a href="/banks/anz">ANZ converter page</a> explains how they appear in your spreadsheet.</p>
+<p><strong>Is uploading my statement safe?</strong><br />Files are processed in memory and deleted immediately after conversion — nothing is stored on disk. Read our notes on <a href="/blog/bank-statement-data-security-best-practices">bank statement data security</a> for the full picture.</p>
+<p><strong>Can I convert a whole financial year at once?</strong><br />Yes. Download the full year as one PDF (or convert each monthly statement and stack the sheets). Twelve months of ANZ statements typically take under five minutes end to end.</p>
+<p>Ready to ditch the manual typing? <a href="/pricing">Convert your ANZ statement free</a> — your first 8 pages cost nothing, and most people finish their first conversion before their coffee cools.</p>`,
+  },
+  {
+    id: "gen-2026-10-14-02",
+    slug: "national-australia-bank-nab-convert-to-excel",
+    title: "How to Convert NAB Bank Statement PDF to Excel Fast",
+    excerpt:
+      "Convert your NAB bank statement PDF to Excel in under a minute — free for the first 8 pages — and reconcile your small business books without manual data entry.",
+    featureImage: "/blog/national-australia-bank-nab-convert-to-excel.jpg",
+    author: "Sarah Mitchell",
+    tags: ["nab", "excel", "small business", "how-to"],
+    published: true,
+    createdAt: "2026-10-14T06:30:00Z",
+    updatedAt: "2026-10-14T06:30:00Z",
+    content: `<p>Small business owners who bank with National Australia Bank face the same bottleneck every month: the NAB statement arrives as a polished PDF, and then someone — usually you — retypes every transaction into the books. Learning to <strong>convert NAB bank statement PDF to Excel</strong> removes that bottleneck entirely, giving you a clean spreadsheet you can reconcile against invoices, import into accounting software, or hand to your bookkeeper in minutes instead of hours.</p>
+<p>This guide covers the fastest way to convert NAB statements, how to reconcile the result against your invoices, and the security questions owners always ask before uploading financial data.</p>
+<h2>Why small businesses move NAB statements into Excel</h2>
+<p>A PDF tells you what happened. A spreadsheet tells you what it means. Once your NAB transactions are in Excel, you can match each payment to an invoice number, flag expenses against budgets, and spot the small leaks — duplicate subscriptions, rising supplier costs — that hide inside a hundred-row PDF.</p>
+<p>The reconciliation payoff is the big one. Bookkeepers charge for their time, and every hour they spend typing transactions from a PDF is an hour you pay for twice: once in their fee, and once in the delay before your books are current. An Excel export that matches the PDF row for row lets them start at reconciliation instead of data entry, which is where their expertise actually adds value.</p>
+<p>Accuracy matters just as much. Automated conversion reads the statement's underlying table data, so the spreadsheet matches the original amounts exactly. Manual entry, by contrast, produces a steady stream of transposed digits and skipped rows — errors that typically surface at quarter end, when fixing them costs the most.</p>
+<h2>Download your statement from NAB Internet Banking</h2>
+<p>Log in to NAB Internet Banking on desktop, select the business account, and open the transaction history or statements view. NAB lets you choose a statement period — the last statement, a custom date range, or up to several months — and download it as a PDF. The NAB mobile app offers the same export under the account's statement options.</p>
+<p>Before downloading, match the range to your accounting period. Monthly reconciliation works best with one statement per month, while a quarterly BAS review is easier with the full quarter in a single file. Save each PDF with a clear name — "NAB-Business-Aug-2026.pdf" beats "statement.pdf" when you are hunting for a file six months later.</p>
+<h2>Convert in 3 steps</h2>
+<p><strong>Step 1 — Upload.</strong> Drag your NAB PDF into <a href="/">Convert Statement</a>. No install, no signup needed for the free tier, and multi-page business statements convert just as fast as short ones.</p>
+<p><strong>Step 2 — Pick Excel.</strong> Choose the Excel format. Dates land as true date values, amounts stay numeric so your SUM and XLOOKUP formulas work, and descriptions keep the full merchant and reference text NAB prints.</p>
+<p><strong>Step 3 — Download.</strong> Open the .xlsx file in Excel or Google Sheets. A quick balance check — opening balance in the sheet versus the PDF — confirms every row converted correctly in about thirty seconds.</p>
+<p>If you work with several formats, the <a href="/guides/convert-bank-statement-to-csv">guide to converting bank statements to CSV</a> explains when CSV beats Excel for accounting imports.</p>
+<h2>Reconcile the spreadsheet against invoices and receipts</h2>
+<p>With the Excel file open, add three columns: Invoice/Receipt, Category, and Notes. Go through the transactions and fill them in — this is the reconciliation pass, and it is dramatically faster than doing it from a PDF because you can sort, filter, and search across all rows at once.</p>
+<p>Two techniques save the most time. First, sort by amount to catch duplicates: the same charge appearing twice in a month is easy to miss in a PDF but obvious in a sorted column. Second, filter by description to group recurring payments — rent, utilities, supplier orders — and check each group against its expected amount.</p>
+<p>Once reconciled, the sheet becomes your import file. Most accounting platforms accept Excel or CSV uploads, and many bookkeepers prefer receiving a reconciled spreadsheet over raw statements. Our <a href="/blog/how-to-reconcile-bank-statement">bank statement reconciliation guide</a> walks through the full monthly routine.</p>
+<h2>Is it safe to upload your NAB statement?</h2>
+<p>This is the question every business owner asks, and it deserves a straight answer. Convert Statement processes files in memory and deletes them immediately after conversion — statements are never written to disk, stored in a database, or used for any other purpose. The transfer itself is encrypted end to end.</p>
+<p>Good habits still help. Convert on your own device rather than a shared computer, delete the downloaded Excel file from the Downloads folder after moving it to your records, and if the PDF is password-protected, unlock it through NAB first rather than sharing the password anywhere. The <a href="/banks/national-australia-bank-nab">NAB converter page</a> documents the full privacy handling.</p>
+<h2>Frequently asked questions</h2>
+<p><strong>Is it free to convert a NAB statement to Excel?</strong><br />Yes — your first 8 pages are free, no credit card required. That covers most monthly business statements.</p>
+<p><strong>Do NAB Connect or business banking statements work too?</strong><br />Yes. Standard NAB Internet Banking and business statements use the same PDF table layout, so both convert identically.</p>
+<p><strong>Will the Excel file import into my accounting software?</strong><br />Yes. The Excel export uses clean columns (date, description, debit, credit, balance) that map directly to import templates in Xero, QuickBooks, and MYOB — or download CSV if your software prefers it.</p>
+<p><strong>What if my statement is password-protected?</strong><br />Enter the password at upload; the file is decrypted in memory purely to read the tables and never stored. See our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> for more detail.</p>
+<p><strong>How often should I convert statements?</strong><br />Monthly, right after each statement issues. Converting in small regular batches keeps reconciliation to a fifteen-minute job instead of a quarter-end marathon.</p>
+<p>Your books are only as current as your data. <a href="/pricing">Convert your NAB statement free</a> and hand your bookkeeper a spreadsheet instead of a PDF this month.</p>`,
+  },
+  {
+    id: "gen-2026-10-14-03",
+    slug: "macquarie-bank-convert-to-excel",
+    title: "How to Convert Macquarie Bank Statement PDF to Excel",
+    excerpt:
+      "Convert your Macquarie Bank statement PDF to Excel in under a minute — free for the first 8 pages — and track dividends, interest, and investment income cleanly.",
+    featureImage: "/blog/macquarie-bank-convert-to-excel.jpg",
+    author: "James Park",
+    tags: ["macquarie", "excel", "investing", "how-to"],
+    published: true,
+    createdAt: "2026-10-14T06:30:00Z",
+    updatedAt: "2026-10-14T06:30:00Z",
+    content: `<p>Macquarie Bank customers usually hold more than a transaction account — cash management accounts, term deposits, and Macquarie Wrap investment portfolios all generate their own statements. Learning to <strong>convert Macquarie Bank statement PDF to Excel</strong> turns those scattered PDFs into one analyzable dataset where dividends, interest payments, fees, and cash movements sit side by side in clean columns.</p>
+<p>This guide walks investors through the fastest conversion method, how to build a dividend and interest tracker in Excel, and the accuracy checks that matter when investment money is involved.</p>
+<h2>Why investors move Macquarie statements to Excel</h2>
+<p>Investment decisions run on aggregated data. A PDF tells you that a dividend arrived on a date; a spreadsheet tells you your total dividend income for the quarter, your effective yield, and how it compares to last year. Converting Macquarie statements to Excel is the step that makes that aggregation possible.</p>
+<p>Macquarie customers with multiple products feel this most. Cash sitting in a Cash Management Account, interest from term deposits, and distributions from Wrap accounts each appear on separate statements. Convert each to Excel, stack the sheets into one workbook, and you have a consolidated view of your portfolio's cash flows — something no single PDF can show.</p>
+<p>There is also a tax angle. Australian investors must report dividend and interest income, and the numbers on Macquarie statements feed directly into that. A clean spreadsheet of every distribution, with dates and amounts, makes the annual tax return a data exercise instead of a scavenger hunt.</p>
+<h2>Get your Macquarie statement PDF</h2>
+<p>Log in to Macquarie online banking or the Macquarie Mobile Banking app, choose the account or investment product, and open the statements view. You can download transaction-account statements as PDFs for any period, and Macquarie Wrap accounts provide periodic portfolio statements that also download as PDFs.</p>
+<p>For a full financial-year view, download each product's statement for July to June in Australia's tax year. Name the files clearly — "Macquarie-CMA-FY2026.pdf", "Macquarie-Wrap-FY2026.pdf" — because investment statements all look alike in a Downloads folder and you will need to tell them apart later.</p>
+<h2>Convert in 3 steps</h2>
+<p><strong>Step 1 — Upload.</strong> Drop the Macquarie PDF into <a href="/">Convert Statement</a>. Investment statements are long and table-dense; they convert in the same pass as simple transaction statements, no extra setup needed.</p>
+<p><strong>Step 2 — Choose Excel.</strong> Select the Excel format. Dates become real date values, currency amounts stay numeric, and the description column preserves Macquarie's full transaction references — essential for matching distributions to holding statements.</p>
+<p><strong>Step 3 — Download.</strong> Save the .xlsx file and open it. Investment statements sometimes contain summary sections and disclaimers alongside the tables; the converter extracts the transaction tables and leaves the boilerplate behind.</p>
+<p>New to the format? Our explainer on <a href="/blog/convert-bank-statement-pdf-to-excel">how PDF-to-Excel conversion works</a> covers what happens to multi-section statements like Macquarie's.</p>
+<h2>Track dividends and investment income in Excel</h2>
+<p>Once converted, add a "Type" column and label each cash movement: Dividend, Interest, Distribution, Fee, Deposit, Withdrawal. This single column transforms the raw statement into an income ledger.</p>
+<p>From there, build a simple summary. Filter the Type column to "Dividend" and sum the amounts for the financial year — that is your gross dividend income. Do the same for interest. Compare both against the annual statements Macquarie issues; the numbers should agree, and if they do not, you have caught a discrepancy early instead of at tax time.</p>
+<p>Investors who track yield will want a "Holding" column too. Macquarie Wrap statements identify the underlying investment per distribution; label each row with the holding and you can compute per-holding income for the year, which is the foundation of any honest portfolio review.</p>
+<h2>Accuracy tips for Macquarie's statement layouts</h2>
+<p>Investment statements are more complex than transaction-account statements, so spend two minutes verifying. Compare the opening and closing balances in the spreadsheet against the PDF — matching balances prove every row converted correctly. Check that distribution amounts carry their full decimal precision; investment payments often include cents that matter in aggregate.</p>
+<p>Watch for wrapped descriptions. Macquarie sometimes prints long investment names across two lines. A good converter stitches these back into one row, but if you see a row with an amount and no description, check whether it belongs to the row above. Converting one product at a time — rather than merging PDFs first — keeps each file's layout consistent and conversion clean.</p>
+<p>For deeper background on keeping financial data safe during conversion, see our <a href="/blog/bank-statement-data-security-best-practices">bank statement data security guide</a>.</p>
+<h2>Frequently asked questions</h2>
+<p><strong>Is it free to convert a Macquarie statement to Excel?</strong><br />Yes — your first 8 pages are free with no credit card required. Longer investment statements convert in the same session.</p>
+<p><strong>Do Macquarie Wrap investment statements convert too?</strong><br />Yes. The converter reads the transaction and distribution tables from Wrap statements the same way it reads cash-account tables.</p>
+<p><strong>Will the spreadsheet handle dividend reinvestment entries?</strong><br />Yes. Dividend reinvestments appear as their own rows with amounts and dates, exactly as printed — you can tag them in your Type column to separate cash income from reinvested income.</p>
+<p><strong>Is it safe to upload investment statements?</strong><br />Files are processed in memory and deleted immediately after conversion; nothing is stored. The <a href="/banks/macquarie-bank">Macquarie converter page</a> documents the privacy handling in full.</p>
+<p><strong>Can I combine several Macquarie products in one workbook?</strong><br />Yes. Convert each statement separately, then paste the sheets into one workbook or use Power Query to append them. Keep the product name in a column so you can filter by account.</p>
+<p>Stop managing your investments from PDFs. <a href="/pricing">Convert your Macquarie statement free</a> — the first 8 pages cost nothing, and your dividend tracker will thank you.</p>`,
+  },
+  {
+    id: "gen-2026-10-14-04",
+    slug: "bnp-paribas-convert-to-excel",
+    title: "Convert BNP Paribas Bank Statement PDF to Excel Fast",
+    excerpt:
+      "Convert your BNP Paribas bank statement PDF to Excel in seconds — free for the first 8 pages — and manage EUR transactions, exchange rates, and US tax reporting.",
+    featureImage: "/blog/bnp-paribas-convert-to-excel.jpg",
+    author: "David Chen, CPA",
+    tags: ["bnp paribas", "excel", "expats", "how-to"],
+    published: true,
+    createdAt: "2026-10-14T06:30:00Z",
+    updatedAt: "2026-10-14T06:30:00Z",
+    content: `<p>Living abroad with a BNP Paribas account means living in two currencies at once. Rent, salary, and daily spending land on your French statement in euros, while your US life — taxes, budgets, investments — runs in dollars. Learning to <strong>convert BNP Paribas bank statement PDF to Excel</strong> bridges that gap: once the transactions are in a spreadsheet, you can apply exchange rates, categorize spending, and prepare clean records for US reporting.</p>
+<p>This guide is written for expats and international account holders. It covers the fastest conversion method, how to handle EUR amounts and exchange rates in Excel, and how to shape the result for US tax reporting.</p>
+<h2>Why expats convert BNP Paribas statements</h2>
+<p>A French statement is perfectly readable — if you live in France. For a US filer with a BNP Paribas account, the PDF is only half the story. You need every transaction in dollars, categorized, with a defensible exchange rate attached. Doing that conversion by hand, transaction by transaction, is the kind of task that consumes an entire weekend each April.</p>
+<p>An Excel export changes the arithmetic. One column of EUR amounts, one column of exchange rates, one formula — and the entire statement is denominated in dollars. Add a category column and you have expense data that drops straight into a US budget or a Form 8938 worksheet.</p>
+<p>The reconciliation benefit is real too. Expats who move money between BNP Paribas and a US bank need both sides of every transfer visible. With the French statement in Excel next to the US statement in Excel, matching transfers becomes a search exercise instead of a memory exercise.</p>
+<h2>Download your statement from BNP Paribas online banking</h2>
+<p>Log in to BNP Paribas online banking (the "Mes Comptes" web portal or the mobile app), select the account, and open the statements section. BNP Paribas issues monthly "relevés de compte" as PDFs, and you can download any month from your archive — expats typically need the full calendar year for US tax purposes.</p>
+<p>Download each month you need and save the files with English-friendly names like "BNP-Jan-2026.pdf". The PDFs themselves are in French, which is fine — the converter reads the numbers and dates, and the French transaction labels carry over into the description column as printed. You will categorize them in Excel anyway.</p>
+<h2>Convert in 3 steps</h2>
+<p><strong>Step 1 — Upload.</strong> Drag your BNP Paribas PDF into <a href="/">Convert Statement</a>. No install, no signup for the free tier; multi-month statements convert in one pass.</p>
+<p><strong>Step 2 — Choose Excel.</strong> Select Excel. Dates arrive as real date values, EUR amounts stay numeric, and the running balance column is preserved so you can verify the conversion against the PDF.</p>
+<p><strong>Step 3 — Download.</strong> Open the .xlsx file. A quick check — opening balance in the sheet versus the statement — confirms the conversion in about thirty seconds.</p>
+<p>For the general technique and edge cases, see our walkthrough of <a href="/blog/convert-bank-statement-pdf-to-excel">how PDF-to-Excel conversion works</a>.</p>
+<h2>Handle EUR amounts and exchange rates in Excel</h2>
+<p>Add two columns to your spreadsheet: "Rate" and "USD Amount". For the rate, use the IRS yearly average exchange rate for the relevant year — the IRS publishes it annually, and it is the standard choice for translating foreign transactions on US returns. Enter the rate once, then fill the USD column with a formula multiplying each EUR amount by that rate.</p>
+<p>For large or precisely-timed transactions — a property purchase, a big transfer — use the spot rate on the transaction date instead of the yearly average, and note the source in a comment column. Auditors accept either method when it is applied consistently, but mixing methods without documentation is what draws questions.</p>
+<p>One formatting note: French statements use the comma as the decimal separator and the period as the thousands separator. The converter normalizes amounts to standard numeric values, but give the first few rows a glance to confirm large amounts read correctly before you build formulas on top of them.</p>
+<h2>Use the spreadsheet for US tax reporting</h2>
+<p>US persons with foreign accounts above reporting thresholds file FBAR and possibly Form 8938. Both require maximum account values during the year — which is trivially easy to find in a spreadsheet: sort the running balance column and read the peak.</p>
+<p>For income, filter to incoming transactions and total them in USD using your rate column. Interest earned on the account needs the same treatment. Keep the converted files with your tax records; a row-by-row spreadsheet tied back to the original BNP PDFs is exactly the documentation a preparer wants to see.</p>
+<p>The <a href="/banks/bnp-paribas">BNP Paribas converter page</a> covers statement-specific details, and our <a href="/blog/bank-statement-for-income-tax-return">income tax return guide</a> walks through assembling foreign-account data for filing season.</p>
+<h2>Frequently asked questions</h2>
+<p><strong>Is it free to convert a BNP Paribas statement to Excel?</strong><br />Yes — your first 8 pages are free, no credit card required. Most monthly relevés fit comfortably within that.</p>
+<p><strong>Will French-language statements convert correctly?</strong><br />Yes. The converter reads table structure, dates, and numbers — language-independent — and French descriptions carry over as printed for you to categorize in Excel.</p>
+<p><strong>Does the Excel file handle EUR formatting?</strong><br />Yes. Amounts are normalized to standard numeric values so formulas work, including the comma-decimal French formatting BNP uses.</p>
+<p><strong>Is uploading my statement safe?</strong><br />Files are processed in memory and deleted immediately after conversion — nothing is stored. Full details are on our <a href="/blog/bank-statement-data-security-best-practices">data security page</a>.</p>
+<p><strong>Can I convert a full year of relevés at once?</strong><br />Yes. Convert each monthly PDF and stack the sheets into one workbook, or convert a custom-range download if your archive offers it. A full year typically takes under ten minutes.</p>
+<p>Two currencies should not mean twice the paperwork. <a href="/">Convert your BNP Paribas statement free</a> and get a dollar-denominated spreadsheet in under a minute.</p>`,
+  },
+  {
+    id: "gen-2026-10-14-05",
+    slug: "cr-dit-agricole-convert-to-excel",
+    title: "Convert Crédit Agricole Bank Statement PDF to Excel",
+    excerpt:
+      "Convert your Crédit Agricole bank statement PDF to Excel in seconds — free for the first 8 pages — and prepare clean spreadsheets for mortgages and loan applications.",
+    featureImage: "/blog/cr-dit-agricole-convert-to-excel.jpg",
+    author: "Sarah Mitchell",
+    tags: ["crédit agricole", "excel", "loans", "how-to"],
+    published: true,
+    createdAt: "2026-10-14T06:30:00Z",
+    updatedAt: "2026-10-14T06:30:00Z",
+    content: `<p>Crédit Agricole customers applying for a mortgage, a car loan, or a rental lease in France hear the same request from every bank and landlord: show us your statements. The files you download are PDFs — fine for reading, useless for analysis. Learning to <strong>convert Crédit Agricole bank statement PDF to Excel</strong> turns those documents into clean spreadsheets you can summarize, annotate, and submit alongside your application.</p>
+<p>This guide covers the fastest conversion method, how to prepare statements for loan and mortgage applications, and how to combine several months into one clean file.</p>
+<h2>Why homeowners and renters convert Crédit Agricole statements</h2>
+<p>Loan underwriting runs on numbers, not narratives. A lender reviewing your Crédit Agricole statements wants to see stable income, controlled spending, and a savings pattern — insights that are painful to extract from a stack of PDFs but immediate in a spreadsheet with totals and category sums.</p>
+<p>Preparing the data yourself has a second benefit: you see what the lender sees. Before you ever submit an application, an Excel summary of six months of statements shows you your own debt-to-income picture, your average monthly savings, and any red flags — like gambling transactions or overdraft fees — that you would rather explain in person than let a reviewer discover alone.</p>
+<p>For renters, the case is simpler. French landlords and agencies routinely ask for three months of bank statements. A clean spreadsheet with highlighted salary credits and rent payments makes your dossier clearer than anyone else's in the pile.</p>
+<h2>Get your statement from Crédit Agricole online banking</h2>
+<p>Log in to your Crédit Agricole regional site or the Ma Banque app, open the account, and go to the statements section ("relevés"). Crédit Agricole archives monthly statements as PDFs — download the months your application requires. Mortgage lenders typically ask for the last three to six months; landlords usually want three.</p>
+<p>Download each month as its own PDF and name the files clearly, for example "CA-Mar-2026.pdf". Keep the originals untouched — you will submit the PDFs to the lender and use the Excel versions for your own preparation and summaries.</p>
+<h2>Convert in 3 steps</h2>
+<p><strong>Step 1 — Upload.</strong> Drag your Crédit Agricole PDF into <a href="/">Convert Statement</a>. No software to install, no signup needed for the free tier.</p>
+<p><strong>Step 2 — Choose Excel.</strong> Select the Excel format. Dates become real date values, EUR amounts stay numeric with French comma-decimal formatting normalized, and the full transaction descriptions carry over.</p>
+<p><strong>Step 3 — Download.</strong> Open the .xlsx file and verify: compare the opening balance in the spreadsheet to the PDF. A match means every row converted correctly.</p>
+<p>Our walkthrough of <a href="/blog/convert-bank-statement-pdf-to-excel">how PDF-to-Excel conversion works</a> explains the process and its edge cases in more depth.</p>
+<h2>Prepare statements for mortgage and loan applications</h2>
+<p>With the Excel file open, build the summary a lender wants. Add a "Category" column and label rows: Salary, Rent, Utilities, Groceries, Transport, Loan payments, Savings transfers, Other. A pivot table then gives monthly totals per category — the exact picture of your finances that underwriting assesses.</p>
+<p>Highlight what matters. Salary credits should be easy to spot; conditional formatting on the description column can color-code them automatically. Total your monthly savings (transfers to savings accounts minus withdrawals) and show the trend across the months you submit — a rising savings balance is the strongest signal in a mortgage file.</p>
+<p>Remove the noise before you analyze, not before you submit. Transfers between your own Crédit Agricole accounts inflate both sides of the ledger, so filter them out of your summary totals. But keep the full unedited spreadsheet and the original PDFs for the lender — never submit altered statements, only summaries and annotations.</p>
+<p>The <a href="/banks/cr-dit-agricole">Crédit Agricole converter page</a> covers statement-specific details, and our <a href="/blog/bank-statement-for-home-loan">home loan statement guide</a> walks through assembling the full application file.</p>
+<h2>Splitting and combining multi-month files</h2>
+<p>Lenders want several months, and you have two good options. Convert each monthly PDF separately and stack the sheets into one workbook with a "Month" column — this keeps each file's conversion clean and makes per-month summaries easy. Or download a custom multi-month range from Crédit Agricole and convert it as a single file, which works well when the statement layout is consistent across months.</p>
+<p>For long histories, watch the file size. A year of active statements can run to several thousand rows — still trivial for Excel, but worth splitting by quarter if you plan to share the file by email. Either way, keep a consistent column layout across months so your category formulas copy down without adjustment.</p>
+<h2>Frequently asked questions</h2>
+<p><strong>Is it free to convert a Crédit Agricole statement to Excel?</strong><br />Yes — your first 8 pages are free, no credit card required. Monthly relevés convert in seconds.</p>
+<p><strong>Will French-language statements convert correctly?</strong><br />Yes. The converter reads table structure, dates, and numbers regardless of language, and French descriptions carry over as printed.</p>
+<p><strong>Can I submit the Excel file to my bank instead of the PDF?</strong><br />Submit the original PDFs to the lender — they require unaltered documents. Use the Excel version for your own summaries and preparation.</p>
+<p><strong>Is uploading my statement safe?</strong><br />Files are processed in memory and deleted immediately after conversion; nothing is stored on disk. See our <a href="/blog/bank-statement-data-security-best-practices">data security guide</a> for the full picture.</p>
+<p><strong>What if my statement is password-protected?</strong><br />Enter the password at upload; the file is decrypted in memory only to read the tables. Our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> has more detail.</p>
+<p>Walk into your next application with numbers, not PDFs. <a href="/pricing">Convert your Crédit Agricole statement free</a> — your first 8 pages cost nothing.</p>`,
+  },
 ];
