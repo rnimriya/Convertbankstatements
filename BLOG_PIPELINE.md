@@ -37,6 +37,12 @@ Zero mistakes tolerance.
     `/blog/` or `/guides/` pages (slugs must exist — verify)
   - Closing CTA paragraph linking to `/` or `/pricing`
   - Minimum 800 words of real, specific, useful content
+  - **Inline images (owner rule, added 2026-10-14):** 2–3 small images spread
+    between `<h2>` sections for a premium, catchy look. Each as
+    `<figure><img src="/blog/{slug}-inline-N.jpg" alt="..." width="1200" height="800" loading="lazy" /><figcaption>short caption</figcaption></figure>`,
+    saved to `web/public/blog/` at 1200px wide (feature image stays 1920px).
+    Topical finance scenes only, no readable text, no logos. The blog template
+    styles content images with rounded corners + shadow automatically.
 - `tags`: 3–4 relevant tags
 - `author`: rotate "David Chen, CPA" / "Sarah Mitchell" / "James Park"
 - `featureImage`: `/blog/{slug}.jpg` (must exist in `web/public/blog/`)

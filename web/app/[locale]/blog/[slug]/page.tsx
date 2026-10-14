@@ -223,7 +223,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
           {/* Content */}
           <article
-            className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed prose-h2:scroll-mt-24"
+            className="mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed prose-h2:scroll-mt-24 prose-img:rounded-2xl prose-img:shadow-lg prose-img:ring-1 prose-img:ring-slate-900/10 dark:prose-img:ring-white/10 prose-figcaption:text-center prose-figcaption:text-sm"
             dangerouslySetInnerHTML={{ __html: contentWithIds }}
           />
 

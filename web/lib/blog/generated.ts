@@ -1182,4 +1182,47 @@ export const GENERATED_POSTS: BlogPost[] = [
 <p><strong>What if my statement is password-protected?</strong><br />Enter the password at upload; the file is decrypted in memory only to read the tables. Our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> has more detail.</p>
 <p>Walk into your next application with numbers, not PDFs. <a href="/pricing">Convert your Crédit Agricole statement free</a> — your first 8 pages cost nothing.</p>`,
   },
+  {
+    id: "gen-2026-10-14-06",
+    slug: "soci-t-g-n-rale-convert-to-csv-quickbooks",
+    title: "Convert Société Générale Bank Statement PDF to CSV",
+    excerpt:
+      "Convert your Société Générale bank statement PDF to CSV in seconds and import it into QuickBooks Online — free for the first 8 pages, no retyping needed.",
+    featureImage: "/blog/soci-t-g-n-rale-convert-to-csv-quickbooks.jpg",
+    author: "James Park",
+    tags: ["société générale", "csv", "quickbooks", "how-to"],
+    published: true,
+    createdAt: "2026-10-14T08:45:00Z",
+    updatedAt: "2026-10-14T08:45:00Z",
+    content: `<p>If your firm looks after clients who bank in France, Société Générale statements are probably already in your workflow — and in your way. The PDF looks polished, but QuickBooks Online cannot read it. Learning to <strong>convert Société Générale bank statement PDF to CSV</strong> turns an afternoon of manual data entry into a fifteen-second upload, and the CSV drops into QuickBooks with every date, description, and amount intact.</p>
+<p>This guide walks the full path: downloading the right statement from Société Générale, converting it into a clean CSV, mapping the columns inside QuickBooks Online, and sidestepping the French formatting quirks — comma decimal separators and day-first dates — that quietly break naive imports.</p>
+<h2>Why bookkeepers convert Société Générale statements to CSV</h2>
+<p>More US and UK firms now serve clients with French operations: consultants billing in euros, e-commerce sellers with a French entity, expats who kept their accounts after moving. Their books live in QuickBooks, but their banking history arrives as Société Générale PDFs. A PDF is a picture of data; a CSV is data. QuickBooks can import rows and columns — it cannot import a picture.</p>
+<p>CSV is also the safest middle format. You can open it, scan for odd rows, and fix a description before anything touches the ledger. And unlike a one-off manual journal, a monthly CSV routine is repeatable: same download, same conversion, same column mapping, every single month.</p>
+<figure><img src="/blog/soci-t-g-n-rale-convert-to-csv-quickbooks-inline-1.jpg" alt="Bookkeeper reviewing a converted bank statement spreadsheet on a laptop" width="1200" height="800" loading="lazy" /><figcaption>Clean rows beat retyping — a converted CSV keeps every Société Générale transaction sortable and import-ready.</figcaption></figure>
+<h2>Download your statement from Société Générale</h2>
+<p>Log in to your Société Générale online space (or the SG mobile app) and open the account you need. Statements live under the documents and statements area — look for "relevés de compte" — where each month is archived as its own PDF. Business customers on the professional portal follow the same path from their account dashboard.</p>
+<p>Download one month at a time and name the files so future-you stays calm: "SG-ClientName-Sep-2026.pdf" beats "releve (3).pdf" in any audit. Keep the original PDFs untouched in your archive; you will work from the CSV, but the signed-off PDF remains the source document your records point back to.</p>
+<h2>Convert the PDF to CSV in 3 steps</h2>
+<p><strong>Step 1 — Upload.</strong> Drag your Société Générale PDF into <a href="/">Convert Statement</a>. There is nothing to install, and the free tier needs no signup.</p>
+<p><strong>Step 2 — Choose CSV.</strong> Select the CSV format. The converter reads the statement's table structure directly, so French descriptions carry over word for word, day-first dates (14/09/2026) are normalized to a format QuickBooks accepts, and comma decimals (1 234,56) become standard numbers (1234.56) instead of text.</p>
+<p><strong>Step 3 — Download and verify.</strong> Save the CSV, then do the thirty-second sanity check: compare the closing balance in the file against the closing balance printed on the PDF. If they match, every row made the trip. Our walkthrough for a US bank, <a href="/blog/pnc-bank-convert-to-csv-quickbooks">converting a PNC statement to CSV for QuickBooks</a>, shows the same routine end to end.</p>
+<figure><img src="/blog/soci-t-g-n-rale-convert-to-csv-quickbooks-inline-2.jpg" alt="Accounting dashboard with charts and transaction tables on a monitor" width="1200" height="800" loading="lazy" /><figcaption>Map Date, Description, and Amount once — QuickBooks remembers the layout for next month.</figcaption></figure>
+<h2>Import the CSV into QuickBooks Online</h2>
+<p>In QuickBooks Online, open the Banking center, choose the account, and pick "Upload transactions". Select your CSV and walk the mapping screen: column one to Date, column two to Description, and the amount column to Amount. QuickBooks handles a single signed amount column cleanly — money out negative, money in positive — which is exactly how the converted file is structured.</p>
+<p>Two judgment calls remain yours. First, currency: if the QuickBooks account is set up in euros, amounts land as-is; if it is a USD account, QuickBooks will ask for exchange handling, so convert in the bank feed rather than forcing the file. Second, the review screen: scan the imported rows before confirming, and exclude transfers between the client's own accounts so income is not double-counted. Once confirmed, the transactions sit in the bank feed ready to categorize — the part of bookkeeping that actually deserves your time.</p>
+<h2>Tips for clean Société Générale imports</h2>
+<p><strong>Convert monthly, not yearly.</strong> Small files fail less and reconcile faster. A missed row in a 60-line month is visible; in a 900-line year it hides.</p>
+<p><strong>Watch the virements.</strong> Internal transfers between a client's own Société Générale accounts appear on both statements. Import both files if you must, but exclude the mirror entries during review.</p>
+<p><strong>Categorize in QuickBooks, not in the CSV.</strong> Editing the amount or date columns by hand is how good files go bad. If a description needs a cleanup rule, build it in QuickBooks so it applies every month automatically.</p>
+<p><strong>Reconcile right after importing.</strong> The workflow in our guide to <a href="/blog/how-to-reconcile-bank-statement">reconciling a bank statement</a> pairs naturally with a same-day CSV import. And the <a href="/banks/soci-t-g-n-rale">Société Générale converter page</a> covers statement formats specific to this bank.</p>
+<figure><img src="/blog/soci-t-g-n-rale-convert-to-csv-quickbooks-inline-3.jpg" alt="Organized desk with paper statements, a tablet showing a graph, and reading glasses" width="1200" height="800" loading="lazy" /><figcaption>Keep the original PDFs archived next to the converted files — your audit trail stays complete.</figcaption></figure>
+<h2>Frequently asked questions</h2>
+<p><strong>Is it free to convert a Société Générale statement to CSV?</strong><br />Yes — your first 8 pages are free, no credit card required. A typical monthly relevé converts in seconds.</p>
+<p><strong>Will French-language statements convert correctly?</strong><br />Yes. The converter reads table structure, dates, and amounts regardless of language, and French transaction descriptions carry over exactly as printed.</p>
+<p><strong>What about the comma decimal separator French statements use?</strong><br />It is normalized automatically: "1 234,56" becomes 1234.56, so QuickBooks treats amounts as numbers, not text.</p>
+<p><strong>Can QuickBooks Online import a euro-denominated CSV?</strong><br />Yes — map it to a euro account and amounts import unchanged. For a USD account, let QuickBooks handle the currency conversion during import.</p>
+<p><strong>Is uploading a client statement safe?</strong><br />Files are processed in memory and deleted immediately after conversion; nothing is written to disk. Our <a href="/blog/bank-statement-data-security-best-practices">data security guide</a> explains the full picture.</p>
+<p>France-based clients should not mean France-speed bookkeeping. <a href="/pricing">Convert your Société Générale statement free</a> — the first 8 pages cost nothing, and next month's import takes two minutes.</p>`,
+  },
 ];
