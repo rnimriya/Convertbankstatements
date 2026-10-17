@@ -1564,4 +1564,255 @@ export const GENERATED_POSTS: BlogPost[] = [
   <p><strong>Can I do this every month, or is it a one-time setup?</strong><br />Monthly is the ideal rhythm. The download-convert-import-match cycle takes about ten minutes once you have done it twice, and staying current means every wire is matched to its invoice while the paperwork is still on your desk.</p>
   <p>Ready to stop retyping euro wires by hand? <a href="/pricing">See plans on our pricing page</a> — your first 8 pages are free, and most trade businesses convert a full month of Intesa Sanpaolo statements in under a minute.</p>`,
   },
+  {
+    id: "gen-2026-10-17-01",
+    slug: "state-bank-of-india-sbi-password-protected-pdf",
+    title: "Convert Your Password-Protected SBI Statement PDF to Excel",
+    excerpt:
+      "Convert your password-protected SBI bank statement PDF to Excel in minutes — keep your password private, get clean rows, and skip manual retyping entirely.",
+    featureImage: "/blog/state-bank-of-india-sbi-password-protected-pdf.jpg",
+    author: "David Chen, CPA",
+    tags: ["sbi", "excel", "password-protected", "how-to"],
+    published: true,
+    createdAt: "2026-10-17T08:00:00Z",
+    updatedAt: "2026-10-17T08:00:00Z",
+    content: `<p>Every State Bank of India customer knows the moment: you download your e-statement, double-click it, and instead of your transactions you get a password prompt. Learning to <strong>convert your password-protected SBI bank statement PDF to Excel</strong> removes the two biggest headaches at once — the locked file and the manual retyping that usually follows. In about a minute you go from an encrypted PDF to a clean, filterable spreadsheet, and your password never leaves your own computer.</p>
+<p>This guide is written for SBI account holders who need usable data fast — whether you are filing taxes, preparing visa paperwork from abroad, or just reconciling a busy savings account. You will learn what SBI passwords look like, how to unlock the file safely, and how to turn the result into an Excel sheet your accountant will actually enjoy reading.</p>
+<h2>Why SBI locks its statement PDFs</h2>
+<p>SBI password-protects e-statements for a simple reason: email is not a secure channel. When your statement arrives as an attachment, anyone who intercepts that email would get your full transaction history, account number, and balances. The password makes the file useless to anyone who does not know the combination.</p>
+<p>The password itself follows a predictable pattern. For most SBI accounts it is derived from your registered details — typically the first four letters of your name in uppercase followed by your date of birth in DDMMYYYY format, or a similar combination printed in the email that delivered the statement. SBI states the exact format in the email body, so check there before guessing. After a few wrong attempts some PDF readers temporarily refuse to retry, so it pays to copy the format exactly as given.</p>
+<figure><img src="/blog/state-bank-of-india-sbi-password-protected-pdf-inline-1.jpg" alt="Printed SBI bank statement pages on a desk with a pen, shallow depth of field" width="1200" height="800" loading="lazy" /><figcaption>SBI prints the password format in the email that delivers your e-statement — check there first.</figcaption></figure>
+<h2>Unlock the PDF the safe way</h2>
+<p>Before any conversion happens, the file has to be opened with its password. The safe way to do this is entirely in your browser: a converter that decrypts the PDF in memory, reads the transaction tables, and then discards both the file and the password. Nothing should be stored on a server, and nothing should require you to install a random desktop utility — those are the tools most likely to bundle malware.</p>
+<p>When you enter the password at upload time, use the exact combination from SBI's email. Indian bank passwords are case-sensitive, and the name portion is usually uppercase. If the file still refuses to open, try downloading the statement again from SBI net banking (onlinesbi.com) or the YONO app — a corrupted download is the second most common cause of "wrong password" errors. Our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> walks through the common failure patterns in more detail.</p>
+<h2>Convert the unlocked statement to Excel in 3 steps</h2>
+<p><strong>Step 1 — Upload the protected PDF.</strong> <a href="/">Convert Statement</a> accepts the locked file directly. Enter the SBI password when prompted; the file is decrypted in memory purely so the transaction tables can be read. The password is never written to disk and never stored.</p>
+<p><strong>Step 2 — Check the detected transactions.</strong> SBI statements have a recognizable layout — date, description, debit, credit, and balance columns — and the parser maps them into spreadsheet columns automatically. Glance through the preview to confirm the row count matches the statement's page count; a six-page statement should not produce twelve rows.</p>
+<p><strong>Step 3 — Download the Excel file.</strong> Choose Excel and download. Dates arrive as real date values, amounts stay numeric so SUM and pivot tables work immediately, and each transaction gets its own row in chronological order. From password prompt to spreadsheet: usually under sixty seconds.</p>
+<h2>What to do with the spreadsheet</h2>
+<p>A clean SBI export is useful far beyond bookkeeping. Here are the highest-value next steps:</p>
+<ul>
+<li><strong>Tax filing:</strong> filter by narration to total up interest income, rent, or business expenses. See our <a href="/blog/bank-statement-for-income-tax-return">guide to using bank statements for income tax returns</a> for the full workflow.</li>
+<li><strong>Visa and loan applications:</strong> embassies and lenders ask for six months of statements; a spreadsheet version lets you highlight salary credits and explain large deposits without retyping. If you have not downloaded the files yet, start with the <a href="/blog/sbi-bank-statement-download-guide">SBI statement download guide</a>.</li>
+<li><strong>Reconciliation:</strong> if you run a small business on an SBI current account, match the export against your invoices monthly instead of discovering mismatches at year end.</li>
+<li><strong>NRI accounts:</strong> NRO/NRE statements convert the same way — handy when your CA in India needs the data and you are in a different timezone.</li>
+</ul>
+<figure><img src="/blog/state-bank-of-india-sbi-password-protected-pdf-inline-2.jpg" alt="Laptop showing a blurred spreadsheet next to a calculator and notepad on a desk" width="1200" height="800" loading="lazy" /><figcaption>Once converted, dates and amounts land in real spreadsheet columns — SUM and filters work immediately.</figcaption></figure>
+<h2>Common SBI conversion problems and fixes</h2>
+<p><strong>Scanned statements.</strong> Very old SBI statements, or ones printed and re-scanned, are images rather than text. Table extraction needs real text, so request a fresh e-statement from net banking — it takes two minutes and converts far more accurately.</p>
+<p><strong>Split narration lines.</strong> SBI sometimes wraps long transaction descriptions across two lines. A good parser joins them; if yours does not, sort by amount to spot the fragments and merge them manually — there are rarely more than a handful.</p>
+<p><strong>Multiple accounts, one file.</strong> If your PDF bundles savings and fixed-deposit summaries, convert once and split the sheets by account in Excel. Add an Account column so filters keep the sources separate.</p>
+<p><strong>Forgotten password.</strong> No converter can help if the password is truly lost — that would defeat the purpose of encryption. Reset it through SBI net banking or the branch, then convert the freshly downloaded file. For a deeper dive, see <a href="/banks/state-bank-of-india-sbi">converting SBI statements to Excel and CSV</a>.</p>
+<h2>Frequently asked questions</h2>
+<h3>What is the default password for an SBI statement PDF?</h3>
+<p>There is no single default. SBI derives it from your registered name and date of birth, and prints the exact format in the email that delivers the statement. Check the email body before trying combinations — repeated wrong attempts can temporarily lock the file in some readers.</p>
+<h3>Is it safe to enter my SBI PDF password into an online converter?</h3>
+<p>It is safe when the converter decrypts the file in memory on your own device and never stores the password. Avoid tools that ask you to email the file or that keep copies "for your convenience." The file should be deleted immediately after conversion.</p>
+<h3>Can I convert the statement to CSV instead of Excel?</h3>
+<p>Yes. CSV is the better choice if you plan to import the data into Tally, QuickBooks, or a custom script. The same conversion produces both formats — pick Excel for analysis, CSV for imports.</p>
+<h3>Will UPI transactions appear correctly in the Excel file?</h3>
+<p>Yes. UPI entries show up as individual rows with the UPI reference in the narration, just as they appear in the PDF. Sorting or filtering by "UPI" in the narration column gives you a complete UPI ledger in seconds.</p>
+<h3>Does this work for SBI credit card statements too?</h3>
+<p>Credit card statements use the same PDF protection and the same conversion process. The resulting spreadsheet has one row per charge, which makes categorizing spending dramatically easier than scrolling through the PDF.</p>
+<p>Stop fighting the password prompt every time you need your own data. <a href="/">Convert your SBI statement to Excel free</a> — upload the protected PDF, enter the password once, and download clean rows in under a minute. Need to convert larger files or whole folders of statements? <a href="/pricing">Check our pricing plans</a> for the option that fits.</p>`
+  },
+  {
+    id: "gen-2026-10-17-02",
+    slug: "hdfc-bank-password-protected-pdf",
+    title: "Convert a Password-Protected HDFC Statement PDF to Excel",
+    excerpt:
+      "Convert a password-protected HDFC bank statement PDF to Excel in minutes — unlock it safely, get clean transaction rows, and feed your books directly.",
+    featureImage: "/blog/hdfc-bank-password-protected-pdf.jpg",
+    author: "Sarah Mitchell",
+    tags: ["hdfc", "excel", "password-protected", "freelancers"],
+    published: true,
+    createdAt: "2026-10-17T08:00:00Z",
+    updatedAt: "2026-10-17T08:00:00Z",
+    content: `<p>HDFC Bank sends some of the most widely used e-statements in India — and nearly all of them arrive locked behind a password. If you need to <strong>convert a password-protected HDFC bank statement PDF to Excel</strong>, you do not have to choose between security and convenience: the right workflow unlocks the file on your own device, reads the tables, and hands you a spreadsheet in about a minute, with the password never stored anywhere.</p>
+<p>This guide is aimed at freelancers, consultants, and small teams who live inside HDFC statements — invoicing clients, tracking expenses, and feeding accounting software. You will learn the exact HDFC password format, the safest way to unlock the file, and how to turn the result into data you can actually work with.</p>
+<h2>How HDFC statement passwords work</h2>
+<p>HDFC protects e-statements because they travel by email. The password is a combination of your customer ID and date of birth — HDFC prints the precise format in the email that carries the statement, usually the first four letters of your registered email or name plus your birth date in a fixed pattern. It is case-sensitive, and getting one character wrong produces the same "incorrect password" message as a totally wrong guess.</p>
+<p>Two mistakes cause most lockouts. First, people try the password for the wrong account — if you hold both a savings and a salary account, each statement has its own customer-ID-derived password. Second, people download the statement from net banking and then look for the password in an old email; the format stays the same, but it is worth confirming against the most recent statement email. If you have not grabbed the file yet, the <a href="/blog/hdfc-bank-statement-download">HDFC statement download guide</a> covers every route.</p>
+<figure><img src="/blog/hdfc-bank-password-protected-pdf-inline-1.jpg" alt="Hand highlighting printed bank statement pages on an office desk, shallow depth of field" width="1200" height="800" loading="lazy" /><figcaption>HDFC's password combines your customer ID with your date of birth — the exact format is in the statement email.</figcaption></figure>
+<h2>Unlock it without compromising security</h2>
+<p>The golden rule: decrypt on your own device, in the browser, and let the tool forget everything afterward. A converter worth trusting opens the PDF in memory, extracts the transaction tables, and discards the file and password the moment the download is ready. No account required, no copies retained "for later," no desktop software with bundled extras.</p>
+<p>Be wary of anything that asks you to email the statement to an address, or that saves unlocked copies to a cloud folder you did not choose. A locked PDF is protecting exactly the data those shortcuts expose. Read our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> for the full checklist of red flags.</p>
+<h2>The 3-step conversion workflow</h2>
+<p><strong>Step 1 — Upload and unlock.</strong> Drop the HDFC PDF into <a href="/">Convert Statement</a> and enter the password when prompted. Decryption happens in memory, purely so the table structure can be read — dates, narrations, debits, credits, and balances.</p>
+<p><strong>Step 2 — Sanity-check the preview.</strong> HDFC statements are dense, and long merchant narrations sometimes wrap across lines. The preview lets you confirm row counts and column mapping before you download. A three-month statement should produce roughly ninety daily rows per account, not a few hundred fragments.</p>
+<p><strong>Step 3 — Download Excel and get to work.</strong> The file downloads with real date columns and numeric amounts. Pivot tables, SUMIFS, and filters work immediately — no cleanup pass needed.</p>
+<h2>Putting the spreadsheet to work</h2>
+<p>For freelancers, the converted HDFC export pays for itself in the first use:</p>
+<ul>
+<li><strong>Expense tracking:</strong> filter narrations by vendor to total deductible expenses per month, then hand the sheet to your CA instead of a shoebox of PDFs.</li>
+<li><strong>Client invoicing:</strong> match incoming credits against open invoices to spot late payers without scrolling the PDF.</li>
+<li><strong>Accounting imports:</strong> need CSV for Tally or QuickBooks instead? Export once and import directly — no retyping. Our <a href="/blog/convert-bank-statement-pdf-to-excel">general PDF-to-Excel guide</a> compares formats.</li>
+<li><strong>Budgeting:</strong> a year of HDFC exports in one workbook shows exactly where the money goes; see <a href="/blog/how-to-use-bank-statement-for-budgeting">how to budget from bank statements</a>.</li>
+</ul>
+<figure><img src="/blog/hdfc-bank-password-protected-pdf-inline-2.jpg" alt="Smartphone and laptop with blurred accounting screen on a modern desk" width="1200" height="800" loading="lazy" /><figcaption>Export to Excel for analysis — or CSV when your accounting software wants an import file.</figcaption></figure>
+<h2>Fixes for the usual HDFC quirks</h2>
+<p><strong>Wrapped narrations.</strong> HDFC wraps long descriptions, which can split one transaction across two rows in naive parsers. If you see orphan fragments, sort by date and merge them — or use a converter that joins wrapped lines automatically.</p>
+<p><strong>Multiple pages, missing rows.</strong> Large statements occasionally lose the last page's rows in weak tools. Always compare the row count against the PDF's transaction count before relying on the data.</p>
+<p><strong>Credit card vs. savings mix-ups.</strong> HDFC credit card statements and savings statements look similar at a glance. Convert them separately and label the sheets, or your expense categories will quietly merge.</p>
+<p><strong>Old scanned copies.</strong> Statements printed and re-scanned years ago are images, not text, and cannot be table-extracted. Pull a fresh e-statement from net banking instead — it takes minutes. More on bank-specific conversion at <a href="/banks/hdfc-bank">HDFC statement conversion</a>.</p>
+<h2>Frequently asked questions</h2>
+<h3>What is my HDFC statement PDF password?</h3>
+<p>It is derived from your customer ID and date of birth; HDFC prints the exact format in the email delivering the statement. It differs per customer, so there is no universal default — check the email body.</p>
+<h3>Can the converter see or store my password?</h3>
+<p>A properly built converter decrypts the file in memory on your device and never writes the password anywhere. It should not ask for your net banking login — only the PDF password itself.</p>
+<h3>Will the Excel file keep my transaction categories?</h3>
+<p>HDFC PDFs do not carry category labels, so the spreadsheet preserves narrations, dates, and amounts faithfully. You can add your own category column in seconds with a filter — many freelancers keep a running category list and VLOOKUP against it.</p>
+<h3>Does this work for HDFC business and current accounts?</h3>
+<p>Yes. Current account statements use the same PDF protection and convert identically; the higher transaction volume is exactly where automation pays off most.</p>
+<p>Your HDFC data should work as hard as you do. <a href="/">Convert your protected statement to Excel free</a> — one upload, one password, one clean spreadsheet. Converting statements every month for clients? <a href="/pricing">See plans</a> built for higher volumes.</p>`
+  },
+  {
+    id: "gen-2026-10-17-03",
+    slug: "icici-bank-password-protected-pdf",
+    title: "Convert Your Locked ICICI Statement PDF to Excel: Full Guide",
+    excerpt:
+      "Convert your locked ICICI bank statement PDF to Excel the safe way — in-memory unlocking, clean rows for your CA, and no manual data entry.",
+    featureImage: "/blog/icici-bank-password-protected-pdf.jpg",
+    author: "James Park",
+    tags: ["icici", "excel", "password-protected", "small business"],
+    published: true,
+    createdAt: "2026-10-17T08:00:00Z",
+    updatedAt: "2026-10-17T08:00:00Z",
+    content: `<p>ICICI Bank locks every e-statement it emails you — good for security, annoying when your CA asks for the data in Excel. The fix is to <strong>convert your locked ICICI bank statement PDF to Excel</strong> through a workflow that unlocks the file in your browser's memory, reads the transaction tables, and forgets the password the instant the spreadsheet is ready. No uploads that linger on servers, no desktop software, no retyping.</p>
+<p>This guide is written for small business owners and finance teams running on ICICI current accounts: high transaction volumes, GST filings, and monthly reconciliations that cannot afford transcription errors. You will get the password format, the safe unlock method, and the exact steps to a spreadsheet your accountant can use immediately.</p>
+<h2>The ICICI password format, explained</h2>
+<p>ICICI derives the statement password from your registered details — typically the first four characters of your name in lowercase plus your date of birth in DDMMYYYY format, or your customer ID combined with your birth date. The precise recipe is printed in the email that delivered the statement, and it is case-sensitive. Copy it exactly; "almost right" is still wrong.</p>
+<p>Businesses hit two special cases. First, statements for current accounts sometimes use the authorized signatory's details rather than the company's — check whose name generated the password. Second, older statements may predate ICICI's current format; if a 2021 file will not open with the new pattern, the old email for that period carries the old pattern. When in doubt, re-download from ICICI net banking or the iMobile app — fresh files use the current format, and the <a href="/blog/icici-bank-statement-download">ICICI download guide</a> shows every method.</p>
+<figure><img src="/blog/icici-bank-password-protected-pdf-inline-1.jpg" alt="Calculator resting on printed bank statement pages, shallow depth of field" width="1200" height="800" loading="lazy" /><figcaption>Current-account statements can run to hundreds of pages — automation beats retyping every time.</figcaption></figure>
+<h2>Unlocking without creating a new risk</h2>
+<p>A locked PDF protects your entire financial history, so the unlock step deserves care. The safe pattern is: the file is decrypted in memory on your own device, the tables are extracted, and everything — file and password — is discarded before you even see the download button. Nothing is emailed, nothing is cached "for your convenience," and no tool should ever ask for your net banking credentials.</p>
+<p>Watch for converters that keep unlocked copies in an online "dashboard" by default. That convenience is a liability: it turns one protected file into a permanently stored unprotected one. Prefer tools that delete aggressively, and review the <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> before handing any statement to a new service.</p>
+<h2>From locked PDF to Excel in 3 steps</h2>
+<p><strong>Step 1 — Upload the protected file.</strong> <a href="/">Convert Statement</a> takes the ICICI PDF as-is. Enter the password at the prompt; decryption happens in memory solely to expose the transaction tables.</p>
+<p><strong>Step 2 — Verify the mapping.</strong> ICICI current-account statements are long, so check the preview: dates in one column, narrations intact, debits and credits in separate numeric columns, running balance preserved. Spot-check a known large transaction — a vendor payment you remember — to confirm amounts survived.</p>
+<p><strong>Step 3 — Download and reconcile.</strong> The Excel file drops straight into your monthly reconciliation. Dates are real dates, amounts are numeric, and every row is chronological. A 200-page statement converts in roughly the time it takes to make coffee.</p>
+<h2>What businesses do with the export</h2>
+<ul>
+<li><strong>GST filing:</strong> filter by narration to isolate business expenses and cross-check input credits. Our <a href="/blog/how-to-use-bank-statement-for-gst-filing">GST filing guide</a> walks through the workflow.</li>
+<li><strong>Monthly reconciliation:</strong> match the export against invoices and receipts in minutes; mismatches surface immediately instead of at year end.</li>
+<li><strong>CA handoffs:</strong> send one spreadsheet per month instead of a folder of locked PDFs — your CA will quote you less, or at least complain less.</li>
+<li><strong>Cash-flow review:</strong> pivot the data by week to see exactly when money leaves; seasonal businesses find this transformative. Background reading: <a href="/blog/bank-statement-analysis-for-accountants">statement analysis for accountants</a>.</li>
+</ul>
+<figure><img src="/blog/icici-bank-password-protected-pdf-inline-2.jpg" alt="Laptop with blurred spreadsheet and sticky notes on a small business desk" width="1200" height="800" loading="lazy" /><figcaption>Numeric amounts and real dates mean pivot tables and filters work the moment the file downloads.</figcaption></figure>
+<h2>Troubleshooting ICICI files</h2>
+<p><strong>Password works in Adobe but not the converter.</strong> Some readers tolerate trailing spaces; converters should not. Retype the password carefully rather than pasting, in case the email added invisible characters.</p>
+<p><strong>Missing narration text.</strong> ICICI truncates very long narrations in the PDF itself — the spreadsheet can only carry what the PDF contains. For full references, cross-check the net banking transaction view.</p>
+<p><strong>Consolidated multi-account PDFs.</strong> If one file holds several accounts, convert once, then split sheets per account and add an Account column. Filters keep everything clean afterward.</p>
+<p><strong>Need CSV for Tally?</strong> Export the same conversion as CSV and import directly. Details at <a href="/banks/icici-bank">ICICI statement conversion options</a>.</p>
+<h2>Frequently asked questions</h2>
+<h3>What is the password for my ICICI statement PDF?</h3>
+<p>It is built from your registered name or customer ID plus your date of birth; ICICI prints the exact format in the statement email. Current-account passwords may use the authorized signatory's details — check the email for that period.</p>
+<h3>Is entering the password online actually safe?</h3>
+<p>Yes, when decryption happens in memory on your device and the password is never stored or transmitted beyond the session. Avoid any service that wants your net banking login — the PDF password alone is all a converter needs.</p>
+<h3>Can I convert a full year of statements at once?</h3>
+<p>Convert month by month and combine the sheets in one workbook — it keeps row counts manageable and lets you verify each month independently. Bulk workflows are covered in our <a href="/pricing">higher-volume plans</a>.</p>
+<h3>Will NEFT, RTGS, and IMPS entries convert correctly?</h3>
+<p>Yes. Each transfer becomes its own row with the reference number in the narration, exactly as printed in the PDF. Filtering by "NEFT" or "RTGS" isolates those transfers instantly.</p>
+<p>Give your CA spreadsheets, not locked PDFs. <a href="/">Convert your ICICI statement to Excel free</a> — upload, enter the password, download clean data. Processing statements for multiple entities? <a href="/pricing">See plans</a> designed for volume.</p>`
+  },
+  {
+    id: "gen-2026-10-17-04",
+    slug: "axis-bank-password-protected-pdf",
+    title: "Convert Your Password-Protected Axis Statement PDF to Excel",
+    excerpt:
+      "Convert your password-protected Axis bank statement PDF to Excel for tax season — unlock safely, total deductions in minutes, and file with confidence.",
+    featureImage: "/blog/axis-bank-password-protected-pdf.jpg",
+    author: "David Chen, CPA",
+    tags: ["axis bank", "excel", "password-protected", "tax filing"],
+    published: true,
+    createdAt: "2026-10-17T08:00:00Z",
+    updatedAt: "2026-10-17T08:00:00Z",
+    content: `<p>Tax season has a way of exposing every inefficiency in your paperwork — and a locked PDF is one of the worst. When you need to <strong>convert your password-protected Axis Bank statement PDF to Excel</strong> for filing, the goal is simple: unlock the file without creating a security problem, and get a spreadsheet where every deduction is one filter away. Done right, the whole job takes minutes, not an evening of retyping.</p>
+<p>This guide is built around the tax-filing workflow: finding the Axis password, converting safely, and turning the resulting spreadsheet into totals your return actually needs — interest income, deductible expenses, and clean documentation if questions ever come up later.</p>
+<h2>Finding your Axis statement password</h2>
+<p>Axis Bank password-protects e-statements with a combination drawn from your customer ID and date of birth, and — as always — the exact format is printed in the email that delivered the statement. It is case-sensitive, and Axis uses your registered details, so a name change or a DOB correction at the bank changes the password too. If you recently updated your KYC, use the new details.</p>
+<p>The classic tax-season mistake is trying last year's password pattern on this year's file. Formats do change. Before your third attempt, open the most recent statement email and copy the format verbatim. Repeated failures can make some PDF readers refuse further attempts for a while, which is the last thing you need on a filing deadline. If the file is missing entirely, the <a href="/blog/axis-bank-statement-download">Axis statement download guide</a> gets you a fresh copy fast.</p>
+<figure><img src="/blog/axis-bank-password-protected-pdf-inline-1.jpg" alt="Printed bank statements fanned out on a desk with a pen, shallow depth of field" width="1200" height="800" loading="lazy" /><figcaption>Axis prints the password recipe in the statement email — copy it exactly, including uppercase letters.</figcaption></figure>
+<h2>Unlock safely — especially at tax time</h2>
+<p>Tax documents are the most sensitive files most people handle all year, so the unlock step matters more here than anywhere. Use a converter that decrypts the PDF in memory on your own device, extracts the tables, and deletes both file and password immediately. It should never ask for your net banking login, never email you an unlocked copy, and never keep the file "in your account" by default.</p>
+<p>This is also the moment to be skeptical of free desktop utilities found through search ads — tax season is prime season for bundled malware. A browser-based tool with nothing to install is the safer route, and our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> lists exactly what to check before you trust any converter with financial documents.</p>
+<h2>Convert in 3 steps</h2>
+<p><strong>Step 1 — Upload the locked PDF.</strong> <a href="/">Convert Statement</a> accepts the Axis file directly; enter the password at the prompt. Decryption happens in memory, only long enough to read the transaction tables.</p>
+<p><strong>Step 2 — Check the preview against the PDF.</strong> Confirm the row count looks right for the period and that amounts survived as numbers. Spot-check two transactions you know — a salary credit, a rent debit — before downloading.</p>
+<p><strong>Step 3 — Download the Excel file.</strong> Real date columns, numeric amounts, chronological rows. You are now one pivot table away from every total your return needs.</p>
+<h2>Turning the spreadsheet into a tax return</h2>
+<p>Here is where the Excel version earns its keep over the PDF:</p>
+<ul>
+<li><strong>Interest income:</strong> filter narrations for interest credits across all accounts and sum them — no more hunting through pages. See <a href="/blog/bank-statement-for-income-tax-return">using statements for income tax returns</a> for the complete checklist.</li>
+<li><strong>Deductions:</strong> tag deductible payments (insurance premiums, donations, medical) in a new column, then SUMIF by tag. Your total is audit-ready documentation.</li>
+<li><strong>Capital activity:</strong> isolate large transfers to document the source of funds for property or investment purchases.</li>
+<li><strong>Multi-account totals:</strong> convert each Axis account separately, stack the sheets, and add an Account column — one workbook, complete picture. Related: <a href="/blog/how-to-prepare-bank-statement-for-ca">preparing statements for your CA</a>.</li>
+</ul>
+<figure><img src="/blog/axis-bank-password-protected-pdf-inline-2.jpg" alt="Laptop with blurred spreadsheet totals beside a notebook on a desk" width="1200" height="800" loading="lazy" /><figcaption>Numeric amounts and real dates turn deduction totals into a single SUMIF formula.</figcaption></figure>
+<h2>Axis-specific snags and fixes</h2>
+<p><strong>Password changed after KYC update.</strong> If you corrected your name or birth date at the bank, older statements keep the old pattern and new ones use the new one. Match each file to its era.</p>
+<p><strong>Joint accounts.</strong> The password derives from the primary holder's details. If you are the second holder, ask the primary holder — guessing wastes attempts.</p>
+<p><strong>Credit card statements.</strong> Axis credit card e-statements lock the same way and convert the same way; one row per charge makes categorizing annual spending almost pleasant.</p>
+<p><strong>Need it in CSV for your CA's software?</strong> Export the same conversion as CSV. More options at <a href="/banks/axis-bank">Axis statement conversion</a>.</p>
+<h2>Frequently asked questions</h2>
+<h3>What is the default Axis Bank statement PDF password?</h3>
+<p>There is no universal default — it combines your customer ID or registered name with your date of birth, in the format printed in the statement email. Joint accounts use the primary holder's details.</p>
+<h3>Can I unlock the PDF permanently instead of converting?</h3>
+<p>You can, but for tax work the spreadsheet is more useful than an unlocked PDF — you need sortable, summable data, not just readable pages. Convert directly and skip the intermediate step.</p>
+<h3>Is it safe to convert tax documents online?</h3>
+<p>Yes, with a converter that decrypts in memory and deletes everything afterward. Never use a tool that stores unlocked tax documents in a cloud account by default.</p>
+<h3>How do I handle a full financial year of statements?</h3>
+<p>Convert month by month, stack the results in one workbook with a Month column, and build your totals with SUMIFS. Verify each month's row count as you go — catching a missing page in April beats discovering it in March.</p>
+<p>File this year with data instead of dread. <a href="/">Convert your Axis statement to Excel free</a> — upload the protected PDF, enter the password, and download a tax-ready spreadsheet. Handling statements for the whole family or a business? <a href="/pricing">Check our plans</a>.</p>`
+  },
+  {
+    id: "gen-2026-10-17-05",
+    slug: "kotak-mahindra-bank-password-protected-pdf",
+    title: "Unlock & Convert Your Kotak Statement PDF to Excel for Loans",
+    excerpt:
+      "Convert your password-protected Kotak Mahindra statement PDF to Excel for home loan paperwork — safe unlocking, clean rows, lender-ready in minutes.",
+    featureImage: "/blog/kotak-mahindra-bank-password-protected-pdf.jpg",
+    author: "Sarah Mitchell",
+    tags: ["kotak", "excel", "password-protected", "home loan"],
+    published: true,
+    createdAt: "2026-10-17T08:00:00Z",
+    updatedAt: "2026-10-17T08:00:00Z",
+    content: `<p>Nothing slows a home loan application like paperwork friction — and a locked PDF is friction you do not need. When you <strong>convert your password-protected Kotak Mahindra bank statement PDF to Excel</strong>, you turn an unreadable attachment into lender-ready data: salary credits highlighted, large deposits explained, and every figure traceable to a row. The whole process takes minutes, and your password never leaves your device.</p>
+<p>This guide follows the home-buying workflow: unlocking the Kotak file safely, converting it, and shaping the spreadsheet into exactly what underwriters and loan officers want to see — plus what to do when the numbers need explaining.</p>
+<h2>How Kotak statement passwords work</h2>
+<p>Kotak Mahindra protects e-statements with a password built from your customer relationship number and date of birth, and the exact recipe appears in the email delivering the statement. Like every bank's version, it is case-sensitive and tied to your registered details — including the details on your Kotak 811 digital account if that is where the statement came from.</p>
+<p>Home buyers usually need six to twelve months of statements, which means six to twelve password prompts. The format is consistent across months for the same account, so once you have it right, save the pattern somewhere safe (a password manager, not a sticky note). If any month's file rejects the password, re-download that month from Kotak net banking or the mobile app — a truncated download is the most common cause. The <a href="/blog/kotak-bank-statement-download">Kotak statement download guide</a> covers the fastest routes.</p>
+<figure><img src="/blog/kotak-mahindra-bank-password-protected-pdf-inline-1.jpg" alt="Printed bank statements beside home papers on a desk, shallow depth of field" width="1200" height="800" loading="lazy" /><figcaption>Lenders typically want six to twelve months of statements — the password format stays consistent across months.</figcaption></figure>
+<h2>Unlocking without risking your application</h2>
+<p>Loan paperwork contains everything an identity thief wants, so treat the unlock step seriously. The safe method decrypts the PDF in memory in your browser, extracts the transaction tables, and discards the file and password immediately — nothing stored, nothing emailed, nothing installed. Any tool that asks for your net banking credentials to "fetch statements directly" is asking for far more access than conversion requires.</p>
+<p>Also avoid the temptation to permanently unlock and email yourself copies. Each unlocked copy is a new exposure point. Convert to Excel, work with the spreadsheet, and let the locked originals stay locked. Our <a href="/blog/bank-statement-password-removal-guide">password removal guide</a> explains the threat model in plain language.</p>
+<h2>Convert in 3 steps</h2>
+<p><strong>Step 1 — Upload the protected PDF.</strong> <a href="/">Convert Statement</a> takes the Kotak file as-is; enter the password when prompted. In-memory decryption exposes the tables — dates, narrations, debits, credits, balances — for extraction.</p>
+<p><strong>Step 2 — Verify against the PDF.</strong> Check that the row count matches the statement period and that salary credits and EMIs landed in the right columns. Underwriters will scrutinize these exact rows, so verify now.</p>
+<p><strong>Step 3 — Download the Excel file.</strong> Real dates, numeric amounts, chronological order. Repeat for each month and stack the sheets into one workbook with a Month column.</p>
+<h2>Shaping the spreadsheet for your lender</h2>
+<p>Lenders and underwriters look for specific signals. Prepare them in advance:</p>
+<ul>
+<li><strong>Salary credits:</strong> filter narrations for your employer's credit entries and highlight the rows — consistent monthly credits are the strongest signal in the file. Background: <a href="/blog/bank-statement-for-home-loan">statements for home loan applications</a>.</li>
+<li><strong>Large deposits:</strong> any unusual credit will draw a question. Add a Notes column explaining each one (gift, maturity proceeds, transfer from another account) before the underwriter asks.</li>
+<li><strong>Existing EMIs:</strong> isolate current loan debits to show your true monthly obligations; this feeds directly into eligibility math.</li>
+<li><strong>Spending sanity:</strong> a quick monthly total shows the lender your outgoings are stable. See <a href="/blog/how-to-use-bank-statement-for-budgeting">budgeting from statements</a> for the technique.</li>
+</ul>
+<figure><img src="/blog/kotak-mahindra-bank-password-protected-pdf-inline-2.jpg" alt="Laptop with blurred budget spreadsheet and notebook on a home office desk" width="1200" height="800" loading="lazy" /><figcaption>Stack monthly exports in one workbook with a Month column — one file, complete history.</figcaption></figure>
+<h2>Kotak-specific quirks</h2>
+<p><strong>Kotak 811 statements.</strong> Digital-first 811 accounts generate the same locked PDFs and convert identically; the password still comes from your registered details. Our <a href="/blog/kotak-811-account-statement">Kotak 811 statement guide</a> has the specifics.</p>
+<p><strong>UPI-heavy accounts.</strong> Kotak customers tend to be heavy UPI users. Every UPI entry becomes its own row with the reference in the narration — filter by "UPI" to audit them as a group.</p>
+<p><strong>Credit card vs. savings.</strong> Convert them separately and label sheets clearly; mixing them confuses both you and the lender.</p>
+<p><strong>Need CSV for a broker's portal?</strong> Some loan marketplaces accept CSV uploads — export the same conversion as CSV. All formats at <a href="/banks/kotak-mahindra-bank">Kotak statement conversion</a>.</p>
+<h2>Frequently asked questions</h2>
+<h3>What is my Kotak statement PDF password?</h3>
+<p>It combines your customer relationship number with your date of birth, in the format printed in the statement email. The pattern is consistent across months for the same account — including Kotak 811 accounts.</p>
+<h3>Will lenders accept an Excel file instead of the PDF?</h3>
+<p>Most lenders still want the original PDFs for verification, but the Excel version is what lets you answer their questions — salary proofs, deposit explanations, EMI totals — in minutes instead of days. Submit both: PDFs as evidence, Excel as your working analysis.</p>
+<h3>Is converting loan documents online safe?</h3>
+<p>Yes, when the converter decrypts in memory and deletes everything afterward. Never upload loan paperwork to a service that stores unlocked copies by default.</p>
+<h3>How far back should I convert?</h3>
+<p>Convert the full period your lender asked for — usually six months, sometimes twelve for self-employed applicants. Stack them in one workbook so trends are visible at a glance.</p>
+<p>Get your paperwork lender-ready today. <a href="/">Convert your Kotak statement to Excel free</a> — one upload per month, one clean workbook at the end. Applying jointly or converting a full year? <a href="/pricing">See plans</a> for higher volumes.</p>`
+  },
 ];
