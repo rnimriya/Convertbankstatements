@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { headers } from "next/headers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -173,12 +174,32 @@ export default async function QuickBooksPage() {
         {/* ── Body: content + sidebar (guide layout) ────────── */}
         <section className="mx-auto max-w-7xl px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8">
+            <figure>
+              <Image
+                src="/quickbooks/hero-bookkeeper.jpg"
+                alt="A bookkeeper reviewing clean financial charts after converting a bank statement for QuickBooks"
+                width={1440}
+                height={960}
+                priority
+                className="rounded-2xl shadow-lg ring-1 ring-slate-900/10 dark:ring-white/10 w-full h-auto"
+              />
+            </figure>
+
             <h2 className={h2}>Why statements get stuck outside QuickBooks</h2>
             <p className={para}>
               QuickBooks can&apos;t read statement PDFs, so when the bank feed skips a few weeks —
               or disconnects entirely — the only complete record is the statement itself, and
               someone ends up typing it in by hand. That&apos;s where the familiar problems start:
             </p>
+            <figure className="mt-6">
+              <Image
+                src="/quickbooks/problem-messy-desk.jpg"
+                alt="A business owner late at night surrounded by stacks of printed bank statements"
+                width={1440}
+                height={810}
+                className="rounded-2xl shadow-lg ring-1 ring-slate-900/10 dark:ring-white/10 w-full h-auto"
+              />
+            </figure>
             <ul className="mt-4 space-y-2.5">
               {[
                 "A reconciliation difference that won't go to zero, no matter how many times you re-check",
@@ -268,6 +289,18 @@ export default async function QuickBooksPage() {
                 </li>
               ))}
             </ul>
+            <figure className="mt-6">
+              <Image
+                src="/quickbooks/solution-reconcile.jpg"
+                alt="A laptop showing a bank reconciliation where every transaction matches and the total is balanced"
+                width={1440}
+                height={810}
+                className="rounded-2xl shadow-lg ring-1 ring-slate-900/10 dark:ring-white/10 w-full h-auto"
+              />
+              <figcaption className="mt-2 text-center text-sm text-zinc-400">
+                Illustration — your actual balance check appears on the conversion result.
+              </figcaption>
+            </figure>
 
             <h2 className={h2}>Export formats</h2>
             <p className={para}>
@@ -307,6 +340,15 @@ export default async function QuickBooksPage() {
               with the subject line &ldquo;QuickBooks Cleanup&rdquo; and tell us how many months
               and accounts you have.
             </p>
+            <figure className="mt-6">
+              <Image
+                src="/quickbooks/cleanup-team.jpg"
+                alt="Two accounting professionals reviewing financial reports together during a QuickBooks cleanup"
+                width={1440}
+                height={960}
+                className="rounded-2xl shadow-lg ring-1 ring-slate-900/10 dark:ring-white/10 w-full h-auto"
+              />
+            </figure>
           </div>
 
           {/* Sidebar (same pattern as guide pages) */}
