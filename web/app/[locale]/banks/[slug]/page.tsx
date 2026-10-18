@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CheckCircle2, FileText, Lock, Zap, Upload, Settings2, Download, ChevronDown } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { headers } from "next/headers";
+import { SamplePreview } from "@/components/banks/SamplePreview";
 
 // The [locale] segment is handled by next-intl middleware (localePrefix: as-needed),
 // so this page must render dynamically like the blog/guide pages — a
@@ -180,6 +181,9 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
             </div>
           </div>
         </div>
+
+        {/* Sample conversion preview */}
+        <SamplePreview bankName={bankName} />
 
         {/* Benefits */}
         <div className="py-24 bg-brand-surface border-y border-brand-border">

@@ -60,6 +60,8 @@ type VisionOutcome =
 
 const CATEGORY_RULES: [string[], string][] = [
   [["SALARY", "PAYROLL", "NEFT CR", "RTGS CR"], "Income"],
+  // Specific US vendors before the generic "AMAZON" shopping rule below.
+  [["AMAZON WEB SERVICES", "AWS", "GOOGLE CLOUD", "MICROSOFT 365", "ADOBE", "INTUIT", "QUICKBOOKS", "GITHUB", "DROPBOX", "ZOOM", "SLACK"], "Software"],
   [["EMI", "LOAN", "HOUSING", "HOME LOAN", "CAR LOAN"], "Loan EMI"],
   [["SIP", "MUTUAL FUND", "ZERODHA", "GROWW", "NSDL", "CDSL"], "Investments"],
   [["LIC", "INSURANCE", "HDFC LIFE", "BAJAJ", "STAR HEALTH", "ICICI PRU"], "Insurance"],
@@ -69,8 +71,32 @@ const CATEGORY_RULES: [string[], string][] = [
   [["IRCTC", "RAILWAY", "FLIGHT", "MAKEMYTRIP", "GOIBIBO", "REDBUS", "OYO"], "Travel"],
   [["OLA", "UBER", "RAPIDO", "AUTO", "METRO", "PETROL", "HPCL", "BPCL", "HP GAS"], "Transport"],
   [["ATM", "CASH WDL", "CASH WITHDRAWAL"], "Cash"],
-  [["UPI", "NEFT", "RTGS", "IMPS", "TRANSFER"], "Transfer"],
+  // ── US rules ──────────────────────────────────────────────────────────────
+  [["DIRECT DEP", "ADP PAYROLL", "GUSTO", "PAYCHEX", "PAYROLL"], "Income"],
+  [["SHELL OIL", "CHEVRON", "EXXON", "MOBIL", "ARCO", "CIRCLE K", "SPEEDWAY"], "Fuel"],
+  [["AMAZON WEB SERVICES", "AWS", "GOOGLE CLOUD", "MICROSOFT 365", "ADOBE", "INTUIT", "QUICKBOOKS", "GITHUB", "DROPBOX", "ZOOM", "SLACK"], "Software"],
+  [["STARBUCKS", "MCDONALD", "CHIPOTLE", "DOORDASH", "UBER EATS", "GRUBHUB", "DUNKIN"], "Food & Dining"],
+  [["WALMART", "TARGET", "COSTCO", "BEST BUY", "HOME DEPOT", "LOWES", "AMAZON MKTPLACE", "AMZN"], "Shopping"],
+  [["COMCAST", "XFINITY", "VERIZON", "AT&T", "T-MOBILE", "PG&E", "DUKE ENERGY", "CON EDISON"], "Utilities"],
+  [["IRS", "US TREASURY", "STATE TAX", "FRANCHISE TAX"], "Taxes"],
+  [["SERVICE CHARGE", "SERVICE FEE", "MONTHLY MAINTENANCE FEE", "MONTHLY FEE", "OVERDRAFT", "NSF FEE", "WIRE FEE"], "Bank Fees"],
+  [["UPI", "NEFT", "RTGS", "IMPS", "TRANSFER", "ZELLE", "VENMO", "WIRE"], "Transfer"],
 ];
+
+/** Apply a user's learned category rules (substring match, first hit wins). */
+export function applyUserCategoryRules(
+  transactions: Transaction[],
+  rules: [string, string][] | undefined
+): Transaction[] {
+  if (!rules || rules.length === 0) return transactions;
+  return transactions.map((t) => {
+    const d = (t.description ?? "").toUpperCase();
+    for (const [pattern, category] of rules) {
+      if (pattern && d.includes(pattern.toUpperCase())) return { ...t, category };
+    }
+    return t;
+  });
+}
 
 function categorise(desc: string): string {
   const d = desc.toUpperCase();
@@ -245,14 +271,14 @@ async function extractWithVision(bytes: Buffer, clientIp?: string): Promise<Visi
  * calls), then Claude Vision for scanned PDFs when ANTHROPIC_API_KEY is set.
  * Never fabricates data — returns method "none" with an empty list if nothing reads.
  */
-export async function extractTransactions(bytes: Buffer, fileName: string, clientIp?: string): Promise<ExtractionResult> {
+export async function extractTransactions(bytes: Buffer, fileName: string, clientIp?: string, userRules?: [string, string][]): Promise<ExtractionResult> {
   let firstPageText = "";
   try {
     const { lines, firstPageText: fpt } = await extractPdfText(bytes);
     firstPageText = fpt;
     const transactions = parseTransactionsFromText(lines);
     if (transactions.length > 0) {
-      return { transactions, bankName: inferBankName(fileName, firstPageText), method: "text" };
+      return { transactions: applyUserCategoryRules(transactions, userRules), bankName: inferBankName(fileName, firstPageText), method: "text" };
     }
   } catch (err) {
     console.error("[extraction] text extraction failed:", err);
@@ -262,7 +288,7 @@ export async function extractTransactions(bytes: Buffer, fileName: string, clien
   const vision = await extractWithVision(bytes, clientIp);
   if (vision.status === "ok" && vision.transactions.length > 0) {
     return {
-      transactions: vision.transactions,
+      transactions: applyUserCategoryRules(vision.transactions, userRules),
       bankName: vision.bankName ?? inferBankName(fileName, firstPageText),
       method: "vision",
     };

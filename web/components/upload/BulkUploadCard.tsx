@@ -17,7 +17,15 @@ interface FileResult {
   pageCount: number;
   transactionCount: number;
   bankName: string | null;
-  exportUrls: { csv?: string; xlsx?: string };
+  exportUrls: { csv?: string; xlsx?: string; qbo?: string };
+  reconciliation?: {
+    checked: boolean;
+    ok: boolean;
+    openingBalance: number | null;
+    closingBalance: number | null;
+    transactionCount: number;
+  };
+  note?: string;
   error?: string;
 }
 
@@ -42,23 +50,26 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
   const [errorMsg, setErrorMsg] = useState("");
   const [merging, setMerging] = useState(false);
   const [mergeUrl, setMergeUrl] = useState<string | null>(null);
+  const [zipUrl, setZipUrl] = useState<string | null>(null);
 
   const processFiles = useCallback(async (files: File[]) => {
     setPhase("processing");
     setResults([]);
     setMergeUrl(null);
+    setZipUrl(null);
 
     const fd = new FormData();
     for (const file of files.slice(0, MAX_FILES)) {
       fd.append("files[]", file);
     }
-    fd.append("export_formats","csv,xlsx");
+    fd.append("export_formats","csv,xlsx,qbo");
 
     try {
       const res = await fetch("/api/bulk-process", { method:"POST", body: fd });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message ?? data.error ??"Bulk processing failed");
       setResults(data.results ?? []);
+      setZipUrl(data.zipUrl ?? null);
       setPhase("done");
       onBillingUpdate();
     } catch (err: unknown) {
@@ -112,12 +123,23 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               {successCount} of {results.length} files converted
             </span>
           </div>
-          <button
-            onClick={() => { setPhase("idle"); setResults([]); setMergeUrl(null); }}
-            className="text-xs text-brand-muted hover:text-brand-muted dark:hover:text-gray-300 flex items-center gap-1"
-          >
-            <X className="text-rose-500 dark:text-rose-400"  size={12} /> Reset
-          </button>
+          <div className="flex items-center gap-2">
+            {zipUrl && (
+              <a
+                href={zipUrl}
+                download="ConvertStatement-Batch.zip"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition-colors"
+              >
+                <Download size={12} /> Download all (ZIP)
+              </a>
+            )}
+            <button
+              onClick={() => { setPhase("idle"); setResults([]); setMergeUrl(null); setZipUrl(null); }}
+              className="text-xs text-brand-muted hover:text-brand-muted dark:hover:text-gray-300 flex items-center gap-1"
+            >
+              <X className="text-rose-500 dark:text-rose-400"  size={12} /> Reset
+            </button>
+          </div>
         </div>
 
         {/* Multi-bank merge offer */}
@@ -162,11 +184,25 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                 {r.error ? (
                   <p className="text-xs text-red-500 dark:text-red-400">{r.error}</p>
                 ) : (
-                  <p className="text-xs text-brand-muted">{r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` :""}</p>
+                  <p className="text-xs text-brand-muted">
+                    {r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` :""}
+                    {r.reconciliation?.checked && (
+                      <span className={r.reconciliation.ok ? "text-emerald-600 dark:text-emerald-400 font-semibold" : "text-amber-600 dark:text-amber-400 font-semibold"}>
+                        {r.reconciliation.ok ? " · ✓ Balance verified" : " · ⚠ Balance check failed"}
+                      </span>
+                    )}
+                    {r.note && <span className="block text-amber-600 dark:text-amber-400">{r.note}</span>}
+                  </p>
                 )}
               </div>
               {!r.error && (
                 <div className="flex gap-1.5 shrink-0">
+                  {r.exportUrls.qbo && (
+                    <a href={r.exportUrls.qbo} download={r.fileName.replace(".pdf",".qbo")}
+                      className="px-2.5 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold hover:bg-emerald-500 transition-colors">
+                      .qbo
+                    </a>
+                  )}
                   {r.exportUrls.xlsx && (
                     <a href={r.exportUrls.xlsx} download={r.fileName.replace(".pdf",".xlsx")}
                       className="px-2.5 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 text-brand-text text-xs font-semibold hover:bg-zinc-900 dark:bg-zinc-950/20 dark:hover:bg-brand-400/20 transition-colors">

@@ -17,6 +17,7 @@ import { getPortal } from "@/lib/portals";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
 import { extractTransactions } from "@/lib/extraction/extract";
+import { getCategoryRuleTuples } from "@/lib/user-categories";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
 import { getRedis } from "@/lib/redis";
 import { cookies } from "next/headers";
@@ -198,7 +199,10 @@ export async function POST(req: NextRequest) {
   let bankName = inferBankName(file.name, bytes.toString("latin1").slice(0, 2000));
   const isDemo = false;
 
-  const extraction = await extractTransactions(bytes, file.name, clientIp(req));
+  const userRules = userId
+    ? await getCategoryRuleTuples(userId).catch(() => undefined)
+    : undefined;
+  const extraction = await extractTransactions(bytes, file.name, clientIp(req), userRules);
   transactions = extraction.transactions;
   bankName = extraction.bankName ?? bankName;
 

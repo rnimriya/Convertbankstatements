@@ -10,6 +10,8 @@ import { PricingSection } from"@/components/dashboard/PricingSection";
 import { PortalsPanel } from"@/components/dashboard/PortalsPanel";
 import { TeamPanel } from"@/components/dashboard/TeamPanel";
 import { AccountSettings } from"@/components/dashboard/AccountSettings";
+import { CategoryRulesPanel } from"@/components/dashboard/CategoryRulesPanel";
+import { QuickBooksPanel } from"@/components/dashboard/QuickBooksPanel";
 import { QueuePanel } from"@/components/dashboard/QueuePanel";
 import { ThemeToggle } from"@/components/layout/ThemeToggle";
 import type { BillingContext } from"@/types/billing";
@@ -795,6 +797,8 @@ export function DashboardClient({
                   tier={billing.tier}
                   onVerificationSent={() => setVerificationSent(true)}
                 />
+                <CategoryRulesPanel />
+                <QuickBooksPanel />
               </div>
             </div>
           )}

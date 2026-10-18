@@ -16,8 +16,12 @@ import { countPdfPages } from "@/lib/pdf-utils";
 import {
   transactionsToCSV,
   transactionsToExcel,
+  transactionsToQBO,
+  verifyBalanceChain,
+  type BalanceCheck,
 } from "@/lib/mock-transactions";
 import { extractTransactions } from "@/lib/extraction/extract";
+import { getCategoryRuleTuples } from "@/lib/user-categories";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { inferBankName } from "@/lib/config/banks";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
@@ -35,7 +39,9 @@ interface FileResult {
   pageCount: number;
   transactionCount: number;
   bankName: string | null;
-  exportUrls: { csv?: string; xlsx?: string };
+  exportUrls: { csv?: string; xlsx?: string; qbo?: string };
+  reconciliation?: BalanceCheck;
+  note?: string;
   error?: string;
 }
 
@@ -134,11 +140,15 @@ export async function POST(req: NextRequest) {
 
   // ── Process each file ──────────────────────────────────────────────────────
   const results: FileResult[] = [];
+  const outZip = new JSZip();
+  const bulkUserRules = await getCategoryRuleTuples(session.sub).catch(() => undefined);
+  const canQBO = tier === "PRO" || tier === "BUSINESS";
+  const wantsQBO = exportFormats.includes("qbo");
 
   for (const { name, bytes } of pdfFiles) {
     try {
       // In-app extraction (no external backend). Never fabricate data.
-      const extraction = await extractTransactions(bytes, name, clientIp(req));
+      const extraction = await extractTransactions(bytes, name, clientIp(req), bulkUserRules);
       const transactions = extraction.transactions;
       const bankName: string | null = extraction.bankName ?? inferBankName(name);
 
@@ -154,14 +164,22 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
-      const exportUrls: { csv?: string; xlsx?: string } = {};
+      const base = name.replace(/\.pdf$/i, "");
+      const exportUrls: { csv?: string; xlsx?: string; qbo?: string } = {};
       if (exportFormats.includes("csv")) {
         const content = transactionsToCSV(transactions);
         exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
+        outZip.file(`${base}.csv`, content);
       }
       if (exportFormats.includes("xlsx")) {
         const buf = transactionsToExcel(transactions);
         exportUrls.xlsx = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${buf.toString("base64")}`;
+        outZip.file(`${base}.xlsx`, buf);
+      }
+      if (wantsQBO && canQBO) {
+        const content = transactionsToQBO(transactions);
+        exportUrls.qbo = `data:application/x-qbo;base64,${Buffer.from(content).toString("base64")}`;
+        outZip.file(`${base}.qbo`, content);
       }
 
       results.push({
@@ -170,6 +188,8 @@ export async function POST(req: NextRequest) {
         transactionCount: transactions.length,
         bankName,
         exportUrls,
+        reconciliation: verifyBalanceChain(transactions),
+        note: wantsQBO && !canQBO ? "QBO export is a Pro plan feature — CSV/Excel included." : undefined,
       });
     } catch (err) {
       results.push({
@@ -183,6 +203,13 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // ── ZIP of every export (one download for the whole batch) ────────────────
+  let zipUrl: string | undefined;
+  if (results.some((r) => !r.error)) {
+    const zipBuf = await outZip.generateAsync({ type: "nodebuffer" });
+    zipUrl = `data:application/zip;base64,${zipBuf.toString("base64")}`;
+  }
+
   // ── Record usage ───────────────────────────────────────────────────────────
   const successPages = results
     .filter(r => !r.error)
@@ -194,6 +221,7 @@ export async function POST(req: NextRequest) {
     totalFiles: results.length,
     successCount: results.filter(r => !r.error).length,
     totalPages: successPages,
+    zipUrl,
     results,
   });
 }
