@@ -172,7 +172,7 @@ export default async function QuickBooksPage() {
         </section>
 
         {/* ── Body: content + sidebar (guide layout) ────────── */}
-        <section className="mx-auto max-w-7xl px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <section className="mx-auto max-w-6xl px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-8">
             <figure>
               <Image
@@ -418,7 +418,7 @@ export default async function QuickBooksPage() {
         </section>
 
         {/* ── FAQ ───────────────────────────────────────────── */}
-        <section className="mx-auto max-w-3xl px-6 py-12">
+        <section className="mx-auto max-w-6xl px-6 py-12">
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white text-center mb-8">
             QuickBooks conversion questions
           </h2>
@@ -426,7 +426,7 @@ export default async function QuickBooksPage() {
         </section>
 
         {/* ── Final CTA (guide sidebar box pattern, centered) ── */}
-        <section className="mx-auto max-w-3xl px-6 pb-16">
+        <section className="mx-auto max-w-6xl px-6 pb-16">
           <div className="p-8 rounded-2xl bg-violet-600 text-white text-center">
             <h2 className="text-2xl font-extrabold">Your next statement could take one minute.</h2>
             <p className="text-violet-100 mt-3 max-w-lg mx-auto">
