@@ -295,7 +295,7 @@ async function geminiGenerate(apiKey: string, model: string, base64Pdf: string):
   } | null;
 
   if (!res.ok) {
-    throw new Error(`Gemini ${res.status}: ${String(data?.error?.message ?? "request failed").slice(0, 160)}`);
+    throw new Error(`${res.status}: ${String(data?.error?.message ?? "request failed").slice(0, 160)}`);
   }
 
   const parts = data?.candidates?.[0]?.content?.parts ?? [];
@@ -304,14 +304,14 @@ async function geminiGenerate(apiKey: string, model: string, base64Pdf: string):
   return text;
 }
 
-/** Discover a Flash model this project can actually call (names shift over time). */
-async function pickGeminiModel(apiKey: string): Promise<string | null> {
+/** List the Flash models this project can call, best first (names shift over time). */
+async function discoverGeminiModels(apiKey: string): Promise<string[]> {
   try {
     const res = await fetch(`${GEMINI_API_BASE}/models`, {
       headers: { "x-goog-api-key": apiKey },
       signal: AbortSignal.timeout(30_000),
     });
-    if (!res.ok) return null;
+    if (!res.ok) return [];
     const data = (await res.json()) as {
       models?: Array<{ name?: string; supportedGenerationMethods?: string[] }>;
     };
@@ -319,11 +319,12 @@ async function pickGeminiModel(apiKey: string): Promise<string | null> {
       .filter((m) => (m?.supportedGenerationMethods ?? []).includes("generateContent"))
       .map((m) => String(m?.name ?? "").replace(/^models\//, ""))
       .filter((n) => n.includes("flash") && !n.includes("image") && !n.includes("tts") && !n.includes("audio") && !n.includes("live"));
-    // Prefer full Flash models over Flash-Lite; keep the API's own order otherwise.
-    names.sort((a, b) => Number(a.includes("lite")) - Number(b.includes("lite")));
-    return names[0] ?? null;
+    // Current flagship first, then full Flash models (API order), then Flash-Lite.
+    const rank = (n: string) => (n === "gemini-3.8-flash" ? 0 : n.includes("lite") ? 2 : 1);
+    names.sort((a, b) => rank(a) - rank(b));
+    return names;
   } catch {
-    return null;
+    return [];
   }
 }
 
@@ -332,29 +333,29 @@ async function extractWithGeminiVision(bytes: Buffer): Promise<VisionOutcome> {
   if (!apiKey) return { status: "no_key" };
 
   const base64Pdf = bytes.toString("base64");
-  const preferred = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
-  try {
-    const text = await geminiGenerate(apiKey, preferred, base64Pdf);
-    const { transactions, bankName } = parseVisionJson(text);
-    return { status: "ok", transactions, bankName };
-  } catch (err) {
-    const detail = err instanceof Error ? err.message : "unknown error";
-    // The configured model may not exist on this project — discover one and retry once.
-    if (/404|not found|not supported/i.test(detail)) {
-      const discovered = await pickGeminiModel(apiKey);
-      if (discovered && discovered !== preferred) {
-        try {
-          const text = await geminiGenerate(apiKey, discovered, base64Pdf);
-          const { transactions, bankName } = parseVisionJson(text);
-          return { status: "ok", transactions, bankName };
-        } catch (err2) {
-          const d2 = err2 instanceof Error ? err2.message.slice(0, 200) : "unknown error";
-          return { status: "error", detail: `Gemini: ${d2}` };
-        }
+  // NOTE: a model can be listed yet closed to new users (e.g. gemini-2.5-flash
+  // returns 404 for new projects) — so on a model-availability error we walk
+  // the discovered model list until one actually answers.
+  const candidates: string[] = [process.env.GEMINI_MODEL ?? "gemini-3.8-flash"];
+  let lastDetail = "unknown error";
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const model = candidates[attempt];
+    if (!model) break;
+    try {
+      const text = await geminiGenerate(apiKey, model, base64Pdf);
+      const { transactions, bankName } = parseVisionJson(text);
+      return { status: "ok", transactions, bankName };
+    } catch (err) {
+      lastDetail = err instanceof Error ? err.message : "unknown error";
+      if (!/404|not found|not supported|no longer available/i.test(lastDetail)) break;
+      if (attempt === 0) {
+        const discovered = await discoverGeminiModels(apiKey);
+        for (const m of discovered) if (!candidates.includes(m)) candidates.push(m);
       }
     }
-    return { status: "error", detail: `Gemini: ${detail.slice(0, 200)}` };
   }
+  return { status: "error", detail: `Gemini: ${lastDetail.slice(0, 200)}` };
 }
 
 // ── Vision dispatcher: Gemini (free) first, Claude (paid) as backup ────────────
