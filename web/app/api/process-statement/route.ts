@@ -6,6 +6,7 @@ import {
   transactionsToExcel,
   transactionsToOFX,
   transactionsToQFX,
+  transactionsToQBO,
   transactionsToGoogleSheets,
 } from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
@@ -231,6 +232,9 @@ export async function POST(req: NextRequest) {
     } else if (fmt === "qfx") {
       const content = transactionsToQFX(transactions);
       exportUrls.qfx = `data:application/x-qfx;base64,${Buffer.from(content).toString("base64")}`;
+    } else if (fmt === "qbo") {
+      const content = transactionsToQBO(transactions);
+      exportUrls.qbo = `data:application/x-qbo;base64,${Buffer.from(content).toString("base64")}`;
     } else if (fmt === "sheets") {
       const content = transactionsToGoogleSheets(transactions);
       exportUrls.sheets = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;

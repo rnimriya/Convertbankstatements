@@ -149,7 +149,7 @@ export function transactionsToExcel(transactions: Transaction[]): Buffer {
 }
 
 /** OFX 1.02 (QuickBooks / Tally / Xero) */
-export function transactionsToOFX(transactions: Transaction[], accountId = "0000000000"): string {
+export function transactionsToOFX(transactions: Transaction[], accountId = "0000000000", opts?: { currency?: string; bankId?: string }): string {
   const now = new Date();
   const dtNow = formatOFXDate(now);
 
@@ -191,9 +191,9 @@ NEWFILEUID:NONE
 <TRNUID>1001</TRNUID>
 <STATUS><CODE>0</CODE><SEVERITY>INFO</SEVERITY></STATUS>
 <STMTRS>
-<CURDEF>INR</CURDEF>
+<CURDEF>${opts?.currency ?? "INR"}</CURDEF>
 <BANKACCTFROM>
-<BANKID>IN</BANKID>
+<BANKID>${opts?.bankId ?? "IN"}</BANKID>
 <ACCTID>${accountId}</ACCTID>
 <ACCTTYPE>CHECKING</ACCTTYPE>
 </BANKACCTFROM>
@@ -212,6 +212,13 @@ ${txnXml}
 export function transactionsToQFX(transactions: Transaction[], accountId = "0000000000"): string {
   // QFX is virtually identical to OFX 1.02; Quicken identifies it by file extension
   return transactionsToOFX(transactions, accountId);
+}
+
+/** QBO (QuickBooks Web Connect — OFX 1.02 with USD defaults for QuickBooks import) */
+export function transactionsToQBO(transactions: Transaction[], accountId = "0000000000"): string {
+  // QuickBooks identifies Web Connect files by the .qbo extension; the body is
+  // OFX 1.02. US QuickBooks files expect USD, not the INR default used for OFX.
+  return transactionsToOFX(transactions, accountId, { currency: "USD", bankId: "000000000" });
 }
 
 /** Google Sheets — identical CSV, Google Sheets auto-imports on open */

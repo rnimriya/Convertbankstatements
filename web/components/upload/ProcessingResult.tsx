@@ -20,6 +20,7 @@ const FORMAT_LABELS: Record<string, string> = {
   xlsx:"Download Excel (.xlsx)",
   ofx:"Download OFX (QuickBooks / Tally)",
   qfx:"Download QFX (Quicken)",
+  qbo:"Download QBO (QuickBooks)",
   sheets:"Download Google Sheets (CSV)",
 };
 
@@ -28,6 +29,7 @@ const FORMAT_EXTENSIONS: Record<string, string> = {
   xlsx:"xlsx",
   ofx:"ofx",
   qfx:"qfx",
+  qbo:"qbo",
   sheets:"csv",
 };
 

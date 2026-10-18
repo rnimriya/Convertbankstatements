@@ -43,7 +43,7 @@ export default async function HomePage() {
     { icon: <Zap size={22} className="text-amber-500 dark:text-amber-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
     { icon: <Shield size={22} className="text-purple-500 dark:text-purple-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage" },
     { icon: <FileCheck size={22} className="text-purple-500 dark:text-purple-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
-    { icon: <FileText size={22} className="text-indigo-500 dark:text-indigo-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","OFX / Tally","QFX / QuickBooks","Google Sheets"] },
+    { icon: <FileText size={22} className="text-indigo-500 dark:text-indigo-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"] },
     { icon: <Globe size={22} className="text-cyan-500 dark:text-cyan-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
     { icon: <Lock size={20} className="text-rose-500 dark:text-rose-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
     { icon: <CreditCard size={20} className="text-purple-500 dark:text-purple-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },

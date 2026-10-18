@@ -96,6 +96,55 @@ export const CLUSTERS: ContentCluster[] = [
       "how-to-get-certified-bank-statement"
     ],
     relatedBankSlugs: [],
+  },
+  {
+    slug: "import-bank-statement-to-quickbooks",
+    title: "How to Import Bank Statements into QuickBooks Online & Desktop",
+    description: "QuickBooks cannot read PDF bank statements. Learn how to convert a statement PDF to QBO or CSV, import it into QuickBooks Online or Desktop, and reconcile without duplicates.",
+    longContent: `
+      <p>QuickBooks does not import PDF bank statements directly. If your bank feed does not cover the months you need — or it disconnected and left gaps — the statement PDF from your bank is the source of truth, and you need to turn it into a file QuickBooks accepts: <strong>QBO (Web Connect)</strong> or <strong>CSV</strong>. This guide walks through the full process for QuickBooks Online and QuickBooks Desktop. You can convert the PDF with the <a href="/quickbooks">QuickBooks converter on Convert Statement</a>.</p>
+
+      <h2>Step 1: Download the official statement PDF from your bank</h2>
+      <p>Use the official monthly statement PDF, not screenshots or transaction exports stitched together. The statement has a fixed opening and closing balance, which is what makes reconciliation possible later. If the PDF is password-protected, remove the password first or unlock it with the password your bank gave you (usually your date of birth or account-linked ID, depending on the bank).</p>
+
+      <h2>Step 2: Convert the PDF to QBO or CSV</h2>
+      <p>Upload the PDF to a converter built for bank statements and export the format your QuickBooks version needs:</p>
+      <ul>
+        <li><strong>QuickBooks Online:</strong> QBO, QFX, OFX, or CSV all work through manual upload. QBO is the safest choice because dates and amounts are already structured the way QuickBooks expects.</li>
+        <li><strong>QuickBooks Desktop:</strong> use the QBO file through Web Connect (File &rarr; Utilities &rarr; Import &rarr; Web Connect Files).</li>
+        <li><strong>CSV:</strong> works in QuickBooks Online if you map the columns during upload. Use a single Amount column (negative for money out) or separate Money In / Money Out columns — do not mix the two styles.</li>
+      </ul>
+      <p>Before importing, spot-check the converted file: the first and last transaction dates should match the statement period, and the total of the transactions should move the opening balance to the closing balance on the statement.</p>
+
+      <h2>Step 3: Import into QuickBooks Online</h2>
+      <p>Go to <strong>Transactions &rarr; Bank transactions</strong>, open the drop-down next to Link account and choose <strong>Upload a file</strong>. Select your QBO or CSV file, pick the bank or credit card account it belongs to, map the columns if QuickBooks asks, and confirm. The transactions land in the <strong>Pending / For review</strong> tab — importing a file does not post anything to your books until you categorize and add each transaction.</p>
+
+      <h2>Step 4: Avoid the two mistakes that break reconciliation</h2>
+      <ul>
+        <li><strong>Duplicates:</strong> never import a period that the live bank feed already downloaded. Overlap even one day and you will double-count income or expenses. Check the date range of the file against what is already in QuickBooks before you upload.</li>
+        <li><strong>Wrong opening balance:</strong> if this is the first import for an account, QuickBooks uses the file's starting point as the opening position. Import statements in chronological order, oldest first, so balances build correctly.</li>
+      </ul>
+
+      <h2>Step 5: Categorize and reconcile</h2>
+      <p>Work through the For review tab, categorizing each transaction and matching anything QuickBooks suggests. Then reconcile the account against the statement's closing balance for that month. If the reconciliation difference is not zero, the cause is almost always a duplicate, a missing transaction, or an edited prior-period entry — the reconciliation discrepancy report and the audit log will show which one.</p>
+
+      <h2>When the books are months behind</h2>
+      <p>Converting statements fixes the data-entry problem, not a backlog problem. If several months are unreconciled, accounts were set up inconsistently, or the chart of accounts has years of duplicates, importing files alone will not make the reports trustworthy. That is a cleanup job: diagnose, import in order, categorize, and re-reconcile month by month. Convert Statement offers a free cleanup assessment — tell us how many months you are behind and how many accounts you have through the <a href="/contact">contact page</a> and we will reply with a fixed quote before any work starts.</p>
+    `,
+    relatedBlogSlugs: [
+      "pnc-bank-convert-to-csv-quickbooks",
+      "truist-convert-to-csv-quickbooks",
+      "capital-one-convert-to-csv-quickbooks",
+      "td-bank-convert-to-csv-quickbooks",
+      "hsbc-convert-to-csv-quickbooks",
+    ],
+    relatedBankSlugs: [
+      "jpmorgan-chase",
+      "bank-of-america",
+      "wells-fargo",
+      "citibank",
+      "capital-one"
+    ],
   }
 ];
 

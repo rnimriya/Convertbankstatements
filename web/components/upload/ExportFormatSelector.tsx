@@ -46,6 +46,16 @@ function IconQFX() {
   );
 }
 
+function IconQBO() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0">
+      <rect width="24" height="24" rx="6" fill="#2CA01C"/>
+      <circle cx="11" cy="11" r="5.2" stroke="white" strokeWidth="2" fill="none"/>
+      <line x1="14.8" y1="14.8" x2="18.2" y2="18.2" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 function IconSheets() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5 shrink-0">
@@ -63,6 +73,7 @@ const FORMATS = [
   { id:"xlsx",   label:"Excel",         sub:".xlsx",       Icon: IconExcel  },
   { id:"ofx",    label:"OFX",           sub:"Tally / Xero",Icon: IconOFX    },
   { id:"qfx",    label:"QFX",           sub:"Quicken",     Icon: IconQFX    },
+  { id:"qbo",    label:"QBO",           sub:"QuickBooks",  Icon: IconQBO    },
   { id:"sheets", label:"Google Sheets", sub:"Direct sync", Icon: IconSheets },
 ] as const;
 
