@@ -102,6 +102,7 @@ export function DashboardClient({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [verificationSent, setVerificationSent] = useState(false);
   const [sendingVerification, setSendingVerification] = useState(false);
+  const [verificationError, setVerificationError] = useState<string | null>(null);
 
   const refreshBilling = useCallback(async () => {
     try {
@@ -117,9 +118,17 @@ export function DashboardClient({
 
   const sendVerificationEmail = async () => {
     setSendingVerification(true);
+    setVerificationError(null);
     try {
-      await fetch("/api/auth/send-verification", { method:"POST" });
-      setVerificationSent(true);
+      const res = await fetch("/api/auth/send-verification", { method:"POST" });
+      if (res.ok) {
+        setVerificationSent(true);
+      } else {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        setVerificationError(data?.error ?? "We couldn't send the verification email right now. Please try again later.");
+      }
+    } catch {
+      setVerificationError("We couldn't send the verification email right now. Please try again later.");
     } finally { setSendingVerification(false); }
   };
 
@@ -344,13 +353,18 @@ export function DashboardClient({
                 <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={13} /> Check your inbox
               </span>
             ) : (
-              <button
-                onClick={sendVerificationEmail}
-                disabled={sendingVerification}
-                className="text-sm font-semibold text-amber-700 underline hover:no-underline disabled:opacity-50"
-              >
-                {sendingVerification ?"Sending…" :"Resend link"}
-              </button>
+              <>
+                {verificationError && (
+                  <span className="text-sm font-medium text-red-600 dark:text-red-400">{verificationError}</span>
+                )}
+                <button
+                  onClick={sendVerificationEmail}
+                  disabled={sendingVerification}
+                  className="text-sm font-semibold text-amber-700 underline hover:no-underline disabled:opacity-50"
+                >
+                  {sendingVerification ?"Sending…" :"Resend link"}
+                </button>
+              </>
             )}
           </div>
         )}

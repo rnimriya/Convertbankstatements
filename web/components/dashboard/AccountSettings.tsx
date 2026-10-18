@@ -25,6 +25,7 @@ interface Props {
 export function AccountSettings({ userEmail, userName, emailVerified, tier, onVerificationSent }: Props) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
   const [changingPw, setChangingPw] = useState(false);
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
@@ -72,10 +73,18 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
   const sendVerification = async () => {
     setSending(true);
+    setSendError(null);
     try {
-      await fetch("/api/auth/send-verification", { method:"POST" });
-      setSent(true);
-      onVerificationSent();
+      const res = await fetch("/api/auth/send-verification", { method:"POST" });
+      if (res.ok) {
+        setSent(true);
+        onVerificationSent();
+      } else {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        setSendError(data?.error ?? "Couldn't send the email right now. Please try again later.");
+      }
+    } catch {
+      setSendError("Couldn't send the email right now. Please try again later.");
     } finally { setSending(false); }
   };
 
@@ -227,14 +236,17 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                 <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={13} /> Email sent
               </span>
             ) : (
-              <button
-                onClick={sendVerification}
-                disabled={sending}
-                className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:underline disabled:opacity-50"
-              >
-                {sending ? <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" /> : <AlertTriangle className="text-amber-500 dark:text-amber-400"  size={12} />}
-                Verify email
-              </button>
+              <span className="flex items-center gap-2">
+                {sendError && <span className="text-xs font-medium text-red-600">{sendError}</span>}
+                <button
+                  onClick={sendVerification}
+                  disabled={sending}
+                  className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:underline disabled:opacity-50"
+                >
+                  {sending ? <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" /> : <AlertTriangle className="text-amber-500 dark:text-amber-400"  size={12} />}
+                  Verify email
+                </button>
+              </span>
             )}
           </div>
         </div>
