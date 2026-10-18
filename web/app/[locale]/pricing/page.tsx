@@ -28,7 +28,7 @@ const COMPARE_ROWS = [
   { feature:"Team seats", free:"1", pro:"1", business:"5" },
   { feature:"Payment methods", free:"—", pro:"UPI/Card/NB", business:"UPI/Card/NB" },
   { feature:"Smart Auto-Categorization (Beta)", free:"—", pro:"✓", business:"✓" },
-  { feature:"OCR for Scanned PDFs (Soon)", free:"—", pro:"—", business:"✓" },
+  { feature:"OCR for Scanned PDFs", free:"—", pro:"—", business:"✓" },
   { feature:"Direct Accounting Push (Soon)", free:"—", pro:"—", business:"✓" },
   { feature:"Instant Cash Flow Analytics (Beta)", free:"—", pro:"✓", business:"✓" },
   { feature:"Secure Client Upload Portal (Beta)", free:"—", pro:"—", business:"✓" },

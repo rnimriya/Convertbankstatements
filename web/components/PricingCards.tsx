@@ -62,7 +62,7 @@ const MONTHLY_PLANS = [
     tagline:"For CA firms & fintech teams",
     highlight: false,
     badge: null,
-    features: ["2,000 pages / month","All export formats","OCR for Scanned PDFs (Coming Soon)","Direct Accounting Push (Coming Soon)","Smart Auto-Categorization (Beta)","Pre-Export Analytics (Beta)","Secure Client Portal (Beta)","API access","5 team seats","Dedicated support"],
+    features: ["2,000 pages / month","All export formats","OCR for Scanned PDFs","Direct Accounting Push (Coming Soon)","Smart Auto-Categorization (Beta)","Pre-Export Analytics (Beta)","Secure Client Portal (Beta)","API access","5 team seats","Dedicated support"],
     notIncluded: [],
     cta:"Start Business",
     href:"/signup?plan=business",
