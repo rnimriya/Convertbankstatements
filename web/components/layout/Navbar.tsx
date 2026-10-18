@@ -35,6 +35,7 @@ export async function Navbar() {
               { href: "/#how-it-works", label: t("howItWorks") },
               { href: "/#features",     label: t("features") },
               { href: "/pricing",       label: t("pricing") },
+              { href: "/quickbooks",    label: t("quickbooksReconciliation") },
               { href: "/#faq",          label: t("faq") },
             ].map(({ href, label }) => (
               <Link

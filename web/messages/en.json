@@ -19,7 +19,8 @@
     "faq": "FAQ",
     "signIn": "Sign in",
     "getStartedFree": "Get started free",
-    "contact": "Contact"
+    "contact": "Contact",
+    "quickbooksReconciliation": "QuickBooks Reconciliation"
   },
   "hero": {
     "badge": "Major global banks · Instant results",
@@ -186,7 +187,8 @@
     "termsOfService": "Terms of Service",
     "copyright": "© {year} Convert Statement. All rights reserved.",
     "prices": "All prices in USD · Data never stored",
-    "contact": "Contact"
+    "contact": "Contact",
+    "quickbooksReconciliation": "QuickBooks Reconciliation"
   },
   "auth": {
     "loginTitle": "Welcome back",

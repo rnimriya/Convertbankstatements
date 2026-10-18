@@ -32,6 +32,7 @@ export async function Footer() {
         { label: t("features"),    href: "/#features" },
         { label: t("howItWorks"),  href: "/#how-it-works" },
         { label: t("pricing"),     href: "/pricing" },
+        { label: t("quickbooksReconciliation"), href: "/quickbooks" },
         { label: t("blog"),        href: "/blog" },
         { label: t("faq"),         href: "/#faq" },
         { label: t("contact"),     href: "/contact" },
