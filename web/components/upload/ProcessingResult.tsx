@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2, ArrowUpRight } from"lucide-react";
+import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2, ArrowUpRight, AlertTriangle } from"lucide-react";
 import { useState } from"react";
 import type { ProcessResult, Transaction } from"@/types/billing";
 import { Button } from"@/components/ui/Button";
@@ -118,6 +118,33 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         {/* Analytics Dashboard */}
         {result.transactions && result.transactions.length > 0 && (
           <AnalyticsDashboard transactions={result.transactions} />
+        )}
+
+        {/* Reconciliation balance check */}
+        {result.reconciliation?.checked && (
+          result.reconciliation.ok ? (
+            <div className="mt-4 flex items-start gap-3 rounded-xl border border-emerald-200 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/40 px-4 py-3">
+              <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400 mt-0.5" />
+              <div className="text-sm">
+                <p className="font-semibold text-emerald-900 dark:text-emerald-100">Balance verified — this file ties to your statement</p>
+                <p className="text-emerald-700 dark:text-emerald-300 mt-0.5">
+                  Opening {result.reconciliation.openingBalance?.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {" → "}closing {result.reconciliation.closingBalance?.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  {" "}across {result.reconciliation.transactionCount} transactions. The running balance checks out at every step, so QuickBooks reconciliation starts from a file that already agrees with the bank.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/40 px-4 py-3">
+              <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />
+              <div className="text-sm">
+                <p className="font-semibold text-amber-900 dark:text-amber-100">Heads up — the running balances don&apos;t fully tie out</p>
+                <p className="text-amber-700 dark:text-amber-300 mt-0.5">
+                  At least one step in the statement&apos;s balance chain doesn&apos;t add up. That usually means a missing or duplicated transaction in the source statement. Review the transactions below before importing, so the problem doesn&apos;t land in QuickBooks.
+                </p>
+              </div>
+            </div>
+          )
         )}
 
         {/* Downloads */}

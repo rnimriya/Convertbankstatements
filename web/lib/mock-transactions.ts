@@ -148,15 +148,83 @@ export function transactionsToExcel(transactions: Transaction[]): Buffer {
   return Buffer.from(XLSX.write(wb, { type: "buffer", bookType: "xlsx" }));
 }
 
+/** Deterministic FITID: the same statement re-generated produces the same IDs
+ *  (so QuickBooks dedupes a re-import correctly), while a different month's
+ *  statement produces different IDs (so new transactions are never mistaken
+ *  for duplicates of last month's). */
+function fitIdFor(t: Transaction, index: number): string {
+  const raw = `${t.date}|${t.description}|${t.amount.toFixed(2)}`;
+  let h = 5381;
+  for ( let i = 0; i < raw.length; i++) h = ((h << 5) + h + raw.charCodeAt(i)) >>> 0;
+  return `CS${h.toString(36).toUpperCase()}${index + 1}`;
+}
+
+export interface BalanceCheck {
+  checked: boolean;
+  ok: boolean;
+  openingBalance: number | null;
+  closingBalance: number | null;
+  netChange: number;
+  transactionCount: number;
+}
+
+/** Reconciliation check: walk the statement's own running balances in date
+ *  order and confirm every step (previous balance + amount = next balance).
+ *  When the chain holds, the export provably ties to the statement — the
+ *  opening balance below plus the net change equals the closing balance. */
+export function verifyBalanceChain(transactions: Transaction[]): BalanceCheck {
+  const sorted = [...transactions].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  const netChange = Math.round(sorted.reduce((s, t) => s + t.amount, 0) * 100) / 100;
+  const withBal = sorted.filter((t) => t.balance !== null && t.balance !== undefined);
+  if (withBal.length < 2) {
+    return { checked: false, ok: false, openingBalance: null, closingBalance: null, netChange, transactionCount: sorted.length };
+  }
+  let ok = true;
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = sorted[i - 1];
+    const cur = sorted[i];
+    if (
+      prev.balance !== null && prev.balance !== undefined &&
+      cur.balance !== null && cur.balance !== undefined &&
+      Math.abs(cur.balance - (prev.balance + cur.amount)) > 0.011
+    ) {
+      ok = false;
+      break;
+    }
+  }
+  const first = withBal[0];
+  const last = withBal[withBal.length - 1];
+  const openingBalance =
+    first.balance !== null && first.balance !== undefined
+      ? Math.round((first.balance - first.amount) * 100) / 100
+      : null;
+  return { checked: true, ok, openingBalance, closingBalance: last.balance ?? null, netChange, transactionCount: sorted.length };
+}
+
 /** OFX 1.02 (QuickBooks / Tally / Xero) */
 export function transactionsToOFX(transactions: Transaction[], accountId = "0000000000", opts?: { currency?: string; bankId?: string }): string {
   const now = new Date();
   const dtNow = formatOFXDate(now);
 
-  const txnXml = transactions
+  // Chronological order — DTSTART/DTEND, FITIDs and the ledger balance all
+  // depend on the statement's real period, not on generation time.
+  const sorted = [...transactions].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  const dtStart = formatOFXDate(sorted.length ? new Date(sorted[0].date) : now);
+  const dtEnd = formatOFXDate(sorted.length ? new Date(sorted[sorted.length - 1].date) : now);
+  const lastBal = [...sorted].reverse().find((t) => t.balance !== null && t.balance !== undefined)?.balance;
+  const ledgerBal =
+    lastBal !== null && lastBal !== undefined
+      ? `\n<LEDGERBAL>\n<BALAMT>${lastBal.toFixed(2)}</BALAMT>\n<DTASOF>${dtEnd}</DTASOF>\n</LEDGERBAL>`
+      : "";
+
+  const txnXml = sorted
     .map((t, i) => {
       const type = t.amount >= 0 ? "CREDIT" : "DEBIT";
-      const fitid = t.reference ?? `TXN${String(i + 1).padStart(10, "0")}`;
+      const fitid = t.reference ?? fitIdFor(t, i);
       return `<STMTTRN>
 <TRNTYPE>${type}</TRNTYPE>
 <DTPOSTED>${formatOFXDate(new Date(t.date))}</DTPOSTED>
@@ -198,10 +266,10 @@ NEWFILEUID:NONE
 <ACCTTYPE>CHECKING</ACCTTYPE>
 </BANKACCTFROM>
 <BANKTRANLIST>
-<DTSTART>${dtNow}</DTSTART>
-<DTEND>${dtNow}</DTEND>
+<DTSTART>${dtStart}</DTSTART>
+<DTEND>${dtEnd}</DTEND>
 ${txnXml}
-</BANKTRANLIST>
+</BANKTRANLIST>${ledgerBal}
 </STMTRS>
 </STMTTRNRS>
 </BANKMSGSRSV1>

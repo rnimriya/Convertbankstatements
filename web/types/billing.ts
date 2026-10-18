@@ -25,6 +25,15 @@ export interface BillingDecision {
   message: string;
 }
 
+export interface ReconciliationSummary {
+  checked: boolean;
+  ok: boolean;
+  openingBalance: number | null;
+  closingBalance: number | null;
+  netChange: number;
+  transactionCount: number;
+}
+
 export interface ProcessResult {
   success: boolean;
   file_name: string;
@@ -33,6 +42,7 @@ export interface ProcessResult {
   bank_name: string | null;
   billing: BillingDecision;
   transactions: Transaction[];
+  reconciliation?: ReconciliationSummary;
   export_urls: Record<string, string>;
   processing_ms: number;
   is_demo?: boolean;

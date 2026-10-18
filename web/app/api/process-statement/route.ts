@@ -7,6 +7,7 @@ import {
   transactionsToOFX,
   transactionsToQFX,
   transactionsToQBO,
+  verifyBalanceChain,
   transactionsToGoogleSheets,
 } from "@/lib/mock-transactions";
 import { getSession } from "@/lib/auth/session";
@@ -295,6 +296,7 @@ export async function POST(req: NextRequest) {
           : `${Math.max(0, monthlyPageLimit - pagesUsed - pageCount)} pages remaining this month.`,
     },
     transactions: transactions.slice(0, 10),
+    reconciliation: verifyBalanceChain(transactions),
     export_urls: exportUrls,
     processing_ms: Date.now() - start,
   });
