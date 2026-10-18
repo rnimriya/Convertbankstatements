@@ -3,7 +3,8 @@
  * no separate FastAPI/Python backend required.
  *
  *   1. Text PDFs  → parsed with unpdf (pdf.js) + columnar heuristics. Zero config.
- *   2. Scanned PDFs → Claude Vision (claude-sonnet-4-6) IF ANTHROPIC_API_KEY is set.
+ *   2. Scanned PDFs → Vision: Gemini first (free tier, GEMINI_API_KEY), then
+ *      Claude (claude-sonnet-4-6, ANTHROPIC_API_KEY) as the paid backup.
  *
  * Ported from the original Python backend (backend/main.py).
  */
@@ -13,8 +14,8 @@ import type { Transaction } from "@/types/billing";
 import { inferBankName } from "@/lib/config/banks";
 import { getRedis } from "@/lib/redis";
 
-// Denial-of-wallet guard: each Vision call is billed to our Anthropic account.
-// Cap invocations per IP/day and globally/day so abuse can't run up spend.
+// Denial-of-wallet/quota guard: Vision calls hit external providers (Gemini
+// free-tier quota, Claude spend). Cap invocations per IP/day and globally/day.
 const VISION_DAILY_CAP = parseInt(process.env.VISION_DAILY_CAP ?? "2000", 10);
 const VISION_IP_DAILY_CAP = parseInt(process.env.VISION_IP_DAILY_CAP ?? "25", 10);
 
@@ -47,7 +48,7 @@ export interface ExtractionResult {
   method: ExtractionMethod;
   /** Set when method === "none". */
   reason?: ExtractionReason;
-  /** Extra context for "vision_error" (e.g. the Anthropic error message). */
+  /** Extra context for "vision_error" (e.g. the provider's error message). */
   detail?: string;
 }
 
@@ -207,13 +208,31 @@ Rules:
 - Skip header rows, totals, and page footers
 - If no transactions found return an empty array`;
 
-async function extractWithVision(bytes: Buffer, clientIp?: string): Promise<VisionOutcome> {
+/** Parse a vision provider's JSON reply into pipeline transactions. Throws on bad JSON. */
+function parseVisionJson(rawText: string): { transactions: Transaction[]; bankName: string | null } {
+  let raw = rawText.trim();
+  if (raw.startsWith("```")) raw = raw.split("\n").slice(1, -1).join("\n");
+
+  const parsed = JSON.parse(raw) as {
+    bank_name?: string | null;
+    transactions?: Array<{ date?: string; description?: string; amount?: number; balance?: number | null }>;
+  };
+
+  const transactions: Transaction[] = (parsed.transactions ?? []).map((t) => ({
+    date: t.date ?? "",
+    description: t.description ?? "",
+    amount: round2(Number(t.amount ?? 0)),
+    balance: t.balance === null || t.balance === undefined ? null : round2(Number(t.balance)),
+    category: categorise(t.description ?? ""),
+    reference: null,
+  }));
+
+  return { transactions, bankName: parsed.bank_name ?? null };
+}
+
+async function extractWithClaudeVision(bytes: Buffer): Promise<VisionOutcome> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return { status: "no_key" };
-
-  if (await visionBudgetExceeded(clientIp)) {
-    return { status: "error", detail: "Daily scanned-document limit reached — please try again later." };
-  }
 
   const client = new Anthropic({ apiKey });
   try {
@@ -236,39 +255,138 @@ async function extractWithVision(bytes: Buffer, clientIp?: string): Promise<Visi
 
     const textBlock = message.content.find((b) => b.type === "text");
     if (!textBlock || textBlock.type !== "text") {
-      return { status: "error", detail: "Vision returned no text" };
+      return { status: "error", detail: "Claude Vision returned no text" };
     }
 
-    let raw = textBlock.text.trim();
-    if (raw.startsWith("```")) raw = raw.split("\n").slice(1, -1).join("\n");
-
-    const parsed = JSON.parse(raw) as {
-      bank_name?: string | null;
-      transactions?: Array<{ date?: string; description?: string; amount?: number; balance?: number | null }>;
-    };
-
-    const transactions: Transaction[] = (parsed.transactions ?? []).map((t) => ({
-      date: t.date ?? "",
-      description: t.description ?? "",
-      amount: round2(Number(t.amount ?? 0)),
-      balance: t.balance === null || t.balance === undefined ? null : round2(Number(t.balance)),
-      category: categorise(t.description ?? ""),
-      reference: null,
-    }));
-
-    return { status: "ok", transactions, bankName: parsed.bank_name ?? null };
+    const { transactions, bankName } = parseVisionJson(textBlock.text);
+    return { status: "ok", transactions, bankName };
   } catch (err) {
-    console.error("[extraction] Vision failed:", err);
+    console.error("[extraction] Claude Vision failed:", err);
     const detail = err instanceof Error ? err.message.slice(0, 200) : "unknown error";
-    return { status: "error", detail };
+    return { status: "error", detail: `Claude: ${detail}` };
   }
+}
+
+// ── Gemini Vision (scanned PDFs, free tier — tried first) ─────────────────────
+
+const GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta";
+
+async function geminiGenerate(apiKey: string, model: string, base64Pdf: string): Promise<string> {
+  const res = await fetch(`${GEMINI_API_BASE}/models/${model}:generateContent`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            { text: VISION_PROMPT },
+            { inline_data: { mime_type: "application/pdf", data: base64Pdf } },
+          ],
+        },
+      ],
+      generationConfig: { temperature: 0, responseMimeType: "application/json", maxOutputTokens: 16000 },
+    }),
+    signal: AbortSignal.timeout(120_000),
+  });
+
+  const data = (await res.json().catch(() => null)) as {
+    error?: { message?: string };
+    candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }>;
+  } | null;
+
+  if (!res.ok) {
+    throw new Error(`Gemini ${res.status}: ${String(data?.error?.message ?? "request failed").slice(0, 160)}`);
+  }
+
+  const parts = data?.candidates?.[0]?.content?.parts ?? [];
+  const text = parts.map((p) => (typeof p?.text === "string" ? p.text : "")).join("");
+  if (!text) throw new Error("Gemini returned no text");
+  return text;
+}
+
+/** Discover a Flash model this project can actually call (names shift over time). */
+async function pickGeminiModel(apiKey: string): Promise<string | null> {
+  try {
+    const res = await fetch(`${GEMINI_API_BASE}/models`, {
+      headers: { "x-goog-api-key": apiKey },
+      signal: AbortSignal.timeout(30_000),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      models?: Array<{ name?: string; supportedGenerationMethods?: string[] }>;
+    };
+    const names = (data?.models ?? [])
+      .filter((m) => (m?.supportedGenerationMethods ?? []).includes("generateContent"))
+      .map((m) => String(m?.name ?? "").replace(/^models\//, ""))
+      .filter((n) => n.includes("flash") && !n.includes("image") && !n.includes("tts") && !n.includes("audio") && !n.includes("live"));
+    // Prefer full Flash models over Flash-Lite; keep the API's own order otherwise.
+    names.sort((a, b) => Number(a.includes("lite")) - Number(b.includes("lite")));
+    return names[0] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+async function extractWithGeminiVision(bytes: Buffer): Promise<VisionOutcome> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) return { status: "no_key" };
+
+  const base64Pdf = bytes.toString("base64");
+  const preferred = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
+  try {
+    const text = await geminiGenerate(apiKey, preferred, base64Pdf);
+    const { transactions, bankName } = parseVisionJson(text);
+    return { status: "ok", transactions, bankName };
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : "unknown error";
+    // The configured model may not exist on this project — discover one and retry once.
+    if (/404|not found|not supported/i.test(detail)) {
+      const discovered = await pickGeminiModel(apiKey);
+      if (discovered && discovered !== preferred) {
+        try {
+          const text = await geminiGenerate(apiKey, discovered, base64Pdf);
+          const { transactions, bankName } = parseVisionJson(text);
+          return { status: "ok", transactions, bankName };
+        } catch (err2) {
+          const d2 = err2 instanceof Error ? err2.message.slice(0, 200) : "unknown error";
+          return { status: "error", detail: `Gemini: ${d2}` };
+        }
+      }
+    }
+    return { status: "error", detail: `Gemini: ${detail.slice(0, 200)}` };
+  }
+}
+
+// ── Vision dispatcher: Gemini (free) first, Claude (paid) as backup ────────────
+
+async function extractWithVision(bytes: Buffer, clientIp?: string): Promise<VisionOutcome> {
+  const hasGemini = !!process.env.GEMINI_API_KEY;
+  const hasClaude = !!process.env.ANTHROPIC_API_KEY;
+  if (!hasGemini && !hasClaude) return { status: "no_key" };
+
+  if (await visionBudgetExceeded(clientIp)) {
+    return { status: "error", detail: "Daily scanned-document limit reached — please try again later." };
+  }
+
+  const errors: string[] = [];
+  if (hasGemini) {
+    const g = await extractWithGeminiVision(bytes);
+    if (g.status === "ok") return g;
+    if (g.status === "error") errors.push(g.detail);
+  }
+  if (hasClaude) {
+    const c = await extractWithClaudeVision(bytes);
+    if (c.status === "ok") return c;
+    if (c.status === "error") errors.push(c.detail);
+  }
+  return { status: "error", detail: errors.join(" | ").slice(0, 300) || "Vision extraction failed" };
 }
 
 // ── Public entry point ───────────────────────────────────────────────────────────
 
 /**
  * Extract transactions from a PDF. Tries text parsing first (free, no external
- * calls), then Claude Vision for scanned PDFs when ANTHROPIC_API_KEY is set.
+ * calls), then Vision for scanned PDFs (Gemini free tier first, Claude backup).
  * Never fabricates data — returns method "none" with an empty list if nothing reads.
  */
 export async function extractTransactions(bytes: Buffer, fileName: string, clientIp?: string, userRules?: [string, string][]): Promise<ExtractionResult> {

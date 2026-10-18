@@ -213,7 +213,7 @@ export async function POST(req: NextRequest) {
       extraction.reason === "no_vision_key"
         ? "This looks like a scanned/image PDF. Scanned-document support isn't enabled on the server yet — set ANTHROPIC_API_KEY (admin) and redeploy."
         : extraction.reason === "vision_error"
-        ? `Scanned-document extraction failed${extraction.detail ? `: ${extraction.detail}` : ""}. Check ANTHROPIC_API_KEY is valid and the Anthropic account has credit.`
+        ? `Scanned-document extraction failed${extraction.detail ? `: ${extraction.detail}` : ""}. Check the vision provider keys (GEMINI_API_KEY / ANTHROPIC_API_KEY) are valid and funded.`
         : "We read the document but found no transactions. Please confirm it's a bank statement (not a cover/summary page) and not password-protected.";
     return NextResponse.json(
       { error: "NO_TRANSACTIONS_FOUND", reason: extraction.reason, message, page_count: pageCount },
