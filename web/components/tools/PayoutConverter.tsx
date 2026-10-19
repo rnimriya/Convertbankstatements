@@ -94,8 +94,9 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
         accept=".csv"
         busy={busy}
         busyText="Reading your payout data…"
-        title={fileName ?? `Drop your ${label} CSV export here, or click to browse`}
-        hint="Free · No signup · Processed in memory, never stored"
+        title={fileName ?? `Drop your ${label} CSV export here`}
+        meta={["CSV export", "Max 10 MB"]}
+        activeTitle="Release to convert"
         onFile={(f) => void handleFile(f)}
       />
 
@@ -230,14 +231,14 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
           <div className="mt-5 flex flex-wrap gap-3">
             <button
               onClick={downloadCsv}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-violet-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-blue-400"
             >
               <Download className="h-4 w-4" /> Download CSV (free)
             </button>
             <button
               onClick={() => void downloadQbo()}
               disabled={dlBusy}
-              className="inline-flex items-center gap-2 bg-violet-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-violet-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-60"
             >
               <Lock className="h-4 w-4" /> {dlBusy ? "Preparing…" : "Download .QBO (Pro)"}
             </button>

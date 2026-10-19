@@ -63,6 +63,7 @@ export default function ReceiptToQuickBooksPage() {
       faqs={FAQS}
       howToName="How to enter a receipt into QuickBooks"
       howToSteps={HOWTO}
+      privacyLine="Free · No signup · Processed in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Why receipts still eat bookkeeping time</h2>
@@ -83,9 +84,9 @@ export default function ReceiptToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Converting statements too? Our{" "}
-            <a href="/quickbooks" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
+            <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
             handles full bank statements with a balance check, and the{" "}
-            <a href="/tools/qbo-cleanup-checker" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
             keeps everything clean at month-end.
           </p>
         </>

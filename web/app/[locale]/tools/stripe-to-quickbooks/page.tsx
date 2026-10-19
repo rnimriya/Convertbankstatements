@@ -63,6 +63,7 @@ export default function StripeToQuickBooksPage() {
       faqs={FAQS}
       howToName="How to record Stripe payouts in QuickBooks"
       howToSteps={HOWTO}
+      privacyLine="Free · No signup · Processed in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The clearing-account method</h2>
@@ -83,9 +84,9 @@ export default function StripeToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Already converting bank statements for QuickBooks? The payout converter pairs with our{" "}
-            <a href="/quickbooks" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
+            <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
             and the{" "}
-            <a href="/tools/qbo-cleanup-checker" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
             to keep the whole month clean.
           </p>
         </>

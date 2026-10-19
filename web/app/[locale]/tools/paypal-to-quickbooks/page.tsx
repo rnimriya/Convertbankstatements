@@ -63,6 +63,7 @@ export default function PayPalToQuickBooksPage() {
       faqs={FAQS}
       howToName="How to record PayPal payouts in QuickBooks"
       howToSteps={HOWTO}
+      privacyLine="Free · No signup · Processed in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The clearing-account method</h2>
@@ -83,9 +84,9 @@ export default function PayPalToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Taking Stripe too? Try the{" "}
-            <a href="/tools/stripe-to-quickbooks" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">Stripe to QuickBooks converter</a>,
+            <a href="/tools/stripe-to-quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Stripe to QuickBooks converter</a>,
             and run the{" "}
-            <a href="/tools/qbo-cleanup-checker" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
             before month-end to keep the books clean.
           </p>
         </>

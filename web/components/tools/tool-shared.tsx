@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { Upload, Loader2, Lock, LogIn } from "lucide-react";
+import { Upload, FileText, Loader2, Lock, LogIn } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const usd = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });
@@ -75,62 +76,151 @@ export async function downloadFileFromApi(url: string, file: File, fileName: str
   return res.headers.get("X-Removed-Duplicates");
 }
 
+/**
+ * Upload dropzone — exact twin of the homepage converter card's drop zone
+ * (UploadCard): same rounded-3xl card, same dashed border, same icon block,
+ * same heading/"or browse files" text layout, same drag-over state.
+ * Only the copy (title/meta) and accepted types differ per tool.
+ * Busy state is static (no spin animation) per site rules.
+ */
 export function ToolUpload({
   accept,
   busy,
   busyText,
   title,
-  hint,
+  meta,
+  activeTitle = "Release to upload",
   onFile,
 }: {
   accept: string;
   busy: boolean;
   busyText: string;
   title: string;
-  hint: string;
+  meta: string[];
+  activeTitle?: string;
   onFile: (file: File) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const dragDepth = useRef(0);
+
   return (
-    <div
-      className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-violet-400 transition-colors"
-      onClick={() => inputRef.current?.click()}
-      onDragOver={(e) => e.preventDefault()}
-      onDrop={(e) => {
-        e.preventDefault();
-        const f = e.dataTransfer.files?.[0];
-        if (f) onFile(f);
-      }}
-    >
-      <input
-        ref={inputRef}
-        type="file"
-        accept={accept}
-        className="hidden"
-        onChange={(e) => {
-          const f = e.target.files?.[0];
-          if (f) onFile(f);
-          e.target.value = "";
-        }}
-      />
-      {busy ? (
-        <Loader2 className="h-9 w-9 mx-auto text-violet-600 animate-spin" />
-      ) : (
-        <Upload className="h-9 w-9 mx-auto text-violet-600" />
-      )}
-      <p className="mt-3 font-semibold text-zinc-900 dark:text-white">
-        {busy ? busyText : title}
-      </p>
-      <p className="mt-1 text-sm text-zinc-400">{hint}</p>
+    <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+
+      {/* ── Drop zone ── */}
+      <div className="p-3">
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label={title}
+          onClick={() => {
+            if (!busy) inputRef.current?.click();
+          }}
+          onKeyDown={(e) => {
+            if ((e.key === "Enter" || e.key === " ") && !busy) {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
+          onDragEnter={(e) => {
+            e.preventDefault();
+            if (busy) return;
+            dragDepth.current += 1;
+            setDragActive(true);
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+          }}
+          onDragLeave={(e) => {
+            e.preventDefault();
+            dragDepth.current = Math.max(0, dragDepth.current - 1);
+            if (dragDepth.current === 0) setDragActive(false);
+          }}
+          onDrop={(e) => {
+            e.preventDefault();
+            dragDepth.current = 0;
+            setDragActive(false);
+            if (busy) return;
+            const f = e.dataTransfer.files?.[0];
+            if (f) onFile(f);
+          }}
+          className={cn(
+            "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 lg:py-16 text-center transition-colors select-none",
+            busy ? "border-zinc-200" : "cursor-pointer",
+            !busy &&
+              (dragActive
+                ? "border-zinc-900 dark:border-zinc-100 bg-brand-surface"
+                : "border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
+          )}
+        >
+          <input
+            ref={inputRef}
+            type="file"
+            accept={accept}
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) onFile(f);
+              e.target.value = "";
+            }}
+          />
+
+          {busy ? (
+            /* Busy (static — no motion animation) */
+            <div className="flex flex-col items-center gap-4 py-2">
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+                <Loader2 size={26} className="text-white" strokeWidth={1.6} />
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
+                {busyText}
+              </h2>
+              <p className="mt-1 text-sm text-brand-muted">This usually takes a few seconds.</p>
+            </div>
+          ) : (
+            /* Idle */
+            <>
+              <div
+                className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
+                style={{
+                  background: dragActive ? "#09090b" : "#18181b",
+                  transform: dragActive ? "scale(1.06)" : "scale(1)",
+                }}
+              >
+                {dragActive ? (
+                  <FileText size={26} className="text-white" strokeWidth={1.6} />
+                ) : (
+                  <Upload size={26} className="text-white" strokeWidth={1.6} />
+                )}
+              </div>
+
+              <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
+                {dragActive ? activeTitle : title}
+              </h2>
+              <p className="mt-1 text-sm text-brand-muted">
+                or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
+              </p>
+
+              <div className="mt-3 flex items-center gap-2 text-xs text-brand-muted">
+                {meta.map((m, i) => (
+                  <span key={i} className="flex items-center gap-2">
+                    {i > 0 && <span className="h-1 w-1 rounded-full bg-zinc-300" />}
+                    <span>{m}</span>
+                  </span>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
 export function QboGateNotice({ gate }: { gate: string | null }) {
   return (
-    <div className="rounded-2xl border border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/20 px-5 py-4">
+    <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 px-5 py-4">
       <p className="font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-        <Lock className="h-4 w-4 text-violet-600" /> QBO download is a Pro feature
+        <Lock className="h-4 w-4 text-blue-600" /> QBO download is a Pro feature
       </p>
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
         {gate === "login"
@@ -142,14 +232,14 @@ export function QboGateNotice({ gate }: { gate: string | null }) {
         {gate === "login" ? (
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 bg-violet-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-violet-700"
+            className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             <LogIn className="h-4 w-4" /> Sign in
           </Link>
         ) : (
           <Link
             href="/pricing"
-            className="inline-flex items-center gap-2 bg-violet-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-violet-700"
+            className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             See Pro plans
           </Link>
