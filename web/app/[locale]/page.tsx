@@ -1,6 +1,6 @@
 import type { Metadata } from"next";
 import type { ReactNode } from"react";
-import { getTranslations } from"next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Link } from"@/i18n/navigation";
 import {
@@ -22,7 +22,9 @@ export const metadata: Metadata = {
 import { SUPPORTED_BANKS } from"@/lib/config/banks";
 
 const BANKS = Array.from(new Set(SUPPORTED_BANKS.map((b) => b[1])));
-export default async function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const tHero  = await getTranslations("hero");
   const tStats = await getTranslations("stats");
   const tBanks = await getTranslations("banks");

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getTopBanksForSEO, getBankBySlug } from "@/lib/seo/banks";
 import { Navbar } from "@/components/layout/Navbar";
@@ -22,6 +23,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { slug, locale } = await params;
+  setRequestLocale(locale);
   const bankName = getBankBySlug(slug);
 
   if (!bankName) {

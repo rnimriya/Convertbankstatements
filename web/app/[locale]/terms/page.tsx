@@ -1,4 +1,5 @@
 import Link from"next/link";
+import { setRequestLocale } from "next-intl/server";
 import { ScrollText } from"lucide-react";
 import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
@@ -183,7 +184,9 @@ For questions about these Terms, contact us at legal@convertstatement.online.`,
  },
 ];
 
-export default function TermsPage() {
+export default async function TermsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
  return (
  <div className="min-h-screen bg-white dark:bg-zinc-950">
  <Navbar />

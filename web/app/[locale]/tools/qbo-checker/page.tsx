@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { QboChecker } from "@/components/tools/QboChecker";
@@ -19,7 +20,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function QboCheckerPage() {
+export default async function QboCheckerPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <>
       <Navbar />

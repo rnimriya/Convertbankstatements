@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayoutConverter } from "@/components/tools/PayoutConverter";
 
@@ -52,7 +53,9 @@ const HOWTO = [
   { title: "Import into QuickBooks", body: "Download the CSV free, or the QBO on Pro, and import it into a PayPal Clearing account in QuickBooks." },
 ];
 
-export default function PayPalToQuickBooksPage() {
+export default async function PayPalToQuickBooksPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <ToolPageLayout
       eyebrow="Free Tool"

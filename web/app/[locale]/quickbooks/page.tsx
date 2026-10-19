@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import Image from "next/image";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -108,7 +109,9 @@ const fmtUSD = (n: number) =>
 const h2 = "text-2xl font-extrabold text-zinc-900 dark:text-white mt-12 first:mt-0";
 const para = "mt-3 text-zinc-600 dark:text-zinc-300 leading-relaxed";
 
-export default async function QuickBooksPage() {
+export default async function QuickBooksPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const nonce = BUILD_NONCE;
 
   const softwareSchema = {

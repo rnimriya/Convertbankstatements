@@ -1,4 +1,5 @@
 import Link from"next/link";
+import { setRequestLocale } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { DollarSign, ArrowRight } from"lucide-react";
 import { Navbar } from"@/components/layout/Navbar";
@@ -92,7 +93,9 @@ const pricingSchema = {"@context":"https://schema.org","@type":"Product",
   ],
 };
 
-export default async function PricingPage() {
+export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const nonce = BUILD_NONCE;
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950">

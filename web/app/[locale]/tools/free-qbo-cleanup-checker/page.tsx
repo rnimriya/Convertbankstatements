@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { QboCleanupChecker } from "@/components/tools/QboCleanupChecker";
 
@@ -51,7 +52,9 @@ const HOWTO = [
   { title: "Clean up", body: "Review flagged groups, delete confirmed duplicates in QuickBooks, or download a cleaned QBO on Pro — and ask about a full cleanup if the books are months behind." },
 ];
 
-export default function QboCleanupCheckerPage() {
+export default async function QboCleanupCheckerPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <ToolPageLayout
       eyebrow="Free Tool"

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -14,7 +15,8 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const comp = getCompetitorBySlug(slug);
   if (!comp) return { title: "Comparison not found" };
   const title = `Convert Statement vs ${comp.name} — Best Bank Statement Converter (2025)`;
@@ -55,7 +57,8 @@ function CompareRow({ feature, us, them }: RowProps) {
 }
 
 export default async function ComparePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const comp = getCompetitorBySlug(slug);
   if (!comp) notFound();
 
