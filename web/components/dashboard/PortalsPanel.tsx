@@ -18,6 +18,7 @@ export function PortalsPanel() {
   const [newSlug, setNewSlug] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
+  const [confirmToken, setConfirmToken] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/portals")
@@ -49,8 +50,8 @@ export function PortalsPanel() {
   }
 
   async function deactivate(token: string) {
-    if (!window.confirm("Deactivate this portal link? Anyone with the link will no longer be able to upload through it.")) return;
     await fetch(`/api/portals/${token}`, { method:"DELETE" });
+    setConfirmToken(null);
     setPortals(p => p.filter(x => x.token !== token));
   }
 
@@ -159,13 +160,30 @@ export function PortalsPanel() {
                 >
                   {isCopied ? <><CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={12} /> Copied</> : <><Copy className="text-cyan-500 dark:text-cyan-400"  size={12} /> Copy link</>}
                 </button>
-                <button
-                  onClick={() => deactivate(portal.token)}
-                  className="p-1.5 rounded-lg text-zinc-300 hover:text-red-400 hover:bg-red-50 transition-colors shrink-0"
-                  title="Deactivate portal"
-                >
-                  <Trash2 className="text-rose-500 dark:text-rose-400"  size={14} />
-                </button>
+                {confirmToken === portal.token ? (
+                  <span className="flex items-center gap-1.5 shrink-0">
+                    <button
+                      onClick={() => deactivate(portal.token)}
+                      className="px-2.5 py-1.5 rounded-lg bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition-colors"
+                    >
+                      Deactivate?
+                    </button>
+                    <button
+                      onClick={() => setConfirmToken(null)}
+                      className="px-2 py-1.5 rounded-lg border border-brand-border text-xs text-brand-muted hover:text-brand-text transition-colors"
+                    >
+                      Cancel
+                    </button>
+                  </span>
+                ) : (
+                  <button
+                    onClick={() => setConfirmToken(portal.token)}
+                    className="p-1.5 rounded-lg text-zinc-300 hover:text-red-400 hover:bg-red-50 transition-colors shrink-0"
+                    title="Deactivate portal"
+                  >
+                    <Trash2 className="text-rose-500 dark:text-rose-400"  size={14} />
+                  </button>
+                )}
               </div>
             );
           })}

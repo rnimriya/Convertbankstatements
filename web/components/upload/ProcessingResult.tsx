@@ -218,8 +218,8 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               <div className="text-sm">
                 <p className="font-semibold text-emerald-900 dark:text-emerald-100">Balance verified — this file ties to your statement</p>
                 <p className="text-emerald-700 dark:text-emerald-300 mt-0.5">
-                  Opening {result.reconciliation.openingBalance?.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  {" → "}closing {result.reconciliation.closingBalance?.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  Opening {result.reconciliation.openingBalance?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
+                  {" → "}closing {result.reconciliation.closingBalance?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
                   {" "}across {result.reconciliation.transactionCount} transactions. The running balance checks out at every step, so QuickBooks reconciliation starts from a file that already agrees with the bank.
                 </p>
               </div>
@@ -355,7 +355,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                   </p>
                 </div>
                 <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ?"text-emerald-600 dark:text-emerald-400" :"text-zinc-900 dark:text-zinc-300"}`}>
-                  {txn.amount >= 0 ? "+" : "-"}${Math.abs(txn.amount).toFixed(2)}
+                  {txn.amount >= 0 ? "+" : "-"}${Math.abs(txn.amount).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
             ))}

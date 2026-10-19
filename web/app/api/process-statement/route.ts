@@ -235,7 +235,6 @@ export async function POST(req: NextRequest) {
   // otherwise anyone can pull Pro exports by passing export_formats directly.
   const PRO_FORMATS = new Set(["ofx", "qfx", "qbo", "sheets"]);
   const canProFormats = tier === "PRO" || tier === "BUSINESS";
-  const lockedFormats = exportFormats.filter((f) => PRO_FORMATS.has(f) && !canProFormats);
 
   const exportUrls: Record<string, string> = {};
 
@@ -266,6 +265,12 @@ export async function POST(req: NextRequest) {
     const content = transactionsToCSV(transactions);
     exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
   }
+
+  // Every Pro format this tier did not receive — the result screen uses this
+  // to show an upgrade note, whether or not the client asked for the format.
+  const lockedFormats = canProFormats
+    ? []
+    : [...PRO_FORMATS].filter((f) => !(f in exportUrls));
 
   // ── Record usage & log ─────────────────────────────────────────────────────
   // BUG-06: Only charge quota for real (non-demo) conversions.
