@@ -28,6 +28,21 @@ const nextConfig = {
     // across dozens of components and dominates client JS otherwise.
     optimizePackageImports: ["lucide-react"],
   },
+  async rewrites() {
+    // Map prefix-less URLs to the /en app tree. This lives in config (not in
+    // the next-intl middleware) on purpose: a middleware rewrite response
+    // makes Vercel discard middleware-set headers — including the
+    // Cache-Control that makes public pages edge-cacheable — while a config
+    // rewrite keeps the middleware's next() response headers intact.
+    // afterFiles: real routes (api, app files, public assets) match first and
+    // are never rewritten; only otherwise-unmatched page paths land here.
+    return {
+      afterFiles: [
+        { source: "/", destination: "/en" },
+        { source: "/:path*", destination: "/en/:path*" },
+      ],
+    };
+  },
   async redirects() {
     // Redirect removed locale prefixes (kn/mr/te/hi etc.) to the canonical
     // English URLs. These old locale URLs are indexed in Google but now 404
@@ -69,23 +84,6 @@ const nextConfig = {
       {
         source: "/demo/:path*",
         headers: immutableCache,
-      },
-      {
-        // Edge-cache public pages for an hour (stale-while-revalidate a day).
-        // Public pages render identically for every visitor (session UI is
-        // resolved client-side via /api/auth/me), so the CDN may cache the
-        // rendered response. Auth/dashboard/portal/API paths are excluded by
-        // the pattern and keep Next's private/no-store default. This MUST be
-        // a config header, not middleware: Vercel drops middleware-set
-        // Cache-Control on locale-rewritten responses.
-        source:
-          "/((?!api|admin|dashboard|login|signup|forgot-password|reset-password|verify-email|p/|_next|.*\\.).*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, s-maxage=3600, stale-while-revalidate=86400",
-          },
-        ],
       },
       {
         source: "/(.*)",

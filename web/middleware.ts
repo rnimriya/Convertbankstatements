@@ -97,15 +97,36 @@ export async function middleware(request: NextRequest) {
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("content-security-policy", csp);
 
-  const intlRequest = new NextRequest(request, { headers: requestHeaders });
-  const response = intlMiddleware(intlRequest as any);
+  // Routing: only already-prefixed /en paths go through the next-intl
+  // middleware (it answers NextResponse.next() for them). Prefix-less paths
+  // skip it and are mapped to /en by the afterFiles rewrite in
+  // next.config.js instead. Why: a middleware REWRITE response makes Vercel
+  // discard middleware-set response headers (the origin function's
+  // Cache-Control wins → private/no-store → nothing is edge-cached), while
+  // headers on a next() response are merged over the origin response. With
+  // the rewrite living in config, the Cache-Control set below survives and
+  // public pages are CDN-cacheable. Locale resolution is unaffected:
+  // i18n/request.ts falls back to the default locale (en) when the intl
+  // middleware did not run.
+  let response: NextResponse;
+  if (path === "/en" || path.startsWith("/en/")) {
+    const intlRequest = new NextRequest(request, { headers: requestHeaders });
+    response = intlMiddleware(intlRequest as any);
+  } else {
+    response = NextResponse.next({ request: { headers: requestHeaders } });
+  }
   response.headers.set("content-security-policy", csp);
 
-  // Cache behavior lives in next.config.js headers(), NOT here: Vercel
-  // discards middleware-set Cache-Control on locale-rewritten page responses
-  // (the origin function's header wins), while config headers are applied to
-  // the final response. Dynamic-tier paths are excluded there by pattern and
-  // keep Next's private/no-store default.
+  // Cache behavior: static-tier pages render identically for every visitor
+  // (session UI resolves client-side via /api/auth/me), so the edge may cache
+  // them for an hour with a day of stale-while-revalidate. Dynamic-tier
+  // pages must never be cached — auth state is evaluated per request.
+  response.headers.set(
+    "Cache-Control",
+    dynamic
+      ? "private, no-cache, no-store"
+      : "public, s-maxage=3600, stale-while-revalidate=86400"
+  );
 
   // Sliding session renewal: if the token is still valid but older than the
   // slide threshold, re-issue it with a fresh 7-day expiry so active users stay
