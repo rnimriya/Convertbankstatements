@@ -1,5 +1,5 @@
 /**
- * POST /api/tools/payout-convert — free Stripe/PayPal payout analysis (no login).
+ * POST /api/tools/payout-convert — free Stripe/PayPal payout analysis (free account required).
  * Accepts one CSV export (max 10 MB), auto-detects the export format, groups
  * transactions into payouts using the clearing-account model, and returns per-
  * payout summaries with a tie-out check plus a QBO-Online-ready CSV. Nothing
@@ -7,6 +7,11 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
+import {
+  requireToolUser,
+  SIGNUP_REQUIRED_ERROR,
+  SIGNUP_REQUIRED_CODE,
+} from "@/lib/tools/download-gate";
 import { parsePayoutCsv, type Provider } from "@/lib/tools/payout";
 
 export const maxDuration = 30;
@@ -16,6 +21,14 @@ const MAX_SIZE = 10 * 1024 * 1024;
 export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
+
+  const toolUser = await requireToolUser();
+  if (!toolUser) {
+    return NextResponse.json(
+      { error: SIGNUP_REQUIRED_ERROR, code: SIGNUP_REQUIRED_CODE },
+      { status: 401 }
+    );
+  }
 
   let formData: FormData;
   try {

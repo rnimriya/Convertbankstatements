@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Receipt, AlertTriangle, Download, Lock, Plus, Trash2 } from "lucide-react";
-import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi } from "./tool-shared";
+import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi, useToolAuth, ToolAuthWall, SIGNUP_REQUIRED_CODE } from "./tool-shared";
 
 interface Txn {
   date: string;
@@ -32,6 +32,7 @@ export function ReceiptToQbo() {
   const [rows, setRows] = useState<Txn[]>([]);
   const [dlBusy, setDlBusy] = useState(false);
   const [gate, setGate] = useState<string | null>(null);
+  const { authed, forceWall } = useToolAuth();
 
   async function handleFile(f: File) {
     setBusy(true);
@@ -44,8 +45,11 @@ export function ReceiptToQbo() {
       const fd = new FormData();
       fd.append("file", f);
       const res = await fetch("/api/tools/receipt-extract", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not read that receipt.");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (data?.code === SIGNUP_REQUIRED_CODE) { forceWall(); return; }
+        throw new Error(data.error ?? "Could not read that receipt.");
+      }
       const r = data as Result;
       setResult(r);
       setRows(r.transactions.map((t) => ({ ...t })));
@@ -92,12 +96,15 @@ export function ReceiptToQbo() {
       await downloadFromApi("/api/tools/receipt-download", { transactions: rows }, "receipt-expenses.qbo");
     } catch (e) {
       const g = (e as Error & { gate?: string }).gate;
-      if (g === "login" || g === "upgrade") setGate(g);
+      if ((e as Error & { code?: string }).code === SIGNUP_REQUIRED_CODE) forceWall();
+      else if (g === "login" || g === "upgrade") setGate(g);
       else setError(e instanceof Error ? e.message : "Download failed.");
     } finally {
       setDlBusy(false);
     }
   }
+
+  if (authed === false) return <ToolAuthWall path="/tools/free-receipt-to-quickbooks" />;
 
   return (
     <div>

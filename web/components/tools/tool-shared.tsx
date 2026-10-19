@@ -1,9 +1,81 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { Upload, FileText, Loader2, Lock, LogIn } from "lucide-react";
+import { Upload, FileText, Loader2, Lock, LogIn, UserPlus } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+/** Server marks anonymous tool-API calls with this code — the wall shows instead of a raw error. */
+export const SIGNUP_REQUIRED_CODE = "SIGNUP_REQUIRED";
+
+/**
+ * Tool auth state. `authed === null` while /api/auth/me is checked (render the
+ * tool normally so logged-in users never see a flash of the wall). Anonymous
+ * visitors get the auth wall. Fail-open on network error — the server still
+ * gates every request.
+ */
+export function useToolAuth() {
+  const [authed, setAuthed] = useState<boolean | null>(null);
+  useEffect(() => {
+    let live = true;
+    fetch("/api/auth/me", { credentials: "same-origin", cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => {
+        if (live) setAuthed(!!d?.user);
+      })
+      .catch(() => {
+        if (live) setAuthed(true);
+      });
+    return () => {
+      live = false;
+    };
+  }, []);
+  return { authed, forceWall: () => setAuthed(false) };
+}
+
+/**
+ * Auth wall shown to anonymous visitors — same card look as the dropzone
+ * (rounded-3xl card + dashed inner zone), no animations.
+ */
+export function ToolAuthWall({ path }: { path: string }) {
+  const signup = `/signup?redirectTo=${encodeURIComponent(path)}`;
+  const login = `/login?redirectTo=${encodeURIComponent(path)}`;
+  return (
+    <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+      <div className="p-3">
+        <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 px-6 py-12 lg:py-16 text-center select-none">
+          <div
+            className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl"
+            style={{ background: "#18181b" }}
+          >
+            <Lock size={26} className="text-white" strokeWidth={1.6} />
+          </div>
+          <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
+            Create a free account to use this tool
+          </h2>
+          <p className="mt-2 text-sm text-brand-muted max-w-md">
+            It takes under a minute. The tool stays free with your account — CSV
+            exports included.
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href={signup}
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 dark:bg-white px-6 py-2.5 font-semibold text-white dark:text-zinc-900 transition-colors"
+            >
+              <UserPlus size={16} /> Sign up free
+            </Link>
+            <Link
+              href={login}
+              className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-6 py-2.5 font-semibold text-zinc-900 dark:text-white transition-colors"
+            >
+              <LogIn size={16} /> Log in
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export const usd = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });
@@ -31,9 +103,11 @@ export async function downloadFromApi(url: string, body: unknown, fileName: stri
     const data = await res.json().catch(() => null);
     const err = new Error((data?.error as string) ?? "Download failed.") as Error & {
       gate?: string;
+      code?: string;
       status?: number;
     };
     err.gate = data?.gate;
+    err.code = data?.code;
     err.status = res.status;
     throw err;
   }
@@ -58,9 +132,11 @@ export async function downloadFileFromApi(url: string, file: File, fileName: str
     const data = await res.json().catch(() => null);
     const err = new Error((data?.error as string) ?? "Download failed.") as Error & {
       gate?: string;
+      code?: string;
       status?: number;
     };
     err.gate = data?.gate;
+    err.code = data?.code;
     err.status = res.status;
     throw err;
   }

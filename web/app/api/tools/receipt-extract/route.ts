@@ -1,11 +1,16 @@
 /**
- * POST /api/tools/receipt-extract — free receipt extraction (no login).
+ * POST /api/tools/receipt-extract — free receipt extraction (free account required).
  * Accepts one receipt image (.jpg/.png/.webp, max 10 MB) or PDF. Images go
  * through the same vision chain as scanned statements (Gemini free tier
  * first, Claude as backup) — no new providers or keys. Nothing is stored.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
+import {
+  requireToolUser,
+  SIGNUP_REQUIRED_ERROR,
+  SIGNUP_REQUIRED_CODE,
+} from "@/lib/tools/download-gate";
 import { extractTransactions, extractReceiptFromImage } from "@/lib/extraction/extract";
 
 export const maxDuration = 120;
@@ -17,6 +22,14 @@ const IMAGE_MIMES = ["image/jpeg", "image/png", "image/webp"];
 export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
+
+  const toolUser = await requireToolUser();
+  if (!toolUser) {
+    return NextResponse.json(
+      { error: SIGNUP_REQUIRED_ERROR, code: SIGNUP_REQUIRED_CODE },
+      { status: 401 }
+    );
+  }
 
   let formData: FormData;
   try {

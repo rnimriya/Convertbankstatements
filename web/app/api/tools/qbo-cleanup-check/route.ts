@@ -1,10 +1,15 @@
 /**
- * POST /api/tools/qbo-cleanup-check — free duplicate/cleanup report (no login).
+ * POST /api/tools/qbo-cleanup-check — free duplicate/cleanup report (free account required).
  * Accepts one .qbo/.ofx/.qfx/.csv file (max 10 MB), analyzes it in memory and
  * returns duplicate groups, a health score and issue list. Nothing is stored.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
+import {
+  requireToolUser,
+  SIGNUP_REQUIRED_ERROR,
+  SIGNUP_REQUIRED_CODE,
+} from "@/lib/tools/download-gate";
 import { analyzeCleanup } from "@/lib/tools/cleanup-analysis";
 
 export const maxDuration = 30;
@@ -14,6 +19,14 @@ const MAX_SIZE = 10 * 1024 * 1024;
 export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
+
+  const toolUser = await requireToolUser();
+  if (!toolUser) {
+    return NextResponse.json(
+      { error: SIGNUP_REQUIRED_ERROR, code: SIGNUP_REQUIRED_CODE },
+      { status: 401 }
+    );
+  }
 
   let formData: FormData;
   try {

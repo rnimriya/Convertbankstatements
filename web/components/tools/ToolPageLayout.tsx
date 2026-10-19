@@ -25,7 +25,7 @@ const FREE_TOOLS = [
 
 const TRUST_PILLS = [
   { icon: <Zap size={13} className="text-amber-500 dark:text-amber-400" />, label: "Free to use" },
-  { icon: <Shield size={13} className="text-emerald-500 dark:text-emerald-400" />, label: "No signup needed" },
+  { icon: <Shield size={13} className="text-emerald-500 dark:text-emerald-400" />, label: "Free with account" },
   { icon: <Lock size={13} className="text-sky-500 dark:text-sky-400" />, label: "Files never stored" },
 ];
 
@@ -227,7 +227,7 @@ export async function ToolPageLayout({
                       {t.label}
                     </h3>
                     <p className="text-sm text-brand-muted leading-relaxed flex-1">
-                      Free, no signup — files are processed in memory and never stored.
+                      Free with a free account — files are processed in memory and never stored.
                     </p>
                   </div>
                 </Link>

@@ -8,7 +8,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
 import { analyzeCleanup, buildCleanedQbo } from "@/lib/tools/cleanup-analysis";
-import { qboDownloadGate, QBO_LOCKED_MESSAGE } from "@/lib/tools/download-gate";
+import {
+  qboDownloadGate,
+  QBO_LOCKED_MESSAGE,
+  requireToolUser,
+  SIGNUP_REQUIRED_ERROR,
+  SIGNUP_REQUIRED_CODE,
+} from "@/lib/tools/download-gate";
 
 export const maxDuration = 30;
 
@@ -17,6 +23,14 @@ const MAX_SIZE = 10 * 1024 * 1024;
 export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
+
+  const toolUser = await requireToolUser();
+  if (!toolUser) {
+    return NextResponse.json(
+      { error: SIGNUP_REQUIRED_ERROR, code: SIGNUP_REQUIRED_CODE },
+      { status: 401 }
+    );
+  }
 
   const gate = await qboDownloadGate();
   if (!gate.ok) {

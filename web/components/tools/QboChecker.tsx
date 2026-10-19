@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { Upload, FileCheck2, AlertTriangle, XCircle, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
+import { useToolAuth, ToolAuthWall } from "./tool-shared";
 
 interface Issue { level: "error" | "warning"; message: string }
 interface Analysis {
@@ -32,6 +33,7 @@ export function QboChecker() {
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [result, setResult] = useState<Analysis | null>(null);
+  const { authed } = useToolAuth();
 
   async function handleFile(file: File) {
     setBusy(true);
@@ -54,6 +56,8 @@ export function QboChecker() {
 
   const errors = result?.issues.filter((i) => i.level === "error") ?? [];
   const warnings = result?.issues.filter((i) => i.level === "warning") ?? [];
+
+  if (authed === false) return <ToolAuthWall path="/tools/qbo-checker" />;
 
   return (
     <div>
@@ -87,7 +91,7 @@ export function QboChecker() {
           {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here, or click to browse"}
         </p>
         <p className="mt-1 text-sm text-zinc-400">
-          Free · No signup · The file is checked in memory and never stored
+          Free account · The file is checked in memory and never stored
         </p>
       </div>
 

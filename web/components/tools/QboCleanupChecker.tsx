@@ -6,7 +6,7 @@ import {
   FileCheck2, AlertTriangle, XCircle, CheckCircle2, ArrowRight,
   Download, Printer, Sparkles,
 } from "lucide-react";
-import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFileFromApi } from "./tool-shared";
+import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFileFromApi, useToolAuth, ToolAuthWall, SIGNUP_REQUIRED_CODE } from "./tool-shared";
 
 interface CleanupRow {
   index: number; date: string; name: string; amount: number;
@@ -51,6 +51,7 @@ export function QboCleanupChecker() {
   const [result, setResult] = useState<Analysis | null>(null);
   const [dlBusy, setDlBusy] = useState(false);
   const [gate, setGate] = useState<string | null>(null);
+  const { authed, forceWall } = useToolAuth();
 
   async function handleFile(f: File) {
     setBusy(true);
@@ -63,8 +64,11 @@ export function QboCleanupChecker() {
       const fd = new FormData();
       fd.append("file", f);
       const res = await fetch("/api/tools/qbo-cleanup-check", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not check that file.");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (data?.code === SIGNUP_REQUIRED_CODE) { forceWall(); return; }
+        throw new Error(data.error ?? "Could not check that file.");
+      }
       setResult(data.analysis as Analysis);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not check that file.");
@@ -104,8 +108,10 @@ export function QboCleanupChecker() {
       );
       void removed;
     } catch (e) {
-      const g = (e as Error & { gate?: string }).gate;
-      if (g === "login" || g === "upgrade") {
+      const g = (e as Error & { gate?: string; code?: string }).gate;
+      if ((e as Error & { code?: string }).code === SIGNUP_REQUIRED_CODE) {
+        forceWall();
+      } else if (g === "login" || g === "upgrade") {
         setGate(g);
       } else {
         setError(e instanceof Error ? e.message : "Download failed.");
@@ -117,6 +123,8 @@ export function QboCleanupChecker() {
 
   const errors = result?.issues.filter((i) => i.level === "error") ?? [];
   const warnings = result?.issues.filter((i) => i.level === "warning") ?? [];
+
+  if (authed === false) return <ToolAuthWall path="/tools/free-qbo-cleanup-checker" />;
 
   return (
     <div>

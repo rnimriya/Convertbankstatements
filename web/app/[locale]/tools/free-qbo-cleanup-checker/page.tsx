@@ -7,7 +7,7 @@ const PAGE_URL = "https://convertstatement.online/tools/free-qbo-cleanup-checker
 export const metadata: Metadata = {
   title: "Free QBO Duplicate Finder & Cleanup Checker | Convert Statement",
   description:
-    "Find duplicate transactions in your QuickBooks books before they break reconciliation: upload a .qbo, .ofx or .csv, get a health score, exact and near-duplicate report, and a cleaned QBO. Free, no signup, files never stored.",
+    "Find duplicate transactions in your QuickBooks books before they break reconciliation: upload a .qbo, .ofx or .csv, get a health score, exact and near-duplicate report, and a cleaned QBO. Free with a free account, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Free QBO Duplicate Finder & Cleanup Checker",
@@ -62,7 +62,7 @@ export default function QboCleanupCheckerPage() {
       faqs={FAQS}
       howToName="How to find duplicate transactions in QuickBooks"
       howToSteps={HOWTO}
-      privacyLine="Free · No signup · Checked in memory, never stored"
+      privacyLine="Free account · Checked in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">What this checker looks for</h2>

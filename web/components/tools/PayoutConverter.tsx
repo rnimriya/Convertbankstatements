@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle2, AlertTriangle, Download, Lock } from "lucide-react";
-import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi } from "./tool-shared";
+import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi, useToolAuth, ToolAuthWall, SIGNUP_REQUIRED_CODE } from "./tool-shared";
 import type { Provider } from "@/lib/tools/payout";
 
 interface PayoutSummary {
@@ -40,6 +40,7 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
   const [incomeAccount, setIncomeAccount] = useState(provider === "stripe" ? "Stripe Clearing" : "PayPal Clearing");
   const [feeAccount, setFeeAccount] = useState(provider === "stripe" ? "Stripe Fees" : "PayPal Fees");
   const [bankAccount, setBankAccount] = useState("Business Checking");
+  const { authed, forceWall } = useToolAuth();
 
   const label = provider === "stripe" ? "Stripe" : "PayPal";
 
@@ -54,8 +55,11 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
       fd.append("file", f);
       fd.append("provider", provider);
       const res = await fetch("/api/tools/payout-convert", { method: "POST", body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Could not read that CSV.");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (data?.code === SIGNUP_REQUIRED_CODE) { forceWall(); return; }
+        throw new Error(data.error ?? "Could not read that CSV.");
+      }
       setResult(data as Result);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Could not read that CSV.");
@@ -81,11 +85,16 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
       await downloadFromApi("/api/tools/payout-download", { payouts: result.payouts }, `${label.toLowerCase()}-payout-clearing.qbo`);
     } catch (e) {
       const g = (e as Error & { gate?: string }).gate;
-      if (g === "login" || g === "upgrade") setGate(g);
+      if ((e as Error & { code?: string }).code === SIGNUP_REQUIRED_CODE) forceWall();
+      else if (g === "login" || g === "upgrade") setGate(g);
       else setError(e instanceof Error ? e.message : "Download failed.");
     } finally {
       setDlBusy(false);
     }
+  }
+
+  if (authed === false) {
+    return <ToolAuthWall path={provider === "stripe" ? "/tools/free-stripe-to-quickbooks" : "/tools/free-paypal-to-quickbooks"} />;
   }
 
   return (

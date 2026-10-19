@@ -8,7 +8,7 @@ const PAGE_URL = "https://convertstatement.online/tools/qbo-checker";
 export const metadata: Metadata = {
   title: "Free QBO File Checker — Validate QuickBooks Web Connect Files | Convert Statement",
   description:
-    "Upload a .qbo, .ofx or .qfx file and check it before importing into QuickBooks: structure, ledger balance, statement period, duplicate FITIDs and transactions. Free, no signup, files never stored.",
+    "Upload a .qbo, .ofx or .qfx file and check it before importing into QuickBooks: structure, ledger balance, statement period, duplicate FITIDs and transactions. Free with a free account, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Free QBO File Checker",

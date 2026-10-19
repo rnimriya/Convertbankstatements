@@ -7,12 +7,12 @@ const PAGE_URL = "https://convertstatement.online/tools/free-receipt-to-quickboo
 export const metadata: Metadata = {
   title: "Free Receipt to QuickBooks Converter (Photo to QBO) | Convert Statement",
   description:
-    "Turn a receipt photo into QuickBooks-ready expense entries: AI reads the vendor, date, and totals, you review and edit, then download CSV free or QBO on Pro. No signup, files never stored.",
+    "Turn a receipt photo into QuickBooks-ready expense entries: AI reads the vendor, date, and totals, you review and edit, then download CSV free or QBO on Pro. Free account required, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Free Receipt to QuickBooks Converter",
     description:
-      "Snap a receipt photo — get editable, categorized expense lines ready for QuickBooks. Free CSV, no signup.",
+      "Snap a receipt photo — get editable, categorized expense lines ready for QuickBooks. Free CSV with a free account.",
     url: PAGE_URL,
     type: "website",
   },
@@ -63,7 +63,7 @@ export default function ReceiptToQuickBooksPage() {
       faqs={FAQS}
       howToName="How to enter a receipt into QuickBooks"
       howToSteps={HOWTO}
-      privacyLine="Free · No signup · Processed in memory, never stored"
+      privacyLine="Free account · Processed in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Why receipts still eat bookkeeping time</h2>
