@@ -25,7 +25,7 @@ export default async function ContactPage() {
 
       {/* Localized Header Banner */}
       <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-white sm:text-4xl">
             {t("title")}
           </h1>
@@ -36,7 +36,7 @@ export default async function ContactPage() {
       </div>
 
       {/* Main Body Container */}
-      <div className="mx-auto max-w-5xl px-6 py-16">
+      <div className="mx-auto max-w-6xl px-6 py-16">
         <ContactForm />
       </div>
 

@@ -92,7 +92,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
           </p>
         </section>
 
-        <section className="mx-auto max-w-7xl px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <section className="mx-auto max-w-6xl px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Main Content (Pillar) */}
           <div className="lg:col-span-8">
             <article

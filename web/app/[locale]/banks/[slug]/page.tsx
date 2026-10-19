@@ -139,7 +139,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
 
       <main className="flex-1">
         {/* Hero */}
-        <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden px-6 lg:px-8 max-w-6xl mx-auto">
           <div className="text-center max-w-4xl mx-auto relative z-10">
             <h1 className="text-4xl sm:text-6xl font-black text-brand-text tracking-tight mb-8">
               Convert <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-purple-500">{bankName}</span> Statements to Excel
@@ -187,7 +187,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
 
         {/* Benefits */}
         <div className="py-24 bg-brand-surface border-y border-brand-border">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold">Why use ConvertStatement for {bankName}?</h2>
             </div>
@@ -222,7 +222,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
 
         {/* FAQ */}
         <div className="py-24 bg-brand-bg">
-          <div className="max-w-3xl mx-auto px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold">{bankName} conversion FAQs</h2>
             </div>

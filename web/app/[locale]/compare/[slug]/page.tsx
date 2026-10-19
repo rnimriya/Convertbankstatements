@@ -111,7 +111,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
         </section>
 
         {/* Comparison Table */}
-        <section className="mx-auto max-w-3xl px-6 py-12">
+        <section className="mx-auto max-w-6xl px-6 py-12">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
@@ -145,7 +145,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
 
         {/* Why Convert Statement Wins */}
         <section className="bg-zinc-50 dark:bg-zinc-900/50 border-y border-zinc-100 dark:border-zinc-800 px-6 py-12">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
               Why teams choose Convert Statement over {comp.name}
             </h2>
@@ -184,7 +184,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
 
         {/* Other comparisons */}
         <section className="border-t border-zinc-100 dark:border-zinc-800 px-6 py-10">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-6xl">
             <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4">Other comparisons</h3>
             <div className="flex flex-wrap gap-3">
               {COMPETITORS.filter((c) => c.slug !== slug).map((c) => (

@@ -38,7 +38,7 @@ export default function QboCheckerPage() {
           </p>
         </section>
 
-        <section className="mx-auto max-w-3xl px-6 py-12">
+        <section className="mx-auto max-w-6xl px-6 py-12">
           <QboChecker />
 
           <div className="mt-14">

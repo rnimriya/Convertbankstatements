@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           />
         </div>
 
-        <div className="mx-auto max-w-3xl px-6 py-10">
+        <div className="mx-auto max-w-6xl px-6 py-10">
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {post.tags.map((tag) => (

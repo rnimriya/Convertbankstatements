@@ -144,7 +144,7 @@ export default async function HomePage() {
 
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
         <section id="how-it-works" className="py-24 bg-brand-bg">
-          <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tHow("label")}</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">{tHow("title")}</h2>
@@ -280,7 +280,7 @@ export default async function HomePage() {
 
         {/* ─── FAQ ──────────────────────────────────────────────── */}
         <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
-          <div className="max-w-2xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">{tFaq("label")}</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text">{tFaq("title")}</h2>
@@ -291,7 +291,7 @@ export default async function HomePage() {
 
         {/* ─── SUPPORTED BANKS ──────────────────────────────────── */}
         <section className="py-24 bg-brand-surface border-y border-brand-border">
-          <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-border text-brand-text border border-brand-border text-[11px] font-bold uppercase tracking-widest mb-3">Coverage</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-4">Supports major banks globally</h2>

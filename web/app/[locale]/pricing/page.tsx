@@ -125,7 +125,7 @@ export default async function PricingPage() {
 
       {/* Comparison table */}
       <div className="bg-zinc-50 dark:bg-zinc-950 px-6 py-20">
-        <div className="mx-auto max-w-5xl">
+        <div className="mx-auto max-w-6xl">
           <h2 className="mb-8 text-center text-2xl font-extrabold text-zinc-900 dark:text-white">Full comparison</h2>
           <div className="overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-sm">
             <table className="w-full text-sm">

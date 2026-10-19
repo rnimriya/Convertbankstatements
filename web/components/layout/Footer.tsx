@@ -66,7 +66,7 @@ export async function Footer() {
 
   return (
     <footer className="border-t border-brand-border bg-brand-bg">
-      <div className="mx-auto max-w-5xl px-6 py-10">
+      <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
             <p className="text-xs leading-relaxed text-brand-muted">

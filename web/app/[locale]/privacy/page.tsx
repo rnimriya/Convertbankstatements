@@ -167,7 +167,7 @@ export default function PrivacyPage() {
 
  {/* Header */}
  <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
- <div className="mx-auto max-w-3xl">
+ <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
  <Shield className="h-5 w-5 text-navy dark:text-violet-400 text-purple-500 dark:text-purple-400" />
@@ -184,7 +184,7 @@ export default function PrivacyPage() {
  </div>
 
  {/* Content */}
- <div className="mx-auto max-w-3xl px-6 py-12">
+ <div className="mx-auto max-w-6xl px-6 py-12">
  {/* Table of contents */}
  <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-5">
  <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Contents</p>
