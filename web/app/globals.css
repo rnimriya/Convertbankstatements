@@ -178,3 +178,25 @@
     background-size: 48px 48px;
   }
 }
+
+/* Blog article inline images — owner rules 2026-10-19:
+   desktop 50% width, mobile full width, LEFT aligned */
+.article-body figure {
+  margin-left: 0;
+  margin-right: auto;
+}
+.article-body figure img {
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .article-body figure {
+    width: 50%;
+  }
+  .article-body > img,
+  .article-body p > img {
+    width: 50%;
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+  }
+}

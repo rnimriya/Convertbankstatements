@@ -82,6 +82,10 @@ const nextConfig = {
         headers: immutableCache,
       },
       {
+        source: "/blog/:path*.webp",
+        headers: immutableCache,
+      },
+      {
         source: "/demo/:path*",
         headers: immutableCache,
       },

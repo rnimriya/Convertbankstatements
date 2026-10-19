@@ -39,17 +39,26 @@ Zero mistakes tolerance.
   - Minimum 800 words of real, specific, useful content
   - **Inline images (owner rule, added 2026-10-14):** 2–3 small images spread
     between `<h2>` sections for a premium, catchy look. Each as
-    `<figure><img src="/blog/{slug}-inline-N.jpg" alt="..." width="1200" height="800" loading="lazy" /><figcaption>short caption</figcaption></figure>`,
-    saved to `web/public/blog/` at 1200px wide (feature image stays 1920px).
-    **IMAGE STYLE (owner rule, 2026-10-14):** every image — feature and inline —
-    must be generated to match the surrounding section's content and must look
-    like a REAL photograph (photorealistic, DSLR-style office/desk scenes,
-    screens and papers slightly out of focus). NO abstract art, NO colorful
-    grid/dashboard illustrations, no readable text, no logos. The blog template
-    styles content images with rounded corners + shadow automatically.
+    `<figure><img src="/blog/{slug}-inline-N.webp" alt="..." width="1200" height="800" loading="lazy" /><figcaption>short caption</figcaption></figure>`,
+    saved to `web/public/blog/` at 1200px wide (feature image 1600px wide).
+    **IMAGE STYLE (owner rules, 2026-10-14 + 2026-10-19):** every image — feature
+    and inline — must be AI-generated to match the article TITLE / surrounding
+    section's content and must look like a REAL photograph (photorealistic,
+    DSLR-style scenes, screens and papers slightly out of focus). **Every post's
+    images must be UNIQUE — never reuse a scene/composition across posts; vary
+    setting, subject, angle and palette per title** (on the /blog listing the
+    cards must all look different). NO abstract art, NO colorful grid/dashboard
+    illustrations, no readable text, no logos. **Format: WebP only, optimized**
+    (feature ≈1600px q80, inline 1200px q80, target <150 KB each). **ALT TEXT
+    (owner rule, 2026-10-19):** the feature image's alt is the post title
+    (already the target keyword). Every inline image's `alt` must be
+    SEO-keyword based, built from the post slug/URL keywords + its section
+    topic — format: "{keyword phrase} — {what the photo shows}", natural,
+    10–16 words, no stuffing. The blog
+    template styles content images with rounded corners + shadow automatically.
 - `tags`: 3–4 relevant tags
 - `author`: rotate "David Chen, CPA" / "Sarah Mitchell" / "James Park"
-- `featureImage`: `/blog/{slug}.jpg` (must exist in `web/public/blog/`)
+- `featureImage`: `/blog/{slug}.webp` (must exist in `web/public/blog/`)
 - `published`: true, `createdAt`/`updatedAt`: run date ISO
 
 ## Quality gates (ALL must pass, no exceptions)
@@ -62,7 +71,7 @@ Zero mistakes tolerance.
    organise, realise, colour, centre, etc.).
 6. Primary long-tail keyword appears in title + first 100 words.
 7. All internal `/banks/` and `/blog/` links resolve to real pages.
-8. Image file exists, valid JPEG/PNG, ≥800px wide, topical (no text/logos).
+8. Image files exist (feature + 2–3 inline), valid WebP, feature ≥1200px wide, inline ≥1000px wide, unique per post, topical (no text/logos).
 9. No duplicate of any article published in the last 30 days (compare titles
    + first paragraphs).
 10. `npx tsc --noEmit` passes in `web/`.
