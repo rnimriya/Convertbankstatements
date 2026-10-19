@@ -73,8 +73,6 @@ export async function Footer() {
               {t("tagline")}
             </p>
             <p className="mt-2 text-xs text-brand-muted">
-              ConvertStatement LLC<br />
-              1209 Orange St, Wilmington, DE 19801<br />
               support@convertstatement.online
             </p>
             <p className="mt-2 text-xs text-brand-muted">
