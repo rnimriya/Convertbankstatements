@@ -33,11 +33,19 @@ const nextConfig = {
     // English URLs. These old locale URLs are indexed in Google but now 404
     // since the site only supports English. 301 preserves SEO value.
     const removedLocales = ["kn", "mr", "te", "hi", "ta", "bn", "gu", "ml", "pa", "or"];
-    return removedLocales.map((locale) => ({
+    const redirects = removedLocales.map((locale) => ({
       source: `/${locale}/:path*`,
       destination: "/:path*",
       permanent: true,
     }));
+    // Friendly alias: the nav label is "QuickBooks Reconciliation", so the
+    // matching slug forwards to the canonical QuickBooks page.
+    redirects.push({
+      source: "/quickbooks-reconciliation",
+      destination: "/quickbooks",
+      permanent: true,
+    });
+    return redirects;
   },
   async headers() {
     return [
