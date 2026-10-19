@@ -338,7 +338,11 @@ export default async function QuickBooksPage() {
                 Contact us
               </Link>{" "}
               with the subject line &ldquo;QuickBooks Cleanup&rdquo; and tell us how many months
-              and accounts you have.
+              and accounts you have. Want a quick self-check first? Run the{" "}
+              <Link href="/tools/qbo-cleanup-checker" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">
+                free duplicate finder
+              </Link>{" "}
+              on your latest export.
             </p>
             <figure className="mt-6">
               <Image
@@ -376,6 +380,31 @@ export default async function QuickBooksPage() {
                   >
                     <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors text-sm">
                       {b.label}
+                    </h4>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-violet-500" /> Free QuickBooks tools
+              </h3>
+              <div className="flex flex-col gap-3">
+                {[
+                  { href: "/tools/qbo-cleanup-checker", label: "QBO Duplicate Finder & Cleanup Checker" },
+                  { href: "/tools/stripe-to-quickbooks", label: "Stripe → QuickBooks Payout Converter" },
+                  { href: "/tools/paypal-to-quickbooks", label: "PayPal → QuickBooks Payout Converter" },
+                  { href: "/tools/receipt-to-quickbooks", label: "Receipt → QuickBooks Converter" },
+                  { href: "/tools/qbo-checker", label: "QBO File Checker" },
+                ].map((t) => (
+                  <Link
+                    key={t.href}
+                    href={t.href}
+                    className="group p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-violet-300 dark:hover:border-violet-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
+                  >
+                    <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors text-sm">
+                      {t.label}
                     </h4>
                   </Link>
                 ))}
