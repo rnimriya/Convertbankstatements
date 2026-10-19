@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -16,9 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default async function ContactPage() {
   const t = await getTranslations("contact");
 
   return (

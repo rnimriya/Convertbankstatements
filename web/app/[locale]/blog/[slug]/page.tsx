@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CommentSection } from "@/components/blog/CommentSection";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { RELATED_MAP } from "@/lib/blog/related";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import sanitizeHtml from "sanitize-html";
 
@@ -19,7 +19,6 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const rawPost = getPostBySlug(slug);
   if (!rawPost) return { title: "Post not found" };
   const post = localizePost(rawPost, locale);
@@ -49,7 +48,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function BlogPostPage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const rawPost = getPostBySlug(slug);
   if (!rawPost || !rawPost.published) notFound();
 

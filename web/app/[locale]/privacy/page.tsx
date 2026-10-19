@@ -1,5 +1,4 @@
 import Link from"next/link";
-import { setRequestLocale } from "next-intl/server";
 import { Shield } from"lucide-react";
 import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
@@ -161,9 +160,7 @@ We are committed to resolving complaints about our collection or use of your per
  },
 ];
 
-export default async function PrivacyPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function PrivacyPage() {
  return (
  <div className="min-h-screen bg-white dark:bg-zinc-950">
  <Navbar />

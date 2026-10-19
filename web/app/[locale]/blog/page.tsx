@@ -3,12 +3,11 @@ import { getPublishedPosts } from "@/lib/blog/posts";
 import { localizePost } from "@/lib/blog/i18n";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "blog" });
   return {
     title: `${t("title")} - Convert Statement`,
@@ -24,7 +23,6 @@ export default async function BlogPage({
   searchParams: Promise<{ page?: string }>;
 }) {
   const { locale } = await params;
-  setRequestLocale(locale);
   const sp = await searchParams;
   const page = Math.max(1, parseInt(sp.page ?? "1", 10));
   const { posts: rawPosts, total, pages } = getPublishedPosts(page, 12);

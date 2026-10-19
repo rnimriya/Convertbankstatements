@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -31,7 +30,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function GuidePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  setRequestLocale(locale);
   const cluster = getClusterBySlug(slug);
   if (!cluster) notFound();
 

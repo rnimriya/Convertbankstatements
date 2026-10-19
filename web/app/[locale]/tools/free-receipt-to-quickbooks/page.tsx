@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { ReceiptToQbo } from "@/components/tools/ReceiptToQbo";
 
@@ -53,9 +52,7 @@ const HOWTO = [
   { title: "Download for QuickBooks", body: "Download the CSV free, or the QBO on Pro, and import it into QuickBooks like any bank file." },
 ];
 
-export default async function ReceiptToQuickBooksPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default function ReceiptToQuickBooksPage() {
   return (
     <ToolPageLayout
       eyebrow="Free Tool"
