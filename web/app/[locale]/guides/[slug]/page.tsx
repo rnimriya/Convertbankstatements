@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { getClusterBySlug, getAllClusterSlugs } from "@/lib/seo/clusters";
 import { getPostBySlug } from "@/lib/blog/posts";
 import { localizePost } from "@/lib/blog/i18n";
@@ -10,7 +10,6 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, Building2 } from "lucide-react";
 import sanitizeHtml from "sanitize-html";
 
-export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return getAllClusterSlugs().map((slug) => ({ slug }));
@@ -34,7 +33,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
   const cluster = getClusterBySlug(slug);
   if (!cluster) notFound();
 
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   const safeContent = sanitizeHtml(cluster.longContent, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "h1", "h2", "h3"]),

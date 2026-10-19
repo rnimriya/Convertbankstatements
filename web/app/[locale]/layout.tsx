@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
@@ -21,6 +21,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   weight: ["400", "500", "600"],
 });
+
+// Static locales for prerendering — every public page below this layout can
+// then be emitted at build time (no per-request headers()/cookies() left).
+export async function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 const BASE = "https://www.convertstatement.online";
 
@@ -129,7 +135,7 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -137,7 +143,20 @@ export default async function LocaleLayout({
         <meta name="google-site-verification" content="yMseDO6GsCeGGbrHzYqqoSkfIf7GtYFkAYbbWJwGEyI" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/* Google Analytics 4 */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9" />
+        <script async nonce={nonce} src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9" />
+        {/*
+          Pre-paint theme init (mirrors next-themes: storageKey "theme",
+          attribute "class", system default). next-themes' own inline script
+          can't reliably carry our CSP nonce (it renders nonce="" on the
+          client), so this nonce'd copy applies the theme before first paint
+          and stays CSP-clean on static pages.
+        */}
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme")||"system";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t;var e=document.documentElement;e.classList.remove("light","dark");e.classList.add(r);e.style.colorScheme=r;}catch(e){}})();`,
+          }}
+        />
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
@@ -156,7 +175,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange nonce={nonce}>
           <NextIntlClientProvider messages={messages}>
             <AnnouncementBanner />
             {children}

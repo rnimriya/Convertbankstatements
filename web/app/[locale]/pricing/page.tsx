@@ -1,5 +1,5 @@
 import Link from"next/link";
-import { headers } from"next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { DollarSign, ArrowRight } from"lucide-react";
 import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
@@ -93,7 +93,7 @@ const pricingSchema = {"@context":"https://schema.org","@type":"Product",
 };
 
 export default async function PricingPage() {
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950">
       <script

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from"react";
+import { useState, useEffect } from"react";
 import Link from"next/link";
 import { Loader2, Send, MessageSquare, CornerDownRight } from"lucide-react";
 import type { BlogComment } from"@/lib/blog/types";
@@ -8,7 +8,6 @@ import type { BlogComment } from"@/lib/blog/types";
 interface Props {
   slug: string;
   initialComments: BlogComment[];
-  isLoggedIn: boolean;
 }
 
 /* ── Small reusable textarea + submit ────────────────────────────── */
@@ -121,9 +120,25 @@ function RelativeDate({ iso }: { iso: string }) {
 }
 
 /* ── Main component ──────────────────────────────────────────────── */
-export function CommentSection({ slug, initialComments, isLoggedIn }: Props) {
+export function CommentSection({ slug, initialComments }: Props) {
   const [comments, setComments] = useState<BlogComment[]>(initialComments);
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  // Login state + comment list resolve client-side so article pages stay
+  // statically rendered; /api/blog/[slug]/comments is always fresh.
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/auth/me", { credentials: "same-origin" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => setIsLoggedIn(!!d?.user))
+      .catch(() => {});
+    fetch(`/api/blog/${encodeURIComponent(slug)}/comments`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (Array.isArray(d)) setComments(d);
+      })
+      .catch(() => {});
+  }, [slug]);
 
   const topLevel = comments.filter((c) => !c.parentId);
   const repliesOf = (id: string) => comments.filter((c) => c.parentId === id);

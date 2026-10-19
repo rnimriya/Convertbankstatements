@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import { useState, FormEvent } from"react";
 import Link from"next/link";
 import { FileText, AlertCircle, CheckCircle2, Loader2, Mail, ArrowLeft } from"lucide-react";

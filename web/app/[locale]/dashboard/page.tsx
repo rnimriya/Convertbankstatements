@@ -5,6 +5,7 @@ import { DashboardClient } from "@/components/dashboard/DashboardClient";
 import { Footer } from "@/components/layout/Footer";
 import type { BillingContext } from "@/types/billing";
 
+export const dynamic = "force-dynamic";
 export default async function DashboardPage() {
   const session = await getSession();
 

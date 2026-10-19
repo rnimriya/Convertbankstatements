@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { AuthForm } from "@/components/auth/AuthForm";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Sign up — Convert Statement" };
 
 export default function SignupPage() {

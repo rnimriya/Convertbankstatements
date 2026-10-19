@@ -1,21 +1,12 @@
 import { getTranslations } from "next-intl/server";
-import { cookies } from "next/headers";
 import { Link } from "@/i18n/navigation";
 
-import { NavUserMenu } from "./NavUserMenu";
 import { NavQuickBooksMenu } from "./NavQuickBooksMenu";
+import { NavSessionIsland } from "./NavSessionIsland";
 import { ThemeToggle } from "./ThemeToggle";
-import { verifyJWT } from "@/lib/auth/jwt";
 
 export async function Navbar() {
   const t = await getTranslations("nav");
-
-  const cookieStore = await cookies();
-  const token = cookieStore.get("bs_token")?.value ?? "";
-  const user = token ? await verifyJWT(token) : null;
-
-  const displayName = user ? (user.name ?? user.email.split("@")[0]) : null;
-  const initial = displayName?.[0]?.toUpperCase() ?? "";
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800">
@@ -63,31 +54,11 @@ export async function Navbar() {
             </Link>
           </div>
 
-          {/* ── Right side ── */}
+          {/* ── Right side — session resolves client-side so pages stay static ── */}
           <div className="flex items-center gap-3">
             <ThemeToggle />
 
-
-            {user && displayName ? (
-              <>
-                <NavUserMenu displayName={displayName} email={user.email} initial={initial} />
-              </>
-            ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="text-[13.5px] font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors"
-                >
-                  {t("signIn")}
-                </Link>
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-[13.5px] font-semibold text-white bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors border-0"
-                >
-                  Free Trial
-                </Link>
-              </>
-            )}
+            <NavSessionIsland signInLabel={t("signIn")} />
           </div>
 
         </div>

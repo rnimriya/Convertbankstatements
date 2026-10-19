@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { VerifyEmailContent } from "./VerifyEmailContent";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Verify Email — Convert Statement" };
 
 export default function VerifyEmailPage() {

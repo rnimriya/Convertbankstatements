@@ -1,14 +1,13 @@
 import { notFound } from "next/navigation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { COMPETITORS, getCompetitorBySlug, getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { Check, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 // Same fix as banks/[slug]: with next-intl's as-needed locale prefix,
 // generateStaticParams alone (missing the locale segment) 500s in production.
-export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return getAllCompetitorSlugs().map((slug) => ({ slug }));
@@ -60,7 +59,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
   const comp = getCompetitorBySlug(slug);
   if (!comp) notFound();
 
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   const comparisonSchema = {
     "@context": "https://schema.org",

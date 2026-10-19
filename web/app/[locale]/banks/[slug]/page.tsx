@@ -5,13 +5,12 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CheckCircle2, FileText, Lock, Zap, Upload, Settings2, Download, ChevronDown } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { SamplePreview } from "@/components/banks/SamplePreview";
 
 // The [locale] segment is handled by next-intl middleware (localePrefix: as-needed),
 // so this page must render dynamically like the blog/guide pages — a
 // generateStaticParams without the locale segment 500s in production.
-export const dynamic = "force-dynamic";
 
 // Only render the top 50 banks at build time.
 export async function generateStaticParams() {
@@ -47,7 +46,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     notFound();
   }
 
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   const steps = [
     {

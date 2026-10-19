@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PricingCards } from "@/components/PricingCards";
@@ -109,7 +109,7 @@ const h2 = "text-2xl font-extrabold text-zinc-900 dark:text-white mt-12 first:mt
 const para = "mt-3 text-zinc-600 dark:text-zinc-300 leading-relaxed";
 
 export default async function QuickBooksPage() {
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   const softwareSchema = {
     "@context": "https://schema.org",

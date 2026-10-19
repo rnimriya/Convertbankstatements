@@ -1,7 +1,7 @@
 import type { Metadata } from"next";
 import type { ReactNode } from"react";
 import { getTranslations } from"next-intl/server";
-import { headers } from"next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Link } from"@/i18n/navigation";
 import {
   ArrowRight, CheckCircle2, Zap, Lock, Globe,
@@ -31,7 +31,7 @@ export default async function HomePage() {
   const tTest  = await getTranslations("testimonials");
   const tFaq   = await getTranslations("faq");
   const tCta   = await getTranslations("cta");
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   type Feature = {
     icon: ReactNode; gradient: string; glow: string;

@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth/session";
 import { findById } from "@/lib/auth/users";
 import { ReferralsDashboard } from "@/components/dashboard/ReferralsDashboard";
 
+export const dynamic = "force-dynamic";
 export const metadata = { title: "Referrals — Convert Statement" };
 
 export default async function ReferralsPage() {

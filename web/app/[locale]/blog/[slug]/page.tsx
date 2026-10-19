@@ -1,18 +1,21 @@
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPosts } from "@/lib/blog/posts";
 import { localizePost } from "@/lib/blog/i18n";
-import { getCommentsForPost } from "@/lib/blog/comments";
-import { getSession } from "@/lib/auth/session";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CommentSection } from "@/components/blog/CommentSection";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { RELATED_MAP } from "@/lib/blog/related";
 import { getTranslations } from "next-intl/server";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import sanitizeHtml from "sanitize-html";
 
-export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  return getAllPosts()
+    .filter((p) => p.published)
+    .map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
@@ -51,9 +54,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   const post = localizePost(rawPost, locale);
   const t = await getTranslations({ locale, namespace: "blog" });
 
-  const comments = await getCommentsForPost(slug);
-  const session = await getSession();
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const comments: never[] = [];
+  const nonce = BUILD_NONCE;
 
   // Sanitize the (admin-authored) post HTML with a serverless-safe sanitizer.
   // Note: isomorphic-dompurify pulls in jsdom, which fails to run in Vercel's
@@ -258,7 +260,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <CommentSection
             slug={slug}
             initialComments={comments}
-            isLoggedIn={!!session}
           />
         </div>
       </main>

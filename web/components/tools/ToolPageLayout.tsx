@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { headers } from "next/headers";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
@@ -64,7 +64,7 @@ export async function ToolPageLayout({
   currentPath: string;
   privacyLine: string;
 }) {
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const nonce = BUILD_NONCE;
 
   const faqSchema = {
     "@context": "https://schema.org",
