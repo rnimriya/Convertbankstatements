@@ -54,7 +54,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     fd.append("export_formats", formats.join(","));
     try {
       const res = await fetch("/api/process-statement", { method:"POST", body: fd });
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!data) throw new Error("The server returned an unexpected response. Please try again.");
       if (res.status === 402) {
         setState({ status:"payment_required", file, pageCount: data.page_count, message: data.message });
         return;

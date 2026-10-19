@@ -18,7 +18,7 @@ interface Props {
 const FORMAT_LABELS: Record<string, string> = {
   csv:"Download CSV",
   xlsx:"Download Excel (.xlsx)",
-  ofx:"Download OFX (QuickBooks / Tally)",
+  ofx:"Download OFX",
   qfx:"Download QFX (Quicken)",
   qbo:"Download QBO (QuickBooks)",
   sheets:"Download Google Sheets (CSV)",
@@ -257,7 +257,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
             {result.locked_formats && result.locked_formats.length > 0 && (
               <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-xs text-violet-800">
-                <span className="font-semibold">{result.locked_formats.map(f => FORMAT_LABELS[f] ?? f.toUpperCase()).join(", ")}</span>
+                <span className="font-semibold">{result.locked_formats.map(f => (FORMAT_LABELS[f] ?? f.toUpperCase()).replace(/^Download /, "")).join(", ")}</span>
                 {" "}exports are Pro plan features. <a href="/pricing" className="font-semibold underline">Upgrade to Pro</a> to unlock them — your downloads above are ready.
               </div>
             )}

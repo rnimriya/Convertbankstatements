@@ -66,7 +66,8 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
     try {
       const res = await fetch("/api/bulk-process", { method:"POST", body: fd });
-      const data = await res.json();
+      const data = await res.json().catch(() => null);
+      if (!data) throw new Error("The server returned an unexpected response. Please try again.");
       if (!res.ok) throw new Error(data.message ?? data.error ??"Bulk processing failed");
       setResults(data.results ?? []);
       setZipUrl(data.zipUrl ?? null);
@@ -103,8 +104,8 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         headers: {"Content-Type":"application/json" },
         body: JSON.stringify({ results }),
       });
-      const data = await res.json();
-      if (res.ok) setMergeUrl(data.xlsx);
+      const data = await res.json().catch(() => null);
+      if (res.ok && data) setMergeUrl(data.xlsx);
     } catch { /* non-fatal */ }
     setMerging(false);
   }
