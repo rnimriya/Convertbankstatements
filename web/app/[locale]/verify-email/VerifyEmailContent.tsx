@@ -1,13 +1,43 @@
 "use client";
 
+import { useEffect } from "react";
 import { useSearchParams } from"next/navigation";
-import { CheckCircle2, XCircle, Mail } from"lucide-react";
+import { CheckCircle2, XCircle, Mail, Loader2 } from"lucide-react";
 import { Link } from"@/i18n/navigation";
 
 export function VerifyEmailContent() {
   const params = useSearchParams();
   const success = params.get("success") ==="1";
   const error = params.get("error");
+  const token = params.get("token");
+
+  // Rescue verification links from emails sent before the fix: they pointed
+  // at this page with ?token= instead of the API route, and this page used to
+  // ignore the token (so verification never happened). Forward the token to
+  // the API route, which verifies and redirects back with ?success=1.
+  useEffect(() => {
+    if (token && !success && !error) {
+      window.location.replace(`/api/auth/verify-email?token=${encodeURIComponent(token)}`);
+    }
+  }, [token, success, error]);
+
+  if (token && !success && !error) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
+        <div className="flex flex-col items-center gap-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-12 text-center shadow-sm max-w-md w-full">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+            <Loader2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+          </div>
+          <div>
+            <p className="font-display text-xl font-bold text-zinc-900 dark:text-white">Verifying your email…</p>
+            <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              One moment while we confirm your verification link.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (success) {
     return (

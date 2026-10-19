@@ -6,8 +6,14 @@ import { findById, setEmailVerifyToken } from "@/lib/auth/users";
 import { checkRateLimit } from "@/lib/rate-limit";
 
 async function sendVerificationEmail(email: string, name: string | null, token: string): Promise<boolean> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://convertstatement.online";
-  const link = `${baseUrl}/verify-email?token=${token}`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.convertstatement.online";
+  // The link MUST hit the API route, which performs the verification and
+  // then redirects to /verify-email?success=1. It previously pointed at the
+  // /verify-email PAGE with ?token= — the page ignores the token, so no
+  // account could ever become verified and the dashboard banner never
+  // cleared. (The page now also rescues old ?token= links — see
+  // VerifyEmailContent — but new emails link straight to the API.)
+  const link = `${baseUrl}/api/auth/verify-email?token=${token}`;
 
   const resend = getResend();
   if (!resend) {
