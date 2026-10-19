@@ -208,6 +208,23 @@ Rules:
 - Skip header rows, totals, and page footers
 - If no transactions found return an empty array`;
 
+const RECEIPT_PROMPT = `You are extracting line items from a store/restaurant RECEIPT photo.
+Return ONLY a valid JSON object — no markdown, no explanation:
+
+{
+  "bank_name": "Store or vendor name from the receipt header, or null",
+  "transactions": [
+    { "date": "YYYY-MM-DD (the receipt date, same for every item)", "description": "item name", "amount": -12.34, "balance": null }
+  ]
+}
+
+Rules:
+- One transaction per purchased ITEM on the receipt
+- Every item amount is a purchase, so NEGATIVE (money spent)
+- Add the tax as its own line: description "Sales tax", negative amount
+- Do NOT add subtotal or total lines — items plus tax must add up to the total
+- If no items can be read, return an empty array`;
+
 /** Parse a vision provider's JSON reply into pipeline transactions. Throws on bad JSON. */
 function parseVisionJson(rawText: string): { transactions: Transaction[]; bankName: string | null } {
   let raw = rawText.trim();
@@ -232,7 +249,7 @@ function parseVisionJson(rawText: string): { transactions: Transaction[]; bankNa
 
 /** Image variant of the Claude vision call (receipts / photos). Same provider
  *  and key as the PDF path — only the content block differs. */
-async function extractWithClaudeImage(bytes: Buffer, mimeType: string): Promise<VisionOutcome> {
+async function extractWithClaudeImage(bytes: Buffer, mimeType: string, prompt: string = VISION_PROMPT): Promise<VisionOutcome> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return { status: "no_key" };
 
@@ -253,7 +270,7 @@ async function extractWithClaudeImage(bytes: Buffer, mimeType: string): Promise<
                 data: bytes.toString("base64"),
               },
             },
-            { type: "text", text: VISION_PROMPT },
+            { type: "text", text: prompt },
           ],
         },
       ],
@@ -293,13 +310,13 @@ export async function extractReceiptFromImage(
       detail: "Daily scanned-document limit reached — please try again later.",
     };
   }
-  const g = await extractWithGeminiVision(bytes, mimeType);
+  const g = await extractWithGeminiVision(bytes, mimeType, RECEIPT_PROMPT);
   if (g.status === "ok") {
     return { transactions: g.transactions, bankName: g.bankName, method: "vision" };
   }
   if (g.status === "no_key") {
     // Try the Claude backup before giving up.
-    const c = await extractWithClaudeImage(bytes, mimeType);
+    const c = await extractWithClaudeImage(bytes, mimeType, RECEIPT_PROMPT);
     if (c.status === "ok") return { transactions: c.transactions, bankName: c.bankName, method: "vision" };
     if (c.status === "no_key") {
       return { transactions: [], bankName: null, method: "none", reason: "no_vision_key" };
@@ -354,7 +371,8 @@ async function geminiGenerate(
   apiKey: string,
   model: string,
   base64Data: string,
-  mimeType = "application/pdf"
+  mimeType = "application/pdf",
+  prompt: string = VISION_PROMPT
 ): Promise<string> {
   const res = await fetch(`${GEMINI_API_BASE}/models/${model}:generateContent`, {
     method: "POST",
@@ -363,7 +381,7 @@ async function geminiGenerate(
       contents: [
         {
           parts: [
-            { text: VISION_PROMPT },
+            { text: prompt },
             { inline_data: { mime_type: mimeType, data: base64Data } },
           ],
         },
@@ -412,7 +430,7 @@ async function discoverGeminiModels(apiKey: string): Promise<string[]> {
   }
 }
 
-async function extractWithGeminiVision(bytes: Buffer, mimeType = "application/pdf"): Promise<VisionOutcome> {
+async function extractWithGeminiVision(bytes: Buffer, mimeType = "application/pdf", prompt: string = VISION_PROMPT): Promise<VisionOutcome> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return { status: "no_key" };
 
@@ -427,7 +445,7 @@ async function extractWithGeminiVision(bytes: Buffer, mimeType = "application/pd
     const model = candidates[attempt];
     if (!model) break;
     try {
-      const text = await geminiGenerate(apiKey, model, base64Pdf, mimeType);
+      const text = await geminiGenerate(apiKey, model, base64Pdf, mimeType, prompt);
       const { transactions, bankName } = parseVisionJson(text);
       return { status: "ok", transactions, bankName };
     } catch (err) {
