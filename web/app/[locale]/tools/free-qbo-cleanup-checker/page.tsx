@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { QboCleanupChecker } from "@/components/tools/QboCleanupChecker";
 
-const PAGE_URL = "https://convertstatement.online/tools/qbo-cleanup-checker";
+const PAGE_URL = "https://convertstatement.online/tools/free-qbo-cleanup-checker";
 
 export const metadata: Metadata = {
   title: "Free QBO Duplicate Finder & Cleanup Checker | Convert Statement",
@@ -58,7 +58,7 @@ export default function QboCleanupCheckerPage() {
       title="QBO Duplicate Finder & Cleanup Checker"
       subtitle="Upload a QBO, OFX, or CSV export and find the duplicates, broken balance chains, and stale uncleared items that keep your QuickBooks reconciliation from tying out."
       tool={<QboCleanupChecker />}
-      currentPath="/tools/qbo-cleanup-checker"
+      currentPath="/tools/free-qbo-cleanup-checker"
       faqs={FAQS}
       howToName="How to find duplicate transactions in QuickBooks"
       howToSteps={HOWTO}

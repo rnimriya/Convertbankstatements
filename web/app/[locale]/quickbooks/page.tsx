@@ -339,7 +339,7 @@ export default async function QuickBooksPage() {
               </Link>{" "}
               with the subject line &ldquo;QuickBooks Cleanup&rdquo; and tell us how many months
               and accounts you have. Want a quick self-check first? Run the{" "}
-              <Link href="/tools/qbo-cleanup-checker" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">
+              <Link href="/tools/free-qbo-cleanup-checker" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">
                 free duplicate finder
               </Link>{" "}
               on your latest export.
@@ -392,10 +392,10 @@ export default async function QuickBooksPage() {
               </h3>
               <div className="flex flex-col gap-3">
                 {[
-                  { href: "/tools/qbo-cleanup-checker", label: "QBO Duplicate Finder & Cleanup Checker" },
-                  { href: "/tools/stripe-to-quickbooks", label: "Stripe → QuickBooks Payout Converter" },
-                  { href: "/tools/paypal-to-quickbooks", label: "PayPal → QuickBooks Payout Converter" },
-                  { href: "/tools/receipt-to-quickbooks", label: "Receipt → QuickBooks Converter" },
+                  { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder & Cleanup Checker" },
+                  { href: "/tools/free-stripe-to-quickbooks", label: "Stripe → QuickBooks Payout Converter" },
+                  { href: "/tools/free-paypal-to-quickbooks", label: "PayPal → QuickBooks Payout Converter" },
+                  { href: "/tools/free-receipt-to-quickbooks", label: "Receipt → QuickBooks Converter" },
                   { href: "/tools/qbo-checker", label: "QBO File Checker" },
                 ].map((t) => (
                   <Link

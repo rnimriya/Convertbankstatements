@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayoutConverter } from "@/components/tools/PayoutConverter";
 
-const PAGE_URL = "https://convertstatement.online/tools/paypal-to-quickbooks";
+const PAGE_URL = "https://convertstatement.online/tools/free-paypal-to-quickbooks";
 
 export const metadata: Metadata = {
   title: "Free PayPal to QuickBooks Converter (Payout to QBO) | Convert Statement",
@@ -59,7 +59,7 @@ export default function PayPalToQuickBooksPage() {
       title="PayPal to QuickBooks Payout Converter"
       subtitle="Turn a PayPal activity CSV into QuickBooks-ready books: gross sales, refunds, and fees correctly split through a clearing account — with a payout tie-out check."
       tool={<PayoutConverter provider="paypal" />}
-      currentPath="/tools/paypal-to-quickbooks"
+      currentPath="/tools/free-paypal-to-quickbooks"
       faqs={FAQS}
       howToName="How to record PayPal payouts in QuickBooks"
       howToSteps={HOWTO}
@@ -84,9 +84,9 @@ export default function PayPalToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Taking Stripe too? Try the{" "}
-            <a href="/tools/stripe-to-quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Stripe to QuickBooks converter</a>,
+            <a href="/tools/free-stripe-to-quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Stripe to QuickBooks converter</a>,
             and run the{" "}
-            <a href="/tools/qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
             before month-end to keep the books clean.
           </p>
         </>

@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { Link } from "@/i18n/navigation";
 
 import { NavUserMenu } from "./NavUserMenu";
+import { NavQuickBooksMenu } from "./NavQuickBooksMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { verifyJWT } from "@/lib/auth/jwt";
 
@@ -35,8 +36,6 @@ export async function Navbar() {
               { href: "/#how-it-works", label: t("howItWorks") },
               { href: "/#features",     label: t("features") },
               { href: "/pricing",       label: t("pricing") },
-              { href: "/quickbooks",    label: t("quickbooksReconciliation") },
-              { href: "/#faq",          label: t("faq") },
             ].map(({ href, label }) => (
               <Link
                 key={href}
@@ -46,6 +45,22 @@ export async function Navbar() {
                 {label}
               </Link>
             ))}
+            <NavQuickBooksMenu
+              menuLabel={t("quickbooks")}
+              items={[
+                { href: "/quickbooks", label: t("quickbooksReconciliation") },
+                { href: "/tools/free-qbo-cleanup-checker", label: t("qboDuplicateFinder") },
+                { href: "/tools/free-stripe-to-quickbooks", label: t("stripeQboConverter") },
+                { href: "/tools/free-paypal-to-quickbooks", label: t("paypalPayoutQboConverter") },
+                { href: "/tools/free-receipt-to-quickbooks", label: t("receiptToQbo") },
+              ]}
+            />
+            <Link
+              href="/#faq"
+              className="text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"
+            >
+              {t("faq")}
+            </Link>
           </div>
 
           {/* ── Right side ── */}

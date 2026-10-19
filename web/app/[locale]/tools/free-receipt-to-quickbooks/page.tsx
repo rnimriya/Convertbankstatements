@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { ReceiptToQbo } from "@/components/tools/ReceiptToQbo";
 
-const PAGE_URL = "https://convertstatement.online/tools/receipt-to-quickbooks";
+const PAGE_URL = "https://convertstatement.online/tools/free-receipt-to-quickbooks";
 
 export const metadata: Metadata = {
   title: "Free Receipt to QuickBooks Converter (Photo to QBO) | Convert Statement",
@@ -59,7 +59,7 @@ export default function ReceiptToQuickBooksPage() {
       title="Receipt to QuickBooks Converter"
       subtitle="Snap a receipt photo and get QuickBooks-ready expense entries: vendor, date, and totals read by AI, every line editable, CSV free and QBO on Pro."
       tool={<ReceiptToQbo />}
-      currentPath="/tools/receipt-to-quickbooks"
+      currentPath="/tools/free-receipt-to-quickbooks"
       faqs={FAQS}
       howToName="How to enter a receipt into QuickBooks"
       howToSteps={HOWTO}
@@ -86,7 +86,7 @@ export default function ReceiptToQuickBooksPage() {
             Converting statements too? Our{" "}
             <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
             handles full bank statements with a balance check, and the{" "}
-            <a href="/tools/qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
             keeps everything clean at month-end.
           </p>
         </>

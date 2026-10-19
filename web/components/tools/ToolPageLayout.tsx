@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
+import { PricingCards } from "@/components/PricingCards";
 import {
   Wrench, CheckCircle2, Upload, FileCheck, Download, Sparkles, ArrowRight,
   Zap, Shield, Lock,
@@ -15,10 +16,10 @@ export interface ToolFaq {
 }
 
 const FREE_TOOLS = [
-  { href: "/tools/qbo-cleanup-checker", label: "QBO Duplicate Finder" },
-  { href: "/tools/stripe-to-quickbooks", label: "Stripe → QuickBooks Converter" },
-  { href: "/tools/paypal-to-quickbooks", label: "PayPal → QuickBooks Converter" },
-  { href: "/tools/receipt-to-quickbooks", label: "Receipt → QuickBooks Tool" },
+  { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder" },
+  { href: "/tools/free-stripe-to-quickbooks", label: "Stripe → QuickBooks Converter" },
+  { href: "/tools/free-paypal-to-quickbooks", label: "PayPal → QuickBooks Converter" },
+  { href: "/tools/free-receipt-to-quickbooks", label: "Receipt → QuickBooks Tool" },
   { href: "/tools/qbo-checker", label: "QBO File Checker" },
 ];
 
@@ -232,6 +233,18 @@ export async function ToolPageLayout({
                 </Link>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ─── PRICING — homepage pattern ─────────────────────────── */}
+        <section id="pricing" className="py-24 bg-brand-surface border-t border-brand-border">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-14">
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-border text-brand-text text-[11px] font-bold uppercase tracking-widest mb-3">Pricing</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">Simple, transparent pricing</h2>
+              <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
+            </div>
+            <PricingCards />
           </div>
         </section>
 

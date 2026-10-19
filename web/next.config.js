@@ -38,6 +38,22 @@ const nextConfig = {
       destination: "/:path*",
       permanent: true,
     }));
+
+    // Old tool slugs renamed with a "free-" prefix (2026-10-19) — keep
+    // both the bare and locale-prefixed forms working with 301s.
+    const toolRenames = [
+      ["qbo-cleanup-checker", "free-qbo-cleanup-checker"],
+      ["stripe-to-quickbooks", "free-stripe-to-quickbooks"],
+      ["paypal-to-quickbooks", "free-paypal-to-quickbooks"],
+      ["receipt-to-quickbooks", "free-receipt-to-quickbooks"],
+    ];
+    for (const [oldSlug, newSlug] of toolRenames) {
+      redirects.push(
+        { source: `/tools/${oldSlug}`, destination: `/tools/${newSlug}`, permanent: true },
+        { source: `/en/tools/${oldSlug}`, destination: `/en/tools/${newSlug}`, permanent: true },
+      );
+    }
+
     return redirects;
   },
   async headers() {
