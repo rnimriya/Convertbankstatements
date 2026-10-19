@@ -101,16 +101,11 @@ export async function middleware(request: NextRequest) {
   const response = intlMiddleware(intlRequest as any);
   response.headers.set("content-security-policy", csp);
 
-  // Cache behavior: static-tier pages are identical for every visitor
-  // (personalization is client-side), so the edge may cache them for an hour
-  // with a day of stale-while-revalidate. Dynamic-tier pages must never be
-  // cached — auth redirects and session state are evaluated per request.
-  response.headers.set(
-    "Cache-Control",
-    isDynamicTier(path)
-      ? "private, no-cache, no-store"
-      : "public, s-maxage=3600, stale-while-revalidate=86400"
-  );
+  // Cache behavior lives in next.config.js headers(), NOT here: Vercel
+  // discards middleware-set Cache-Control on locale-rewritten page responses
+  // (the origin function's header wins), while config headers are applied to
+  // the final response. Dynamic-tier paths are excluded there by pattern and
+  // keep Next's private/no-store default.
 
   // Sliding session renewal: if the token is still valid but older than the
   // slide threshold, re-issue it with a fresh 7-day expiry so active users stay

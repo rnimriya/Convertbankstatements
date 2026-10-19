@@ -71,6 +71,23 @@ const nextConfig = {
         headers: immutableCache,
       },
       {
+        // Edge-cache public pages for an hour (stale-while-revalidate a day).
+        // Public pages render identically for every visitor (session UI is
+        // resolved client-side via /api/auth/me), so the CDN may cache the
+        // rendered response. Auth/dashboard/portal/API paths are excluded by
+        // the pattern and keep Next's private/no-store default. This MUST be
+        // a config header, not middleware: Vercel drops middleware-set
+        // Cache-Control on locale-rewritten responses.
+        source:
+          "/((?!api|admin|dashboard|login|signup|forgot-password|reset-password|verify-email|p/|_next|.*\\.).*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=3600, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: securityHeaders,
       },
