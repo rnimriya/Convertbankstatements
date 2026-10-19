@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   title: "Contact Us — Convert Statement",
   description:
     "Have questions about our bank statement PDF to Excel converter? Drop us a line and we will respond within 24 hours.",
-  alternates: { canonical: "https://convertstatement.online/contact" },
+  alternates: { canonical: "https://www.convertstatement.online/contact" },
   openGraph: {
     title: "Contact Us — Convert Statement",
     description: "Have questions? Drop us a line and we will respond within 24 hours.",
-    url: "https://convertstatement.online/contact",
+    url: "https://www.convertstatement.online/contact",
   },
 };
 

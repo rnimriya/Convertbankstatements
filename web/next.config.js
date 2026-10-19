@@ -57,7 +57,19 @@ const nextConfig = {
     return redirects;
   },
   async headers() {
+    // Immutable cache for content-hashed/static assets under /blog and /demo.
+    const immutableCache = [
+      { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+    ];
     return [
+      {
+        source: "/blog/:path*.jpg",
+        headers: immutableCache,
+      },
+      {
+        source: "/demo/:path*",
+        headers: immutableCache,
+      },
       {
         source: "/(.*)",
         headers: securityHeaders,

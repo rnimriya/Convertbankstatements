@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
     const spreadsheetId = spreadsheet.spreadsheetId;
 
     // Populate data
-    const headers = ["Date", "Description", "Amount (₹)", "Balance (₹)", "Category", "Reference"];
+    const headers = ["Date", "Description", "Amount ($)", "Balance ($)", "Category", "Reference"];
     const rows = [
       headers,
       ...transactions.map(t => [t.date, t.description, t.amount, t.balance ?? "", t.category ?? "", t.reference ?? ""]),

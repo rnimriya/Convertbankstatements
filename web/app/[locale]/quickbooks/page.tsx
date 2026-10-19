@@ -10,7 +10,7 @@ import {
   ArrowRight, BookOpen, Building2, Check, X, CheckCircle2,
 } from "lucide-react";
 
-const PAGE_URL = "https://convertstatement.online/quickbooks";
+const PAGE_URL = "https://www.convertstatement.online/quickbooks";
 
 export const metadata: Metadata = {
   title: "Convert PDF Bank Statements to QuickBooks (QBO & CSV) — Convert Statement",

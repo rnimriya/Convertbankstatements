@@ -43,7 +43,7 @@ export default function OpengraphImage() {
 
         {/* Domain */}
         <div style={{ display: "flex", marginTop: 56, fontSize: 30, fontWeight: 700, color: "rgba(255,255,255,0.9)" }}>
-          convertstatement.online
+          www.convertstatement.online
         </div>
       </div>
     ),

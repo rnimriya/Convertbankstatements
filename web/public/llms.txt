@@ -10,11 +10,11 @@ Convert Statement (https://convertstatement.online) is a fast, secure, and accur
 - **Client upload portals**: Accountants can create a private upload link; clients upload statements there and the converted files land in the accountant's account.
 - **Auto-categorization**: Transactions are categorized with built-in rules (fuel, payroll, fees, transfers, and more) and the category is included in exports.
 - **Scanned PDFs**: Statements without a text layer are read with AI vision extraction.
-- **Free QBO Checker**: A free tool to validate an existing QBO/OFX file's structure and balance chain: https://convertstatement.online/tools/qbo-checker
-- **Free QBO Duplicate Finder & Cleanup Checker**: Upload a .qbo/.ofx/.csv and get a 0-100 health score with exact and near-duplicate detection, balance-chain verification, and stale uncleared items (free account required): https://convertstatement.online/tools/free-qbo-cleanup-checker
-- **Free Stripe to QuickBooks Converter**: Turn a Stripe payout CSV into clearing-account entries (gross, refunds, fees) with a payout tie-out check (free account required): https://convertstatement.online/tools/free-stripe-to-quickbooks
-- **Free PayPal to QuickBooks Converter**: Same clearing-account model for PayPal activity exports (free account required): https://convertstatement.online/tools/free-paypal-to-quickbooks
-- **Free Receipt to QuickBooks Tool**: Receipt photo to editable, categorized QuickBooks expense entries (free account required; CSV free, QBO on Pro): https://convertstatement.online/tools/free-receipt-to-quickbooks
+- **Free QBO Checker**: A free tool to validate an existing QBO/OFX file's structure and balance chain (free account required): https://www.convertstatement.online/tools/qbo-checker
+- **Free QBO Duplicate Finder & Cleanup Checker**: Upload a .qbo/.ofx/.csv and get a 0-100 health score with exact and near-duplicate detection, balance-chain verification, and stale uncleared items (free account required): https://www.convertstatement.online/tools/free-qbo-cleanup-checker
+- **Free Stripe to QuickBooks Converter**: Turn a Stripe payout CSV into clearing-account entries (gross, refunds, fees) with a payout tie-out check (free account required): https://www.convertstatement.online/tools/free-stripe-to-quickbooks
+- **Free PayPal to QuickBooks Converter**: Same clearing-account model for PayPal activity exports (free account required): https://www.convertstatement.online/tools/free-paypal-to-quickbooks
+- **Free Receipt to QuickBooks Tool**: Receipt photo to editable, categorized QuickBooks expense entries (free account required; CSV free, QBO on Pro): https://www.convertstatement.online/tools/free-receipt-to-quickbooks
 - **Speed**: Most bank statements convert in seconds.
 - **Accuracy**: High-accuracy extraction across hundreds of bank formats, with a built-in Balance-Check that verifies the running balance of every conversion.
 - **Privacy (Zero Storage)**: Files are processed entirely in memory. Convert Statement never stores user financial data or uploaded PDFs on its servers.

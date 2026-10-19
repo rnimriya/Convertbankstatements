@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description,
-    alternates: { canonical: `https://convertstatement.online/compare/${slug}` },
-    openGraph: { title, description, url: `https://convertstatement.online/compare/${slug}` },
+    alternates: { canonical: `https://www.convertstatement.online/compare/${slug}` },
+    openGraph: { title, description, url: `https://www.convertstatement.online/compare/${slug}` },
   };
 }
 
@@ -67,14 +67,14 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
     "@type": "WebPage",
     name: `Convert Statement vs ${comp.name}`,
     description: `Side-by-side comparison of Convert Statement and ${comp.name} for bank statement PDF conversion.`,
-    url: `https://convertstatement.online/compare/${slug}`,
+    url: `https://www.convertstatement.online/compare/${slug}`,
     mainEntity: {
       "@type": "ItemList",
       itemListElement: [
         {
           "@type": "SoftwareApplication",
           name: "Convert Statement",
-          url: "https://convertstatement.online",
+          url: "https://www.convertstatement.online",
           applicationCategory: "FinanceApplication",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         },

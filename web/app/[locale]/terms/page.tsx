@@ -12,7 +12,7 @@ const SECTIONS = [
  {
  id:"acceptance",
  title:"1. Acceptance of Terms",
- content: `By creating an account or using the Convert Statement service ("Service") at convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
+ content: `By creating an account or using the Convert Statement service ("Service") at www.convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
 
 These Terms constitute a legally binding agreement between you and Convert Statement ("Company","we","us", or"our"). These Terms are governed by the laws of the State of Delaware, USA, and any disputes shall be subject to the exclusive jurisdiction of courts in Delaware.
 
@@ -72,8 +72,8 @@ Violation of these restrictions may result in immediate account termination with
  content: `**Free Tier**
 Every registered account receives 8 pages of processing completely free. No payment method is required to access the free tier.
 
-**Pay-As-You-Go ($1 per document)**
-After exhausting your free pages, you may pay $1 per document. Payment is processed securely before the document is converted. All prices are in US Dollars (USD) and are exclusive of applicable taxes.
+**Basic Plan ($5/month)**
+Provides 25 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
 **Pro Plan ($20/month)**
 Provides 500 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
@@ -82,13 +82,13 @@ Provides 500 pages of processing per billing month. Billed monthly in advance. P
 Provides 2,000 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
 **Payment Methods**
-We accept Credit/Debit Cards (Visa, Mastercard, Amex) and UPI through Razorpay. All transactions are subject to Razorpay's payment terms.
+We accept Credit/Debit Cards (Visa, Mastercard, Amex). All transactions are subject to Razorpay's payment terms.
 
-**GST**
-Applicable taxes will be added to all subscription and pay-as-you-go payments as required by your local jurisdiction.
+**Taxes**
+Applicable taxes will be added where required by law.
 
 **Refunds**
-Pay-as-you-go payments are non-refundable once a document has been processed. For subscription plans, refunds are available within 7 days of the initial subscription if no documents have been processed. Contact billing@convertstatement.online to request a refund.
+For subscription plans, refunds are available within 7 days of the initial subscription if no documents have been processed. Contact billing@convertstatement.online to request a refund.
 
 **Subscription Cancellation**
 You may cancel your subscription at any time. Your plan remains active until the end of the current billing period, after which you will revert to the free tier.`,

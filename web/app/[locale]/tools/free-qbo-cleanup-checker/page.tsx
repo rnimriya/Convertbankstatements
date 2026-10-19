@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { QboCleanupChecker } from "@/components/tools/QboCleanupChecker";
 
-const PAGE_URL = "https://convertstatement.online/tools/free-qbo-cleanup-checker";
+const PAGE_URL = "https://www.convertstatement.online/tools/free-qbo-cleanup-checker";
 
 export const metadata: Metadata = {
   title: "Free QBO Duplicate Finder & Cleanup Checker | Convert Statement",

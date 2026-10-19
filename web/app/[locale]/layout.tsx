@@ -48,12 +48,12 @@ export const metadata: Metadata = {
   alternates: { canonical: BASE },
   openGraph: {
     type: "website",
-    locale: "en_IN",
+    locale: "en_US",
     url: BASE,
     siteName: "Convert Statement",
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
-      "Global banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Pay $1 per document after that.",
+      "Global banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Monthly plans from $5 after that.",
     images: [
       {
         url: "/opengraph-image",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
-      "Global banks. CSV, Excel, OFX, QFX. First 8 pages free. Pay $1/doc.",
+      "Global banks. CSV, Excel, OFX, QFX. First 8 pages free. Monthly plans from $5.",
     images: ["/opengraph-image"],
   },
   icons: {
@@ -135,6 +135,7 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="yMseDO6GsCeGGbrHzYqqoSkfIf7GtYFkAYbbWJwGEyI" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
         {/* Google Analytics 4 */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9" />
         <script

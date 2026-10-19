@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { ReceiptToQbo } from "@/components/tools/ReceiptToQbo";
 
-const PAGE_URL = "https://convertstatement.online/tools/free-receipt-to-quickbooks";
+const PAGE_URL = "https://www.convertstatement.online/tools/free-receipt-to-quickbooks";
 
 export const metadata: Metadata = {
   title: "Free Receipt to QuickBooks Converter (Photo to QBO) | Convert Statement",

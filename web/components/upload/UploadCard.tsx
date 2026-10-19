@@ -311,7 +311,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
 
                 {/* Pages usage + trust */}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                  <div className="flex min-w-0 max-w-[260px] flex-1 items-center gap-2.5">
+                  <div className="flex min-w-[220px] max-w-[260px] flex-1 items-center gap-2.5">
                     <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Pages</span>
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-surface">
                       <div className={cn("h-full rounded-full transition-all", lowPages ?"bg-amber-400" :"bg-zinc-900 dark:bg-zinc-100")} style={{ width: `${usedPct}%` }} />

@@ -62,6 +62,8 @@ export default async function BlogPage({
                     <img
                       src={post.featureImage}
                       alt={post.title}
+                      loading="lazy"
+                      decoding="async"
                       className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </Link>

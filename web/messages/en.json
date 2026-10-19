@@ -45,7 +45,7 @@
     "conversion": "Average conversion",
     "banks": "Global banks",
     "accuracy": "Accuracy rate",
-    "perDoc": "Per document"
+    "freePages": "Free pages forever"
   },
   "banks": {
     "heading": "Supports every major global bank"
@@ -74,7 +74,7 @@
     "banksTitle": "400+ banks covered",
     "banksBody": "Commercial, retail, credit unions, and digital banks globally supported.",
     "pricingTitle": "Simple pricing",
-    "pricingBody": "First 8 pages free. Then $1 per document — no subscription traps.",
+    "pricingBody": "First 8 pages free. Then monthly plans from $5 — no subscription traps.",
     "formatsTitle": "5 export formats",
     "formatsBody": "Excel, CSV, OFX/QBO for QuickBooks & Xero, and Google Sheets in one tool.",
     "passwordTitle": "Password PDFs",
@@ -110,26 +110,8 @@
     "label": "Pricing",
     "title": "Simple, transparent pricing",
     "subtitle": "Start free. Only pay when you need more.",
-    "note": "{payg} charges $1 per document regardless of page count. {pro} plans give you a shared monthly page pool.",
-    "payg": "Pay-as-you-go",
     "proPlans": "Pro & Business",
     "mostPopular": "Most popular",
-    "freeName": "Free",
-    "freePeriod": "",
-    "freeDesc": "Try it out — no card needed",
-    "freeF1": "8 pages free, forever",
-    "freeF2": "CSV & Excel export",
-    "freeF3": "Global banks support",
-    "freeF4": "No credit card required",
-    "freeCta": "Start free",
-    "paygName": "Pay-per-doc",
-    "paygPeriod": "/ doc",
-    "paygDesc": "No subscription, pay only when you need",
-    "paygF1": "$1 per document",
-    "paygF2": "All export formats",
-    "paygF3": "Credit Cards / Apple Pay",
-    "paygF4": "Global banks support",
-    "paygCta": "Get started",
     "proName": "Pro",
     "proPeriod": "/ mo",
     "proDesc": "Perfect for CPAs & individuals",
@@ -161,11 +143,11 @@
     "q3": "Can I process password-protected PDFs?",
     "a3": "Yes. Enter the password during upload. We never store the password.",
     "q4": "How does the 8 free pages work?",
-    "a4": "Every new account gets 8 pages free — no card needed. That covers most 1-3 month statements. After that, pay $1 per document or choose a monthly plan.",
+    "a4": "Every new account gets 8 pages free — no card needed. That covers most 1-3 month statements. After that, choose a monthly plan starting at $5.",
     "q5": "How do I import into QuickBooks or Xero?",
     "a5": "Export as OFX or QBO from Convert Statement, then import directly into your accounting software's bank feed. Takes about two minutes.",
     "q6": "Which payment methods do you accept?",
-    "a6": "We accept all major credit/debit cards (Visa, Mastercard, Amex) and UPI via Razorpay."
+    "a6": "We accept all major credit/debit cards (Visa, Mastercard, Amex) via Razorpay."
   },
   "cta": {
     "label": "Get started today",

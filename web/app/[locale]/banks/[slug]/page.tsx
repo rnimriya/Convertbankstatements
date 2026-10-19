@@ -34,8 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description,
-    alternates: { canonical: `https://convertstatement.online/${locale}/banks/${slug}` },
-    openGraph: { title, description, url: `https://convertstatement.online/banks/${slug}` },
+    alternates: { canonical: `https://www.convertstatement.online/${locale}/banks/${slug}` },
+    openGraph: { title, description, url: `https://www.convertstatement.online/banks/${slug}` },
   };
 }
 
@@ -86,7 +86,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     },
     {
       q: `How much does it cost to convert ${bankName} statements?`,
-      a: `Your first 8 pages are free — no credit card required. After that, pay $1 per document or pick a monthly plan starting at $5 for 25 pages.`,
+      a: `Your first 8 pages are free — no credit card required. After that, pick a monthly plan starting at $5 for 25 pages.`,
     },
   ];
 
@@ -100,7 +100,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     "name": `ConvertStatement for ${bankName}`,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "WebBrowser",
-    "url": `https://convertstatement.online/banks/${slug}`,
+    "url": `https://www.convertstatement.online/banks/${slug}`,
     "offers": {
       "@type": "Offer",
       "price": "0",

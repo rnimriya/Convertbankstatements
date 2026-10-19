@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { slug } = await params;
   const cluster = getClusterBySlug(slug);
   if (!cluster) return { title: "Guide not found" };
-  const url = `https://convertstatement.online/guides/${slug}`;
+  const url = `https://www.convertstatement.online/guides/${slug}`;
   return {
     title: `${cluster.title} - Convert Statement`,
     description: cluster.description,
@@ -70,9 +70,9 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
     publisher: {
       "@type": "Organization",
       name: "Convert Statement",
-      logo: { "@type": "ImageObject", url: "https://convertstatement.online/logo.svg" },
+      logo: { "@type": "ImageObject", url: "https://www.convertstatement.online/logo.svg" },
     },
-    mainEntityOfPage: { "@type": "WebPage", "@id": `https://convertstatement.online/guides/${slug}` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.convertstatement.online/guides/${slug}` },
   };
 
   return (

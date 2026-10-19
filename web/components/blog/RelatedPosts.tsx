@@ -20,6 +20,8 @@ export function RelatedPosts({ posts }: Props) {
             <img
               src={post.featureImage}
               alt={post.title}
+              loading="lazy"
+              decoding="async"
               className="h-16 w-24 shrink-0 rounded-lg object-cover"
             />
             <div className="min-w-0">

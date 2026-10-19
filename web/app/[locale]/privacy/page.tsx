@@ -12,7 +12,7 @@ const SECTIONS = [
  {
  id:"overview",
  title:"1. Overview",
- content: `Convert Statement ("we","us", or"our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at convertstatement.online ("Service").
+ content: `Convert Statement ("we","us", or"our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at www.convertstatement.online ("Service").
 
 We comply with international data protection standards, including the GDPR (General Data Protection Regulation) and the CCPA (California Consumer Privacy Act).
 

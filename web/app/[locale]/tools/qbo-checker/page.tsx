@@ -3,7 +3,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { QboChecker } from "@/components/tools/QboChecker";
 
-const PAGE_URL = "https://convertstatement.online/tools/qbo-checker";
+const PAGE_URL = "https://www.convertstatement.online/tools/qbo-checker";
 
 export const metadata: Metadata = {
   title: "Free QBO File Checker — Validate QuickBooks Web Connect Files | Convert Statement",
