@@ -38,14 +38,18 @@ const nextConfig = {
       destination: "/:path*",
       permanent: true,
     }));
-    // Friendly alias: the nav label is "QuickBooks Reconciliation", so the
-    // matching slug forwards to the canonical QuickBooks page.
-    redirects.push({
-      source: "/quickbooks-reconciliation",
-      destination: "/quickbooks",
-      permanent: true,
-    });
     return redirects;
+  },
+  async rewrites() {
+    // The QuickBooks page also lives at /quickbooks-reconciliation: a rewrite
+    // (not a redirect) so the browser URL stays on the reconciliation slug
+    // while the same page renders. Canonical SEO URL remains /quickbooks.
+    return [
+      {
+        source: "/quickbooks-reconciliation",
+        destination: "/quickbooks",
+      },
+    ];
   },
   async headers() {
     return [
