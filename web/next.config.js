@@ -40,17 +40,6 @@ const nextConfig = {
     }));
     return redirects;
   },
-  async rewrites() {
-    // The QuickBooks page also lives at /quickbooks-reconciliation: a rewrite
-    // (not a redirect) so the browser URL stays on the reconciliation slug
-    // while the same page renders. Canonical SEO URL remains /quickbooks.
-    return [
-      {
-        source: "/quickbooks-reconciliation",
-        destination: "/quickbooks",
-      },
-    ];
-  },
   async headers() {
     return [
       {
