@@ -159,7 +159,7 @@ function fromHash(h: Record<string, string>): User {
     lastPeriodResetAt: h.lastPeriodResetAt || null,
     resetToken: h.resetToken || null,
     resetTokenExpiry: h.resetTokenExpiry || null,
-    emailVerified: h.emailVerified === "1",
+    emailVerified: String(h.emailVerified) === "1",
     emailVerifyToken: h.emailVerifyToken ? decryptField(h.emailVerifyToken) : null,
     emailVerifyExpiry: h.emailVerifyExpiry || null,
     googleSheetsRefreshToken: decryptField(h.googleSheetsRefreshToken) || null,
@@ -167,7 +167,7 @@ function fromHash(h: Record<string, string>): User {
     teamId: h.teamId || null,
     teamRole: (h.teamRole || null) as User["teamRole"],
     tokenVersion: parseInt(h.tokenVersion ?? "0", 10),
-    referralCredited: h.referralCredited === "1",
+    referralCredited: String(h.referralCredited) === "1",
   };
 }
 

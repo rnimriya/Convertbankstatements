@@ -62,12 +62,10 @@ export async function createPortal(ownerId: string, label: string, customSlug?: 
   };
 
   if (useRedis()) {
-    const pipe = r().pipeline();
-    pipe.hset(PK(token), {
+    await r().hset(PK(token), {
       token, ownerId, label: portal.label, active: "1", createdAt: portal.createdAt,
     });
-    pipe.sadd(UPK(ownerId), token);
-    await pipe.exec();
+    await r().sadd(UPK(ownerId), token);
   } else {
     _memPortals.set(token, portal);
     if (!_memByUser.has(ownerId)) _memByUser.set(ownerId, new Set());
@@ -79,14 +77,16 @@ export async function createPortal(ownerId: string, label: string, customSlug?: 
 export async function getPortal(token: string): Promise<Portal | null> {
   if (useRedis()) {
     const h = await r().hgetall(PK(token));
-    if (!h) return null;
-    const raw = h as Record<string, string>;
+    if (!h || Object.keys(h).length === 0) return null;
+    // Upstash auto-deserializes stored values: "1" can come back as the
+    // number 1, so compare via String() or active portals read as inactive.
+    const raw = h as Record<string, unknown>;
     return {
-      token: raw.token,
-      ownerId: raw.ownerId,
-      label: raw.label,
-      active: raw.active === "1",
-      createdAt: raw.createdAt,
+      token: String(raw.token ?? token),
+      ownerId: String(raw.ownerId ?? ""),
+      label: String(raw.label ?? ""),
+      active: String(raw.active) === "1",
+      createdAt: String(raw.createdAt ?? ""),
     };
   }
   return _memPortals.get(token) ?? null;

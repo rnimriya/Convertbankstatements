@@ -56,10 +56,10 @@ export async function POST(req: NextRequest) {
     const xlsxUrl = `data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,${xlsxBuf.toString("base64")}`;
     return NextResponse.json({
       success: true,
-      file_name: "SBI_Sample_Statement.pdf",
+      file_name: "Chase_Sample_Statement.pdf",
       page_count: 5,
       transaction_count: transactions.length,
-      bank_name: "State Bank of India (SBI)",
+      bank_name: "JPMorgan Chase",
       is_demo: true,
       billing: { billing_type: "FREE_TIER", pages_charged: 0, payment_required: false, message: "Demo — no pages consumed." },
       transactions: transactions.slice(0, 10),
@@ -68,7 +68,15 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  const formData = await req.formData();
+  let formData: FormData;
+  try {
+    formData = await req.formData();
+  } catch {
+    return NextResponse.json(
+      { error: "Invalid upload request. Please attach a PDF file and try again." },
+      { status: 400 }
+    );
+  }
   const file = formData.get("file") as File | null;
   const exportFormats = ((formData.get("export_formats") as string) || "csv")
     .split(",").map((f) => f.trim().toLowerCase());
@@ -173,7 +181,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           error: "PAYMENT_REQUIRED",
-          message: `You have ${remaining} free page${remaining !== 1 ? "s" : ""} left. This document has ${pageCount} pages. Please upgrade to Pro to continue.`,
+          message: `You have ${remaining} free page${remaining !== 1 ? "s" : ""} left. This document has ${pageCount} pages. Please upgrade to a paid plan to continue.`,
           page_count: pageCount,
         },
         { status: 402 }
@@ -184,7 +192,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           error: "PAYMENT_REQUIRED",
-          message: `Monthly limit of ${monthlyPageLimit} pages reached. Please upgrade to Business to continue.`,
+          message: `Monthly limit of ${monthlyPageLimit} pages reached. Please upgrade your plan to continue.`,
           page_count: pageCount,
         },
         { status: 402 }
@@ -222,9 +230,17 @@ export async function POST(req: NextRequest) {
   }
 
   // ── Build export URLs ──────────────────────────────────────────────────────
+  // QBO/QFX/OFX/Google Sheets are Pro-tier formats (see PricingCards). The UI
+  // hides them from lower tiers, and the API must enforce the same rule —
+  // otherwise anyone can pull Pro exports by passing export_formats directly.
+  const PRO_FORMATS = new Set(["ofx", "qfx", "qbo", "sheets"]);
+  const canProFormats = tier === "PRO" || tier === "BUSINESS";
+  const lockedFormats = exportFormats.filter((f) => PRO_FORMATS.has(f) && !canProFormats);
+
   const exportUrls: Record<string, string> = {};
 
   for (const fmt of exportFormats) {
+    if (PRO_FORMATS.has(fmt) && !canProFormats) continue;
     if (fmt === "csv") {
       const content = transactionsToCSV(transactions);
       exportUrls.csv = `data:text/csv;base64,${Buffer.from(content).toString("base64")}`;
@@ -302,6 +318,7 @@ export async function POST(req: NextRequest) {
     transactions: transactions.slice(0, 10),
     reconciliation: verifyBalanceChain(transactions),
     export_urls: exportUrls,
+    locked_formats: lockedFormats,
     processing_ms: Date.now() - start,
   });
 }

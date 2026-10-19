@@ -49,6 +49,7 @@ export function PortalsPanel() {
   }
 
   async function deactivate(token: string) {
+    if (!window.confirm("Deactivate this portal link? Anyone with the link will no longer be able to upload through it.")) return;
     await fetch(`/api/portals/${token}`, { method:"DELETE" });
     setPortals(p => p.filter(x => x.token !== token));
   }
@@ -75,7 +76,7 @@ export function PortalsPanel() {
                 type="text"
                 value={newLabel}
                 onChange={e => setNewLabel(e.target.value)}
-                placeholder="Internal Label (e.g. HDFC Statements – Sharma & Sons)"
+                placeholder="Internal label (e.g. Client Statements – Smith & Co.)"
                 className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
                 autoFocus
               />
@@ -150,7 +151,7 @@ export function PortalsPanel() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-white truncate">{portal.label}</p>
-                  <p className="text-xs text-brand-muted truncate font-mono">/p/{portal.token.slice(0, 12)}…</p>
+                  <a href={url} target="_blank" rel="noopener noreferrer" title={url} className="block text-xs text-brand-muted font-mono break-all hover:underline">/p/{portal.token}</a>
                 </div>
                 <button
                   onClick={() => copyUrl(portal.token)}

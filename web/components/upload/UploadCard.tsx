@@ -15,12 +15,12 @@ import Link from"next/link";
 const MAX_FILE_MB = 50;
 const FREE_PAGE_CAP = 8;
 
-const BANKS = ["SBI","HDFC","ICICI","Axis","Kotak","PNB","BOB"];
+const BANKS = ["Chase","Wells Fargo","Bank of America","Citi","Capital One","U.S. Bank","Truist"];
 
 const FORMATS = [
   { id:"csv",    label:"CSV",    sub:"Universal",    dotColor:"#43A047", dotBg:"#E8F5E9" },
   { id:"xlsx",   label:"Excel",  sub:".xlsx",        dotColor:"#1D6F42", dotBg:"#DCFCE7" },
-  { id:"ofx",    label:"OFX",    sub:"Tally / Xero", dotColor:"#1565C0", dotBg:"#DBEAFE" },
+  { id:"ofx",    label:"OFX",    sub:"Xero / Money", dotColor:"#1565C0", dotBg:"#DBEAFE" },
   { id:"qfx",    label:"QFX",    sub:"Quicken",      dotColor:"#C2410C", dotBg:"#FEF3C7" },
   { id:"sheets", label:"Sheets", sub:"Google",       dotColor:"#15803D", dotBg:"#DCFCE7" },
 ] as const;
@@ -43,6 +43,9 @@ type UploadState =
 export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth }: Props) {
   const [state, setState] = useState<UploadState>({ status:"idle" });
   const [formats, setFormats] = useState<string[]>(["csv"]);
+  const [formatNotice, setFormatNotice] = useState<string | null>(null);
+  const PRO_FORMATS = ["ofx", "qfx", "sheets"];
+  const isProTier = billing.tier === "PRO" || billing.tier === "BUSINESS";
 
   const uploadFile = useCallback(async (file: File) => {
     setState({ status:"processing", fileName: file.name });
@@ -62,7 +65,9 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
       setState({ status:"done", result: data });
       onBillingUpdate();
     } catch (e) {
-      setState({ status:"error", message: e instanceof Error ? e.message :"Unexpected error." });
+      setState({ status:"error", message: e instanceof TypeError
+        ? "The connection dropped while processing. If the conversion completed, it will appear in your History — please check there before re-uploading, so your pages are not counted twice."
+        : e instanceof Error ? e.message :"Unexpected error." });
     }
   }, [formats, onBillingUpdate]);
 
@@ -92,6 +97,11 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   const reset = () => setState({ status:"idle" });
 
   const toggleFormat = (id: string) => {
+    if (!isProTier && PRO_FORMATS.includes(id) && !formats.includes(id)) {
+      setFormatNotice(`${id === "sheets" ? "Google Sheets" : id.toUpperCase()} export is a Pro plan feature — CSV and Excel are included in your plan.`);
+      return;
+    }
+    setFormatNotice(null);
     if (formats.includes(id)) {
       if (formats.length === 1) return;
       setFormats(formats.filter(f => f !== id));
@@ -245,7 +255,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     </div>
 
                     <p className="mt-2 text-[11px] text-brand-muted">
-                      {BANKS.join(" ·")} <span className="text-zinc-300 dark:text-zinc-600">+23 more</span>
+                      {BANKS.join(" ·")} <span className="text-zinc-300 dark:text-zinc-600">+400 more</span>
                     </p>
 
                     {billing.tier ==="FREE" && freeRemaining > 0 && (
@@ -266,6 +276,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
                   {FORMATS.map(f => {
                     const active = formats.includes(f.id);
+                    const locked = !isProTier && PRO_FORMATS.includes(f.id);
                     return (
                       <button
                         key={f.id}
@@ -285,10 +296,17 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                           {f.label[0]}
                         </span>
                         {f.label}
+                        {locked && <Lock size={11} className="opacity-50" />}
                       </button>
                     );
                   })}
                 </div>
+
+                {formatNotice ? (
+                  <p className="mt-2 text-[11px] font-semibold text-violet-600">{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
+                ) : (
+                  <p className="mt-2 text-[11px] text-brand-muted">Pick one or more formats — you get a separate download for each.</p>
+                )}
 
                 {/* Pages usage + trust */}
                 <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">

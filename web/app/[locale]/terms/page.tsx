@@ -82,7 +82,7 @@ Provides 500 pages of processing per billing month. Billed monthly in advance. P
 Provides 2,000 pages of processing per billing month. Billed monthly in advance. Pages do not roll over to the next month.
 
 **Payment Methods**
-We accept Credit/Debit Cards (Visa, Mastercard, Amex), Apple Pay, and Google Pay through Stripe. All transactions are subject to Stripe's payment terms.
+We accept Credit/Debit Cards (Visa, Mastercard, Amex) and UPI through Razorpay. All transactions are subject to Razorpay's payment terms.
 
 **GST**
 Applicable taxes will be added to all subscription and pay-as-you-go payments as required by your local jurisdiction.

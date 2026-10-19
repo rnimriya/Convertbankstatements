@@ -59,7 +59,7 @@ export function SamplePDFDemo() {
     return (
       <button disabled className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 cursor-wait">
         <Loader2 size={15} className="animate-spin text-purple-500 dark:text-purple-400" />
-        Converting SBI sample…
+        Converting sample statement…
       </button>
     );
   }
@@ -121,7 +121,7 @@ export function SamplePDFDemo() {
                   <td className="px-2.5 py-2 text-zinc-600 dark:text-zinc-300 whitespace-nowrap">{tx.date}</td>
                   <td className="px-2.5 py-2 text-zinc-600 dark:text-zinc-300 truncate max-w-[120px]">{tx.description}</td>
                   <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type ==="credit" ?"text-emerald-600 dark:text-emerald-400" :"text-rose-500 dark:text-rose-400"}`}>
-                    {tx.type ==="credit" ?"+" :"−"}₹{Math.abs(tx.amount).toLocaleString("en-IN")}
+                    {tx.type ==="credit" ?"+" :"−"}${Math.abs(tx.amount).toLocaleString("en-US")}
                   </td>
                 </tr>
               ))}
@@ -135,7 +135,7 @@ export function SamplePDFDemo() {
         {result?.export_urls.xlsx && (
           <a
             href={result.export_urls.xlsx}
-            download="SBI_Sample_Converted.xlsx"
+            download="Sample_Converted.xlsx"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-violet-400 bg-zinc-900 dark:bg-zinc-950/[0.08] dark:bg-brand-400/10 hover:bg-zinc-900 dark:bg-zinc-950/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
           >
             <FileSpreadsheet className="text-indigo-500 dark:text-indigo-400"  size={13} />
@@ -145,7 +145,7 @@ export function SamplePDFDemo() {
         {result?.export_urls.csv && (
           <a
             href={result.export_urls.csv}
-            download="SBI_Sample_Converted.csv"
+            download="Sample_Converted.csv"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:border-zinc-700 dark:hover:border-white/20 rounded-lg transition-colors"
           >
             <Download className="text-emerald-500 dark:text-emerald-400"  size={13} />

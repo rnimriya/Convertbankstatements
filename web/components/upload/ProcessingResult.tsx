@@ -167,7 +167,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
       {/* Demo notice */}
       {result.is_demo && (
         <Alert variant="info" title="Sample data">
-          This is a demo using a sample SBI statement.{""}
+          This is a demo using a sample bank statement.{""}
           <a href="/signup" className="font-semibold underline hover:no-underline">
             Sign up free
           </a>{""}
@@ -255,6 +255,13 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               </button>
             ))}
 
+            {result.locked_formats && result.locked_formats.length > 0 && (
+              <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-xs text-violet-800">
+                <span className="font-semibold">{result.locked_formats.map(f => FORMAT_LABELS[f] ?? f.toUpperCase()).join(", ")}</span>
+                {" "}exports are Pro plan features. <a href="/pricing" className="font-semibold underline">Upgrade to Pro</a> to unlock them — your downloads above are ready.
+              </div>
+            )}
+
             {/* Send to QuickBooks (direct connect) */}
             {qbConnected && result.transactions && result.transactions.length > 0 && (
               <div>
@@ -339,7 +346,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
             </Badge>
           </div>
           <div className="divide-y divide-zinc-100 dark:divide-white/10 font-mono">
-            {result.transactions.slice(0, 8).map((txn: Transaction, i) => (
+            {result.transactions.map((txn: Transaction, i) => (
               <div key={i} className="flex items-center gap-3 px-5 py-2.5 hover:bg-zinc-50 transition-colors">
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-xs font-medium text-zinc-900 dark:text-zinc-200">{txn.description}</p>
@@ -348,7 +355,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                   </p>
                 </div>
                 <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ?"text-emerald-600 dark:text-emerald-400" :"text-zinc-900 dark:text-zinc-300"}`}>
-                  {txn.amount >= 0 ?"+" :""}₹{Math.abs(txn.amount).toFixed(2)}
+                  {txn.amount >= 0 ? "+" : "-"}${Math.abs(txn.amount).toFixed(2)}
                 </span>
               </div>
             ))}

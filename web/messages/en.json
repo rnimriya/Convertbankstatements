@@ -160,18 +160,18 @@
     "q5": "How do I import into QuickBooks or Xero?",
     "a5": "Export as OFX or QBO from Convert Statement, then import directly into your accounting software's bank feed. Takes about two minutes.",
     "q6": "Which payment methods do you accept?",
-    "a6": "We accept all major global credit/debit cards (Visa, Mastercard, Amex), Apple Pay, and Google Pay via Stripe."
+    "a6": "We accept all major credit/debit cards (Visa, Mastercard, Amex) and UPI via Razorpay."
   },
   "cta": {
     "label": "Get started today",
     "title": "Stop typing transactions manually",
     "subtitle": "Join 10,000+ CPAs and finance professionals worldwide who convert bank statements in seconds, not hours.",
     "button": "Convert free — 8 pages",
-    "note": "No credit card required · Pay securely via Stripe if you need more"
+    "note": "No credit card required · Pay securely via Razorpay if you need more"
   },
   "footer": {
     "tagline": "Convert bank statement PDFs to clean CSV, Excel and OFX data. Your financial documents are never stored on our servers.",
-    "payments": "Payments secured by Stripe · Major Cards & Apple Pay accepted",
+    "payments": "Payments secured by Razorpay · Major cards & UPI accepted",
     "product": "Product",
     "account": "Account",
     "legal": "Legal",

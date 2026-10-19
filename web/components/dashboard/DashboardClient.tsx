@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from"react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from"next-intl";
 import { Link } from"@/i18n/navigation";
 import { UploadCard } from"@/components/upload/UploadCard";
@@ -104,12 +105,16 @@ export function DashboardClient({
   const [sendingVerification, setSendingVerification] = useState(false);
   const [verificationError, setVerificationError] = useState<string | null>(null);
 
+  const router = useRouter();
   const refreshBilling = useCallback(async () => {
     try {
       const res = await fetch("/api/billing-context");
       if (res.ok) setBilling(await res.json());
     } catch { /* non-fatal */ }
-  }, []);
+    // recentLogs is a server-rendered prop: refresh so the History tab and
+    // Overview counts include conversions finished in this session.
+    router.refresh();
+  }, [router]);
 
   const handleSignOut = async () => {
     try { await fetch("/api/auth/logout", { method:"POST" }); } catch { /* ignore */ }
@@ -766,8 +771,8 @@ export function DashboardClient({
             <div className="flex flex-col h-full">
               <PageBanner
                 icon={Link2}
-                title="Quick Portals"
-                subtitle="Direct links to bank netbanking and statement pages"
+                title="Client Upload Portals"
+                subtitle="Share a link — clients upload statements straight to your account"
                 iconColor="#0891b2"
                 iconBg="#ecfeff"
               />

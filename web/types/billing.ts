@@ -44,6 +44,7 @@ export interface ProcessResult {
   transactions: Transaction[];
   reconciliation?: ReconciliationSummary;
   export_urls: Record<string, string>;
+  locked_formats?: string[];
   processing_ms: number;
   is_demo?: boolean;
 }

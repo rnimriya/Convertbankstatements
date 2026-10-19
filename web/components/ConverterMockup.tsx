@@ -7,20 +7,20 @@ type Phase ="idle" |"processing" |"done";
 
 const BANKS = [
   { name:"JPMorgan Chase", initial:"J", hex:"#005EB8" },
-  { name:"Barclays",       initial:"B", hex:"#00AEEF" },
-  { name:"SBI",            initial:"S", hex:"#1d4ed8" },
-  { name:"Commonwealth",   initial:"C", hex:"#FFCC00" },
+  { name:"Wells Fargo",    initial:"W", hex:"#D71E28" },
+  { name:"Bank of America", initial:"B", hex:"#C41230" },
+  { name:"Citi",           initial:"C", hex:"#2557D6" },
 ];
 
-const FILES = ["Chase_Statement_Jan2025.pdf","Barclays_Account_Nov2024.pdf","SBI_Q3_2025.pdf","CBA_Dec2024.pdf",
+const FILES = ["Chase_Statement_Jan2025.pdf","WellsFargo_Account_Nov2024.pdf","BoA_Q3_2025.pdf","Citi_Dec2024.pdf",
 ];
 
 const TXNS = [
-  { desc:"SALARY CREDIT NEFT",   amt:"+₹58,000", pos: true,  date:"01 Jan" },
-  { desc:"ATM WDL HDFC BANK",    amt:"−₹5,000",  pos: false, date:"02 Jan" },
-  { desc:"SWIGGY ORDER 78231",   amt:"−₹342",    pos: false, date:"04 Jan" },
-  { desc:"HOUSE RENT NEFT",      amt:"−₹18,000", pos: false, date:"05 Jan" },
-  { desc:"UPI FREELANCE CREDIT", amt:"+₹12,500", pos: true,  date:"12 Jan" },
+  { desc:"PAYROLL DIRECT DEP",   amt:"+$4,500.00", pos: true,  date:"01 Jan" },
+  { desc:"ATM WITHDRAWAL",       amt:"−$200.00",   pos: false, date:"02 Jan" },
+  { desc:"AMAZON MARKETPLACE",   amt:"−$86.40",    pos: false, date:"04 Jan" },
+  { desc:"RENT PAYMENT",          amt:"−$1,850.00", pos: false, date:"05 Jan" },
+  { desc:"CLIENT PAYMENT ACH",   amt:"+$1,200.00", pos: true,  date:"12 Jan" },
 ];
 
 const FORMATS = ["XLSX","CSV","OFX","Sheets"];

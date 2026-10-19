@@ -18,21 +18,23 @@ export const metadata = {
 
 
 const COMPARE_ROWS = [
-  { feature:"Pages included", free:"8 total", pro:"500 / mo", business:"2,000 / mo" },
-  { feature:"Price per document", free:"Free", pro:"Included", business:"Included" },
-  { feature:"CSV export", free:"✓", pro:"✓", business:"✓" },
-  { feature:"Excel export", free:"✓", pro:"✓", business:"✓" },
-  { feature:"OFX / QFX export", free:"—", pro:"✓", business:"✓" },
-  { feature:"Google Sheets", free:"—", pro:"✓", business:"✓" },
-  { feature:"API access", free:"—", pro:"—", business:"✓" },
-  { feature:"Team seats", free:"1", pro:"1", business:"5" },
-  { feature:"Payment methods", free:"—", pro:"UPI/Card/NB", business:"UPI/Card/NB" },
-  { feature:"Smart Auto-Categorization (Beta)", free:"—", pro:"✓", business:"✓" },
-  { feature:"OCR for Scanned PDFs", free:"—", pro:"—", business:"✓" },
-  { feature:"Direct Accounting Push (Soon)", free:"—", pro:"—", business:"✓" },
-  { feature:"Instant Cash Flow Analytics (Beta)", free:"—", pro:"✓", business:"✓" },
-  { feature:"Secure Client Upload Portal (Beta)", free:"—", pro:"—", business:"✓" },
-  { feature:"Multi-Client Workspace (Beta)", free:"—", pro:"—", business:"✓" },
+  { feature:"Pages included", free:"8 total", basic:"25 / mo", pro:"500 / mo", business:"2,000 / mo" },
+  { feature:"Price per document", free:"Free", basic:"Included", pro:"Included", business:"Included" },
+  { feature:"CSV export", free:"✓", basic:"✓", pro:"✓", business:"✓" },
+  { feature:"Excel export", free:"✓", basic:"✓", pro:"✓", business:"✓" },
+  { feature:"OFX / QFX export", free:"—", basic:"—", pro:"✓", business:"✓" },
+  { feature:"QBO export (QuickBooks)", free:"—", basic:"—", pro:"✓", business:"✓" },
+  { feature:"Google Sheets", free:"—", basic:"—", pro:"✓", business:"✓" },
+  { feature:"API access", free:"—", basic:"—", pro:"—", business:"✓" },
+  { feature:"Team seats", free:"1", basic:"1", pro:"1", business:"5" },
+  { feature:"Payment methods", free:"—", basic:"UPI/Card/NB", pro:"UPI/Card/NB", business:"UPI/Card/NB" },
+  { feature:"Smart Auto-Categorization (Beta)", free:"✓", basic:"✓", pro:"✓", business:"✓" },
+  { feature:"OCR for Scanned PDFs", free:"✓", basic:"✓", pro:"✓", business:"✓" },
+  { feature:"Balance-Check reconciliation", free:"✓", basic:"✓", pro:"✓", business:"✓" },
+  { feature:"Direct Accounting Push (Coming Soon)", free:"—", basic:"—", pro:"—", business:"Coming Soon" },
+  { feature:"Pre-Export Analytics (Beta)", free:"✓", basic:"✓", pro:"✓", business:"✓" },
+  { feature:"Secure Client Upload Portal (Beta)", free:"—", basic:"—", pro:"—", business:"✓" },
+  { feature:"Multi-Client Workspace (Beta)", free:"—", basic:"—", pro:"—", business:"✓" },
 ];
 
 const pricingSchema = {"@context":"https://schema.org","@type":"Product",
@@ -130,16 +132,16 @@ export default async function PricingPage() {
               <thead>
                 <tr className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Feature</th>
-                  {["Free","Pro","Business"].map((h) => (
+                  {["Free","Basic","Pro","Business"].map((h) => (
                     <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-violet-500 dark:text-violet-400" :"text-zinc-500 dark:text-zinc-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {COMPARE_ROWS.map(({ feature, free, pro, business }, i) => (
+                {COMPARE_ROWS.map(({ feature, free, basic, pro, business }, i) => (
                   <tr key={feature} className={i % 2 === 0 ?"bg-white dark:bg-zinc-950" :"bg-zinc-50 dark:bg-zinc-900/50 dark:bg-zinc-950/50"}>
                     <td className="px-5 py-3 font-medium text-zinc-700 dark:text-zinc-300">{feature}</td>
-                    {[free, pro, business].map((val, j) => (
+                    {[free, basic, pro, business].map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300 dark:text-zinc-700" : val ==="✓" ?"text-emerald-500 font-bold text-base" :"text-zinc-600 dark:text-zinc-300"}`}>{val}</td>
                     ))}
                   </tr>
@@ -161,12 +163,12 @@ export default async function PricingPage() {
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Get started today</p>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">Start with 8 free pages today</h2>
-          <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay via UPI when you need more · Cancel anytime</p>
+          <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay securely when you need more · Cancel anytime</p>
           <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold transition-colors shadow-xl dark:shadow-none bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none">
             Create free account
             <ArrowRight className="h-4 w-4 text-amber-500 dark:text-amber-400" />
           </Link>
-          <p className="mt-5 text-xs text-white/40">No credit card required · Pay via UPI if you need more</p>
+          <p className="mt-5 text-xs text-white/40">No credit card required · Pay securely if you need more</p>
         </div>
       </section>
       <Footer />
