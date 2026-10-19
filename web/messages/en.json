@@ -193,7 +193,12 @@
     "copyright": "© {year} Convert Statement. All rights reserved.",
     "prices": "All prices in USD · Data never stored",
     "contact": "Contact",
-    "quickbooksReconciliation": "QuickBooks Reconciliation"
+    "quickbooksReconciliation": "QuickBooks Reconciliation",
+    "quickbooks": "QuickBooks",
+    "qboDuplicateFinder": "QBO Duplicate Finder",
+    "stripeQboConverter": "Stripe QBO Converter",
+    "paypalPayoutQboConverter": "PayPal Payout to QBO Converter",
+    "receiptToQbo": "Receipt to QBO"
   },
   "auth": {
     "loginTitle": "Welcome back",

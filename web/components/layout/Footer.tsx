@@ -39,6 +39,16 @@ export async function Footer() {
       ],
     },
     {
+      heading: t("quickbooks"),
+      links: [
+        { label: t("quickbooksReconciliation"), href: "/quickbooks" },
+        { label: t("qboDuplicateFinder"),       href: "/tools/free-qbo-cleanup-checker" },
+        { label: t("stripeQboConverter"),       href: "/tools/free-stripe-to-quickbooks" },
+        { label: t("paypalPayoutQboConverter"),  href: "/tools/free-paypal-to-quickbooks" },
+        { label: t("receiptToQbo"),             href: "/tools/free-receipt-to-quickbooks" },
+      ],
+    },
+    {
       heading: t("account"),
       links: [
         { label: t("signIn"),      href: "/login" },
@@ -87,7 +97,7 @@ export async function Footer() {
             </div>
           </div>
 
-          <div className="flex gap-10 text-sm sm:gap-14">
+          <div className="flex flex-wrap gap-10 text-sm sm:gap-14">
             {NAV.map(({ heading, links }) => (
               <div key={heading} className="space-y-2">
                 <p className="font-semibold text-zinc-900 dark:text-zinc-100">{heading}</p>
