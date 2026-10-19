@@ -113,8 +113,8 @@ export async function ToolPageLayout({
             }}
           />
 
-          {/* Full-width content container */}
-          <div className="relative z-10 w-full px-6 lg:px-10 xl:px-16 pt-10 pb-12">
+          {/* Content container — same width as /blog (max-w-6xl) */}
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
 
             {/* ── Headline block — centered ── */}
             <div className="text-center mb-6 max-w-4xl mx-auto">
@@ -132,8 +132,8 @@ export async function ToolPageLayout({
               </p>
             </div>
 
-            {/* ── Tool card — full width with max-w ── */}
-            <div className="w-full max-w-5xl mx-auto">
+            {/* ── Tool card — full width of the page container ── */}
+            <div className="w-full">
               {tool}
 
               {/* Security note */}
@@ -163,7 +163,7 @@ export async function ToolPageLayout({
 
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
         <section id="how-it-works" className="py-24 bg-brand-bg">
-          <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">
                 How it works
@@ -197,7 +197,7 @@ export async function ToolPageLayout({
 
         {/* ─── TOOL CONTENT — same words, homepage section rhythm ─ */}
         <section className="py-24 bg-brand-surface border-t border-brand-border">
-          <div className="max-w-3xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-6">
             {content}
           </div>
         </section>
@@ -250,7 +250,7 @@ export async function ToolPageLayout({
 
         {/* ─── FAQ ──────────────────────────────────────────────── */}
         <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
-          <div className="max-w-2xl mx-auto px-6">
+          <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">
                 FAQ
