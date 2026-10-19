@@ -15,5 +15,8 @@
     "db:push": "npm run db:push --workspace=web",
     "db:migrate": "npm run db:migrate --workspace=web",
     "db:studio": "npm run db:studio --workspace=web"
+  },
+  "dependencies": {
+    "next": "15.5.19"
   }
 }
