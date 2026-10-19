@@ -5,12 +5,12 @@ import { ReceiptToQbo } from "@/components/tools/ReceiptToQbo";
 const PAGE_URL = "https://www.convertstatement.online/tools/free-receipt-to-quickbooks";
 
 export const metadata: Metadata = {
-  title: "Free Receipt to QuickBooks Converter (Photo to QBO) | Convert Statement",
+  title: "Receipt to QBO Converter — Free Photo Receipts for QuickBooks | Convert Statement",
   description:
-    "Turn a receipt photo into QuickBooks-ready expense entries: AI reads the vendor, date, and totals, you review and edit, then download CSV free or QBO on Pro. Free account required, files never stored.",
+    "Receipt to QBO in seconds: turn a receipt photo into QuickBooks-ready expense entries — AI reads the vendor, date, and totals, you review and edit, then download CSV free or QBO on Pro. Free account required, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Free Receipt to QuickBooks Converter",
+    title: "Receipt to QBO Converter — Free",
     description:
       "Snap a receipt photo — get editable, categorized expense lines ready for QuickBooks. Free CSV with a free account.",
     url: PAGE_URL,
@@ -40,6 +40,10 @@ const FAQS: ToolFaq[] = [
     a: "Import it like any bank file: QuickBooks Online via Transactions → Bank transactions → Upload a file, or Desktop via File → Utilities → Import → Web Connect Files. Each receipt line arrives as an expense transaction with a unique ID; categorize and reconcile as usual.",
   },
   {
+    q: "Does QuickBooks have a receipt scanner?",
+    a: "QuickBooks Online has receipt capture in its mobile app, which snaps a photo and attaches it to an expense inside QBO — handy for one-off receipts, but it only works inside QBO. This tool covers the rest of the pile: it turns any receipt photo into an importable QBO or CSV expense file with vendor, date, and totals already extracted, so it also works for QuickBooks Desktop and for shoeboxes of paper receipts a client hands you.",
+  },
+  {
     q: "Is my receipt uploaded to your servers?",
     a: "No. Your receipt is processed in memory to extract the line items and is not stored afterwards. We never sell or share your financial data.",
   },
@@ -56,7 +60,7 @@ export default function ReceiptToQuickBooksPage() {
   return (
     <ToolPageLayout
       eyebrow="Free Tool"
-      title="Receipt to QuickBooks Converter"
+      title="Receipt to QBO Converter"
       subtitle="Snap a receipt photo and get QuickBooks-ready expense entries: vendor, date, and totals read by AI, every line editable, CSV free and QBO on Pro."
       tool={<ReceiptToQbo />}
       currentPath="/tools/free-receipt-to-quickbooks"

@@ -13,14 +13,14 @@ import {
 const PAGE_URL = "https://www.convertstatement.online/quickbooks";
 
 export const metadata: Metadata = {
-  title: "Convert PDF Bank Statements to QuickBooks (QBO & CSV) — Convert Statement",
+  title: "QuickBooks Reconciliation: Convert PDF Bank Statements to QBO | Convert Statement",
   description:
-    "Turn any PDF bank statement into a QuickBooks-ready QBO or CSV file in minutes. Every export is balance-checked against the statement before you import. Built for US bookkeepers and small businesses. First 8 pages free.",
+    "QuickBooks reconciliation without manual data entry: turn any PDF bank statement into a balance-checked QBO or CSV file and import it into QuickBooks Online or Desktop in minutes. Built for US bookkeepers and small businesses. First 8 pages free.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "PDF Bank Statement to QuickBooks Converter (QBO & CSV)",
+    title: "QuickBooks Reconciliation — PDF Bank Statements to QBO & CSV",
     description:
-      "Upload a statement PDF, download a balance-verified QBO file, and reconcile in QuickBooks without manual data entry. First 8 pages free.",
+      "Upload a statement PDF, download a balance-verified QBO file, and finish your QuickBooks reconciliation without typing a single transaction. First 8 pages free.",
     url: PAGE_URL,
     type: "website",
   },
@@ -56,8 +56,16 @@ const FAQS = [
     a: "The free plan includes 8 pages with CSV and Excel export — and QuickBooks Online accepts CSV through manual upload, so you can test the full flow for free. QBO, QFX, and OFX export are included on the Pro plan ($20/month, 500 pages), which is what most bookkeepers use for client work.",
   },
   {
+    q: "What if my QuickBooks reconciliation doesn't match the statement balance?",
+    a: "A reconciliation difference almost always comes from three things: a transaction that's missing, one that's duplicated, or one with the wrong date or amount. Work through it in that order — compare the statement against QuickBooks line by line for the mismatch amount, run your file through a duplicate check, and confirm the beginning balance matches last month's ending balance. Converting the PDF statement with the balance check on this page flags exactly where a statement's running balance breaks, which usually points straight at the bad entry.",
+  },
+  {
     q: "Is my financial data stored on your servers?",
     a: "No. Statements are processed in memory to build your export file and are not retained afterwards. We never sell or share your financial data.",
+  },
+  {
+    q: "How does this speed up QuickBooks reconciliation?",
+    a: "Reconciliation is slow when transactions are typed by hand or imported with errors. This converter extracts every transaction from your PDF statement, verifies the running balances against the statement itself, and builds a QBO file with a unique ID for every transaction — so when you import it, QuickBooks matches entries against your bank feed cleanly and the reconciliation ties out to the statement balance.",
   },
   {
     q: "My books are months behind. Can a converter fix that?",
@@ -163,7 +171,7 @@ export default async function QuickBooksPage() {
             QuickBooks Reconciliation
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-4xl mx-auto">
-            Convert PDF Bank Statements to QuickBooks
+            Convert PDF Bank Statements for QuickBooks Reconciliation
           </h1>
           <p className="mt-4 text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
             Upload a statement PDF, download a balance-checked QBO or CSV file, and reconcile in

@@ -17,9 +17,9 @@ export interface ToolFaq {
 
 const FREE_TOOLS = [
   { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder" },
-  { href: "/tools/free-stripe-to-quickbooks", label: "Stripe → QuickBooks Converter" },
-  { href: "/tools/free-paypal-to-quickbooks", label: "PayPal → QuickBooks Converter" },
-  { href: "/tools/free-receipt-to-quickbooks", label: "Receipt → QuickBooks Tool" },
+  { href: "/tools/free-stripe-to-quickbooks", label: "Stripe QBO Converter" },
+  { href: "/tools/free-paypal-to-quickbooks", label: "PayPal Payout to QBO Converter" },
+  { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QBO" },
   { href: "/tools/qbo-checker", label: "QBO File Checker" },
 ];
 

@@ -5,12 +5,12 @@ import { PayoutConverter } from "@/components/tools/PayoutConverter";
 const PAGE_URL = "https://www.convertstatement.online/tools/free-stripe-to-quickbooks";
 
 export const metadata: Metadata = {
-  title: "Free Stripe to QuickBooks Converter (Payout to QBO) | Convert Statement",
+  title: "Stripe QBO Converter — Free Stripe Payouts to QuickBooks | Convert Statement",
   description:
-    "Turn a Stripe payout CSV into QuickBooks-ready books: gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free per-payout summary with a free account, files never stored.",
+    "Free Stripe QBO converter: turn a Stripe payout CSV into QuickBooks-ready books — gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free per-payout summary with a free account, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Free Stripe to QuickBooks Payout Converter",
+    title: "Stripe QBO Converter — Stripe Payouts to QuickBooks",
     description:
       "Upload a Stripe payout CSV — get gross, fees, and refunds split correctly for QuickBooks with a tie-out check. Free.",
     url: PAGE_URL,
@@ -40,6 +40,14 @@ const FAQS: ToolFaq[] = [
     a: "First create a bank account in QuickBooks named 'Stripe Clearing'. Import the QBO there, then match the transfer line against the real payout deposit in your bank feed. When the clearing account nets to zero, the payout is fully reconciled. The CSV works the same way through QuickBooks Online's manual upload.",
   },
   {
+    q: "Can Stripe connect to QuickBooks Online?",
+    a: "Not natively — Stripe and QuickBooks Online don't have a built-in two-way connection, so most businesses use a sync app or a file-based workflow. Sync apps push each payout into QuickBooks as a lump sum, which hides fees and refunds and makes reconciliation harder. This converter takes the file route instead: your payout CSV becomes clean clearing-account entries (gross, fees, refunds) that you import once — no ongoing sync to break.",
+  },
+  {
+    q: "How do I record Stripe fees in QuickBooks?",
+    a: "Stripe fees never arrive as separate transactions — they're deducted inside each payout, so recording only the net deposit understates both your revenue and your expenses. This tool splits every payout into gross sales, refunds, and the exact processing fees Stripe charged, posting the fees as their own expense lines through the clearing account. Your P&L then shows true revenue and true fee cost.",
+  },
+  {
     q: "Is my data uploaded to your servers?",
     a: "No. Your CSV is processed in memory to build the payout summary and is not stored afterwards. We never sell or share your financial data.",
   },
@@ -56,7 +64,7 @@ export default function StripeToQuickBooksPage() {
   return (
     <ToolPageLayout
       eyebrow="Free Tool"
-      title="Stripe to QuickBooks Payout Converter"
+      title="Stripe QBO Converter"
       subtitle="Turn a Stripe payout CSV into QuickBooks-ready books: gross sales, refunds, and fees correctly split through a clearing account — with a payout tie-out check."
       tool={<PayoutConverter provider="stripe" />}
       currentPath="/tools/free-stripe-to-quickbooks"
@@ -84,9 +92,9 @@ export default function StripeToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Already converting bank statements for QuickBooks? The payout converter pairs with our{" "}
-            <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
+            <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QuickBooks reconciliation converter</a>{" "}
             and the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
             to keep the whole month clean.
           </p>
         </>

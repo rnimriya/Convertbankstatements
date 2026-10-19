@@ -5,12 +5,12 @@ import { PayoutConverter } from "@/components/tools/PayoutConverter";
 const PAGE_URL = "https://www.convertstatement.online/tools/free-paypal-to-quickbooks";
 
 export const metadata: Metadata = {
-  title: "Free PayPal to QuickBooks Converter (Payout to QBO) | Convert Statement",
+  title: "PayPal Payout to QBO Converter — Free | Convert Statement",
   description:
-    "Turn a PayPal activity CSV into QuickBooks-ready books: gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free with a free account, files never stored.",
+    "Free PayPal Payout to QBO converter: turn a PayPal activity CSV into QuickBooks-ready books — gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free with a free account, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
-    title: "Free PayPal to QuickBooks Payout Converter",
+    title: "PayPal Payout to QBO Converter — Free",
     description:
       "Upload a PayPal activity CSV — get gross, fees, and refunds split correctly for QuickBooks with a tie-out check. Free.",
     url: PAGE_URL,
@@ -40,6 +40,10 @@ const FAQS: ToolFaq[] = [
     a: "The accounting is the same clearing-account model, but the parsing is built for PayPal's activity export — including its transfer-to-bank rows, which the tool uses to split your activity into payout periods automatically.",
   },
   {
+    q: "How do I connect PayPal to QuickBooks Online?",
+    a: "PayPal's own QuickBooks connector exists, but it syncs summarized activity and is a common source of miscategorized fees and duplicate entries. The file-based route is more reliable: download your PayPal activity as a CSV, run it through this converter to split gross sales, refunds, and fees into clearing-account entries, then import the QBO into QuickBooks Online. You get the full breakdown with no sync to maintain or break.",
+  },
+  {
     q: "Is my data uploaded to your servers?",
     a: "No. Your CSV is processed in memory to build the payout summary and is not stored afterwards. We never sell or share your financial data.",
   },
@@ -56,7 +60,7 @@ export default function PayPalToQuickBooksPage() {
   return (
     <ToolPageLayout
       eyebrow="Free Tool"
-      title="PayPal to QuickBooks Payout Converter"
+      title="PayPal Payout to QBO Converter"
       subtitle="Turn a PayPal activity CSV into QuickBooks-ready books: gross sales, refunds, and fees correctly split through a clearing account — with a payout tie-out check."
       tool={<PayoutConverter provider="paypal" />}
       currentPath="/tools/free-paypal-to-quickbooks"

@@ -7,7 +7,7 @@ const PAGE_URL = "https://www.convertstatement.online/tools/free-qbo-cleanup-che
 export const metadata: Metadata = {
   title: "Free QBO Duplicate Finder & Cleanup Checker | Convert Statement",
   description:
-    "Find duplicate transactions in your QuickBooks books before they break reconciliation: upload a .qbo, .ofx or .csv, get a health score, exact and near-duplicate report, and a cleaned QBO. Free with a free account, files never stored.",
+    "QBO Duplicate Finder: find duplicate transactions in your QuickBooks books before they break reconciliation — upload a .qbo, .ofx or .csv, get a health score, exact and near-duplicate report, and a cleaned QBO. Free with a free account, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Free QBO Duplicate Finder & Cleanup Checker",
@@ -38,6 +38,10 @@ const FAQS: ToolFaq[] = [
   {
     q: "My reconciliation difference never goes to zero. Will this help?",
     a: "Often, yes. The most common causes of a stuck reconciliation difference are duplicate transactions and old uncleared items — both are flagged here, including uncleared entries older than 90 days (from CSV exports with a cleared/status column). If the file carries running balances, the tool also verifies the balance chain.",
+  },
+  {
+    q: "Why do I have duplicate bank transactions in QuickBooks Online?",
+    a: "The most common cause is overlap: you import a bank statement file for dates the live bank feed already pulled in, so every transaction lands twice. Connector apps re-syncing old data and staff entering expenses manually are close seconds. This checker flags the doubled rows by transaction ID, date, and amount — exclude one set in QuickBooks (never both), and next time import only the dates your feed doesn't cover.",
   },
   {
     q: "Is my file uploaded to your servers?",

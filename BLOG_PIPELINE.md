@@ -18,10 +18,36 @@ Zero mistakes tolerance.
 
 - `angles` (5): convert-to-excel, convert-to-csv-quickbooks, import-to-xero,
   password-protected-pdf, statements-for-tax-filing
-- Each day: 5 consecutive banks from SUPPORTED_BANKS (dedupe by slug via
+- Each day: **4 bank posts + 1 QuickBooks keyword post** (see QB track below).
+  The 4 banks are consecutive from SUPPORTED_BANKS (dedupe by slug via
   `generateBankSlug`), one shared angle per day, angle rotates daily.
-- Advance `bankIndex` by 5 and `angleIndex` by 1 after a successful run.
-- 516 banks × 5 angles ≈ 517 days of unique content. Never repeat a bank+angle combo.
+- Advance `bankIndex` by 4 and `angleIndex` by 1 after a successful run.
+- 516 banks × 5 angles of unique bank content; never repeat a bank+angle combo.
+
+## QuickBooks keyword track (owner order, 2026-10-20)
+
+Owner: future blogs must target the QuickBooks keyword set (primaries:
+QuickBooks Reconciliation, QBO Duplicate Finder, Stripe QBO Converter,
+PayPal Payout to QBO Converter, Receipt to QBO) — mainly their long-tails,
+sourced from real Google/Bing autocomplete searches (2026-10-20 harvest).
+
+- Topic queue: `web/data/qb-topics.json` (28 topics; each has slug, title,
+  target `keyword`, `angle` brief, and `linkTo` tool/hub page).
+- Daily slot 5 (id `gen-YYYY-MM-DD-05`) = next topic at
+  `blog-rotation.json:qbTopicIndex`. Advance `qbTopicIndex` by 1 ONLY when
+  the QB article passes all gates and publishes; on failure, retry the same
+  topic tomorrow. When the queue is exhausted, slot 5 reverts to a 5th bank
+  post (bankIndex then advances by 5).
+- The QB article uses the topic's exact `slug` and `title`, works the target
+  keyword into the intro (first 100 words), ≥2 H2s, and the FAQ, links to its
+  `linkTo` page with keyword anchor text (plus ≥2 other verified internal
+  links), and follows ALL the same rules as bank posts: ≥800 words, ≥4 H2s,
+  FAQ section, unique AI images (feature 1600px + 2 inline 1200px, WebP q80,
+  photorealistic, section-matched), SEO alt format
+  "{keyword phrase} — {what the photo shows}".
+- Write honestly from the angle brief: our tools are file-based converters
+  and checkers, NOT live sync integrations — never claim a direct/native
+  Stripe/PayPal-to-QuickBooks connection.
 
 ## Article template (every article MUST follow)
 
