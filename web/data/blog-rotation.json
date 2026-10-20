@@ -1,6 +1,6 @@
 {
   "_comment": "Rotation state for the daily blog pipeline. The cron advances bankIndex by 5 and rotates angleIndex daily. Do not reset \u2014 516 banks x 5 angles = ~517 days of unique content.",
-  "angleIndex": 1,
+  "angleIndex": 2,
   "angles": [
     "convert-to-excel",
     "convert-to-csv-quickbooks",
@@ -8,8 +8,8 @@
     "password-protected-pdf",
     "statements-for-tax-filing"
   ],
-  "bankIndex": 56,
-  "lastRun": "2026-10-19",
-  "qbTopicIndex": 0,
-  "totalPublished": 52
+  "bankIndex": 60,
+  "lastRun": "2026-10-20",
+  "qbTopicIndex": 1,
+  "totalPublished": 57
 }
