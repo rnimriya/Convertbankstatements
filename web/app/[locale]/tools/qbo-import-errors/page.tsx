@@ -125,6 +125,8 @@ export default function QboImportErrorsPage() {
       howToName="How to diagnose a rejected QBO file"
       howToSteps={HOWTO}
       privacyLine="Free reference · Sample files only, nothing uploaded"
+      heroImage={{ src: "/images/tools/errors-hero.webp", alt: "Illustrative photo: a bookkeeper looking at a generic error warning on a laptop" }}
+      sectionImage={{ src: "/images/tools/errors-section.webp", alt: "Illustrative photo: a laptop with a generic warning dialog beside a checklist notebook" }}
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The decoder table</h2>

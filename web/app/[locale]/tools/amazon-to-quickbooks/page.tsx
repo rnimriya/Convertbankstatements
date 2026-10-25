@@ -64,6 +64,8 @@ export default function AmazonToQuickBooksPage() {
       howToName="How to record Amazon settlements in QuickBooks"
       howToSteps={HOWTO}
       privacyLine="No account needed to scan · Processed in memory, never stored"
+      heroImage={{ src: "/images/tools/amazon-hero.webp", alt: "Illustrative photo: a seller packing parcels at a desk with a laptop" }}
+      sectionImage={{ src: "/images/tools/amazon-section.webp", alt: "Illustrative photo: hands labelling a parcel beside a laptop" }}
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The clearing-account method</h2>

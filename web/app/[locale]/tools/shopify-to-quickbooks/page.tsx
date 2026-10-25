@@ -64,6 +64,8 @@ export default function ShopifyToQuickBooksPage() {
       howToName="How to record Shopify payouts in QuickBooks"
       howToSteps={HOWTO}
       privacyLine="No account needed to scan · Processed in memory, never stored"
+      heroImage={{ src: "/images/tools/shopify-hero.webp", alt: "Illustrative photo: an online store owner at a desk with orders on a laptop and packed parcels" }}
+      sectionImage={{ src: "/images/tools/shopify-section.webp", alt: "Illustrative photo: a laptop showing generic orders and payouts beside a notebook" }}
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The clearing-account method</h2>
