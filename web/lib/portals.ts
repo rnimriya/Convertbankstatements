@@ -12,6 +12,10 @@ export interface Portal {
   label: string;
   active: boolean;
   createdAt: string;
+  /** Optional client email, set by the owner at creation, for statement reminders. */
+  clientEmail: string;
+  /** ISO timestamp of the last reminder sent, "" when none. Rate-limit key. */
+  lastReminderAt: string;
 }
 
 // ── In-memory fallback for local dev ─────────────────────────────────────────
@@ -39,7 +43,7 @@ const UPK = (uid: string) => `cs:portals-by-user:${uid}`;
 
 // ── Public API ────────────────────────────────────────────────────────────────
 
-export async function createPortal(ownerId: string, label: string, customSlug?: string): Promise<Portal> {
+export async function createPortal(ownerId: string, label: string, customSlug?: string, clientEmail?: string): Promise<Portal> {
   let token = customSlug 
     ? customSlug.toLowerCase().replace(/[^a-z0-9-]/g, "").replace(/(^-|-$)+/g, "")
     : randomBytes(16).toString("hex");
@@ -59,11 +63,14 @@ export async function createPortal(ownerId: string, label: string, customSlug?: 
     label: label.trim() || "Upload Portal",
     active: true,
     createdAt: new Date().toISOString(),
+    clientEmail: (clientEmail ?? "").trim().slice(0, 120),
+    lastReminderAt: "",
   };
 
   if (useRedis()) {
     await r().hset(PK(token), {
       token, ownerId, label: portal.label, active: "1", createdAt: portal.createdAt,
+      clientEmail: portal.clientEmail, lastReminderAt: "",
     });
     await r().sadd(UPK(ownerId), token);
   } else {
@@ -87,6 +94,8 @@ export async function getPortal(token: string): Promise<Portal | null> {
       label: String(raw.label ?? ""),
       active: String(raw.active) === "1",
       createdAt: String(raw.createdAt ?? ""),
+      clientEmail: String(raw.clientEmail ?? ""),
+      lastReminderAt: String(raw.lastReminderAt ?? ""),
     };
   }
   return _memPortals.get(token) ?? null;
@@ -106,6 +115,17 @@ export async function listPortals(ownerId: string): Promise<Portal[]> {
     .map(t => _memPortals.get(t))
     .filter((p): p is Portal => p !== undefined && p.active)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+/** Record that a reminder was sent now (owner-only, checked by the remind route). */
+export async function markReminderSent(token: string): Promise<void> {
+  const now = new Date().toISOString();
+  if (useRedis()) {
+    await r().hset(PK(token), { lastReminderAt: now });
+  } else {
+    const p = _memPortals.get(token);
+    if (p) p.lastReminderAt = now;
+  }
 }
 
 export async function deactivatePortal(token: string, ownerId: string): Promise<boolean> {

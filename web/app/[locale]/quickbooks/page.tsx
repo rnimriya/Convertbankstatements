@@ -405,6 +405,11 @@ export default async function QuickBooksPage() {
                   { href: "/tools/free-paypal-to-quickbooks", label: "PayPal → QuickBooks Payout Converter" },
                   { href: "/tools/free-receipt-to-quickbooks", label: "Receipt → QuickBooks Converter" },
                   { href: "/tools/qbo-checker", label: "QBO File Checker" },
+                  { href: "/tools/csv-to-qbo", label: "CSV → QBO Converter" },
+                  { href: "/tools/amazon-to-quickbooks", label: "Amazon Settlement → QuickBooks" },
+                  { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout → QuickBooks" },
+                  { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder" },
+                  { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained" },
                 ].map((t) => (
                   <Link
                     key={t.href}

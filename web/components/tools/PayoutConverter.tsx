@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { CheckCircle2, AlertTriangle, Download, Lock } from "lucide-react";
-import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi, useToolAuth, ToolAuthWall, SIGNUP_REQUIRED_CODE } from "./tool-shared";
-import type { Provider } from "@/lib/tools/payout";
+import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi } from "./tool-shared";
+import { SampleDownloads } from "./SampleDownloads";
+import { PROVIDER_CLEARING, PROVIDER_LABELS, type Provider } from "@/lib/tools/payout";
 
 interface PayoutSummary {
   provider: Provider;
@@ -37,12 +38,11 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
   const [result, setResult] = useState<Result | null>(null);
   const [dlBusy, setDlBusy] = useState(false);
   const [gate, setGate] = useState<string | null>(null);
-  const [incomeAccount, setIncomeAccount] = useState(provider === "stripe" ? "Stripe Clearing" : "PayPal Clearing");
-  const [feeAccount, setFeeAccount] = useState(provider === "stripe" ? "Stripe Fees" : "PayPal Fees");
+  const [incomeAccount, setIncomeAccount] = useState(PROVIDER_CLEARING[provider]);
+  const [feeAccount, setFeeAccount] = useState(`${PROVIDER_LABELS[provider]} Fees`);
   const [bankAccount, setBankAccount] = useState("Business Checking");
-  const { authed, forceWall } = useToolAuth();
 
-  const label = provider === "stripe" ? "Stripe" : "PayPal";
+  const label = PROVIDER_LABELS[provider];
 
   async function handleFile(f: File) {
     setBusy(true);
@@ -57,7 +57,6 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
       const res = await fetch("/api/tools/payout-convert", { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        if (data?.code === SIGNUP_REQUIRED_CODE) { forceWall(); return; }
         throw new Error(data.error ?? "Could not read that CSV.");
       }
       setResult(data as Result);
@@ -85,16 +84,11 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
       await downloadFromApi("/api/tools/payout-download", { payouts: result.payouts }, `${label.toLowerCase()}-payout-clearing.qbo`);
     } catch (e) {
       const g = (e as Error & { gate?: string }).gate;
-      if ((e as Error & { code?: string }).code === SIGNUP_REQUIRED_CODE) forceWall();
-      else if (g === "login" || g === "upgrade") setGate(g);
+      if (g === "login" || g === "upgrade") setGate(g);
       else setError(e instanceof Error ? e.message : "Download failed.");
     } finally {
       setDlBusy(false);
     }
-  }
-
-  if (authed === false) {
-    return <ToolAuthWall path={provider === "stripe" ? "/tools/free-stripe-to-quickbooks" : "/tools/free-paypal-to-quickbooks"} />;
   }
 
   return (
@@ -108,6 +102,10 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
         activeTitle="Release to convert"
         onFile={(f) => void handleFile(f)}
       />
+      <div className="mt-4">
+        <p className="text-xs text-zinc-500 mb-2">Try it without your own data first:</p>
+        <SampleDownloads ids={[`${provider}-csv`]} />
+      </div>
 
       {error && (
         <p className="mt-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
@@ -174,7 +172,7 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
                   )}
                   {p.disputeFees !== 0 && (
                     <tr className="border-b border-zinc-100 dark:border-zinc-800">
-                      <td className="px-5 py-2">Dispute fees ($15 each)</td>
+                      <td className="px-5 py-2">{provider === "stripe" ? "Dispute fees ($15 each)" : "Dispute fees"}</td>
                       <td className="px-5 py-2 text-right font-mono">{usd(p.disputeFees)}</td>
                       <td className="px-5 py-2 text-xs text-zinc-400">→ {feeAccount} (returned only if won)</td>
                     </tr>
@@ -269,7 +267,9 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
             </ol>
             <p className="mt-2 text-xs text-zinc-400">
               Per-payout summary mode is free and covers most sellers. Per-transaction detail and
-              bulk payout conversion are available on Pro.
+              bulk payout conversion are available on Pro. If QuickBooks refuses the file, the{" "}
+              <a href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">import-error decoder</a>{" "}
+              explains what each error means and how to fix it.
             </p>
           </div>
         </div>

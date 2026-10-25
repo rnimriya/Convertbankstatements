@@ -7,7 +7,7 @@ const PAGE_URL = "https://www.convertstatement.online/tools/free-paypal-to-quick
 export const metadata: Metadata = {
   title: "PayPal Payout to QBO Converter — Free | Convert Statement",
   description:
-    "Free PayPal Payout to QBO converter: turn a PayPal activity CSV into QuickBooks-ready books — gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free with a free account, files never stored.",
+    "Free PayPal Payout to QBO converter: turn a PayPal activity CSV into QuickBooks-ready books — gross sales, refunds, and fees split through a clearing account with a payout tie-out check. No account needed to scan, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "PayPal Payout to QBO Converter — Free",
@@ -67,7 +67,7 @@ export default function PayPalToQuickBooksPage() {
       faqs={FAQS}
       howToName="How to record PayPal payouts in QuickBooks"
       howToSteps={HOWTO}
-      privacyLine="Free account · Processed in memory, never stored"
+      privacyLine="No account needed · Processed in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The clearing-account method</h2>

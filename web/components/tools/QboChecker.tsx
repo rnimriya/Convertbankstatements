@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+
 import { Upload, FileCheck2, AlertTriangle, XCircle, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
-import { useToolAuth, ToolAuthWall } from "./tool-shared";
 
 interface Issue { level: "error" | "warning"; message: string }
 interface Analysis {
@@ -33,7 +33,6 @@ export function QboChecker() {
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [result, setResult] = useState<Analysis | null>(null);
-  const { authed } = useToolAuth();
 
   async function handleFile(file: File) {
     setBusy(true);
@@ -56,8 +55,6 @@ export function QboChecker() {
 
   const errors = result?.issues.filter((i) => i.level === "error") ?? [];
   const warnings = result?.issues.filter((i) => i.level === "warning") ?? [];
-
-  if (authed === false) return <ToolAuthWall path="/tools/qbo-checker" />;
 
   return (
     <div>
@@ -91,7 +88,7 @@ export function QboChecker() {
           {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here, or click to browse"}
         </p>
         <p className="mt-1 text-sm text-zinc-400">
-          Free account · The file is checked in memory and never stored
+          No account needed · The file is checked in memory and never stored
         </p>
       </div>
 
@@ -168,6 +165,12 @@ export function QboChecker() {
               ))}
             </ul>
           )}
+
+          <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
+            If QuickBooks shows an error when importing, the{" "}
+            <Link href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO import-error decoder</Link>{" "}
+            explains what each message means and how to fix it.
+          </p>
 
           <div className="mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-6">
             <p className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">

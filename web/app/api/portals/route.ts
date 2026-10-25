@@ -7,6 +7,7 @@ import { z } from "zod";
 const createSchema = z.object({
   label: z.string().max(80).optional(),
   slug: z.string().max(80).optional(),
+  clientEmail: z.string().max(120).optional(),
 });
 
 /** GET /api/portals — list caller's portals */
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
 
   let portal;
   try {
-    portal = await createPortal(session.sub, parsed.data.label ?? "", parsed.data.slug);
+    portal = await createPortal(session.sub, parsed.data.label ?? "", parsed.data.slug, parsed.data.clientEmail);
   } catch (err: unknown) {
     return NextResponse.json({ error: err instanceof Error ? err.message : "Creation failed" }, { status: 400 });
   }

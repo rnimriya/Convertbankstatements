@@ -6,7 +6,7 @@ import {
   FileCheck2, AlertTriangle, XCircle, CheckCircle2, ArrowRight,
   Download, Printer, Sparkles,
 } from "lucide-react";
-import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFileFromApi, useToolAuth, ToolAuthWall, SIGNUP_REQUIRED_CODE } from "./tool-shared";
+import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFileFromApi } from "./tool-shared";
 
 interface CleanupRow {
   index: number; date: string; name: string; amount: number;
@@ -51,7 +51,6 @@ export function QboCleanupChecker() {
   const [result, setResult] = useState<Analysis | null>(null);
   const [dlBusy, setDlBusy] = useState(false);
   const [gate, setGate] = useState<string | null>(null);
-  const { authed, forceWall } = useToolAuth();
 
   async function handleFile(f: File) {
     setBusy(true);
@@ -66,7 +65,6 @@ export function QboCleanupChecker() {
       const res = await fetch("/api/tools/qbo-cleanup-check", { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        if (data?.code === SIGNUP_REQUIRED_CODE) { forceWall(); return; }
         throw new Error(data.error ?? "Could not check that file.");
       }
       setResult(data.analysis as Analysis);
@@ -109,9 +107,7 @@ export function QboCleanupChecker() {
       void removed;
     } catch (e) {
       const g = (e as Error & { gate?: string; code?: string }).gate;
-      if ((e as Error & { code?: string }).code === SIGNUP_REQUIRED_CODE) {
-        forceWall();
-      } else if (g === "login" || g === "upgrade") {
+      if (g === "login" || g === "upgrade") {
         setGate(g);
       } else {
         setError(e instanceof Error ? e.message : "Download failed.");
@@ -123,8 +119,6 @@ export function QboCleanupChecker() {
 
   const errors = result?.issues.filter((i) => i.level === "error") ?? [];
   const warnings = result?.issues.filter((i) => i.level === "warning") ?? [];
-
-  if (authed === false) return <ToolAuthWall path="/tools/free-qbo-cleanup-checker" />;
 
   return (
     <div>
@@ -289,7 +283,9 @@ export function QboCleanupChecker() {
           <p className="mt-3 text-xs text-zinc-400">
             The cleaned file drops exact duplicates, regenerates missing or repeated transaction
             IDs, and keeps near-matches for your review — the same format our converter exports,
-            balance-ready.
+            balance-ready. If QuickBooks still refuses a file, the{" "}
+            <Link href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">import-error decoder</Link>{" "}
+            explains each error and its fix.
           </p>
 
           {/* Cleanup upsell */}

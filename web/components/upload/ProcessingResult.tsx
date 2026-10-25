@@ -7,6 +7,7 @@ import { Button } from"@/components/ui/Button";
 import { Badge } from"@/components/ui/Badge";
 import { Alert } from "@/components/ui/Alert";
 import { AnalyticsDashboard } from "./AnalyticsDashboard";
+import { PreImportCheck } from "@/components/tools/PreImportCheck";
 
 interface Props {
   result: ProcessResult & { is_demo?: boolean };
@@ -260,6 +261,11 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 <span className="font-semibold">{result.locked_formats.map(f => (FORMAT_LABELS[f] ?? f.toUpperCase()).replace(/^Download /, "")).join(", ")}</span>
                 {" "}exports are Pro plan features. <a href="/pricing" className="font-semibold underline">Upgrade to Pro</a> to unlock them — your downloads above are ready.
               </div>
+            )}
+
+            {/* Pre-import check — runs the exact QBO download through the checker */}
+            {result.export_urls.qbo && (
+              <PreImportCheck qboUrl={result.export_urls.qbo} />
             )}
 
             {/* Send to QuickBooks (direct connect) */}

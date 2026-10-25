@@ -180,7 +180,12 @@
     "qboDuplicateFinder": "QBO Duplicate Finder",
     "stripeQboConverter": "Stripe QBO Converter",
     "paypalPayoutQboConverter": "PayPal Payout to QBO Converter",
-    "receiptToQbo": "Receipt to QBO"
+    "receiptToQbo": "Receipt to QBO",
+    "csvToQbo": "CSV to QBO Converter",
+    "amazonToQuickbooks": "Amazon to QuickBooks",
+    "shopifyToQuickbooks": "Shopify to QuickBooks",
+    "reconciliationFinder": "Reconciliation Difference Finder",
+    "qboImportErrors": "QBO Import Errors, Explained"
   },
   "auth": {
     "loginTitle": "Welcome back",

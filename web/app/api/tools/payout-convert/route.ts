@@ -1,17 +1,13 @@
 /**
- * POST /api/tools/payout-convert — free Stripe/PayPal payout analysis (free account required).
+ * POST /api/tools/payout-convert — free payout analysis, no account required.
  * Accepts one CSV export (max 10 MB), auto-detects the export format, groups
  * transactions into payouts using the clearing-account model, and returns per-
  * payout summaries with a tie-out check plus a QBO-Online-ready CSV. Nothing
- * is stored. The .qbo download is Pro-gated at /api/tools/payout-download.
+ * is stored. Anonymous use is rate-limited by checkUploadRateLimit. The .qbo
+ * download stays Pro-gated at /api/tools/payout-download.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
-import {
-  requireToolUser,
-  SIGNUP_REQUIRED_ERROR,
-  SIGNUP_REQUIRED_CODE,
-} from "@/lib/tools/download-gate";
 import { parsePayoutCsv, type Provider } from "@/lib/tools/payout";
 
 export const maxDuration = 30;
@@ -22,14 +18,6 @@ export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
 
-  const toolUser = await requireToolUser();
-  if (!toolUser) {
-    return NextResponse.json(
-      { error: SIGNUP_REQUIRED_ERROR, code: SIGNUP_REQUIRED_CODE },
-      { status: 401 }
-    );
-  }
-
   let formData: FormData;
   try {
     formData = await req.formData();
@@ -38,7 +26,8 @@ export async function POST(req: NextRequest) {
   }
 
   const file = formData.get("file") as File | null;
-  const provider = (formData.get("provider") as string) === "paypal" ? "paypal" : "stripe";
+  const rawProvider = formData.get("provider") as string;
+  const provider: Provider = rawProvider === "paypal" || rawProvider === "amazon" || rawProvider === "shopify" ? rawProvider : "stripe";
   if (!file) {
     return NextResponse.json({ error: "No file received." }, { status: 400 });
   }

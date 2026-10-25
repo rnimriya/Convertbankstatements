@@ -45,6 +45,11 @@ export async function Footer() {
         { label: t("stripeQboConverter"),       href: "/tools/free-stripe-to-quickbooks" },
         { label: t("paypalPayoutQboConverter"),  href: "/tools/free-paypal-to-quickbooks" },
         { label: t("receiptToQbo"),             href: "/tools/free-receipt-to-quickbooks" },
+        { label: t("csvToQbo"),                 href: "/tools/csv-to-qbo" },
+        { label: t("amazonToQuickbooks"),       href: "/tools/amazon-to-quickbooks" },
+        { label: t("shopifyToQuickbooks"),      href: "/tools/shopify-to-quickbooks" },
+        { label: t("reconciliationFinder"),     href: "/tools/reconciliation-finder" },
+        { label: t("qboImportErrors"),          href: "/tools/qbo-import-errors" },
       ],
     },
     {

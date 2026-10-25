@@ -1,13 +1,15 @@
 "use client";
 
 import { useState, useEffect } from"react";
-import { Plus, Copy, CheckCircle2, Trash2, Link2, Loader2 } from"lucide-react";
+import { Plus, Copy, CheckCircle2, Trash2, Link2, Loader2, Mail } from"lucide-react";
 
 interface Portal {
   token: string;
   label: string;
   active: boolean;
   createdAt: string;
+  clientEmail?: string;
+  lastReminderAt?: string;
 }
 
 export function PortalsPanel() {
@@ -16,9 +18,12 @@ export function PortalsPanel() {
   const [creating, setCreating] = useState(false);
   const [newLabel, setNewLabel] = useState("");
   const [newSlug, setNewSlug] = useState("");
+  const [newEmail, setNewEmail] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
   const [confirmToken, setConfirmToken] = useState<string | null>(null);
+  const [remindedToken, setRemindedToken] = useState<string | null>(null);
+  const [remindBusy, setRemindBusy] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/portals")
@@ -34,19 +39,35 @@ export function PortalsPanel() {
       const res = await fetch("/api/portals", {
         method:"POST",
         headers: {"Content-Type":"application/json" },
-        body: JSON.stringify({ label: newLabel, slug: newSlug }),
+        body: JSON.stringify({ label: newLabel, slug: newSlug, clientEmail: newEmail }),
       });
       const data = await res.json();
       if (res.ok) {
         setPortals(p => [data.portal, ...p]);
         setNewLabel("");
         setNewSlug("");
+        setNewEmail("");
         setShowForm(false);
       } else {
         alert(data.error || "Failed to create portal");
       }
     } catch { /* non-fatal */ }
     setCreating(false);
+  }
+
+  async function sendReminder(token: string) {
+    setRemindBusy(token);
+    try {
+      const res = await fetch(`/api/portals/${token}/remind`, { method:"POST" });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setRemindedToken(token);
+        setTimeout(() => setRemindedToken(null), 4000);
+      } else {
+        alert(data.error || "Failed to send reminder");
+      }
+    } catch { /* non-fatal */ }
+    setRemindBusy(null);
   }
 
   async function deactivate(token: string) {
@@ -82,6 +103,13 @@ export function PortalsPanel() {
                 autoFocus
               />
             </div>
+            <input
+              type="email"
+              value={newEmail}
+              onChange={e => setNewEmail(e.target.value)}
+              placeholder="Client email (optional — enables the Send reminder button)"
+              className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
+            />
             <div className="flex flex-col sm:flex-row gap-2 items-center">
               <div className="flex-1 flex items-center rounded-xl border border-brand-border bg-brand-surface overflow-hidden focus-within:ring-2 focus-within:ring-navy/10 focus-within:border-navy transition-all">
                 <span className="px-3 py-2.5 text-sm text-brand-muted bg-zinc-50 dark:bg-zinc-900 border-r border-brand-border hidden sm:block">
@@ -153,6 +181,9 @@ export function PortalsPanel() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-white truncate">{portal.label}</p>
                   <a href={url} target="_blank" rel="noopener noreferrer" title={url} className="block text-xs text-brand-muted font-mono break-all hover:underline">/p/{portal.token}</a>
+                  {portal.clientEmail ? (
+                    <p className="text-xs text-brand-muted truncate">Client: {portal.clientEmail}</p>
+                  ) : null}
                 </div>
                 <button
                   onClick={() => copyUrl(portal.token)}
@@ -160,6 +191,17 @@ export function PortalsPanel() {
                 >
                   {isCopied ? <><CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={12} /> Copied</> : <><Copy className="text-cyan-500 dark:text-cyan-400"  size={12} /> Copy link</>}
                 </button>
+                {portal.clientEmail ? (
+                  <button
+                    onClick={() => sendReminder(portal.token)}
+                    disabled={remindBusy === portal.token}
+                    title={`Send a statement reminder to ${portal.clientEmail} (max once per day)`}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${remindedToken === portal.token ?"bg-emerald-100 text-emerald-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"} disabled:opacity-50`}
+                  >
+                    <Mail size={12} className="text-blue-500 dark:text-blue-400" />
+                    {remindBusy === portal.token ? "Sending…" : remindedToken === portal.token ? "Reminder sent" : "Send reminder"}
+                  </button>
+                ) : null}
                 {confirmToken === portal.token ? (
                   <span className="flex items-center gap-1.5 shrink-0">
                     <button

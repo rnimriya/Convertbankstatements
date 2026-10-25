@@ -20,7 +20,12 @@ export async function qboDownloadGate(): Promise<GateVerdict> {
 export const QBO_LOCKED_MESSAGE =
   "QBO download is included on the Pro plan ($20/month). The full report and CSV download above are free — sign in and upgrade to unlock the one-click QBO.";
 
-/** Signup gate for the 4 free QuickBooks tools: an account is required to run them. */
+/**
+ * Signup gate, kept for QBO downloads only: scans, reports, and CSV exports
+ * are free without an account (scan routes no longer call requireToolUser),
+ * but every .qbo download still requires a signed-in Pro/Business account
+ * via qboDownloadGate below. Do not re-add this gate to scan routes.
+ */
 export const SIGNUP_REQUIRED_ERROR =
   "Please create a free account to use this tool.";
 export const SIGNUP_REQUIRED_CODE = "SIGNUP_REQUIRED";

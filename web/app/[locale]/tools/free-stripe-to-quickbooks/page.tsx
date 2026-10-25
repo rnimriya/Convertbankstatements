@@ -7,7 +7,7 @@ const PAGE_URL = "https://www.convertstatement.online/tools/free-stripe-to-quick
 export const metadata: Metadata = {
   title: "Stripe QBO Converter — Free Stripe Payouts to QuickBooks | Convert Statement",
   description:
-    "Free Stripe QBO converter: turn a Stripe payout CSV into QuickBooks-ready books — gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free per-payout summary with a free account, files never stored.",
+    "Free Stripe QBO converter: turn a Stripe payout CSV into QuickBooks-ready books — gross sales, refunds, and fees split through a clearing account with a payout tie-out check. Free per-payout summary with no account needed, files never stored.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Stripe QBO Converter — Stripe Payouts to QuickBooks",
@@ -71,7 +71,7 @@ export default function StripeToQuickBooksPage() {
       faqs={FAQS}
       howToName="How to record Stripe payouts in QuickBooks"
       howToSteps={HOWTO}
-      privacyLine="Free account · Processed in memory, never stored"
+      privacyLine="No account needed · Processed in memory, never stored"
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">The clearing-account method</h2>

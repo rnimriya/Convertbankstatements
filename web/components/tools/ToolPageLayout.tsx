@@ -21,11 +21,16 @@ const FREE_TOOLS = [
   { href: "/tools/free-paypal-to-quickbooks", label: "PayPal Payout to QBO Converter" },
   { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QBO" },
   { href: "/tools/qbo-checker", label: "QBO File Checker" },
+  { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter" },
+  { href: "/tools/amazon-to-quickbooks", label: "Amazon Settlement to QuickBooks" },
+  { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout to QuickBooks" },
+  { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder" },
+  { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained" },
 ];
 
 const TRUST_PILLS = [
   { icon: <Zap size={13} className="text-amber-500 dark:text-amber-400" />, label: "Free to use" },
-  { icon: <Shield size={13} className="text-emerald-500 dark:text-emerald-400" />, label: "Free with account" },
+  { icon: <Shield size={13} className="text-emerald-500 dark:text-emerald-400" />, label: "Scan free, QBO downloads on Pro" },
   { icon: <Lock size={13} className="text-sky-500 dark:text-sky-400" />, label: "Files never stored" },
 ];
 
@@ -227,7 +232,7 @@ export async function ToolPageLayout({
                       {t.label}
                     </h3>
                     <p className="text-sm text-brand-muted leading-relaxed flex-1">
-                      Free with a free account — files are processed in memory and never stored.
+                      Free to scan — files are processed in memory and never stored. QBO downloads are on Pro.
                     </p>
                   </div>
                 </Link>

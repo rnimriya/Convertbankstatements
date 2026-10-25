@@ -15,7 +15,21 @@
 import { transactionsToQBO } from "@/lib/mock-transactions";
 import type { Transaction } from "@/types/billing";
 
-export type Provider = "stripe" | "paypal";
+export type Provider = "stripe" | "paypal" | "amazon" | "shopify";
+
+export const PROVIDER_LABELS: Record<Provider, string> = {
+  stripe: "Stripe",
+  paypal: "PayPal",
+  amazon: "Amazon",
+  shopify: "Shopify",
+};
+
+export const PROVIDER_CLEARING: Record<Provider, string> = {
+  stripe: "Stripe Clearing",
+  paypal: "PayPal Clearing",
+  amazon: "Amazon Clearing",
+  shopify: "Shopify Clearing",
+};
 
 export interface NormalizedRow {
   id: string;
@@ -281,6 +295,91 @@ function paypalRows(lines: string[][], headers: string[]): NormalizedRow[] {
   return rows;
 }
 
+// ── Amazon parser ────────────────────────────────────────────────────────────
+//
+// Expected columns (documented on the tool page; rename your export's headers
+// to match when Amazon's format differs — settlement reports vary by region):
+//   settlement-id, date (posted date), transaction-type, order-id, amount, fee
+// amount is signed: positive for a sale, negative for a refund. A row whose
+// type is "Payout" / "Settlement" / "Deposit" carries the bank deposit total
+// (its net column, falling back to amount) and is used as the tie-out target.
+function amazonRows(lines: string[][], headers: string[]): NormalizedRow[] {
+  // Normalize separators so "settlement-id", "settlement_id", and
+  // "settlement id" all match the same aliases below.
+  const lower = headers.map((h) => h.toLowerCase().replace(/[-_]/g, " "));
+  const settleI = colIdx(lower, "settlement id", "settlement-id", "settlement_id");
+  const dateI = colIdx(lower, "posted date", "date", "settlement date", "transaction date");
+  const typeI = colIdx(lower, "transaction type", "type");
+  const amtI = colIdx(lower, "amount", "gross", "total amount");
+  const feeI = colIdx(lower, "fee", "fees", "total fees");
+  const netI = colIdx(lower, "net", "payout amount", "deposit amount");
+  const idI = colIdx(lower, "order id", "order-id", "transaction id", "id");
+  const rows: NormalizedRow[] = [];
+  for (const cells of lines) {
+    const type = (cells[typeI] ?? "").toLowerCase();
+    const amount = parseMoney(cells[amtI]);
+    const fee = -Math.abs(parseMoney(cells[feeI]));
+    const net = parseMoney(cells[netI]);
+    const settlementId = (cells[settleI] ?? "").trim() || null;
+    const id = (cells[idI] ?? "").trim() || `amz_${rows.length}`;
+    if (type.includes("payout") || type.includes("settlement") || type.includes("deposit") || type.includes("transfer")) {
+      rows.push({ id, kind: "payout", amount: net !== 0 ? net : amount, fee: 0, date: parseDateFlex(cells[dateI]), payoutId: settlementId, label: "Amazon settlement payout" });
+    } else if (type.includes("refund")) {
+      rows.push({ id, kind: "refund", amount: -Math.abs(amount), fee, date: parseDateFlex(cells[dateI]), payoutId: settlementId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else if (type.includes("chargeback") || type.includes("dispute") || type.includes("claim")) {
+      rows.push({ id, kind: "dispute", amount: -Math.abs(amount), fee, date: parseDateFlex(cells[dateI]), payoutId: settlementId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else if (type.includes("fee")) {
+      rows.push({ id, kind: "fee", amount: 0, fee: -Math.abs(amount !== 0 ? amount : fee), date: parseDateFlex(cells[dateI]), payoutId: settlementId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else if (type.includes("adjustment")) {
+      rows.push({ id, kind: "adjustment", amount, fee, date: parseDateFlex(cells[dateI]), payoutId: settlementId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else {
+      rows.push({ id, kind: "charge", amount, fee, date: parseDateFlex(cells[dateI]), payoutId: settlementId, label: (cells[typeI] ?? "").trim().slice(0, 100) || "Amazon order" });
+    }
+  }
+  return rows;
+}
+
+// ── Shopify parser ───────────────────────────────────────────────────────────
+//
+// Expected columns (Shopify Payments payout export):
+//   payout-id, date, type, gross, fee, net
+// type: Charge | Refund | Payout | Fee | Adjustment. A Payout row carries the
+// bank deposit total in its net column and is used as the tie-out target.
+function shopifyRows(lines: string[][], headers: string[]): NormalizedRow[] {
+  // Same separator normalization as amazonRows ("payout-id" == "payout id").
+  const lower = headers.map((h) => h.toLowerCase().replace(/[-_]/g, " "));
+  const payoutI = colIdx(lower, "payout id", "payout-id", "payout_id");
+  const dateI = colIdx(lower, "date", "payout date", "transaction date");
+  const typeI = colIdx(lower, "type", "transaction type");
+  const grossI = colIdx(lower, "gross", "amount");
+  const feeI = colIdx(lower, "fee", "fees");
+  const netI = colIdx(lower, "net");
+  const idI = colIdx(lower, "transaction id", "id", "order id");
+  const rows: NormalizedRow[] = [];
+  for (const cells of lines) {
+    const type = (cells[typeI] ?? "").toLowerCase();
+    const gross = parseMoney(cells[grossI]);
+    const fee = -Math.abs(parseMoney(cells[feeI]));
+    const net = parseMoney(cells[netI]);
+    const payoutId = (cells[payoutI] ?? "").trim() || null;
+    const id = (cells[idI] ?? "").trim() || `shop_${rows.length}`;
+    if (type.includes("payout") || type.includes("transfer")) {
+      rows.push({ id, kind: "payout", amount: net !== 0 ? net : gross, fee: 0, date: parseDateFlex(cells[dateI]), payoutId, label: "Shopify payout" });
+    } else if (type.includes("refund")) {
+      rows.push({ id, kind: "refund", amount: -Math.abs(gross), fee, date: parseDateFlex(cells[dateI]), payoutId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else if (type.includes("chargeback") || type.includes("dispute")) {
+      rows.push({ id, kind: "dispute", amount: -Math.abs(gross), fee, date: parseDateFlex(cells[dateI]), payoutId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else if (type.includes("fee")) {
+      rows.push({ id, kind: "fee", amount: 0, fee: -Math.abs(gross !== 0 ? gross : fee), date: parseDateFlex(cells[dateI]), payoutId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else if (type.includes("adjustment")) {
+      rows.push({ id, kind: "adjustment", amount: gross, fee, date: parseDateFlex(cells[dateI]), payoutId, label: (cells[typeI] ?? "").trim().slice(0, 100) });
+    } else {
+      rows.push({ id, kind: "charge", amount: gross, fee, date: parseDateFlex(cells[dateI]), payoutId, label: (cells[typeI] ?? "").trim().slice(0, 100) || "Shopify order" });
+    }
+  }
+  return rows;
+}
+
 // ── Grouping into payouts + clearing model ───────────────────────────────────
 
 function fitidForPayout(payoutId: string | null, kind: string, idx: number, salt: string): string {
@@ -318,7 +417,7 @@ function summarize(provider: Provider, rows: NormalizedRow[], payoutId: string |
   // Clearing-account view: the QBO file represents the "{Provider} Clearing"
   // account. Each line below is one STMTTRN; the final transfer moves the net
   // to the real checking account, which the user matches in their bank feed.
-  const clearing = provider === "stripe" ? "Stripe Clearing" : "PayPal Clearing";
+  const clearing = PROVIDER_CLEARING[provider];
   const t: Array<[string, number, string, string]> = [];
   let i = 0;
   const salt = `${payoutDate}|${net.toFixed(2)}`;
@@ -329,7 +428,7 @@ function summarize(provider: Provider, rows: NormalizedRow[], payoutId: string |
   if (Math.abs(disputes) > 0.004)
     t.push([`${label} disputes/chargebacks`, disputes, "Income", fitidForPayout(payoutId, "DISPUTES", i++, salt)]);
   if (Math.abs(disputeFees) > 0.004)
-    t.push(["Dispute fees ($15 each, returned only if won)", disputeFees, "Bank Fees", fitidForPayout(payoutId, "DFEE", i++, salt)]);
+    t.push([provider === "stripe" ? "Dispute fees ($15 each, returned only if won)" : "Dispute fees", disputeFees, "Bank Fees", fitidForPayout(payoutId, "DFEE", i++, salt)]);
   const otherFees = r2(fees - disputeFees);
   if (Math.abs(otherFees) > 0.004)
     t.push([`${label} processing fees`, otherFees, "Bank Fees", fitidForPayout(payoutId, "FEES", i++, salt)]);
@@ -390,7 +489,7 @@ export function parsePayoutCsv(text: string, provider: Provider): PayoutResult {
     }
     detectedFormat = `Stripe — ${fmt}`;
     rows = stripeRows(body, headers, fmt, warnings);
-  } else {
+  } else if (provider === "paypal") {
     if (!headers.includes("gross") || !headers.includes("type")) {
       throw new Error(
         "We couldn't recognize this as a PayPal activity export. In PayPal, go to Activity → Statements → Activity download and choose CSV."
@@ -398,6 +497,26 @@ export function parsePayoutCsv(text: string, provider: Provider): PayoutResult {
     }
     detectedFormat = "PayPal — Activity download";
     rows = paypalRows(body, headers);
+  } else if (provider === "amazon") {
+    // Headers arrive lowercased but may use hyphens or underscores, so
+    // normalize separators before checking ("settlement-id" == "settlement id").
+    const norm = headers.map((h) => h.replace(/[-_]/g, " "));
+    if (!norm.includes("settlement id") && !norm.includes("transaction type")) {
+      throw new Error(
+        "We couldn't recognize this as an Amazon settlement export. It needs columns: settlement-id, date, transaction-type, order-id, amount, fee (see the sample file on the tool page)."
+      );
+    }
+    detectedFormat = "Amazon — Settlement report";
+    rows = amazonRows(body, headers);
+  } else {
+    const norm = headers.map((h) => h.replace(/[-_]/g, " "));
+    if (!norm.includes("payout id") || !norm.includes("gross")) {
+      throw new Error(
+        "We couldn't recognize this as a Shopify Payments payout export. It needs columns: payout-id, date, type, gross, fee, net (see the sample file on the tool page)."
+      );
+    }
+    detectedFormat = "Shopify — Payments payout export";
+    rows = shopifyRows(body, headers);
   }
 
   if (rows.length === 0) {
@@ -440,9 +559,9 @@ export function parsePayoutCsv(text: string, provider: Provider): PayoutResult {
     }
   } else if (byPayout.size > 1 || (byPayout.size === 1 && !byPayout.has(null))) {
     const keys = [...byPayout.keys()].sort((a, b) => String(a).localeCompare(String(b)));
-    payouts = keys.map((k) => summarize(provider, byPayout.get(k)!, k, "Stripe"));
+    payouts = keys.map((k) => summarize(provider, byPayout.get(k)!, k, PROVIDER_LABELS[provider]));
   } else {
-    payouts = [summarize(provider, rows.filter((r) => r.kind !== "payout" && r.kind !== "transfer"), null, "Stripe")];
+    payouts = [summarize(provider, rows.filter((r) => r.kind !== "payout" && r.kind !== "transfer"), null, PROVIDER_LABELS[provider])];
   }
 
   // Attach bank amounts for stripe payout rows when grouping was by payout id.
@@ -465,7 +584,7 @@ export function parsePayoutCsv(text: string, provider: Provider): PayoutResult {
     // the UI directs the user to the itemized report instead.
     if (payouts.length === 1 && payouts[0].rowCount === 0 && byPayout.size === 0) {
       payouts = payoutRows.map((r) => ({
-        ...summarize(provider, [], r.payoutId ?? r.id, "Stripe"),
+        ...summarize(provider, [], r.payoutId ?? r.id, PROVIDER_LABELS[provider]),
         payoutId: r.payoutId ?? r.id,
         payoutDate: r.date,
         bankAmount: r2(r.amount),

@@ -1,15 +1,11 @@
 /**
- * POST /api/tools/qbo-check — free QBO/OFX file validator (free account required).
+ * POST /api/tools/qbo-check — free QBO/OFX file validator, no account required.
  * Accepts one .qbo/.ofx/.qfx file (max 10 MB), parses it in memory and
- * returns a structural + balance analysis. Nothing is stored.
+ * returns a structural + balance analysis. Nothing is stored. Anonymous use
+ * is rate-limited by checkUploadRateLimit.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { checkUploadRateLimit } from "@/lib/rate-limit";
-import {
-  requireToolUser,
-  SIGNUP_REQUIRED_ERROR,
-  SIGNUP_REQUIRED_CODE,
-} from "@/lib/tools/download-gate";
 import { analyzeOfx } from "@/lib/ofx-check";
 
 export const maxDuration = 30;
@@ -19,14 +15,6 @@ const MAX_SIZE = 10 * 1024 * 1024;
 export async function POST(req: NextRequest) {
   const limited = await checkUploadRateLimit(req);
   if (limited) return limited;
-
-  const toolUser = await requireToolUser();
-  if (!toolUser) {
-    return NextResponse.json(
-      { error: SIGNUP_REQUIRED_ERROR, code: SIGNUP_REQUIRED_CODE },
-      { status: 401 }
-    );
-  }
 
   let formData: FormData;
   try {
