@@ -85,34 +85,24 @@ export default function SynderAlternativePage() {
         <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-blue-500 dark:bg-blue-600 rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
-            <div className="grid md:grid-cols-2 gap-10 items-center mb-6">
-              <div>
+            <div className="text-center mb-6 max-w-4xl mx-auto">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
                 Comparison
               </span>
               <h1 className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
                 A Synder alternative, honestly compared
               </h1>
-              <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
+              <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
                 Synder is a live sync product. Convert Statement is a file converter with a
                 free lite tier. They overlap on payout conversion — and differ everywhere
                 else. Here is the honest version, including when Synder is the better fit.
               </p>
-              </div>
-              <figure className="m-0">
-                <img src="/images/tools/synder-hero.webp" alt="Illustrative photo: a person comparing two payout reports, one on a laptop and one printed" width={1200} height={800} loading="eager" className="w-full rounded-2xl shadow-lg" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-                <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-              </figure>
             </div>
           </div>
         </section>
 
         <section className="py-24 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <figure className="m-0 mb-10 mx-auto max-w-3xl">
-              <img src="/images/tools/synder-section.webp" alt="Illustrative photo: a laptop with generic payout charts beside a notebook with a pros-and-cons list" width={1200} height={800} loading="lazy" className="w-full rounded-2xl shadow" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-              <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-            </figure>
             <div className="overflow-x-auto rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
               <table className="w-full text-sm min-w-[640px]">
                 <thead>

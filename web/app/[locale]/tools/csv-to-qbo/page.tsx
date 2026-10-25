@@ -64,8 +64,6 @@ export default function CsvToQboPage() {
       howToName="How to convert a CSV to QBO"
       howToSteps={HOWTO}
       privacyLine="No account needed to scan · Processed in memory, never stored"
-      heroImage={{ src: "/images/tools/csv-hero.webp", alt: "Illustrative photo: a small business owner reviewing bank transactions on a laptop" }}
-      sectionImage={{ src: "/images/tools/csv-spreadsheet.webp", alt: "Illustrative photo: bank transactions in a spreadsheet on a laptop" }}
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Why a plain CSV import goes wrong</h2>
@@ -78,10 +76,6 @@ export default function CsvToQboPage() {
             running-balance chain when your export carries balances, and gives every row a
             unique transaction ID so a re-import cannot duplicate your books.
           </p>
-          <figure className="m-0 mt-10">
-            <img src="/images/tools/csv-review.webp" alt="Illustrative photo: a bookkeeper reviewing accounts on a laptop" width={1200} height={800} loading="lazy" className="w-full rounded-2xl shadow" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-            <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-          </figure>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white mt-12">What this tool handles</h2>
           <ul className="mt-4 space-y-2.5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             <li><strong className="text-zinc-900 dark:text-white">Column mapping</strong> — auto-detected from your headers, editable when your bank names things differently.</li>

@@ -64,8 +64,6 @@ export default function ReconciliationFinderPage() {
       howToName="How to find a reconciliation difference"
       howToSteps={HOWTO}
       privacyLine="No account needed to scan · Processed in memory, never stored"
-      heroImage={{ src: "/images/tools/recon-hero.webp", alt: "Illustrative photo: a person comparing a printed bank statement with a ledger on a laptop" }}
-      sectionImage={{ src: "/images/tools/recon-section.webp", alt: "Illustrative photo: hands ticking off transactions on a printed statement against a laptop ledger" }}
       content={
         <>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">A difference is a list, not a number</h2>

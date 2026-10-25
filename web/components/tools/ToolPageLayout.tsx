@@ -15,11 +15,6 @@ export interface ToolFaq {
   a: string;
 }
 
-export interface ToolImage {
-  src: string;
-  alt: string;
-}
-
 const FREE_TOOLS = [
   { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder" },
   { href: "/tools/free-stripe-to-quickbooks", label: "Stripe QBO Converter" },
@@ -62,8 +57,6 @@ export async function ToolPageLayout({
   howToSteps,
   currentPath,
   privacyLine,
-  heroImage,
-  sectionImage,
 }: {
   eyebrow: string;
   title: string;
@@ -75,8 +68,6 @@ export async function ToolPageLayout({
   howToSteps: { title: string; body: string }[];
   currentPath: string;
   privacyLine: string;
-  heroImage?: ToolImage;
-  sectionImage?: ToolImage;
 }) {
   const nonce = BUILD_NONCE;
 
@@ -130,44 +121,21 @@ export async function ToolPageLayout({
           {/* Content container — same width as /blog (max-w-6xl) */}
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
 
-            {/* ── Headline block — centered, or split with a hero image ── */}
-            {heroImage ? (
-              <div className="grid md:grid-cols-2 gap-10 items-center mb-6">
-                <div>
-                  <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
-                    {eyebrow}
-                  </span>
-                  <h1
-                    className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
-                    style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
-                  >
-                    {title}
-                  </h1>
-                  <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
-                    {subtitle}
-                  </p>
-                </div>
-                <figure className="m-0">
-                  <img src={heroImage.src} alt={heroImage.alt} width={1200} height={800} loading="eager" className="w-full rounded-2xl shadow-lg" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-                  <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-                </figure>
-              </div>
-            ) : (
-              <div className="text-center mb-6 max-w-4xl mx-auto">
-                <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
-                  {eyebrow}
-                </span>
-                <h1
-                  className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
-                  style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
-                >
-                  {title}
-                </h1>
-                <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-                  {subtitle}
-                </p>
-              </div>
-            )}
+            {/* ── Headline block — centered ── */}
+            <div className="text-center mb-6 max-w-4xl mx-auto">
+              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
+                {eyebrow}
+              </span>
+              <h1
+                className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
+                style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
+              >
+                {title}
+              </h1>
+              <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                {subtitle}
+              </p>
+            </div>
 
             {/* ── Tool card — full width of the page container ── */}
             <div className="w-full">
@@ -207,13 +175,6 @@ export async function ToolPageLayout({
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">{howToName}</h2>
             </div>
-
-            {sectionImage && (
-              <figure className="m-0 mb-10 mx-auto max-w-3xl">
-                <img src={sectionImage.src} alt={sectionImage.alt} width={1200} height={800} loading="lazy" className="w-full rounded-2xl shadow" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-                <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-              </figure>
-            )}
 
             <div className={`${stepGrid} divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800 border border-brand-border rounded-2xl overflow-hidden`}>
               {howToSteps.map((s, i) => {

@@ -68,15 +68,14 @@ export default function QuickBooksCleanupPage() {
         <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-blue-500 dark:bg-blue-600 rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
-            <div className="grid md:grid-cols-2 gap-10 items-center mb-6">
-              <div>
+            <div className="text-center mb-6 max-w-4xl mx-auto">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
                 Service
               </span>
               <h1 className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
                 QuickBooks Cleanup Service
               </h1>
-              <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl leading-relaxed">
+              <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
                 Months of duplicates, unreconciled accounts, and imports that never quite
                 matched the bank? We clean the whole thing up — and quote you a fixed price
                 before any work starts.
@@ -92,21 +91,12 @@ export default function QuickBooksCleanupPage() {
                   On the contact form, use the subject line “QuickBooks Cleanup” and tell us how many months and accounts you have.
                 </p>
               </div>
-              </div>
-              <figure className="m-0">
-                <img src="/images/tools/cleanup-hero.webp" alt="Illustrative photo: a tidy desk with labelled folders and a laptop showing a clean spreadsheet" width={1200} height={800} loading="eager" className="w-full rounded-2xl shadow-lg" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-                <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-              </figure>
             </div>
           </div>
         </section>
 
         <section className="py-24 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <figure className="m-0 mb-10 mx-auto max-w-3xl">
-              <img src="/images/tools/cleanup-section.webp" alt="Illustrative photo: filing trays with sorted receipts beside a laptop" width={1200} height={800} loading="lazy" className="w-full rounded-2xl shadow" style={{ aspectRatio: "3 / 2", objectFit: "cover" }} />
-              <figcaption className="mt-2 text-center text-xs text-zinc-500">Illustration</figcaption>
-            </figure>
             <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-10">What is included</h2>
             <div className="grid md:grid-cols-2 gap-6">
               {[
