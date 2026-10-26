@@ -14,3 +14,7 @@
 - amex-card-france-import-to-xero
 - amex-card-uk-import-to-xero
 - duplicate-payments-in-quickbooks-online (QuickBooks keyword post, keyword: duplicate payments in quickbooks online)
+
+## PUBLISHED 2026-10-26 (manual fix)
+
+- amex-card-australia-import-to-xero published via commit 207939d: replacement inline-2 image generated (1200px WebP q80, 37KB), gate 8 re-passed, live URL 200 with inline-2 present.
