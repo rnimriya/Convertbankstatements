@@ -1,0 +1,1 @@
+{"compilerOptions":{"incremental":false,"module":"commonjs","moduleResolution":"node","noEmit":false,"outDir":"./.fixture-out","skipLibCheck":true,"target":"es2022"},"extends":"./tsconfig.json","include":["scripts/tool-fixtures.ts"]}
