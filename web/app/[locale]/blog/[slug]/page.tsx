@@ -4,6 +4,7 @@ import { localizePost } from "@/lib/blog/i18n";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CommentSection } from "@/components/blog/CommentSection";
+import { BlogFAQAccordion } from "@/components/blog/BlogFAQAccordion";
 import { RelatedPosts } from "@/components/blog/RelatedPosts";
 import { RELATED_MAP } from "@/lib/blog/related";
 import { getTranslations } from "next-intl/server";
@@ -99,6 +100,37 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     }
   );
   const showToc = tocHeadings.length >= 3;
+
+  // Split the FAQ section out of the article body so it renders as a toggle
+  // accordion (same look as the homepage FAQ) instead of plain Q&A text.
+  // Posts without a matching FAQ section fall back to the plain body.
+  let mainContent = contentWithIds;
+  let faqItems: { q: string; a: string }[] = [];
+  let faqHeadingId: string | null = null;
+  let faqTrailingHtml = "";
+  const faqHeadingMatch = contentWithIds.match(/<h2([^>]*)>Frequently asked questions<\/h2>/i);
+  if (faqHeadingMatch && faqHeadingMatch.index !== undefined) {
+    const faqStart = faqHeadingMatch.index;
+    const faqTail = contentWithIds.slice(faqStart + faqHeadingMatch[0].length);
+    const qaRegex = /<p><strong>([\s\S]*?)<\/strong><br\s*\/?>([\s\S]*?)<\/p>/gi;
+    const pairs: { q: string; a: string }[] = [];
+    let qaMatch: RegExpExecArray | null;
+    let lastEnd = 0;
+    while ((qaMatch = qaRegex.exec(faqTail)) !== null) {
+      pairs.push({
+        q: qaMatch[1].replace(/<[^>]+>/g, "").trim(),
+        a: qaMatch[2].trim(),
+      });
+      lastEnd = qaMatch.index + qaMatch[0].length;
+    }
+    if (pairs.length > 0) {
+      faqItems = pairs;
+      mainContent = contentWithIds.slice(0, faqStart);
+      faqTrailingHtml = faqTail.slice(lastEnd).trim();
+      const tocFaq = tocHeadings.find((h) => /frequently asked questions/i.test(h.text));
+      faqHeadingId = tocFaq ? tocFaq.id : "frequently-asked-questions";
+    }
+  }
 
   // Estimated reading time for the meta row.
   const wordCount = safeContent.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
@@ -226,8 +258,27 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           {/* Content */}
           <article
             className="article-body mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed prose-h2:scroll-mt-24 prose-img:rounded-2xl prose-img:shadow-lg prose-img:ring-1 prose-img:ring-slate-900/10 dark:prose-img:ring-white/10 prose-figcaption:text-left prose-figcaption:text-sm"
-            dangerouslySetInnerHTML={{ __html: contentWithIds }}
+            dangerouslySetInnerHTML={{ __html: mainContent }}
           />
+
+          {/* FAQ as a toggle accordion (homepage style) */}
+          {faqItems.length > 0 && (
+            <div className="mt-8">
+              <h2
+                id={faqHeadingId ?? undefined}
+                className="font-display font-bold text-xl scroll-mt-24 text-zinc-900 dark:text-white mb-4"
+              >
+                Frequently asked questions
+              </h2>
+              <BlogFAQAccordion items={faqItems} />
+              {faqTrailingHtml && (
+                <div
+                  className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed mt-8"
+                  dangerouslySetInnerHTML={{ __html: faqTrailingHtml }}
+                />
+              )}
+            </div>
+          )}
 
           {/* In-article CTA */}
           <div className="mt-12 rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 p-8 text-center text-white">
