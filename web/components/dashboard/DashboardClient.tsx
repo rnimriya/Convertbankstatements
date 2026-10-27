@@ -215,8 +215,8 @@ export function DashboardClient({
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 truncate tracking-tight">{displayName}</p>
                   <span className={`shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider ${
-                    billing.tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400" :
-                    billing.tier ==="PRO"      ?"bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400" :
+                    billing.tier ==="BUSINESS" ?"bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400" :
+                    billing.tier ==="PRO"      ?"bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400" :
                     billing.tier ==="BASIC"    ?"bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400" :"bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
                   }`}>
                     {billing.tier}
@@ -234,7 +234,7 @@ export function DashboardClient({
                   </span>
                 )}
                 {verificationSent && (
-                  <span className="w-full text-[10px] font-semibold px-2 py-1 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:text-emerald-400 flex items-center justify-center gap-1.5">
+                  <span className="w-full text-[10px] font-semibold px-2 py-1 rounded-lg bg-teal-50 border border-teal-100 text-teal-700 dark:bg-teal-500/10 dark:border-teal-500/20 dark:text-teal-400 flex items-center justify-center gap-1.5">
                     <CheckCircle2 size={10} /> Verification sent
                   </span>
                 )}
@@ -313,7 +313,7 @@ export function DashboardClient({
             onClick={() => setSidebarOpen(v => !v)}
             aria-label="Toggle sidebar"
           >
-            {sidebarOpen ? <X className="text-rose-500 dark:text-rose-400"  size={17} /> : <Menu className="text-purple-500 dark:text-purple-400"  size={17} />}
+            {sidebarOpen ? <X className="text-rose-500 dark:text-rose-400"  size={17} /> : <Menu className="text-teal-500 dark:text-teal-400"  size={17} />}
           </button>
           <a href="/" className="lg:hidden shrink-0">
             <img src="/logo.svg" alt="" className="h-7 w-7" />
@@ -326,7 +326,7 @@ export function DashboardClient({
                 onClick={() => setTab("upload")}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
               >
-                <Upload className="text-emerald-500 dark:text-emerald-400"  size={13} />
+                <Upload className="text-teal-500 dark:text-teal-400"  size={13} />
                 <span className="hidden sm:inline">Convert</span>
               </button>
             )}
@@ -354,8 +354,8 @@ export function DashboardClient({
             <AlertTriangle size={14} className="dark:shrink-0 text-amber-500 dark:text-amber-400" />
             <p className="text-sm text-brand-text flex-1">Please verify your email to unlock all features.</p>
             {verificationSent ? (
-              <span className="text-sm font-medium text-emerald-600 flex items-center gap-1">
-                <CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={13} /> Check your inbox
+              <span className="text-sm font-medium text-teal-600 flex items-center gap-1">
+                <CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={13} /> Check your inbox
               </span>
             ) : (
               <>
@@ -396,7 +396,7 @@ export function DashboardClient({
                   onClick={() => setTab("upload")}
                   className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-100 dark:text-black text-white transition-opacity hover:opacity-90"
                 >
-                  <Upload className="text-emerald-500 dark:text-emerald-400"  size={14} />
+                  <Upload className="text-teal-500 dark:text-teal-400"  size={14} />
                   Start Converting
                 </button>
               </div>
@@ -465,7 +465,7 @@ export function DashboardClient({
                         onClick={() => setTab("history")}
                         className="flex items-center gap-1 text-xs font-semibold text-brand-text hover:text-brand-text/80 transition-colors"
                       >
-                        View all <ArrowUpRight className="text-purple-500 dark:text-purple-400"  size={12} />
+                        View all <ArrowUpRight className="text-teal-500 dark:text-teal-400"  size={12} />
                       </button>
                     )}
                   </div>
@@ -475,7 +475,7 @@ export function DashboardClient({
                       <div
                         className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 bg-brand-surface"
                       >
-                        <FileText size={24} className="dark: text-emerald-500 dark:text-emerald-400" />
+                        <FileText size={24} className="dark: text-teal-500 dark:text-teal-400" />
                       </div>
                       <p className="font-bold text-brand-text text-base">No documents yet</p>
                       <p className="text-sm text-brand-muted mt-1 max-w-xs">
@@ -502,7 +502,7 @@ export function DashboardClient({
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-brand-surface/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
                               <div className="w-8 h-8 rounded-xl bg-brand-surface flex items-center justify-center shrink-0">
-                                <FileText size={14} className="dark: text-emerald-500 dark:text-emerald-400" />
+                                <FileText size={14} className="dark: text-teal-500 dark:text-teal-400" />
                               </div>
                               <div className="min-w-0">
                                 <p className="text-sm font-semibold text-brand-text truncate">{log.fileName}</p>
@@ -555,8 +555,8 @@ export function DashboardClient({
                         <p className="text-xl font-black text-brand-text">{billing.tier}</p>
                       </div>
                       <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
-                        billing.tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700" :
-                        billing.tier ==="PRO"      ?"bg-emerald-100 text-emerald-700" :
+                        billing.tier ==="BUSINESS" ?"bg-teal-100 text-teal-700" :
+                        billing.tier ==="PRO"      ?"bg-teal-100 text-teal-700" :
                         billing.tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-brand-surface text-brand-muted"
                       }`}>
                         {billing.tier ==="FREE" ?"Free forever" :"Active"}
@@ -591,7 +591,7 @@ export function DashboardClient({
                       <div className="space-y-1.5 mb-4">
                         {["8 pages free, forever","CSV & Excel export","Global banks support"].map(f => (
                           <div key={f} className="flex items-center gap-2">
-                            <CheckCircle2 size={12} className="text-emerald-500 shrink-0 text-emerald-500 dark:text-emerald-400" />
+                            <CheckCircle2 size={12} className="text-teal-500 shrink-0 text-teal-500 dark:text-teal-400" />
                             <span className="text-xs text-brand-muted">{f}</span>
                           </div>
                         ))}
@@ -733,7 +733,7 @@ export function DashboardClient({
                 title="Processing Queue"
                 subtitle="Batch jobs and queued conversions"
                 iconColor="#8b5cf6"
-                iconBg="#ecfdf5"
+                iconBg="#f0fdfa"
               />
               <div className="p-5 lg:p-8">
 
@@ -753,8 +753,8 @@ export function DashboardClient({
                 iconBg="#eff6ff"
                 action={
                   <span className={`text-xs font-bold px-3 py-1.5 rounded-xl ${
-                    billing.tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700" :
-                    billing.tier ==="PRO"      ?"bg-emerald-100 text-emerald-700" :"bg-brand-surface text-brand-muted"
+                    billing.tier ==="BUSINESS" ?"bg-teal-100 text-teal-700" :
+                    billing.tier ==="PRO"      ?"bg-teal-100 text-teal-700" :"bg-brand-surface text-brand-muted"
                   }`}>
                     {billing.tier} plan
                   </span>

@@ -81,7 +81,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
     return (
       <div className="rounded-2xl border border-dashed border-brand-border bg-brand-surface">
         <EmptyState
-          icon={<Users className="h-full w-full text-purple-500 dark:text-purple-400" />}
+          icon={<Users className="h-full w-full text-teal-500 dark:text-teal-400" />}
           title="Team seats require Business plan"
           description="Upgrade to Business to add up to 5 team members and get API access."
           cta={{ label:"View Business plan", href:"#billing", variant:"primary", size:"sm" }}
@@ -93,7 +93,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-40">
-        <Loader2 className="h-6 w-6 animate-spin dark: text-purple-500 dark:text-purple-400" />
+        <Loader2 className="h-6 w-6 animate-spin dark: text-teal-500 dark:text-teal-400" />
       </div>
     );
   }
@@ -110,8 +110,8 @@ export function TeamPanel({ tier, userEmail }: Props) {
       <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center">
-              <Users size={20} className="text-emerald-600 dark:text-emerald-400 text-purple-500 dark:text-purple-400" />
+            <div className="h-10 w-10 rounded-xl bg-teal-50 dark:bg-teal-900/20 flex items-center justify-center">
+              <Users size={20} className="text-teal-600 dark:text-teal-400 text-teal-500 dark:text-teal-400" />
             </div>
             <div>
               <p className="font-semibold text-brand-text">Team seats</p>
@@ -127,7 +127,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
         {/* Seat usage bar */}
         <div className="h-2 bg-zinc-100 dark:bg-brand-bg/10 rounded-full overflow-hidden">
           <div
-            className="h-full bg-emerald-500 rounded-full transition-all"
+            className="h-full bg-teal-500 rounded-full transition-all"
             style={{ width: `${(seatsFilled / maxSeats) * 100}%` }}
           />
         </div>
@@ -137,14 +137,14 @@ export function TeamPanel({ tier, userEmail }: Props) {
       {seatsLeft > 0 && (
         <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 shadow-sm">
           <h3 className="font-semibold text-brand-text mb-4 flex items-center gap-2">
-            <UserPlus size={16} className="dark: text-purple-500 dark:text-purple-400" />
+            <UserPlus size={16} className="dark: text-teal-500 dark:text-teal-400" />
             Invite team member
           </h3>
 
           {inviteMsg && (
             <div className={`mb-4 px-4 py-3 rounded-xl text-sm ${
               inviteMsg.type ==="success"
-                ?"bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800"
+                ?"bg-teal-50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 border border-teal-200 dark:border-teal-800"
                 :"bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"
             }`}>
               {inviteMsg.text}
@@ -165,7 +165,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
               disabled={inviting}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
             >
-              {inviting ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <Mail className="text-emerald-500 dark:text-emerald-400"  size={14} />}
+              {inviting ? <Loader2 size={14} className="animate-spin text-teal-500 dark:text-teal-400" /> : <Mail className="text-teal-500 dark:text-teal-400"  size={14} />}
               Send invite
             </button>
           </form>
@@ -236,7 +236,7 @@ function MemberRow({ email, name, role, status, joinedAt, onRemove, removing }: 
           <p className="text-sm font-medium text-brand-text truncate">{name ?? email}</p>
           {role ==="owner" && (
             <span className="flex items-center gap-0.5 text-[10px] font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 px-1.5 py-0.5 rounded-full">
-              <Crown className="text-emerald-500 dark:text-emerald-400"  size={9} /> Owner
+              <Crown className="text-teal-500 dark:text-teal-400"  size={9} /> Owner
             </span>
           )}
           {status ==="pending" && (
@@ -254,7 +254,7 @@ function MemberRow({ email, name, role, status, joinedAt, onRemove, removing }: 
           className="p-1.5 rounded-lg text-brand-muted hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-50"
           title="Remove member"
         >
-          {removing ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <X className="text-rose-500 dark:text-rose-400"  size={14} />}
+          {removing ? <Loader2 size={14} className="animate-spin text-teal-500 dark:text-teal-400" /> : <X className="text-rose-500 dark:text-rose-400"  size={14} />}
         </button>
       )}
     </div>

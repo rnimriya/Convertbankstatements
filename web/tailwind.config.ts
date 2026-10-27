@@ -29,8 +29,8 @@ const config: Config = {
         "border-subtle": "rgb(var(--border-subtle) / <alpha-value>)",
       },
       fontFamily: {
-        sans:    ["var(--font-inter)",     "Inter",               "system-ui", "sans-serif"],
-        display: ["var(--font-inter)",     "Inter",               "system-ui", "sans-serif"],
+        sans:    ["var(--font-poppins)",   "Poppins",             "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)",   "Poppins",             "system-ui", "sans-serif"],
       },
       keyframes: {
         marquee: {

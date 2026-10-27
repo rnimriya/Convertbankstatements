@@ -8,15 +8,15 @@ import { cn } from"@/lib/utils";
 
 const VARIANTS = {
   info: {
-    container:"bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/50 text-emerald-800 dark:text-emerald-200",
-    icon:"text-emerald-500 dark:text-emerald-400",
-    close:"text-emerald-600/60 hover:text-emerald-800 dark:text-emerald-400/60 dark:hover:text-emerald-200",
+    container:"bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-800/50 text-teal-800 dark:text-teal-200",
+    icon:"text-teal-500 dark:text-teal-400",
+    close:"text-teal-600/60 hover:text-teal-800 dark:text-teal-400/60 dark:hover:text-teal-200",
     Icon: Info,
   },
   success: {
-    container:"bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/50 text-emerald-800 dark:text-emerald-200",
-    icon:"text-emerald-500 dark:text-emerald-400",
-    close:"text-emerald-600/60 hover:text-emerald-800 dark:text-emerald-400/60 dark:hover:text-emerald-200",
+    container:"bg-teal-50 dark:bg-teal-950/40 border-teal-200 dark:border-teal-800/50 text-teal-800 dark:text-teal-200",
+    icon:"text-teal-500 dark:text-teal-400",
+    close:"text-teal-600/60 hover:text-teal-800 dark:text-teal-400/60 dark:hover:text-teal-200",
     Icon: CheckCircle2,
   },
   warning: {

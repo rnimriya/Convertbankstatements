@@ -88,9 +88,9 @@ export default function PayPalToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Taking Stripe too? Try the{" "}
-            <a href="/tools/free-stripe-to-quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Stripe to QuickBooks converter</a>,
+            <a href="/tools/free-stripe-to-quickbooks" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">Stripe to QuickBooks converter</a>,
             and run the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">duplicate finder</a>{" "}
             before month-end to keep the books clean.
           </p>
         </>

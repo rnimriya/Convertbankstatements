@@ -117,7 +117,7 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
             {/* Active check badge */}
             {active && (
               <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-brand-bg/20 flex items-center justify-center">
-                <Check size={10} className="text-white text-emerald-500 dark:text-emerald-400" />
+                <Check size={10} className="text-white text-teal-500 dark:text-teal-400" />
               </div>
             )}
 

@@ -11,7 +11,7 @@ const VARIANTS = {
   secondary:"border border-zinc-200 dark:border-white/[0.07] bg-white dark:bg-zinc-950 text-zinc-700 dark:text-zinc-200" +"hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-surface-raised active:bg-zinc-100 dark:bg-zinc-800 dark:active:bg-surface-raised" +"focus-visible:ring-zinc-400",
   ghost:"text-zinc-600 dark:text-zinc-300" +"hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-surface active:bg-zinc-200 dark:bg-zinc-700 dark:active:bg-surface-raised" +"focus-visible:ring-zinc-400",
   danger:"bg-red-600 text-white shadow-sm shadow-red-200 dark:shadow-red-900/30" +"hover:bg-red-700 active:bg-red-800" +"focus-visible:ring-red-500",
-  success:"bg-emerald-600 text-white shadow-sm shadow-emerald-200 dark:shadow-emerald-900/30" +"hover:bg-emerald-700 active:bg-emerald-800" +"focus-visible:ring-emerald-500",
+  success:"bg-teal-600 text-white shadow-sm shadow-teal-200 dark:shadow-teal-900/30" +"hover:bg-teal-700 active:bg-teal-800" +"focus-visible:ring-teal-500",
 } as const;
 
 const SIZES = {

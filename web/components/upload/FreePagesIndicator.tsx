@@ -22,7 +22,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5">
             <span className="text-xs font-semibold text-brand-muted uppercase tracking-wide">Monthly pages</span>
-            <span className={`text-xs font-bold ${low ? "text-amber-600 dark:text-amber-400" : "text-navy dark:text-emerald-400"}`}>
+            <span className={`text-xs font-bold ${low ? "text-amber-600 dark:text-amber-400" : "text-navy dark:text-teal-400"}`}>
               {remaining.toLocaleString()} / {monthlyPageLimit.toLocaleString()} left
             </span>
           </div>
@@ -34,7 +34,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
           </div>
         </div>
         {low && (
-          <a href="/pricing" className="shrink-0 text-xs font-semibold text-navy dark:text-emerald-400 border border-navy/20 dark:border-brand-400/30 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 px-2.5 py-1 rounded-lg hover:bg-zinc-900 dark:bg-zinc-950/10 dark:hover:bg-brand-400/10 transition-colors">
+          <a href="/pricing" className="shrink-0 text-xs font-semibold text-navy dark:text-teal-400 border border-navy/20 dark:border-brand-400/30 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 px-2.5 py-1 rounded-lg hover:bg-zinc-900 dark:bg-zinc-950/10 dark:hover:bg-brand-400/10 transition-colors">
             Upgrade
           </a>
         )}
@@ -52,7 +52,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5">
             <span className="text-xs font-semibold text-brand-muted uppercase tracking-wide">Free pages</span>
-            <span className={`text-xs font-bold tabular-nums ${isDepleted ? "text-amber-600 dark:text-amber-400" : "text-navy dark:text-emerald-400"}`}>
+            <span className={`text-xs font-bold tabular-nums ${isDepleted ? "text-amber-600 dark:text-amber-400" : "text-navy dark:text-teal-400"}`}>
               {remaining} / {FREE_PAGE_CAP} remaining
             </span>
           </div>
@@ -68,7 +68,7 @@ export function FreePagesIndicator({ tier, pagesUsed, monthlyPageLimit }: Props)
             Upgrade
           </a>
         ) : (
-          <div className="shrink-0 text-2xl font-bold tabular-nums text-navy dark:text-emerald-400">
+          <div className="shrink-0 text-2xl font-bold tabular-nums text-navy dark:text-teal-400">
             {remaining}
           </div>
         )}

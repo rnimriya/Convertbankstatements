@@ -61,9 +61,9 @@ export function PreImportCheck({ qboUrl }: Props) {
         <button
           onClick={() => void runCheck()}
           disabled={busy}
-          className="flex w-full items-center gap-2 text-sm font-semibold text-zinc-800 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 disabled:opacity-60"
+          className="flex w-full items-center gap-2 text-sm font-semibold text-zinc-800 dark:text-zinc-100 hover:text-teal-600 dark:hover:text-teal-400 disabled:opacity-60"
         >
-          <FileCheck2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+          <FileCheck2 className="h-4 w-4 text-teal-600 dark:text-teal-400" />
           {busy ? "Checking this QBO…" : "Check this QBO before importing"}
         </button>
       )}
@@ -76,7 +76,7 @@ export function PreImportCheck({ qboUrl }: Props) {
             {analysis.duplicateInstances > 0 || analysis.errorCount > 0 ? (
               <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
             ) : (
-              <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-5 w-5 text-teal-500 shrink-0 mt-0.5" />
             )}
             <div>
               <p className="font-semibold text-zinc-900 dark:text-zinc-100">
@@ -104,11 +104,11 @@ export function PreImportCheck({ qboUrl }: Props) {
               )}
               <p className="mt-2 text-xs text-zinc-400">
                 Full detail:{" "}
-                <Link href="/tools/free-qbo-cleanup-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">
+                <Link href="/tools/free-qbo-cleanup-checker" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">
                   QBO Duplicate Finder
                 </Link>
                 {" · "}
-                <Link href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">
+                <Link href="/tools/qbo-import-errors" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">
                   Import errors, explained
                 </Link>
               </p>

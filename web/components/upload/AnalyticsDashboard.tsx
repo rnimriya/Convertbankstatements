@@ -54,14 +54,14 @@ export function AnalyticsDashboard({ transactions }: Props) {
   return (
     <div className="mt-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-5">
       <div className="flex items-center gap-2 mb-4">
-        <TrendingUp className="h-5 w-5 text-emerald-500" />
+        <TrendingUp className="h-5 w-5 text-teal-500" />
         <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">Pre-Export Analytics (Beta)</h3>
       </div>
       
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Total Inflows */}
         <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
-          <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-500 mb-1">
+          <div className="flex items-center gap-2 text-teal-600 dark:text-teal-500 mb-1">
             <ArrowUpRight className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Total Inflows</span>
           </div>
@@ -87,7 +87,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
             <TrendingUp className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Net Change</span>
           </div>
-          <div className={`text-2xl font-bold truncate ${netChange >= 0 ? "text-emerald-600 dark:text-emerald-500" : "text-rose-600 dark:text-rose-500"}`}>
+          <div className={`text-2xl font-bold truncate ${netChange >= 0 ? "text-teal-600 dark:text-teal-500" : "text-rose-600 dark:text-rose-500"}`}>
             {netChange >= 0 ? "+" : ""}{formatCurrency(netChange)}
           </div>
         </div>
@@ -97,7 +97,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
         <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Top Expense Categories</span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 border border-teal-200 dark:border-teal-800">
               SMART CATEGORIZATION
             </span>
           </div>

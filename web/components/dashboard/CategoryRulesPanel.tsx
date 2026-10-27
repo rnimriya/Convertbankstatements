@@ -69,7 +69,7 @@ export function CategoryRulesPanel() {
   return (
     <div className="mt-6 rounded-2xl border border-brand-border bg-brand-surface p-5">
       <div className="flex items-center gap-2">
-        <Tags size={17} className="text-emerald-500" />
+        <Tags size={17} className="text-teal-500" />
         <h3 className="font-bold text-brand-text">Smart Auto-Categorization — your rules</h3>
       </div>
       <p className="mt-1.5 text-sm text-brand-muted leading-relaxed">
@@ -84,13 +84,13 @@ export function CategoryRulesPanel() {
           value={pattern}
           onChange={(e) => setPattern(e.target.value)}
           placeholder="Description contains… e.g. SHELL OIL"
-          className="flex-1 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+          className="flex-1 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-teal-500/40"
         />
         <input
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           placeholder="Category… e.g. Vehicle Fuel"
-          className="sm:w-52 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-emerald-500/40"
+          className="sm:w-52 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-teal-500/40"
         />
         <button
           onClick={addRule}

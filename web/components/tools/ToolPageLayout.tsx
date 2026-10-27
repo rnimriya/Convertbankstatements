@@ -30,15 +30,15 @@ const FREE_TOOLS = [
 
 const TRUST_PILLS = [
   { icon: <Zap size={13} className="text-amber-500 dark:text-amber-400" />, label: "Free to use" },
-  { icon: <Shield size={13} className="text-emerald-500 dark:text-emerald-400" />, label: "Scan free, QBO downloads on Pro" },
-  { icon: <Lock size={13} className="text-emerald-500 dark:text-emerald-400" />, label: "Files never stored" },
+  { icon: <Shield size={13} className="text-teal-500 dark:text-teal-400" />, label: "Scan free, QBO downloads on Pro" },
+  { icon: <Lock size={13} className="text-teal-500 dark:text-teal-400" />, label: "Files never stored" },
 ];
 
 const STEP_ICONS = [
-  { icon: <Upload size={20} />, color: "text-emerald-500 dark:text-emerald-400" },
-  { icon: <FileCheck size={20} />, color: "text-emerald-500 dark:text-emerald-400" },
+  { icon: <Upload size={20} />, color: "text-teal-500 dark:text-teal-400" },
+  { icon: <FileCheck size={20} />, color: "text-teal-500 dark:text-teal-400" },
   { icon: <Download size={20} />, color: "text-amber-500 dark:text-amber-400" },
-  { icon: <Sparkles size={20} />, color: "text-emerald-500 dark:text-emerald-400" },
+  { icon: <Sparkles size={20} />, color: "text-teal-500 dark:text-teal-400" },
 ];
 
 /**
@@ -107,7 +107,7 @@ export async function ToolPageLayout({
         {/* ─── HERO — homepage twin ─────────────────────────────── */}
         <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
           {/* Background glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-emerald-500 dark:bg-emerald-600 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-teal-500 dark:bg-teal-600 rounded-full blur-[120px] pointer-events-none" />
 
           {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
           <div
@@ -143,7 +143,7 @@ export async function ToolPageLayout({
 
               {/* Security note */}
               <div className="mt-4 flex items-center justify-center gap-2">
-                <CheckCircle2 size={14} className="shrink-0 text-emerald-500 dark:text-emerald-400" />
+                <CheckCircle2 size={14} className="shrink-0 text-teal-500 dark:text-teal-400" />
                 <p className="text-[12.5px] text-zinc-500">
                   <span className="font-semibold text-zinc-700 dark:text-zinc-300">Bank-grade security</span>
                   {" "}— {privacyLine}
@@ -226,9 +226,9 @@ export async function ToolPageLayout({
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
                     <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand-border flex items-center justify-center mb-5">
-                      <Wrench size={22} className="text-emerald-500 dark:text-emerald-400" />
+                      <Wrench size={22} className="text-teal-500 dark:text-teal-400" />
                     </div>
-                    <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 mt-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 mt-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                       {t.label}
                     </h3>
                     <p className="text-sm text-brand-muted leading-relaxed flex-1">
@@ -269,7 +269,7 @@ export async function ToolPageLayout({
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-28 relative overflow-hidden bg-zinc-900">
           {/* Background glow */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-emerald-500 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-teal-500 rounded-full blur-[120px] pointer-events-none" />
 
           {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
           <div

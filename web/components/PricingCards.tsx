@@ -112,7 +112,7 @@ export function PricingCards() {
               <div key={plan.name} className="relative pt-5 h-full">
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-block bg-brand-bg rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 dark:text-zinc-100 border border-brand-border whitespace-nowrap">
+                  <span className="inline-block bg-yellow-400 rounded-full px-5 py-1.5 text-xs font-black text-zinc-900 border border-transparent whitespace-nowrap">
                     {plan.badge}
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export function PricingCards() {
                     {plan.features.map(f => (
                       <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
                         <div className="w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center shrink-0">
-                          <Check size={11} className="text-emerald-500 dark:text-emerald-400" />
+                          <Check size={11} className="text-teal-500 dark:text-teal-400" />
                         </div>
                         {f}
                       </li>
@@ -162,9 +162,9 @@ export function PricingCards() {
 
                   <Link
                     href={href}
-                    className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold transition-colors shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
+                    className="flex items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-700 shadow-lg shadow-teal-500/30 hover:opacity-90 transition-opacity border-0"
                   >
-                    {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
+                    {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-white" />
                   </Link>
                 </div>
               </div>
@@ -207,7 +207,7 @@ export function PricingCards() {
                 {plan.features.map(f => (
                   <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
                     <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
-                      <Check size={11} className="text-emerald-500 dark:text-emerald-400" />
+                      <Check size={11} className="text-teal-500 dark:text-teal-400" />
                     </div>
                     {f}
                   </li>
@@ -224,7 +224,7 @@ export function PricingCards() {
 
               <Link
                 href={href}
-                className="flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold transition-all shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
+                className="flex items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold transition-all shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
               >
                 {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
               </Link>

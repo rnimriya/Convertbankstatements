@@ -163,7 +163,7 @@ export function CsvToQbo() {
             <div className="px-5 py-3 bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-200 dark:border-zinc-800 flex flex-wrap items-center gap-x-4 gap-y-1">
               <p className="font-bold text-zinc-900 dark:text-white">{result.rows.length} transactions parsed</p>
               {result.balanceChecked && (
-                <span className={`text-xs font-semibold ${result.balanceOk ? "text-emerald-700 dark:text-emerald-300" : "text-red-700 dark:text-red-300"}`}>
+                <span className={`text-xs font-semibold ${result.balanceOk ? "text-teal-700 dark:text-teal-300" : "text-red-700 dark:text-red-300"}`}>
                   {result.balanceOk ? (
                     <span className="inline-flex items-center gap-1"><CheckCircle2 className="h-3.5 w-3.5" /> Balance chain holds</span>
                   ) : (
@@ -171,7 +171,7 @@ export function CsvToQbo() {
                   )}
                 </span>
               )}
-              <Link href="/tools/qbo-import-errors" className="ml-auto text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+              <Link href="/tools/qbo-import-errors" className="ml-auto text-xs font-semibold text-teal-600 dark:text-teal-400 hover:underline">
                 QBO import errors, explained →
               </Link>
             </div>
@@ -201,14 +201,14 @@ export function CsvToQbo() {
           <div className="mt-5 flex flex-wrap gap-3">
             <button
               onClick={downloadCsv}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-teal-400"
             >
               <Download className="h-4 w-4" /> Download CSV (free)
             </button>
             <button
               onClick={() => void downloadQbo()}
               disabled={dlBusy}
-              className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-teal-700 disabled:opacity-60"
             >
               <Lock className="h-4 w-4" /> {dlBusy ? "Preparing…" : "Download .QBO (Pro)"}
             </button>

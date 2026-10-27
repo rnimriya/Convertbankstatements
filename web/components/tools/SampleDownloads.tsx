@@ -15,7 +15,7 @@ export function SampleDownloads({ ids }: { ids?: string[] }) {
         <button
           key={s.id}
           onClick={() => downloadTextFile(s.filename, s.content, s.filename.endsWith(".csv") ? "text/csv" : "text/plain")}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:border-emerald-400"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 py-1.5 text-xs font-semibold text-zinc-700 dark:text-zinc-200 hover:border-teal-400"
         >
           <Download className="h-3.5 w-3.5" /> {s.label}
         </button>

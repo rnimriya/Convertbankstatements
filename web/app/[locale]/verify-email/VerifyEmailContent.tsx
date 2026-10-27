@@ -25,8 +25,8 @@ export function VerifyEmailContent() {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
         <div className="flex flex-col items-center gap-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-12 text-center shadow-sm max-w-md w-full">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-            <Loader2 className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
+            <Loader2 className="h-8 w-8 text-teal-600 dark:text-teal-400" />
           </div>
           <div>
             <p className="font-display text-xl font-bold text-zinc-900 dark:text-white">Verifying your email…</p>
@@ -42,9 +42,9 @@ export function VerifyEmailContent() {
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
-        <div className="flex flex-col items-center gap-5 rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-white dark:bg-zinc-950 p-12 text-center shadow-sm max-w-md w-full">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-            <CheckCircle2 className="h-8 w-8 text-emerald-600 text-emerald-500 dark:text-emerald-400" />
+        <div className="flex flex-col items-center gap-5 rounded-2xl border border-teal-200 dark:border-teal-900 bg-white dark:bg-zinc-950 p-12 text-center shadow-sm max-w-md w-full">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
+            <CheckCircle2 className="h-8 w-8 text-teal-600 text-teal-500 dark:text-teal-400" />
           </div>
           <div>
             <p className="font-display text-xl font-bold text-zinc-900 dark:text-white">Email verified!</p>
@@ -94,8 +94,8 @@ export function VerifyEmailContent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
       <div className="flex flex-col items-center gap-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-12 text-center shadow-sm max-w-md w-full">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30">
-          <Mail className="h-8 w-8 text-emerald-600 text-emerald-500 dark:text-emerald-400" />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
+          <Mail className="h-8 w-8 text-teal-600 text-teal-500 dark:text-teal-400" />
         </div>
         <div>
           <p className="font-display text-xl font-bold text-zinc-900 dark:text-white">Check your inbox</p>
@@ -105,7 +105,7 @@ export function VerifyEmailContent() {
         </div>
         <Link
           href="/dashboard"
-          className="text-sm font-medium text-navy dark:text-emerald-400 hover:underline"
+          className="text-sm font-medium text-navy dark:text-teal-400 hover:underline"
         >
           Back to dashboard
         </Link>

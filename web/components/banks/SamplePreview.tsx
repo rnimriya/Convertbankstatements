@@ -44,7 +44,7 @@ export function SamplePreview({ bankName }: { bankName: string }) {
                   <span className="text-brand-muted">
                     {r.date} · {r.desc}
                   </span>
-                  <span className={r.amount < 0 ? "" : "text-emerald-600 dark:text-emerald-400 font-medium"}>
+                  <span className={r.amount < 0 ? "" : "text-teal-600 dark:text-teal-400 font-medium"}>
                     {money(r.amount)}
                   </span>
                 </p>
@@ -89,7 +89,7 @@ export function SamplePreview({ bankName }: { bankName: string }) {
                 ))}
               </tbody>
             </table>
-            <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+            <p className="mt-4 flex items-center gap-2 text-sm font-semibold text-teal-600 dark:text-teal-400">
               <CheckCircle2 size={16} /> Balance verified — opening {money(2450)} → closing {money(4852.36)}
             </p>
           </div>

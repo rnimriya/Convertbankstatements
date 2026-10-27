@@ -112,7 +112,7 @@ export default async function PricingPage() {
             </p>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">
-            <DollarSign className="h-3.5 w-3.5 text-emerald-500 text-rose-500 dark:text-rose-400" />
+            <DollarSign className="h-3.5 w-3.5 text-teal-500 text-rose-500 dark:text-rose-400" />
             UPI · Cards · Net Banking · Wallets
           </div>
         </div>
@@ -132,7 +132,7 @@ export default async function PricingPage() {
                 <tr className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Feature</th>
                   {["Free","Basic","Pro","Business"].map((h) => (
-                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-emerald-500 dark:text-emerald-400" :"text-zinc-500 dark:text-zinc-400"}`}>{h}</th>
+                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-teal-500 dark:text-teal-400" :"text-zinc-500 dark:text-zinc-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -141,7 +141,7 @@ export default async function PricingPage() {
                   <tr key={feature} className={i % 2 === 0 ?"bg-white dark:bg-zinc-950" :"bg-zinc-50 dark:bg-zinc-900/50 dark:bg-zinc-950/50"}>
                     <td className="px-5 py-3 font-medium text-zinc-700 dark:text-zinc-300">{feature}</td>
                     {[free, basic, pro, business].map((val, j) => (
-                      <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300 dark:text-zinc-700" : val ==="✓" ?"text-emerald-500 font-bold text-base" :"text-zinc-600 dark:text-zinc-300"}`}>{val}</td>
+                      <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300 dark:text-zinc-700" : val ==="✓" ?"text-teal-500 font-bold text-base" :"text-zinc-600 dark:text-zinc-300"}`}>{val}</td>
                     ))}
                   </tr>
                 ))}

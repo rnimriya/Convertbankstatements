@@ -71,14 +71,14 @@ export default async function BlogPage({
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-brand-50 dark:bg-brand-900/20 px-2 py-0.5 text-[11px] font-semibold text-brand-600 dark:text-emerald-400"
+                          className="rounded-full bg-brand-50 dark:bg-brand-900/20 px-2 py-0.5 text-[11px] font-semibold text-brand-600 dark:text-teal-400"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                     <Link href={`/${locale}/blog/${post.slug}`}>
-                      <h2 className="font-display font-bold text-zinc-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-emerald-400 transition-colors">
+                      <h2 className="font-display font-bold text-zinc-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-teal-400 transition-colors">
                         {post.title}
                       </h2>
                     </Link>

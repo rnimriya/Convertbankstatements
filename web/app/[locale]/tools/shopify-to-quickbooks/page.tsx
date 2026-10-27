@@ -85,11 +85,11 @@ export default function ShopifyToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Selling through other channels too? The same clearing-account model powers our{" "}
-            <a href="/tools/free-stripe-to-quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Stripe QBO Converter</a>,{" "}
-            <a href="/tools/amazon-to-quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Amazon Settlement Converter</a>, and{" "}
-            <a href="/tools/free-paypal-to-quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">PayPal Payout Converter</a>.
+            <a href="/tools/free-stripe-to-quickbooks" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">Stripe QBO Converter</a>,{" "}
+            <a href="/tools/amazon-to-quickbooks" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">Amazon Settlement Converter</a>, and{" "}
+            <a href="/tools/free-paypal-to-quickbooks" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">PayPal Payout Converter</a>.
             {" "}If QuickBooks refuses a file, the{" "}
-            <a href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO import-error decoder</a>{" "}
+            <a href="/tools/qbo-import-errors" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">QBO import-error decoder</a>{" "}
             explains the error and its fix.
           </p>
         </>

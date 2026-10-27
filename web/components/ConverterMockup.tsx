@@ -165,8 +165,8 @@ export default function ConverterMockup() {
                   style={{ background: txn.pos ?"rgba(16,185,129,0.12)" :"rgba(239,68,68,0.10)" }}
                 >
                   {txn.pos
-                    ? <ArrowDownLeft size={12} className="text-emerald-500 text-emerald-500 dark:text-emerald-400" />
-                    : <ArrowUpRight  size={12} className="text-rose-500 text-purple-500 dark:text-purple-400" />
+                    ? <ArrowDownLeft size={12} className="text-teal-500 text-teal-500 dark:text-teal-400" />
+                    : <ArrowUpRight  size={12} className="text-rose-500 text-teal-500 dark:text-teal-400" />
                   }
                 </div>
 
@@ -190,15 +190,15 @@ export default function ConverterMockup() {
             {/* Extracting spinner row */}
             {proc && visRows < TXNS.length && (
               <div className="flex items-center gap-2.5 px-3 py-2.5">
-                <div className="w-6 h-6 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
-                  <Loader2 size={11} className="animate-spin text-emerald-500 text-purple-500 dark:text-purple-400" />
+                <div className="w-6 h-6 rounded-lg bg-teal-50 flex items-center justify-center shrink-0">
+                  <Loader2 size={11} className="animate-spin text-teal-500 text-teal-500 dark:text-teal-400" />
                 </div>
                 <span className="text-[12px] text-zinc-400 dark:text-zinc-500">Extracting…</span>
                 <div className="flex gap-1 ml-1">
                   {[0, 1, 2].map(i => (
                     <div
                       key={i}
-                      className="w-1 h-1 rounded-full bg-emerald-400"
+                      className="w-1 h-1 rounded-full bg-teal-400"
                       style={{ animation: `dotBounce 0.9s ease-in-out ${i * 0.18}s infinite` }}
                     />
                   ))}
@@ -212,11 +212,11 @@ export default function ConverterMockup() {
                 className="flex items-center gap-2.5 px-3 py-3 rounded-xl mt-1"
                 style={{ background:"#f0fdf4", border:"1px solid #bbf7d0" }}
               >
-                <CheckCircle2 size={15} className="text-emerald-500 shrink-0 text-emerald-500 dark:text-emerald-400" />
-                <span className="text-[12px] font-semibold text-emerald-700 flex-1">
+                <CheckCircle2 size={15} className="text-teal-500 shrink-0 text-teal-500 dark:text-teal-400" />
+                <span className="text-[12px] font-semibold text-teal-700 flex-1">
                   142 transactions extracted successfully
                 </span>
-                <span className="text-[11px] text-emerald-500/70">3.2s</span>
+                <span className="text-[11px] text-teal-500/70">3.2s</span>
               </div>
             )}
           </div>
@@ -252,7 +252,7 @@ export default function ConverterMockup() {
               className="absolute inset-0 pointer-events-none"
               style={{ background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent)", animation:"shimmerSlide 2.2s ease-in-out infinite" }}
             />
-            <Download size={15} className="relative z-10 text-emerald-500 dark:text-emerald-400" />
+            <Download size={15} className="relative z-10 text-teal-500 dark:text-teal-400" />
             <span className="relative z-10">Download {FORMATS[selFmt]}</span>
           </button>
         </div>

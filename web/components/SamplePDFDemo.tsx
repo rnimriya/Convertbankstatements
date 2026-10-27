@@ -47,7 +47,7 @@ export function SamplePDFDemo() {
     return (
       <button
         onClick={runDemo}
-        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-900/40 dark:border-zinc-800 dark:hover:border-brand-400/40 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-emerald-400 bg-white dark:bg-zinc-950 transition-colors"
+        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-900/40 dark:border-zinc-800 dark:hover:border-brand-400/40 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-teal-400 bg-white dark:bg-zinc-950 transition-colors"
       >
         <Zap size={15} className="text-amber-500 text-amber-500 dark:text-amber-400" />
         Try with sample PDF
@@ -58,7 +58,7 @@ export function SamplePDFDemo() {
   if (state ==="loading") {
     return (
       <button disabled className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-400 dark:text-zinc-500 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 cursor-wait">
-        <Loader2 size={15} className="animate-spin text-purple-500 dark:text-purple-400" />
+        <Loader2 size={15} className="animate-spin text-teal-500 dark:text-teal-400" />
         Converting sample statement…
       </button>
     );
@@ -77,9 +77,9 @@ export function SamplePDFDemo() {
   return (
     <div className="w-full max-w-[420px] bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-emerald-50 dark:bg-emerald-900/20 border-b border-emerald-100 dark:border-emerald-800">
-        <div className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400">
-          <CheckCircle2 size={15} className="text-emerald-500 text-emerald-500 dark:text-emerald-400" />
+      <div className="flex items-center justify-between px-4 py-3 bg-teal-50 dark:bg-teal-900/20 border-b border-teal-100 dark:border-teal-800">
+        <div className="flex items-center gap-2 text-teal-700 dark:text-teal-400">
+          <CheckCircle2 size={15} className="text-teal-500 text-teal-500 dark:text-teal-400" />
           <span className="text-sm font-semibold">Converted in {result?.processing_ms}ms</span>
         </div>
         <button onClick={reset} className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors">
@@ -120,7 +120,7 @@ export function SamplePDFDemo() {
                 <tr key={i} className={i % 2 === 0 ?"bg-white dark:bg-zinc-950" :"bg-zinc-50 dark:bg-zinc-900/50 dark:bg-white dark:bg-zinc-950/5"}>
                   <td className="px-2.5 py-2 text-zinc-600 dark:text-zinc-300 whitespace-nowrap">{tx.date}</td>
                   <td className="px-2.5 py-2 text-zinc-600 dark:text-zinc-300 truncate max-w-[120px]">{tx.description}</td>
-                  <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type ==="credit" ?"text-emerald-600 dark:text-emerald-400" :"text-rose-500 dark:text-rose-400"}`}>
+                  <td className={`px-2.5 py-2 text-right font-medium tabular-nums ${tx.type ==="credit" ?"text-teal-600 dark:text-teal-400" :"text-rose-500 dark:text-rose-400"}`}>
                     {tx.type ==="credit" ?"+" :"−"}${Math.abs(tx.amount).toLocaleString("en-US")}
                   </td>
                 </tr>
@@ -136,9 +136,9 @@ export function SamplePDFDemo() {
           <a
             href={result.export_urls.xlsx}
             download="Sample_Converted.xlsx"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-emerald-400 bg-zinc-900 dark:bg-zinc-950/[0.08] dark:bg-brand-400/10 hover:bg-zinc-900 dark:bg-zinc-950/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-teal-400 bg-zinc-900 dark:bg-zinc-950/[0.08] dark:bg-brand-400/10 hover:bg-zinc-900 dark:bg-zinc-950/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
           >
-            <FileSpreadsheet className="text-emerald-500 dark:text-emerald-400"  size={13} />
+            <FileSpreadsheet className="text-teal-500 dark:text-teal-400"  size={13} />
             Download
           </a>
         )}
@@ -148,13 +148,13 @@ export function SamplePDFDemo() {
             download="Sample_Converted.csv"
             className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-zinc-600 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:border-zinc-700 dark:hover:border-white/20 rounded-lg transition-colors"
           >
-            <Download className="text-emerald-500 dark:text-emerald-400"  size={13} />
+            <Download className="text-teal-500 dark:text-teal-400"  size={13} />
             Download
           </a>
         )}
       </div>
       <p className="px-4 pb-3 text-[10px] text-zinc-400 dark:text-zinc-500 text-center">
-        Demo data — <a href="/signup" className="underline underline-offset-1 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-emerald-400 transition-colors">sign up free</a> to convert your real statements
+        Demo data — <a href="/signup" className="underline underline-offset-1 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-teal-400 transition-colors">sign up free</a> to convert your real statements
       </p>
     </div>
   );

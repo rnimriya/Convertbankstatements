@@ -38,7 +38,7 @@ const KIND_LABEL: Record<DuplicateGroup["kind"], string> = {
 };
 
 function scoreColor(score: number) {
-  if (score >= 90) return "text-emerald-600 dark:text-emerald-400";
+  if (score >= 90) return "text-teal-600 dark:text-teal-400";
   if (score >= 70) return "text-amber-600 dark:text-amber-400";
   return "text-red-600 dark:text-red-400";
 }
@@ -150,7 +150,7 @@ export function QboCleanupChecker() {
             </div>
             <div className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
               <p className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                <FileCheck2 className="h-5 w-5 text-emerald-600" />
+                <FileCheck2 className="h-5 w-5 text-teal-600" />
                 {result.transactionCount} transactions analyzed
               </p>
               <p className="mt-1">
@@ -169,7 +169,7 @@ export function QboCleanupChecker() {
                 <p className="mt-1">
                   Balance chain:{" "}
                   {result.balanceOk ? (
-                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold">holds</span>
+                    <span className="text-teal-600 dark:text-teal-400 font-semibold">holds</span>
                   ) : (
                     <span className="text-red-600 dark:text-red-400 font-semibold">breaks — review before import</span>
                   )}
@@ -243,8 +243,8 @@ export function QboCleanupChecker() {
           )}
 
           {result.issues.length === 0 && (
-            <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 dark:border-emerald-800 px-5 py-4 flex items-start gap-3">
-              <CheckCircle2 className="h-6 w-6 text-emerald-500 shrink-0" />
+            <div className="mt-6 rounded-2xl border border-teal-200 bg-teal-50 dark:bg-teal-900/20 dark:border-teal-800 px-5 py-4 flex items-start gap-3">
+              <CheckCircle2 className="h-6 w-6 text-teal-500 shrink-0" />
               <p className="text-sm text-zinc-700 dark:text-zinc-200">
                 Clean file — no duplicates, no structural issues, and every transaction carries a
                 unique ID. Safe to import.
@@ -256,20 +256,20 @@ export function QboCleanupChecker() {
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               onClick={downloadCsvReport}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-teal-400"
             >
               <Download className="h-4 w-4" /> Download report (CSV)
             </button>
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-teal-400"
             >
               <Printer className="h-4 w-4" /> Print summary
             </button>
             <button
               onClick={() => void downloadCleanedQbo()}
               disabled={dlBusy}
-              className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-teal-700 disabled:opacity-60"
             >
               <Sparkles className="h-4 w-4" />
               {dlBusy ? "Preparing…" : "Download Cleaned QBO (Pro)"}
@@ -284,13 +284,13 @@ export function QboCleanupChecker() {
             The cleaned file drops exact duplicates, regenerates missing or repeated transaction
             IDs, and keeps near-matches for your review — the same format our converter exports,
             balance-ready. If QuickBooks still refuses a file, the{" "}
-            <Link href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">import-error decoder</Link>{" "}
+            <Link href="/tools/qbo-import-errors" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">import-error decoder</Link>{" "}
             explains each error and its fix.
           </p>
 
           {/* Cleanup upsell */}
           <div className="mt-8 relative overflow-hidden p-8 rounded-3xl bg-zinc-900 text-white">
-            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[200px] opacity-25 bg-emerald-500 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[200px] opacity-25 bg-teal-500 rounded-full blur-[100px] pointer-events-none" />
             <div className="relative">
               <h3 className="font-bold text-lg">Found a real mess? That&apos;s a cleanup, not a download.</h3>
               <p className="text-zinc-400 text-sm mt-2 max-w-xl">

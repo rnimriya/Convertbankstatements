@@ -175,7 +175,7 @@ export function NewPostForm() {
         disabled={loading}
         className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {loading ? <><Loader2 className="h-4 w-4 animate-spin text-purple-500 dark:text-purple-400" /> Creating...</> :"Create Post"}
+        {loading ? <><Loader2 className="h-4 w-4 animate-spin text-teal-500 dark:text-teal-400" /> Creating...</> :"Create Post"}
       </button>
     </form>
   );
