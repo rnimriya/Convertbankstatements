@@ -9,11 +9,11 @@ import { UploadCard } from"@/components/upload/UploadCard";
 const TRUST_STATS = [
   { icon: <Zap size={13} className="text-amber-400 text-amber-500 dark:text-amber-400" />,    label:"~11s conversion" },
   { icon: <Shield size={13} className="text-emerald-500 text-purple-500 dark:text-purple-400" />, label:"Bank-grade security" },
-  { icon: <Lock size={13} className="text-sky-500 text-rose-500 dark:text-rose-400" />,     label:"Files deleted instantly" },
-  { icon: <BarChart3 size={13} className="text-violet-500 text-purple-500 dark:text-purple-400" />, label:"99.4% accuracy" },
+  { icon: <Lock size={13} className="text-emerald-500 text-rose-500 dark:text-rose-400" />,     label:"Files deleted instantly" },
+  { icon: <BarChart3 size={13} className="text-emerald-500 text-purple-500 dark:text-purple-400" />, label:"99.4% accuracy" },
 ];
 
-const AVATAR_COLORS = ["bg-violet-500","bg-emerald-500","bg-amber-500","bg-blue-600","bg-rose-500"];
+const AVATAR_COLORS = ["bg-emerald-500","bg-emerald-500","bg-amber-500","bg-emerald-600","bg-rose-500"];
 const AVATAR_INITIALS = ["R","S","P","A","K"];
 
 interface Props {
@@ -27,7 +27,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
   return (
     <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
       {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-blue-500 dark:bg-blue-600 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-emerald-500 dark:bg-emerald-600 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
       <div 

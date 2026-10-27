@@ -112,7 +112,7 @@ export default async function PricingPage() {
             </p>
           </div>
           <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">
-            <DollarSign className="h-3.5 w-3.5 text-violet-500 text-rose-500 dark:text-rose-400" />
+            <DollarSign className="h-3.5 w-3.5 text-emerald-500 text-rose-500 dark:text-rose-400" />
             UPI · Cards · Net Banking · Wallets
           </div>
         </div>
@@ -132,7 +132,7 @@ export default async function PricingPage() {
                 <tr className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Feature</th>
                   {["Free","Basic","Pro","Business"].map((h) => (
-                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-violet-500 dark:text-violet-400" :"text-zinc-500 dark:text-zinc-400"}`}>{h}</th>
+                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-emerald-500 dark:text-emerald-400" :"text-zinc-500 dark:text-zinc-400"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>

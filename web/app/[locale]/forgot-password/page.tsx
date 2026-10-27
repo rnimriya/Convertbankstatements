@@ -66,13 +66,13 @@ export default function ForgotPasswordPage() {
                   <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">
                     🔧 Dev mode — reset link:
                   </p>
-                  <a href={devResetUrl} className="break-all text-xs text-brand-600 dark:text-violet-400 hover:underline font-mono">
+                  <a href={devResetUrl} className="break-all text-xs text-brand-600 dark:text-emerald-400 hover:underline font-mono">
                     {devResetUrl}
                   </a>
                 </div>
               )}
-              <Link href="/login" className="mt-2 flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-violet-400 hover:underline">
-                <ArrowLeft className="h-4 w-4 text-blue-500 dark:text-blue-400" />
+              <Link href="/login" className="mt-2 flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-emerald-400 hover:underline">
+                <ArrowLeft className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                 Back to sign in
               </Link>
             </div>
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
             <>
               <div className="flex items-center gap-3 mb-2">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
-                  <Mail className="h-5 w-5 dark:text-violet-400 text-blue-500 dark:text-blue-400" />
+                  <Mail className="h-5 w-5 dark:text-emerald-400 text-emerald-500 dark:text-emerald-400" />
                 </div>
                 <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Forgot password?</h1>
               </div>
@@ -124,7 +124,7 @@ export default function ForgotPasswordPage() {
 
               <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
                 Remember your password?{""}
-                <Link href="/login" className="font-semibold text-brand-600 dark:text-violet-400 hover:underline">
+                <Link href="/login" className="font-semibold text-brand-600 dark:text-emerald-400 hover:underline">
                   Sign in
                 </Link>
               </p>

@@ -47,7 +47,7 @@ export function SamplePDFDemo() {
     return (
       <button
         onClick={runDemo}
-        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-900/40 dark:border-zinc-800 dark:hover:border-brand-400/40 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-violet-400 bg-white dark:bg-zinc-950 transition-colors"
+        className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold text-zinc-700 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-900/40 dark:border-zinc-800 dark:hover:border-brand-400/40 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-emerald-400 bg-white dark:bg-zinc-950 transition-colors"
       >
         <Zap size={15} className="text-amber-500 text-amber-500 dark:text-amber-400" />
         Try with sample PDF
@@ -136,9 +136,9 @@ export function SamplePDFDemo() {
           <a
             href={result.export_urls.xlsx}
             download="Sample_Converted.xlsx"
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-violet-400 bg-zinc-900 dark:bg-zinc-950/[0.08] dark:bg-brand-400/10 hover:bg-zinc-900 dark:bg-zinc-950/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 text-xs font-semibold text-navy dark:text-emerald-400 bg-zinc-900 dark:bg-zinc-950/[0.08] dark:bg-brand-400/10 hover:bg-zinc-900 dark:bg-zinc-950/[0.15] dark:hover:bg-brand-400/20 rounded-lg transition-colors"
           >
-            <FileSpreadsheet className="text-indigo-500 dark:text-indigo-400"  size={13} />
+            <FileSpreadsheet className="text-emerald-500 dark:text-emerald-400"  size={13} />
             Download
           </a>
         )}
@@ -154,7 +154,7 @@ export function SamplePDFDemo() {
         )}
       </div>
       <p className="px-4 pb-3 text-[10px] text-zinc-400 dark:text-zinc-500 text-center">
-        Demo data — <a href="/signup" className="underline underline-offset-1 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-violet-400 transition-colors">sign up free</a> to convert your real statements
+        Demo data — <a href="/signup" className="underline underline-offset-1 hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-emerald-400 transition-colors">sign up free</a> to convert your real statements
       </p>
     </div>
   );

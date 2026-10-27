@@ -85,11 +85,11 @@ export default function CsvToQboPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Converting a PDF statement instead? Use the{" "}
-            <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QuickBooks reconciliation converter</a>.
+            <a href="/quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QuickBooks reconciliation converter</a>.
             {" "}Already have a QBO that QuickBooks refuses? The{" "}
-            <a href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO import-error decoder</a>{" "}
+            <a href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO import-error decoder</a>{" "}
             explains each error and its fix, and the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
             checks any file before you import it.
           </p>
         </>

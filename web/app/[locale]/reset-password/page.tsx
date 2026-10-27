@@ -99,7 +99,7 @@ function ResetPasswordForm() {
     <>
       <div className="flex items-center gap-3 mb-2">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
-          <ShieldCheck className="h-5 w-5 dark:text-violet-400 text-emerald-500 dark:text-emerald-400" />
+          <ShieldCheck className="h-5 w-5 dark:text-emerald-400 text-emerald-500 dark:text-emerald-400" />
         </div>
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Reset password</h1>
       </div>
@@ -133,7 +133,7 @@ function ResetPasswordForm() {
               className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300"
               aria-label="Toggle password visibility"
             >
-              {showPassword ? <EyeOff className="h-4 w-4 text-emerald-500 dark:text-emerald-400" /> : <Eye className="h-4 w-4 text-blue-500 dark:text-blue-400" />}
+              {showPassword ? <EyeOff className="h-4 w-4 text-emerald-500 dark:text-emerald-400" /> : <Eye className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />}
             </button>
           </div>
 
@@ -193,8 +193,8 @@ function ResetPasswordForm() {
       </form>
 
       <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
-        <Link href="/forgot-password" className="flex items-center justify-center gap-1 text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-violet-400 transition-colors">
-          <ArrowLeft className="h-3.5 w-3.5 text-blue-500 dark:text-blue-400" />
+        <Link href="/forgot-password" className="flex items-center justify-center gap-1 text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-emerald-400 transition-colors">
+          <ArrowLeft className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />
           Request a new reset link
         </Link>
       </p>

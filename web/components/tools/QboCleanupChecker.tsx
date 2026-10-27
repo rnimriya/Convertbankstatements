@@ -150,7 +150,7 @@ export function QboCleanupChecker() {
             </div>
             <div className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
               <p className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-                <FileCheck2 className="h-5 w-5 text-blue-600" />
+                <FileCheck2 className="h-5 w-5 text-emerald-600" />
                 {result.transactionCount} transactions analyzed
               </p>
               <p className="mt-1">
@@ -256,20 +256,20 @@ export function QboCleanupChecker() {
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               onClick={downloadCsvReport}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-blue-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
             >
               <Download className="h-4 w-4" /> Download report (CSV)
             </button>
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-blue-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
             >
               <Printer className="h-4 w-4" /> Print summary
             </button>
             <button
               onClick={() => void downloadCleanedQbo()}
               disabled={dlBusy}
-              className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
             >
               <Sparkles className="h-4 w-4" />
               {dlBusy ? "Preparing…" : "Download Cleaned QBO (Pro)"}
@@ -284,13 +284,13 @@ export function QboCleanupChecker() {
             The cleaned file drops exact duplicates, regenerates missing or repeated transaction
             IDs, and keeps near-matches for your review — the same format our converter exports,
             balance-ready. If QuickBooks still refuses a file, the{" "}
-            <Link href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">import-error decoder</Link>{" "}
+            <Link href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">import-error decoder</Link>{" "}
             explains each error and its fix.
           </p>
 
           {/* Cleanup upsell */}
           <div className="mt-8 relative overflow-hidden p-8 rounded-3xl bg-zinc-900 text-white">
-            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[200px] opacity-25 bg-blue-500 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[200px] opacity-25 bg-emerald-500 rounded-full blur-[100px] pointer-events-none" />
             <div className="relative">
               <h3 className="font-bold text-lg">Found a real mess? That&apos;s a cleanup, not a download.</h3>
               <p className="text-zinc-400 text-sm mt-2 max-w-xl">

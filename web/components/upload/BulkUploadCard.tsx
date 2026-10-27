@@ -178,7 +178,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0 text-amber-500 dark:text-amber-400" />
               ) : (
-                <FileSpreadsheet size={16} className="text-emerald-500 shrink-0 text-indigo-500 dark:text-indigo-400" />
+                <FileSpreadsheet size={16} className="text-emerald-500 shrink-0 text-emerald-500 dark:text-emerald-400" />
               )}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-zinc-800 dark:text-white truncate">{r.fileName}</p>
@@ -261,7 +261,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                           strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <FileText size={24} className="text-indigo-500 dark:text-indigo-400" />
+                        <FileText size={24} className="text-emerald-500 dark:text-emerald-400" />
                       </div>
                     </div>
                     <div>
@@ -286,8 +286,8 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                       }}
                     >
                       {isDragActive
-                        ? <FileText size={26} className="text-white text-indigo-500 dark:text-indigo-400" strokeWidth={1.6} />
-                        : <Upload size={26} className="text-white text-blue-500 dark:text-blue-400" strokeWidth={1.6} />}
+                        ? <FileText size={26} className="text-white text-emerald-500 dark:text-emerald-400" strokeWidth={1.6} />
+                        : <Upload size={26} className="text-white text-emerald-500 dark:text-emerald-400" strokeWidth={1.6} />}
                     </div>
 
                     <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">

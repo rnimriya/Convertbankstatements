@@ -215,8 +215,8 @@ export function DashboardClient({
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 truncate tracking-tight">{displayName}</p>
                   <span className={`shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider ${
-                    billing.tier ==="BUSINESS" ?"bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400" :
-                    billing.tier ==="PRO"      ?"bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-400" :
+                    billing.tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400" :
+                    billing.tier ==="PRO"      ?"bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-400" :
                     billing.tier ==="BASIC"    ?"bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-400" :"bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
                   }`}>
                     {billing.tier}
@@ -326,7 +326,7 @@ export function DashboardClient({
                 onClick={() => setTab("upload")}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
               >
-                <Upload className="text-blue-500 dark:text-blue-400"  size={13} />
+                <Upload className="text-emerald-500 dark:text-emerald-400"  size={13} />
                 <span className="hidden sm:inline">Convert</span>
               </button>
             )}
@@ -396,7 +396,7 @@ export function DashboardClient({
                   onClick={() => setTab("upload")}
                   className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-100 dark:text-black text-white transition-opacity hover:opacity-90"
                 >
-                  <Upload className="text-blue-500 dark:text-blue-400"  size={14} />
+                  <Upload className="text-emerald-500 dark:text-emerald-400"  size={14} />
                   Start Converting
                 </button>
               </div>
@@ -475,7 +475,7 @@ export function DashboardClient({
                       <div
                         className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 bg-brand-surface"
                       >
-                        <FileText size={24} className="dark: text-indigo-500 dark:text-indigo-400" />
+                        <FileText size={24} className="dark: text-emerald-500 dark:text-emerald-400" />
                       </div>
                       <p className="font-bold text-brand-text text-base">No documents yet</p>
                       <p className="text-sm text-brand-muted mt-1 max-w-xs">
@@ -502,7 +502,7 @@ export function DashboardClient({
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-brand-surface/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
                               <div className="w-8 h-8 rounded-xl bg-brand-surface flex items-center justify-center shrink-0">
-                                <FileText size={14} className="dark: text-indigo-500 dark:text-indigo-400" />
+                                <FileText size={14} className="dark: text-emerald-500 dark:text-emerald-400" />
                               </div>
                               <div className="min-w-0">
                                 <p className="text-sm font-semibold text-brand-text truncate">{log.fileName}</p>
@@ -555,8 +555,8 @@ export function DashboardClient({
                         <p className="text-xl font-black text-brand-text">{billing.tier}</p>
                       </div>
                       <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
-                        billing.tier ==="BUSINESS" ?"bg-blue-100 text-blue-700" :
-                        billing.tier ==="PRO"      ?"bg-violet-100 text-violet-700" :
+                        billing.tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700" :
+                        billing.tier ==="PRO"      ?"bg-emerald-100 text-emerald-700" :
                         billing.tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-brand-surface text-brand-muted"
                       }`}>
                         {billing.tier ==="FREE" ?"Free forever" :"Active"}
@@ -733,7 +733,7 @@ export function DashboardClient({
                 title="Processing Queue"
                 subtitle="Batch jobs and queued conversions"
                 iconColor="#8b5cf6"
-                iconBg="#f5f3ff"
+                iconBg="#ecfdf5"
               />
               <div className="p-5 lg:p-8">
 
@@ -753,8 +753,8 @@ export function DashboardClient({
                 iconBg="#eff6ff"
                 action={
                   <span className={`text-xs font-bold px-3 py-1.5 rounded-xl ${
-                    billing.tier ==="BUSINESS" ?"bg-blue-100 text-blue-700" :
-                    billing.tier ==="PRO"      ?"bg-violet-100 text-violet-700" :"bg-brand-surface text-brand-muted"
+                    billing.tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700" :
+                    billing.tier ==="PRO"      ?"bg-emerald-100 text-emerald-700" :"bg-brand-surface text-brand-muted"
                   }`}>
                     {billing.tier} plan
                   </span>

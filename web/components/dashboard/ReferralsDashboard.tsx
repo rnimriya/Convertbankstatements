@@ -39,7 +39,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
     <div className="min-h-screen bg-brand-bg px-4 py-10">
       <div className="mx-auto max-w-2xl">
         <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-brand-muted hover:text-brand-text dark:hover:text-white transition-colors mb-8">
-          <ArrowLeft className="text-blue-500 dark:text-blue-400"  size={14} />
+          <ArrowLeft className="text-emerald-500 dark:text-emerald-400"  size={14} />
           Back to dashboard
         </Link>
 
@@ -52,10 +52,10 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
         <div className="grid grid-cols-2 gap-4 mb-8">
           <div className="bg-brand-surface rounded-2xl border border-brand-border p-5">
             <div className="flex items-center gap-2 text-brand-muted text-xs font-semibold uppercase tracking-wide mb-2">
-              <Gift className="text-pink-500 dark:text-pink-400"  size={13} />
+              <Gift className="text-emerald-500 dark:text-emerald-400"  size={13} />
               Pages earned
             </div>
-            <p className="font-display text-3xl font-bold text-navy dark:text-violet-400">{pagesCredited}</p>
+            <p className="font-display text-3xl font-bold text-navy dark:text-emerald-400">{pagesCredited}</p>
             <p className="text-xs text-brand-muted mt-0.5">via referrals</p>
           </div>
           <div className="bg-brand-surface rounded-2xl border border-brand-border p-5">
@@ -86,7 +86,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
               {copied ? (
                 <><CheckCircle2 className="text-emerald-500 dark:text-emerald-400"  size={14} /> Copied!</>
               ) : (
-                <><Copy className="text-cyan-500 dark:text-cyan-400"  size={14} /> Copy</>
+                <><Copy className="text-emerald-500 dark:text-emerald-400"  size={14} /> Copy</>
               )}
             </button>
           </div>
@@ -104,9 +104,9 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
           </a>
           <button
             onClick={copyLink}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-violet-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-emerald-400 transition-colors"
           >
-            <Copy className="text-cyan-500 dark:text-cyan-400"  size={14} />
+            <Copy className="text-emerald-500 dark:text-emerald-400"  size={14} />
             Copy link
           </button>
         </div>

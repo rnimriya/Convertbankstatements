@@ -61,7 +61,7 @@ export function PreImportCheck({ qboUrl }: Props) {
         <button
           onClick={() => void runCheck()}
           disabled={busy}
-          className="flex w-full items-center gap-2 text-sm font-semibold text-zinc-800 dark:text-zinc-100 hover:text-blue-600 dark:hover:text-blue-400 disabled:opacity-60"
+          className="flex w-full items-center gap-2 text-sm font-semibold text-zinc-800 dark:text-zinc-100 hover:text-emerald-600 dark:hover:text-emerald-400 disabled:opacity-60"
         >
           <FileCheck2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
           {busy ? "Checking this QBO…" : "Check this QBO before importing"}
@@ -104,11 +104,11 @@ export function PreImportCheck({ qboUrl }: Props) {
               )}
               <p className="mt-2 text-xs text-zinc-400">
                 Full detail:{" "}
-                <Link href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                <Link href="/tools/free-qbo-cleanup-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">
                   QBO Duplicate Finder
                 </Link>
                 {" · "}
-                <Link href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
+                <Link href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">
                   Import errors, explained
                 </Link>
               </p>

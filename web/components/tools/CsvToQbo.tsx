@@ -171,7 +171,7 @@ export function CsvToQbo() {
                   )}
                 </span>
               )}
-              <Link href="/tools/qbo-import-errors" className="ml-auto text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+              <Link href="/tools/qbo-import-errors" className="ml-auto text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
                 QBO import errors, explained →
               </Link>
             </div>
@@ -201,14 +201,14 @@ export function CsvToQbo() {
           <div className="mt-5 flex flex-wrap gap-3">
             <button
               onClick={downloadCsv}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-blue-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
             >
               <Download className="h-4 w-4" /> Download CSV (free)
             </button>
             <button
               onClick={() => void downloadQbo()}
               disabled={dlBusy}
-              className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
             >
               <Lock className="h-4 w-4" /> {dlBusy ? "Preparing…" : "Download .QBO (Pro)"}
             </button>

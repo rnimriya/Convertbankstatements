@@ -190,15 +190,15 @@ export default function ConverterMockup() {
             {/* Extracting spinner row */}
             {proc && visRows < TXNS.length && (
               <div className="flex items-center gap-2.5 px-3 py-2.5">
-                <div className="w-6 h-6 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
-                  <Loader2 size={11} className="animate-spin text-blue-500 text-purple-500 dark:text-purple-400" />
+                <div className="w-6 h-6 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                  <Loader2 size={11} className="animate-spin text-emerald-500 text-purple-500 dark:text-purple-400" />
                 </div>
                 <span className="text-[12px] text-zinc-400 dark:text-zinc-500">Extracting…</span>
                 <div className="flex gap-1 ml-1">
                   {[0, 1, 2].map(i => (
                     <div
                       key={i}
-                      className="w-1 h-1 rounded-full bg-blue-400"
+                      className="w-1 h-1 rounded-full bg-emerald-400"
                       style={{ animation: `dotBounce 0.9s ease-in-out ${i * 0.18}s infinite` }}
                     />
                   ))}

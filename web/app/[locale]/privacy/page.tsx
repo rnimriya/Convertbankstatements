@@ -170,7 +170,7 @@ export default function PrivacyPage() {
  <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <Shield className="h-5 w-5 text-navy dark:text-violet-400 text-purple-500 dark:text-purple-400" />
+ <Shield className="h-5 w-5 text-navy dark:text-emerald-400 text-purple-500 dark:text-purple-400" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Privacy Policy</h1>
@@ -193,7 +193,7 @@ export default function PrivacyPage() {
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy dark:text-violet-400 hover:underline underline-offset-2"
+ className="text-sm text-navy dark:text-emerald-400 hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -246,7 +246,7 @@ export default function PrivacyPage() {
 
  <div className="mt-8 text-center text-xs text-zinc-400 dark:text-zinc-500">
  Questions?{""}
- <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-violet-400 hover:underline">
+ <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-emerald-400 hover:underline">
  privacy@convertstatement.online
  </a>
  </div>

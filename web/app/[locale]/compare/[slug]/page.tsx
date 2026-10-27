@@ -97,8 +97,8 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* Hero */}
-        <section className="border-b border-zinc-100 dark:border-zinc-800 bg-gradient-to-b from-violet-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-3">
+        <section className="border-b border-zinc-100 dark:border-zinc-800 bg-gradient-to-b from-emerald-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 px-6 py-16 text-center">
+          <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">
             Competitor Comparison
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-3xl mx-auto">
@@ -116,7 +116,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
               <thead>
                 <tr className="border-b-2 border-zinc-200 dark:border-zinc-700">
                   <th className="py-3 pr-4 text-left text-xs uppercase tracking-wider text-zinc-400">Feature</th>
-                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-violet-600 dark:text-violet-400 font-bold">
+                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-bold">
                     Convert Statement
                   </th>
                   <th className="py-3 pl-4 text-center text-xs uppercase tracking-wider text-zinc-400">
@@ -175,7 +175,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
           </p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-violet-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-emerald-700 transition-colors"
           >
             Try Convert Statement Free <ArrowRight className="h-4 w-4" />
           </Link>
@@ -190,7 +190,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
                 <Link
                   key={c.slug}
                   href={`/compare/${c.slug}`}
-                  className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:border-violet-400 hover:text-violet-600 dark:hover:text-violet-400 transition-colors"
+                  className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:border-emerald-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
                 >
                   vs {c.name}
                 </Link>

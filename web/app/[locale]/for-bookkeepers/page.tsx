@@ -66,7 +66,7 @@ export default function ForBookkeepersPage() {
       <Navbar />
       <main>
         <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-blue-500 dark:bg-blue-600 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-emerald-500 dark:bg-emerald-600 rounded-full blur-[120px] pointer-events-none" />
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
             <div className="text-center mb-6 max-w-4xl mx-auto">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
@@ -89,7 +89,7 @@ export default function ForBookkeepersPage() {
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white hover:border-blue-400"
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white hover:border-emerald-400"
                 >
                   Ask about volume pricing
                 </Link>

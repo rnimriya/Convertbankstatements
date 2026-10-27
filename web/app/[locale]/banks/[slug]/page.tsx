@@ -60,7 +60,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
       body: "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
     },
     {
-      icon: <Download size={22} className="text-indigo-500" />,
+      icon: <Download size={22} className="text-emerald-500" />,
       title: "Download in seconds",
       body: "Your file is ready in under 15 seconds — clean columns, correct dates, every transaction captured.",
     },
@@ -209,8 +209,8 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
               </div>
 
               <div className="bg-brand-bg p-8 rounded-3xl border border-brand-border">
-                <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-6">
-                  <FileText className="text-indigo-500" size={24} />
+                <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6">
+                  <FileText className="text-emerald-500" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Multiple Formats</h3>
                 <p className="text-brand-muted">Export to Excel, CSV, Google Sheets, or OFX for seamless import into QuickBooks, Xero and Tally.</p>

@@ -146,7 +146,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             >
               {avatarUploading
                 ? <Loader2 size={13} className="text-white animate-spin text-purple-500 dark:text-purple-400" />
-                : <Camera size={13} className="text-white text-blue-500 dark:text-blue-400" />
+                : <Camera size={13} className="text-white text-emerald-500 dark:text-emerald-400" />
               }
             </button>
 
@@ -165,8 +165,8 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <p className="text-sm text-brand-muted truncate">{userEmail}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
-                tier ==="BUSINESS" ?"bg-blue-100 text-blue-700" :
-                tier ==="PRO"      ?"bg-violet-100 text-violet-700" :
+                tier ==="BUSINESS" ?"bg-emerald-100 text-emerald-700" :
+                tier ==="PRO"      ?"bg-emerald-100 text-emerald-700" :
                 tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-brand-surface text-brand-muted"
               }`}>
                 {tier}
@@ -220,7 +220,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className={ROW}>
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
-                <Mail className="text-blue-500 dark:text-blue-400"  size={16} />
+                <Mail className="text-emerald-500 dark:text-emerald-400"  size={16} />
               </div>
               <div>
                 <p className={LABEL}>Email address</p>
@@ -260,7 +260,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
-                  <KeyRound className="text-indigo-500 dark:text-indigo-400"  size={16} />
+                  <KeyRound className="text-emerald-500 dark:text-emerald-400"  size={16} />
                 </div>
                 <div>
                   <p className={LABEL}>Password</p>
@@ -348,7 +348,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   disabled={sheetsConnecting}
                   className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-green-50 text-green-700 hover:bg-green-100 transition-colors disabled:opacity-50"
                 >
-                  {sheetsConnecting ? <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" /> : <ExternalLink className="text-cyan-500 dark:text-cyan-400"  size={12} />}
+                  {sheetsConnecting ? <Loader2 size={12} className="animate-spin text-purple-500 dark:text-purple-400" /> : <ExternalLink className="text-emerald-500 dark:text-emerald-400"  size={12} />}
                   Connect
                 </button>
               )

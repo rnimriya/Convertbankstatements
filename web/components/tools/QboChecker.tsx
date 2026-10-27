@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-violet-400 transition-colors"
+        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-emerald-400 transition-colors"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -80,9 +80,9 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <Loader2 className="h-9 w-9 mx-auto text-violet-600 animate-spin" />
+          <Loader2 className="h-9 w-9 mx-auto text-emerald-600 animate-spin" />
         ) : (
-          <Upload className="h-9 w-9 mx-auto text-violet-600" />
+          <Upload className="h-9 w-9 mx-auto text-emerald-600" />
         )}
         <p className="mt-3 font-semibold text-zinc-900 dark:text-white">
           {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here, or click to browse"}
@@ -168,13 +168,13 @@ export function QboChecker() {
 
           <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
             If QuickBooks shows an error when importing, the{" "}
-            <Link href="/tools/qbo-import-errors" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO import-error decoder</Link>{" "}
+            <Link href="/tools/qbo-import-errors" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO import-error decoder</Link>{" "}
             explains what each message means and how to fix it.
           </p>
 
           <div className="mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-6">
             <p className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <FileCheck2 className="h-5 w-5 text-violet-500" /> Working from a PDF statement instead?
+              <FileCheck2 className="h-5 w-5 text-emerald-500" /> Working from a PDF statement instead?
             </p>
             <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
               Convert Statement turns the PDF into a QBO file that passes these checks by
@@ -183,7 +183,7 @@ export function QboChecker() {
             </p>
             <Link
               href="/quickbooks"
-              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-violet-500 transition-colors"
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-emerald-500 transition-colors"
             >
               Convert a statement for QuickBooks <ArrowRight className="h-4 w-4" />
             </Link>

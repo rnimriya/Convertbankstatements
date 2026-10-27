@@ -294,9 +294,9 @@ export function ToolUpload({
 
 export function QboGateNotice({ gate }: { gate: string | null }) {
   return (
-    <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 px-5 py-4">
+    <div className="rounded-2xl border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 px-5 py-4">
       <p className="font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-        <Lock className="h-4 w-4 text-blue-600" /> QBO download is a Pro feature
+        <Lock className="h-4 w-4 text-emerald-600" /> QBO download is a Pro feature
       </p>
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
         {gate === "login"
@@ -308,14 +308,14 @@ export function QboGateNotice({ gate }: { gate: string | null }) {
         {gate === "login" ? (
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
           >
             <LogIn className="h-4 w-4" /> Sign in
           </Link>
         ) : (
           <Link
             href="/pricing"
-            className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
           >
             See Pro plans
           </Link>

@@ -24,8 +24,8 @@ export default function QboCheckerPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
-        <section className="bg-gradient-to-b from-violet-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-violet-600 dark:text-violet-400 uppercase tracking-wider mb-3">
+        <section className="bg-gradient-to-b from-emerald-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-6 py-16 text-center">
+          <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider mb-3">
             Free Tool
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-4xl mx-auto">
@@ -53,7 +53,7 @@ export default function QboCheckerPage() {
             <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
               Files converted with Convert Statement are built to pass every one of these checks —
               the running balances are verified against the statement itself before the QBO is
-              generated. <a href="/quickbooks" className="text-violet-600 dark:text-violet-400 font-semibold hover:underline">See how the QuickBooks converter works</a>.
+              generated. <a href="/quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">See how the QuickBooks converter works</a>.
             </p>
           </div>
         </section>

@@ -128,7 +128,7 @@ export function ReceiptToQbo() {
         <div className="mt-8">
           <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-5">
             <p className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <Receipt className="h-5 w-5 text-blue-600" />
+              <Receipt className="h-5 w-5 text-emerald-600" />
               {result.vendor || "Receipt"}
             </p>
             <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
@@ -208,7 +208,7 @@ export function ReceiptToQbo() {
             <div className="px-4 py-3 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
               <button
                 onClick={addRow}
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
               >
                 <Plus className="h-4 w-4" /> Add a line
               </button>
@@ -222,14 +222,14 @@ export function ReceiptToQbo() {
           <div className="mt-5 flex flex-wrap gap-3">
             <button
               onClick={downloadCsv}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-blue-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-emerald-400"
             >
               <Download className="h-4 w-4" /> Download CSV (free)
             </button>
             <button
               onClick={() => void downloadQbo()}
               disabled={dlBusy || rows.length === 0}
-              className="inline-flex items-center gap-2 bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-emerald-700 disabled:opacity-60"
             >
               <Lock className="h-4 w-4" /> {dlBusy ? "Preparing…" : "Download .QBO (Pro)"}
             </button>

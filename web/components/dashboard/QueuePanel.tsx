@@ -102,7 +102,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
       <div className="flex items-center justify-between">
         <p className="text-sm text-brand-muted">
           {active.length > 0 ? (
-            <span className="flex items-center gap-1.5 text-navy dark:text-violet-400 font-medium">
+            <span className="flex items-center gap-1.5 text-navy dark:text-emerald-400 font-medium">
               <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> {active.length} job{active.length > 1 ?"s" :""} in progress…
             </span>
           ) : (
@@ -136,8 +136,8 @@ export function QueuePanel({ userEmail, tier }: Props) {
               >
                 <div className="h-10 w-10 shrink-0 rounded-xl bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
                   {job.status ==="processing"
-                    ? <Loader2 size={20} className="dark:text-violet-400 animate-spin text-purple-500 dark:text-purple-400" />
-                    : <FileText size={20} className="dark:text-violet-400 text-indigo-500 dark:text-indigo-400" />
+                    ? <Loader2 size={20} className="dark:text-emerald-400 animate-spin text-purple-500 dark:text-purple-400" />
+                    : <FileText size={20} className="dark:text-emerald-400 text-emerald-500 dark:text-emerald-400" />
                   }
                 </div>
 
@@ -185,7 +185,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                           className="flex w-full items-center justify-between rounded-xl bg-orange-500 hover:bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.3)] transition-all"
                         >
                           <span className="flex items-center gap-2">
-                            <FileText size={14} className="opacity-80 text-indigo-500 dark:text-indigo-400" />
+                            <FileText size={14} className="opacity-80 text-emerald-500 dark:text-emerald-400" />
                             Download {fmt.toUpperCase()}
                           </span>
                           <Download size={14} className="opacity-80 text-emerald-500 dark:text-emerald-400" />

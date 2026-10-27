@@ -92,9 +92,9 @@ export default function StripeToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Already converting bank statements for QuickBooks? The payout converter pairs with our{" "}
-            <a href="/quickbooks" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QuickBooks reconciliation converter</a>{" "}
+            <a href="/quickbooks" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QuickBooks reconciliation converter</a>{" "}
             and the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
             to keep the whole month clean.
           </p>
         </>

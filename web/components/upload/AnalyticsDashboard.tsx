@@ -54,7 +54,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
   return (
     <div className="mt-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-5">
       <div className="flex items-center gap-2 mb-4">
-        <TrendingUp className="h-5 w-5 text-violet-500" />
+        <TrendingUp className="h-5 w-5 text-emerald-500" />
         <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">Pre-Export Analytics (Beta)</h3>
       </div>
       
@@ -97,7 +97,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
         <div className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-800">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Top Expense Categories</span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 border border-violet-200 dark:border-violet-800">
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
               SMART CATEGORIZATION
             </span>
           </div>

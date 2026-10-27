@@ -8,9 +8,9 @@ import { cn } from"@/lib/utils";
 
 const VARIANTS = {
   info: {
-    container:"bg-sky-50 dark:bg-sky-950/40 border-sky-200 dark:border-sky-800/50 text-sky-800 dark:text-sky-200",
-    icon:"text-sky-500 dark:text-sky-400",
-    close:"text-sky-600/60 hover:text-sky-800 dark:text-sky-400/60 dark:hover:text-sky-200",
+    container:"bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/50 text-emerald-800 dark:text-emerald-200",
+    icon:"text-emerald-500 dark:text-emerald-400",
+    close:"text-emerald-600/60 hover:text-emerald-800 dark:text-emerald-400/60 dark:hover:text-emerald-200",
     Icon: Info,
   },
   success: {

@@ -113,9 +113,9 @@ export default function QboImportErrorsPage() {
           </div>
           <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-300">
             Then check your own file:{" "}
-            <a href="/tools/qbo-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO File Checker</a>
+            <a href="/tools/qbo-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO File Checker</a>
             {" "}for structure and balances,{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QBO Duplicate Finder</a>
+            <a href="/tools/free-qbo-cleanup-checker" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QBO Duplicate Finder</a>
             {" "}for duplicates. Both are free with no account.
           </p>
         </div>
@@ -155,10 +155,10 @@ export default function QboImportErrorsPage() {
           </div>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Still stuck after fixing the file? The{" "}
-            <a href="/tools/reconciliation-finder" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">Reconciliation Difference Finder</a>{" "}
+            <a href="/tools/reconciliation-finder" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">Reconciliation Difference Finder</a>{" "}
             compares a statement against a QuickBooks export and shows exactly which entries
             do not line up — and our{" "}
-            <a href="/services/quickbooks-cleanup" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">QuickBooks cleanup service</a>{" "}
+            <a href="/services/quickbooks-cleanup" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline">QuickBooks cleanup service</a>{" "}
             takes the whole mess off your hands with a free assessment first.
           </p>
         </>

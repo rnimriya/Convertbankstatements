@@ -110,8 +110,8 @@ export function TeamPanel({ tier, userEmail }: Props) {
       <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
-              <Users size={20} className="text-blue-600 dark:text-blue-400 text-purple-500 dark:text-purple-400" />
+            <div className="h-10 w-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 flex items-center justify-center">
+              <Users size={20} className="text-emerald-600 dark:text-emerald-400 text-purple-500 dark:text-purple-400" />
             </div>
             <div>
               <p className="font-semibold text-brand-text">Team seats</p>
@@ -127,7 +127,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
         {/* Seat usage bar */}
         <div className="h-2 bg-zinc-100 dark:bg-brand-bg/10 rounded-full overflow-hidden">
           <div
-            className="h-full bg-blue-500 rounded-full transition-all"
+            className="h-full bg-emerald-500 rounded-full transition-all"
             style={{ width: `${(seatsFilled / maxSeats) * 100}%` }}
           />
         </div>
@@ -165,7 +165,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
               disabled={inviting}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
             >
-              {inviting ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <Mail className="text-blue-500 dark:text-blue-400"  size={14} />}
+              {inviting ? <Loader2 size={14} className="animate-spin text-purple-500 dark:text-purple-400" /> : <Mail className="text-emerald-500 dark:text-emerald-400"  size={14} />}
               Send invite
             </button>
           </form>

@@ -77,7 +77,7 @@ function CommentForm({
             disabled={loading || !text.trim()}
             className="flex items-center gap-1.5 rounded-xl bg-brand-400 px-4 py-2 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-500 dark:text-purple-400" /> : <Send className="h-3.5 w-3.5 text-cyan-500 dark:text-cyan-400" />}
+            {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin text-purple-500 dark:text-purple-400" /> : <Send className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400" />}
             {parentId ?"Reply" :"Post comment"}
           </button>
         </div>
@@ -152,7 +152,7 @@ export function CommentSection({ slug, initialComments }: Props) {
     <section className="mt-12 border-t border-zinc-100 dark:border-zinc-800 pt-8">
       {/* Header */}
       <h2 className="text-xl font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-        <MessageSquare className="h-5 w-5 text-violet-500 text-rose-500 dark:text-rose-400" />
+        <MessageSquare className="h-5 w-5 text-emerald-500 text-rose-500 dark:text-rose-400" />
         Comments
         {comments.length > 0 && (
           <span className="ml-1 rounded-full bg-zinc-100 dark:bg-white dark:bg-zinc-950/10 px-2 py-0.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300">
@@ -174,7 +174,7 @@ export function CommentSection({ slug, initialComments }: Props) {
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             <Link
               href={`/login?redirectTo=/blog/${slug}`}
-              className="font-semibold text-violet-500 dark:text-violet-400 hover:underline"
+              className="font-semibold text-emerald-500 dark:text-emerald-400 hover:underline"
             >
               Sign in
             </Link>{""}
@@ -214,9 +214,9 @@ export function CommentSection({ slug, initialComments }: Props) {
                     {isLoggedIn && !isReplying && (
                       <button
                         onClick={() => setReplyingTo(comment.id)}
-                        className="mt-2 flex items-center gap-1 text-xs font-medium text-zinc-400 dark:text-zinc-500 hover:text-violet-500 dark:hover:text-violet-400 transition-colors"
+                        className="mt-2 flex items-center gap-1 text-xs font-medium text-zinc-400 dark:text-zinc-500 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
                       >
-                        <CornerDownRight className="text-indigo-500 dark:text-indigo-400"  size={12} />
+                        <CornerDownRight className="text-emerald-500 dark:text-emerald-400"  size={12} />
                         Reply
                       </button>
                     )}

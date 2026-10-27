@@ -249,7 +249,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 className="flex w-full items-center justify-between rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.99] transition-all px-4 py-3 text-sm font-semibold text-white"
               >
                 <span className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-white/80 text-indigo-500 dark:text-indigo-400" />
+                  <FileSpreadsheet className="h-4 w-4 text-white/80 text-emerald-500 dark:text-emerald-400" />
                   {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
                 </span>
                 <Download className="h-4 w-4 text-white/80 text-emerald-500 dark:text-emerald-400" />
@@ -257,7 +257,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
             ))}
 
             {result.locked_formats && result.locked_formats.length > 0 && (
-              <div className="rounded-xl border border-violet-200 bg-violet-50 px-4 py-3 text-xs text-violet-800">
+              <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800">
                 <span className="font-semibold">{result.locked_formats.map(f => (FORMAT_LABELS[f] ?? f.toUpperCase()).replace(/^Download /, "")).join(", ")}</span>
                 {" "}exports are Pro plan features. <a href="/pricing" className="font-semibold underline">Upgrade to Pro</a> to unlock them — your downloads above are ready.
               </div>
@@ -313,7 +313,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                     <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white/80"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".5"/></svg>
                     Open in Google Sheets
                   </span>
-                  <ExternalLink className="h-4 w-4 text-white/80 text-cyan-500 dark:text-cyan-400" />
+                  <ExternalLink className="h-4 w-4 text-white/80 text-emerald-500 dark:text-emerald-400" />
                 </a>
               ) : (
                 <button
@@ -328,7 +328,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                     }
                     {sheetsExporting ?"Exporting to Google Sheets…" :"Export to Google Sheets"}
                   </span>
-                  <ExternalLink className="h-4 w-4 opacity-60 text-cyan-500 dark:text-cyan-400" />
+                  <ExternalLink className="h-4 w-4 opacity-60 text-emerald-500 dark:text-emerald-400" />
                 </button>
               )
             )}
@@ -344,7 +344,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         <div className="rounded-2xl border border-brand-border bg-brand-surface overflow-hidden">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-5 py-3 bg-zinc-50">
             <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-200">
-              <TrendingUp className="h-4 w-4 dark:text-violet-400 text-cyan-500 dark:text-cyan-400" />
+              <TrendingUp className="h-4 w-4 dark:text-emerald-400 text-emerald-500 dark:text-emerald-400" />
               Transaction preview
             </div>
             <Badge variant="default" size="sm">

@@ -55,12 +55,12 @@ export function ContactForm() {
       <div className="md:col-span-1 space-y-6">
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 p-6 shadow-sm">
           <h2 className="text-lg font-bold text-zinc-800 dark:text-white flex items-center gap-2">
-            <Mail className="h-5 w-5 text-violet-500 text-blue-500 dark:text-blue-400" />
+            <Mail className="h-5 w-5 text-emerald-500 text-emerald-500 dark:text-emerald-400" />
             {t("emailUs")}
           </h2>
           <a
             href="mailto:support@convertstatement.online"
-            className="mt-2 block text-sm font-semibold text-brand-600 dark:text-violet-400 hover:underline"
+            className="mt-2 block text-sm font-semibold text-brand-600 dark:text-emerald-400 hover:underline"
           >
             support@convertstatement.online
           </a>
@@ -68,7 +68,7 @@ export function ContactForm() {
 
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 p-6 shadow-sm">
           <h2 className="text-lg font-bold text-zinc-800 dark:text-white flex items-center gap-2">
-            <Clock className="h-5 w-5 text-violet-500 text-amber-500 dark:text-amber-400" />
+            <Clock className="h-5 w-5 text-emerald-500 text-amber-500 dark:text-amber-400" />
             {t("supportHours")}
           </h2>
           <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 font-medium">
@@ -181,7 +181,7 @@ export function ContactForm() {
                   </>
                 ) : (
                   <>
-                    <Send className="h-4 w-4 text-cyan-500 dark:text-cyan-400" />
+                    <Send className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
                     <span>{t("submit")}</span>
                   </>
                 )}

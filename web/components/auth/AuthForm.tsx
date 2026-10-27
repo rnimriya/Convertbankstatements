@@ -172,7 +172,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium text-zinc-700 dark:text-zinc-200">{t("passwordLabel")}</label>
                   {mode ==="login" && (
-                    <Link href="/forgot-password" className="text-xs text-navy dark:text-violet-400 hover:underline">
+                    <Link href="/forgot-password" className="text-xs text-navy dark:text-emerald-400 hover:underline">
                       {t("forgotPassword")}
                     </Link>
                   )}
@@ -193,7 +193,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors"
                     aria-label="Toggle password visibility"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4 text-emerald-500 dark:text-emerald-400" /> : <Eye className="h-4 w-4 text-blue-500 dark:text-blue-400" />}
+                    {showPassword ? <EyeOff className="h-4 w-4 text-emerald-500 dark:text-emerald-400" /> : <Eye className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />}
                   </button>
                 </div>
               </div>
@@ -254,7 +254,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               {mode ==="login" ? t("switchToSignup") : t("switchToLogin")}{""}
               <Link
                 href={mode ==="login" ?"/signup" :"/login"}
-                className="font-semibold text-navy dark:text-violet-400 hover:underline"
+                className="font-semibold text-navy dark:text-emerald-400 hover:underline"
               >
                 {mode ==="login" ? t("signupLink") : t("loginLink")}
               </Link>
