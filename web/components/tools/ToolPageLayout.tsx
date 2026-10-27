@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { PricingCards } from "@/components/PricingCards";
 import {
-  Wrench, CheckCircle2, Upload, FileCheck, Download, Sparkles, ArrowRight,
+  CheckCircle2, Upload, FileCheck, Download, Sparkles, ArrowRight,
   Zap, Shield, Lock,
 } from "lucide-react";
 
@@ -16,16 +16,16 @@ export interface ToolFaq {
 }
 
 const FREE_TOOLS = [
-  { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder" },
-  { href: "/tools/free-stripe-to-quickbooks", label: "Stripe QBO Converter" },
-  { href: "/tools/free-paypal-to-quickbooks", label: "PayPal Payout to QBO Converter" },
-  { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QBO" },
-  { href: "/tools/qbo-checker", label: "QBO File Checker" },
-  { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter" },
-  { href: "/tools/amazon-to-quickbooks", label: "Amazon Settlement to QuickBooks" },
-  { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout to QuickBooks" },
-  { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder" },
-  { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained" },
+  { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder", img: "/tools/tool-duplicates.webp" },
+  { href: "/tools/free-stripe-to-quickbooks", label: "Stripe QBO Converter", img: "/tools/tool-stripe.webp" },
+  { href: "/tools/free-paypal-to-quickbooks", label: "PayPal Payout to QBO Converter", img: "/tools/tool-paypal.webp" },
+  { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QBO", img: "/tools/tool-receipt.webp" },
+  { href: "/tools/qbo-checker", label: "QBO File Checker", img: "/tools/tool-checker.webp" },
+  { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", img: "/tools/tool-csv.webp" },
+  { href: "/tools/amazon-to-quickbooks", label: "Amazon Settlement to QuickBooks", img: "/tools/tool-amazon.webp" },
+  { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout to QuickBooks", img: "/tools/tool-shopify.webp" },
+  { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder", img: "/tools/tool-recon.webp" },
+  { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained", img: "/tools/tool-errors.webp" },
 ];
 
 const TRUST_PILLS = [
@@ -208,33 +208,42 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── MORE FREE TOOLS ──────────────────────────────────── */}
-        <section className="py-24 bg-brand-bg border-t border-brand-border">
+        <section className="py-16 bg-brand-bg border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="text-center mb-14">
+            <div className="text-center mb-8">
               <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">
                 Free tools
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text">More free QuickBooks tools</h2>
+              <h2 className="text-3xl font-bold text-brand-text">More free QuickBooks tools</h2>
+              <p className="text-brand-muted text-sm mt-2">9 more free tools — pick one, scan free, no account needed.</p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 border border-brand-border rounded-2xl overflow-hidden bg-brand-bg [&>*:nth-child(n)]:border-b [&>*:nth-child(n)]:border-r [&>*:nth-child(n)]:border-zinc-200 dark:[&>*:nth-child(n)]:border-zinc-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {FREE_TOOLS.filter((t) => t.href !== currentPath).map((t) => (
                 <Link
                   key={t.href}
                   href={t.href}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-brand-bg hover:bg-brand-surface/80 transition-colors duration-300"
+                  className="group flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-bg p-4 transition-shadow duration-300 hover:shadow-[0_14px_28px_rgba(45,54,60,0.10)]"
                 >
-                  <div className="relative z-10 flex flex-1 flex-col">
-                    <div className="w-12 h-12 rounded-xl bg-brand-surface border border-brand-border flex items-center justify-center mb-5">
-                      <Wrench size={22} className="text-teal-500 dark:text-teal-400" />
-                    </div>
-                    <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 mt-1 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                  <img
+                    src={t.img}
+                    alt=""
+                    width={76}
+                    height={76}
+                    loading="lazy"
+                    className="h-[76px] w-[76px] shrink-0 rounded-xl bg-white object-contain"
+                  />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-base font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                       {t.label}
-                    </h3>
-                    <p className="text-sm text-brand-muted leading-relaxed flex-1">
+                    </span>
+                    <span className="mt-0.5 block text-sm leading-relaxed text-brand-muted">
                       Free to scan — files are processed in memory and never stored. QBO downloads are on Pro.
-                    </p>
-                  </div>
+                    </span>
+                  </span>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-surface border border-brand-border text-teal-600 dark:text-teal-400">
+                    <ArrowRight size={18} />
+                  </span>
                 </Link>
               ))}
             </div>

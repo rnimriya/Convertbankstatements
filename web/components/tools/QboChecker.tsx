@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-teal-400 transition-colors"
+        className="rounded-3xl border-2 border-dashed border-teal-300 dark:border-teal-800 bg-gradient-to-b from-white to-teal-50/70 dark:from-zinc-900 dark:to-teal-950/30 px-6 py-12 text-center cursor-pointer hover:border-teal-400 transition-colors shadow-[0_24px_48px_rgba(10,180,169,0.10)]"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -80,14 +80,33 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <Loader2 className="h-9 w-9 mx-auto text-teal-600 animate-spin" />
+          <div className="mx-auto flex h-[68px] w-[68px] items-center justify-center rounded-full shadow-[0_12px_24px_rgba(10,180,169,0.35)]" style={{ background: "linear-gradient(135deg,#12c4b8,#0a7871)" }}>
+            <Loader2 className="h-7 w-7 text-white animate-spin" />
+          </div>
         ) : (
-          <Upload className="h-9 w-9 mx-auto text-teal-600" />
+          <div className="mx-auto flex h-[68px] w-[68px] items-center justify-center rounded-full shadow-[0_12px_24px_rgba(10,180,169,0.35)]" style={{ background: "linear-gradient(135deg,#12c4b8,#0a7871)" }}>
+            <Upload className="h-7 w-7 text-white" />
+          </div>
         )}
-        <p className="mt-3 font-semibold text-zinc-900 dark:text-white">
-          {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here, or click to browse"}
+        <p className="mt-4 text-xl font-black tracking-tight text-zinc-900 dark:text-white">
+          {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here"}
         </p>
-        <p className="mt-1 text-sm text-zinc-400">
+        {!busy && (
+          <span
+            className="mt-4 inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-bold text-white shadow-[0_10px_24px_rgba(10,180,169,0.35)]"
+            style={{ background: "linear-gradient(120deg,#12c4b8,#0ab4a9 45%,#0a7871)" }}
+          >
+            Browse files
+          </span>
+        )}
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+          {["QBO", "OFX", "QFX"].map((f) => (
+            <span key={f} className="rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3 py-1 text-xs font-bold text-teal-700 dark:text-teal-300">
+              {f}
+            </span>
+          ))}
+        </div>
+        <p className="mt-3 text-xs text-zinc-400">
           No account needed · The file is checked in memory and never stored
         </p>
       </div>
