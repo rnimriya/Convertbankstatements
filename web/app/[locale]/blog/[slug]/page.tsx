@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     })
     .filter(Boolean) as (typeof allPosts)[0][];
 
-  // Build a table of contents from h2 headings (jump links = better UX + SEO).
+  // Inject ids into h2 headings (jump links + the FAQ anchor id).
   const tocHeadings: { id: string; text: string }[] = [];
   const contentWithIds = safeContent.replace(
     /<h2([^>]*)>([\s\S]*?)<\/h2>/gi,
@@ -99,7 +99,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       return `<h2${attrs} id="${id}">${inner}</h2>`;
     }
   );
-  const showToc = tocHeadings.length >= 3;
 
   // Split the FAQ section out of the article body so it renders as a toggle
   // accordion (same look as the homepage FAQ) instead of plain Q&A text.
@@ -135,6 +134,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   // Estimated reading time for the meta row.
   const wordCount = safeContent.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
   const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+
+  // Design C v3 (owner-approved 2026-10-27): dark hero, title with the last
+  // two words in gradient, white card overlapping the hero.
+  const titleWords = post.title.split(" ");
+  const titleHead = titleWords.length > 2 ? titleWords.slice(0, -2).join(" ") : "";
+  const titleTail = titleWords.length > 2 ? titleWords.slice(-2).join(" ") : post.title;
+  const authorInitials = post.author
+    .split(" ")
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+  const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
   const blogPostSchema = {
     "@context": "https://schema.org",
@@ -176,129 +192,111 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
-      <main className="min-h-screen bg-white dark:bg-zinc-950">
-        {/* Feature image */}
-        <div className="h-64 sm:h-80 w-full overflow-hidden">
-          <img
-            src={post.featureImage}
-            alt={post.title}
-            className="h-full w-full object-cover"
-          />
+      <main className="min-h-screen bg-[#fafafa]">
+        {/* Dark hero */}
+        <div className="bg-[#0b0b12] text-white">
+          <div className="mx-auto max-w-[1060px] px-6 pt-10 pb-28">
+            <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6">
+              <a href="/" className="hover:text-zinc-300">Home</a>
+              <span className="mx-1.5">/</span>
+              <a href={`/${locale}/blog`} className="hover:text-zinc-300">Blog</a>
+              {post.tags[0] && (
+                <>
+                  <span className="mx-1.5">/</span>
+                  <span>{post.tags[0]}</span>
+                </>
+              )}
+            </nav>
+            <h1 className="text-[40px] sm:text-[58px] font-black leading-[1.05] max-w-[900px]">
+              {titleHead ? <>{titleHead} </> : null}
+              <span className="bg-gradient-to-r from-violet-500 to-pink-500 bg-clip-text text-transparent">
+                {titleTail}
+              </span>
+            </h1>
+            <p className="text-zinc-400 text-[19px] leading-relaxed max-w-[760px] mt-5">
+              {post.excerpt}
+            </p>
+            <div className="flex flex-wrap gap-2.5 mt-6">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-zinc-700 px-3.5 py-1.5 text-[13px] text-zinc-300"
+                >
+                  {tag}
+                </span>
+              ))}
+              <span className="rounded-full border border-zinc-700 px-3.5 py-1.5 text-[13px] text-zinc-300">
+                {readingMinutes} min read
+              </span>
+            </div>
+          </div>
         </div>
 
-        <div className="mx-auto max-w-6xl px-6 py-10">
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-brand-50 dark:bg-brand-900/20 px-2.5 py-0.5 text-xs font-semibold text-brand-600 dark:text-violet-400"
-              >
-                {tag}
+        <div className="mx-auto max-w-[1060px] px-6">
+          {/* White card overlapping the hero */}
+          <div className="relative z-10 -mt-16 rounded-[28px] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)] px-6 sm:px-10 py-9">
+            {/* Feature image — floated, article text wraps around it */}
+            <figure className="blog-feature-figure">
+              <img src={post.featureImage} alt={post.title} />
+            </figure>
+
+            {/* Author row */}
+            <div className="mb-4 text-sm text-zinc-500">
+              <span className="mr-2.5 inline-flex h-[42px] w-[42px] items-center justify-center rounded-full bg-violet-500 font-extrabold text-white align-middle">
+                {authorInitials}
               </span>
-            ))}
-          </div>
+              <span>
+                {post.author} · <time dateTime={post.createdAt}>{formattedDate}</time>
+              </span>
+            </div>
 
-          {/* Title */}
-          <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight">
-            {post.title}
-          </h1>
+            {/* Content */}
+            <article
+              className="article-body"
+              dangerouslySetInnerHTML={{ __html: mainContent }}
+            />
 
-          {/* Meta */}
-          <div className="mt-4 flex items-center gap-3 text-sm text-zinc-400 dark:text-zinc-500">
-            <span>{post.author}</span>
-            <span>·</span>
-            <time dateTime={post.createdAt}>
-              {new Date(post.createdAt).toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </time>
-            <span>·</span>
-            <span>{readingMinutes} min read</span>
-            {post.updatedAt && post.updatedAt !== post.createdAt && (
-              <>
-                <span>·</span>
-                <span className="italic">
-                  Last updated on {new Date(post.updatedAt).toLocaleDateString("en-US", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </span>
-              </>
+            {/* FAQ as a toggle accordion */}
+            {faqItems.length > 0 && (
+              <div className="mt-9">
+                <h2
+                  id={faqHeadingId ?? undefined}
+                  className="text-[28px] font-bold text-zinc-900 scroll-mt-24 mb-[18px] clear-both"
+                >
+                  Frequently asked questions
+                </h2>
+                <BlogFAQAccordion items={faqItems} />
+                {faqTrailingHtml && (
+                  <div
+                    className="prose prose-slate max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed mt-8"
+                    dangerouslySetInnerHTML={{ __html: faqTrailingHtml }}
+                  />
+                )}
+              </div>
             )}
           </div>
 
-          {/* Table of contents */}
-          {showToc && (
-            <nav
-              aria-label="Table of contents"
-              className="mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-6"
-            >
-              <p className="font-bold text-zinc-900 dark:text-white mb-3 text-sm uppercase tracking-wide">
-                In this article
-              </p>
-              <ul className="space-y-2">
-                {tocHeadings.map((h) => (
-                  <li key={h.id}>
-                    <a
-                      href={`#${h.id}`}
-                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-violet-600 dark:hover:text-violet-400 hover:underline"
-                    >
-                      {h.text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
-
-          {/* Content */}
-          <article
-            className="article-body mt-8 prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed prose-h2:scroll-mt-24 prose-img:rounded-2xl prose-img:shadow-lg prose-img:ring-1 prose-img:ring-slate-900/10 dark:prose-img:ring-white/10 prose-figcaption:text-left prose-figcaption:text-sm"
-            dangerouslySetInnerHTML={{ __html: mainContent }}
-          />
-
-          {/* FAQ as a toggle accordion (homepage style) */}
-          {faqItems.length > 0 && (
-            <div className="mt-8">
-              <h2
-                id={faqHeadingId ?? undefined}
-                className="font-display font-bold text-xl scroll-mt-24 text-zinc-900 dark:text-white mb-4"
-              >
-                Frequently asked questions
-              </h2>
-              <BlogFAQAccordion items={faqItems} />
-              {faqTrailingHtml && (
-                <div
-                  className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl prose-p:text-base prose-p:leading-relaxed mt-8"
-                  dangerouslySetInnerHTML={{ __html: faqTrailingHtml }}
-                />
-              )}
-            </div>
-          )}
-
           {/* In-article CTA */}
-          <div className="mt-12 rounded-3xl bg-gradient-to-br from-violet-600 to-indigo-700 p-8 text-center text-white">
-            <h2 className="text-2xl font-bold mb-2">Skip the manual work</h2>
-            <p className="text-violet-100 mb-6 text-sm sm:text-base">
-              Convert your bank statement PDF to Excel, CSV or OFX in under 15 seconds — first 8 pages free.
-            </p>
+          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-3xl bg-[#09090b] px-8 py-8 text-white">
+            <div>
+              <p className="font-bold">Skip the manual work</p>
+              <p className="text-zinc-400 text-sm mt-1">
+                Convert your bank statement to Excel, CSV or QBO in minutes.
+              </p>
+            </div>
             <a
               href="/signup"
-              className="inline-block bg-white text-violet-900 font-bold px-8 py-3 rounded-2xl hover:bg-violet-50 transition-colors"
+              className="shrink-0 rounded-full bg-gradient-to-r from-violet-500 to-pink-500 px-6 py-3 font-extrabold text-white whitespace-nowrap"
             >
-              Try it free
+              Convert my statement →
             </a>
           </div>
 
           {/* Back link */}
-          <div className="mt-12 border-t border-zinc-100 dark:border-zinc-800 pt-8">
+          <div className="mt-12 border-t border-zinc-100 pt-8">
             <a
               href={`/${locale}/blog`}
-              className="text-sm font-medium text-violet-500 dark:text-violet-400 hover:underline"
+              className="text-sm font-medium text-violet-500 hover:underline"
             >
               {t("backToBlog")}
             </a>

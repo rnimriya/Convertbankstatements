@@ -11,40 +11,44 @@ interface FAQItem {
   a: string;
 }
 
+// Design C v3 (owner-approved 2026-10-27): large cards, violet border when
+// open, circular chevron button. First item open by default, single-open.
 export function BlogFAQAccordion({ items }: { items: FAQItem[] }) {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3.5">
       {items.map(({ q, a }, i) => (
         <div
           key={i}
-          className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+          className={`rounded-[18px] border-[1.5px] transition-all duration-200 overflow-hidden ${
             open === i
-              ? "border-brand-border bg-brand-surface shadow-sm"
-              : "border-brand-border bg-brand-bg hover:border-zinc-300 dark:hover:border-zinc-700"
+              ? "border-violet-500"
+              : "border-zinc-200 hover:border-zinc-300"
           }`}
         >
           <button
-            className="flex w-full items-center justify-between px-5 py-4 text-left gap-4"
+            className="flex w-full items-center justify-between px-[22px] py-[19px] text-left gap-4"
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
           >
-            <span className={`text-sm font-semibold leading-snug ${open === i ? "text-zinc-900 dark:text-zinc-100" : "text-zinc-800 dark:text-zinc-300"}`}>
+            <span className="text-base font-bold leading-snug text-zinc-900">
               {q}
             </span>
-            <ChevronDown
-              size={16}
-              className={`shrink-0 dark:transition-transform duration-300 ${open === i ? "rotate-180 dark:" : ""}`}
-            />
+            <span className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-full bg-zinc-100">
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-300 ${open === i ? "rotate-180" : ""}`}
+              />
+            </span>
           </button>
           <div
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              open === i ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
+              open === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
             <div
-              className="px-5 pb-5 text-sm text-brand-muted leading-relaxed border-t border-zinc-100 dark:border-zinc-800 pt-3 [&_a]:text-violet-600 [&_a]:hover:underline dark:[&_a]:text-violet-400"
+              className="px-[22px] pb-[19px] text-[15.5px] text-zinc-600 leading-[1.75] [&_a]:text-violet-600 [&_a]:hover:underline"
               dangerouslySetInnerHTML={{ __html: a }}
             />
           </div>
