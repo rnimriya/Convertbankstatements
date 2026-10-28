@@ -38,10 +38,10 @@ export default async function HomePage() {
     title: string; body: string;
     stat?: string; statSuffix?: string;
     badge?: string; chips?: string[];
-    img?: string; wide?: boolean;
+    img?: string;
   };
   const FEATURES: Feature[] = [
-    { icon: <Zap size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody"), img:"/features/feature-fast.webp", wide:true },
+    { icon: <Zap size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody"), img:"/features/feature-fast.webp" },
     { icon: <Shield size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage", img:"/features/feature-private.webp" },
     { icon: <FileCheck size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody"), img:"/features/feature-accurate.webp" },
     { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody"), img:"/features/feature-banks.webp" },
@@ -271,21 +271,21 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ─── FEATURES — ADVANCED BENTO ────────────────────────── */}
-        <section id="features" className="relative py-24 bg-brand-surface">
+        {/* ─── FEATURES — DARK SECTION, WHITE CARDS (Design C) ─── */}
+        <section id="features" className="relative py-24 bg-pine-800 border-b border-pine-700">
           <div className="relative z-10 max-w-6xl mx-auto px-6">
-            <div className="text-left mb-14">
-              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tFeat("label")}</span>
-              <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight mb-3 text-brand-text">{tFeat("title")}</h2>
-              <p className="text-brand-muted max-w-xl text-sm">{tFeat("subtitle")}</p>
+            <div className="text-center mb-14">
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-400 mb-3">{tFeat("label")}</span>
+              <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight mb-3 text-white max-w-2xl mx-auto">{tFeat("title")}</h2>
+              <p className="text-zinc-300 max-w-xl text-sm mx-auto">{tFeat("subtitle")}</p>
             </div>
 
-            {/* Bento feature grid — fast spans 2, rest fill clean rows */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Dark section — white cards, 4x2 grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className={`group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300 ${f.wide ?"sm:col-span-2" :""}`}
+                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
                     {f.img ? (
