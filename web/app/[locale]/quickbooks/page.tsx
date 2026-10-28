@@ -163,7 +163,7 @@ export default async function QuickBooksPage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <Navbar />
+      <Navbar dark />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* ── Header (same pattern as guide pages) ──────────── */}
         <section className="bg-pine-800 px-6 py-16 text-center">

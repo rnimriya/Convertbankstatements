@@ -14,7 +14,7 @@ type MeUser = { name?: string | null; email: string } | null;
  * anonymous view; logged-in visitors swap to their menu once /api/auth/me
  * resolves.
  */
-export function NavSessionIsland({ signInLabel }: { signInLabel: string }) {
+export function NavSessionIsland({ signInLabel, dark = false }: { signInLabel: string; dark?: boolean }) {
   const [user, setUser] = useState<MeUser | undefined>(undefined);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export function NavSessionIsland({ signInLabel }: { signInLabel: string }) {
   }, []);
 
   if (user === undefined || user === null) {
-    return <NavAnonymousActions signInLabel={signInLabel} />;
+    return <NavAnonymousActions signInLabel={signInLabel} dark={dark} />;
   }
 
   const displayName = user.name ?? user.email.split("@")[0];

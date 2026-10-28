@@ -70,17 +70,17 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="border-t border-brand-border bg-brand-bg">
+    <footer className="bg-pine-800">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
-            <p className="text-xs leading-relaxed text-brand-muted">
+            <p className="text-xs leading-relaxed text-zinc-300">
               {t("tagline")}
             </p>
-            <p className="mt-2 text-xs text-brand-muted">
+            <p className="mt-2 text-xs text-zinc-300">
               support@convertstatement.online
             </p>
-            <p className="mt-2 text-xs text-brand-muted">
+            <p className="mt-2 text-xs text-zinc-300">
               {t("payments")}
             </p>
             <div className="mt-4 flex items-center gap-2">
@@ -91,7 +91,7 @@ export async function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-brand-border text-brand-muted hover:border-zinc-400 hover:text-zinc-900 dark:hover:border-zinc-600 dark:hover:text-zinc-100 transition-colors"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-pine-600 text-zinc-300 hover:border-pine-400 hover:text-white transition-colors"
                 >
                   {icon}
                 </a>
@@ -102,12 +102,12 @@ export async function Footer() {
           <div className="flex flex-wrap gap-10 text-sm sm:gap-14">
             {NAV.map(({ heading, links }) => (
               <div key={heading} className="space-y-2">
-                <p className="font-semibold text-zinc-900 dark:text-zinc-100">{heading}</p>
+                <p className="font-semibold text-white">{heading}</p>
                 {links.map(({ label, href }) => (
                   <p key={label}>
                     <Link
                       href={href}
-                      className="text-brand-muted hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       {label}
                     </Link>
@@ -118,7 +118,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-brand-border pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-brand-muted">
+        <div className="mt-8 border-t border-pine-700 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-400">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("prices")}</p>
         </div>

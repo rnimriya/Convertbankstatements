@@ -4,18 +4,21 @@ import { Link } from "@/i18n/navigation";
 import { NavQuickBooksMenu } from "./NavQuickBooksMenu";
 import { NavSessionIsland } from "./NavSessionIsland";
 
-export async function Navbar() {
+export async function Navbar({ dark = false }: { dark?: boolean }) {
   const t = await getTranslations("nav");
+  const linkCls = dark
+    ? "text-[13.5px] font-medium text-zinc-300 hover:text-white transition-colors duration-150"
+    : "text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150";
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800">
+    <nav className={dark ? "sticky top-0 z-50 w-full bg-pine-800 border-b border-pine-700" : "sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800"}>
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex h-16 items-center justify-between">
 
           {/* ── Logo ── */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-            <span className="hidden sm:block font-bold text-zinc-900 dark:text-white text-[15px] tracking-tight">
+            <span className={dark ? "hidden sm:block font-bold text-white text-[15px] tracking-tight" : "hidden sm:block font-bold text-zinc-900 dark:text-white text-[15px] tracking-tight"}>
               Convert Statement
             </span>
           </Link>
@@ -30,12 +33,13 @@ export async function Navbar() {
               <Link
                 key={href}
                 href={href}
-                className="text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"
+                className={linkCls}
               >
                 {label}
               </Link>
             ))}
             <NavQuickBooksMenu
+              dark={dark}
               menuLabel={t("quickbooks")}
               items={[
                 { href: "/quickbooks", label: t("quickbooksReconciliation") },
@@ -47,7 +51,7 @@ export async function Navbar() {
             />
             <Link
               href="/#faq"
-              className="text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"
+              className={linkCls}
             >
               {t("faq")}
             </Link>
@@ -56,7 +60,7 @@ export async function Navbar() {
           {/* ── Right side — session resolves client-side so pages stay static ── */}
           <div className="flex items-center gap-3">
 
-            <NavSessionIsland signInLabel={t("signIn")} />
+            <NavSessionIsland signInLabel={t("signIn")} dark={dark} />
           </div>
 
         </div>

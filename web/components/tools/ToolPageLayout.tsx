@@ -101,36 +101,29 @@ export async function ToolPageLayout({
     <>
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <Navbar />
+      <Navbar dark />
       <main className="overflow-x-hidden">
 
         {/* ─── HERO — homepage twin ─────────────────────────────── */}
         <section className="w-full relative overflow-hidden bg-pine-800">
-          {/* Background glow */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-pine-500 dark:bg-pine-600 rounded-full blur-[120px] pointer-events-none" />
 
           {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
-          <div
-            className="absolute inset-0 pointer-events-none bg-graph-paper dark:bg-graph-paper-dark"
-            style={{
-              maskImage: "radial-gradient(ellipse 100% 100% at 50% 0%, black 50%, transparent 100%)",
-              WebkitMaskImage: "radial-gradient(ellipse 100% 100% at 50% 0%, black 50%, transparent 100%)",
-            }}
-          />
 
           {/* Content container — same width as /blog (max-w-6xl) */}
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-28">
 
             {/* ── Headline block — centered ── */}
             <div className="text-center mb-6 max-w-4xl mx-auto">
-              <span className="inline-block px-3 py-1 rounded-full bg-pine-700 text-pine-100 text-[11px] font-bold uppercase tracking-widest mb-4">
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-400 mb-4">
                 {eyebrow}
               </span>
               <h1
                 className="font-bold text-white tracking-tight leading-[1.07] mb-4"
-                style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
+                style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
               >
-                {title}
+                {title.split(/(QBO)/g).map((part, i) =>
+                  part === "QBO" ? <span key={i} className="text-pine-400">QBO</span> : part
+                )}
               </h1>
               <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
                 {subtitle}
@@ -275,17 +268,8 @@ export async function ToolPageLayout({
 
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-28 relative overflow-hidden bg-pine-800">
-          {/* Background glow */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-pine-500 rounded-full blur-[120px] pointer-events-none" />
 
           {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
-          <div
-            className="absolute inset-0 pointer-events-none bg-graph-paper-dark"
-            style={{
-              maskImage: "radial-gradient(ellipse 100% 100% at 50% 100%, black 50%, transparent 100%)",
-              WebkitMaskImage: "radial-gradient(ellipse 100% 100% at 50% 100%, black 50%, transparent 100%)",
-            }}
-          />
 
           <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
             <h2 className="text-4xl sm:text-5xl font-black text-white mb-5 leading-[1.05]">

@@ -138,7 +138,7 @@ export default async function HomePage() {
     <>
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
-      <Navbar />
+      <Navbar dark />
       <main className="overflow-x-hidden">
 
         {/* ─── HERO — CENTERED UPLOAD ───────────────────────── */}
@@ -149,7 +149,7 @@ export default async function HomePage() {
         {/* ─── THE PROBLEM ──────────────────────────────────────── */}
         <section className="py-24 bg-pine-50 dark:bg-zinc-900">
           <div className="max-w-6xl mx-auto px-6">
-            <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />the problem</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">the problem</p>
             <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text max-w-2xl leading-[1.12]">Month-end means <span className="text-pine-600 dark:text-pine-400">hours of typing</span> the same numbers again.</h2>
             <p className="text-brand-muted max-w-xl mt-4 text-sm leading-relaxed">A client sends 40 statements. Someone on your team opens each PDF, retypes every transaction, and still finds the totals don&apos;t match. The work is slow, boring, and exactly where mistakes hide.</p>
           </div>
@@ -159,7 +159,7 @@ export default async function HomePage() {
         <section id="how-it-works" className="py-24 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-14">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tHow("label")}</span>
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tHow("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-3">{tHow("title")}</h2>
               <p className="text-zinc-400 dark:text-brand-muted max-w-xl text-sm">{tHow("subtitle")}</p>
             </div>
@@ -191,12 +191,12 @@ export default async function HomePage() {
         {/* ─── THE DIFFERENCE ───────────────────────────────────── */}
         <section className="py-24 bg-pine-50 dark:bg-zinc-900">
           <div className="max-w-6xl mx-auto px-6">
-            <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />the difference</p>
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">the difference</p>
             <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text leading-[1.12]">Your options, honestly compared.</h2>
             <div className="mt-10 overflow-x-auto rounded-[20px] border border-brand-border">
               <table className="w-full min-w-[560px] bg-white dark:bg-zinc-900 text-left text-sm">
                 <thead>
-                  <tr className="bg-zinc-900 text-white">
+                  <tr className="bg-pine-800 text-white">
                     <th className="px-6 py-4 font-semibold">Your options</th>
                     <th className="px-6 py-4 font-semibold">What you get</th>
                     <th className="px-6 py-4 font-semibold">What&apos;s missing</th>
@@ -218,7 +218,7 @@ export default async function HomePage() {
                     <td className="px-6 py-4">Clean data</td>
                     <td className="px-6 py-4">Only some banks, only some formats, no history</td>
                   </tr>
-                  <tr className="border-t border-brand-border">
+                  <tr className="border-t border-brand-border bg-pine-50">
                     <td className="px-6 py-4 font-bold text-pine-700 dark:text-pine-400">ConvertStatement</td>
                     <td className="px-6 py-4 font-bold text-pine-700 dark:text-pine-400">Any bank, any format, in 15 seconds</td>
                     <td className="px-6 py-4 font-bold text-pine-700 dark:text-pine-400">Nothing missing.</td>
@@ -233,7 +233,7 @@ export default async function HomePage() {
         <section id="features" className="relative py-24 bg-brand-surface">
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             <div className="text-left mb-14">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tFeat("label")}</span>
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tFeat("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight mb-3 text-brand-text">{tFeat("title")}</h2>
               <p className="text-brand-muted max-w-xl text-sm">{tFeat("subtitle")}</p>
             </div>
@@ -292,7 +292,7 @@ export default async function HomePage() {
         {/* ─── TESTIMONIALS — INFINITE MARQUEE ──────────────────── */}
         <section className="py-24 bg-pine-50 dark:bg-zinc-900 overflow-hidden border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6 mb-12 text-left">
-            <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tTest("label")}</span>
+            <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tTest("label")}</span>
             <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text">{tTest("title")}</h2>
           </div>
 
@@ -327,7 +327,7 @@ export default async function HomePage() {
         <section id="pricing" className="py-24 bg-brand-surface border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-14">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />Pricing</span>
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">Pricing</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-3">Simple, transparent pricing</h2>
               <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
             </div>
@@ -339,7 +339,7 @@ export default async function HomePage() {
         <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-12">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tFaq("label")}</span>
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tFaq("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text">{tFaq("title")}</h2>
             </div>
             <FAQAccordion items={faqs} />
@@ -350,7 +350,7 @@ export default async function HomePage() {
         <section className="py-24 bg-brand-surface border-y border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-12">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />Coverage</span>
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">Coverage</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-4">Supports major banks globally</h2>
               <p className="text-brand-muted max-w-xl text-sm">We process statements from top banks worldwide with 99.4% accuracy. If your bank is missing, contact us to add it.</p>
             </div>
@@ -363,35 +363,22 @@ export default async function HomePage() {
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-20 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="relative overflow-hidden bg-pine-800 rounded-[20px] px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
-              {/* Background glow */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-pine-500 rounded-full blur-[120px] pointer-events-none" />
-
-              {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
-              <div
-                className="absolute inset-0 pointer-events-none bg-graph-paper-dark"
-                style={{
-                  maskImage: 'radial-gradient(ellipse 100% 100% at 50% 100%, black 50%, transparent 100%)',
-                  WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at 50% 100%, black 50%, transparent 100%)'
-                }}
-              />
-
-              <div className="relative z-10 text-center md:text-left">
+            <div className="relative bg-pine-800 rounded-[20px] px-8 py-14 sm:px-12 text-center">
+              <div className="relative z-10">
                 <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5 bg-pine-700 text-pine-100 border border-pine-600">
                   {tCta("label")}
                 </span>
                 <h2 className="text-4xl sm:text-5xl font-black text-white mb-4 leading-[1.05]">
                   {tCta("title")}
                 </h2>
-                <p className="max-w-md text-sm leading-relaxed text-zinc-400">
+                <p className="max-w-xl mx-auto text-sm leading-relaxed text-zinc-400">
                   {tCta("subtitle")}
                 </p>
-                <p className="mt-6 text-xs text-brand-muted">{tCta("note")}</p>
               </div>
-              <div className="relative z-10 flex flex-col sm:flex-row md:flex-col items-center gap-4 shrink-0">
-                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[10px] text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors whitespace-nowrap">
+              <div className="relative z-10 mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[10px] text-sm font-bold text-[#072b18] bg-pine-400 hover:bg-pine-300 transition-colors whitespace-nowrap">
                   <span>{tCta("button")}</span>
-                  <ArrowRight className="text-white" size={15} />
+                  <ArrowRight className="text-[#072b18]" size={15} />
                 </Link>
                 <Link
                   href="/pricing"
@@ -400,6 +387,7 @@ export default async function HomePage() {
                   View pricing <ChevronRight className="text-pine-400" size={14} />
                 </Link>
               </div>
+              <p className="relative z-10 mt-6 text-xs text-zinc-400">{tCta("note")}</p>
             </div>
           </div>
         </section>

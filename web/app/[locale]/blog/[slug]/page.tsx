@@ -191,7 +191,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
+      <Navbar dark />
       <main className="min-h-screen bg-[#fafafa]">
         {/* Dark hero */}
         <div className="bg-pine-800 text-white">

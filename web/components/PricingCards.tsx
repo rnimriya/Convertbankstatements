@@ -2,7 +2,7 @@
 
 import { useState } from"react";
 import Link from"next/link";
-import { Check, ArrowRight } from"lucide-react";
+import { Check } from"lucide-react";
 
 const MONTHLY_PLANS = [
   {
@@ -70,14 +70,14 @@ const MONTHLY_PLANS = [
   },
 ];
 
-export function PricingCards() {
+export function PricingCards({ toggleDark = false }: { toggleDark?: boolean }) {
   const [annual, setAnnual] = useState(false);
 
   return (
     <>
       {/* Billing toggle */}
       <div className="flex items-center justify-center gap-3 mb-10">
-        <span className={`text-sm font-medium transition-colors ${!annual ?"text-white" :"text-zinc-400"}`}>
+        <span className={`text-sm font-medium transition-colors ${!annual ? (toggleDark ? "text-white" : "text-zinc-900") : "text-zinc-400"}`}>
           Monthly
         </span>
         <button
@@ -88,7 +88,7 @@ export function PricingCards() {
         >
           <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full transition-transform duration-200 ${annual ?"translate-x-5" :"translate-x-0"}`} />
         </button>
-        <span className={`text-sm font-medium transition-colors ${annual ?"text-white" :"text-zinc-400"}`}>
+        <span className={`text-sm font-medium transition-colors ${annual ? (toggleDark ? "text-white" : "text-zinc-900") : "text-zinc-400"}`}>
           Annual
         </span>
         {annual && (
@@ -118,16 +118,16 @@ export function PricingCards() {
                 </div>
 
                 <div
-                  className="relative flex flex-col h-full rounded-[20px] p-7 overflow-hidden bg-zinc-900"
+                  className="relative flex flex-col h-full rounded-[20px] p-7 overflow-hidden bg-white border-2 border-pine-400"
                 >
-                  <p className="font-black text-white text-lg mb-0.5">{plan.name}</p>
-                  <p className="text-zinc-400 text-xs mb-5">{plan.tagline}</p>
+                  <p className="font-black text-zinc-900 text-lg mb-0.5">{plan.name}</p>
+                  <p className="text-brand-muted text-xs mb-5">{plan.tagline}</p>
 
                   {/* Price */}
                   <div className="mb-1">
                     <div className="flex items-end gap-1.5">
-                      <span className="text-5xl font-black text-white tracking-tight">{displayPrice}</span>
-                      {displayPeriod && <span className="text-zinc-400 text-base mb-1">{displayPeriod}</span>}
+                      <span className="text-5xl font-black text-zinc-900 tracking-tight">{displayPrice}</span>
+                      {displayPeriod && <span className="text-brand-muted text-base mb-1">{displayPeriod}</span>}
                     </div>
                     {showAnnual &&"annualMonthlyEquiv" in plan && plan.annualMonthlyEquiv && (
                       <p className="text-brand-muted text-xs mt-1">{plan.annualMonthlyEquiv} equivalent</p>
@@ -138,22 +138,22 @@ export function PricingCards() {
                   </div>
 
                   {/* Divider */}
-                  <div className="h-px bg-zinc-800 my-5" />
+                  <div className="h-px bg-brand-border my-5" />
 
                   {/* Features */}
                   <ul className="space-y-3 flex-1 mb-8">
                     {plan.features.map(f => (
-                      <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
-                        <div className="w-5 h-5 rounded-full border border-zinc-700 flex items-center justify-center shrink-0">
+                      <li key={f} className="flex items-center gap-3 text-sm text-zinc-600">
+                        <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
                           <Check size={11} className="text-pine-500 dark:text-pine-400" />
                         </div>
                         {f}
                       </li>
                     ))}
                     {plan.notIncluded.map(f => (
-                      <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 line-through">
-                        <div className="w-5 h-5 rounded-full border border-zinc-800 flex items-center justify-center shrink-0">
-                          <span className="text-[9px] text-zinc-600">✕</span>
+                      <li key={f} className="flex items-center gap-3 text-sm text-zinc-400 line-through">
+                        <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
+                          <span className="text-[9px] text-zinc-400">✕</span>
                         </div>
                         {f}
                       </li>
@@ -162,9 +162,9 @@ export function PricingCards() {
 
                   <Link
                     href={href}
-                    className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors border-0"
+                    className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold text-[#072b18] bg-pine-400 hover:bg-pine-300 transition-colors border-0"
                   >
-                    {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-white" />
+                    {plan.cta}
                   </Link>
                 </div>
               </div>
@@ -224,9 +224,9 @@ export function PricingCards() {
 
               <Link
                 href={href}
-                className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold transition-all shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
+                className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold transition-all shadow-sm bg-pine-800 text-white hover:bg-pine-700 border-0 shadow-none"
               >
-                {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
+                {plan.cta}
               </Link>
             </div>
           );

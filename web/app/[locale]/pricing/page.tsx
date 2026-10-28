@@ -101,16 +101,15 @@ export default async function PricingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
       />
-      <Navbar />
+      <Navbar dark />
 
-      <div className="bg-pine-800 px-6 pt-10 pb-28">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-extrabold text-white">Simple, transparent pricing</h1>
-            <p className="mt-1 text-sm text-zinc-300">
-              Start free · All prices in USD · No hidden charges
-            </p>
-          </div>
+      <div className="bg-pine-800 px-6 pt-10 pb-28 text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-pine-400 mb-3">Pricing</p>
+        <h1 className="text-4xl sm:text-[52px] font-black text-white leading-[1.05]">Simple, transparent <span className="text-pine-400">pricing</span></h1>
+        <p className="mt-3 text-sm text-zinc-300">
+          Start free · All prices in USD · No hidden charges
+        </p>
+        <div className="mt-5 flex justify-center">
           <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">
             <DollarSign className="h-3.5 w-3.5 text-pine-500 text-rose-500 dark:text-rose-400" />
             UPI · Cards · Net Banking · Wallets
@@ -119,7 +118,7 @@ export default async function PricingPage() {
       </div>
 
       <div className="relative z-20 mx-auto max-w-6xl px-6 pb-20 -mt-20">
-        <PricingCards />
+        <PricingCards toggleDark />
       </div>
 
       {/* Comparison table */}

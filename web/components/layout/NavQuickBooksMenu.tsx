@@ -12,9 +12,11 @@ interface MenuItem {
 export function NavQuickBooksMenu({
   menuLabel,
   items,
+  dark = false,
 }: {
   menuLabel: string;
   items: MenuItem[];
+  dark?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +51,7 @@ export function NavQuickBooksMenu({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="true"
-        className="flex items-center gap-1 text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"
+        className={dark ? "flex items-center gap-1 text-[13.5px] font-medium text-zinc-300 hover:text-white transition-colors duration-150" : "flex items-center gap-1 text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"}
       >
         {menuLabel}
         <ChevronDown

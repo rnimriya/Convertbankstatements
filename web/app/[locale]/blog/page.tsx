@@ -33,7 +33,7 @@ export default async function BlogPage({
 
   return (
     <>
-      <Navbar />
+      <Navbar dark />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* Hero */}
         <section className="bg-pine-800 py-14 px-6 text-center">

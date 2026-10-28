@@ -21,7 +21,7 @@ export default async function ContactPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-zinc-950">
-      <Navbar />
+      <Navbar dark />
 
       {/* Localized Header Banner */}
       <div className="bg-pine-800 px-6 pt-10 pb-24">

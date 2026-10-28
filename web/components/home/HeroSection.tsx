@@ -27,17 +27,8 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
   return (
     <>
     <section className="w-full relative overflow-hidden bg-pine-800">
-      {/* Background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-pine-500 dark:bg-pine-600 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
-      <div 
-        className="absolute inset-0 pointer-events-none bg-graph-paper dark:bg-graph-paper-dark" 
-        style={{
-          maskImage: 'radial-gradient(ellipse 100% 100% at 50% 0%, black 50%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 100% 100% at 50% 0%, black 50%, transparent 100%)'
-        }} 
-      />
 
 
       {/* Full-width content container */}
@@ -48,7 +39,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
           <span className="inline-block text-honey-400 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
           <h1
             className="font-bold text-white tracking-tight leading-[1.07] mb-4"
-            style={{ fontSize:"clamp(1.6rem, 3vw, 2.4rem)" }}
+            style={{ fontSize:"clamp(2rem, 4.5vw, 3.25rem)" }}
           >
             Free Bank Statement <span className="text-pine-400">Converter</span>
           </h1>
