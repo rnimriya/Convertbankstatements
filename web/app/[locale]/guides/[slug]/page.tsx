@@ -112,7 +112,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
                     <Link
                       key={p.slug}
                       href={`/blog/${p.slug}`}
-                      className="group p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
+                      className="group p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
                     >
                       <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-pine-600 dark:group-hover:text-pine-400 transition-colors text-sm mb-1">
                         {p.title}

@@ -168,7 +168,7 @@ export default async function HomePage() {
               {steps.map(({ n, icon, img, title, body, gradient }) => (
                 <div
                   key={n}
-                  className="relative group flex flex-col p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-xl hover:bg-brand-surface/80 transition-colors duration-300"
+                  className="relative group flex flex-col p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="absolute top-6 right-6 text-4xl font-black select-none text-pine-100 dark:text-pine-900">{n}</div>
 
@@ -193,7 +193,7 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />the difference</p>
             <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text leading-[1.12]">Your options, honestly compared.</h2>
-            <div className="mt-10 overflow-x-auto rounded-xl border border-brand-border">
+            <div className="mt-10 overflow-x-auto rounded-[20px] border border-brand-border">
               <table className="w-full min-w-[560px] bg-white dark:bg-zinc-900 text-left text-sm">
                 <thead>
                   <tr className="bg-zinc-900 text-white">
@@ -243,7 +243,7 @@ export default async function HomePage() {
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-xl hover:bg-brand-surface/80 transition-colors duration-300"
+                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
                     {f.img ? (
@@ -363,7 +363,7 @@ export default async function HomePage() {
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-20 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="relative overflow-hidden bg-zinc-900 rounded-xl px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="relative overflow-hidden bg-zinc-900 rounded-[20px] px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
               {/* Background glow */}
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-pine-500 rounded-full blur-[120px] pointer-events-none" />
 
@@ -389,13 +389,13 @@ export default async function HomePage() {
                 <p className="mt-6 text-xs text-brand-muted">{tCta("note")}</p>
               </div>
               <div className="relative z-10 flex flex-col sm:flex-row md:flex-col items-center gap-4 shrink-0">
-                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors whitespace-nowrap">
+                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[10px] text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors whitespace-nowrap">
                   <span>{tCta("button")}</span>
                   <ArrowRight className="text-white" size={15} />
                 </Link>
                 <Link
                   href="/pricing"
-                  className="inline-flex items-center gap-2 px-6 py-4 rounded-lg text-sm font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-2 px-6 py-4 rounded-[10px] text-sm font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors whitespace-nowrap"
                 >
                   View pricing <ChevronRight className="text-pine-400" size={14} />
                 </Link>

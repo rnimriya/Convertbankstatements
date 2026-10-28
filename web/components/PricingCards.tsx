@@ -112,13 +112,13 @@ export function PricingCards() {
               <div key={plan.name} className="relative pt-5 h-full">
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-block bg-honey-400 rounded-full px-5 py-1.5 text-xs font-black text-white border border-transparent whitespace-nowrap">
+                  <span className="inline-block bg-honey-400 rounded-full px-5 py-1.5 text-xs font-black text-[#072b18] border border-transparent whitespace-nowrap">
                     {plan.badge}
                   </span>
                 </div>
 
                 <div
-                  className="relative flex flex-col h-full rounded-xl p-7 overflow-hidden bg-zinc-900"
+                  className="relative flex flex-col h-full rounded-[20px] p-7 overflow-hidden bg-zinc-900"
                 >
                   <p className="font-black text-white text-lg mb-0.5">{plan.name}</p>
                   <p className="text-zinc-400 text-xs mb-5">{plan.tagline}</p>
@@ -162,7 +162,7 @@ export function PricingCards() {
 
                   <Link
                     href={href}
-                    className="flex items-center justify-center gap-2 rounded-lg py-3.5 text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors border-0"
+                    className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors border-0"
                   >
                     {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-white" />
                   </Link>
@@ -175,7 +175,7 @@ export function PricingCards() {
           return (
             <div
               key={plan.name}
-              className="relative flex flex-col h-full rounded-xl border border-brand-border bg-brand-bg p-7 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+              className="relative flex flex-col h-full rounded-[20px] border border-brand-border bg-brand-bg p-7 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
             >
               {plan.badge && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-white dark:bg-zinc-900 px-4 py-1 text-xs font-bold text-zinc-900 dark:text-zinc-100 whitespace-nowrap border border-zinc-200 dark:border-zinc-700">
@@ -224,7 +224,7 @@ export function PricingCards() {
 
               <Link
                 href={href}
-                className="flex items-center justify-center gap-2 rounded-lg py-3.5 text-sm font-bold transition-all shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
+                className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold transition-all shadow-sm bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
               >
                 {plan.cta} <ArrowRight className="h-3.5 w-3.5 text-amber-500 dark:text-amber-400" />
               </Link>

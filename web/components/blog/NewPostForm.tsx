@@ -4,7 +4,7 @@ import { useState, FormEvent } from"react";
 import { useRouter } from"next/navigation";
 import { Loader2 } from"lucide-react";
 
-const INPUT ="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
+const INPUT ="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20";
 
 export function NewPostForm() {
   const router = useRouter();
@@ -173,7 +173,7 @@ export function NewPostForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full flex items-center justify-center gap-2 rounded-xl bg-brand-400 py-3 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2 rounded-[20px] bg-brand-400 py-3 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 hover:shadow-glow transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? <><Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" /> Creating...</> :"Create Post"}
       </button>

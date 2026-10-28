@@ -59,7 +59,7 @@ export function NavQuickBooksMenu({
       </button>
 
       {open && (
-        <div className="absolute left-0 mt-2 w-64 rounded-xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden z-50">
+        <div className="absolute left-0 mt-2 w-64 rounded-[20px] bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden z-50">
           <div className="py-1.5">
             {items.map((item) => (
               <Link

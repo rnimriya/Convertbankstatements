@@ -150,7 +150,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
       </div>
 
       {error && (
-        <div className="mb-6 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
+        <div className="mb-6 rounded-[20px] border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
           {error}
         </div>
       )}
@@ -183,7 +183,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 </div>
 
                 <div
-                  className="relative flex flex-col h-full rounded-xl p-7 overflow-hidden bg-zinc-900"
+                  className="relative flex flex-col h-full rounded-[20px] p-7 overflow-hidden bg-zinc-900"
                 >
                   {/* Orb */}
                   <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-5 pointer-events-none bg-white" style={{ transform:"translate(30%,-30%)" }} />
@@ -255,7 +255,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col h-full rounded-xl border bg-brand-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
+              className={`relative flex flex-col h-full rounded-[20px] border bg-brand-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
                 isCurrent ?"border-zinc-900 dark:border-zinc-100 ring-2 ring-zinc-900 dark:ring-zinc-100" :"border-brand-border"
               }`}
             >
@@ -358,7 +358,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
               <button
                 onClick={handleCancel}
                 disabled={cancelling}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-[20px] text-sm font-semibold transition-colors ${
                   cancelConfirm
                     ?"bg-red-600 text-white hover:bg-red-700"
                     :"border border-brand-border text-brand-muted hover:border-red-300 hover:text-red-600 dark:hover:text-red-400"
@@ -370,7 +370,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
             </div>
           </div>
           {cancelConfirm && (
-            <div className="mt-3 flex items-start gap-2 text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-xl px-4 py-3">
+            <div className="mt-3 flex items-start gap-2 text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-[20px] px-4 py-3">
               <AlertTriangle size={14} className="shrink-0 mt-0.5 text-amber-500 dark:text-amber-400" />
               You will lose access to {currentTier ==="PRO" ?"500" : currentTier ==="BUSINESS" ?"2,000" :"25"} pages/month and your paid features. Are you sure?
             </div>

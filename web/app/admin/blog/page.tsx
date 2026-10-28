@@ -27,7 +27,7 @@ export default async function AdminBlogPage() {
           </div>
           <Link
             href="/admin/blog/new"
-            className="rounded-xl bg-brand-400 px-4 py-2.5 text-sm font-bold text-black hover:bg-brand-300 transition-colors shadow-glow-sm"
+            className="rounded-[20px] bg-brand-400 px-4 py-2.5 text-sm font-bold text-black hover:bg-brand-300 transition-colors shadow-glow-sm"
           >
             + New Post
           </Link>

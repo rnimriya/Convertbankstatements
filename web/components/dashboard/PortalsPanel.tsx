@@ -99,7 +99,7 @@ export function PortalsPanel() {
                 value={newLabel}
                 onChange={e => setNewLabel(e.target.value)}
                 placeholder="Internal label (e.g. Client Statements – Smith & Co.)"
-                className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
+                className="flex-1 rounded-[20px] border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
                 autoFocus
               />
             </div>
@@ -108,10 +108,10 @@ export function PortalsPanel() {
               value={newEmail}
               onChange={e => setNewEmail(e.target.value)}
               placeholder="Client email (optional — enables the Send reminder button)"
-              className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
+              className="flex-1 rounded-[20px] border border-brand-border bg-brand-surface px-4 py-2.5 text-sm text-brand-text placeholder-slate-400 dark:placeholder-gray-500 outline-none focus:border-navy focus:bg-brand-surface dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10"
             />
             <div className="flex flex-col sm:flex-row gap-2 items-center">
-              <div className="flex-1 flex items-center rounded-xl border border-brand-border bg-brand-surface overflow-hidden focus-within:ring-2 focus-within:ring-navy/10 focus-within:border-navy transition-all">
+              <div className="flex-1 flex items-center rounded-[20px] border border-brand-border bg-brand-surface overflow-hidden focus-within:ring-2 focus-within:ring-navy/10 focus-within:border-navy transition-all">
                 <span className="px-3 py-2.5 text-sm text-brand-muted bg-zinc-50 dark:bg-zinc-900 border-r border-brand-border hidden sm:block">
                   convertstatement.online/p/
                 </span>
@@ -132,12 +132,12 @@ export function PortalsPanel() {
                 <button
                   onClick={createPortal}
                   disabled={creating}
-                  className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
                 >
                   {creating ? <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Plus className="text-pine-500 dark:text-pine-400"  size={14} />}
                   Create
                 </button>
-                <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-xl border border-brand-border text-brand-muted hover:text-brand-text dark:hover:text-gray-200 text-sm transition-colors">
+                <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-[20px] border border-brand-border text-brand-muted hover:text-brand-text dark:hover:text-gray-200 text-sm transition-colors">
                   Cancel
                 </button>
               </div>
@@ -147,7 +147,7 @@ export function PortalsPanel() {
       ) : (
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity mb-6"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity mb-6"
         >
           <Plus className="text-pine-500 dark:text-pine-400"  size={14} />
           New portal link
@@ -175,7 +175,7 @@ export function PortalsPanel() {
             const isCopied = copiedToken === portal.token;
             return (
               <div key={portal.token} className="bg-brand-surface border border-brand-border rounded-2xl p-4 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-[20px] bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
                   <Link2 size={15} className="text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
                 </div>
                 <div className="flex-1 min-w-0">

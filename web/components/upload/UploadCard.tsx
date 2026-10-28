@@ -140,7 +140,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     return (
       <div className="p-6 lg:p-8 flex flex-col gap-4 max-w-md mx-auto">
         <FreePagesIndicator tier={billing.tier} pagesUsed={billing.pagesUsedThisPeriod} monthlyPageLimit={billing.monthlyPageLimit} />
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-8 text-center">
+        <div className="rounded-[20px] border border-amber-200 bg-amber-50 p-8 text-center">
           <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
             <DollarSign className="h-8 w-8 text-amber-600 text-rose-500 dark:text-rose-400" />
           </div>
@@ -154,11 +154,11 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           <div className="flex flex-col gap-2">
             <Link
               href="/pricing"
-              className="flex w-full items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white bg-black hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
+              className="flex w-full items-center justify-center gap-2 rounded-[20px] py-3.5 text-sm font-bold text-white bg-black hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
             >
               View Upgrade Plans
             </Link>
-            <button onClick={reset} className="w-full py-3 rounded-xl border border-zinc-200 bg-brand-surface text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
+            <button onClick={reset} className="w-full py-3 rounded-[20px] border border-zinc-200 bg-brand-surface text-sm font-medium text-zinc-600 hover:bg-zinc-50 transition-colors">Cancel</button>
           </div>
         </div>
       </div>
@@ -176,14 +176,14 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
 
           {/* Error banner */}
           {state.status ==="error" && (
-            <div className="mb-3 flex items-start gap-2.5 rounded-xl border border-red-100 bg-red-50 px-4 py-2.5 text-sm text-red-700">
+            <div className="mb-3 flex items-start gap-2.5 rounded-[20px] border border-red-100 bg-red-50 px-4 py-2.5 text-sm text-red-700">
               <AlertCircle size={15} className="mt-0.5 shrink-0 text-red-500 text-amber-500 dark:text-amber-400" />
               <span className="flex-1">{state.message}</span>
               <button onClick={reset} className="shrink-0 font-bold text-red-400 hover:text-red-600">✕</button>
             </div>
           )}
 
-          <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
             {/* ── Drop zone ── */}
             <div className="p-3">
@@ -231,7 +231,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     <div
                       className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
                       style={{
-                        background: isDragActive ?"#09090b" :"#18181b",
+                        background: isDragActive ?"#072b18" :"#164234",
                         transform: isDragActive ?"scale(1.06)" :"scale(1)",
                       }}
                     >
@@ -260,7 +260,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     </p>
 
                     {billing.tier ==="FREE" && freeRemaining > 0 && (
-                      <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-white dark:border-honey-600 dark:bg-honey-400 dark:text-white">
+                      <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#072b18] dark:border-honey-600 dark:bg-honey-400 dark:text-[#072b18]">
                         <CheckCircle2 className="text-zinc-900"  size={12} /> {freeRemaining} free page{freeRemaining !== 1 ?"s" :""} left
                       </div>
                     )}

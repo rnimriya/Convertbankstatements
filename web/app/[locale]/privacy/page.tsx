@@ -169,7 +169,7 @@ export default function PrivacyPage() {
  <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
  <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
+ <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
  <Shield className="h-5 w-5 text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
  </div>
  <div>

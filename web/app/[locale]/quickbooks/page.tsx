@@ -273,7 +273,7 @@ export default async function QuickBooksPage() {
               holds, your result shows a green confirmation. If a step doesn&apos;t add up, you
               get a warning instead, so a broken statement never becomes broken books.
             </p>
-            <div className="mt-5 rounded-xl border border-pine-200 dark:border-pine-800 bg-zinc-50 dark:bg-zinc-900/50 p-4">
+            <div className="mt-5 rounded-[20px] border border-pine-200 dark:border-pine-800 bg-zinc-50 dark:bg-zinc-900/50 p-4">
               <p className="flex items-center gap-2 font-bold text-pine-700 dark:text-pine-300 text-sm">
                 <CheckCircle2 className="h-5 w-5" /> Balance verified
               </p>
@@ -384,7 +384,7 @@ export default async function QuickBooksPage() {
                   <Link
                     key={b.slug}
                     href={`/blog/${b.slug}`}
-                    className="group p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
+                    className="group p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
                   >
                     <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-pine-600 dark:group-hover:text-pine-400 transition-colors text-sm">
                       {b.label}
@@ -414,7 +414,7 @@ export default async function QuickBooksPage() {
                   <Link
                     key={t.href}
                     href={t.href}
-                    className="group p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
+                    className="group p-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
                   >
                     <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-pine-600 dark:group-hover:text-pine-400 transition-colors text-sm">
                       {t.label}

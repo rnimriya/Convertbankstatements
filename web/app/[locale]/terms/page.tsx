@@ -192,7 +192,7 @@ export default function TermsPage() {
  <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
  <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
+ <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
  <ScrollText className="h-5 w-5 text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
  </div>
  <div>
@@ -211,7 +211,7 @@ export default function TermsPage() {
  { label:"Refunds", value:"7 days for subscriptions" },
  { label:"Jurisdiction", value:"Laws of Delaware, USA" },
  ].map(({ label, value }) => (
- <div key={label} className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-3">
+ <div key={label} className="rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-3">
  <p className="text-xs text-zinc-400 dark:text-zinc-500">{label}</p>
  <p className="mt-0.5 text-sm font-semibold text-zinc-700 dark:text-zinc-200">{value}</p>
  </div>

@@ -93,7 +93,7 @@ export function ContactForm() {
               </p>
               <button
                 onClick={() => setSuccess(false)}
-                className="mt-4 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:bg-zinc-800 transition-all"
+                className="mt-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:bg-zinc-800 transition-all"
               >
                 Send another message
               </button>
@@ -101,7 +101,7 @@ export function ContactForm() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="flex items-center gap-2 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 p-4 text-sm text-red-600 dark:text-red-400">
+                <div className="flex items-center gap-2 rounded-[20px] bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 p-4 text-sm text-red-600 dark:text-red-400">
                   <AlertCircle className="h-5 w-5 shrink-0 text-amber-500 dark:text-amber-400" />
                   <span>{error}</span>
                 </div>
@@ -119,7 +119,7 @@ export function ContactForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={t("namePlaceholder")}
-                    className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
+                    className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
                   />
                 </div>
 
@@ -134,7 +134,7 @@ export function ContactForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t("emailPlaceholder")}
-                    className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
+                    className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
                   />
                 </div>
               </div>
@@ -150,7 +150,7 @@ export function ContactForm() {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder={t("subjectPlaceholder")}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
+                  className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
                 />
               </div>
 
@@ -165,14 +165,14 @@ export function ContactForm() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={t("messagePlaceholder")}
-                  className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors resize-none"
+                  className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 px-6 py-3.5 font-bold text-black shadow-glow hover:bg-brand-300 transition-all disabled:opacity-50"
+                className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-brand-400 px-6 py-3.5 font-bold text-black shadow-glow hover:bg-brand-300 transition-all disabled:opacity-50"
               >
                 {loading ? (
                   <>

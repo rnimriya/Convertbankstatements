@@ -102,7 +102,7 @@ export default function QboImportErrorsPage() {
       title="QBO Import Errors, Explained"
       subtitle="QuickBooks rejected your file? Find the error below, learn what it actually means, and fix the file — not your books."
       tool={
-        <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm p-6">
+        <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm p-6">
           <h2 className="text-lg font-bold text-zinc-900 dark:text-white">Test with sample files</h2>
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
             Download a clean file and a broken file, run them through the checkers, and see

@@ -72,12 +72,12 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
         <div className="bg-brand-surface rounded-2xl border border-brand-border p-6 mb-6">
           <p className="text-sm font-semibold text-brand-text mb-3">Your referral link</p>
           <div className="flex items-center gap-2">
-            <div className="flex-1 bg-brand-surface border border-brand-border rounded-xl px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 font-mono truncate">
+            <div className="flex-1 bg-brand-surface border border-brand-border rounded-[20px] px-4 py-3 text-sm text-zinc-600 dark:text-zinc-300 font-mono truncate">
               {referralUrl}
             </div>
             <button
               onClick={copyLink}
-              className={`flex items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 px-4 py-3 rounded-[20px] text-sm font-semibold transition-all shrink-0 ${
                 copied
                   ?"bg-pine-100 dark:bg-pine-900/30 text-pine-700 dark:text-pine-400 border border-pine-200 dark:border-pine-800"
                   :"bg-zinc-900 dark:bg-zinc-950 text-white hover:opacity-90"
@@ -98,13 +98,13 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-pine-300 dark:hover:border-pine-700 hover:text-pine-700 dark:hover:text-pine-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-[20px] border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-pine-300 dark:hover:border-pine-700 hover:text-pine-700 dark:hover:text-pine-400 transition-colors"
           >
             Share on WhatsApp
           </a>
           <button
             onClick={copyLink}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-pine-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-[20px] border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-pine-400 transition-colors"
           >
             <Copy className="text-pine-500 dark:text-pine-400"  size={14} />
             Copy link

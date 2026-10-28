@@ -58,7 +58,7 @@ export function QuickBooksPanel() {
             Send converted transactions straight into QuickBooks Online — no QBO file to
             download and import by hand.
           </p>
-          <p className="rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 px-3.5 py-2.5 text-amber-800 dark:text-amber-300">
+          <p className="rounded-[20px] border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 px-3.5 py-2.5 text-amber-800 dark:text-amber-300">
             One-time setup by the site owner: register an app at developer.intuit.com, then set
             QB_CLIENT_ID, QB_CLIENT_SECRET and QB_REDIRECT_URI
             (https://convertstatement.online/api/quickbooks/callback) in the project environment.
@@ -81,7 +81,7 @@ export function QuickBooksPanel() {
                 localStorage.setItem("qb_bank_account_id", e.target.value);
               }}
               placeholder="e.g. 35 (Chart of Accounts → account → ID in the URL)"
-              className="w-full sm:w-96 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
+              className="w-full sm:w-96 rounded-[20px] border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
             />
             <p className="mt-1.5 text-xs text-brand-muted">
               After a conversion, use “Send to QuickBooks” on the result to push the transactions
@@ -91,7 +91,7 @@ export function QuickBooksPanel() {
           <button
             onClick={disconnect}
             disabled={busy}
-            className="flex items-center gap-1.5 rounded-xl border border-brand-border px-4 py-2 text-sm font-semibold text-brand-text hover:border-red-300 hover:text-red-500 transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-[20px] border border-brand-border px-4 py-2 text-sm font-semibold text-brand-text hover:border-red-300 hover:text-red-500 transition-colors disabled:opacity-50"
           >
             {busy ? <Loader2 size={14} className="animate-spin" /> : <Unplug size={14} />} Disconnect
           </button>
@@ -104,7 +104,7 @@ export function QuickBooksPanel() {
           </p>
           <a
             href="/api/quickbooks/connect"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-pine-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-pine-500 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-[20px] bg-pine-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-pine-500 transition-colors"
           >
             <Plug size={14} /> Connect QuickBooks
           </a>

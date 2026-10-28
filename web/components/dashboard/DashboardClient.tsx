@@ -71,7 +71,7 @@ function PageBanner({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3">
           <div
-            className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 bg-brand-surface"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-[20px] sm:rounded-2xl flex items-center justify-center shrink-0 bg-brand-surface"
           >
             <Icon size={17} className="text-brand-text" />
           </div>
@@ -242,7 +242,7 @@ export function DashboardClient({
             )}
             
             {isPaid && (
-              <div className="mt-3 bg-white dark:bg-zinc-950/50 rounded-xl p-2.5 border border-zinc-100 dark:border-zinc-800/50">
+              <div className="mt-3 bg-white dark:bg-zinc-950/50 rounded-[20px] p-2.5 border border-zinc-100 dark:border-zinc-800/50">
                 <div className="flex justify-between items-end mb-1.5">
                   <span className="text-[9px] font-bold tracking-[0.1em] text-zinc-400 dark:text-zinc-500 uppercase">Usage</span>
                   <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">{billing.pagesUsedThisPeriod} <span className="text-zinc-400 font-normal">/ {billing.monthlyPageLimit} pgs</span></span>
@@ -272,7 +272,7 @@ export function DashboardClient({
                     <button
                       key={id}
                       onClick={() => { setTab(id); setSidebarOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all text-left group ${
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-[20px] text-[13px] font-semibold transition-all text-left group ${
                         active
                           ?"bg-brand-surface text-brand-text"
                           :"text-brand-muted hover:bg-brand-surface hover:text-brand-text"
@@ -295,7 +295,7 @@ export function DashboardClient({
         <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-brand-muted hover:bg-red-50 hover:text-red-600 transition-all"
+            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-[20px] text-[13px] font-medium text-brand-muted hover:bg-red-50 hover:text-red-600 transition-all"
           >
             <LogOut className="text-rose-500 dark:text-rose-400"  size={14} />
             {isDemo ? t("goHome") : t("signOut")}
@@ -324,7 +324,7 @@ export function DashboardClient({
             {tab !=="upload" && (
               <button
                 onClick={() => setTab("upload")}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-[20px] text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
               >
                 <Upload className="text-pine-500 dark:text-pine-400"  size={13} />
                 <span className="hidden sm:inline">Convert</span>
@@ -394,7 +394,7 @@ export function DashboardClient({
                 </div>
                 <button
                   onClick={() => setTab("upload")}
-                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-100 dark:text-black text-white transition-opacity hover:opacity-90"
+                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-[20px] text-sm font-bold bg-zinc-900 dark:bg-zinc-100 dark:text-black text-white transition-opacity hover:opacity-90"
                 >
                   <Upload className="text-pine-500 dark:text-pine-400"  size={14} />
                   Start Converting
@@ -437,7 +437,7 @@ export function DashboardClient({
                 ].map(card => (
                   <div key={card.label} className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
                     <div className="flex items-start justify-between mb-3">
-                      <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-brand-surface">
+                      <div className="w-9 h-9 rounded-[20px] flex items-center justify-center bg-brand-surface">
                         <card.Icon size={16} className="text-brand-text" />
                       </div>
                     </div>
@@ -483,7 +483,7 @@ export function DashboardClient({
                       </p>
                       <button
                         onClick={() => setTab("upload")}
-                        className="mt-5 px-6 py-2.5 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
+                        className="mt-5 px-6 py-2.5 rounded-[20px] text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
                       >
                         Convert your first statement →
                       </button>
@@ -501,7 +501,7 @@ export function DashboardClient({
                         {recentLogs.slice(0, 5).map(log => (
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-brand-surface/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
-                              <div className="w-8 h-8 rounded-xl bg-brand-surface flex items-center justify-center shrink-0">
+                              <div className="w-8 h-8 rounded-[20px] bg-brand-surface flex items-center justify-center shrink-0">
                                 <FileText size={14} className="dark: text-pine-500 dark:text-pine-400" />
                               </div>
                               <div className="min-w-0">
@@ -601,7 +601,7 @@ export function DashboardClient({
                     {billing.tier ==="FREE" && (
                       <button
                         onClick={() => setTab("billing")}
-                        className="mt-4 w-full py-2.5 rounded-xl text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
+                        className="mt-4 w-full py-2.5 rounded-[20px] text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
                       >
                         Upgrade to Pro →
                       </button>
@@ -609,7 +609,7 @@ export function DashboardClient({
                     {billing.tier ==="PRO" && (
                       <button
                         onClick={() => setTab("billing")}
-                        className="mt-4 w-full py-2 rounded-xl text-xs font-semibold text-brand-muted border border-brand-border hover:border-brand-border transition-colors"
+                        className="mt-4 w-full py-2 rounded-[20px] text-xs font-semibold text-brand-muted border border-brand-border hover:border-brand-border transition-colors"
                       >
                         Manage plan
                       </button>
@@ -629,7 +629,7 @@ export function DashboardClient({
                         <button
                           key={label}
                           onClick={() => setTab(dest)}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors group text-left"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-[20px] hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors group text-left"
                         >
                           <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-brand-surface">
                             <Icon size={13} className="text-brand-muted" />
@@ -648,7 +648,7 @@ export function DashboardClient({
                       <p className="text-xs opacity-60 mb-4">All formats, Google Sheets, priority processing</p>
                       <button
                         onClick={() => setTab("billing")}
-                        className="w-full py-2.5 rounded-xl text-sm font-bold bg-white text-black hover:bg-zinc-200 dark:bg-black dark:text-white dark:hover:bg-zinc-800 transition-colors"
+                        className="w-full py-2.5 rounded-[20px] text-sm font-bold bg-white text-black hover:bg-zinc-200 dark:bg-black dark:text-white dark:hover:bg-zinc-800 transition-colors"
                       >
                         See plans →
                       </button>
@@ -670,7 +670,7 @@ export function DashboardClient({
                 iconBg="#fff7ed"
                 action={
                   /* Mode toggle — lives in the banner action slot */
-                  <div className="flex items-center gap-1 bg-brand-surface border border-brand-border rounded-xl p-1">
+                  <div className="flex items-center gap-1 bg-brand-surface border border-brand-border rounded-[20px] p-1">
                     {(["single","bulk"] as const).map(m => (
                       <button
                         key={m}
@@ -713,7 +713,7 @@ export function DashboardClient({
                 iconBg="#eff6ff"
                 action={
                   recentLogs.length > 0 ? (
-                    <span className="text-xs font-semibold text-brand-muted bg-brand-surface border border-brand-border px-3 py-1.5 rounded-xl">
+                    <span className="text-xs font-semibold text-brand-muted bg-brand-surface border border-brand-border px-3 py-1.5 rounded-[20px]">
                       {recentLogs.length} total
                     </span>
                   ) : undefined
@@ -733,7 +733,7 @@ export function DashboardClient({
                 title="Processing Queue"
                 subtitle="Batch jobs and queued conversions"
                 iconColor="#8b5cf6"
-                iconBg="#eef4fc"
+                iconBg="#f0ffee"
               />
               <div className="p-5 lg:p-8">
 
@@ -752,7 +752,7 @@ export function DashboardClient({
                 iconColor="#1A47C8"
                 iconBg="#eff6ff"
                 action={
-                  <span className={`text-xs font-bold px-3 py-1.5 rounded-xl ${
+                  <span className={`text-xs font-bold px-3 py-1.5 rounded-[20px] ${
                     billing.tier ==="BUSINESS" ?"bg-pine-100 text-pine-700" :
                     billing.tier ==="PRO"      ?"bg-pine-100 text-pine-700" :"bg-brand-surface text-brand-muted"
                   }`}>

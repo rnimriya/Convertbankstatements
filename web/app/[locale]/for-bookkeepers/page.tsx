@@ -83,13 +83,13 @@ export default function ForBookkeepersPage() {
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <Link
                   href="/dashboard"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-90"
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-90"
                 >
                   Open your dashboard
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white hover:border-pine-400"
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white hover:border-pine-400"
                 >
                   Ask about volume pricing
                 </Link>
@@ -115,7 +115,7 @@ export default function ForBookkeepersPage() {
               ))}
             </div>
 
-            <div className="mt-16 rounded-xl bg-zinc-900 p-8 text-white">
+            <div className="mt-16 rounded-[20px] bg-zinc-900 p-8 text-white">
               <h2 className="text-2xl font-bold">Volume pricing, on enquiry</h2>
               <p className="mt-2 text-sm text-zinc-400 max-w-2xl">
                 The standard plans on the pricing page cover most practices. If you convert

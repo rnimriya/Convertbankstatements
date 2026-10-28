@@ -54,7 +54,7 @@ export function VerifyEmailContent() {
           </div>
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity"
           >
             Go to dashboard
           </Link>
@@ -82,7 +82,7 @@ export function VerifyEmailContent() {
           </div>
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity"
+            className="flex items-center gap-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity"
           >
             Go to dashboard
           </Link>

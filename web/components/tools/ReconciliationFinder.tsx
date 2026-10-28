@@ -130,7 +130,7 @@ export function ReconciliationFinder() {
       )}
 
       {error && (
-        <p className="mt-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+        <p className="mt-4 rounded-[20px] border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
           {error}
         </p>
       )}
@@ -138,7 +138,7 @@ export function ReconciliationFinder() {
       {result && (
         <div className="mt-8">
           {result.warnings.map((w, i) => (
-            <div key={i} className="mb-3 rounded-xl border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-start gap-2">
+            <div key={i} className="mb-3 rounded-[20px] border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 px-4 py-3 text-sm text-amber-800 dark:text-amber-200 flex items-start gap-2">
               <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" /> <span>{w}</span>
             </div>
           ))}

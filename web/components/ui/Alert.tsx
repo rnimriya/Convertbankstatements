@@ -69,7 +69,7 @@ export function Alert({
   return (
     <div
       role="alert"
-      className={cn("flex gap-3 rounded-xl border px-4 py-3.5 text-sm",
+      className={cn("flex gap-3 rounded-[20px] border px-4 py-3.5 text-sm",
         container,
         className
       )}

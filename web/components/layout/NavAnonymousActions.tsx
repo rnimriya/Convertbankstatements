@@ -18,7 +18,7 @@ export function NavAnonymousActions({ signInLabel }: { signInLabel: string }) {
       </Link>
       <Link
         href="/signup"
-        className="inline-flex items-center gap-1.5 rounded-lg px-5 py-2.5 text-[13.5px] font-semibold text-white bg-pine-800 hover:bg-pine-700 transition-colors border-0"
+        className="inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-[13.5px] font-semibold text-white bg-pine-800 hover:bg-pine-700 transition-colors border-0"
       >
         Free Trial
       </Link>

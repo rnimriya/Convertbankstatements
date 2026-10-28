@@ -188,7 +188,7 @@ export async function ToolPageLayout({
                       {String(i + 1).padStart(2, "0")}
                     </div>
 
-                    <div className="relative w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-brand-surface text-zinc-900 dark:text-zinc-100 border border-brand-border">
+                    <div className="relative w-12 h-12 rounded-[20px] flex items-center justify-center mb-5 bg-brand-surface text-zinc-900 dark:text-zinc-100 border border-brand-border">
                       <span className={stepIcon.color}>{stepIcon.icon}</span>
                     </div>
                     <h3 className="relative text-[0.95rem] font-bold text-zinc-900 dark:text-zinc-100 mb-2">{s.title}</h3>
@@ -231,7 +231,7 @@ export async function ToolPageLayout({
                     width={76}
                     height={76}
                     loading="lazy"
-                    className="h-[76px] w-[76px] shrink-0 rounded-xl bg-white object-contain"
+                    className="h-[76px] w-[76px] shrink-0 rounded-[20px] bg-white object-contain"
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block text-base font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-pine-600 dark:group-hover:text-pine-400 transition-colors">
@@ -300,7 +300,7 @@ export async function ToolPageLayout({
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/quickbooks"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold transition-colors bg-white text-zinc-900 hover:bg-zinc-200"
+                className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold transition-colors bg-white text-zinc-900 hover:bg-zinc-200"
               >
                 <span>See the QuickBooks converter</span>
                 <ArrowRight size={15} className="text-amber-500" />

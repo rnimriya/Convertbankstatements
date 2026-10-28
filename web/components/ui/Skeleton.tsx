@@ -68,7 +68,7 @@ export function SkeletonRow({ className }: { className?: string }) {
       )}
       aria-hidden="true"
     >
-      <SkeletonBase className="h-10 w-10 rounded-xl shrink-0" />
+      <SkeletonBase className="h-10 w-10 rounded-[20px] shrink-0" />
       <div className="flex-1 space-y-2">
         <SkeletonBase className="h-4 w-3/5" />
         <SkeletonBase className="h-3 w-2/5" />
@@ -84,7 +84,7 @@ export function SkeletonStatCard({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "rounded-xl border border-zinc-100 dark:border-white/5 bg-white dark:bg-zinc-950 p-4 space-y-2",
+        "rounded-[20px] border border-zinc-100 dark:border-white/5 bg-white dark:bg-zinc-950 p-4 space-y-2",
         className
       )}
       aria-hidden="true"
@@ -116,7 +116,7 @@ export function SkeletonUploadResult({ className }: { className?: string }) {
         <div className="space-y-2">
           <SkeletonBase className="h-3 w-20" />
           {[0, 1].map((i) => (
-            <SkeletonBase key={i} className="h-10 w-full rounded-xl" />
+            <SkeletonBase key={i} className="h-10 w-full rounded-[20px]" />
           ))}
         </div>
       </div>

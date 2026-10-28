@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-pine-400 transition-colors"
+        className="rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-pine-400 transition-colors"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -80,11 +80,11 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#14264c" }}>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
             <Loader2 className="h-6 w-6 text-white animate-spin" />
           </div>
         ) : (
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#14264c" }}>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
             <Upload className="h-6 w-6 text-white" />
           </div>
         )}
@@ -107,7 +107,7 @@ export function QboChecker() {
       </div>
 
       {error && (
-        <p className="mt-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+        <p className="mt-4 rounded-[20px] border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
           {error}
         </p>
       )}
@@ -168,7 +168,7 @@ export function QboChecker() {
           {result.issues.length > 0 && (
             <ul className="mt-6 space-y-3">
               {result.issues.map((issue, i) => (
-                <li key={i} className="flex items-start gap-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3">
+                <li key={i} className="flex items-start gap-3 rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3">
                   {issue.level === "error" ? (
                     <XCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
                   ) : (
@@ -197,7 +197,7 @@ export function QboChecker() {
             </p>
             <Link
               href="/quickbooks"
-              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-pine-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-pine-500 transition-colors"
+              className="mt-4 inline-flex items-center gap-2 rounded-[20px] bg-pine-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-pine-500 transition-colors"
             >
               Convert a statement for QuickBooks <ArrowRight className="h-4 w-4" />
             </Link>

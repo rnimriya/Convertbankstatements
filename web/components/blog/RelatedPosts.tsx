@@ -15,7 +15,7 @@ export function RelatedPosts({ posts }: Props) {
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
-            className="group flex gap-3 rounded-xl border border-zinc-200 bg-white p-3 hover:border-brand-300 hover:bg-zinc-50 transition-colors"
+            className="group flex gap-3 rounded-[20px] border border-zinc-200 bg-white p-3 hover:border-brand-300 hover:bg-zinc-50 transition-colors"
           >
             <img
               src={post.featureImage}

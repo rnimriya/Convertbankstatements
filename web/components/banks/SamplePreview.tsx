@@ -30,7 +30,7 @@ export function SamplePreview({ bankName }: { bankName: string }) {
 
         <div className="grid lg:grid-cols-[1fr_auto_1fr] gap-6 items-stretch">
           {/* Before: statement excerpt */}
-          <div className="rounded-xl border border-brand-border bg-brand-surface p-6">
+          <div className="rounded-[20px] border border-brand-border bg-brand-surface p-6">
             <p className="text-xs font-bold uppercase tracking-wider text-brand-muted mb-4">
               {bankName} statement PDF · excerpt
             </p>
@@ -63,7 +63,7 @@ export function SamplePreview({ bankName }: { bankName: string }) {
           </div>
 
           {/* After: converted output */}
-          <div className="rounded-xl border border-brand-border bg-brand-surface p-6 overflow-x-auto">
+          <div className="rounded-[20px] border border-brand-border bg-brand-surface p-6 overflow-x-auto">
             <p className="text-xs font-bold uppercase tracking-wider text-brand-muted mb-4">
               Converted CSV / Excel / QBO
             </p>
@@ -104,7 +104,7 @@ export function SamplePreview({ bankName }: { bankName: string }) {
             controls
             preload="none"
             poster="/demo/convert-demo-poster.jpg"
-            className="w-full rounded-xl border border-brand-border shadow-lg"
+            className="w-full rounded-[20px] border border-brand-border shadow-lg"
           >
             <source src="/demo/convert-demo.mp4" type="video/mp4" />
           </video>

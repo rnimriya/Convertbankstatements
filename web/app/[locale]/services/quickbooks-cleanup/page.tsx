@@ -83,7 +83,7 @@ export default function QuickBooksCleanupPage() {
               <div className="mt-6">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-90"
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:opacity-90"
                 >
                   Get a free cleanup assessment
                 </Link>
@@ -130,7 +130,7 @@ export default function QuickBooksCleanupPage() {
               ))}
             </ol>
 
-            <div className="mt-16 rounded-xl bg-zinc-900 p-8 text-white text-center">
+            <div className="mt-16 rounded-[20px] bg-zinc-900 p-8 text-white text-center">
               <h2 className="text-2xl font-bold">Start with the free assessment</h2>
               <p className="mt-2 text-sm text-zinc-400 max-w-xl mx-auto">
                 No commitment, no charge for the diagnosis. If the quote does not make sense

@@ -183,14 +183,14 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={avatarUploading}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-zinc-900 dark:bg-zinc-950 hover:bg-zinc-900 dark:bg-zinc-950/90 transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-[20px] text-xs font-bold text-white bg-zinc-900 dark:bg-zinc-950 hover:bg-zinc-900 dark:bg-zinc-950/90 transition-colors disabled:opacity-50"
             >
               {avatarUploading ?"Uploading…" :"Change photo"}
             </button>
             {avatarUrl && (
               <button
                 onClick={removeAvatar}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-red-600 border border-red-200 hover:bg-red-50 transition-colors"
+                className="px-4 py-2 rounded-[20px] text-xs font-bold text-red-600 border border-red-200 hover:bg-red-50 transition-colors"
               >
                 Remove
               </button>
@@ -206,7 +206,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
         <div className={SECTION}>
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
+              <div className="h-9 w-9 rounded-[20px] bg-brand-surface flex items-center justify-center text-brand-text">
                 <User className="text-pine-500 dark:text-pine-400"  size={16} />
               </div>
               <div>
@@ -219,7 +219,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
+              <div className="h-9 w-9 rounded-[20px] bg-brand-surface flex items-center justify-center text-brand-text">
                 <Mail className="text-pine-500 dark:text-pine-400"  size={16} />
               </div>
               <div>
@@ -259,7 +259,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className="px-5 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
+                <div className="h-9 w-9 rounded-[20px] bg-brand-surface flex items-center justify-center text-brand-text">
                   <KeyRound className="text-pine-500 dark:text-pine-400"  size={16} />
                 </div>
                 <div>
@@ -288,7 +288,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   value={oldPw}
                   onChange={e => setOldPw(e.target.value)}
                   required
-                  className="w-full rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
+                  className="w-full rounded-[20px] border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
                 />
                 <input
                   type="password"
@@ -297,12 +297,12 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   onChange={e => setNewPw(e.target.value)}
                   required
                   minLength={8}
-                  className="w-full rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
+                  className="w-full rounded-[20px] border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 focus:border-navy"
                 />
                 <button
                   type="submit"
                   disabled={pwLoading}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50"
+                  className="flex items-center gap-2 px-4 py-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50"
                 >
                   {pwLoading && <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" />}
                   Update password
@@ -319,7 +319,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
         <div className={SECTION}>
           <div className={ROW}>
             <div className="flex items-center gap-3">
-              <div className="h-9 w-9 rounded-xl bg-green-50 flex items-center justify-center">
+              <div className="h-9 w-9 rounded-[20px] bg-green-50 flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
                   <path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z" fill="#34A853" opacity="0.2"/>
                   <path d="M14 2l6 6h-6V2z" fill="#34A853"/>
@@ -389,7 +389,7 @@ function NotifRow({ label, description, value, onChange }: {
   return (
     <div className="flex items-center justify-between px-5 py-4 gap-4">
       <div className="flex items-center gap-3">
-        <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
+        <div className="h-9 w-9 rounded-[20px] bg-brand-surface flex items-center justify-center text-brand-text">
           <Bell className="text-amber-500 dark:text-amber-400"  size={16} />
         </div>
         <div>

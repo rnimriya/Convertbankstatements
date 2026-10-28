@@ -31,7 +31,7 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 pl-1.5 pr-3 py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
+        className="flex items-center gap-2 rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 pl-1.5 pr-3 py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
       >
         <div className="h-6 w-6 rounded-lg bg-gray-900 flex items-center justify-center text-[11px] font-black text-white shrink-0">
           {initial}

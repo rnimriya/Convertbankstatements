@@ -134,7 +134,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                 className="flex items-center gap-4 px-5 py-4 cursor-pointer select-none"
                 onClick={() => setExpanded(isExpanded ? null : job.id)}
               >
-                <div className="h-10 w-10 shrink-0 rounded-xl bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
+                <div className="h-10 w-10 shrink-0 rounded-[20px] bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
                   {job.status ==="processing"
                     ? <Loader2 size={20} className="dark:text-pine-400 animate-spin text-pine-500 dark:text-pine-400" />
                     : <FileText size={20} className="dark:text-pine-400 text-pine-500 dark:text-pine-400" />
@@ -170,7 +170,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
               {isExpanded && (
                 <div className="border-t border-zinc-100 dark:border-zinc-800 px-5 py-4 space-y-3">
                   {job.error && (
-                    <div className="flex items-start gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-xl px-4 py-3">
+                    <div className="flex items-start gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-[20px] px-4 py-3">
                       <AlertTriangle size={14} className="shrink-0 mt-0.5 text-amber-500 dark:text-amber-400" />
                       {job.error}
                     </div>
@@ -182,7 +182,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                         <button
                           key={fmt}
                           onClick={() => handleDownload(job.fileName, fmt, url)}
-                          className="flex w-full items-center justify-between rounded-xl bg-orange-500 hover:bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.3)] transition-all"
+                          className="flex w-full items-center justify-between rounded-[20px] bg-orange-500 hover:bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.3)] transition-all"
                         >
                           <span className="flex items-center gap-2">
                             <FileText size={14} className="opacity-80 text-pine-500 dark:text-pine-400" />

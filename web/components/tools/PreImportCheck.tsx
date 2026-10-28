@@ -56,7 +56,7 @@ export function PreImportCheck({ qboUrl }: Props) {
   if (!qboUrl) return null;
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3">
+    <div className="rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3">
       {!analysis && !error && (
         <button
           onClick={() => void runCheck()}

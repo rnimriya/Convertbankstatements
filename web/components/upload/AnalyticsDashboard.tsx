@@ -60,7 +60,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
       
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Total Inflows */}
-        <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
+        <div className="rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
           <div className="flex items-center gap-2 text-pine-600 dark:text-pine-500 mb-1">
             <ArrowUpRight className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Total Inflows</span>
@@ -71,7 +71,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
         </div>
 
         {/* Total Outflows */}
-        <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
+        <div className="rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
           <div className="flex items-center gap-2 text-rose-600 dark:text-rose-500 mb-1">
             <ArrowDownRight className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Total Outflows</span>
@@ -82,7 +82,7 @@ export function AnalyticsDashboard({ transactions }: Props) {
         </div>
 
         {/* Net Change */}
-        <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
+        <div className="rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 shadow-sm">
           <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 mb-1">
             <TrendingUp className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase tracking-wider">Net Change</span>

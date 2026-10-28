@@ -62,7 +62,7 @@ export default function ForgotPasswordPage() {
                 </p>
               </div>
               {devResetUrl && (
-                <div className="w-full rounded-xl border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 text-left">
+                <div className="w-full rounded-[20px] border border-amber-200 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 p-4 text-left">
                   <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">
                     🔧 Dev mode — reset link:
                   </p>
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
           ) : (
             <>
               <div className="flex items-center gap-3 mb-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-brand-50 dark:bg-brand-900/30">
                   <Mail className="h-5 w-5 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
                 </div>
                 <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Forgot password?</h1>
@@ -89,7 +89,7 @@ export default function ForgotPasswordPage() {
               </p>
 
               {error && (
-                <div className="mb-5 flex items-start gap-2 rounded-xl border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
+                <div className="mb-5 flex items-start gap-2 rounded-[20px] border border-red-100 dark:border-red-900 bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-700 dark:text-red-400">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 dark:text-amber-400" />
                   {error}
                 </div>
@@ -107,7 +107,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 py-2.5 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
+                    className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 py-2.5 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/50"
                   />
                 </div>
 
@@ -115,7 +115,7 @@ export default function ForgotPasswordPage() {
                   type="submit"
                   disabled={loading}
                   id="forgot-submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
                 >
                   {loading && <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />}
                   {loading ?"Sending…" :"Send reset link"}

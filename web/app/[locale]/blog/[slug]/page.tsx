@@ -234,7 +234,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <div className="mx-auto max-w-[1060px] px-6">
           {/* White card overlapping the hero */}
-          <div className="relative z-10 -mt-16 rounded-xl bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)] px-6 sm:px-10 py-9">
+          <div className="relative z-10 -mt-16 rounded-[20px] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)] px-6 sm:px-10 py-9">
             {/* Feature image — floated, article text wraps around it */}
             <figure className="blog-feature-figure">
               <img src={post.featureImage} alt={post.title} />
@@ -277,7 +277,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
 
           {/* In-article CTA */}
-          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl bg-[#09090b] px-8 py-8 text-white">
+          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[20px] bg-[#09090b] px-8 py-8 text-white">
             <div>
               <p className="font-bold">Skip the manual work</p>
               <p className="text-zinc-400 text-sm mt-1">

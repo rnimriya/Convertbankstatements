@@ -84,18 +84,18 @@ export function CategoryRulesPanel() {
           value={pattern}
           onChange={(e) => setPattern(e.target.value)}
           placeholder="Description contains… e.g. SHELL OIL"
-          className="flex-1 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
+          className="flex-1 rounded-[20px] border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
         />
         <input
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           placeholder="Category… e.g. Vehicle Fuel"
-          className="sm:w-52 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
+          className="sm:w-52 rounded-[20px] border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
         />
         <button
           onClick={addRule}
           disabled={saving || pattern.trim().length < 2 || !category.trim()}
-          className="flex items-center justify-center gap-1.5 rounded-xl bg-zinc-900 dark:bg-white px-4 py-2.5 text-sm font-semibold text-white dark:text-zinc-900 hover:opacity-90 disabled:opacity-50 transition-opacity"
+          className="flex items-center justify-center gap-1.5 rounded-[20px] bg-zinc-900 dark:bg-white px-4 py-2.5 text-sm font-semibold text-white dark:text-zinc-900 hover:opacity-90 disabled:opacity-50 transition-opacity"
         >
           {saving ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />} Add rule
         </button>
@@ -115,7 +115,7 @@ export function CategoryRulesPanel() {
           rules.map((rule) => (
             <div
               key={rule.pattern}
-              className="flex items-center justify-between gap-3 rounded-xl border border-brand-border bg-brand-bg px-4 py-2.5"
+              className="flex items-center justify-between gap-3 rounded-[20px] border border-brand-border bg-brand-bg px-4 py-2.5"
             >
               <p className="text-sm text-brand-text truncate">
                 <span className="font-semibold">{rule.pattern}</span>

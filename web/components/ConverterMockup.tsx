@@ -101,7 +101,7 @@ export default function ConverterMockup() {
         >
           {/* Bank avatar */}
           <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center text-base font-black shrink-0"
+            className="w-10 h-10 rounded-[20px] flex items-center justify-center text-base font-black shrink-0"
             style={{ background: `${bank.hex}14`, border: `1.5px solid ${bank.hex}33`, color: bank.hex }}
           >
             {bank.initial}
@@ -153,7 +153,7 @@ export default function ConverterMockup() {
             {TXNS.slice(0, visRows).map((txn, i) => (
               <div
                 key={i}
-                className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl"
+                className="flex items-center gap-2.5 px-3 py-2.5 rounded-[20px]"
                 style={{
                   background:"#f8fafc",
                   border:"1px solid #e2e8f0",
@@ -209,7 +209,7 @@ export default function ConverterMockup() {
             {/* Done: summary row */}
             {done && (
               <div
-                className="flex items-center gap-2.5 px-3 py-3 rounded-xl mt-1"
+                className="flex items-center gap-2.5 px-3 py-3 rounded-[20px] mt-1"
                 style={{ background:"#f0fdf4", border:"1px solid #bbf7d0" }}
               >
                 <CheckCircle2 size={15} className="text-pine-500 shrink-0 text-pine-500 dark:text-pine-400" />
@@ -232,7 +232,7 @@ export default function ConverterMockup() {
               <button
                 key={f}
                 onClick={() => setSelFmt(i)}
-                className="flex-1 py-2 rounded-xl text-[11px] font-bold transition-all duration-200"
+                className="flex-1 py-2 rounded-[20px] text-[11px] font-bold transition-all duration-200"
                 style={
                   i === selFmt
                     ? { background:"#1A47C8", color:"#fff", boxShadow:"0 4px 12px rgba(26,71,200,0.30)" }
@@ -245,7 +245,7 @@ export default function ConverterMockup() {
           </div>
 
           <button
-            className="w-full py-3.5 rounded-xl text-sm font-bold text-white flex items-center justify-center gap-2 relative overflow-hidden"
+            className="w-full py-3.5 rounded-[20px] text-sm font-bold text-white flex items-center justify-center gap-2 relative overflow-hidden"
             style={{ background:"linear-gradient(135deg,#f97316,#ea580c)", boxShadow:"0 6px 20px rgba(249,115,22,0.35)" }}
           >
             <span

@@ -214,7 +214,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         {/* Reconciliation balance check */}
         {result.reconciliation?.checked && (
           result.reconciliation.ok ? (
-            <div className="mt-4 flex items-start gap-3 rounded-xl border border-pine-200 bg-pine-50 dark:border-pine-800 dark:bg-pine-950/40 px-4 py-3">
+            <div className="mt-4 flex items-start gap-3 rounded-[20px] border border-pine-200 bg-pine-50 dark:border-pine-800 dark:bg-pine-950/40 px-4 py-3">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-pine-600 dark:text-pine-400 mt-0.5" />
               <div className="text-sm">
                 <p className="font-semibold text-pine-900 dark:text-pine-100">Balance verified — this file ties to your statement</p>
@@ -226,7 +226,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               </div>
             </div>
           ) : (
-            <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/40 px-4 py-3">
+            <div className="mt-4 flex items-start gap-3 rounded-[20px] border border-amber-200 bg-amber-50 dark:border-amber-800 dark:bg-amber-950/40 px-4 py-3">
               <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400 mt-0.5" />
               <div className="text-sm">
                 <p className="font-semibold text-amber-900 dark:text-amber-100">Heads up — the running balances don&apos;t fully tie out</p>
@@ -246,7 +246,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               <button
                 key={fmt}
                 onClick={() => handleDownload(fmt, url)}
-                className="flex w-full items-center justify-between rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.99] transition-all px-4 py-3 text-sm font-semibold text-white"
+                className="flex w-full items-center justify-between rounded-[20px] bg-zinc-900 hover:bg-zinc-800 active:scale-[0.99] transition-all px-4 py-3 text-sm font-semibold text-white"
               >
                 <span className="flex items-center gap-2">
                   <FileSpreadsheet className="h-4 w-4 text-white/80 text-pine-500 dark:text-pine-400" />
@@ -257,7 +257,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
             ))}
 
             {result.locked_formats && result.locked_formats.length > 0 && (
-              <div className="rounded-xl border border-pine-200 bg-pine-50 px-4 py-3 text-xs text-pine-800">
+              <div className="rounded-[20px] border border-pine-200 bg-pine-50 px-4 py-3 text-xs text-pine-800">
                 <span className="font-semibold">{result.locked_formats.map(f => (FORMAT_LABELS[f] ?? f.toUpperCase()).replace(/^Download /, "")).join(", ")}</span>
                 {" "}exports are Pro plan features. <a href="/pricing" className="font-semibold underline">Upgrade to Pro</a> to unlock them — your downloads above are ready.
               </div>
@@ -274,7 +274,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 <button
                   onClick={pushToQuickBooks}
                   disabled={qbPushing}
-                  className="flex w-full items-center justify-between rounded-xl bg-pine-600 hover:bg-pine-500 px-4 py-3 text-sm font-semibold text-white transition-all disabled:opacity-50"
+                  className="flex w-full items-center justify-between rounded-[20px] bg-pine-600 hover:bg-pine-500 px-4 py-3 text-sm font-semibold text-white transition-all disabled:opacity-50"
                 >
                   <span className="flex items-center gap-2">
                     <BookOpenCheck className="h-4 w-4 text-white/80" />
@@ -290,7 +290,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
             {result.reconciliation?.checked && (
               <button
                 onClick={downloadReport}
-                className="flex w-full items-center justify-between rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 px-4 py-3 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all"
+                className="flex w-full items-center justify-between rounded-[20px] border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 px-4 py-3 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all"
               >
                 <span className="flex items-center gap-2">
                   <FileCheck2 className="h-4 w-4 text-pine-600 dark:text-pine-400" />
@@ -307,7 +307,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                   href={sheetsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-between rounded-xl bg-green-600 hover:bg-green-700 px-4 py-3 text-sm font-semibold text-white transition-all"
+                  className="flex w-full items-center justify-between rounded-[20px] bg-green-600 hover:bg-green-700 px-4 py-3 text-sm font-semibold text-white transition-all"
                 >
                   <span className="flex items-center gap-2">
                     <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white/80"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".5"/></svg>
@@ -319,7 +319,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 <button
                   onClick={exportToSheets}
                   disabled={sheetsExporting}
-                  className="flex w-full items-center justify-between rounded-xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/30 px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400 transition-all disabled:opacity-50"
+                  className="flex w-full items-center justify-between rounded-[20px] bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/30 px-4 py-3 text-sm font-semibold text-green-700 dark:text-green-400 transition-all disabled:opacity-50"
                 >
                   <span className="flex items-center gap-2">
                     {sheetsExporting
@@ -383,7 +383,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
 
 function StatCard({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-xl bg-brand-surface border border-zinc-200 dark:bg-zinc-950 p-3 text-center">
+    <div className="rounded-[20px] bg-brand-surface border border-zinc-200 dark:bg-zinc-950 p-3 text-center">
       <p className="text-xl font-bold text-zinc-900 dark:text-zinc-200">{value}</p>
       <p className="text-xs text-brand-muted dark:text-brand-muted">{label}</p>
     </div>

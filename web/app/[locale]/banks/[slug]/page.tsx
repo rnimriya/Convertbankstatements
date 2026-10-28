@@ -166,7 +166,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {steps.map((s, i) => (
-                <div key={i} className="bg-brand-surface p-8 rounded-xl border border-brand-border">
+                <div key={i} className="bg-brand-surface p-8 rounded-[20px] border border-brand-border">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-11 h-11 rounded-2xl bg-brand-bg border border-brand-border flex items-center justify-center">
                       {s.icon}
@@ -192,7 +192,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-brand-bg p-8 rounded-xl border border-brand-border">
+              <div className="bg-brand-bg p-8 rounded-[20px] border border-brand-border">
                 <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6">
                   <Zap className="text-amber-500" size={24} />
                 </div>
@@ -200,7 +200,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
                 <p className="text-brand-muted">Convert multi-page {bankName} PDFs into structured spreadsheets in under 15 seconds.</p>
               </div>
 
-              <div className="bg-brand-bg p-8 rounded-xl border border-brand-border">
+              <div className="bg-brand-bg p-8 rounded-[20px] border border-brand-border">
                 <div className="w-12 h-12 bg-pine-500/10 rounded-2xl flex items-center justify-center mb-6">
                   <Lock className="text-pine-500" size={24} />
                 </div>
@@ -208,7 +208,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
                 <p className="text-brand-muted">We never store your {bankName} financial data. Files are processed entirely in memory.</p>
               </div>
 
-              <div className="bg-brand-bg p-8 rounded-xl border border-brand-border">
+              <div className="bg-brand-bg p-8 rounded-[20px] border border-brand-border">
                 <div className="w-12 h-12 bg-pine-500/10 rounded-2xl flex items-center justify-center mb-6">
                   <FileText className="text-pine-500" size={24} />
                 </div>

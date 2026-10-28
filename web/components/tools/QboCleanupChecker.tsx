@@ -133,7 +133,7 @@ export function QboCleanupChecker() {
       />
 
       {error && (
-        <p className="mt-4 rounded-xl border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+        <p className="mt-4 rounded-[20px] border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
           {error}
         </p>
       )}
@@ -224,7 +224,7 @@ export function QboCleanupChecker() {
                 {result.issues.map((i, n) => (
                   <li
                     key={n}
-                    className={`flex items-start gap-2.5 rounded-xl border px-4 py-3 text-sm ${
+                    className={`flex items-start gap-2.5 rounded-[20px] border px-4 py-3 text-sm ${
                       i.level === "error"
                         ? "border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 text-red-800 dark:text-red-200"
                         : "border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 text-amber-800 dark:text-amber-200"
@@ -289,7 +289,7 @@ export function QboCleanupChecker() {
           </p>
 
           {/* Cleanup upsell */}
-          <div className="mt-8 relative overflow-hidden p-8 rounded-xl bg-zinc-900 text-white">
+          <div className="mt-8 relative overflow-hidden p-8 rounded-[20px] bg-zinc-900 text-white">
             <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[500px] h-[200px] opacity-25 bg-pine-500 rounded-full blur-[100px] pointer-events-none" />
             <div className="relative">
               <h3 className="font-bold text-lg">Found a real mess? That&apos;s a cleanup, not a download.</h3>

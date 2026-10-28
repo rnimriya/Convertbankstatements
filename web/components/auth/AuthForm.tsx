@@ -11,7 +11,7 @@ import {
 type Mode ="login" |"signup";
 type ErrorCode ="USER_NOT_FOUND" |"WRONG_PASSWORD" | null;
 
-const INPUT ="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-navy focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10";
+const INPUT ="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-navy focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10";
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const t = useTranslations("auth");
@@ -105,14 +105,14 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
           <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm">
             {mode ==="signup" && referralCode && (
-              <div className="mb-5 rounded-xl border border-pine-100 bg-pine-50 px-4 py-3 text-sm text-pine-700">
+              <div className="mb-5 rounded-[20px] border border-pine-100 bg-pine-50 px-4 py-3 text-sm text-pine-700">
                 <p className="font-semibold">{t("referralTitle")}</p>
                 <p className="text-xs mt-0.5 text-pine-600">{t("referralDesc")}</p>
               </div>
             )}
 
             {error && (
-              <div className="mb-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <div className="mb-5 rounded-[20px] border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
                 <div className="flex items-start gap-2">
                   <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500 dark:text-amber-400" />
                   <div>
@@ -219,7 +219,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 id="auth-submit"
                 type="submit"
                 disabled={loading}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-zinc-900 dark:bg-white py-3 text-sm font-bold text-white dark:text-black shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-[20px] bg-zinc-900 dark:bg-white py-3 text-sm font-bold text-white dark:text-black shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>

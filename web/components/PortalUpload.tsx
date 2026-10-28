@@ -123,7 +123,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                   <a
                     href={exportUrls.xlsx}
                     download={fileName.replace(".pdf",".xlsx")}
-                    className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                    className="flex items-center justify-center gap-2 w-full py-3 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
                   >
                     <FileSpreadsheet className="text-pine-500 dark:text-pine-400"  size={15} />
                     Download Excel (.xlsx)
@@ -133,7 +133,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                   <a
                     href={exportUrls.csv}
                     download={fileName.replace(".pdf",".csv")}
-                    className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold transition-all shadow-[0_2px_12px_rgba(249,115,22,0.35)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.45)]"
+                    className="flex items-center justify-between w-full px-4 py-3 rounded-[20px] bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold transition-all shadow-[0_2px_12px_rgba(249,115,22,0.35)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.45)]"
                   >
                     <span className="flex items-center gap-2">
                       <Download className="text-pine-500 dark:text-pine-400"  size={15} />
@@ -164,7 +164,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
               </div>
               <button
                 onClick={() => { setPhase("idle"); setErrorMsg(""); }}
-                className="px-5 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
+                className="px-5 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
               >
                 Try again
               </button>

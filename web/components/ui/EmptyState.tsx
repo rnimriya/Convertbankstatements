@@ -25,7 +25,7 @@ const SIZE = {
   sm: {
     wrapper: "py-8 px-4",
     icon: "h-8 w-8",
-    iconBox: "h-12 w-12 rounded-xl mb-3",
+    iconBox: "h-12 w-12 rounded-[20px] mb-3",
     title: "text-sm font-semibold",
     description: "text-xs mt-1",
     actions: "mt-4 gap-2",

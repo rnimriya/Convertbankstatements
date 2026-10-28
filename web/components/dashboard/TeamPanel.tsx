@@ -110,7 +110,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
       <div className="rounded-2xl border border-brand-border bg-brand-surface p-5 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-xl bg-pine-50 dark:bg-pine-900/20 flex items-center justify-center">
+            <div className="h-10 w-10 rounded-[20px] bg-pine-50 dark:bg-pine-900/20 flex items-center justify-center">
               <Users size={20} className="text-pine-600 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
             </div>
             <div>
@@ -142,7 +142,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
           </h3>
 
           {inviteMsg && (
-            <div className={`mb-4 px-4 py-3 rounded-xl text-sm ${
+            <div className={`mb-4 px-4 py-3 rounded-[20px] text-sm ${
               inviteMsg.type ==="success"
                 ?"bg-pine-50 dark:bg-pine-900/20 text-pine-700 dark:text-pine-400 border border-pine-200 dark:border-pine-800"
                 :"bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800"
@@ -158,12 +158,12 @@ export function TeamPanel({ tier, userEmail }: Props) {
               placeholder="colleague@company.com"
               value={inviteEmail}
               onChange={e => setInviteEmail(e.target.value)}
-              className="flex-1 rounded-xl border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 dark:focus:ring-brand-400/20 focus:border-navy dark:focus:border-brand-400"
+              className="flex-1 rounded-[20px] border border-brand-border bg-brand-surface px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-navy/20 dark:focus:ring-brand-400/20 focus:border-navy dark:focus:border-brand-400"
             />
             <button
               type="submit"
               disabled={inviting}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
             >
               {inviting ? <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Mail className="text-pine-500 dark:text-pine-400"  size={14} />}
               Send invite

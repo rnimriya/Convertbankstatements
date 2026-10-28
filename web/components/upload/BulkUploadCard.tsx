@@ -154,7 +154,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               <a
                 href={mergeUrl}
                 download="Merged_Statements.xlsx"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 <Download className="text-pine-500 dark:text-pine-400"  size={12} /> Download merged
               </a>
@@ -162,7 +162,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               <button
                 onClick={mergeAll}
                 disabled={merging}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
               >
                 {merging ? <Loader2 size={12} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Merge className="text-pine-500 dark:text-pine-400"  size={12} />}
                 {merging ?"Merging…" :"Merge all banks"}
@@ -174,7 +174,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
         {/* Individual file results */}
         <div className="space-y-2">
           {results.map((r, i) => (
-            <div key={i} className={`rounded-xl p-4 flex items-center gap-3 border ${r.error ?"border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" :"border-brand-border bg-brand-surface"}`}>
+            <div key={i} className={`rounded-[20px] p-4 flex items-center gap-3 border ${r.error ?"border-red-200 dark:border-red-800 bg-red-50/30 dark:bg-red-900/10" :"border-brand-border bg-brand-surface"}`}>
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0 text-amber-500 dark:text-amber-400" />
               ) : (
@@ -230,14 +230,14 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
       <div className="min-h-full flex items-center justify-center p-4 sm:p-6">
         <div className="w-full max-w-4xl space-y-4">
           {phase ==="error" && (
-            <div className="flex items-start gap-3 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-700 dark:text-red-400">
+            <div className="flex items-start gap-3 px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-[20px] text-sm text-red-700 dark:text-red-400">
               <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-500 text-amber-500 dark:text-amber-400" />
               <span className="flex-1">{errorMsg}</span>
               <button onClick={() => setPhase("idle")} className="shrink-0 text-red-400 hover:text-red-600 font-medium">✕</button>
             </div>
           )}
 
-          <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
             <div className="p-3">
               <div
                 {...getRootProps()}

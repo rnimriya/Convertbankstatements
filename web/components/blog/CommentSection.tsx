@@ -58,7 +58,7 @@ function CommentForm({
         placeholder={placeholder}
         rows={3}
         maxLength={2000}
-        className="w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20 resize-none"
+        className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 outline-none transition focus:border-brand-400 dark:focus:border-brand-500 focus:bg-white dark:bg-zinc-950 dark:focus:bg-surface-raised focus:ring-2 focus:ring-brand-400/20 resize-none"
       />
       <div className="mt-2 flex items-center justify-between gap-2">
         <span className="text-xs text-zinc-400 dark:text-zinc-500">{text.length}/2000</span>
@@ -75,7 +75,7 @@ function CommentForm({
           <button
             type="submit"
             disabled={loading || !text.trim()}
-            className="flex items-center gap-1.5 rounded-xl bg-brand-400 px-4 py-2 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-1.5 rounded-[20px] bg-brand-400 px-4 py-2 text-sm font-bold text-black shadow-glow-sm hover:bg-brand-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? <Loader2 className="h-3.5 w-3.5 animate-spin text-pine-500 dark:text-pine-400" /> : <Send className="h-3.5 w-3.5 text-pine-500 dark:text-pine-400" />}
             {parentId ?"Reply" :"Post comment"}
@@ -170,7 +170,7 @@ export function CommentSection({ slug, initialComments }: Props) {
           onPosted={handlePosted}
         />
       ) : (
-        <div className="mt-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-6 py-5 text-center">
+        <div className="mt-6 rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-white dark:bg-zinc-950/5 px-6 py-5 text-center">
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             <Link
               href={`/login?redirectTo=/blog/${slug}`}

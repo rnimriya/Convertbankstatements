@@ -49,7 +49,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
             className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
             style={{ fontSize:"clamp(1.6rem, 3vw, 2.4rem)" }}
           >
-            Free Bank Statement <span className="text-pine-800 dark:text-pine-300">Converter</span>
+            Free Bank Statement <span className="text-pine-600 dark:text-pine-300">Converter</span>
           </h1>
           <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             Upload any Wells Fargo, Citibank, U.S. Bank, Cadence Bank, or Kotak statement — get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. No manual typing.

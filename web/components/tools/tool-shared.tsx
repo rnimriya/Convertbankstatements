@@ -35,18 +35,18 @@ export function useToolAuth() {
 
 /**
  * Auth wall shown to anonymous visitors — same card look as the dropzone
- * (rounded-xl card + dashed inner zone), no animations.
+ * (rounded-[20px] card + dashed inner zone), no animations.
  */
 export function ToolAuthWall({ path }: { path: string }) {
   const signup = `/signup?redirectTo=${encodeURIComponent(path)}`;
   const login = `/login?redirectTo=${encodeURIComponent(path)}`;
   return (
-    <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
       <div className="p-3">
-        <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 px-6 py-12 lg:py-16 text-center select-none">
+        <div className="flex flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 px-6 py-12 lg:py-16 text-center select-none">
           <div
             className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl"
-            style={{ background: "#14264c" }}
+            style={{ background: "#164234" }}
           >
             <Lock size={26} className="text-white" strokeWidth={1.6} />
           </div>
@@ -154,7 +154,7 @@ export async function downloadFileFromApi(url: string, file: File, fileName: str
 
 /**
  * Upload dropzone — exact twin of the homepage converter card's drop zone
- * (UploadCard): same rounded-xl card, same dashed border, same icon block,
+ * (UploadCard): same rounded-[20px] card, same dashed border, same icon block,
  * same heading/"or browse files" text layout, same drag-over state.
  * Only the copy (title/meta) and accepted types differ per tool.
  * Busy state is static (no spin animation) per site rules.
@@ -181,7 +181,7 @@ export function ToolUpload({
   const dragDepth = useRef(0);
 
   return (
-    <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
       {/* ── Drop zone ── */}
       <div className="p-3">
@@ -221,7 +221,7 @@ export function ToolUpload({
             if (f) onFile(f);
           }}
           className={cn(
-            "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-10 lg:py-12 text-center transition-colors select-none",
+            "relative flex flex-col items-center justify-center rounded-[10px] border-2 border-dashed px-6 py-10 lg:py-12 text-center transition-colors select-none",
             busy ? "border-zinc-200" : "cursor-pointer",
             !busy &&
               (dragActive
@@ -244,7 +244,7 @@ export function ToolUpload({
           {busy ? (
             /* Busy (static — no motion animation) */
             <div className="flex flex-col items-center gap-4 py-2">
-              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#14264c" }}>
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
                 <Loader2 size={26} className="text-white" strokeWidth={1.6} />
               </div>
               <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
@@ -258,7 +258,7 @@ export function ToolUpload({
               <div
                 className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
                 style={{
-                  background: dragActive ? "#0d1830" : "#14264c",
+                  background: dragActive ? "#072b18" : "#164234",
                   transform: dragActive ? "scale(1.06)" : "scale(1)",
                 }}
               >
