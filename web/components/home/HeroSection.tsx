@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, CheckCircle2, Star } from"lucide-react";
+import { ArrowRight } from"lucide-react";
 import type { BillingContext } from"@/types/billing";
 import { UploadCard } from"@/components/upload/UploadCard";
 
@@ -13,53 +13,52 @@ interface Props {
 
 export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAccess }: Props) {
   return (
-    <section className="w-full relative overflow-hidden bg-pine-800">
+    <section className="w-full relative overflow-hidden bg-[#071106] agri-sans">
+      {/* Static lime glow (no animation) */}
+      <div aria-hidden className="absolute left-1/2 top-[-420px] -translate-x-1/2 w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,.38), rgba(19,84,28,.28) 55%, transparent 75%)" }} />
+      <div aria-hidden className="absolute left-0 right-0 bottom-0 h-[180px] pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(100,203,72,.14))" }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center py-6 lg:py-8">
-        {/* ── Copy — left ── */}
-        <div>
-          <span className="inline-block text-pine-400 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
-          <h1
-            className="font-bold text-white tracking-tight leading-[1.07] mb-4"
-            style={{ fontSize:"clamp(2rem, 4.5vw, 2.875rem)" }}
-          >
-            Free Bank Statement <span className="text-pine-400">Converter</span>
-          </h1>
-          <p className="text-[0.95rem] text-zinc-300 max-w-xl leading-relaxed">
-            Upload any Wells Fargo, Citibank, U.S. Bank, Cadence Bank, or Kotak statement — get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. No manual typing.
-          </p>
-          <div className="flex flex-wrap gap-3 mt-7">
-            <a href="#upload" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[10px] text-sm font-bold text-[#072b18] bg-pine-400 hover:bg-pine-300 transition-colors whitespace-nowrap">
-              Convert free — 8 pages <ArrowRight size={15} />
-            </a>
-            <a href="#how-it-works" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[10px] text-sm font-semibold text-white border border-pine-700 hover:bg-pine-700 transition-colors whitespace-nowrap">
-              See how it works
-            </a>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-7 text-[13px] font-semibold text-zinc-300">
-            <span className="flex items-center gap-1.5">
-              <span className="flex gap-0.5">
-                {[0,1,2,3,4].map(i => <Star key={i} size={12} className="fill-honey-400 text-honey-400" />)}
-              </span>
-              10,000+ finance professionals
-            </span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={13} className="text-pine-400" /> No credit card</span>
-            <span className="flex items-center gap-1.5"><CheckCircle2 size={13} className="text-pine-400" /> Files never stored</span>
-          </div>
+      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-16 pb-20">
+        <span className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-1.5 text-xs font-bold text-zinc-200">
+          <span className="rounded-full bg-[#64CB48] px-2 py-0.5 text-[10px] font-extrabold text-[#071106]">NEW</span>
+          Bank-statement converter for accountants &amp; firms
+        </span>
+        <h1
+          className="font-extrabold text-white tracking-tight leading-[1.04] mt-7 mb-5"
+          style={{ fontSize:"clamp(2.5rem, 6vw, 4rem)" }}
+        >
+          Bank statements in.<br />
+          <span className="agri-serif font-normal">Clean spreadsheets</span> out.
+        </h1>
+        <p className="text-zinc-300 max-w-xl mx-auto leading-relaxed">
+          Convert PDF bank statements to Excel, CSV, QBO, OFX and Google Sheets in under 15 seconds. First 8 pages free — no account needed.
+        </p>
+        <div className="flex flex-wrap justify-center gap-3 mt-8">
+          <a href="#upload" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[#071106] whitespace-nowrap">
+            Convert free <ArrowRight size={15} />
+          </a>
+          <a href="#how-it-works" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3.5 text-sm font-bold text-white whitespace-nowrap">
+            See how it works
+          </a>
         </div>
 
-        {/* ── Converter card — right ── */}
-        <div id="upload" className="scroll-mt-24">
+        {/* ── Converter card — real UploadCard, internals untouched ── */}
+        <div id="upload" className="scroll-mt-24 max-w-[880px] mx-auto mt-10 text-left">
           <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
 
           {/* Security note */}
           <div className="mt-4 flex items-center justify-center gap-2">
-            <CheckCircle2 size={14} className="shrink-0 text-pine-400" />
             <p className="text-[12.5px] text-zinc-400">
               <span className="font-semibold text-zinc-300">Bank-grade security</span>
               {""}— Files processed securely and deleted immediately
             </p>
           </div>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-8 text-[13px] font-semibold text-zinc-300">
+          <span>✓ Files processed in memory</span>
+          <span>✓ Never stored</span>
+          <span>✓ 400+ banks covered</span>
         </div>
       </div>
     </section>

@@ -22,8 +22,9 @@ const SOCIAL = [
   },
 ];
 
-export async function Footer() {
+export async function Footer({ variant }: { variant?: "agri" }) {
   const t = await getTranslations("footer");
+  const agri = variant === "agri";
 
   const NAV = [
     {
@@ -70,7 +71,7 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="bg-pine-800">
+    <footer className={agri ? "bg-[#071106]" : "bg-pine-800"}>
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <div className="max-w-xs">
@@ -118,7 +119,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-pine-700 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-400">
+        <div className={`mt-8 border-t pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-400 ${agri ? "border-white/10" : "border-pine-700"}`}>
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("prices")}</p>
         </div>
