@@ -64,6 +64,7 @@ export default async function HomePage() {
   const steps = [
     {
       n:"01",
+      img:"/steps/step-upload.webp",
       icon: <Upload className="text-pine-500 dark:text-pine-400"  size={20} />,
       title: tHow("step1Title"),
       body: tHow("step1Body"),
@@ -72,6 +73,7 @@ export default async function HomePage() {
     },
     {
       n:"02",
+      img:"/steps/step-format.webp",
       icon: <FileCheck className="text-pine-600 dark:text-pine-400"  size={20} />,
       title: tHow("step2Title"),
       body: tHow("step2Body"),
@@ -80,6 +82,7 @@ export default async function HomePage() {
     },
     {
       n:"03",
+      img:"/steps/step-download.webp",
       icon: <Download className="text-pine-500 dark:text-pine-400"  size={20} />,
       title: tHow("step3Title"),
       body: tHow("step3Body"),
@@ -162,16 +165,20 @@ export default async function HomePage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {steps.map(({ n, icon, title, body, gradient }) => (
+              {steps.map(({ n, icon, img, title, body, gradient }) => (
                 <div
                   key={n}
                   className="relative group flex flex-col p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-xl hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="absolute top-6 right-6 text-4xl font-black select-none text-pine-100 dark:text-pine-900">{n}</div>
 
-                  <div className={`relative w-[60px] h-[60px] rounded-full flex items-center justify-center mb-5 bg-pine-50 dark:bg-pine-500/10 text-pine-700 dark:text-pine-300 border border-pine-100 dark:border-pine-900`}>
-                    {icon}
-                  </div>
+                  {img ? (
+                    <img src={img} alt="" className="relative w-[76px] h-[76px] object-contain bg-white rounded-lg mb-5" />
+                  ) : (
+                    <div className={`relative w-[60px] h-[60px] rounded-full flex items-center justify-center mb-5 bg-pine-50 dark:bg-pine-500/10 text-pine-700 dark:text-pine-300 border border-pine-100 dark:border-pine-900`}>
+                      {icon}
+                    </div>
+                  )}
                   <h3 className="relative text-[0.95rem] font-bold text-zinc-900 dark:text-zinc-100 mb-2">{title}</h3>
                   <p className="relative text-sm text-brand-muted leading-relaxed">{body}</p>
 
