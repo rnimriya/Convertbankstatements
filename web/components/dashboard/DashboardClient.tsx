@@ -14,7 +14,6 @@ import { AccountSettings } from"@/components/dashboard/AccountSettings";
 import { CategoryRulesPanel } from"@/components/dashboard/CategoryRulesPanel";
 import { QuickBooksPanel } from"@/components/dashboard/QuickBooksPanel";
 import { QueuePanel } from"@/components/dashboard/QueuePanel";
-import { ThemeToggle } from"@/components/layout/ThemeToggle";
 import type { BillingContext } from"@/types/billing";
 import {
   Upload, History, CreditCard, LogOut, Link2, Users, Settings,
@@ -320,7 +319,6 @@ export function DashboardClient({
           </a>
           <div className="flex-1 min-w-0" />
           <div className="flex items-center gap-2 shrink-0">
-            <ThemeToggle />
             {tab !=="upload" && (
               <button
                 onClick={() => setTab("upload")}

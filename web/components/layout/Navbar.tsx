@@ -3,7 +3,6 @@ import { Link } from "@/i18n/navigation";
 
 import { NavQuickBooksMenu } from "./NavQuickBooksMenu";
 import { NavSessionIsland } from "./NavSessionIsland";
-import { ThemeToggle } from "./ThemeToggle";
 
 export async function Navbar() {
   const t = await getTranslations("nav");
@@ -56,7 +55,6 @@ export async function Navbar() {
 
           {/* ── Right side — session resolves client-side so pages stay static ── */}
           <div className="flex items-center gap-3">
-            <ThemeToggle />
 
             <NavSessionIsland signInLabel={t("signIn")} />
           </div>

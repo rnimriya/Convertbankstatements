@@ -6,7 +6,6 @@ import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
-import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import type { Locale } from "@/i18n/routing";
 import "../globals.css";
 
@@ -148,16 +147,14 @@ export default async function LocaleLayout({
         {/* Google Analytics 4 */}
         <script async nonce={nonce} src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9" />
         {/*
-          Pre-paint theme init (mirrors next-themes: storageKey "theme",
-          attribute "class", system default). next-themes' own inline script
-          can't reliably carry our CSP nonce (it renders nonce="" on the
-          client), so this nonce'd copy applies the theme before first paint
-          and stays CSP-clean on static pages.
+          Single light theme only: this nonce'd pre-paint script forces
+          "light", clears any stored dark preference, and stays CSP-clean
+          on static pages.
         */}
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme")||"system";var r=t==="system"?(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):t;var e=document.documentElement;e.classList.remove("light","dark");e.classList.add(r);e.style.colorScheme=r;}catch(e){}})();`,
+            __html: `(function(){try{var e=document.documentElement;e.classList.remove("dark");e.classList.add("light");e.style.colorScheme="light";try{localStorage.removeItem("theme");}catch(e){}}catch(e){}})();`,
           }}
         />
         <script
@@ -178,12 +175,10 @@ export default async function LocaleLayout({
         />
       </head>
       <body className={`${manrope.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange nonce={nonce}>
-          <NextIntlClientProvider messages={messages}>
-            <AnnouncementBanner />
-            {children}
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AnnouncementBanner />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

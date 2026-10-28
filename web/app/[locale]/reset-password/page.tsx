@@ -9,7 +9,6 @@ import {
   FileText, AlertCircle, CheckCircle2, Loader2,
   Eye, EyeOff, ShieldCheck, ArrowLeft, XCircle,
 } from"lucide-react";
-import { ThemeToggle } from"@/components/ui/ThemeToggle";
 
 function ResetPasswordForm() {
   const params = useSearchParams();
@@ -208,7 +207,6 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-md">
         <div className="mb-8 flex flex-col items-center relative">
           <div className="absolute right-0 top-0">
-            <ThemeToggle />
           </div>
           <Link href="/">
             <img src="/logo.svg" alt="Convert Statement" className="h-12 w-12 transition hover:scale-105" />
