@@ -38,15 +38,15 @@ export default async function HomePage() {
     title: string; body: string;
     stat?: string; statSuffix?: string;
     badge?: string; chips?: string[];
-    img?: string;
+    img?: string; wide?: boolean;
   };
   const FEATURES: Feature[] = [
-    { icon: <Zap size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody"), img:"/features/feature-fast.webp" },
+    { icon: <Zap size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody"), img:"/features/feature-fast.webp", wide:true },
     { icon: <Shield size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage", img:"/features/feature-private.webp" },
     { icon: <FileCheck size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody"), img:"/features/feature-accurate.webp" },
-    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
     { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody"), img:"/features/feature-banks.webp" },
     { icon: <Lock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody"), img:"/features/feature-password.webp" },
+    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp", wide:true },
     { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
     { icon: <Clock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody"), img:"/features/feature-instant.webp" },
   ];
@@ -115,6 +115,29 @@ export default async function HomePage() {
     { q: tFaq("q6"), a: tFaq("a6") },
   ];
 
+  const STRIP_BANKS = ["Chase","Bank of America","Wells Fargo","Citibank","U.S. Bank","PNC","Truist","Capital One"];
+
+  const WHO = [
+    { img:"/personas/persona-firms.webp", title:"Accounting firms", body:"Bulk-convert client statements every month and hand clean books back faster." },
+    { img:"/personas/persona-bookkeepers.webp", title:"Bookkeepers", body:"Turn a pile of PDFs into reconciled QuickBooks and Xero files in minutes." },
+    { img:"/personas/persona-cpa.webp", title:"CPAs & tax pros", body:"Tax-season statements to Excel and CSV — accurate, complete, on time." },
+    { img:"/personas/persona-smallbiz.webp", title:"Small businesses", body:"Your own statements, converted yourself — no accountant bill for data entry." },
+  ];
+
+  const TOOLS = [
+    { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder", img: "/tools/tool-duplicates.webp" },
+    { href: "/tools/free-stripe-to-quickbooks", label: "Stripe QBO Converter", img: "/tools/tool-stripe.webp" },
+    { href: "/tools/free-paypal-to-quickbooks", label: "PayPal Payout to QBO Converter", img: "/tools/tool-paypal.webp" },
+    { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QBO", img: "/tools/tool-receipt.webp" },
+    { href: "/tools/qbo-checker", label: "QBO File Checker", img: "/tools/tool-checker.webp" },
+    { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", img: "/tools/tool-csv.webp" },
+    { href: "/tools/amazon-to-quickbooks", label: "Amazon Settlement to QuickBooks", img: "/tools/tool-amazon.webp" },
+    { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout to QuickBooks", img: "/tools/tool-shopify.webp" },
+    { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder", img: "/tools/tool-recon.webp" },
+    { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained", img: "/tools/tool-errors.webp" },
+  ];
+  const TOOL_DESC = "Free to scan — files are processed in memory and never stored. QBO downloads are on Pro.";
+
   const softwareAppSchema = {"@context":"https://schema.org","@type":"SoftwareApplication",
     name:"Convert Statement",
     applicationCategory:"FinanceApplication",
@@ -141,8 +164,36 @@ export default async function HomePage() {
       <Navbar dark />
       <main className="overflow-x-hidden">
 
-        {/* ─── HERO — CENTERED UPLOAD ───────────────────────── */}
+        {/* ─── HERO — LIGHT SPLIT + CONVERTER ─────────────── */}
         <HeroSectionWrapper />
+
+        {/* ─── BANK STRIP ─────────────────────────────────────── */}
+        <section className="border-y border-brand-border py-6">
+          <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center gap-x-7 gap-y-3">
+            <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400 whitespace-nowrap">Works with 400+ banks</span>
+            {STRIP_BANKS.map((b) => (
+              <span key={b} className="text-sm font-bold text-zinc-700 border border-brand-border rounded-full px-3.5 py-1.5 whitespace-nowrap">{b}</span>
+            ))}
+          </div>
+        </section>
+
+        {/* ─── WHO IT'S FOR ───────────────────────────────────── */}
+        <section className="py-24 bg-brand-bg">
+          <div className="max-w-6xl mx-auto px-6">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">Who it&apos;s for</p>
+            <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text max-w-2xl leading-[1.12]">Built for the people who close the books.</h2>
+            <p className="text-brand-muted max-w-xl mt-4 text-sm leading-relaxed">One tool for every desk that touches bank statements — no retyping, no chasing exports.</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+              {WHO.map((w) => (
+                <div key={w.title} className="p-7 bg-white border border-brand-border rounded-[20px]">
+                  <img src={w.img} alt="" className="w-14 h-14 object-contain mb-4" />
+                  <h3 className="text-[1.05rem] font-bold text-zinc-900 mb-2">{w.title}</h3>
+                  <p className="text-sm text-brand-muted leading-relaxed">{w.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
 
 
@@ -156,15 +207,17 @@ export default async function HomePage() {
         </section>
 
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
-        <section id="how-it-works" className="py-24 bg-brand-bg">
+        <section id="how-it-works" className="py-24 bg-brand-bg scroll-mt-24">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="text-left mb-14">
+            <div className="text-center mb-14">
               <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tHow("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-3">{tHow("title")}</h2>
-              <p className="text-zinc-400 dark:text-brand-muted max-w-xl text-sm">{tHow("subtitle")}</p>
+              <p className="text-zinc-400 dark:text-brand-muted max-w-xl text-sm mx-auto">{tHow("subtitle")}</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="relative">
+              <div aria-hidden className="absolute top-16 left-[16%] right-[16%] border-t-2 border-dashed border-pine-200 hidden md:block" />
+              <div className="relative grid md:grid-cols-3 gap-6">
               {steps.map(({ n, icon, img, title, body, gradient }) => (
                 <div
                   key={n}
@@ -184,6 +237,7 @@ export default async function HomePage() {
 
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </section>
@@ -238,12 +292,12 @@ export default async function HomePage() {
               <p className="text-brand-muted max-w-xl text-sm">{tFeat("subtitle")}</p>
             </div>
 
-            {/* Fancy feature grid */}
+            {/* Bento feature grid — fast + formats span 2 */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300"
+                  className={`group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300 ${f.wide ?"sm:col-span-2" :""}`}
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
                     {f.img ? (
@@ -289,6 +343,35 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* ─── FREE QUICKBOOKS TOOLS — DARK BAND ───────────── */}
+        <section className="py-24 bg-pine-800">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-left mb-12">
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-400 mb-3">Free tools</span>
+              <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-white mb-3">More free QuickBooks tools</h2>
+              <p className="text-zinc-400 max-w-xl text-sm">10 free tools — pick one, scan free, no account needed.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {TOOLS.map((t) => (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className="group flex items-center gap-4 rounded-2xl border border-[#1d4a30] bg-[#0e3a24] p-4 hover:border-pine-500 transition-colors"
+                >
+                  <img src={t.img} alt="" width={56} height={56} loading="lazy" className="h-14 w-14 shrink-0 rounded-xl bg-white object-contain" />
+                  <span className="min-w-0">
+                    <span className="block text-[15px] font-bold text-white truncate">{t.label}</span>
+                    <span className="block text-[13px] text-zinc-400 mt-0.5 leading-snug">{TOOL_DESC}</span>
+                  </span>
+                  <span className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-pine-600 text-pine-400">
+                    <ArrowRight size={15} />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ─── TESTIMONIALS — INFINITE MARQUEE ──────────────────── */}
         <section className="py-24 bg-pine-50 dark:bg-zinc-900 overflow-hidden border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6 mb-12 text-left">
@@ -326,10 +409,10 @@ export default async function HomePage() {
         {/* ─── PRICING ──────────────────────────────────────────── */}
         <section id="pricing" className="py-24 bg-brand-surface border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="text-left mb-14">
+            <div className="text-center mb-14">
               <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">Pricing</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-3">Simple, transparent pricing</h2>
-              <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
+              <p className="text-brand-muted text-sm max-w-xl mx-auto">Start free. Only pay when you need more.</p>
             </div>
             <PricingCards />
           </div>
@@ -338,11 +421,13 @@ export default async function HomePage() {
         {/* ─── FAQ ──────────────────────────────────────────────── */}
         <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="text-left mb-12">
+            <div className="text-center mb-12">
               <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-3">{tFaq("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text">{tFaq("title")}</h2>
             </div>
-            <FAQAccordion items={faqs} />
+            <div className="max-w-3xl mx-auto">
+              <FAQAccordion items={faqs} />
+            </div>
           </div>
         </section>
 
@@ -360,34 +445,34 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ─── CTA ──────────────────────────────────────────────── */}
+        {/* ─── CTA — BRIGHT GREEN BAND ────────────────────────── */}
         <section className="py-20 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="relative bg-pine-800 rounded-[20px] px-8 py-14 sm:px-12 text-center">
+            <div className="relative bg-pine-400 rounded-[20px] px-8 py-14 sm:px-12 text-center">
               <div className="relative z-10">
-                <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5 bg-pine-700 text-pine-100 border border-pine-600">
+                <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5 bg-[#072b18] text-white">
                   {tCta("label")}
                 </span>
-                <h2 className="text-4xl sm:text-5xl font-black text-white mb-4 leading-[1.05]">
+                <h2 className="text-4xl sm:text-5xl font-black text-[#072b18] mb-4 leading-[1.05]">
                   {tCta("title")}
                 </h2>
-                <p className="max-w-xl mx-auto text-sm leading-relaxed text-zinc-400">
+                <p className="max-w-xl mx-auto text-sm leading-relaxed text-[#164234]">
                   {tCta("subtitle")}
                 </p>
               </div>
               <div className="relative z-10 mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[10px] text-sm font-bold text-[#072b18] bg-pine-400 hover:bg-pine-300 transition-colors whitespace-nowrap">
+                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[10px] text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors whitespace-nowrap">
                   <span>{tCta("button")}</span>
-                  <ArrowRight className="text-[#072b18]" size={15} />
+                  <ArrowRight className="text-white" size={15} />
                 </Link>
                 <Link
                   href="/pricing"
-                  className="inline-flex items-center gap-2 px-6 py-4 rounded-[10px] text-sm font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-2 px-6 py-4 rounded-[10px] text-sm font-semibold text-[#072b18] border border-[#072b18]/30 hover:bg-[#072b18]/10 transition-colors whitespace-nowrap"
                 >
-                  View pricing <ChevronRight className="text-pine-400" size={14} />
+                  View pricing <ChevronRight className="text-[#072b18]" size={14} />
                 </Link>
               </div>
-              <p className="relative z-10 mt-6 text-xs text-zinc-400">{tCta("note")}</p>
+              <p className="relative z-10 mt-6 text-xs text-[#164234]">{tCta("note")}</p>
             </div>
           </div>
         </section>

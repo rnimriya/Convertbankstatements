@@ -1,20 +1,8 @@
 "use client";
 
-import {
-  CheckCircle2, Lock, Zap, Shield, BarChart3, Star,
-} from"lucide-react";
+import { ArrowRight, CheckCircle2, Star } from"lucide-react";
 import type { BillingContext } from"@/types/billing";
 import { UploadCard } from"@/components/upload/UploadCard";
-
-const TRUST_STATS = [
-  { icon: <Zap size={13} className="text-pine-600 dark:text-pine-400" />,    label:"~11s conversion" },
-  { icon: <Shield size={13} className="text-pine-600 dark:text-pine-400" />, label:"Bank-grade security" },
-  { icon: <Lock size={13} className="text-pine-600 dark:text-pine-400" />,     label:"Files deleted instantly" },
-  { icon: <BarChart3 size={13} className="text-pine-600 dark:text-pine-400" />, label:"99.4% accuracy" },
-];
-
-const AVATAR_COLORS = ["bg-pine-500","bg-pine-500","bg-amber-500","bg-pine-600","bg-rose-500"];
-const AVATAR_INITIALS = ["R","S","P","A","K"];
 
 interface Props {
   billing: BillingContext;
@@ -25,72 +13,57 @@ interface Props {
 
 export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAccess }: Props) {
   return (
-    <>
-    <section className="w-full relative overflow-hidden bg-pine-800">
+    <section className="w-full relative overflow-hidden" style={{ background:"linear-gradient(180deg,#ffffff 0%,#f0ffee 130%)" }}>
+      {/* soft green glow, top right */}
+      <div aria-hidden className="absolute -right-44 -top-28 w-[520px] h-[520px] rounded-full pointer-events-none" style={{ background:"radial-gradient(circle,#dcf2dc 0%,transparent 70%)" }} />
 
-      {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
-
-
-      {/* Full-width content container */}
-      <div className="relative z-10 w-full px-6 lg:px-10 xl:px-16 pt-10 pb-28">
-
-        {/* ── Headline block — centered ── */}
-        <div className="text-center mb-6 max-w-4xl mx-auto">
-          <span className="inline-block text-honey-400 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
+      <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-[1.05fr_0.95fr] gap-14 items-center py-16 lg:py-20">
+        {/* ── Copy — left ── */}
+        <div>
+          <span className="inline-block text-pine-600 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
           <h1
-            className="font-bold text-white tracking-tight leading-[1.07] mb-4"
-            style={{ fontSize:"clamp(2rem, 4.5vw, 3.25rem)" }}
+            className="font-bold text-zinc-900 tracking-tight leading-[1.07] mb-4"
+            style={{ fontSize:"clamp(2rem, 4.5vw, 3.5rem)" }}
           >
             Free Bank Statement <span className="text-pine-400">Converter</span>
           </h1>
-          <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[0.95rem] text-brand-muted max-w-xl leading-relaxed">
             Upload any Wells Fargo, Citibank, U.S. Bank, Cadence Bank, or Kotak statement — get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. No manual typing.
           </p>
+          <div className="flex flex-wrap gap-3 mt-7">
+            <a href="#upload" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[10px] text-sm font-bold text-[#072b18] bg-pine-400 hover:bg-pine-300 transition-colors whitespace-nowrap">
+              Convert free — 8 pages <ArrowRight size={15} />
+            </a>
+            <a href="#how-it-works" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-[10px] text-sm font-semibold text-zinc-900 border-[1.5px] border-zinc-300 bg-white hover:bg-zinc-50 transition-colors whitespace-nowrap">
+              See how it works
+            </a>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-7 text-[13px] font-semibold text-zinc-600">
+            <span className="flex items-center gap-1.5">
+              <span className="flex gap-0.5">
+                {[0,1,2,3,4].map(i => <Star key={i} size={12} className="fill-honey-400 text-honey-400" />)}
+              </span>
+              10,000+ finance professionals
+            </span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={13} className="text-pine-600" /> No credit card</span>
+            <span className="flex items-center gap-1.5"><CheckCircle2 size={13} className="text-pine-600" /> Files never stored</span>
+          </div>
         </div>
-      </div>
-    </section>
-    <div className="relative z-20 w-full px-6 lg:px-10 xl:px-16 -mt-20">
-      <div className="w-full max-w-5xl mx-auto">
+
+        {/* ── Converter card — right ── */}
+        <div id="upload" className="scroll-mt-24">
           <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
 
           {/* Security note */}
           <div className="mt-4 flex items-center justify-center gap-2">
-            <CheckCircle2 size={14} className="shrink-0 text-pine-500 dark:text-pine-400" />
+            <CheckCircle2 size={14} className="shrink-0 text-pine-500" />
             <p className="text-[12.5px] text-zinc-500">
-              <span className="font-semibold text-zinc-700 dark:text-zinc-300">Bank-grade security</span>
+              <span className="font-semibold text-zinc-700">Bank-grade security</span>
               {""}— Files processed securely and deleted immediately
             </p>
           </div>
         </div>
-
-    </div>
-    <div className="w-full px-6 lg:px-10 xl:px-16 mt-6">
-      <div className="max-w-5xl mx-auto pt-6 border-t border-zinc-200">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {TRUST_STATS.map(({ icon, label }) => (
-              <div key={label} className="flex items-center gap-2 text-[12.5px] text-zinc-500">
-                <span className="text-zinc-400">{icon}</span>
-                <span>{label}</span>
-              </div>
-            ))}
-            <div className="flex items-center gap-3 border-l border-zinc-200 dark:border-zinc-800 pl-8">
-              <div className="flex items-center -space-x-2">
-                {AVATAR_COLORS.map((_, i) => (
-                  <div key={i} className={`w-7 h-7 rounded-full border-2 border-zinc-50 dark:border-zinc-950 bg-pine-500 dark:bg-pine-600 flex items-center justify-center text-[10px] font-bold text-white`}>
-                    {AVATAR_INITIALS[i]}
-                  </div>
-                ))}
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="flex gap-0.5">
-                  {[0,1,2,3,4].map(i => <Star key={i} size={11} className="fill-honey-400 text-honey-400" />)}
-                </div>
-                <span className="text-[12px] text-zinc-500 font-medium">10,000+ finance professionals</span>
-              </div>
-            </div>
-          </div>
       </div>
-    </div>
-    </>
+    </section>
   );
 }
