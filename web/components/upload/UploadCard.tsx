@@ -190,7 +190,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               <div
                 {...(isProcessing ? {} : getRootProps())}
                 className={cn("relative flex flex-col items-center justify-center rounded-2xl px-6 text-center transition-colors select-none",
-                  fullWidth ?"py-2" :"py-12 lg:py-16",
+                  fullWidth ?"py-[33px]" :"py-12 lg:py-16",
                   isProcessing
                     ?(fullWidth ?"border-[6px] border-dashed border-zinc-200" :"border-2 border-dashed border-zinc-200")
                     :"cursor-pointer",
