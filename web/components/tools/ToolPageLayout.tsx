@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { PricingCards } from "@/components/PricingCards";
 import {
-  CheckCircle2, Upload, FileCheck, Download, Sparkles, ArrowRight,
+  CheckCircle2, ArrowRight,
   Zap, Shield, Lock,
 } from "lucide-react";
 
@@ -34,11 +34,11 @@ const TRUST_PILLS = [
   { icon: <Lock size={13} className="text-pine-500 dark:text-pine-400" />, label: "Files never stored" },
 ];
 
-const STEP_ICONS = [
-  { icon: <Upload size={20} />, color: "text-pine-500 dark:text-pine-400" },
-  { icon: <FileCheck size={20} />, color: "text-pine-500 dark:text-pine-400" },
-  { icon: <Download size={20} />, color: "text-honey-500 dark:text-honey-400" },
-  { icon: <Sparkles size={20} />, color: "text-pine-500 dark:text-pine-400" },
+const STEP_IMGS = [
+  "/steps/step-upload.webp",
+  "/steps/step-format.webp",
+  "/steps/step-download.webp",
+  "/steps/step-finish.webp",
 ];
 
 /**
@@ -178,7 +178,7 @@ export async function ToolPageLayout({
 
             <div className={`${stepGrid} divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800 border border-brand-border rounded-2xl overflow-hidden`}>
               {howToSteps.map((s, i) => {
-                const stepIcon = STEP_ICONS[i % STEP_ICONS.length];
+                const stepImg = STEP_IMGS[i % STEP_IMGS.length];
                 return (
                   <div
                     key={i}
@@ -188,9 +188,7 @@ export async function ToolPageLayout({
                       {String(i + 1).padStart(2, "0")}
                     </div>
 
-                    <div className="relative w-12 h-12 rounded-[20px] flex items-center justify-center mb-5 bg-brand-surface text-zinc-900 dark:text-zinc-100 border border-brand-border">
-                      <span className={stepIcon.color}>{stepIcon.icon}</span>
-                    </div>
+                    <img src={stepImg} alt="" className="relative w-[76px] h-[76px] object-contain bg-white rounded-lg mb-5" />
                     <h3 className="relative text-[0.95rem] font-bold text-zinc-900 dark:text-zinc-100 mb-2">{s.title}</h3>
                     <p className="relative text-sm text-brand-muted leading-relaxed">{s.body}</p>
                   </div>
