@@ -329,3 +329,14 @@
 @media (prefers-reduced-motion: reduce) {
   .dropbox-border-anim { animation: none; }
 }
+/* Home hero drop box only (fullWidth UploadCard): same animation, 6px ring. */
+.dropbox-border-anim-6 {
+  border: 6px solid transparent;
+  background:
+    linear-gradient(#fafafa, #fafafa) padding-box,
+    conic-gradient(from var(--drop-angle), #64CB48, #BACEBA, #E0E6D6, #13541C, #64CB48) border-box;
+  animation: drop-border-spin 6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dropbox-border-anim-6 { animation: none; }
+}
