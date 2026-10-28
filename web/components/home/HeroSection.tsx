@@ -17,10 +17,10 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
       <div aria-hidden className="absolute left-1/2 top-[-420px] -translate-x-1/2 w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,.38), rgba(19,84,28,.28) 55%, transparent 75%)" }} />
       <div aria-hidden className="absolute left-0 right-0 bottom-0 h-[180px] pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(100,203,72,.14))" }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-10 pb-10">
         <h1
           className="font-extrabold text-white tracking-tight leading-[1.04] mt-6 mb-4"
-          style={{ fontSize:"clamp(1.575rem, 3.5vw, 2.275rem)" }}
+          style={{ fontSize:"clamp(1.81rem, 4.025vw, 2.62rem)" }}
         >
           Bank statements <span className="agri-serif">converter</span>
         </h1>
