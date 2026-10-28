@@ -186,11 +186,11 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
           <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
             {/* ── Drop zone ── */}
-            <div className="p-3">
+            <div className={cn(fullWidth ?"p-2" :"p-3")}>
               <div
                 {...(isProcessing ? {} : getRootProps())}
                 className={cn("relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 text-center transition-colors select-none",
-                  fullWidth ?"py-6 lg:py-8" :"py-12 lg:py-16",
+                  fullWidth ?"py-2" :"py-12 lg:py-16",
                   isProcessing
                     ?"border-zinc-200"
                     :"cursor-pointer",
@@ -230,7 +230,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   /* Idle (compact) */
                   <>
                     <div
-                      className={cn("flex items-center justify-center rounded-2xl transition-all duration-300", fullWidth ?"mb-2 h-12 w-12" :"mb-3 h-14 w-14")}
+                      className={cn("flex items-center justify-center rounded-2xl transition-all duration-300", fullWidth ?"mb-1 h-9 w-9" :"mb-3 h-14 w-14")}
                       style={{
                         background: isDragActive ?"#072b18" :"#164234",
                         transform: isDragActive ?"scale(1.06)" :"scale(1)",
@@ -241,14 +241,14 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         : <Upload size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />}
                     </div>
 
-                    <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
+                    <h2 className={cn("font-black tracking-tight text-brand-text", fullWidth ?"text-lg lg:text-xl" :"text-2xl lg:text-3xl")}>
                       {isDragActive ?"Release to convert" :"Drop your statement PDF"}
                     </h2>
                     <p className="mt-1 text-sm text-brand-muted">
                       or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
                     </p>
 
-                    <div className="mt-3 flex items-center gap-2 text-xs text-brand-muted">
+                    <div className={cn("flex items-center gap-2 text-xs text-brand-muted", fullWidth ?"mt-2" :"mt-3")}>
                       <span>PDF only</span>
                       <span className="h-1 w-1 rounded-full bg-zinc-300" />
                       <span>Max {MAX_FILE_MB} MB</span>
@@ -256,12 +256,12 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       <span>Password OK</span>
                     </div>
 
-                    <p className="mt-2 text-[11px] text-brand-muted">
+                    <p className={cn("text-[11px] text-brand-muted", fullWidth ?"mt-1" :"mt-2")}>
                       {BANKS.join(" ·")} <span className="text-zinc-300 dark:text-zinc-600">+400 more</span>
                     </p>
 
                     {billing.tier ==="FREE" && freeRemaining > 0 && (
-                      <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#072b18] dark:border-honey-600 dark:bg-honey-400 dark:text-[#072b18]">
+                      <div className={cn("inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#072b18] dark:border-honey-600 dark:bg-honey-400 dark:text-[#072b18]", fullWidth ?"mt-2" :"mt-3")}>
                         <CheckCircle2 className="text-zinc-900"  size={12} /> {freeRemaining} free page{freeRemaining !== 1 ?"s" :""} left
                       </div>
                     )}
@@ -272,7 +272,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
 
             {/* ── Toolbar: format + pages + trust ── */}
             {!isProcessing && (
-              <div className="border-t border-zinc-100 dark:border-zinc-800 px-4 py-3.5">
+              <div className={cn("border-t border-zinc-100 dark:border-zinc-800 px-4", fullWidth ?"py-2.5" :"py-3.5")}>
                 {/* Format pills */}
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
@@ -283,7 +283,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       <button
                         key={f.id}
                         onClick={() => toggleFormat(f.id)}
-                        className={cn("flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[13px] font-bold transition-all",
+                        className={cn("flex items-center gap-1.5 rounded-lg border px-2.5 text-[13px] font-bold transition-all", fullWidth ?"py-1" :"py-1.5",
                           active
                             ?"border-transparent text-white bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900"
                             :"border-brand-border bg-brand-surface text-brand-muted hover:border-zinc-300 dark:hover:border-zinc-700"
@@ -311,7 +311,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                 )}
 
                 {/* Pages usage + trust */}
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+                <div className={cn("flex flex-wrap items-center justify-between gap-x-4 gap-y-2", fullWidth ?"mt-2" :"mt-3")}>
                   <div className="flex min-w-[220px] max-w-[260px] flex-1 items-center gap-2.5">
                     <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Pages</span>
                     <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-surface">
