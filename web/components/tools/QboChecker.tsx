@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-16 lg:py-20 text-center cursor-pointer hover:border-pine-400 transition-colors"
+        className={busy ? "rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-16 lg:py-20 text-center cursor-pointer hover:border-pine-400 transition-colors" : "rounded-[10px] px-6 py-16 lg:py-20 text-center cursor-pointer dropbox-border-anim"}
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {

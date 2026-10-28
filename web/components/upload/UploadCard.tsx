@@ -189,14 +189,14 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             <div className={cn(fullWidth ?"p-2" :"p-3")}>
               <div
                 {...(isProcessing ? {} : getRootProps())}
-                className={cn("relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 text-center transition-colors select-none",
+                className={cn("relative flex flex-col items-center justify-center rounded-2xl px-6 text-center transition-colors select-none",
                   fullWidth ?"py-2" :"py-12 lg:py-16",
                   isProcessing
-                    ?"border-zinc-200"
+                    ?"border-2 border-dashed border-zinc-200"
                     :"cursor-pointer",
                   !isProcessing && (isDragActive
-                    ?"border-zinc-900 dark:border-zinc-100 bg-brand-surface"
-                    :"border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
+                    ?"border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface"
+                    :"dropbox-border-anim")
                 )}
               >
                 {!isProcessing && <input {...getInputProps()} />}

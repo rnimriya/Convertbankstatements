@@ -309,3 +309,23 @@
 .agri-sans { font-family: 'Sora', system-ui, sans-serif; }
 .agri-serif { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
 .agri-mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+
+/* Animated drop-box border — owner order 2026-10-28 (narrow exception to the zero-animation rule: drop-box borders only). Slow rotating lime gradient ring; falls back to a static gradient where @property is unsupported, and to no motion under prefers-reduced-motion. */
+@property --drop-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes drop-border-spin {
+  to { --drop-angle: 360deg; }
+}
+.dropbox-border-anim {
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#fafafa, #fafafa) padding-box,
+    conic-gradient(from var(--drop-angle), #64CB48, #BACEBA, #E0E6D6, #13541C, #64CB48) border-box;
+  animation: drop-border-spin 6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dropbox-border-anim { animation: none; }
+}

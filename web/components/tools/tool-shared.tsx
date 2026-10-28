@@ -221,12 +221,12 @@ export function ToolUpload({
             if (f) onFile(f);
           }}
           className={cn(
-            "relative flex flex-col items-center justify-center rounded-[10px] border-2 border-dashed px-6 py-16 lg:py-20 text-center transition-colors select-none",
-            busy ? "border-zinc-200" : "cursor-pointer",
+            "relative flex flex-col items-center justify-center rounded-[10px] px-6 py-16 lg:py-20 text-center transition-colors select-none",
+            busy ? "border-2 border-dashed border-zinc-200" : "cursor-pointer",
             !busy &&
               (dragActive
-                ? "border-zinc-900 dark:border-zinc-100 bg-brand-surface"
-                : "border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
+                ? "border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface"
+                : "dropbox-border-anim")
           )}
         >
           <input
