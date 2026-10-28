@@ -4,7 +4,7 @@ import { getTranslations } from"next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Link } from"@/i18n/navigation";
 import {
-  ArrowRight, CheckCircle2, Zap, Lock, Globe,
+  ArrowRight, Zap, Lock, Globe,
   Download, Upload, Shield, Clock, CreditCard, FileCheck, Star,
   Sparkles, ChevronRight, FileText, BarChart3,
 } from"lucide-react";
@@ -50,6 +50,8 @@ export default async function HomePage() {
     { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
     { icon: <Clock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody"), img:"/features/feature-instant.webp" },
   ];
+  const BAND_FEATURES = [FEATURES[0], FEATURES[2], FEATURES[3]];
+  const TILE_FEATURES = FEATURES.filter((f) => !BAND_FEATURES.includes(f));
 
 
 
@@ -271,62 +273,75 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ─── FEATURES — DARK SECTION, WHITE CARDS (Design C) ─── */}
-        <section id="features" className="relative py-24 bg-pine-800 border-b border-pine-700">
+        {/* ─── FEATURES — STAT-HERO + COMPACT TILES (Design I) ─── */}
+        <section id="features" className="relative py-24 bg-white">
           <div className="relative z-10 max-w-6xl mx-auto px-6">
-            <div className="text-center mb-14">
-              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-400 mb-3">{tFeat("label")}</span>
-              <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight mb-3 text-white max-w-2xl mx-auto">{tFeat("title")}</h2>
-              <p className="text-zinc-300 max-w-xl text-sm mx-auto">{tFeat("subtitle")}</p>
+            <div className="max-w-[720px] mb-12">
+              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-600 mb-4">{tFeat("label")}</span>
+              <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight leading-[1.1] text-pine-800 mb-4">{tFeat("title")}</h2>
+              <p className="text-zinc-600 text-base">{tFeat("subtitle")}</p>
             </div>
 
-            {/* Dark section — white cards, 4x2 grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {FEATURES.map((f) => (
-                <div
-                  key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 rounded-[20px] hover:bg-brand-surface/80 transition-colors duration-300"
-                >
-                  <div className="relative z-10 flex flex-1 flex-col">
+            {/* Stat-hero band: fast / accurate / banks */}
+            <div className="bg-pine-50 rounded-[20px] px-8 py-11 sm:px-12 grid grid-cols-1 sm:grid-cols-3 mb-5">
+              {BAND_FEATURES.map((f, i) => {
+                // Banks hero number matches its title (400+) as in the approved mockup;
+                // the old card stat (30+) is not used here.
+                const num = f === FEATURES[3] ? "400" : f.stat;
+                const sfx = f === FEATURES[3] ? "+" : f.statSuffix;
+                const last = i === BAND_FEATURES.length - 1;
+                const pad = i === 0 ? "pt-0 sm:pr-8" : last ? "sm:pl-8 sm:pr-0" : "sm:pl-8 sm:pr-8";
+                const div = i === 0 ? "" : "border-t border-pine-200 sm:border-t-0 sm:border-l";
+                return (
+                  <div key={f.title} className={`py-6 sm:py-0 ${pad} ${div} ${last ? "pb-0" : ""}`}>
+                    <div className="text-[60px] sm:text-[76px] font-extrabold leading-none tracking-tight text-pine-800">
+                      {num}
+                      <span className="text-[32px] sm:text-[40px] text-pine-600">{sfx}</span>
+                    </div>
+                    <h3 className="text-lg font-extrabold text-zinc-900 mt-3">{f.title}</h3>
+                    <p className="text-sm text-zinc-600 leading-relaxed mt-1.5">{f.body}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Compact tiles: remaining 5, instant download wide */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {TILE_FEATURES.map((f) => {
+                const wide = f === TILE_FEATURES[TILE_FEATURES.length - 1];
+                return (
+                  <div
+                    key={f.title}
+                    className={`bg-white border border-zinc-200 rounded-[20px] p-6 flex flex-col ${wide ? "sm:col-span-2 sm:flex-row sm:items-center gap-5" : ""}`}
+                  >
                     {f.img ? (
-                      <img src={f.img} alt="" className="w-[76px] h-[76px] object-contain bg-white rounded-lg mb-5" />
+                      <img src={f.img} alt="" className={`w-[52px] h-[52px] object-contain shrink-0 ${wide ? "mb-4 sm:mb-0" : "mb-4"}`} />
                     ) : (
-                      <div className="w-[60px] h-[60px] rounded-full bg-pine-50 dark:bg-pine-500/10 border border-pine-100 dark:border-pine-900 flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
+                      <div className={`w-[52px] h-[52px] rounded-full bg-pine-50 border border-pine-100 flex items-center justify-center shrink-0 ${wide ? "mb-4 sm:mb-0" : "mb-4"}`}>
                         {f.icon}
                       </div>
                     )}
-
-                    {f.stat && (
-                      <div className="text-4xl font-black mb-1 leading-none">
-                        <span className="text-zinc-900 dark:text-zinc-100">{f.stat}</span>
-                        <span className="text-xl text-zinc-400 dark:text-brand-muted font-bold">{f.statSuffix}</span>
-                      </div>
-                    )}
-
-                    <h3 className="text-base font-bold text-zinc-900 dark:text-zinc-100 mb-1.5 mt-1">{f.title}</h3>
-                    <p className="text-sm text-brand-muted leading-relaxed flex-1">{f.body}</p>
-
-                    {f.badge && (
-                      <div className="mt-4 inline-flex items-center gap-1.5 self-start text-[11px] font-bold text-pine-600 bg-pine-50 px-2.5 py-1 rounded-full">
-                        <CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={11} /> {f.badge}
-                      </div>
-                    )}
-
-                    {f.chips && (
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {f.chips.map((c, i) => (
-                          <span
-                            key={c}
-                            className="px-2.5 py-1 rounded-lg text-[11px] font-bold border bg-brand-surface text-zinc-600 dark:text-zinc-400 border-brand-border"
-                          >
-                            {c}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                    <div>
+                      <h3 className="text-[17px] font-extrabold text-zinc-900">{f.title}</h3>
+                      <p className="text-sm text-zinc-600 leading-relaxed mt-1.5">{f.body}</p>
+                      {f.badge && (
+                        <div className="mt-3 inline-flex items-center gap-1.5 self-start text-xs font-bold text-pine-700 bg-pine-50 px-3 py-1 rounded-full">
+                          <span className="w-1.5 h-1.5 rounded-full bg-pine-400" /> {f.badge}
+                        </div>
+                      )}
+                      {f.chips && (
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {f.chips.map((c) => (
+                            <span key={c} className="px-3 py-1 rounded-full text-xs font-bold border border-zinc-200 bg-white text-zinc-700">
+                              {c}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>
