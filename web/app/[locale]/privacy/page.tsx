@@ -163,21 +163,21 @@ We are committed to resolving complaints about our collection or use of your per
 export default function PrivacyPage() {
  return (
  <div className="min-h-screen bg-white dark:bg-zinc-950">
- <Navbar />
+ <Navbar dark />
 
  {/* Header */}
- <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
+ <div className="bg-pine-800 px-6 py-10">
  <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <Shield className="h-5 w-5 text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
+ <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-pine-700">
+ <Shield className="h-5 w-5 text-pine-400" />
  </div>
  <div>
- <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Privacy Policy</h1>
+ <h1 className="text-2xl font-extrabold text-white">Privacy Policy</h1>
  <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
- <p className="mt-4 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+ <p className="mt-4 text-sm leading-relaxed text-zinc-300">
  We built Convert Statement with privacy at its core. Your financial documents are never stored on our servers — they are processed in memory and deleted the moment your converted data is ready. This policy explains exactly what we do (and don&apos;t do) with your data.
  </p>
  </div>
