@@ -46,7 +46,7 @@ export default async function HomePage() {
     { icon: <FileCheck size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody"), img:"/features/feature-accurate.webp" },
     { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody"), img:"/features/feature-banks.webp" },
     { icon: <Lock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody"), img:"/features/feature-password.webp" },
-    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp", wide:true },
+    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
     { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
     { icon: <Clock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody"), img:"/features/feature-instant.webp" },
   ];
@@ -115,8 +115,6 @@ export default async function HomePage() {
     { q: tFaq("q6"), a: tFaq("a6") },
   ];
 
-  const STRIP_BANKS = ["Chase","Bank of America","Wells Fargo","Citibank","U.S. Bank","PNC","Truist","Capital One"];
-
   const WHO = [
     { img:"/personas/persona-firms.webp", title:"Accounting firms", body:"Bulk-convert client statements every month and hand clean books back faster." },
     { img:"/personas/persona-bookkeepers.webp", title:"Bookkeepers", body:"Turn a pile of PDFs into reconciled QuickBooks and Xero files in minutes." },
@@ -164,18 +162,8 @@ export default async function HomePage() {
       <Navbar dark />
       <main className="overflow-x-hidden">
 
-        {/* ─── HERO — LIGHT SPLIT + CONVERTER ─────────────── */}
+        {/* ─── HERO — DARK SPLIT + CONVERTER ─────────────── */}
         <HeroSectionWrapper />
-
-        {/* ─── BANK STRIP ─────────────────────────────────────── */}
-        <section className="border-y border-brand-border py-6">
-          <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center gap-x-7 gap-y-3">
-            <span className="text-[11px] font-extrabold uppercase tracking-[0.14em] text-zinc-400 whitespace-nowrap">Works with 400+ banks</span>
-            {STRIP_BANKS.map((b) => (
-              <span key={b} className="text-sm font-bold text-zinc-700 border border-brand-border rounded-full px-3.5 py-1.5 whitespace-nowrap">{b}</span>
-            ))}
-          </div>
-        </section>
 
         {/* ─── WHO IT'S FOR ───────────────────────────────────── */}
         <section className="py-24 bg-brand-bg">
@@ -292,7 +280,7 @@ export default async function HomePage() {
               <p className="text-brand-muted max-w-xl text-sm">{tFeat("subtitle")}</p>
             </div>
 
-            {/* Bento feature grid — fast + formats span 2 */}
+            {/* Bento feature grid — fast spans 2, rest fill clean rows */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {FEATURES.map((f) => (
                 <div
@@ -445,11 +433,10 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ─── CTA — BRIGHT GREEN BAND ────────────────────────── */}
-        <section className="py-20 bg-brand-bg">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="relative bg-pine-400 rounded-[20px] px-8 py-14 sm:px-12 text-center">
-              <div className="relative z-10">
+        {/* ─── CTA — FULL-WIDTH BRIGHT GREEN BAND, FOOTER SE CHIPKA ── */}
+        <section className="bg-pine-400">
+          <div className="max-w-6xl mx-auto px-6 py-16 sm:py-20 text-center">
+            <div className="relative z-10">
                 <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5 bg-[#072b18] text-white">
                   {tCta("label")}
                 </span>
@@ -473,7 +460,6 @@ export default async function HomePage() {
                 </Link>
               </div>
               <p className="relative z-10 mt-6 text-xs text-[#164234]">{tCta("note")}</p>
-            </div>
           </div>
         </section>
 

@@ -15,13 +15,13 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
   return (
     <section className="w-full relative overflow-hidden bg-pine-800">
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center py-16 lg:py-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-center py-6 lg:py-8">
         {/* ── Copy — left ── */}
         <div>
           <span className="inline-block text-pine-400 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
           <h1
             className="font-bold text-white tracking-tight leading-[1.07] mb-4"
-            style={{ fontSize:"clamp(2rem, 4.5vw, 3.5rem)" }}
+            style={{ fontSize:"clamp(2rem, 4.5vw, 2.875rem)" }}
           >
             Free Bank Statement <span className="text-pine-400">Converter</span>
           </h1>

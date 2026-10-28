@@ -189,7 +189,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             <div className="p-3">
               <div
                 {...(isProcessing ? {} : getRootProps())}
-                className={cn("relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 lg:py-16 text-center transition-colors select-none",
+                className={cn("relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 text-center transition-colors select-none",
+                  fullWidth ?"py-6 lg:py-8" :"py-12 lg:py-16",
                   isProcessing
                     ?"border-zinc-200"
                     :"cursor-pointer",
@@ -229,7 +230,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   /* Idle (compact) */
                   <>
                     <div
-                      className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
+                      className={cn("flex items-center justify-center rounded-2xl transition-all duration-300", fullWidth ?"mb-2 h-12 w-12" :"mb-3 h-14 w-14")}
                       style={{
                         background: isDragActive ?"#072b18" :"#164234",
                         transform: isDragActive ?"scale(1.06)" :"scale(1)",

@@ -109,9 +109,9 @@ export function PricingCards({ toggleDark = false }: { toggleDark?: boolean }) {
           if (plan.highlight) {
             /* ── PRO — featured card ── */
             return (
-              <div key={plan.name} className="relative pt-5 h-full">
+              <div key={plan.name} className="relative h-full">
                 {/* Badge */}
-                <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
                   <span className="inline-block bg-honey-400 rounded-full px-5 py-1.5 text-xs font-black text-[#072b18] border border-transparent whitespace-nowrap">
                     {plan.badge}
                   </span>
