@@ -55,12 +55,12 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
       body: `Drag & drop your ${bankName} statement — password-protected files work too. Just enter the PDF password at upload.`,
     },
     {
-      icon: <Settings2 size={22} className="text-teal-500" />,
+      icon: <Settings2 size={22} className="text-pine-500" />,
       title: "Choose your format",
       body: "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
     },
     {
-      icon: <Download size={22} className="text-teal-500" />,
+      icon: <Download size={22} className="text-pine-500" />,
       title: "Download in seconds",
       body: "Your file is ready in under 15 seconds — clean columns, correct dates, every transaction captured.",
     },
@@ -141,7 +141,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
         <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden px-6 lg:px-8 max-w-6xl mx-auto">
           <div className="text-center max-w-4xl mx-auto relative z-10">
             <h1 className="text-4xl sm:text-6xl font-black text-brand-text tracking-tight mb-8">
-              Convert <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-teal-500">{bankName}</span> Statements to Excel
+              Convert <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-pine-500">{bankName}</span> Statements to Excel
             </h1>
             <p className="text-lg text-brand-muted max-w-2xl mx-auto leading-relaxed mb-10">
               Upload your {bankName} PDF bank statements and instantly convert them to CSV, Excel, OFX for Tally, or Google Sheets. Zero manual data entry required.
@@ -166,7 +166,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {steps.map((s, i) => (
-                <div key={i} className="bg-brand-surface p-8 rounded-3xl border border-brand-border">
+                <div key={i} className="bg-brand-surface p-8 rounded-xl border border-brand-border">
                   <div className="flex items-center gap-4 mb-4">
                     <div className="w-11 h-11 rounded-2xl bg-brand-bg border border-brand-border flex items-center justify-center">
                       {s.icon}
@@ -192,7 +192,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-brand-bg p-8 rounded-3xl border border-brand-border">
+              <div className="bg-brand-bg p-8 rounded-xl border border-brand-border">
                 <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6">
                   <Zap className="text-amber-500" size={24} />
                 </div>
@@ -200,17 +200,17 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
                 <p className="text-brand-muted">Convert multi-page {bankName} PDFs into structured spreadsheets in under 15 seconds.</p>
               </div>
 
-              <div className="bg-brand-bg p-8 rounded-3xl border border-brand-border">
-                <div className="w-12 h-12 bg-teal-500/10 rounded-2xl flex items-center justify-center mb-6">
-                  <Lock className="text-teal-500" size={24} />
+              <div className="bg-brand-bg p-8 rounded-xl border border-brand-border">
+                <div className="w-12 h-12 bg-pine-500/10 rounded-2xl flex items-center justify-center mb-6">
+                  <Lock className="text-pine-500" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">100% Private</h3>
                 <p className="text-brand-muted">We never store your {bankName} financial data. Files are processed entirely in memory.</p>
               </div>
 
-              <div className="bg-brand-bg p-8 rounded-3xl border border-brand-border">
-                <div className="w-12 h-12 bg-teal-500/10 rounded-2xl flex items-center justify-center mb-6">
-                  <FileText className="text-teal-500" size={24} />
+              <div className="bg-brand-bg p-8 rounded-xl border border-brand-border">
+                <div className="w-12 h-12 bg-pine-500/10 rounded-2xl flex items-center justify-center mb-6">
+                  <FileText className="text-pine-500" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Multiple Formats</h3>
                 <p className="text-brand-muted">Export to Excel, CSV, Google Sheets, or OFX for seamless import into QuickBooks, Xero and Tally.</p>

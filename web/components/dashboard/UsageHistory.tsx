@@ -58,7 +58,7 @@ export function UsageHistory({ logs, isDemo }: { logs: Log[]; isDemo?: boolean }
             className="flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-surface px-5 py-4 shadow-sm hover:shadow-md dark:hover:shadow-black/20 transition-shadow"
           >
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
-              <FileText className="h-5 w-5 dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+              <FileText className="h-5 w-5 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
             </div>
 
             <div className="min-w-0 flex-1">

@@ -62,14 +62,14 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
               href="/dashboard"
               className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             >
-              <LayoutDashboard size={14} className="dark: text-teal-500 dark:text-teal-400" />
+              <LayoutDashboard size={14} className="dark: text-pine-500 dark:text-pine-400" />
               Dashboard
             </a>
             <a
               href="/dashboard"
               className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
             >
-              <Settings size={14} className="dark: text-teal-500 dark:text-teal-400" />
+              <Settings size={14} className="dark: text-pine-500 dark:text-pine-400" />
               Settings
             </a>
           </div>

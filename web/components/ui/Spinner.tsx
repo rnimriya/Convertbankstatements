@@ -10,7 +10,7 @@ const SIZES = {
 
 const COLORS = {
   current: "text-current",
-  brand:   "text-brand-600 dark:text-teal-400",
+  brand:   "text-brand-600 dark:text-pine-400",
   white:   "text-white",
   muted:   "text-zinc-400 dark:text-zinc-500",
 } as const;

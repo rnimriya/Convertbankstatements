@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-teal-400 transition-colors"
+        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-pine-400 transition-colors"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -80,11 +80,11 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#14264c" }}>
             <Loader2 className="h-6 w-6 text-white animate-spin" />
           </div>
         ) : (
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#14264c" }}>
             <Upload className="h-6 w-6 text-white" />
           </div>
         )}
@@ -120,7 +120,7 @@ export function QboChecker() {
                 ? "border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800"
                 : warnings.length
                   ? "border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800"
-                  : "border-teal-200 bg-teal-50 dark:bg-teal-900/20 dark:border-teal-800"
+                  : "border-pine-200 bg-pine-50 dark:bg-pine-900/20 dark:border-pine-800"
             }`}
           >
             {errors.length ? (
@@ -128,7 +128,7 @@ export function QboChecker() {
             ) : warnings.length ? (
               <AlertTriangle className="h-6 w-6 text-amber-500 shrink-0" />
             ) : (
-              <CheckCircle2 className="h-6 w-6 text-teal-500 shrink-0" />
+              <CheckCircle2 className="h-6 w-6 text-pine-500 shrink-0" />
             )}
             <div>
               <p className="font-bold text-zinc-900 dark:text-white">
@@ -182,13 +182,13 @@ export function QboChecker() {
 
           <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">
             If QuickBooks shows an error when importing, the{" "}
-            <Link href="/tools/qbo-import-errors" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">QBO import-error decoder</Link>{" "}
+            <Link href="/tools/qbo-import-errors" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">QBO import-error decoder</Link>{" "}
             explains what each message means and how to fix it.
           </p>
 
           <div className="mt-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 p-6">
             <p className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <FileCheck2 className="h-5 w-5 text-teal-500" /> Working from a PDF statement instead?
+              <FileCheck2 className="h-5 w-5 text-pine-500" /> Working from a PDF statement instead?
             </p>
             <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
               Convert Statement turns the PDF into a QBO file that passes these checks by
@@ -197,7 +197,7 @@ export function QboChecker() {
             </p>
             <Link
               href="/quickbooks"
-              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-teal-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-teal-500 transition-colors"
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-pine-600 px-5 py-2.5 text-white text-sm font-semibold hover:bg-pine-500 transition-colors"
             >
               Convert a statement for QuickBooks <ArrowRight className="h-4 w-4" />
             </Link>

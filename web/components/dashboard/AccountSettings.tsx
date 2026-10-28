@@ -145,8 +145,8 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               title="Upload photo"
             >
               {avatarUploading
-                ? <Loader2 size={13} className="text-white animate-spin text-teal-500 dark:text-teal-400" />
-                : <Camera size={13} className="text-white text-teal-500 dark:text-teal-400" />
+                ? <Loader2 size={13} className="text-white animate-spin text-pine-500 dark:text-pine-400" />
+                : <Camera size={13} className="text-white text-pine-500 dark:text-pine-400" />
               }
             </button>
 
@@ -165,14 +165,14 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <p className="text-sm text-brand-muted truncate">{userEmail}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
-                tier ==="BUSINESS" ?"bg-teal-100 text-teal-700" :
-                tier ==="PRO"      ?"bg-teal-100 text-teal-700" :
-                tier ==="BASIC"    ?"bg-teal-100 text-teal-700" :"bg-brand-surface text-brand-muted"
+                tier ==="BUSINESS" ?"bg-pine-100 text-pine-700" :
+                tier ==="PRO"      ?"bg-pine-100 text-pine-700" :
+                tier ==="BASIC"    ?"bg-pine-100 text-pine-700" :"bg-brand-surface text-brand-muted"
               }`}>
                 {tier}
               </span>
               {emailVerified
-                ? <span className="flex items-center gap-1 text-[11px] font-medium text-teal-600"><CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={11} /> Verified</span>
+                ? <span className="flex items-center gap-1 text-[11px] font-medium text-pine-600"><CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={11} /> Verified</span>
                 : <span className="flex items-center gap-1 text-[11px] font-medium text-amber-600"><AlertTriangle className="text-amber-500 dark:text-amber-400"  size={11} /> Unverified</span>
               }
             </div>
@@ -207,7 +207,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className={ROW}>
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
-                <User className="text-teal-500 dark:text-teal-400"  size={16} />
+                <User className="text-pine-500 dark:text-pine-400"  size={16} />
               </div>
               <div>
                 <p className={LABEL}>Display name</p>
@@ -220,7 +220,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           <div className={ROW}>
             <div className="flex items-center gap-3">
               <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
-                <Mail className="text-teal-500 dark:text-teal-400"  size={16} />
+                <Mail className="text-pine-500 dark:text-pine-400"  size={16} />
               </div>
               <div>
                 <p className={LABEL}>Email address</p>
@@ -228,12 +228,12 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
               </div>
             </div>
             {emailVerified ? (
-              <span className="flex items-center gap-1 text-xs font-medium text-teal-600">
-                <CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={13} /> Verified
+              <span className="flex items-center gap-1 text-xs font-medium text-pine-600">
+                <CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={13} /> Verified
               </span>
             ) : sent ? (
               <span className="flex items-center gap-1 text-xs font-medium text-amber-600">
-                <CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={13} /> Email sent
+                <CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={13} /> Email sent
               </span>
             ) : (
               <span className="flex items-center gap-2">
@@ -243,7 +243,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   disabled={sending}
                   className="flex items-center gap-1 text-xs font-semibold text-amber-600 hover:underline disabled:opacity-50"
                 >
-                  {sending ? <Loader2 size={12} className="animate-spin text-teal-500 dark:text-teal-400" /> : <AlertTriangle className="text-amber-500 dark:text-amber-400"  size={12} />}
+                  {sending ? <Loader2 size={12} className="animate-spin text-pine-500 dark:text-pine-400" /> : <AlertTriangle className="text-amber-500 dark:text-amber-400"  size={12} />}
                   Verify email
                 </button>
               </span>
@@ -260,7 +260,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-xl bg-brand-surface flex items-center justify-center text-brand-text">
-                  <KeyRound className="text-teal-500 dark:text-teal-400"  size={16} />
+                  <KeyRound className="text-pine-500 dark:text-pine-400"  size={16} />
                 </div>
                 <div>
                   <p className={LABEL}>Password</p>
@@ -278,7 +278,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             {changingPw && (
               <form onSubmit={handlePasswordChange} className="mt-4 space-y-3">
                 {pwMsg && (
-                  <p className={`text-xs px-3 py-2 rounded-lg ${pwMsg.type ==="success" ?"bg-teal-50 text-teal-700" :"bg-red-50 text-red-700"}`}>
+                  <p className={`text-xs px-3 py-2 rounded-lg ${pwMsg.type ==="success" ?"bg-pine-50 text-pine-700" :"bg-red-50 text-red-700"}`}>
                     {pwMsg.text}
                   </p>
                 )}
@@ -304,7 +304,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   disabled={pwLoading}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50"
                 >
-                  {pwLoading && <Loader2 size={14} className="animate-spin text-teal-500 dark:text-teal-400" />}
+                  {pwLoading && <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" />}
                   Update password
                 </button>
               </form>
@@ -339,8 +339,8 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             </div>
             {(tier ==="PRO" || tier ==="BUSINESS") ? (
               sheetsConnected ? (
-                <span className="flex items-center gap-1 text-xs font-medium text-teal-600">
-                  <CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={13} /> Connected
+                <span className="flex items-center gap-1 text-xs font-medium text-pine-600">
+                  <CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={13} /> Connected
                 </span>
               ) : (
                 <button
@@ -348,7 +348,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                   disabled={sheetsConnecting}
                   className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-green-50 text-green-700 hover:bg-green-100 transition-colors disabled:opacity-50"
                 >
-                  {sheetsConnecting ? <Loader2 size={12} className="animate-spin text-teal-500 dark:text-teal-400" /> : <ExternalLink className="text-teal-500 dark:text-teal-400"  size={12} />}
+                  {sheetsConnecting ? <Loader2 size={12} className="animate-spin text-pine-500 dark:text-pine-400" /> : <ExternalLink className="text-pine-500 dark:text-pine-400"  size={12} />}
                   Connect
                 </button>
               )

@@ -88,9 +88,9 @@ export default function ReceiptToQuickBooksPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Converting statements too? Our{" "}
-            <a href="/quickbooks" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
+            <a href="/quickbooks" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">statement-to-QBO converter</a>{" "}
             handles full bank statements with a balance check, and the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">duplicate finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">duplicate finder</a>{" "}
             keeps everything clean at month-end.
           </p>
         </>

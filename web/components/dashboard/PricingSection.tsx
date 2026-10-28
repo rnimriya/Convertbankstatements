@@ -143,7 +143,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           Annual
         </span>
         {annual && (
-          <span className="bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-400 text-xs font-bold px-2.5 py-1 rounded-full">
+          <span className="bg-pine-100 text-pine-700 dark:bg-pine-900/40 dark:text-pine-400 text-xs font-bold px-2.5 py-1 rounded-full">
             Save 20%
           </span>
         )}
@@ -183,7 +183,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 </div>
 
                 <div
-                  className="relative flex flex-col h-full rounded-3xl p-7 overflow-hidden bg-zinc-900"
+                  className="relative flex flex-col h-full rounded-xl p-7 overflow-hidden bg-zinc-900"
                 >
                   {/* Orb */}
                   <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-5 pointer-events-none bg-white" style={{ transform:"translate(30%,-30%)" }} />
@@ -213,7 +213,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                     {plan.features.map(f => (
                       <li key={f} className="flex items-center gap-3 text-sm text-white">
                         <div className="w-5 h-5 rounded-full border-2 border-white/40 flex items-center justify-center shrink-0">
-                          <Check size={11} className="text-white text-teal-500 dark:text-teal-400" />
+                          <Check size={11} className="text-white text-pine-500 dark:text-pine-400" />
                         </div>
                         {f}
                       </li>
@@ -255,7 +255,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
           return (
             <div
               key={plan.id}
-              className={`relative flex flex-col h-full rounded-3xl border bg-brand-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
+              className={`relative flex flex-col h-full rounded-xl border bg-brand-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
                 isCurrent ?"border-zinc-900 dark:border-zinc-100 ring-2 ring-zinc-900 dark:ring-zinc-100" :"border-brand-border"
               }`}
             >
@@ -291,7 +291,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 {plan.features.map(f => (
                   <li key={f} className="flex items-center gap-3 text-sm text-zinc-600 dark:text-zinc-300">
                     <div className="w-5 h-5 rounded-full border border-brand-border flex items-center justify-center shrink-0">
-                      <Check size={11} className="text-teal-500 dark:text-teal-400" />
+                      <Check size={11} className="text-pine-500 dark:text-pine-400" />
                     </div>
                     {f}
                   </li>
@@ -364,7 +364,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                     :"border border-brand-border text-brand-muted hover:border-red-300 hover:text-red-600 dark:hover:text-red-400"
                 } disabled:opacity-50`}
               >
-                {cancelling && <Loader2 size={14} className="animate-spin text-teal-500 dark:text-teal-400" />}
+                {cancelling && <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" />}
                 {cancelConfirm ?"Confirm cancellation" :"Cancel subscription"}
               </button>
             </div>
@@ -379,11 +379,11 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
       )}
 
       {cancelled && (
-        <div className="mt-8 flex items-center gap-3 rounded-2xl border border-teal-200 dark:border-teal-900 bg-teal-50 dark:bg-teal-900/20 p-5">
-          <CheckCircle2 size={20} className="text-teal-600 dark:text-teal-400 shrink-0 text-teal-500 dark:text-teal-400" />
+        <div className="mt-8 flex items-center gap-3 rounded-2xl border border-pine-200 dark:border-pine-900 bg-pine-50 dark:bg-pine-900/20 p-5">
+          <CheckCircle2 size={20} className="text-pine-600 dark:text-pine-400 shrink-0 text-pine-500 dark:text-pine-400" />
           <div>
-            <p className="font-semibold text-teal-800 dark:text-teal-300">Subscription cancelled</p>
-            <p className="text-sm text-teal-700 dark:text-teal-400">You&apos;ve been moved to the Free plan. Your data is safe.</p>
+            <p className="font-semibold text-pine-800 dark:text-pine-300">Subscription cancelled</p>
+            <p className="text-sm text-pine-700 dark:text-pine-400">You&apos;ve been moved to the Free plan. Your data is safe.</p>
           </div>
         </div>
       )}

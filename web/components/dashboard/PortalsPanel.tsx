@@ -134,7 +134,7 @@ export function PortalsPanel() {
                   disabled={creating}
                   className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
                 >
-                  {creating ? <Loader2 size={14} className="animate-spin text-teal-500 dark:text-teal-400" /> : <Plus className="text-teal-500 dark:text-teal-400"  size={14} />}
+                  {creating ? <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Plus className="text-pine-500 dark:text-pine-400"  size={14} />}
                   Create
                 </button>
                 <button onClick={() => setShowForm(false)} className="px-3 py-2.5 rounded-xl border border-brand-border text-brand-muted hover:text-brand-text dark:hover:text-gray-200 text-sm transition-colors">
@@ -149,7 +149,7 @@ export function PortalsPanel() {
           onClick={() => setShowForm(true)}
           className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity mb-6"
         >
-          <Plus className="text-teal-500 dark:text-teal-400"  size={14} />
+          <Plus className="text-pine-500 dark:text-pine-400"  size={14} />
           New portal link
         </button>
       )}
@@ -157,13 +157,13 @@ export function PortalsPanel() {
       {/* List */}
       {loading ? (
         <div className="flex items-center gap-2 text-brand-muted text-sm py-8 justify-center">
-          <Loader2 size={16} className="animate-spin text-teal-500 dark:text-teal-400" />
+          <Loader2 size={16} className="animate-spin text-pine-500 dark:text-pine-400" />
           Loading portals…
         </div>
       ) : activePortals.length === 0 ? (
         <div className="flex flex-col items-center gap-3 py-16 text-center">
           <div className="w-12 h-12 rounded-2xl bg-zinc-100 dark:bg-zinc-950 flex items-center justify-center">
-            <Link2 size={20} className="dark: text-teal-500 dark:text-teal-400" />
+            <Link2 size={20} className="dark: text-pine-500 dark:text-pine-400" />
           </div>
           <p className="text-sm font-medium text-brand-muted">No portal links yet</p>
           <p className="text-xs text-brand-muted max-w-xs">Create a link to share with a client. They upload their PDF; you get the converted file billed to your account.</p>
@@ -176,7 +176,7 @@ export function PortalsPanel() {
             return (
               <div key={portal.token} className="bg-brand-surface border border-brand-border rounded-2xl p-4 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
-                  <Link2 size={15} className="text-navy dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+                  <Link2 size={15} className="text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-white truncate">{portal.label}</p>
@@ -187,18 +187,18 @@ export function PortalsPanel() {
                 </div>
                 <button
                   onClick={() => copyUrl(portal.token)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${isCopied ?"bg-teal-100 text-teal-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"}`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${isCopied ?"bg-pine-100 text-pine-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"}`}
                 >
-                  {isCopied ? <><CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={12} /> Copied</> : <><Copy className="text-teal-500 dark:text-teal-400"  size={12} /> Copy link</>}
+                  {isCopied ? <><CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={12} /> Copied</> : <><Copy className="text-pine-500 dark:text-pine-400"  size={12} /> Copy link</>}
                 </button>
                 {portal.clientEmail ? (
                   <button
                     onClick={() => sendReminder(portal.token)}
                     disabled={remindBusy === portal.token}
                     title={`Send a statement reminder to ${portal.clientEmail} (max once per day)`}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${remindedToken === portal.token ?"bg-teal-100 text-teal-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"} disabled:opacity-50`}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${remindedToken === portal.token ?"bg-pine-100 text-pine-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"} disabled:opacity-50`}
                   >
-                    <Mail size={12} className="text-teal-500 dark:text-teal-400" />
+                    <Mail size={12} className="text-pine-500 dark:text-pine-400" />
                     {remindBusy === portal.token ? "Sending…" : remindedToken === portal.token ? "Reminder sent" : "Send reminder"}
                   </button>
                 ) : null}

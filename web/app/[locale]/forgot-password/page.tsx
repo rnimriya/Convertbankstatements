@@ -51,8 +51,8 @@ export default function ForgotPasswordPage() {
         <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-8 shadow-xl dark:shadow-none shadow-slate-200/50 dark:shadow-black/50">
           {submitted ? (
             <div className="flex flex-col items-center gap-4 text-center py-4">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-50 dark:bg-teal-900/20 ring-4 ring-teal-100 dark:ring-teal-900/40">
-                <CheckCircle2 className="h-8 w-8 text-teal-500 text-teal-500 dark:text-teal-400" />
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pine-50 dark:bg-pine-900/20 ring-4 ring-pine-100 dark:ring-pine-900/40">
+                <CheckCircle2 className="h-8 w-8 text-pine-500 text-pine-500 dark:text-pine-400" />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-zinc-900 dark:text-white">Check your inbox</h1>
@@ -66,13 +66,13 @@ export default function ForgotPasswordPage() {
                   <p className="text-xs font-semibold text-amber-700 dark:text-amber-400 mb-1">
                     🔧 Dev mode — reset link:
                   </p>
-                  <a href={devResetUrl} className="break-all text-xs text-brand-600 dark:text-teal-400 hover:underline font-mono">
+                  <a href={devResetUrl} className="break-all text-xs text-brand-600 dark:text-pine-400 hover:underline font-mono">
                     {devResetUrl}
                   </a>
                 </div>
               )}
-              <Link href="/login" className="mt-2 flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-teal-400 hover:underline">
-                <ArrowLeft className="h-4 w-4 text-teal-500 dark:text-teal-400" />
+              <Link href="/login" className="mt-2 flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-pine-400 hover:underline">
+                <ArrowLeft className="h-4 w-4 text-pine-500 dark:text-pine-400" />
                 Back to sign in
               </Link>
             </div>
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
             <>
               <div className="flex items-center gap-3 mb-2">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
-                  <Mail className="h-5 w-5 dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+                  <Mail className="h-5 w-5 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
                 </div>
                 <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Forgot password?</h1>
               </div>
@@ -117,14 +117,14 @@ export default function ForgotPasswordPage() {
                   id="forgot-submit"
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
                 >
-                  {loading && <Loader2 className="h-4 w-4 animate-spin text-teal-500 dark:text-teal-400" />}
+                  {loading && <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />}
                   {loading ?"Sending…" :"Send reset link"}
                 </button>
               </form>
 
               <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
                 Remember your password?{""}
-                <Link href="/login" className="font-semibold text-brand-600 dark:text-teal-400 hover:underline">
+                <Link href="/login" className="font-semibold text-brand-600 dark:text-pine-400 hover:underline">
                   Sign in
                 </Link>
               </p>

@@ -37,7 +37,7 @@ function CompareRow({ feature, us, them }: RowProps) {
   const renderValue = (val: string | boolean) => {
     if (typeof val === "boolean") {
       return val ? (
-        <Check className="h-5 w-5 text-teal-500" />
+        <Check className="h-5 w-5 text-pine-500" />
       ) : (
         <X className="h-5 w-5 text-zinc-300 dark:text-zinc-600" />
       );
@@ -97,8 +97,8 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* Hero */}
-        <section className="border-b border-zinc-100 dark:border-zinc-800 bg-gradient-to-b from-teal-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wider mb-3">
+        <section className="border-b border-zinc-100 dark:border-zinc-800 bg-gradient-to-b from-pine-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 px-6 py-16 text-center">
+          <p className="text-sm font-semibold text-pine-600 dark:text-pine-400 uppercase tracking-wider mb-3">
             Competitor Comparison
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-3xl mx-auto">
@@ -116,7 +116,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
               <thead>
                 <tr className="border-b-2 border-zinc-200 dark:border-zinc-700">
                   <th className="py-3 pr-4 text-left text-xs uppercase tracking-wider text-zinc-400">Feature</th>
-                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-teal-600 dark:text-teal-400 font-bold">
+                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-pine-600 dark:text-pine-400 font-bold">
                     Convert Statement
                   </th>
                   <th className="py-3 pl-4 text-center text-xs uppercase tracking-wider text-zinc-400">
@@ -151,12 +151,12 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
             <ul className="space-y-4">
               {comp.weaknesses.map((w, i) => (
                 <li key={i} className="flex gap-3 items-start">
-                  <Check className="h-5 w-5 text-teal-500 mt-0.5 shrink-0" />
+                  <Check className="h-5 w-5 text-pine-500 mt-0.5 shrink-0" />
                   <span className="text-sm text-zinc-600 dark:text-zinc-400">{w}</span>
                 </li>
               ))}
               <li className="flex gap-3 items-start">
-                <Check className="h-5 w-5 text-teal-500 mt-0.5 shrink-0" />
+                <Check className="h-5 w-5 text-pine-500 mt-0.5 shrink-0" />
                 <span className="text-sm text-zinc-600 dark:text-zinc-400">
                   Convert Statement processes files in-memory with zero storage — your financial data is never saved on any server.
                 </span>
@@ -175,7 +175,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
           </p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 rounded-lg bg-teal-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-teal-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-pine-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-pine-700 transition-colors"
           >
             Try Convert Statement Free <ArrowRight className="h-4 w-4" />
           </Link>
@@ -190,7 +190,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
                 <Link
                   key={c.slug}
                   href={`/compare/${c.slug}`}
-                  className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                  className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:border-pine-400 hover:text-pine-600 dark:hover:text-pine-400 transition-colors"
                 >
                   vs {c.name}
                 </Link>

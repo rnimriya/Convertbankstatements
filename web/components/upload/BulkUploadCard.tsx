@@ -117,10 +117,10 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
     return (
       <div className="space-y-4">
         {/* Summary */}
-        <div className="bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-2xl p-4 flex items-center justify-between">
+        <div className="bg-pine-50 dark:bg-pine-900/20 border border-pine-200 dark:border-pine-800 rounded-2xl p-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 size={18} className="text-teal-600 text-teal-500 dark:text-teal-400" />
-            <span className="font-semibold text-teal-800 dark:text-teal-300 text-sm">
+            <CheckCircle2 size={18} className="text-pine-600 text-pine-500 dark:text-pine-400" />
+            <span className="font-semibold text-pine-800 dark:text-pine-300 text-sm">
               {successCount} of {results.length} files converted
             </span>
           </div>
@@ -156,7 +156,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                 download="Merged_Statements.xlsx"
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
               >
-                <Download className="text-teal-500 dark:text-teal-400"  size={12} /> Download merged
+                <Download className="text-pine-500 dark:text-pine-400"  size={12} /> Download merged
               </a>
             ) : (
               <button
@@ -164,7 +164,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                 disabled={merging}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
               >
-                {merging ? <Loader2 size={12} className="animate-spin text-teal-500 dark:text-teal-400" /> : <Merge className="text-teal-500 dark:text-teal-400"  size={12} />}
+                {merging ? <Loader2 size={12} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Merge className="text-pine-500 dark:text-pine-400"  size={12} />}
                 {merging ?"Merging…" :"Merge all banks"}
               </button>
             )}
@@ -178,7 +178,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               {r.error ? (
                 <AlertCircle size={16} className="text-red-400 shrink-0 text-amber-500 dark:text-amber-400" />
               ) : (
-                <FileSpreadsheet size={16} className="text-teal-500 shrink-0 text-teal-500 dark:text-teal-400" />
+                <FileSpreadsheet size={16} className="text-pine-500 shrink-0 text-pine-500 dark:text-pine-400" />
               )}
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-zinc-800 dark:text-white truncate">{r.fileName}</p>
@@ -188,7 +188,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                   <p className="text-xs text-brand-muted">
                     {r.transactionCount} transactions · {r.pageCount} pages{r.bankName ? ` · ${r.bankName}` :""}
                     {r.reconciliation?.checked && (
-                      <span className={r.reconciliation.ok ? "text-teal-600 dark:text-teal-400 font-semibold" : "text-amber-600 dark:text-amber-400 font-semibold"}>
+                      <span className={r.reconciliation.ok ? "text-pine-600 dark:text-pine-400 font-semibold" : "text-amber-600 dark:text-amber-400 font-semibold"}>
                         {r.reconciliation.ok ? " · ✓ Balance verified" : " · ⚠ Balance check failed"}
                       </span>
                     )}
@@ -200,7 +200,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                 <div className="flex gap-1.5 shrink-0">
                   {r.exportUrls.qbo && (
                     <a href={r.exportUrls.qbo} download={r.fileName.replace(".pdf",".qbo")}
-                      className="px-2.5 py-1.5 rounded-lg bg-teal-600 text-white text-xs font-semibold hover:bg-teal-500 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg bg-pine-600 text-white text-xs font-semibold hover:bg-pine-500 transition-colors">
                       .qbo
                     </a>
                   )}
@@ -237,7 +237,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
             </div>
           )}
 
-          <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+          <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
             <div className="p-3">
               <div
                 {...getRootProps()}
@@ -261,7 +261,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                           strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <FileText size={24} className="text-teal-500 dark:text-teal-400" />
+                        <FileText size={24} className="text-pine-500 dark:text-pine-400" />
                       </div>
                     </div>
                     <div>
@@ -286,8 +286,8 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                       }}
                     >
                       {isDragActive
-                        ? <FileText size={26} className="text-white text-teal-500 dark:text-teal-400" strokeWidth={1.6} />
-                        : <Upload size={26} className="text-white text-teal-500 dark:text-teal-400" strokeWidth={1.6} />}
+                        ? <FileText size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />
+                        : <Upload size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />}
                     </div>
 
                     <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">

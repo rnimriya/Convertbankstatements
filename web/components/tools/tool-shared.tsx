@@ -35,18 +35,18 @@ export function useToolAuth() {
 
 /**
  * Auth wall shown to anonymous visitors — same card look as the dropzone
- * (rounded-3xl card + dashed inner zone), no animations.
+ * (rounded-xl card + dashed inner zone), no animations.
  */
 export function ToolAuthWall({ path }: { path: string }) {
   const signup = `/signup?redirectTo=${encodeURIComponent(path)}`;
   const login = `/login?redirectTo=${encodeURIComponent(path)}`;
   return (
-    <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+    <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
       <div className="p-3">
         <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 px-6 py-12 lg:py-16 text-center select-none">
           <div
             className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl"
-            style={{ background: "#18181b" }}
+            style={{ background: "#14264c" }}
           >
             <Lock size={26} className="text-white" strokeWidth={1.6} />
           </div>
@@ -154,7 +154,7 @@ export async function downloadFileFromApi(url: string, file: File, fileName: str
 
 /**
  * Upload dropzone — exact twin of the homepage converter card's drop zone
- * (UploadCard): same rounded-3xl card, same dashed border, same icon block,
+ * (UploadCard): same rounded-xl card, same dashed border, same icon block,
  * same heading/"or browse files" text layout, same drag-over state.
  * Only the copy (title/meta) and accepted types differ per tool.
  * Busy state is static (no spin animation) per site rules.
@@ -181,7 +181,7 @@ export function ToolUpload({
   const dragDepth = useRef(0);
 
   return (
-    <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+    <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
       {/* ── Drop zone ── */}
       <div className="p-3">
@@ -244,7 +244,7 @@ export function ToolUpload({
           {busy ? (
             /* Busy (static — no motion animation) */
             <div className="flex flex-col items-center gap-4 py-2">
-              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#14264c" }}>
                 <Loader2 size={26} className="text-white" strokeWidth={1.6} />
               </div>
               <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
@@ -258,7 +258,7 @@ export function ToolUpload({
               <div
                 className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
                 style={{
-                  background: dragActive ? "#09090b" : "#18181b",
+                  background: dragActive ? "#0d1830" : "#14264c",
                   transform: dragActive ? "scale(1.06)" : "scale(1)",
                 }}
               >
@@ -294,9 +294,9 @@ export function ToolUpload({
 
 export function QboGateNotice({ gate }: { gate: string | null }) {
   return (
-    <div className="rounded-2xl border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/20 px-5 py-4">
+    <div className="rounded-2xl border border-pine-200 dark:border-pine-800 bg-pine-50 dark:bg-pine-900/20 px-5 py-4">
       <p className="font-semibold text-zinc-900 dark:text-white flex items-center gap-2">
-        <Lock className="h-4 w-4 text-teal-600" /> QBO download is a Pro feature
+        <Lock className="h-4 w-4 text-pine-600" /> QBO download is a Pro feature
       </p>
       <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
         {gate === "login"
@@ -308,14 +308,14 @@ export function QboGateNotice({ gate }: { gate: string | null }) {
         {gate === "login" ? (
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-pine-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-pine-700 transition-colors"
           >
             <LogIn className="h-4 w-4" /> Sign in
           </Link>
         ) : (
           <Link
             href="/pricing"
-            className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+            className="inline-flex items-center gap-2 bg-pine-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-pine-700 transition-colors"
           >
             See Pro plans
           </Link>

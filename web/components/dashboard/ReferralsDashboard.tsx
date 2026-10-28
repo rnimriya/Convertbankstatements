@@ -39,7 +39,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
     <div className="min-h-screen bg-brand-bg px-4 py-10">
       <div className="mx-auto max-w-2xl">
         <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-sm text-brand-muted hover:text-brand-text dark:hover:text-white transition-colors mb-8">
-          <ArrowLeft className="text-teal-500 dark:text-teal-400"  size={14} />
+          <ArrowLeft className="text-pine-500 dark:text-pine-400"  size={14} />
           Back to dashboard
         </Link>
 
@@ -52,18 +52,18 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
         <div className="grid grid-cols-2 gap-4 mb-8">
           <div className="bg-brand-surface rounded-2xl border border-brand-border p-5">
             <div className="flex items-center gap-2 text-brand-muted text-xs font-semibold uppercase tracking-wide mb-2">
-              <Gift className="text-teal-500 dark:text-teal-400"  size={13} />
+              <Gift className="text-pine-500 dark:text-pine-400"  size={13} />
               Pages earned
             </div>
-            <p className="font-display text-3xl font-bold text-navy dark:text-teal-400">{pagesCredited}</p>
+            <p className="font-display text-3xl font-bold text-navy dark:text-pine-400">{pagesCredited}</p>
             <p className="text-xs text-brand-muted mt-0.5">via referrals</p>
           </div>
           <div className="bg-brand-surface rounded-2xl border border-brand-border p-5">
             <div className="flex items-center gap-2 text-brand-muted text-xs font-semibold uppercase tracking-wide mb-2">
-              <Users className="text-teal-500 dark:text-teal-400"  size={13} />
+              <Users className="text-pine-500 dark:text-pine-400"  size={13} />
               Per referral
             </div>
-            <p className="font-display text-3xl font-bold text-teal-600 dark:text-teal-400">50</p>
+            <p className="font-display text-3xl font-bold text-pine-600 dark:text-pine-400">50</p>
             <p className="text-xs text-brand-muted mt-0.5">free pages for both</p>
           </div>
         </div>
@@ -79,14 +79,14 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
               onClick={copyLink}
               className={`flex items-center gap-1.5 px-4 py-3 rounded-xl text-sm font-semibold transition-all shrink-0 ${
                 copied
-                  ?"bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400 border border-teal-200 dark:border-teal-800"
+                  ?"bg-pine-100 dark:bg-pine-900/30 text-pine-700 dark:text-pine-400 border border-pine-200 dark:border-pine-800"
                   :"bg-zinc-900 dark:bg-zinc-950 text-white hover:opacity-90"
               }`}
             >
               {copied ? (
-                <><CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={14} /> Copied!</>
+                <><CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={14} /> Copied!</>
               ) : (
-                <><Copy className="text-teal-500 dark:text-teal-400"  size={14} /> Copy</>
+                <><Copy className="text-pine-500 dark:text-pine-400"  size={14} /> Copy</>
               )}
             </button>
           </div>
@@ -98,15 +98,15 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-teal-300 dark:hover:border-teal-700 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-pine-300 dark:hover:border-pine-700 hover:text-pine-700 dark:hover:text-pine-400 transition-colors"
           >
             Share on WhatsApp
           </a>
           <button
             onClick={copyLink}
-            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-teal-400 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-brand-border bg-brand-surface text-sm font-semibold text-brand-text hover:border-zinc-900/30 dark:border-zinc-800 dark:hover:border-brand-400/30 hover:text-brand-text dark:hover:text-pine-400 transition-colors"
           >
-            <Copy className="text-teal-500 dark:text-teal-400"  size={14} />
+            <Copy className="text-pine-500 dark:text-pine-400"  size={14} />
             Copy link
           </button>
         </div>

@@ -140,7 +140,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     return (
       <div className="p-6 lg:p-8 flex flex-col gap-4 max-w-md mx-auto">
         <FreePagesIndicator tier={billing.tier} pagesUsed={billing.pagesUsedThisPeriod} monthlyPageLimit={billing.monthlyPageLimit} />
-        <div className="rounded-3xl border border-amber-200 bg-amber-50 p-8 text-center">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-8 text-center">
           <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
             <DollarSign className="h-8 w-8 text-amber-600 text-rose-500 dark:text-rose-400" />
           </div>
@@ -183,7 +183,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+          <div className="rounded-xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
             {/* ── Drop zone ── */}
             <div className="p-3">
@@ -210,7 +210,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                           strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <FileText size={24} className="dark: text-teal-500 dark:text-teal-400" />
+                        <FileText size={24} className="dark: text-pine-500 dark:text-pine-400" />
                       </div>
                     </div>
                     <div>
@@ -236,8 +236,8 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       }}
                     >
                       {isDragActive
-                        ? <FileText size={26} className="text-white text-teal-500 dark:text-teal-400" strokeWidth={1.6} />
-                        : <Upload size={26} className="text-white text-teal-500 dark:text-teal-400" strokeWidth={1.6} />}
+                        ? <FileText size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />
+                        : <Upload size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />}
                     </div>
 
                     <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
@@ -260,7 +260,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     </p>
 
                     {billing.tier ==="FREE" && freeRemaining > 0 && (
-                      <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-yellow-300 bg-yellow-400 px-3 py-1 text-xs font-semibold text-zinc-900 dark:border-yellow-500 dark:bg-yellow-400 dark:text-zinc-900">
+                      <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-white dark:border-honey-600 dark:bg-honey-400 dark:text-white">
                         <CheckCircle2 className="text-zinc-900"  size={12} /> {freeRemaining} free page{freeRemaining !== 1 ?"s" :""} left
                       </div>
                     )}
@@ -304,7 +304,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                 </div>
 
                 {formatNotice ? (
-                  <p className="mt-2 text-[11px] font-semibold text-teal-600">{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
+                  <p className="mt-2 text-[11px] font-semibold text-pine-600">{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
                 ) : (
                   <p className="mt-2 text-[11px] text-brand-muted">Pick one or more formats — you get a separate download for each.</p>
                 )}

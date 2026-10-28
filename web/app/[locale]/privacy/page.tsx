@@ -170,7 +170,7 @@ export default function PrivacyPage() {
  <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <Shield className="h-5 w-5 text-navy dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+ <Shield className="h-5 w-5 text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Privacy Policy</h1>
@@ -193,7 +193,7 @@ export default function PrivacyPage() {
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy dark:text-teal-400 hover:underline underline-offset-2"
+ className="text-sm text-navy dark:text-pine-400 hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -237,7 +237,7 @@ export default function PrivacyPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-teal-200 dark:border-teal-900 bg-teal-50 dark:bg-teal-900/20 p-5 text-sm text-teal-800 dark:text-teal-300">
+ <div className="mt-12 rounded-2xl border border-pine-200 dark:border-pine-900 bg-pine-50 dark:bg-pine-900/20 p-5 text-sm text-pine-800 dark:text-pine-300">
  <p className="font-semibold">Our core commitment</p>
  <p className="mt-1">
  Your PDF bank statements are processed in memory and deleted immediately after conversion. We will never sell your data, use it for advertising, or share it with third parties beyond what is needed to run the service.
@@ -246,7 +246,7 @@ export default function PrivacyPage() {
 
  <div className="mt-8 text-center text-xs text-zinc-400 dark:text-zinc-500">
  Questions?{""}
- <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-teal-400 hover:underline">
+ <a href="mailto:privacy@convertstatement.online" className="text-navy dark:text-pine-400 hover:underline">
  privacy@convertstatement.online
  </a>
  </div>

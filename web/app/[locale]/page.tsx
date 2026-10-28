@@ -38,16 +38,17 @@ export default async function HomePage() {
     title: string; body: string;
     stat?: string; statSuffix?: string;
     badge?: string; chips?: string[];
+    img?: string;
   };
   const FEATURES: Feature[] = [
-    { icon: <Zap size={22} className="text-teal-600 dark:text-teal-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody") },
-    { icon: <Shield size={22} className="text-teal-600 dark:text-teal-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage" },
-    { icon: <FileCheck size={22} className="text-teal-600 dark:text-teal-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody") },
-    { icon: <FileText size={22} className="text-teal-500 dark:text-teal-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"] },
-    { icon: <Globe size={22} className="text-teal-500 dark:text-teal-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody") },
-    { icon: <Lock size={20} className="text-teal-600 dark:text-teal-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody") },
-    { icon: <CreditCard size={20} className="text-teal-600 dark:text-teal-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody") },
-    { icon: <Clock size={20} className="text-teal-600 dark:text-teal-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody") },
+    { icon: <Zap size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody"), img:"/features/feature-fast.webp" },
+    { icon: <Shield size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage", img:"/features/feature-private.webp" },
+    { icon: <FileCheck size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody"), img:"/features/feature-accurate.webp" },
+    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
+    { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody"), img:"/features/feature-banks.webp" },
+    { icon: <Lock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody"), img:"/features/feature-password.webp" },
+    { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
+    { icon: <Clock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody"), img:"/features/feature-instant.webp" },
   ];
 
 
@@ -63,7 +64,7 @@ export default async function HomePage() {
   const steps = [
     {
       n:"01",
-      icon: <Upload className="text-teal-500 dark:text-teal-400"  size={20} />,
+      icon: <Upload className="text-pine-500 dark:text-pine-400"  size={20} />,
       title: tHow("step1Title"),
       body: tHow("step1Body"),
       gradient:"bg-zinc-100 text-zinc-900",
@@ -71,7 +72,7 @@ export default async function HomePage() {
     },
     {
       n:"02",
-      icon: <FileCheck className="text-teal-600 dark:text-teal-400"  size={20} />,
+      icon: <FileCheck className="text-pine-600 dark:text-pine-400"  size={20} />,
       title: tHow("step2Title"),
       body: tHow("step2Body"),
       gradient:"bg-zinc-100 text-zinc-900",
@@ -79,7 +80,7 @@ export default async function HomePage() {
     },
     {
       n:"03",
-      icon: <Download className="text-teal-500 dark:text-teal-400"  size={20} />,
+      icon: <Download className="text-pine-500 dark:text-pine-400"  size={20} />,
       title: tHow("step3Title"),
       body: tHow("step3Body"),
       gradient:"bg-zinc-100 text-zinc-900",
@@ -88,18 +89,18 @@ export default async function HomePage() {
   ];
 
   const testimonials = [
-    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial:"P", color:"bg-teal-500 text-white" },
-    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial:"R", color:"bg-teal-500 text-white" },
-    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial:"A", color:"bg-teal-500 text-white" },
-    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial:"V", color:"bg-teal-500 text-white" },
-    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial:"M", color:"bg-teal-500 text-white" },
-    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial:"D", color:"bg-teal-500 text-white" },
-    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial:"P", color:"bg-teal-500 text-white" },
-    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial:"R", color:"bg-teal-500 text-white" },
-    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial:"A", color:"bg-teal-500 text-white" },
-    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial:"V", color:"bg-teal-500 text-white" },
-    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial:"M", color:"bg-teal-500 text-white" },
-    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial:"D", color:"bg-teal-500 text-white" },
+    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial:"P", color:"bg-pine-500 text-white" },
+    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial:"R", color:"bg-pine-500 text-white" },
+    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial:"A", color:"bg-pine-500 text-white" },
+    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial:"V", color:"bg-pine-500 text-white" },
+    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial:"M", color:"bg-pine-500 text-white" },
+    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial:"D", color:"bg-pine-500 text-white" },
+    { text: tTest("q1"), name: tTest("name1"), role: tTest("role1"), initial:"P", color:"bg-pine-500 text-white" },
+    { text: tTest("q2"), name: tTest("name2"), role: tTest("role2"), initial:"R", color:"bg-pine-500 text-white" },
+    { text: tTest("q3"), name: tTest("name3"), role: tTest("role3"), initial:"A", color:"bg-pine-500 text-white" },
+    { text: tTest("q4"), name: tTest("name4"), role: tTest("role4"), initial:"V", color:"bg-pine-500 text-white" },
+    { text: tTest("q5"), name: tTest("name5"), role: tTest("role5"), initial:"M", color:"bg-pine-500 text-white" },
+    { text: tTest("q6"), name: tTest("name6"), role: tTest("role6"), initial:"D", color:"bg-pine-500 text-white" },
   ];
 
   const faqs = [
@@ -143,10 +144,10 @@ export default async function HomePage() {
 
 
         {/* ─── THE PROBLEM ──────────────────────────────────────── */}
-        <section className="py-24 bg-teal-50 dark:bg-zinc-900">
+        <section className="py-24 bg-pine-50 dark:bg-zinc-900">
           <div className="max-w-6xl mx-auto px-6">
-            <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />the problem</p>
-            <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text max-w-2xl leading-[1.12]">Month-end means <span className="text-teal-600 dark:text-teal-400">hours of typing</span> the same numbers again.</h2>
+            <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />the problem</p>
+            <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text max-w-2xl leading-[1.12]">Month-end means <span className="text-pine-600 dark:text-pine-400">hours of typing</span> the same numbers again.</h2>
             <p className="text-brand-muted max-w-xl mt-4 text-sm leading-relaxed">A client sends 40 statements. Someone on your team opens each PDF, retypes every transaction, and still finds the totals don&apos;t match. The work is slow, boring, and exactly where mistakes hide.</p>
           </div>
         </section>
@@ -155,7 +156,7 @@ export default async function HomePage() {
         <section id="how-it-works" className="py-24 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-14">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />{tHow("label")}</span>
+              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tHow("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-3">{tHow("title")}</h2>
               <p className="text-zinc-400 dark:text-brand-muted max-w-xl text-sm">{tHow("subtitle")}</p>
             </div>
@@ -164,11 +165,11 @@ export default async function HomePage() {
               {steps.map(({ n, icon, title, body, gradient }) => (
                 <div
                   key={n}
-                  className="relative group flex flex-col p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-3xl hover:bg-brand-surface/80 transition-colors duration-300"
+                  className="relative group flex flex-col p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-xl hover:bg-brand-surface/80 transition-colors duration-300"
                 >
-                  <div className="absolute top-6 right-6 text-4xl font-black select-none text-teal-100 dark:text-teal-900">{n}</div>
+                  <div className="absolute top-6 right-6 text-4xl font-black select-none text-pine-100 dark:text-pine-900">{n}</div>
 
-                  <div className={`relative w-[60px] h-[60px] rounded-full flex items-center justify-center mb-5 bg-teal-50 dark:bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-100 dark:border-teal-900`}>
+                  <div className={`relative w-[60px] h-[60px] rounded-full flex items-center justify-center mb-5 bg-pine-50 dark:bg-pine-500/10 text-pine-700 dark:text-pine-300 border border-pine-100 dark:border-pine-900`}>
                     {icon}
                   </div>
                   <h3 className="relative text-[0.95rem] font-bold text-zinc-900 dark:text-zinc-100 mb-2">{title}</h3>
@@ -181,11 +182,11 @@ export default async function HomePage() {
         </section>
 
         {/* ─── THE DIFFERENCE ───────────────────────────────────── */}
-        <section className="py-24 bg-teal-50 dark:bg-zinc-900">
+        <section className="py-24 bg-pine-50 dark:bg-zinc-900">
           <div className="max-w-6xl mx-auto px-6">
-            <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />the difference</p>
+            <p className="text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />the difference</p>
             <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text leading-[1.12]">Your options, honestly compared.</h2>
-            <div className="mt-10 overflow-x-auto rounded-3xl border border-brand-border">
+            <div className="mt-10 overflow-x-auto rounded-xl border border-brand-border">
               <table className="w-full min-w-[560px] bg-white dark:bg-zinc-900 text-left text-sm">
                 <thead>
                   <tr className="bg-zinc-900 text-white">
@@ -211,9 +212,9 @@ export default async function HomePage() {
                     <td className="px-6 py-4">Only some banks, only some formats, no history</td>
                   </tr>
                   <tr className="border-t border-brand-border">
-                    <td className="px-6 py-4 font-bold text-teal-700 dark:text-teal-400">ConvertStatement</td>
-                    <td className="px-6 py-4 font-bold text-teal-700 dark:text-teal-400">Any bank, any format, in 15 seconds</td>
-                    <td className="px-6 py-4 font-bold text-teal-700 dark:text-teal-400">Nothing missing.</td>
+                    <td className="px-6 py-4 font-bold text-pine-700 dark:text-pine-400">ConvertStatement</td>
+                    <td className="px-6 py-4 font-bold text-pine-700 dark:text-pine-400">Any bank, any format, in 15 seconds</td>
+                    <td className="px-6 py-4 font-bold text-pine-700 dark:text-pine-400">Nothing missing.</td>
                   </tr>
                 </tbody>
               </table>
@@ -225,7 +226,7 @@ export default async function HomePage() {
         <section id="features" className="relative py-24 bg-brand-surface">
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             <div className="text-left mb-14">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />{tFeat("label")}</span>
+              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tFeat("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight mb-3 text-brand-text">{tFeat("title")}</h2>
               <p className="text-brand-muted max-w-xl text-sm">{tFeat("subtitle")}</p>
             </div>
@@ -235,12 +236,16 @@ export default async function HomePage() {
               {FEATURES.map((f) => (
                 <div
                   key={f.title}
-                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-3xl hover:bg-brand-surface/80 transition-colors duration-300"
+                  className="group relative flex flex-col overflow-hidden p-8 bg-white dark:bg-zinc-900 border border-brand-border rounded-xl hover:bg-brand-surface/80 transition-colors duration-300"
                 >
                   <div className="relative z-10 flex flex-1 flex-col">
-                    <div className="w-[60px] h-[60px] rounded-full bg-teal-50 dark:bg-teal-500/10 border border-teal-100 dark:border-teal-900 flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
-                      {f.icon}
-                    </div>
+                    {f.img ? (
+                      <img src={f.img} alt="" className="w-[76px] h-[76px] object-contain bg-white rounded-lg mb-5" />
+                    ) : (
+                      <div className="w-[60px] h-[60px] rounded-full bg-pine-50 dark:bg-pine-500/10 border border-pine-100 dark:border-pine-900 flex items-center justify-center mb-5 transition-transform group-hover:scale-105">
+                        {f.icon}
+                      </div>
+                    )}
 
                     {f.stat && (
                       <div className="text-4xl font-black mb-1 leading-none">
@@ -253,8 +258,8 @@ export default async function HomePage() {
                     <p className="text-sm text-brand-muted leading-relaxed flex-1">{f.body}</p>
 
                     {f.badge && (
-                      <div className="mt-4 inline-flex items-center gap-1.5 self-start text-[11px] font-bold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">
-                        <CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={11} /> {f.badge}
+                      <div className="mt-4 inline-flex items-center gap-1.5 self-start text-[11px] font-bold text-pine-600 bg-pine-50 px-2.5 py-1 rounded-full">
+                        <CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={11} /> {f.badge}
                       </div>
                     )}
 
@@ -278,9 +283,9 @@ export default async function HomePage() {
         </section>
 
         {/* ─── TESTIMONIALS — INFINITE MARQUEE ──────────────────── */}
-        <section className="py-24 bg-teal-50 dark:bg-zinc-900 overflow-hidden border-t border-brand-border">
+        <section className="py-24 bg-pine-50 dark:bg-zinc-900 overflow-hidden border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6 mb-12 text-left">
-            <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />{tTest("label")}</span>
+            <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tTest("label")}</span>
             <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text">{tTest("title")}</h2>
           </div>
 
@@ -294,7 +299,7 @@ export default async function HomePage() {
                 <div key={i} className="shrink-0 w-80 rounded-2xl border border-brand-border bg-white dark:bg-zinc-900 p-6 flex flex-col hover:bg-brand-surface/80 transition-colors">
                   <div className="flex gap-0.5 mb-3">
                     {Array.from({ length: 5 }).map((_, j) => (
-                      <Star key={j} size={12} className="fill-yellow-400 text-yellow-400" />
+                      <Star key={j} size={12} className="fill-honey-400 text-honey-400" />
                     ))}
                   </div>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed flex-1 mb-5">{text}</p>
@@ -315,7 +320,7 @@ export default async function HomePage() {
         <section id="pricing" className="py-24 bg-brand-surface border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-14">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />Pricing</span>
+              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />Pricing</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-3">Simple, transparent pricing</h2>
               <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
             </div>
@@ -327,7 +332,7 @@ export default async function HomePage() {
         <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-12">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />{tFaq("label")}</span>
+              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />{tFaq("label")}</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text">{tFaq("title")}</h2>
             </div>
             <FAQAccordion items={faqs} />
@@ -338,7 +343,7 @@ export default async function HomePage() {
         <section className="py-24 bg-brand-surface border-y border-brand-border">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-left mb-12">
-              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-teal-500 align-middle mr-2.5" />Coverage</span>
+              <span className="inline-block text-[15px] font-medium lowercase text-zinc-400 dark:text-zinc-500 mb-3"><span className="inline-block w-[26px] h-[2px] bg-pine-500 align-middle mr-2.5" />Coverage</span>
               <h2 className="text-3xl sm:text-[44px] font-extrabold tracking-tight text-brand-text mb-4">Supports major banks globally</h2>
               <p className="text-brand-muted max-w-xl text-sm">We process statements from top banks worldwide with 99.4% accuracy. If your bank is missing, contact us to add it.</p>
             </div>
@@ -351,9 +356,9 @@ export default async function HomePage() {
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-20 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="relative overflow-hidden bg-zinc-900 rounded-3xl px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="relative overflow-hidden bg-zinc-900 rounded-xl px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
               {/* Background glow */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-teal-500 rounded-full blur-[120px] pointer-events-none" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-pine-500 rounded-full blur-[120px] pointer-events-none" />
 
               {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
               <div
@@ -377,15 +382,15 @@ export default async function HomePage() {
                 <p className="mt-6 text-xs text-brand-muted">{tCta("note")}</p>
               </div>
               <div className="relative z-10 flex flex-col sm:flex-row md:flex-col items-center gap-4 shrink-0">
-                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-700 shadow-lg shadow-teal-500/30 hover:opacity-90 transition-opacity whitespace-nowrap">
+                <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-lg text-sm font-bold text-white bg-pine-800 hover:bg-pine-700 transition-colors whitespace-nowrap">
                   <span>{tCta("button")}</span>
                   <ArrowRight className="text-white" size={15} />
                 </Link>
                 <Link
                   href="/pricing"
-                  className="inline-flex items-center gap-2 px-6 py-4 rounded-full text-sm font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-2 px-6 py-4 rounded-lg text-sm font-semibold text-zinc-300 border border-zinc-700 hover:bg-zinc-800 transition-colors whitespace-nowrap"
                 >
-                  View pricing <ChevronRight className="text-teal-400" size={14} />
+                  View pricing <ChevronRight className="text-pine-400" size={14} />
                 </Link>
               </div>
             </div>

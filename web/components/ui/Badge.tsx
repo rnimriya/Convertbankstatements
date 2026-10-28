@@ -8,13 +8,13 @@ const VARIANTS = {
   brand:
     "bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300",
   success:
-    "bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400",
+    "bg-pine-100 dark:bg-pine-900/30 text-pine-700 dark:text-pine-400",
   warning:
     "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400",
   danger:
     "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400",
   info:
-    "bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-400",
+    "bg-pine-100 dark:bg-pine-900/30 text-pine-700 dark:text-pine-400",
 } as const;
 
 const SIZES = {
@@ -37,10 +37,10 @@ export interface BadgeProps {
 const DOT_COLORS: Record<keyof typeof VARIANTS, string> = {
   default: "bg-zinc-400",
   brand:   "bg-brand-500",
-  success: "bg-teal-500",
+  success: "bg-pine-500",
   warning: "bg-amber-500",
   danger:  "bg-red-500",
-  info:    "bg-teal-500",
+  info:    "bg-pine-500",
 };
 
 export function Badge({

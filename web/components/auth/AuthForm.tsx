@@ -78,9 +78,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
-        <div className="flex flex-col items-center gap-4 rounded-2xl border border-teal-200 dark:border-teal-900 bg-white dark:bg-zinc-900 p-12 text-center shadow-sm">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
-            <CheckCircle2 className="h-8 w-8 text-teal-600 text-teal-500 dark:text-teal-400" />
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-pine-200 dark:border-pine-900 bg-white dark:bg-zinc-900 p-12 text-center shadow-sm">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pine-100 dark:bg-pine-900/30">
+            <CheckCircle2 className="h-8 w-8 text-pine-600 text-pine-500 dark:text-pine-400" />
           </div>
           <p className="font-display text-xl font-bold text-zinc-900 dark:text-white">{t("accountCreated")}</p>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">{t("redirecting")}</p>
@@ -105,9 +105,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
           <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm">
             {mode ==="signup" && referralCode && (
-              <div className="mb-5 rounded-xl border border-teal-100 bg-teal-50 px-4 py-3 text-sm text-teal-700">
+              <div className="mb-5 rounded-xl border border-pine-100 bg-pine-50 px-4 py-3 text-sm text-pine-700">
                 <p className="font-semibold">{t("referralTitle")}</p>
-                <p className="text-xs mt-0.5 text-teal-600">{t("referralDesc")}</p>
+                <p className="text-xs mt-0.5 text-pine-600">{t("referralDesc")}</p>
               </div>
             )}
 
@@ -172,7 +172,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 <div className="flex items-center justify-between">
                   <label className="text-sm font-medium text-zinc-700 dark:text-zinc-200">{t("passwordLabel")}</label>
                   {mode ==="login" && (
-                    <Link href="/forgot-password" className="text-xs text-navy dark:text-teal-400 hover:underline">
+                    <Link href="/forgot-password" className="text-xs text-navy dark:text-pine-400 hover:underline">
                       {t("forgotPassword")}
                     </Link>
                   )}
@@ -193,7 +193,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300 transition-colors"
                     aria-label="Toggle password visibility"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4 text-teal-500 dark:text-teal-400" /> : <Eye className="h-4 w-4 text-teal-500 dark:text-teal-400" />}
+                    {showPassword ? <EyeOff className="h-4 w-4 text-pine-500 dark:text-pine-400" /> : <Eye className="h-4 w-4 text-pine-500 dark:text-pine-400" />}
                   </button>
                 </div>
               </div>
@@ -223,7 +223,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               >
                 {loading ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin text-teal-500 dark:text-teal-400" />
+                    <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />
                     {mode ==="login" ? t("loginLoading") : t("signupLoading")}
                   </>
                 ) : (
@@ -254,7 +254,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               {mode ==="login" ? t("switchToSignup") : t("switchToLogin")}{""}
               <Link
                 href={mode ==="login" ?"/signup" :"/login"}
-                className="font-semibold text-navy dark:text-teal-400 hover:underline"
+                className="font-semibold text-navy dark:text-pine-400 hover:underline"
               >
                 {mode ==="login" ? t("signupLink") : t("loginLink")}
               </Link>

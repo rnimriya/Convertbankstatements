@@ -84,7 +84,7 @@ export default function QboCleanupCheckerPage() {
             duplicate instance, and 2 per warning. A score of 90 or above is a clean file you can
             import with confidence. Under 70, run the cleanup pass first — and if you find the
             same problems month after month, the file is a symptom: your books need a{" "}
-            <a href="/contact" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">cleanup</a>,
+            <a href="/contact" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">cleanup</a>,
             not just a checker.
           </p>
           <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white mt-12">What the Cleaned QBO includes</h2>
@@ -92,7 +92,7 @@ export default function QboCleanupCheckerPage() {
             Pro users can download a cleaned QBO with exact duplicates removed, missing or
             repeated transaction IDs regenerated, and the original closing balance preserved as
             the ledger target — the same balance-ready format our{" "}
-            <a href="/quickbooks" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">QuickBooks converter</a>{" "}
+            <a href="/quickbooks" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">QuickBooks converter</a>{" "}
             produces. Import it through File → Utilities → Import → Web Connect Files (Desktop)
             or Transactions → Bank transactions → Upload a file (Online).
           </p>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, JetBrains_Mono } from "next/font/google";
+import { Manrope, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -10,9 +10,9 @@ import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import type { Locale } from "@/i18n/routing";
 import "../globals.css";
 
-const poppins = Poppins({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-manrope",
   weight: ["400", "500", "600", "700", "800"],
 });
 
@@ -177,7 +177,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${poppins.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${manrope.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange nonce={nonce}>
           <NextIntlClientProvider messages={messages}>
             <AnnouncementBanner />

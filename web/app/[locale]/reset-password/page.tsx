@@ -28,7 +28,7 @@ function ResetPasswordForm() {
   const hasNumber = /[0-9]/.test(password);
   const strength = [hasMinLength, hasUppercase, hasNumber].filter(Boolean).length;
   const strengthLabel = ["","Weak","Fair","Strong"][strength];
-  const strengthColor = ["","bg-red-400","bg-amber-400","bg-teal-500"][strength];
+  const strengthColor = ["","bg-red-400","bg-amber-400","bg-pine-500"][strength];
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -79,8 +79,8 @@ function ResetPasswordForm() {
   if (success) {
     return (
       <div className="flex flex-col items-center gap-4 text-center py-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-50 dark:bg-teal-900/20 ring-4 ring-teal-100 dark:ring-teal-900/40">
-          <CheckCircle2 className="h-8 w-8 text-teal-500 text-teal-500 dark:text-teal-400" />
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pine-50 dark:bg-pine-900/20 ring-4 ring-pine-100 dark:ring-pine-900/40">
+          <CheckCircle2 className="h-8 w-8 text-pine-500 text-pine-500 dark:text-pine-400" />
         </div>
         <div>
           <h1 className="text-xl font-bold text-zinc-900 dark:text-white">Password updated!</h1>
@@ -99,7 +99,7 @@ function ResetPasswordForm() {
     <>
       <div className="flex items-center gap-3 mb-2">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/30">
-          <ShieldCheck className="h-5 w-5 dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+          <ShieldCheck className="h-5 w-5 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
         </div>
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Reset password</h1>
       </div>
@@ -133,7 +133,7 @@ function ResetPasswordForm() {
               className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300"
               aria-label="Toggle password visibility"
             >
-              {showPassword ? <EyeOff className="h-4 w-4 text-teal-500 dark:text-teal-400" /> : <Eye className="h-4 w-4 text-teal-500 dark:text-teal-400" />}
+              {showPassword ? <EyeOff className="h-4 w-4 text-pine-500 dark:text-pine-400" /> : <Eye className="h-4 w-4 text-pine-500 dark:text-pine-400" />}
             </button>
           </div>
 
@@ -147,14 +147,14 @@ function ResetPasswordForm() {
               <div className="flex justify-between text-xs text-zinc-400 dark:text-zinc-500">
                 <span>
                   Strength:{""}
-                  <span className={strength === 1 ?"text-red-500" : strength === 2 ?"text-amber-500" :"text-teal-600"}>
+                  <span className={strength === 1 ?"text-red-500" : strength === 2 ?"text-amber-500" :"text-pine-600"}>
                     {strengthLabel}
                   </span>
                 </span>
                 <span className="space-x-2">
-                  <span className={hasMinLength ?"text-teal-600 dark:text-teal-400" :""}>8+ chars</span>
-                  <span className={hasUppercase ?"text-teal-600 dark:text-teal-400" :""}>A–Z</span>
-                  <span className={hasNumber ?"text-teal-600 dark:text-teal-400" :""}>0–9</span>
+                  <span className={hasMinLength ?"text-pine-600 dark:text-pine-400" :""}>8+ chars</span>
+                  <span className={hasUppercase ?"text-pine-600 dark:text-pine-400" :""}>A–Z</span>
+                  <span className={hasNumber ?"text-pine-600 dark:text-pine-400" :""}>0–9</span>
                 </span>
               </div>
             </div>
@@ -187,14 +187,14 @@ function ResetPasswordForm() {
           disabled={loading || (!!confirmPassword && confirmPassword !== password)}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-400 py-2.5 text-sm font-semibold text-black shadow-sm hover:bg-brand-300 transition-colors disabled:opacity-50"
         >
-          {loading && <Loader2 className="h-4 w-4 animate-spin text-teal-500 dark:text-teal-400" />}
+          {loading && <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />}
           {loading ?"Updating…" :"Set new password"}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
-        <Link href="/forgot-password" className="flex items-center justify-center gap-1 text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-teal-400 transition-colors">
-          <ArrowLeft className="h-3.5 w-3.5 text-teal-500 dark:text-teal-400" />
+        <Link href="/forgot-password" className="flex items-center justify-center gap-1 text-zinc-500 dark:text-zinc-400 hover:text-brand-600 dark:hover:text-pine-400 transition-colors">
+          <ArrowLeft className="h-3.5 w-3.5 text-pine-500 dark:text-pine-400" />
           Request a new reset link
         </Link>
       </p>

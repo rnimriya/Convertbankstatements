@@ -139,7 +139,7 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
                   {p.tiedOut === null ? (
                     <span className="text-xs font-semibold text-zinc-500">no bank total to check against</span>
                   ) : p.tiedOut ? (
-                    <span className="inline-flex items-center gap-1 text-xs font-bold text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-800 rounded-full px-3 py-1">
+                    <span className="inline-flex items-center gap-1 text-xs font-bold text-pine-700 dark:text-pine-300 bg-pine-50 dark:bg-pine-900/30 border border-pine-200 dark:border-pine-800 rounded-full px-3 py-1">
                       <CheckCircle2 className="h-3.5 w-3.5" /> Ties out
                     </span>
                   ) : (
@@ -238,14 +238,14 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
           <div className="mt-5 flex flex-wrap gap-3">
             <button
               onClick={downloadCsv}
-              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-teal-400"
+              className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-5 py-2.5 rounded-lg hover:border-pine-400"
             >
               <Download className="h-4 w-4" /> Download CSV (free)
             </button>
             <button
               onClick={() => void downloadQbo()}
               disabled={dlBusy}
-              className="inline-flex items-center gap-2 bg-teal-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-teal-700 disabled:opacity-60"
+              className="inline-flex items-center gap-2 bg-pine-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-pine-700 disabled:opacity-60"
             >
               <Lock className="h-4 w-4" /> {dlBusy ? "Preparing…" : "Download .QBO (Pro)"}
             </button>
@@ -268,7 +268,7 @@ export function PayoutConverter({ provider }: { provider: Provider }) {
             <p className="mt-2 text-xs text-zinc-400">
               Per-payout summary mode is free and covers most sellers. Per-transaction detail and
               bulk payout conversion are available on Pro. If QuickBooks refuses the file, the{" "}
-              <a href="/tools/qbo-import-errors" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">import-error decoder</a>{" "}
+              <a href="/tools/qbo-import-errors" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">import-error decoder</a>{" "}
               explains what each error means and how to fix it.
             </p>
           </div>

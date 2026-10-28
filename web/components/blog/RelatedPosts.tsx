@@ -25,7 +25,7 @@ export function RelatedPosts({ posts }: Props) {
               className="h-16 w-24 shrink-0 rounded-lg object-cover"
             />
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-teal-500 mb-0.5">
+              <p className="text-xs font-semibold text-pine-500 mb-0.5">
                 {post.tags[0] ?? "Banking"}
               </p>
               <p className="text-sm font-semibold text-zinc-800 line-clamp-2 group-hover:text-brand-600 transition-colors leading-snug">

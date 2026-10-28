@@ -85,7 +85,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
               className={`flex flex-col items-center justify-center gap-4 p-10 cursor-pointer transition-colors ${dragOver ?"bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 border-zinc-900/30 dark:border-zinc-800" :"hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5"}`}
             >
               <div className="w-14 h-14 rounded-2xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center">
-                <Upload size={24} className="text-navy dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+                <Upload size={24} className="text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
               </div>
               <div className="text-center">
                 <p className="font-semibold text-zinc-800 dark:text-white">Drop your PDF here</p>
@@ -98,7 +98,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
 
           {phase ==="uploading" && (
             <div className="flex flex-col items-center justify-center gap-4 p-10">
-              <Loader2 size={36} className="text-navy dark:text-teal-400 animate-spin text-teal-500 dark:text-teal-400" />
+              <Loader2 size={36} className="text-navy dark:text-pine-400 animate-spin text-pine-500 dark:text-pine-400" />
               <div className="text-center">
                 <p className="font-semibold text-zinc-800 dark:text-white">Converting…</p>
                 <p className="text-sm text-zinc-400 dark:text-zinc-500 truncate max-w-[260px]">{fileName}</p>
@@ -109,8 +109,8 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
           {phase ==="done" && (
             <div className="p-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={20} className="text-teal-600 text-teal-500 dark:text-teal-400" />
+                <div className="w-10 h-10 rounded-full bg-pine-100 dark:bg-pine-900/30 flex items-center justify-center shrink-0">
+                  <CheckCircle2 size={20} className="text-pine-600 text-pine-500 dark:text-pine-400" />
                 </div>
                 <div>
                   <p className="font-semibold text-zinc-900 dark:text-white">Conversion complete!</p>
@@ -125,7 +125,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                     download={fileName.replace(".pdf",".xlsx")}
                     className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity"
                   >
-                    <FileSpreadsheet className="text-teal-500 dark:text-teal-400"  size={15} />
+                    <FileSpreadsheet className="text-pine-500 dark:text-pine-400"  size={15} />
                     Download Excel (.xlsx)
                   </a>
                 )}
@@ -136,10 +136,10 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
                     className="flex items-center justify-between w-full px-4 py-3 rounded-xl bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold transition-all shadow-[0_2px_12px_rgba(249,115,22,0.35)] hover:shadow-[0_4px_16px_rgba(249,115,22,0.45)]"
                   >
                     <span className="flex items-center gap-2">
-                      <Download className="text-teal-500 dark:text-teal-400"  size={15} />
+                      <Download className="text-pine-500 dark:text-pine-400"  size={15} />
                       Download CSV
                     </span>
-                    <Download size={15} className="text-white/70 text-teal-500 dark:text-teal-400" />
+                    <Download size={15} className="text-white/70 text-pine-500 dark:text-pine-400" />
                   </a>
                 )}
               </div>

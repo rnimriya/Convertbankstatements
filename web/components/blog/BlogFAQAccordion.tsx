@@ -23,7 +23,7 @@ export function BlogFAQAccordion({ items }: { items: FAQItem[] }) {
           key={i}
           className={`rounded-[18px] border-[1.5px] transition-all duration-200 overflow-hidden ${
             open === i
-              ? "border-teal-700"
+              ? "border-pine-700"
               : "border-zinc-200 hover:border-zinc-300"
           }`}
         >
@@ -48,7 +48,7 @@ export function BlogFAQAccordion({ items }: { items: FAQItem[] }) {
             }`}
           >
             <div
-              className="px-[22px] pb-[19px] text-[15.5px] text-zinc-600 leading-[1.75] [&_a]:text-teal-600 [&_a]:hover:underline"
+              className="px-[22px] pb-[19px] text-[15.5px] text-zinc-600 leading-[1.75] [&_a]:text-pine-600 [&_a]:hover:underline"
               dangerouslySetInnerHTML={{ __html: a }}
             />
           </div>

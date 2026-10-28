@@ -209,7 +209,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             </nav>
             <h1 className="text-[40px] sm:text-[58px] font-black leading-[1.05] max-w-[900px]">
               {titleHead ? <>{titleHead} </> : null}
-              <span className="bg-gradient-to-r from-teal-700 to-teal-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-pine-700 to-pine-500 bg-clip-text text-transparent">
                 {titleTail}
               </span>
             </h1>
@@ -234,7 +234,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <div className="mx-auto max-w-[1060px] px-6">
           {/* White card overlapping the hero */}
-          <div className="relative z-10 -mt-16 rounded-[28px] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)] px-6 sm:px-10 py-9">
+          <div className="relative z-10 -mt-16 rounded-xl bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)] px-6 sm:px-10 py-9">
             {/* Feature image — floated, article text wraps around it */}
             <figure className="blog-feature-figure">
               <img src={post.featureImage} alt={post.title} />
@@ -242,7 +242,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             {/* Author row */}
             <div className="mb-4 text-sm text-zinc-500">
-              <span className="mr-2.5 inline-flex h-[42px] w-[42px] items-center justify-center rounded-full bg-teal-700 font-extrabold text-white align-middle">
+              <span className="mr-2.5 inline-flex h-[42px] w-[42px] items-center justify-center rounded-full bg-pine-700 font-extrabold text-white align-middle">
                 {authorInitials}
               </span>
               <span>
@@ -277,7 +277,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
 
           {/* In-article CTA */}
-          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-3xl bg-[#09090b] px-8 py-8 text-white">
+          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl bg-[#09090b] px-8 py-8 text-white">
             <div>
               <p className="font-bold">Skip the manual work</p>
               <p className="text-zinc-400 text-sm mt-1">
@@ -286,7 +286,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             </div>
             <a
               href="/signup"
-              className="shrink-0 rounded-full bg-gradient-to-r from-teal-700 to-teal-500 px-6 py-3 font-extrabold text-white whitespace-nowrap"
+              className="shrink-0 rounded-full bg-gradient-to-r from-pine-700 to-pine-500 px-6 py-3 font-extrabold text-white whitespace-nowrap"
             >
               Convert my statement →
             </a>
@@ -296,7 +296,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="mt-12 border-t border-zinc-100 pt-8">
             <a
               href={`/${locale}/blog`}
-              className="text-sm font-medium text-teal-500 hover:underline"
+              className="text-sm font-medium text-pine-500 hover:underline"
             >
               {t("backToBlog")}
             </a>

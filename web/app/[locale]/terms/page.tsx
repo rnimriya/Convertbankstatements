@@ -193,7 +193,7 @@ export default function TermsPage() {
  <div className="mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10">
- <ScrollText className="h-5 w-5 text-navy dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+ <ScrollText className="h-5 w-5 text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Terms of Service</h1>
@@ -230,7 +230,7 @@ export default function TermsPage() {
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy dark:text-teal-400 hover:underline underline-offset-2"
+ className="text-sm text-navy dark:text-pine-400 hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -291,9 +291,9 @@ export default function TermsPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-teal-400">
+ <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-pine-400">
  <p className="font-semibold">Questions about these Terms?</p>
- <p className="mt-1 text-navy dark:text-teal-400">
+ <p className="mt-1 text-navy dark:text-pine-400">
  Email us at{""}
  <a href="mailto:legal@convertstatement.online" className="underline hover:no-underline">
  legal@convertstatement.online

@@ -11,8 +11,8 @@
 
   --color-bg: 250 250 252;
   --color-surface: 255 255 255;
-  --color-primary: 15 118 110; /* Teal 700 */
-  --color-secondary: 20 184 166; /* Teal 500 */
+  --color-primary: 20 38 76; /* Pine 800 (Cheapcab navy) */
+  --color-secondary: 234 88 12; /* Honey 400 (Cheapcab orange) */
   --color-text-main: 15 23 42; /* Slate 900 */
   --color-text-muted: 100 116 139; /* Slate 500 */
   --color-border: 226 232 240; /* Slate 200 */
@@ -27,8 +27,8 @@
 
   --color-bg: 2 6 23; 
   --color-surface: 15 23 42;
-  --color-primary: 45 212 191; /* Teal 400 */
-  --color-secondary: 45 212 191; /* Teal 400 */
+  --color-primary: 91 131 196; /* Pine 400 */
+  --color-secondary: 255 139 77; /* Honey 300 */
   --color-text-main: 248 250 252; /* Slate 50 */
   --color-text-muted: 148 163 184; /* Slate 400 */
   --color-border: 30 41 59; /* Slate 800 */
@@ -204,7 +204,7 @@
 }
 .article-body h2::before {
   content: counter(blog-section, decimal-leading-zero);
-  color: #0f766e;
+  color: #1d3565;
   margin-right: 10px;
 }
 .article-body h3 {
@@ -215,7 +215,7 @@
   margin: 28px 0 12px;
 }
 .article-body a {
-  color: #0d9488;
+  color: #2c4a86;
 }
 .article-body a:hover {
   text-decoration: underline;
@@ -264,9 +264,9 @@
 }
 .article-body blockquote {
   clear: both;
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  border-left: 5px solid #f59e0b;
+  background: #fff4ec;
+  border: 1px solid #ffd9c2;
+  border-left: 5px solid #ea580c;
   border-radius: 14px;
   padding: 18px 20px;
   margin: 24px 0;

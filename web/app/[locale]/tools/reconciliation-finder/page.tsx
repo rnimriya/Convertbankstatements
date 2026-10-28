@@ -85,11 +85,11 @@ export default function ReconciliationFinderPage() {
           </ul>
           <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
             Checking a single file before import instead? Use the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">QBO Duplicate Finder</a>{" "}
             or the{" "}
-            <a href="/tools/qbo-checker" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">QBO File Checker</a>.
+            <a href="/tools/qbo-checker" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">QBO File Checker</a>.
             {" "}If the mess spans months, our{" "}
-            <a href="/services/quickbooks-cleanup" className="text-teal-600 dark:text-teal-400 font-semibold hover:underline">cleanup service</a>{" "}
+            <a href="/services/quickbooks-cleanup" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">cleanup service</a>{" "}
             handles it with a free assessment first.
           </p>
         </>

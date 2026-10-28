@@ -79,8 +79,8 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
-        <section className="bg-gradient-to-b from-teal-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wider mb-3">
+        <section className="bg-gradient-to-b from-pine-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-6 py-16 text-center">
+          <p className="text-sm font-semibold text-pine-600 dark:text-pine-400 uppercase tracking-wider mb-3">
             Comprehensive Guide
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-4xl mx-auto">
@@ -95,7 +95,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
           {/* Main Content (Pillar) */}
           <div className="lg:col-span-8">
             <article
-              className="prose prose-zinc dark:prose-invert max-w-none prose-a:text-teal-600 hover:prose-a:text-teal-500 dark:prose-a:text-teal-400"
+              className="prose prose-zinc dark:prose-invert max-w-none prose-a:text-pine-600 hover:prose-a:text-pine-500 dark:prose-a:text-pine-400"
               dangerouslySetInnerHTML={{ __html: safeContent }}
             />
           </div>
@@ -105,16 +105,16 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
             {relatedPosts.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-teal-500" /> Supporting Articles
+                  <BookOpen className="h-5 w-5 text-pine-500" /> Supporting Articles
                 </h3>
                 <div className="flex flex-col gap-3">
                   {relatedPosts.map((p) => (
                     <Link
                       key={p.slug}
                       href={`/blog/${p.slug}`}
-                      className="group p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-teal-300 dark:hover:border-teal-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
+                      className="group p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-pine-300 dark:hover:border-pine-700 bg-zinc-50 dark:bg-zinc-900/50 transition-colors"
                     >
-                      <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors text-sm mb-1">
+                      <h4 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-pine-600 dark:group-hover:text-pine-400 transition-colors text-sm mb-1">
                         {p.title}
                       </h4>
                       <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-2">
@@ -129,14 +129,14 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
             {relatedBanks.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4 flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-teal-500" /> Specific Bank Guides
+                  <Building2 className="h-5 w-5 text-pine-500" /> Specific Bank Guides
                 </h3>
                 <div className="flex flex-col gap-2">
                   {relatedBanks.map((b) => (
                     <Link
                       key={b.slug}
                       href={`/banks/${b.slug}`}
-                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-teal-600 dark:hover:text-teal-400 flex items-center justify-between group"
+                      className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-pine-600 dark:hover:text-pine-400 flex items-center justify-between group"
                     >
                       {b.name} <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
@@ -145,10 +145,10 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
               </div>
             )}
             
-            <div className="p-6 rounded-2xl bg-teal-600 text-white">
+            <div className="p-6 rounded-2xl bg-pine-600 text-white">
               <h3 className="font-bold mb-2">Ready to convert?</h3>
-              <p className="text-teal-100 text-sm mb-4">Secure, fast, and 100% private. Start converting your statements today.</p>
-              <Link href="/signup" className="block w-full text-center bg-white text-teal-900 font-semibold py-2 rounded-lg hover:bg-zinc-50 transition-colors">
+              <p className="text-pine-100 text-sm mb-4">Secure, fast, and 100% private. Start converting your statements today.</p>
+              <Link href="/signup" className="block w-full text-center bg-white text-pine-900 font-semibold py-2 rounded-lg hover:bg-zinc-50 transition-colors">
                 Start Free Trial
               </Link>
             </div>

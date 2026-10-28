@@ -76,7 +76,7 @@ export default async function AdminBlogPage() {
                       <Link
                         href={`/blog/${post.slug}`}
                         target="_blank"
-                        className="text-teal-500 dark:text-teal-400 hover:underline text-xs"
+                        className="text-pine-500 dark:text-pine-400 hover:underline text-xs"
                       >
                         View
                       </Link>

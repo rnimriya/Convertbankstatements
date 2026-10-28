@@ -21,6 +21,29 @@ const config: Config = {
           border: "rgb(var(--color-border) / <alpha-value>)",
         },
         navy: "rgb(26 71 200 / <alpha-value>)",
+        pine: {
+          50: "#eef4fc",
+          100: "#dbe7ff",
+          200: "#bcd0ee",
+          300: "#8fb0e8",
+          400: "#5b83c4",
+          500: "#4066ad",
+          600: "#2c4a86",
+          700: "#1d3565",
+          800: "#14264c",
+          900: "#101f3e",
+          950: "#0d1830",
+        },
+        honey: {
+          50: "#fff4ec",
+          100: "#ffd9c2",
+          200: "#ffb287",
+          300: "#ff8b4d",
+          400: "#ea580c",
+          500: "#e65a00",
+          600: "#c24e02",
+          700: "#9a3d05",
+        },
         background: "rgb(var(--bg) / <alpha-value>)",
         surface: {
           DEFAULT: "rgb(var(--surface) / <alpha-value>)",
@@ -29,8 +52,8 @@ const config: Config = {
         "border-subtle": "rgb(var(--border-subtle) / <alpha-value>)",
       },
       fontFamily: {
-        sans:    ["var(--font-poppins)",   "Poppins",             "system-ui", "sans-serif"],
-        display: ["var(--font-poppins)",   "Poppins",             "system-ui", "sans-serif"],
+        sans:    ["var(--font-manrope)",   "Manrope",             "system-ui", "sans-serif"],
+        display: ["var(--font-manrope)",   "Manrope",             "system-ui", "sans-serif"],
       },
       keyframes: {
         marquee: {

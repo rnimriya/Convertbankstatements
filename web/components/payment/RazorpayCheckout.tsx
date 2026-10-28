@@ -115,7 +115,7 @@ export function RazorpayCheckout({
       className={className}
     >
       {loading ? (
-        <Loader2 className="h-4 w-4 animate-spin text-teal-500 dark:text-teal-400" />
+        <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />
       ) : (
         <DollarSign className="h-4 w-4 text-rose-500 dark:text-rose-400" />
       )}

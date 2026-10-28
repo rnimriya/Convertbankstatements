@@ -44,7 +44,7 @@ export function QuickBooksPanel() {
   return (
     <div className="mt-6 rounded-2xl border border-brand-border bg-brand-surface p-5">
       <div className="flex items-center gap-2">
-        <BookOpenCheck size={17} className="text-teal-600" />
+        <BookOpenCheck size={17} className="text-pine-600" />
         <h3 className="font-bold text-brand-text">QuickBooks Online — direct connect</h3>
       </div>
 
@@ -67,7 +67,7 @@ export function QuickBooksPanel() {
         </div>
       ) : status.connected ? (
         <div className="mt-2 space-y-3">
-          <p className="text-sm text-teal-600 dark:text-teal-400 font-semibold">
+          <p className="text-sm text-pine-600 dark:text-pine-400 font-semibold">
             ✓ Connected to QuickBooks company {status.realmId} ({status.environment})
           </p>
           <div>
@@ -81,7 +81,7 @@ export function QuickBooksPanel() {
                 localStorage.setItem("qb_bank_account_id", e.target.value);
               }}
               placeholder="e.g. 35 (Chart of Accounts → account → ID in the URL)"
-              className="w-full sm:w-96 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-teal-500/40"
+              className="w-full sm:w-96 rounded-xl border border-brand-border bg-brand-bg px-3.5 py-2.5 text-sm text-brand-text placeholder:text-brand-muted focus:outline-none focus:ring-2 focus:ring-pine-500/40"
             />
             <p className="mt-1.5 text-xs text-brand-muted">
               After a conversion, use “Send to QuickBooks” on the result to push the transactions
@@ -104,7 +104,7 @@ export function QuickBooksPanel() {
           </p>
           <a
             href="/api/quickbooks/connect"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-500 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-pine-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-pine-500 transition-colors"
           >
             <Plug size={14} /> Connect QuickBooks
           </a>

@@ -177,9 +177,9 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
       )}
 
       {/* Success card */}
-      <div className="rounded-2xl border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/20 p-5 shadow-sm">
+      <div className="rounded-2xl border border-pine-200 dark:border-pine-800 bg-pine-50 dark:bg-pine-900/20 p-5 shadow-sm">
         <div className="flex items-start gap-3">
-          <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-teal-500 text-teal-500 dark:text-teal-400" />
+          <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-pine-500 text-pine-500 dark:text-pine-400" />
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="font-bold text-zinc-900 dark:text-zinc-200">Processing complete!</h3>
@@ -202,7 +202,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         )}
 
         {/* Billing message */}
-        <p className="mt-2 text-center text-xs text-teal-600 dark:text-teal-400 font-medium">
+        <p className="mt-2 text-center text-xs text-pine-600 dark:text-pine-400 font-medium">
           {result.billing.message}
         </p>
 
@@ -214,11 +214,11 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         {/* Reconciliation balance check */}
         {result.reconciliation?.checked && (
           result.reconciliation.ok ? (
-            <div className="mt-4 flex items-start gap-3 rounded-xl border border-teal-200 bg-teal-50 dark:border-teal-800 dark:bg-teal-950/40 px-4 py-3">
-              <CheckCircle2 className="h-5 w-5 shrink-0 text-teal-600 dark:text-teal-400 mt-0.5" />
+            <div className="mt-4 flex items-start gap-3 rounded-xl border border-pine-200 bg-pine-50 dark:border-pine-800 dark:bg-pine-950/40 px-4 py-3">
+              <CheckCircle2 className="h-5 w-5 shrink-0 text-pine-600 dark:text-pine-400 mt-0.5" />
               <div className="text-sm">
-                <p className="font-semibold text-teal-900 dark:text-teal-100">Balance verified — this file ties to your statement</p>
-                <p className="text-teal-700 dark:text-teal-300 mt-0.5">
+                <p className="font-semibold text-pine-900 dark:text-pine-100">Balance verified — this file ties to your statement</p>
+                <p className="text-pine-700 dark:text-pine-300 mt-0.5">
                   Opening {result.reconciliation.openingBalance?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
                   {" → "}closing {result.reconciliation.closingBalance?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
                   {" "}across {result.reconciliation.transactionCount} transactions. The running balance checks out at every step, so QuickBooks reconciliation starts from a file that already agrees with the bank.
@@ -249,15 +249,15 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 className="flex w-full items-center justify-between rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.99] transition-all px-4 py-3 text-sm font-semibold text-white"
               >
                 <span className="flex items-center gap-2">
-                  <FileSpreadsheet className="h-4 w-4 text-white/80 text-teal-500 dark:text-teal-400" />
+                  <FileSpreadsheet className="h-4 w-4 text-white/80 text-pine-500 dark:text-pine-400" />
                   {FORMAT_LABELS[fmt] ?? fmt.toUpperCase()}
                 </span>
-                <Download className="h-4 w-4 text-white/80 text-teal-500 dark:text-teal-400" />
+                <Download className="h-4 w-4 text-white/80 text-pine-500 dark:text-pine-400" />
               </button>
             ))}
 
             {result.locked_formats && result.locked_formats.length > 0 && (
-              <div className="rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-xs text-teal-800">
+              <div className="rounded-xl border border-pine-200 bg-pine-50 px-4 py-3 text-xs text-pine-800">
                 <span className="font-semibold">{result.locked_formats.map(f => (FORMAT_LABELS[f] ?? f.toUpperCase()).replace(/^Download /, "")).join(", ")}</span>
                 {" "}exports are Pro plan features. <a href="/pricing" className="font-semibold underline">Upgrade to Pro</a> to unlock them — your downloads above are ready.
               </div>
@@ -274,7 +274,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 <button
                   onClick={pushToQuickBooks}
                   disabled={qbPushing}
-                  className="flex w-full items-center justify-between rounded-xl bg-teal-600 hover:bg-teal-500 px-4 py-3 text-sm font-semibold text-white transition-all disabled:opacity-50"
+                  className="flex w-full items-center justify-between rounded-xl bg-pine-600 hover:bg-pine-500 px-4 py-3 text-sm font-semibold text-white transition-all disabled:opacity-50"
                 >
                   <span className="flex items-center gap-2">
                     <BookOpenCheck className="h-4 w-4 text-white/80" />
@@ -293,7 +293,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 className="flex w-full items-center justify-between rounded-xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 px-4 py-3 text-sm font-semibold text-zinc-800 dark:text-zinc-100 transition-all"
               >
                 <span className="flex items-center gap-2">
-                  <FileCheck2 className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                  <FileCheck2 className="h-4 w-4 text-pine-600 dark:text-pine-400" />
                   Reconciliation Report (PDF)
                 </span>
                 <Download className="h-4 w-4 text-zinc-400" />
@@ -313,7 +313,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                     <svg viewBox="0 0 24 24" className="h-4 w-4 fill-white/80"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".5"/></svg>
                     Open in Google Sheets
                   </span>
-                  <ExternalLink className="h-4 w-4 text-white/80 text-teal-500 dark:text-teal-400" />
+                  <ExternalLink className="h-4 w-4 text-white/80 text-pine-500 dark:text-pine-400" />
                 </a>
               ) : (
                 <button
@@ -323,12 +323,12 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 >
                   <span className="flex items-center gap-2">
                     {sheetsExporting
-                      ? <Loader2 className="h-4 w-4 animate-spin text-teal-500 dark:text-teal-400" />
+                      ? <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />
                       : <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor"><path d="M6 2h8l6 6v14a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/><path d="M14 2l6 6h-6V2z" opacity=".4"/></svg>
                     }
                     {sheetsExporting ?"Exporting to Google Sheets…" :"Export to Google Sheets"}
                   </span>
-                  <ExternalLink className="h-4 w-4 opacity-60 text-teal-500 dark:text-teal-400" />
+                  <ExternalLink className="h-4 w-4 opacity-60 text-pine-500 dark:text-pine-400" />
                 </button>
               )
             )}
@@ -344,7 +344,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
         <div className="rounded-2xl border border-brand-border bg-brand-surface overflow-hidden">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-800 px-5 py-3 bg-zinc-50">
             <div className="flex items-center gap-2 text-sm font-semibold text-zinc-900 dark:text-zinc-200">
-              <TrendingUp className="h-4 w-4 dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+              <TrendingUp className="h-4 w-4 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
               Transaction preview
             </div>
             <Badge variant="default" size="sm">
@@ -360,7 +360,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                     {txn.date}{txn.category && ` · ${txn.category}`}
                   </p>
                 </div>
-                <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ?"text-teal-600 dark:text-teal-400" :"text-zinc-900 dark:text-zinc-300"}`}>
+                <span className={`shrink-0 text-xs font-bold tabular-nums ${txn.amount >= 0 ?"text-pine-600 dark:text-pine-400" :"text-zinc-900 dark:text-zinc-300"}`}>
                   {txn.amount >= 0 ? "+" : "-"}${Math.abs(txn.amount).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>

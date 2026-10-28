@@ -30,8 +30,8 @@ interface Props {
 
 const STATUS_CONFIG: Record<Job["status"], { label: string; icon: React.ReactNode; variant:"success" |"warning" |"brand" |"default" }> = {
   queued:     { label:"Queued",     icon: <Clock className="text-amber-500 dark:text-amber-400"  size={12} />,      variant:"default" },
-  processing: { label:"Processing", icon: <Loader2 size={12} className="animate-spin text-teal-500 dark:text-teal-400" />, variant:"brand" },
-  done:       { label:"Done",       icon: <CheckCircle2 className="text-teal-500 dark:text-teal-400"  size={12} />, variant:"success" },
+  processing: { label:"Processing", icon: <Loader2 size={12} className="animate-spin text-pine-500 dark:text-pine-400" />, variant:"brand" },
+  done:       { label:"Done",       icon: <CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={12} />, variant:"success" },
   failed:     { label:"Failed",     icon: <XCircle className="text-rose-500 dark:text-rose-400"  size={12} />,    variant:"warning" },
 };
 
@@ -76,7 +76,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-40">
-        <Loader2 className="h-6 w-6 animate-spin dark: text-teal-500 dark:text-teal-400" />
+        <Loader2 className="h-6 w-6 animate-spin dark: text-pine-500 dark:text-pine-400" />
       </div>
     );
   }
@@ -102,8 +102,8 @@ export function QueuePanel({ userEmail, tier }: Props) {
       <div className="flex items-center justify-between">
         <p className="text-sm text-brand-muted">
           {active.length > 0 ? (
-            <span className="flex items-center gap-1.5 text-navy dark:text-teal-400 font-medium">
-              <Loader2 size={14} className="animate-spin text-teal-500 dark:text-teal-400" /> {active.length} job{active.length > 1 ?"s" :""} in progress…
+            <span className="flex items-center gap-1.5 text-navy dark:text-pine-400 font-medium">
+              <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" /> {active.length} job{active.length > 1 ?"s" :""} in progress…
             </span>
           ) : (
             `${done.length} completed job${done.length !== 1 ?"s" :""}`
@@ -136,8 +136,8 @@ export function QueuePanel({ userEmail, tier }: Props) {
               >
                 <div className="h-10 w-10 shrink-0 rounded-xl bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center">
                   {job.status ==="processing"
-                    ? <Loader2 size={20} className="dark:text-teal-400 animate-spin text-teal-500 dark:text-teal-400" />
-                    : <FileText size={20} className="dark:text-teal-400 text-teal-500 dark:text-teal-400" />
+                    ? <Loader2 size={20} className="dark:text-pine-400 animate-spin text-pine-500 dark:text-pine-400" />
+                    : <FileText size={20} className="dark:text-pine-400 text-pine-500 dark:text-pine-400" />
                   }
                 </div>
 
@@ -185,10 +185,10 @@ export function QueuePanel({ userEmail, tier }: Props) {
                           className="flex w-full items-center justify-between rounded-xl bg-orange-500 hover:bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.3)] transition-all"
                         >
                           <span className="flex items-center gap-2">
-                            <FileText size={14} className="opacity-80 text-teal-500 dark:text-teal-400" />
+                            <FileText size={14} className="opacity-80 text-pine-500 dark:text-pine-400" />
                             Download {fmt.toUpperCase()}
                           </span>
-                          <Download size={14} className="opacity-80 text-teal-500 dark:text-teal-400" />
+                          <Download size={14} className="opacity-80 text-pine-500 dark:text-pine-400" />
                         </button>
                       ))}
                     </div>
