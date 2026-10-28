@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-3xl border-2 border-dashed border-teal-300 dark:border-teal-800 bg-gradient-to-b from-white to-teal-50/70 dark:from-zinc-900 dark:to-teal-950/30 px-6 py-12 text-center cursor-pointer hover:border-teal-400 transition-colors shadow-[0_24px_48px_rgba(10,180,169,0.10)]"
+        className="rounded-2xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-teal-400 transition-colors"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -80,31 +80,26 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <div className="mx-auto flex h-[68px] w-[68px] items-center justify-center rounded-full shadow-[0_12px_24px_rgba(10,180,169,0.35)]" style={{ background: "linear-gradient(135deg,#12c4b8,#0a7871)" }}>
-            <Loader2 className="h-7 w-7 text-white animate-spin" />
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+            <Loader2 className="h-6 w-6 text-white animate-spin" />
           </div>
         ) : (
-          <div className="mx-auto flex h-[68px] w-[68px] items-center justify-center rounded-full shadow-[0_12px_24px_rgba(10,180,169,0.35)]" style={{ background: "linear-gradient(135deg,#12c4b8,#0a7871)" }}>
-            <Upload className="h-7 w-7 text-white" />
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+            <Upload className="h-6 w-6 text-white" />
           </div>
         )}
-        <p className="mt-4 text-xl font-black tracking-tight text-zinc-900 dark:text-white">
+        <p className="mt-3 text-2xl font-black tracking-tight text-zinc-900 dark:text-white">
           {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here"}
         </p>
-        {!busy && (
-          <span
-            className="mt-4 inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-bold text-white shadow-[0_10px_24px_rgba(10,180,169,0.35)]"
-            style={{ background: "linear-gradient(120deg,#12c4b8,#0ab4a9 45%,#0a7871)" }}
-          >
-            Browse files
-          </span>
-        )}
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-          {["QBO", "OFX", "QFX"].map((f) => (
-            <span key={f} className="rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3 py-1 text-xs font-bold text-teal-700 dark:text-teal-300">
-              {f}
-            </span>
-          ))}
+        <p className="mt-1 text-sm text-zinc-400">
+          or <span className="font-bold text-zinc-900 dark:text-white underline underline-offset-2">browse files</span>
+        </p>
+        <div className="mt-3 flex items-center justify-center gap-2 text-xs text-zinc-400">
+          <span>QBO</span>
+          <span className="h-1 w-1 rounded-full bg-zinc-300" />
+          <span>OFX</span>
+          <span className="h-1 w-1 rounded-full bg-zinc-300" />
+          <span>QFX</span>
         </div>
         <p className="mt-3 text-xs text-zinc-400">
           No account needed · The file is checked in memory and never stored

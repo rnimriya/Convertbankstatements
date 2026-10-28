@@ -181,7 +181,7 @@ export function ToolUpload({
   const dragDepth = useRef(0);
 
   return (
-    <div className="rounded-3xl border border-brand-border bg-brand-surface overflow-hidden shadow-[0_24px_48px_rgba(10,180,169,0.10)]">
+    <div className="rounded-3xl border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
 
       {/* ── Drop zone ── */}
       <div className="p-3">
@@ -221,12 +221,12 @@ export function ToolUpload({
             if (f) onFile(f);
           }}
           className={cn(
-            "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 lg:py-16 text-center transition-colors select-none",
+            "relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-10 lg:py-12 text-center transition-colors select-none",
             busy ? "border-zinc-200" : "cursor-pointer",
             !busy &&
               (dragActive
                 ? "border-zinc-900 dark:border-zinc-100 bg-brand-surface"
-                : "border-teal-300 dark:border-teal-800 bg-gradient-to-b from-white to-teal-50/70 dark:from-zinc-900 dark:to-teal-950/30 hover:border-teal-400 dark:hover:border-teal-600")
+                : "border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
           )}
         >
           <input
@@ -244,11 +244,8 @@ export function ToolUpload({
           {busy ? (
             /* Busy (static — no motion animation) */
             <div className="flex flex-col items-center gap-4 py-2">
-              <div
-                className="mb-3 flex h-[68px] w-[68px] items-center justify-center rounded-full shadow-[0_12px_24px_rgba(10,180,169,0.35)]"
-                style={{ background: "linear-gradient(135deg,#12c4b8,#0a7871)" }}
-              >
-                <Loader2 size={30} className="text-white" strokeWidth={1.6} />
+              <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#18181b" }}>
+                <Loader2 size={26} className="text-white" strokeWidth={1.6} />
               </div>
               <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
                 {busyText}
@@ -259,48 +256,34 @@ export function ToolUpload({
             /* Idle */
             <>
               <div
-                className="mb-4 flex h-[68px] w-[68px] items-center justify-center rounded-full shadow-[0_12px_24px_rgba(10,180,169,0.35)] transition-all duration-300"
+                className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
                 style={{
-                  background: "linear-gradient(135deg,#12c4b8,#0a7871)",
+                  background: dragActive ? "#09090b" : "#18181b",
                   transform: dragActive ? "scale(1.06)" : "scale(1)",
                 }}
               >
                 {dragActive ? (
-                  <FileText size={30} className="text-white" strokeWidth={1.6} />
+                  <FileText size={26} className="text-white" strokeWidth={1.6} />
                 ) : (
-                  <Upload size={30} className="text-white" strokeWidth={1.6} />
+                  <Upload size={26} className="text-white" strokeWidth={1.6} />
                 )}
               </div>
 
               <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
                 {dragActive ? activeTitle : title}
               </h2>
+              <p className="mt-1 text-sm text-brand-muted">
+                or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
+              </p>
 
-              <span
-                className="mt-5 inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-bold text-white shadow-[0_10px_24px_rgba(10,180,169,0.35)]"
-                style={{ background: "linear-gradient(120deg,#12c4b8,#0ab4a9 45%,#0a7871)" }}
-              >
-                Browse files
-              </span>
-
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-                {(meta[0] ?? "")
-                  .split("·")
-                  .map((f) => f.trim())
-                  .filter(Boolean)
-                  .map((f) => (
-                    <span
-                      key={f}
-                      className="rounded-full border border-brand-border bg-white dark:bg-zinc-900 px-3 py-1 text-xs font-bold text-teal-700 dark:text-teal-300"
-                    >
-                      {f}
-                    </span>
-                  ))}
+              <div className="mt-3 flex items-center gap-2 text-xs text-brand-muted">
+                {meta.map((m, i) => (
+                  <span key={i} className="flex items-center gap-2">
+                    {i > 0 && <span className="h-1 w-1 rounded-full bg-zinc-300" />}
+                    <span>{m}</span>
+                  </span>
+                ))}
               </div>
-
-              {meta.length > 1 && (
-                <p className="mt-3 text-xs text-brand-muted">{meta.slice(1).join(" · ")}</p>
-              )}
             </>
           )}
         </div>
