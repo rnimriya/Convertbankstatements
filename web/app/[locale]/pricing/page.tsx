@@ -103,11 +103,11 @@ export default async function PricingPage() {
       />
       <Navbar />
 
-      <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-8">
+      <div className="bg-pine-800 px-6 pt-10 pb-28">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Simple, transparent pricing</h1>
-            <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            <h1 className="text-2xl font-extrabold text-white">Simple, transparent pricing</h1>
+            <p className="mt-1 text-sm text-zinc-300">
               Start free · All prices in USD · No hidden charges
             </p>
           </div>
@@ -118,7 +118,7 @@ export default async function PricingPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-6 pb-20 pt-8">
+      <div className="relative z-20 mx-auto max-w-6xl px-6 pb-20 -mt-20">
         <PricingCards />
       </div>
 
@@ -151,7 +151,7 @@ export default async function PricingPage() {
         </div>
       </div>
 
-      <section className="py-24 bg-zinc-900 dark:bg-zinc-950 relative overflow-hidden">
+      <section className="py-24 bg-pine-800 relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none opacity-10"
           style={{
@@ -163,9 +163,9 @@ export default async function PricingPage() {
           <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Get started today</p>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">Start with 8 free pages today</h2>
           <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay securely when you need more · Cancel anytime</p>
-          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold transition-colors shadow-xl dark:shadow-none bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none">
+          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold transition-colors shadow-xl dark:shadow-none bg-pine-400 text-[#072b18] hover:bg-pine-300 border-0 shadow-none">
             Create free account
-            <ArrowRight className="h-4 w-4 text-amber-500 dark:text-amber-400" />
+            <ArrowRight className="h-4 w-4 text-[#072b18]" />
           </Link>
           <p className="mt-5 text-xs text-white/40">No credit card required · Pay securely if you need more</p>
         </div>

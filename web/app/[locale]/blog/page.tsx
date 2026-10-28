@@ -36,11 +36,11 @@ export default async function BlogPage({
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* Hero */}
-        <section className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 py-14 px-6 text-center">
-          <h1 className="font-display text-4xl font-extrabold text-zinc-900 dark:text-white">
+        <section className="bg-pine-800 py-14 px-6 text-center">
+          <h1 className="font-display text-4xl font-extrabold text-white">
             {t("title")}
           </h1>
-          <p className="mt-3 text-base text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto">
+          <p className="mt-3 text-base text-zinc-300 max-w-xl mx-auto">
             {t("subtitle")}
             {total > 0 && <span className="ml-1">{t("articlesCount", { count: total })}</span>}
           </p>

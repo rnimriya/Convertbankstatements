@@ -24,19 +24,19 @@ export default async function ContactPage() {
       <Navbar />
 
       {/* Localized Header Banner */}
-      <div className="border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-10">
+      <div className="bg-pine-800 px-6 pt-10 pb-24">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-white sm:text-4xl">
+          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
             {t("title")}
           </h1>
-          <p className="mt-2 text-base text-zinc-500 dark:text-zinc-400 max-w-xl">
+          <p className="mt-2 text-base text-zinc-300 max-w-xl">
             {t("subtitle")}
           </p>
         </div>
       </div>
 
       {/* Main Body Container */}
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="relative z-20 mx-auto max-w-6xl px-6 py-16 -mt-16">
         <ContactForm />
       </div>
 

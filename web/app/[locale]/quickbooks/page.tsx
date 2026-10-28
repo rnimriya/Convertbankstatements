@@ -166,14 +166,14 @@ export default async function QuickBooksPage() {
       <Navbar />
       <main className="min-h-screen bg-white dark:bg-zinc-950">
         {/* ── Header (same pattern as guide pages) ──────────── */}
-        <section className="bg-gradient-to-b from-pine-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-pine-600 dark:text-pine-400 uppercase tracking-wider mb-3">
+        <section className="bg-pine-800 px-6 py-16 text-center">
+          <p className="text-sm font-semibold text-pine-400 uppercase tracking-wider mb-3">
             QuickBooks Reconciliation
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
             Convert PDF Bank Statements for QuickBooks Reconciliation
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
             Upload a statement PDF, download a balance-checked QBO or CSV file, and reconcile in
             QuickBooks Online or Desktop — without typing a single transaction by hand.
           </p>

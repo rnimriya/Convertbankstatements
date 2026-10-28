@@ -194,7 +194,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       <Navbar />
       <main className="min-h-screen bg-[#fafafa]">
         {/* Dark hero */}
-        <div className="bg-[#0b0b12] text-white">
+        <div className="bg-pine-800 text-white">
           <div className="mx-auto max-w-[1060px] px-6 pt-10 pb-28">
             <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6">
               <a href="/" className="hover:text-zinc-300">Home</a>
@@ -277,7 +277,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
 
           {/* In-article CTA */}
-          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[20px] bg-[#09090b] px-8 py-8 text-white">
+          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[20px] bg-pine-800 px-8 py-8 text-white">
             <div>
               <p className="font-bold">Skip the manual work</p>
               <p className="text-zinc-400 text-sm mt-1">

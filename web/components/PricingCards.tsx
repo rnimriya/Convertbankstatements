@@ -77,18 +77,18 @@ export function PricingCards() {
     <>
       {/* Billing toggle */}
       <div className="flex items-center justify-center gap-3 mb-10">
-        <span className={`text-sm font-medium transition-colors ${!annual ?"text-zinc-900 dark:text-white" :"text-zinc-400"}`}>
+        <span className={`text-sm font-medium transition-colors ${!annual ?"text-white" :"text-zinc-400"}`}>
           Monthly
         </span>
         <button
           onClick={() => setAnnual(a => !a)}
-          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ?"bg-zinc-900 dark:bg-zinc-100" :"bg-brand-border"}`}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ?"bg-pine-400" :"bg-brand-border"}`}
           role="switch"
           aria-checked={annual}
         >
           <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-zinc-900 rounded-full transition-transform duration-200 ${annual ?"translate-x-5" :"translate-x-0"}`} />
         </button>
-        <span className={`text-sm font-medium transition-colors ${annual ?"text-zinc-900 dark:text-white" :"text-zinc-400"}`}>
+        <span className={`text-sm font-medium transition-colors ${annual ?"text-white" :"text-zinc-400"}`}>
           Annual
         </span>
         {annual && (

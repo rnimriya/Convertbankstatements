@@ -363,7 +363,7 @@ export default async function HomePage() {
         {/* ─── CTA ──────────────────────────────────────────────── */}
         <section className="py-20 bg-brand-bg">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="relative overflow-hidden bg-zinc-900 rounded-[20px] px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="relative overflow-hidden bg-pine-800 rounded-[20px] px-8 py-14 sm:px-12 flex flex-col md:flex-row items-center justify-between gap-10">
               {/* Background glow */}
               <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-pine-500 rounded-full blur-[120px] pointer-events-none" />
 
@@ -377,7 +377,7 @@ export default async function HomePage() {
               />
 
               <div className="relative z-10 text-center md:text-left">
-                <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5 bg-zinc-800 text-zinc-300 border border-zinc-700">
+                <span className="inline-block px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-widest mb-5 bg-pine-700 text-pine-100 border border-pine-600">
                   {tCta("label")}
                 </span>
                 <h2 className="text-4xl sm:text-5xl font-black text-white mb-4 leading-[1.05]">

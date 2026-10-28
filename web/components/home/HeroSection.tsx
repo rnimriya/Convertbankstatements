@@ -25,7 +25,8 @@ interface Props {
 
 export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAccess }: Props) {
   return (
-    <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
+    <>
+    <section className="w-full relative overflow-hidden bg-pine-800">
       {/* Background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-pine-500 dark:bg-pine-600 rounded-full blur-[120px] pointer-events-none" />
 
@@ -40,24 +41,25 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
 
 
       {/* Full-width content container */}
-      <div className="relative z-10 w-full px-6 lg:px-10 xl:px-16 pt-10 pb-12">
+      <div className="relative z-10 w-full px-6 lg:px-10 xl:px-16 pt-10 pb-28">
 
         {/* ── Headline block — centered ── */}
         <div className="text-center mb-6 max-w-4xl mx-auto">
-          <span className="inline-block text-honey-600 dark:text-honey-300 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
+          <span className="inline-block text-honey-400 text-[11px] font-bold uppercase tracking-[0.18em] mb-5">For accountants, bookkeepers &amp; finance teams</span>
           <h1
-            className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
+            className="font-bold text-white tracking-tight leading-[1.07] mb-4"
             style={{ fontSize:"clamp(1.6rem, 3vw, 2.4rem)" }}
           >
-            Free Bank Statement <span className="text-pine-600 dark:text-pine-300">Converter</span>
+            Free Bank Statement <span className="text-pine-400">Converter</span>
           </h1>
-          <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
             Upload any Wells Fargo, Citibank, U.S. Bank, Cadence Bank, or Kotak statement — get CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. No manual typing.
           </p>
         </div>
-
-        {/* ── Upload Card — full width with max-w ── */}
-        <div className="w-full max-w-5xl mx-auto">
+      </div>
+    </section>
+    <div className="relative z-20 w-full px-6 lg:px-10 xl:px-16 -mt-20">
+      <div className="w-full max-w-5xl mx-auto">
           <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
 
           {/* Security note */}
@@ -70,8 +72,9 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
           </div>
         </div>
 
-        {/* ── Trust stats bar — full width ── */}
-        <div className="mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+    </div>
+    <div className="w-full px-6 lg:px-10 xl:px-16 mt-6">
+      <div className="max-w-5xl mx-auto pt-6 border-t border-zinc-200">
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {TRUST_STATS.map(({ icon, label }) => (
               <div key={label} className="flex items-center gap-2 text-[12.5px] text-zinc-500">
@@ -95,9 +98,8 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
               </div>
             </div>
           </div>
-        </div>
-
       </div>
-    </section>
+    </div>
+    </>
   );
 }

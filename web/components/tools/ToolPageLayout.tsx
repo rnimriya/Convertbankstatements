@@ -29,7 +29,7 @@ const FREE_TOOLS = [
 ];
 
 const TRUST_PILLS = [
-  { icon: <Zap size={13} className="text-amber-500 dark:text-amber-400" />, label: "Free to use" },
+  { icon: <Zap size={13} className="text-pine-500 dark:text-pine-400" />, label: "Free to use" },
   { icon: <Shield size={13} className="text-pine-500 dark:text-pine-400" />, label: "Scan free, QBO downloads on Pro" },
   { icon: <Lock size={13} className="text-pine-500 dark:text-pine-400" />, label: "Files never stored" },
 ];
@@ -43,7 +43,7 @@ const STEP_ICONS = [
 
 /**
  * Shared layout for the free QuickBooks tools — same look & feel as the
- * homepage: blue-glow hero with graph paper, centered H1, upload card,
+ * homepage: dark-green hero with centered H1, overlapping card,
  * "How it works" section, FAQ accordion, dark final CTA. No animations.
  */
 export async function ToolPageLayout({
@@ -105,7 +105,7 @@ export async function ToolPageLayout({
       <main className="overflow-x-hidden">
 
         {/* ─── HERO — homepage twin ─────────────────────────────── */}
-        <section className="w-full relative overflow-hidden bg-zinc-50 dark:bg-zinc-950">
+        <section className="w-full relative overflow-hidden bg-pine-800">
           {/* Background glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-20 dark:opacity-15 bg-pine-500 dark:bg-pine-600 rounded-full blur-[120px] pointer-events-none" />
 
@@ -119,26 +119,27 @@ export async function ToolPageLayout({
           />
 
           {/* Content container — same width as /blog (max-w-6xl) */}
-          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-28">
 
             {/* ── Headline block — centered ── */}
             <div className="text-center mb-6 max-w-4xl mx-auto">
-              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-4">
+              <span className="inline-block px-3 py-1 rounded-full bg-pine-700 text-pine-100 text-[11px] font-bold uppercase tracking-widest mb-4">
                 {eyebrow}
               </span>
               <h1
-                className="font-bold text-zinc-900 dark:text-zinc-50 tracking-tight leading-[1.07] mb-4"
+                className="font-bold text-white tracking-tight leading-[1.07] mb-4"
                 style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}
               >
                 {title}
               </h1>
-              <p className="text-[0.95rem] text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
                 {subtitle}
               </p>
             </div>
-
-            {/* ── Tool card — full width of the page container ── */}
-            <div className="w-full">
+          </div>
+        </section>
+        <div className="relative z-20 w-full max-w-6xl mx-auto px-6 -mt-20">
+          <div className="w-full">
               {tool}
 
               {/* Security note */}
@@ -151,8 +152,9 @@ export async function ToolPageLayout({
               </div>
             </div>
 
-            {/* ── Trust pills bar — full width ── */}
-            <div className="mt-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
+          </div>
+        <div className="w-full max-w-6xl mx-auto px-6 mt-6">
+          <div className="pt-6 border-t border-zinc-200">
               <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
                 {TRUST_PILLS.map(({ icon, label }) => (
                   <div key={label} className="flex items-center gap-2 text-[12.5px] text-zinc-500">
@@ -161,10 +163,8 @@ export async function ToolPageLayout({
                   </div>
                 ))}
               </div>
-            </div>
-
           </div>
-        </section>
+        </div>
 
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
         <section id="how-it-works" className="py-24 bg-brand-bg">
@@ -276,7 +276,7 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── CTA ──────────────────────────────────────────────── */}
-        <section className="py-28 relative overflow-hidden bg-zinc-900">
+        <section className="py-28 relative overflow-hidden bg-pine-800">
           {/* Background glow */}
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] opacity-30 bg-pine-500 rounded-full blur-[120px] pointer-events-none" />
 
@@ -303,7 +303,7 @@ export async function ToolPageLayout({
                 className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold transition-colors bg-white text-zinc-900 hover:bg-zinc-200"
               >
                 <span>See the QuickBooks converter</span>
-                <ArrowRight size={15} className="text-amber-500" />
+                <ArrowRight size={15} className="text-pine-600" />
               </Link>
             </div>
           </div>
