@@ -149,18 +149,6 @@ export default async function HomePage() {
         {/* ─── HERO — DARK AGRIFRIKA + CONVERTER ─────────── */}
         <HeroSectionWrapper />
 
-        {/* ─── KEYWORD STRIP (static, no animation) ───────── */}
-        <div className="bg-white overflow-hidden py-8">
-          <div className="max-w-6xl mx-auto px-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {["Excel", "CSV", "QBO", "OFX", "Google Sheets", "QuickBooks", "Xero", "Tally"].map((w, i, arr) => (
-              <span key={w} className="flex items-center gap-6">
-                <span className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#C9D2BC]">{w}</span>
-                {i < arr.length - 1 && <span className="text-2xl sm:text-3xl text-[#64CB48]">✦</span>}
-              </span>
-            ))}
-          </div>
-        </div>
-
         {/* ─── 01 / NUMBERS — PALE SAGE ───────────────────── */}
         <section className="py-24 bg-[#E0E6D6]">
           <div className="max-w-6xl mx-auto px-6">

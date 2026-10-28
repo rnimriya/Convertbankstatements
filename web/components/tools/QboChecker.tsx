@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className="rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-10 text-center cursor-pointer hover:border-pine-400 transition-colors"
+        className="rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 py-16 lg:py-20 text-center cursor-pointer hover:border-pine-400 transition-colors"
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {
@@ -80,21 +80,21 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
-            <Loader2 className="h-6 w-6 text-white animate-spin" />
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
+            <Loader2 className="h-9 w-9 text-white animate-spin" />
           </div>
         ) : (
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
-            <Upload className="h-6 w-6 text-white" />
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
+            <Upload className="h-9 w-9 text-white" />
           </div>
         )}
-        <p className="mt-3 text-2xl font-black tracking-tight text-zinc-900 dark:text-white">
+        <p className="mt-3 text-3xl font-black tracking-tight text-zinc-900 dark:text-white">
           {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here"}
         </p>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-base text-zinc-400">
           or <span className="font-bold text-zinc-900 dark:text-white underline underline-offset-2">browse files</span>
         </p>
-        <div className="mt-3 flex items-center justify-center gap-2 text-xs text-zinc-400">
+        <div className="mt-3 flex items-center justify-center gap-2 text-sm text-zinc-400">
           <span>QBO</span>
           <span className="h-1 w-1 rounded-full bg-zinc-300" />
           <span>OFX</span>
