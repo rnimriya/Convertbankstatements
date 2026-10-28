@@ -36,7 +36,7 @@
 
 @layer base {
   body {
-    @apply bg-brand-bg text-brand-text transition-colors duration-300;
+    @apply bg-brand-bg text-brand-text;
   }
 }
 
@@ -204,7 +204,7 @@
 }
 .article-body h2::before {
   content: counter(blog-section, decimal-leading-zero);
-  color: #164234;
+  color: #13541C;
   margin-right: 10px;
 }
 .article-body h3 {
@@ -215,7 +215,7 @@
   margin: 28px 0 12px;
 }
 .article-body a {
-  color: #2f7a2e;
+  color: #13541C;
 }
 .article-body a:hover {
   text-decoration: underline;
@@ -264,9 +264,9 @@
 }
 .article-body blockquote {
   clear: both;
-  background: #f0ffee;
-  border: 1px solid #b9e2bd;
-  border-left: 5px solid #69c04b;
+  background: #E0E6D6;
+  border: 1px solid #D8DEC9;
+  border-left: 5px solid #64CB48;
   border-radius: 14px;
   padding: 18px 20px;
   margin: 24px 0;
@@ -299,7 +299,7 @@
   }
 }
 
-/* ── Agrifrika home fonts (self-hosted woff2; used by the home page only) ── */
+/* ── Agrifrika fonts (self-hosted woff2; marketing pages site-wide) ── */
 @font-face { font-family: 'Sora'; src: url('/fonts/sora-400.woff2') format('woff2'); font-weight: 400; font-display: swap; }
 @font-face { font-family: 'Sora'; src: url('/fonts/sora-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 @font-face { font-family: 'Sora'; src: url('/fonts/sora-800.woff2') format('woff2'); font-weight: 800; font-display: swap; }

@@ -185,19 +185,21 @@ For questions about these Terms, contact us at legal@convertstatement.online.`,
 
 export default function TermsPage() {
  return (
- <div className="min-h-screen bg-white dark:bg-zinc-950">
+ <div className="agri-sans min-h-screen bg-white">
  <Navbar dark />
 
  {/* Header */}
- <div className="bg-pine-800 px-6 py-10">
- <div className="mx-auto max-w-6xl">
+ <div className="relative overflow-hidden bg-[#071106] px-6 py-10">
+ <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+ <div className="relative mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-pine-700">
- <ScrollText className="h-5 w-5 text-pine-400" />
+ <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[#13541C]">
+ <ScrollText className="h-5 w-5 text-[#64CB48]" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-white">Terms of Service</h1>
- <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+ <p className="agri-mono mt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2]">Terms · Plain and fair</p>
+ <p className="text-xs text-zinc-400 mt-0.5">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
  <p className="mt-4 text-sm leading-relaxed text-zinc-300">
@@ -211,8 +213,8 @@ export default function TermsPage() {
  { label:"Refunds", value:"7 days for subscriptions" },
  { label:"Jurisdiction", value:"Laws of Delaware, USA" },
  ].map(({ label, value }) => (
- <div key={label} className="rounded-[20px] border border-pine-700 bg-pine-700/50 px-4 py-3">
- <p className="text-xs text-zinc-400 dark:text-zinc-500">{label}</p>
+ <div key={label} className="rounded-[20px] border border-white/10 bg-white/5 px-4 py-3">
+ <p className="text-xs text-zinc-400">{label}</p>
  <p className="mt-0.5 text-sm font-semibold text-white">{value}</p>
  </div>
  ))}
@@ -223,14 +225,14 @@ export default function TermsPage() {
  {/* Content */}
  <div className="mx-auto max-w-6xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 p-5">
- <p className="mb-3 text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">Contents</p>
+ <div className="mb-10 rounded-[24px] border border-[#D8DEC9] bg-[#F2F4EC] p-5">
+ <p className="agri-mono mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[#13541C]">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-navy dark:text-pine-400 hover:underline underline-offset-2"
+ className="text-sm text-[#13541C] hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -242,7 +244,7 @@ export default function TermsPage() {
  <div className="space-y-10">
  {SECTIONS.map(({ id, title, content }) => (
  <section key={id} id={id} className="scroll-mt-20">
- <h2 className="mb-3 text-lg font-bold text-zinc-900 dark:text-white">{title}</h2>
+ <h2 className="mb-3 text-lg font-bold text-zinc-900">{title}</h2>
  <div className="space-y-3">
  {content.split("\n\n").map((para, i) => {
  const lines = para.split("\n");
@@ -251,16 +253,16 @@ export default function TermsPage() {
  if (isHeading) {
  return (
  <div key={i}>
- <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+ <p className="mb-1 text-sm font-semibold text-zinc-800">
  {lines[0].replace(/\*\*/g,"")}
  </p>
  {lines.slice(1).map((line, j) => {
  const parts = line.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={j} className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+ <p key={j} className="text-sm leading-relaxed text-zinc-600">
  {parts.map((part, k) =>
  part.startsWith("**") ? (
- <strong key={k} className="font-semibold text-zinc-800 dark:text-zinc-200">
+ <strong key={k} className="font-semibold text-zinc-800">
  {part.replace(/\*\*/g,"")}
  </strong>
  ) : part
@@ -274,10 +276,10 @@ export default function TermsPage() {
 
  const parts = para.split(/(\*\*[^*]+\*\*)/g);
  return (
- <p key={i} className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+ <p key={i} className="text-sm leading-relaxed text-zinc-600">
  {parts.map((part, j) =>
  part.startsWith("**") ? (
- <strong key={j} className="font-semibold text-zinc-800 dark:text-zinc-200">
+ <strong key={j} className="font-semibold text-zinc-800">
  {part.replace(/\*\*/g,"")}
  </strong>
  ) : part
@@ -291,9 +293,9 @@ export default function TermsPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-2xl border border-navy/20 dark:border-brand-400/20 bg-zinc-900 dark:bg-zinc-950/5 dark:bg-brand-400/5 p-5 text-sm text-navy dark:text-pine-400">
+ <div className="mt-12 rounded-[24px] border border-[#D8DEC9] bg-[#E0E6D6] p-5 text-sm text-[#13541C]">
  <p className="font-semibold">Questions about these Terms?</p>
- <p className="mt-1 text-navy dark:text-pine-400">
+ <p className="mt-1">
  Email us at{""}
  <a href="mailto:legal@convertstatement.online" className="underline hover:no-underline">
  legal@convertstatement.online
@@ -302,9 +304,9 @@ export default function TermsPage() {
  </p>
  </div>
 
- <div className="mt-6 flex items-center justify-center gap-6 text-xs text-zinc-400 dark:text-zinc-500">
- <Link href="/privacy" className="hover:text-zinc-900 dark:text-zinc-100 dark:hover:text-white underline underline-offset-2">Privacy Policy</Link>
- <Link href="/" className="hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-gray-300">← Back to home</Link>
+ <div className="mt-6 flex items-center justify-center gap-6 text-xs text-zinc-400">
+ <Link href="/privacy" className="hover:text-zinc-900 underline underline-offset-2">Privacy Policy</Link>
+ <Link href="/" className="hover:text-zinc-600">← Back to home</Link>
  </div>
  </div>
 

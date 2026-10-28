@@ -21,17 +21,19 @@ export const metadata: Metadata = {
 
 export default function QboCheckerPage() {
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-white dark:bg-zinc-950">
-        <section className="bg-gradient-to-b from-pine-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 border-b border-zinc-100 dark:border-zinc-800 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-pine-600 dark:text-pine-400 uppercase tracking-wider mb-3">
+    <div className="agri-sans">
+      <Navbar dark />
+      <main className="min-h-screen bg-white">
+        <section className="relative overflow-hidden bg-[#071106] px-6 py-16 text-center">
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+          <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
             Free Tool
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-4xl mx-auto">
-            QBO File Checker
+          <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
+            QBO File <span className="agri-serif">Checker</span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+          <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
             About to import a QBO file into QuickBooks? Check it first. We validate the file&apos;s
             structure, closing balance, statement period, and the duplicate risks QuickBooks
             won&apos;t warn you about until reconciliation breaks.
@@ -42,23 +44,23 @@ export default function QboCheckerPage() {
           <QboChecker />
 
           <div className="mt-14">
-            <h2 className="text-2xl font-extrabold text-zinc-900 dark:text-white">What this checker looks for</h2>
-            <ul className="mt-4 space-y-2.5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
-              <li><strong className="text-zinc-900 dark:text-white">Valid OFX structure</strong> — a .qbo file is OFX underneath; if the message set is missing, QuickBooks rejects the import outright.</li>
-              <li><strong className="text-zinc-900 dark:text-white">Ledger (closing) balance</strong> — reconciliation aims at this number. If it&apos;s missing or dated differently from the statement period, expect a fight at month-end.</li>
-              <li><strong className="text-zinc-900 dark:text-white">Duplicate FITIDs</strong> — QuickBooks treats a repeated transaction ID as already-imported and can silently skip real transactions.</li>
-              <li><strong className="text-zinc-900 dark:text-white">Look-alike transactions</strong> — same date, amount, and name appearing twice: sometimes genuine, often a double export.</li>
-              <li><strong className="text-zinc-900 dark:text-white">Dates outside the period</strong> — transactions dated outside the file&apos;s declared statement period are a common cause of beginning-balance mismatches.</li>
+            <h2 className="text-2xl font-extrabold text-zinc-900">What this checker looks for</h2>
+            <ul className="mt-4 space-y-2.5 text-zinc-600 leading-relaxed">
+              <li><strong className="text-zinc-900">Valid OFX structure</strong> — a .qbo file is OFX underneath; if the message set is missing, QuickBooks rejects the import outright.</li>
+              <li><strong className="text-zinc-900">Ledger (closing) balance</strong> — reconciliation aims at this number. If it&apos;s missing or dated differently from the statement period, expect a fight at month-end.</li>
+              <li><strong className="text-zinc-900">Duplicate FITIDs</strong> — QuickBooks treats a repeated transaction ID as already-imported and can silently skip real transactions.</li>
+              <li><strong className="text-zinc-900">Look-alike transactions</strong> — same date, amount, and name appearing twice: sometimes genuine, often a double export.</li>
+              <li><strong className="text-zinc-900">Dates outside the period</strong> — transactions dated outside the file&apos;s declared statement period are a common cause of beginning-balance mismatches.</li>
             </ul>
-            <p className="mt-5 text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            <p className="mt-5 text-zinc-600 leading-relaxed">
               Files converted with Convert Statement are built to pass every one of these checks —
               the running balances are verified against the statement itself before the QBO is
-              generated. <a href="/quickbooks" className="text-pine-600 dark:text-pine-400 font-semibold hover:underline">See how the QuickBooks converter works</a>.
+              generated. <a href="/quickbooks" className="text-[#13541C] font-semibold hover:underline">See how the QuickBooks converter works</a>.
             </p>
           </div>
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

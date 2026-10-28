@@ -35,7 +35,7 @@ export default async function DashboardPage() {
       emailVerified={user?.emailVerified ?? false}
       hasSheetsAccess={Boolean(user?.googleSheetsRefreshToken)}
       isDemo={false}
-      footer={<Footer />}
+      footer={<Footer variant="light" />}
     />
   );
 }

@@ -22,9 +22,9 @@ const SOCIAL = [
   },
 ];
 
-export async function Footer({ variant }: { variant?: "agri" }) {
+export async function Footer({ variant }: { variant?: "agri" | "light" }) {
   const t = await getTranslations("footer");
-  const agri = variant === "agri";
+  const agri = variant !== "light";
 
   const NAV = [
     {
@@ -92,7 +92,7 @@ export async function Footer({ variant }: { variant?: "agri" }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-pine-600 text-zinc-300 hover:border-pine-400 hover:text-white transition-colors"
+                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 text-zinc-300 hover:border-[#64CB48] hover:text-white"
                 >
                   {icon}
                 </a>
@@ -108,7 +108,7 @@ export async function Footer({ variant }: { variant?: "agri" }) {
                   <p key={label}>
                     <Link
                       href={href}
-                      className="text-zinc-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white"
                     >
                       {label}
                     </Link>

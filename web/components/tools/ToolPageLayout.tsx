@@ -29,9 +29,9 @@ const FREE_TOOLS = [
 ];
 
 const TRUST_PILLS = [
-  { icon: <Zap size={13} className="text-pine-500 dark:text-pine-400" />, label: "Free to use" },
-  { icon: <Shield size={13} className="text-pine-500 dark:text-pine-400" />, label: "Scan free, QBO downloads on Pro" },
-  { icon: <Lock size={13} className="text-pine-500 dark:text-pine-400" />, label: "Files never stored" },
+  { icon: <Zap size={13} className="text-[#13541C]" />, label: "Free to use" },
+  { icon: <Shield size={13} className="text-[#13541C]" />, label: "Scan free, QBO downloads on Pro" },
+  { icon: <Lock size={13} className="text-[#13541C]" />, label: "Files never stored" },
 ];
 
 const STEP_IMGS = [
@@ -98,14 +98,15 @@ export async function ToolPageLayout({
       : "grid md:grid-cols-3";
 
   return (
-    <>
+    <div className="agri-sans">
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
       <Navbar dark />
       <main className="overflow-x-hidden">
 
         {/* ─── HERO — homepage twin ─────────────────────────────── */}
-        <section className="w-full relative overflow-hidden bg-pine-800">
+        <section className="w-full relative overflow-hidden bg-[#071106]">
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
 
           {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
 
@@ -114,15 +115,16 @@ export async function ToolPageLayout({
 
             {/* ── Headline block — centered ── */}
             <div className="text-center mb-6 max-w-4xl mx-auto">
-              <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-pine-400 mb-4">
+              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
                 {eyebrow}
               </span>
               <h1
-                className="font-bold text-white tracking-tight leading-[1.07] mb-4"
+                className="font-extrabold text-white tracking-tight leading-[1.07] mb-4"
                 style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
               >
                 {title.split(/(QBO)/g).map((part, i) =>
-                  part === "QBO" ? <span key={i} className="text-pine-400">QBO</span> : part
+                  part === "QBO" ? <span key={i} className="text-[#64CB48]">QBO</span> : part
                 )}
               </h1>
               <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
@@ -137,7 +139,7 @@ export async function ToolPageLayout({
 
               {/* Security note */}
               <div className="mt-4 flex items-center justify-center gap-2">
-                <CheckCircle2 size={14} className="shrink-0 text-pine-500 dark:text-pine-400" />
+                <CheckCircle2 size={14} className="shrink-0 text-[#13541C]" />
                 <p className="text-[12.5px] text-zinc-500">
                   <span className="font-semibold text-zinc-700 dark:text-zinc-300">Bank-grade security</span>
                   {" "}— {privacyLine}
@@ -160,22 +162,23 @@ export async function ToolPageLayout({
         </div>
 
         {/* ─── HOW IT WORKS ─────────────────────────────────────── */}
-        <section id="how-it-works" className="py-24 bg-brand-bg">
+        <section id="how-it-works" className="py-24 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">
+              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#13541C] mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
                 How it works
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">{howToName}</h2>
             </div>
 
-            <div className={`${stepGrid} divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-800 border border-brand-border rounded-2xl overflow-hidden`}>
+            <div className={`${stepGrid} divide-y md:divide-y-0 md:divide-x divide-[#D8DEC9] border border-[#D8DEC9] rounded-[24px] overflow-hidden`}>
               {howToSteps.map((s, i) => {
                 const stepImg = STEP_IMGS[i % STEP_IMGS.length];
                 return (
                   <div
                     key={i}
-                    className="relative group flex flex-col p-8 bg-brand-bg hover:bg-brand-surface/80 transition-colors duration-300"
+                    className="relative flex flex-col p-8 bg-white"
                   >
                     <div className="absolute top-6 right-6 text-4xl font-black select-none text-zinc-100">
                       {String(i + 1).padStart(2, "0")}
@@ -192,17 +195,18 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── TOOL CONTENT — same words, homepage section rhythm ─ */}
-        <section className="py-24 bg-brand-surface border-t border-brand-border">
+        <section className="py-24 bg-[#F2F4EC] border-t border-[#D8DEC9]">
           <div className="max-w-6xl mx-auto px-6">
             {content}
           </div>
         </section>
 
         {/* ─── MORE FREE TOOLS ──────────────────────────────────── */}
-        <section className="py-16 bg-brand-bg border-t border-brand-border">
+        <section className="py-16 bg-white border-t border-[#D8DEC9]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-8">
-              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">
+              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#13541C] mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
                 Free tools
               </span>
               <h2 className="text-3xl font-bold text-brand-text">More free QuickBooks tools</h2>
@@ -214,7 +218,7 @@ export async function ToolPageLayout({
                 <Link
                   key={t.href}
                   href={t.href}
-                  className="group flex items-center gap-4 rounded-2xl border border-brand-border bg-brand-bg p-4 transition-shadow duration-300 hover:shadow-[0_14px_28px_rgba(45,54,60,0.10)]"
+                  className="flex items-center gap-4 rounded-[20px] border border-[#D8DEC9] bg-white p-4"
                 >
                   <img
                     src={t.img}
@@ -225,14 +229,14 @@ export async function ToolPageLayout({
                     className="h-[76px] w-[76px] shrink-0 rounded-[20px] bg-white object-contain"
                   />
                   <span className="min-w-0 flex-1">
-                    <span className="block text-base font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-pine-600 dark:group-hover:text-pine-400 transition-colors">
+                    <span className="block text-base font-bold text-zinc-900">
                       {t.label}
                     </span>
                     <span className="mt-0.5 block text-sm leading-relaxed text-brand-muted">
                       Free to scan — files are processed in memory and never stored. QBO downloads are on Pro.
                     </span>
                   </span>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-surface border border-brand-border text-pine-600 dark:text-pine-400">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E0E6D6] border border-[#D8DEC9] text-[#13541C]">
                     <ArrowRight size={18} />
                   </span>
                 </Link>
@@ -242,10 +246,10 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── PRICING — homepage pattern ─────────────────────────── */}
-        <section id="pricing" className="py-24 bg-brand-surface border-t border-brand-border">
+        <section id="pricing" className="py-24 bg-[#E0E6D6] border-t border-[#D8DEC9]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="inline-block px-3 py-1 rounded-full bg-brand-border text-brand-text text-[11px] font-bold uppercase tracking-widest mb-3">Pricing</span>
+              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#13541C] mb-3"><span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />Pricing</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">Simple, transparent pricing</h2>
               <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
             </div>
@@ -254,10 +258,11 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── FAQ ──────────────────────────────────────────────── */}
-        <section id="faq" className="py-24 bg-brand-bg border-t border-brand-border">
+        <section id="faq" className="py-24 bg-white border-t border-[#D8DEC9]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="inline-block px-3 py-1 rounded-full bg-brand-surface text-zinc-900 dark:text-zinc-100 text-[11px] font-bold uppercase tracking-widest mb-3">
+              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#13541C] mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
                 FAQ
               </span>
               <h2 className="text-3xl sm:text-4xl font-bold text-brand-text">Frequently asked questions</h2>
@@ -267,7 +272,7 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── CTA ──────────────────────────────────────────────── */}
-        <section className="py-28 relative overflow-hidden bg-pine-800">
+        <section className="py-28 relative overflow-hidden bg-gradient-to-b from-[#0E3D15] to-[#13541C]">
 
           {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
 
@@ -282,10 +287,10 @@ export async function ToolPageLayout({
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/quickbooks"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-[20px] text-sm font-bold transition-colors bg-white text-zinc-900 hover:bg-zinc-200"
+                className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-white text-zinc-900"
               >
                 <span>See the QuickBooks converter</span>
-                <ArrowRight size={15} className="text-pine-600" />
+                <ArrowRight size={15} className="text-[#13541C]" />
               </Link>
             </div>
           </div>
@@ -293,6 +298,6 @@ export async function ToolPageLayout({
 
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -50,17 +50,17 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
 
   const steps = [
     {
-      icon: <Upload size={22} className="text-amber-500" />,
+      icon: <Upload size={22} className="text-[#13541C]" />,
       title: `Upload your ${bankName} PDF`,
       body: `Drag & drop your ${bankName} statement — password-protected files work too. Just enter the PDF password at upload.`,
     },
     {
-      icon: <Settings2 size={22} className="text-pine-500" />,
+      icon: <Settings2 size={22} className="text-[#13541C]" />,
       title: "Choose your format",
       body: "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
     },
     {
-      icon: <Download size={22} className="text-pine-500" />,
+      icon: <Download size={22} className="text-[#13541C]" />,
       title: "Download in seconds",
       body: "Your file is ready in under 15 seconds — clean columns, correct dates, every transaction captured.",
     },
@@ -133,48 +133,50 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
   };
 
   return (
-    <div className="min-h-screen bg-brand-bg flex flex-col font-sans text-brand-text antialiased">
-      <Navbar />
+    <div className="agri-sans min-h-screen bg-white flex flex-col text-zinc-900 antialiased">
+      <Navbar dark />
 
       <main className="flex-1">
         {/* Hero */}
-        <div className="relative pt-32 pb-20 sm:pt-40 sm:pb-24 lg:pb-32 overflow-hidden px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="relative bg-[#071106] overflow-hidden px-6 lg:px-8"><div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} /><div className="relative pt-16 pb-20 sm:pt-20 sm:pb-24 max-w-6xl mx-auto">
           <div className="text-center max-w-4xl mx-auto relative z-10">
-            <h1 className="text-4xl sm:text-6xl font-black text-brand-text tracking-tight mb-8">
-              Convert <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-pine-500">{bankName}</span> Statements to Excel
+            <p className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-4"><span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />Bank converter</p>
+            <h1 className="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-8">
+              Convert <span className="agri-serif text-[#64CB48]">{bankName}</span> Statements to Excel
             </h1>
-            <p className="text-lg text-brand-muted max-w-2xl mx-auto leading-relaxed mb-10">
+            <p className="text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed mb-10">
               Upload your {bankName} PDF bank statements and instantly convert them to CSV, Excel, OFX for Tally, or Google Sheets. Zero manual data entry required.
             </p>
 
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center gap-2 bg-brand-text text-brand-bg px-8 py-4 rounded-2xl text-sm font-bold shadow-xl shadow-brand-accent/20 hover:scale-105 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#071106] px-8 py-4 rounded-full text-sm font-bold shadow-xl"
             >
-              Start Converting Free <Zap size={16} className="text-brand-accent" />
+              Start Converting Free <Zap size={16} className="text-[#64CB48]" />
             </Link>
-            <p className="mt-4 text-sm text-brand-muted">8 pages free · No credit card required</p>
+            <p className="mt-4 text-sm text-zinc-400">8 pages free · No credit card required</p>
           </div>
+        </div>
         </div>
 
         {/* How it works */}
-        <div className="py-20 bg-brand-bg">
+        <div className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-14">
               <h2 className="text-3xl font-bold">How to convert {bankName} statements in 3 steps</h2>
-              <p className="text-brand-muted mt-3">From PDF to spreadsheet in under a minute.</p>
+              <p className="text-zinc-600 mt-3">From PDF to spreadsheet in under a minute.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-6">
               {steps.map((s, i) => (
-                <div key={i} className="bg-brand-surface p-8 rounded-[20px] border border-brand-border">
+                <div key={i} className="bg-[#F2F4EC] p-8 rounded-[24px] border border-[#D8DEC9]">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-11 h-11 rounded-2xl bg-brand-bg border border-brand-border flex items-center justify-center">
+                    <div className="w-11 h-11 rounded-2xl bg-white border border-[#D8DEC9] flex items-center justify-center">
                       {s.icon}
                     </div>
-                    <span className="text-sm font-bold text-brand-muted">Step {i + 1}</span>
+                    <span className="text-sm font-bold text-zinc-600">Step {i + 1}</span>
                   </div>
                   <h3 className="text-lg font-bold mb-2">{s.title}</h3>
-                  <p className="text-brand-muted text-sm leading-relaxed">{s.body}</p>
+                  <p className="text-zinc-600 text-sm leading-relaxed">{s.body}</p>
                 </div>
               ))}
             </div>
@@ -185,54 +187,54 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
         <SamplePreview bankName={bankName} />
 
         {/* Benefits */}
-        <div className="py-24 bg-brand-surface border-y border-brand-border">
+        <div className="py-24 bg-[#E0E6D6] border-y border-[#D8DEC9]">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold">Why use ConvertStatement for {bankName}?</h2>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-brand-bg p-8 rounded-[20px] border border-brand-border">
-                <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6">
-                  <Zap className="text-amber-500" size={24} />
+              <div className="bg-white p-8 rounded-[24px] border border-[#D8DEC9]">
+                <div className="w-12 h-12 bg-[#13541C]/10 rounded-2xl flex items-center justify-center mb-6">
+                  <Zap className="text-[#13541C]" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Lightning Fast</h3>
-                <p className="text-brand-muted">Convert multi-page {bankName} PDFs into structured spreadsheets in under 15 seconds.</p>
+                <p className="text-zinc-600">Convert multi-page {bankName} PDFs into structured spreadsheets in under 15 seconds.</p>
               </div>
 
-              <div className="bg-brand-bg p-8 rounded-[20px] border border-brand-border">
-                <div className="w-12 h-12 bg-pine-500/10 rounded-2xl flex items-center justify-center mb-6">
-                  <Lock className="text-pine-500" size={24} />
+              <div className="bg-white p-8 rounded-[24px] border border-[#D8DEC9]">
+                <div className="w-12 h-12 bg-[#13541C]/10 rounded-2xl flex items-center justify-center mb-6">
+                  <Lock className="text-[#13541C]" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">100% Private</h3>
-                <p className="text-brand-muted">We never store your {bankName} financial data. Files are processed entirely in memory.</p>
+                <p className="text-zinc-600">We never store your {bankName} financial data. Files are processed entirely in memory.</p>
               </div>
 
-              <div className="bg-brand-bg p-8 rounded-[20px] border border-brand-border">
-                <div className="w-12 h-12 bg-pine-500/10 rounded-2xl flex items-center justify-center mb-6">
-                  <FileText className="text-pine-500" size={24} />
+              <div className="bg-white p-8 rounded-[24px] border border-[#D8DEC9]">
+                <div className="w-12 h-12 bg-[#13541C]/10 rounded-2xl flex items-center justify-center mb-6">
+                  <FileText className="text-[#13541C]" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Multiple Formats</h3>
-                <p className="text-brand-muted">Export to Excel, CSV, Google Sheets, or OFX for seamless import into QuickBooks, Xero and Tally.</p>
+                <p className="text-zinc-600">Export to Excel, CSV, Google Sheets, or OFX for seamless import into QuickBooks, Xero and Tally.</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* FAQ */}
-        <div className="py-24 bg-brand-bg">
+        <div className="py-24 bg-white">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold">{bankName} conversion FAQs</h2>
             </div>
             <div className="space-y-4">
               {faqs.map((f, i) => (
-                <details key={i} className="group bg-brand-surface border border-brand-border rounded-2xl px-6 py-5">
+                <details key={i} className="bg-[#F2F4EC] border border-[#D8DEC9] rounded-[24px] px-6 py-5">
                   <summary className="flex items-center justify-between cursor-pointer font-semibold list-none">
                     {f.q}
-                    <ChevronDown size={18} className="text-brand-muted shrink-0 ml-4 group-open:rotate-180 transition-transform" />
+                    <ChevronDown size={18} className="text-zinc-500 shrink-0 ml-4" />
                   </summary>
-                  <p className="mt-3 text-brand-muted text-sm leading-relaxed">{f.a}</p>
+                  <p className="mt-3 text-zinc-600 text-sm leading-relaxed">{f.a}</p>
                 </details>
               ))}
             </div>
@@ -240,7 +242,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
         </div>
 
         {/* Related banks — internal linking */}
-        <div className="py-20 bg-brand-surface border-t border-brand-border">
+        <div className="py-20 bg-[#F2F4EC] border-t border-[#D8DEC9]">
           <div className="max-w-6xl mx-auto px-6 lg:px-8">
             <div className="text-center mb-10">
               <h2 className="text-2xl font-bold">Convert statements from other banks</h2>
@@ -250,9 +252,9 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
                 <Link
                   key={b.slug}
                   href={`/banks/${b.slug}`}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-bg border border-brand-border text-sm font-medium hover:border-brand-accent transition-colors"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#D8DEC9] text-sm font-medium hover:border-[#13541C]"
                 >
-                  <CheckCircle2 size={15} className="text-brand-secondary" />
+                  <CheckCircle2 size={15} className="text-[#13541C]" />
                   {b.name}
                 </Link>
               ))}
@@ -261,15 +263,15 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
         </div>
 
         {/* Final CTA */}
-        <div className="py-24 bg-brand-bg">
+        <div className="py-24 bg-white">
           <div className="text-center max-w-2xl mx-auto px-6">
             <h2 className="text-3xl font-bold mb-4">Stop typing {bankName} transactions manually</h2>
-            <p className="text-brand-muted mb-8">Join 10,000+ finance professionals converting statements in seconds.</p>
+            <p className="text-zinc-600 mb-8">Join 10,000+ finance professionals converting statements in seconds.</p>
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center gap-2 bg-brand-text text-brand-bg px-8 py-4 rounded-2xl text-sm font-bold shadow-xl shadow-brand-accent/20 hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#071106] px-8 py-4 rounded-full text-sm font-bold shadow-xl"
             >
-              Convert free — 8 pages <Zap size={16} className="text-brand-accent" />
+              Convert free — 8 pages <Zap size={16} className="text-[#64CB48]" />
             </Link>
           </div>
         </div>

@@ -32,15 +32,16 @@ export default async function BlogPage({
   const posts = rawPosts.map((p) => localizePost(p, locale));
 
   return (
-    <>
+    <div className="agri-sans">
       <Navbar dark />
-      <main className="min-h-screen bg-white dark:bg-zinc-950">
+      <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="bg-pine-800 py-14 px-6 text-center">
-          <h1 className="font-display text-4xl font-extrabold text-white">
+        <section className="relative overflow-hidden bg-[#071106] py-14 px-6 text-center">
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+          <h1 className="relative font-extrabold text-4xl text-white">
             {t("title")}
           </h1>
-          <p className="mt-3 text-base text-zinc-300 max-w-xl mx-auto">
+          <p className="relative mt-3 text-base text-zinc-300 max-w-xl mx-auto">
             {t("subtitle")}
             {total > 0 && <span className="ml-1">{t("articlesCount", { count: total })}</span>}
           </p>
@@ -49,13 +50,13 @@ export default async function BlogPage({
         {/* Grid */}
         <section className="mx-auto max-w-6xl px-6 py-12">
           {posts.length === 0 ? (
-            <p className="text-center text-zinc-500 dark:text-zinc-400">{t("noPostsYet")}</p>
+            <p className="text-center text-zinc-500">{t("noPostsYet")}</p>
           ) : (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="group flex flex-col rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 overflow-hidden hover:shadow-lg dark:hover:shadow-white/5 transition-shadow"
+                  className="flex flex-col rounded-[24px] border border-[#D8DEC9] bg-white overflow-hidden"
                 >
                   <Link href={`/${locale}/blog/${post.slug}`} className="block overflow-hidden">
                     <img
@@ -63,7 +64,7 @@ export default async function BlogPage({
                       alt={post.title}
                       loading="lazy"
                       decoding="async"
-                      className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="h-48 w-full object-cover"
                     />
                   </Link>
                   <div className="flex flex-1 flex-col p-5">
@@ -71,21 +72,21 @@ export default async function BlogPage({
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-brand-50 dark:bg-brand-900/20 px-2 py-0.5 text-[11px] font-semibold text-brand-600 dark:text-pine-400"
+                          className="rounded-full bg-[#E0E6D6] px-2 py-0.5 text-[11px] font-semibold text-[#13541C]"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
                     <Link href={`/${locale}/blog/${post.slug}`}>
-                      <h2 className="font-display font-bold text-zinc-900 dark:text-white leading-snug group-hover:text-brand-600 dark:group-hover:text-pine-400 transition-colors">
+                      <h2 className="font-bold text-zinc-900 leading-snug">
                         {post.title}
                       </h2>
                     </Link>
-                    <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3 flex-1">
+                    <p className="mt-2 text-sm text-zinc-500 line-clamp-3 flex-1">
                       {post.excerpt}
                     </p>
-                    <div className="mt-4 flex items-center justify-between text-xs text-zinc-400 dark:text-zinc-500">
+                    <div className="mt-4 flex items-center justify-between text-xs text-zinc-400">
                       <span>{post.author}</span>
                       <span>{new Date(post.createdAt).toLocaleDateString(locale === "en" ? "en-IN" : locale, { day: "numeric", month: "short", year: "numeric" })}</span>
                     </div>
@@ -101,18 +102,18 @@ export default async function BlogPage({
               {page > 1 && (
                 <Link
                   href={`/${locale}/blog?page=${page - 1}`}
-                  className="rounded-lg border border-zinc-200 dark:border-zinc-800 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5 transition-colors"
+                  className="rounded-full border border-[#D8DEC9] px-4 py-2 text-sm font-medium text-zinc-700"
                 >
                   {t("previous")}
                 </Link>
               )}
-              <span className="text-sm text-zinc-500 dark:text-zinc-400">
+              <span className="text-sm text-zinc-500">
                 {t("page", { current: page, total: pages })}
               </span>
               {page < pages && (
                 <Link
                   href={`/${locale}/blog?page=${page + 1}`}
-                  className="rounded-lg border border-zinc-200 dark:border-zinc-800 px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:bg-zinc-900 dark:hover:bg-white dark:bg-zinc-950/5 transition-colors"
+                  className="rounded-full border border-[#D8DEC9] px-4 py-2 text-sm font-medium text-zinc-700"
                 >
                   {t("next")}
                 </Link>
@@ -122,6 +123,6 @@ export default async function BlogPage({
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

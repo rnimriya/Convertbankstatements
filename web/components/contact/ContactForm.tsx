@@ -53,25 +53,25 @@ export function ContactForm() {
     <div className="grid gap-10 md:grid-cols-3">
       {/* Contact Info Sidebar */}
       <div className="md:col-span-1 space-y-6">
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-zinc-800 dark:text-white flex items-center gap-2">
-            <Mail className="h-5 w-5 text-pine-500 text-pine-500 dark:text-pine-400" />
+        <div className="rounded-[28px] border border-[#D8DEC9] bg-[#F2F4EC] p-6 shadow-sm">
+          <h2 className="text-lg font-bold text-zinc-800  flex items-center gap-2">
+            <Mail className="h-5 w-5 text-[#13541C]" />
             {t("emailUs")}
           </h2>
           <a
             href="mailto:support@convertstatement.online"
-            className="mt-2 block text-sm font-semibold text-brand-600 dark:text-pine-400 hover:underline"
+            className="mt-2 block text-sm font-semibold text-[#13541C] hover:underline"
           >
             support@convertstatement.online
           </a>
         </div>
 
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950/50 p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-zinc-800 dark:text-white flex items-center gap-2">
-            <Clock className="h-5 w-5 text-pine-500 text-amber-500 dark:text-amber-400" />
+        <div className="rounded-[28px] border border-[#D8DEC9] bg-[#F2F4EC] p-6 shadow-sm">
+          <h2 className="text-lg font-bold text-zinc-800  flex items-center gap-2">
+            <Clock className="h-5 w-5 text-[#13541C]" />
             {t("supportHours")}
           </h2>
-          <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 font-medium">
+          <p className="mt-2 text-sm text-zinc-600  font-medium">
             {t("hours")}
           </p>
         </div>
@@ -79,21 +79,21 @@ export function ContactForm() {
 
       {/* Main Contact Form Panel */}
       <div className="md:col-span-2">
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-8 shadow-sm">
+        <div className="rounded-[28px] border border-[#D8DEC9] bg-white p-8 shadow-sm">
           {success ? (
             <div className="py-8 text-center space-y-4">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-pine-50 dark:bg-pine-950/30">
-                <CheckCircle2 className="h-8 w-8 text-pine-600 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E0E6D6]">
+                <CheckCircle2 className="h-8 w-8 text-[#13541C]" />
               </div>
-              <h3 className="text-xl font-bold text-zinc-800 dark:text-white">
+              <h3 className="text-xl font-bold text-zinc-800 ">
                 {t("success")}
               </h3>
-              <p className="mx-auto max-w-sm text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mx-auto max-w-sm text-sm text-zinc-500 ">
                 {t("successMessage")}
               </p>
               <button
                 onClick={() => setSuccess(false)}
-                className="mt-4 rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-6 py-2.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:bg-zinc-800 transition-all"
+                className="mt-4 rounded-[14px] border border-[#D8DEC9] bg-zinc-50 px-6 py-2.5 text-xs font-semibold text-zinc-600  hover:bg-zinc-100"
               >
                 Send another message
               </button>
@@ -101,15 +101,15 @@ export function ContactForm() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               {error && (
-                <div className="flex items-center gap-2 rounded-[20px] bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 p-4 text-sm text-red-600 dark:text-red-400">
-                  <AlertCircle className="h-5 w-5 shrink-0 text-amber-500 dark:text-amber-400" />
+                <div className="flex items-center gap-2 rounded-[20px] bg-red-50 border border-red-200 p-4 text-sm text-red-600">
+                  <AlertCircle className="h-5 w-5 shrink-0 text-amber-500" />
                   <span>{error}</span>
                 </div>
               )}
 
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label htmlFor="name" className="text-sm font-semibold text-zinc-700 ">
                     {t("name")}
                   </label>
                   <input
@@ -119,12 +119,12 @@ export function ContactForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={t("namePlaceholder")}
-                    className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
+                    className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label htmlFor="email" className="text-sm font-semibold text-zinc-700 ">
                     {t("email")}
                   </label>
                   <input
@@ -134,13 +134,13 @@ export function ContactForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t("emailPlaceholder")}
-                    className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
+                    className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+                <label htmlFor="subject" className="text-sm font-semibold text-zinc-700 ">
                   {t("subject")}
                 </label>
                 <input
@@ -150,12 +150,12 @@ export function ContactForm() {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder={t("subjectPlaceholder")}
-                  className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors"
+                  className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none"
                 />
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+                <label htmlFor="message" className="text-sm font-semibold text-zinc-700 ">
                   {t("message")}
                 </label>
                 <textarea
@@ -165,23 +165,23 @@ export function ContactForm() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={t("messagePlaceholder")}
-                  className="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950/50 px-4 py-3 text-sm text-zinc-800 dark:text-white placeholder-slate-400 focus:border-brand-500 focus:outline-none transition-colors resize-none"
+                  className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-brand-400 px-6 py-3.5 font-bold text-black shadow-glow hover:bg-brand-300 transition-all disabled:opacity-50"
+                className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-[#64CB48] px-6 py-3.5 font-bold text-[#071106] shadow-glow  disabled:opacity-50"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="h-4 w-4 animate-spin text-pine-500 dark:text-pine-400" />
+                    <Loader2 className="h-4 w-4 animate-spin text-pine-500" />
                     <span>{t("submitting")}</span>
                   </>
                 ) : (
                   <>
-                    <Send className="h-4 w-4 text-pine-500 dark:text-pine-400" />
+                    <Send className="h-4 w-4 text-pine-500" />
                     <span>{t("submit")}</span>
                   </>
                 )}

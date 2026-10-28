@@ -37,17 +37,17 @@ function CompareRow({ feature, us, them }: RowProps) {
   const renderValue = (val: string | boolean) => {
     if (typeof val === "boolean") {
       return val ? (
-        <Check className="h-5 w-5 text-pine-500" />
+        <Check className="h-5 w-5 text-[#13541C]" />
       ) : (
-        <X className="h-5 w-5 text-zinc-300 dark:text-zinc-600" />
+        <X className="h-5 w-5 text-zinc-300" />
       );
     }
     return <span className="text-sm">{val}</span>;
   };
 
   return (
-    <tr className="border-b border-zinc-100 dark:border-zinc-800">
-      <td className="py-3 pr-4 text-sm font-medium text-zinc-700 dark:text-zinc-300">{feature}</td>
+    <tr className="border-b border-[#D8DEC9]">
+      <td className="py-3 pr-4 text-sm font-medium text-zinc-700">{feature}</td>
       <td className="py-3 px-4 text-center">{renderValue(us)}</td>
       <td className="py-3 pl-4 text-center">{renderValue(them)}</td>
     </tr>
@@ -88,23 +88,25 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
   };
 
   return (
-    <>
+    <div className="agri-sans">
       <script
         nonce={nonce}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(comparisonSchema) }}
       />
-      <Navbar />
-      <main className="min-h-screen bg-white dark:bg-zinc-950">
+      <Navbar dark />
+      <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="border-b border-zinc-100 dark:border-zinc-800 bg-gradient-to-b from-pine-50/60 to-white dark:from-zinc-900 dark:to-zinc-950 px-6 py-16 text-center">
-          <p className="text-sm font-semibold text-pine-600 dark:text-pine-400 uppercase tracking-wider mb-3">
+        <section className="relative overflow-hidden bg-[#071106] px-6 py-16 text-center">
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+          <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
             Competitor Comparison
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 dark:text-white leading-tight max-w-3xl mx-auto">
-            Convert Statement vs {comp.name}
+          <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-3xl mx-auto">
+            Convert Statement vs <span className="agri-serif">{comp.name}</span>
           </h1>
-          <p className="mt-4 text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+          <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
             See how Convert Statement compares to {comp.name} on pricing, export formats, speed, and privacy — so you can pick the right tool for your accounting workflow.
           </p>
         </section>
@@ -114,9 +116,9 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b-2 border-zinc-200 dark:border-zinc-700">
+                <tr className="border-b-2 border-[#D8DEC9]">
                   <th className="py-3 pr-4 text-left text-xs uppercase tracking-wider text-zinc-400">Feature</th>
-                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-pine-600 dark:text-pine-400 font-bold">
+                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-[#13541C] font-bold">
                     Convert Statement
                   </th>
                   <th className="py-3 pl-4 text-center text-xs uppercase tracking-wider text-zinc-400">
@@ -143,21 +145,21 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
         </section>
 
         {/* Why Convert Statement Wins */}
-        <section className="bg-zinc-50 dark:bg-zinc-900/50 border-y border-zinc-100 dark:border-zinc-800 px-6 py-12">
+        <section className="bg-[#E0E6D6] border-y border-[#D8DEC9] px-6 py-12">
           <div className="mx-auto max-w-6xl">
-            <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">
+            <h2 className="text-2xl font-bold text-zinc-900 mb-6">
               Why teams choose Convert Statement over {comp.name}
             </h2>
             <ul className="space-y-4">
               {comp.weaknesses.map((w, i) => (
                 <li key={i} className="flex gap-3 items-start">
-                  <Check className="h-5 w-5 text-pine-500 mt-0.5 shrink-0" />
-                  <span className="text-sm text-zinc-600 dark:text-zinc-400">{w}</span>
+                  <Check className="h-5 w-5 text-[#13541C] mt-0.5 shrink-0" />
+                  <span className="text-sm text-zinc-600">{w}</span>
                 </li>
               ))}
               <li className="flex gap-3 items-start">
-                <Check className="h-5 w-5 text-pine-500 mt-0.5 shrink-0" />
-                <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                <Check className="h-5 w-5 text-[#13541C] mt-0.5 shrink-0" />
+                <span className="text-sm text-zinc-600">
                   Convert Statement processes files in-memory with zero storage — your financial data is never saved on any server.
                 </span>
               </li>
@@ -167,30 +169,30 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
 
         {/* CTA */}
         <section className="px-6 py-16 text-center">
-          <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-3">
+          <h2 className="text-2xl font-bold text-zinc-900 mb-3">
             Ready to switch from {comp.name}?
           </h2>
-          <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-lg mx-auto">
+          <p className="text-zinc-500 mb-6 max-w-lg mx-auto">
             Start with 8 free pages — no credit card required. See why 10,000+ finance professionals prefer Convert Statement.
           </p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 rounded-lg bg-pine-600 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-pine-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-full bg-[#13541C] px-6 py-3 text-sm font-semibold text-white shadow-lg"
           >
             Try Convert Statement Free <ArrowRight className="h-4 w-4" />
           </Link>
         </section>
 
         {/* Other comparisons */}
-        <section className="border-t border-zinc-100 dark:border-zinc-800 px-6 py-10">
+        <section className="border-t border-[#D8DEC9] px-6 py-10">
           <div className="mx-auto max-w-6xl">
-            <h3 className="text-lg font-bold text-zinc-900 dark:text-white mb-4">Other comparisons</h3>
+            <h3 className="text-lg font-bold text-zinc-900 mb-4">Other comparisons</h3>
             <div className="flex flex-wrap gap-3">
               {COMPETITORS.filter((c) => c.slug !== slug).map((c) => (
                 <Link
                   key={c.slug}
                   href={`/compare/${c.slug}`}
-                  className="rounded-full border border-zinc-200 dark:border-zinc-700 px-4 py-1.5 text-sm text-zinc-600 dark:text-zinc-400 hover:border-pine-400 hover:text-pine-600 dark:hover:text-pine-400 transition-colors"
+                  className="rounded-full border border-[#D8DEC9] px-4 py-1.5 text-sm text-zinc-600 hover:border-[#13541C] hover:text-[#13541C]"
                 >
                   vs {c.name}
                 </Link>
@@ -200,6 +202,6 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
         </section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

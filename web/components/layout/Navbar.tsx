@@ -7,13 +7,13 @@ import { NavSessionIsland } from "./NavSessionIsland";
 export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string }) {
   const t = await getTranslations("nav");
   const linkCls = dark
-    ? "text-[13.5px] font-medium text-zinc-300 hover:text-white transition-colors duration-150"
-    : "text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150";
+    ? "text-[13.5px] font-medium text-zinc-300 hover:text-white"
+    : "text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100";
 
   const navCls = bg
     ? "sticky top-0 z-50 w-full border-b border-white/10"
     : dark
-      ? "sticky top-0 z-50 w-full bg-pine-800 border-b border-pine-700"
+      ? "sticky top-0 z-50 w-full bg-[#071106] border-b border-white/10"
       : "sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800";
 
   return (
