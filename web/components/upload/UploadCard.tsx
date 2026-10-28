@@ -274,7 +274,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             {!isProcessing && (
               <div className={cn("border-t border-zinc-100 dark:border-zinc-800 px-4", fullWidth ?"py-2.5" :"py-3.5")}>
                 {/* Format pills */}
-                <div className="flex flex-wrap items-center gap-2">
+                <div className={cn("flex flex-wrap items-center gap-2", fullWidth && "justify-center")}>
                   <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
                   {FORMATS.map(f => {
                     const active = formats.includes(f.id);
@@ -305,9 +305,9 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                 </div>
 
                 {formatNotice ? (
-                  <p className="mt-2 text-[11px] font-semibold text-pine-600">{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
+                  <p className={cn("mt-2 text-[11px] font-semibold text-pine-600", fullWidth && "text-center")}>{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
                 ) : (
-                  <p className="mt-2 text-[11px] text-brand-muted">Pick one or more formats — you get a separate download for each.</p>
+                  <p className={cn("mt-2 text-[11px] text-brand-muted", fullWidth && "text-center")}>Pick one or more formats — you get a separate download for each.</p>
                 )}
 
                 {/* Pages usage + trust */}
