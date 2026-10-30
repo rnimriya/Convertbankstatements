@@ -10,6 +10,44 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
     ? "text-[13.5px] font-medium text-zinc-300 hover:text-white"
     : "text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100";
 
+  const quickBooksGroups = [
+    {
+      label: t("groupConverters"),
+      items: [
+        { href: "/quickbooks", label: t("quickbooksReconciliation") },
+        { href: "/tools/csv-to-qbo", label: t("csvToQbo") },
+        { href: "/tools/qbo-to-csv", label: t("qboToCsv") },
+        { href: "/tools/csv-to-iif", label: t("csvToIif") },
+        { href: "/tools/ofx-to-qbo", label: t("ofxToQboFixer") },
+        { href: "/tools/free-receipt-to-quickbooks", label: t("receiptToQbo") },
+      ],
+    },
+    {
+      label: t("groupPayouts"),
+      items: [
+        { href: "/tools/free-stripe-to-quickbooks", label: t("stripeQboConverter") },
+        { href: "/tools/free-paypal-to-quickbooks", label: t("paypalPayoutQboConverter") },
+        { href: "/tools/amazon-to-quickbooks", label: t("amazonToQuickbooks") },
+        { href: "/tools/shopify-to-quickbooks", label: t("shopifyToQuickbooks") },
+        { href: "/tools/square-to-quickbooks", label: t("squareToQuickbooks") },
+        { href: "/tools/etsy-to-quickbooks", label: t("etsyToQuickbooks") },
+      ],
+    },
+    {
+      label: t("groupCheckersFixers"),
+      items: [
+        { href: "/tools/free-qbo-cleanup-checker", label: t("qboDuplicateFinder") },
+        { href: "/tools/qbo-checker", label: t("qboChecker") },
+        { href: "/tools/qbo-import-errors", label: t("qboImportErrors") },
+        { href: "/tools/reconciliation-finder", label: t("reconciliationFinder") },
+        { href: "/tools/qbo-splitter", label: t("qboSplitter") },
+        { href: "/tools/invoice-import-checker", label: t("invoiceImportChecker") },
+        { href: "/tools/1099-checker", label: t("vendor1099Checker") },
+        { href: "/tools/payroll-journal-generator", label: t("payrollJournalGenerator") },
+      ],
+    },
+  ];
+
   const navCls = bg
     ? "sticky top-0 z-50 w-full border-b border-white/10"
     : dark
@@ -47,13 +85,7 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
             <NavQuickBooksMenu
               dark={dark}
               menuLabel={t("quickbooks")}
-              items={[
-                { href: "/quickbooks", label: t("quickbooksReconciliation") },
-                { href: "/tools/free-qbo-cleanup-checker", label: t("qboDuplicateFinder") },
-                { href: "/tools/free-stripe-to-quickbooks", label: t("stripeQboConverter") },
-                { href: "/tools/free-paypal-to-quickbooks", label: t("paypalPayoutQboConverter") },
-                { href: "/tools/free-receipt-to-quickbooks", label: t("receiptToQbo") },
-              ]}
+              groups={quickBooksGroups}
             />
             <Link
               href="/#faq"
@@ -65,6 +97,15 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
 
           {/* ── Right side — session resolves client-side so pages stay static ── */}
           <div className="flex items-center gap-3">
+
+            {/* Mobile: the QuickBooks tools menu (desktop links are hidden below md) */}
+            <div className="md:hidden">
+              <NavQuickBooksMenu
+                dark={dark}
+                menuLabel={t("quickbooks")}
+                groups={quickBooksGroups}
+              />
+            </div>
 
             <NavSessionIsland signInLabel={t("signIn")} dark={dark} />
           </div>

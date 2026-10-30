@@ -27,7 +27,10 @@ export async function POST(req: NextRequest) {
 
   const file = formData.get("file") as File | null;
   const rawProvider = formData.get("provider") as string;
-  const provider: Provider = rawProvider === "paypal" || rawProvider === "amazon" || rawProvider === "shopify" ? rawProvider : "stripe";
+  const provider: Provider =
+    rawProvider === "paypal" || rawProvider === "amazon" || rawProvider === "shopify" || rawProvider === "square" || rawProvider === "etsy"
+      ? rawProvider
+      : "stripe";
   if (!file) {
     return NextResponse.json({ error: "No file received." }, { status: 400 });
   }

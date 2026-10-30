@@ -161,6 +161,22 @@ PO-2001,2026-01-03,Charge,100.00,2.90,97.10
 PO-2001,2026-01-04,Refund,-50.00,0.00,-50.00
 PO-2001,2026-01-05,Payout,0.00,0.00,241.30`;
 
+// Square payout export. Hand-computed tie-out:
+// gross 350.00 (200 + 150) − refunds 40.00 − fees 10.75 (6.10 + 4.65) = payout 299.25.
+export const SAMPLE_SQUARE_CSV = `payout-id,date,type,gross,fee,net
+SQ-1001,2026-01-02,Charge,200.00,6.10,193.90
+SQ-1001,2026-01-03,Charge,150.00,4.65,145.35
+SQ-1001,2026-01-04,Refund,-40.00,0.00,-40.00
+SQ-1001,2026-01-05,Payout,0.00,0.00,299.25`;
+
+// Etsy monthly statement. Hand-computed tie-out:
+// gross 200.00 (120 + 80) − refunds 20.00 − fees 14.00 (8.40 + 5.60) = deposit 166.00.
+export const SAMPLE_ETSY_CSV = `date,type,gross,fee,net,deposit-id
+2026-01-02,Sale,120.00,8.40,111.60,DEP-3001
+2026-01-03,Sale,80.00,5.60,74.40,DEP-3001
+2026-01-04,Refund,-20.00,0.00,-20.00,DEP-3001
+2026-01-05,Deposit,0.00,0.00,166.00,DEP-3001`;
+
 // PayPal activity download (subset of columns the parser reads).
 export const SAMPLE_PAYPAL_CSV = `Date,Name,Type,Gross,Fee,Net
 2026-01-02,Online Store,Express Checkout Payment,100.00,2.90,97.10
@@ -209,6 +225,20 @@ export const SAMPLES: SampleFile[] = [
     label: "Shopify payout CSV",
     description: "One payout: two charges, one refund, and the payout row. Ties out at $241.30.",
     content: SAMPLE_SHOPIFY_CSV,
+  },
+  {
+    id: "square-csv",
+    filename: "sample-square-payout.csv",
+    label: "Square payout CSV",
+    description: "One payout: two charges, one refund, and the payout row. Ties out at $299.25.",
+    content: SAMPLE_SQUARE_CSV,
+  },
+  {
+    id: "etsy-csv",
+    filename: "sample-etsy-statement.csv",
+    label: "Etsy statement CSV",
+    description: "One deposit: two sales, one refund, and the deposit row. Ties out at $166.00.",
+    content: SAMPLE_ETSY_CSV,
   },
   {
     id: "paypal-csv",

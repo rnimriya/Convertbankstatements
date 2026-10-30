@@ -57,6 +57,7 @@ export async function ToolPageLayout({
   howToSteps,
   currentPath,
   privacyLine,
+  fullyFree,
 }: {
   eyebrow: string;
   title: string;
@@ -68,8 +69,16 @@ export async function ToolPageLayout({
   howToSteps: { title: string; body: string }[];
   currentPath: string;
   privacyLine: string;
+  fullyFree?: boolean;
 }) {
   const nonce = BUILD_NONCE;
+  const pills = fullyFree
+    ? TRUST_PILLS.map((p) =>
+        p.label.startsWith("Scan free")
+          ? { ...p, label: "Downloads free — no account needed" }
+          : p
+      )
+    : TRUST_PILLS;
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -151,7 +160,7 @@ export async function ToolPageLayout({
         <div className="w-full max-w-6xl mx-auto px-6 mt-6">
           <div className="pt-6 border-t border-zinc-200">
               <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-                {TRUST_PILLS.map(({ icon, label }) => (
+                {pills.map(({ icon, label }) => (
                   <div key={label} className="flex items-center gap-2 text-[12.5px] text-zinc-500">
                     <span className="text-zinc-400">{icon}</span>
                     <span>{label}</span>
