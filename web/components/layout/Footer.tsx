@@ -79,21 +79,103 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
     },
   ];
 
+  if (!agri) {
+    return (
+      <footer className="bg-pine-800">
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
+            <div className="max-w-xs">
+              <p className="text-xs leading-relaxed text-zinc-300">
+                {t("tagline")}
+              </p>
+              <p className="mt-2 text-xs text-zinc-300">
+                support@convertstatement.online
+              </p>
+              <p className="mt-2 text-xs text-zinc-300">
+                {t("payments")}
+              </p>
+              <div className="mt-4 flex items-center gap-2">
+                {SOCIAL.map(({ label, href, icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 text-zinc-300 hover:border-[#64CB48] hover:text-white"
+                  >
+                    {icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-10 text-sm sm:gap-14">
+              {NAV.map(({ heading, links }) => (
+                <div key={heading} className="space-y-2">
+                  <p className="font-semibold text-white">{heading}</p>
+                  {links.map(({ label, href }) => (
+                    <p key={label}>
+                      <Link
+                        href={href}
+                        className="text-zinc-300 hover:text-white"
+                      >
+                        {label}
+                      </Link>
+                    </p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-pine-700 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-400">
+            <p>{t("copyright", { year: new Date().getFullYear() })}</p>
+            <p>{t("prices")}</p>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
+  const [productCol, qbCol, accountCol, legalCol] = NAV;
+
   return (
-    <footer className={agri ? "bg-[#071106]" : "bg-pine-800"}>
-      <div className="mx-auto max-w-6xl px-6 py-10">
-        <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
-          <div className="max-w-xs">
-            <p className="text-xs leading-relaxed text-zinc-300">
+    <footer className="bg-[#071106] text-[#E0E6D6]">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="border-b border-[#E0E6D6]/15 pb-[54px] pt-[72px]">
+          <p className="agri-mono text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+            {t("kicker")}
+          </p>
+          <h2 className="mb-[26px] mt-[18px] max-w-[720px] text-[clamp(34px,4.6vw,54px)] font-extrabold leading-[1.08] tracking-[-0.02em] text-white">
+            {t("headlineTop")}
+            <br />
+            {t("headlineBottom")}{" "}
+            <span className="agri-serif text-[#BACEBA]">{t("headlineAccent")}</span>
+          </h2>
+          <Link
+            href="/signup"
+            className="inline-block rounded-full bg-[#64CB48] px-[26px] py-[14px] text-[15px] font-bold text-[#071106]"
+          >
+            {t("ctaStart")}
+          </Link>
+          <span className="mt-3 block text-[13px] text-[#9FA99B] sm:ml-4 sm:mt-0 sm:inline-block">
+            {t("ctaNote")}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-9 py-[52px] lg:grid-cols-[1.4fr_1fr_1.5fr_1fr_1fr]">
+          <div className="col-span-2 lg:col-span-1">
+            <p className="max-w-[270px] text-[13px] leading-[1.7] text-[#B9C2B2]">
               {t("tagline")}
             </p>
-            <p className="mt-2 text-xs text-zinc-300">
+            <a
+              href="mailto:support@convertstatement.online"
+              className="mt-3 block break-all text-[13px] text-[#E0E6D6]"
+            >
               support@convertstatement.online
-            </p>
-            <p className="mt-2 text-xs text-zinc-300">
-              {t("payments")}
-            </p>
-            <div className="mt-4 flex items-center gap-2">
+            </a>
+            <div className="mt-[18px] flex items-center gap-2">
               {SOCIAL.map(({ label, href, icon }) => (
                 <a
                   key={label}
@@ -101,7 +183,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 text-zinc-300 hover:border-[#64CB48] hover:text-white"
+                  className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-[#E0E6D6]/25 text-[#E0E6D6] hover:border-[#64CB48] hover:text-white"
                 >
                   {icon}
                 </a>
@@ -109,28 +191,63 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-10 text-sm sm:gap-14">
-            {NAV.map(({ heading, links }) => (
-              <div key={heading} className="space-y-2">
-                <p className="font-semibold text-white">{heading}</p>
+          <div>
+            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+              {productCol.heading}
+            </h3>
+            <ul className="space-y-[10px]">
+              {productCol.links.map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+              {qbCol.heading}
+            </h3>
+            <ul className="space-y-[10px]">
+              {qbCol.links.slice(0, 8).map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/quickbooks" className="text-[13.5px] font-bold text-[#64CB48]">
+                  {t("allQuickbooksTools")} →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {[accountCol, legalCol].map(({ heading, links }) => (
+            <div key={heading}>
+              <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+                {heading}
+              </h3>
+              <ul className="space-y-[10px]">
                 {links.map(({ label, href }) => (
-                  <p key={label}>
-                    <Link
-                      href={href}
-                      className="text-zinc-300 hover:text-white"
-                    >
+                  <li key={label}>
+                    <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
                       {label}
                     </Link>
-                  </p>
+                  </li>
                 ))}
-              </div>
-            ))}
-          </div>
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className={`mt-8 border-t pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-400 ${agri ? "border-white/10" : "border-pine-700"}`}>
+        <div className="flex flex-col justify-between gap-2 border-t border-[#E0E6D6]/15 pb-[30px] pt-[22px] text-xs text-[#8B968A] sm:flex-row">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("prices")}</p>
+          <p>{t("payments")}</p>
         </div>
       </div>
     </footer>

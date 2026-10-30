@@ -212,7 +212,14 @@
     "qboSplitter": "QBO File Splitter",
     "invoiceImportChecker": "Invoice Import Checker",
     "vendor1099Checker": "1099 Vendor Checker",
-    "payrollJournalGenerator": "Payroll Journal Generator"
+    "payrollJournalGenerator": "Payroll Journal Generator",
+    "kicker": "ConvertStatement — Bank Statement Converter",
+    "headlineTop": "Bank statements in.",
+    "headlineBottom": "Clean spreadsheets",
+    "headlineAccent": "out.",
+    "ctaStart": "Start converting free",
+    "ctaNote": "8 pages free · No card needed",
+    "allQuickbooksTools": "All QuickBooks tools"
   },
   "auth": {
     "loginTitle": "Welcome back",
