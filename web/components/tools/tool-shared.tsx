@@ -181,7 +181,7 @@ export function ToolUpload({
   const dragDepth = useRef(0);
 
   return (
-    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_2px_10px_rgba(11,31,22,0.04)] overflow-hidden">
+    <div className="mx-auto w-full sm:w-[70%] rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_2px_10px_rgba(11,31,22,0.04)] overflow-hidden">
 
       {/* ── Drop zone ── */}
       <div className="p-3">
@@ -221,7 +221,7 @@ export function ToolUpload({
             if (f) onFile(f);
           }}
           className={cn(
-            "relative flex flex-col items-center justify-center rounded-[10px] px-6 py-9 lg:py-10 text-center transition-colors select-none",
+            "relative flex flex-col items-center justify-center rounded-[10px] px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center transition-colors select-none",
             busy ? "border-2 border-dashed border-zinc-200" : "cursor-pointer",
             !busy &&
               (dragActive
