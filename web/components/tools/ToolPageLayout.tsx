@@ -3,7 +3,6 @@ import Link from "next/link";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { PricingCards } from "@/components/PricingCards";
 import {
   CheckCircle2, ArrowRight,
@@ -110,12 +109,12 @@ export async function ToolPageLayout({
     <div className="agri-sans">
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <Navbar dark />
+      <Navbar />
       <main className="overflow-x-hidden">
 
         {/* ─── HERO — homepage twin ─────────────────────────────── */}
-        <section className="w-full relative overflow-hidden bg-[#0B1F16]">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+        <section className="w-full relative overflow-hidden" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 60%, #FFFFFF 100%)" }}>
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
 
           {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
 
@@ -124,19 +123,19 @@ export async function ToolPageLayout({
 
             {/* ── Headline block — centered ── */}
             <div className="text-center mb-6 max-w-4xl mx-auto">
-              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-4">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 {eyebrow}
               </span>
               <h1
-                className="font-extrabold text-white tracking-tight leading-[1.07] mb-4"
+                className="font-display font-bold text-[#0B1F16] tracking-tight leading-[1.08] mb-4"
                 style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
               >
                 {title.split(/(QBO)/g).map((part, i) =>
                   part === "QBO" ? <span key={i} className="text-[#2CA01C]">QBO</span> : part
                 )}
               </h1>
-              <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-[0.95rem] text-zinc-600 max-w-2xl mx-auto leading-relaxed">
                 {subtitle}
               </p>
             </div>
@@ -174,14 +173,14 @@ export async function ToolPageLayout({
         <section id="how-it-works" className="py-24 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#007A33] mb-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2DF] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 How it works
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">{howToName}</h2>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-brand-text mb-3">{howToName}</h2>
             </div>
 
-            <div className={`${stepGrid} divide-y md:divide-y-0 md:divide-x divide-[#CBE3C4] border border-[#CBE3C4] rounded-[24px] overflow-hidden`}>
+            <div className={`${stepGrid} divide-y md:divide-y-0 md:divide-x divide-[#E3EDE0] border border-[#E3EDE0] rounded-[24px] overflow-hidden`}>
               {howToSteps.map((s, i) => {
                 const stepImg = STEP_IMGS[i % STEP_IMGS.length];
                 return (
@@ -189,7 +188,7 @@ export async function ToolPageLayout({
                     key={i}
                     className="relative flex flex-col p-8 bg-white"
                   >
-                    <div className="absolute top-6 right-6 text-4xl font-black select-none text-zinc-100">
+                    <div className="absolute top-6 right-6 text-4xl font-black select-none text-[#E9F5E4]">
                       {String(i + 1).padStart(2, "0")}
                     </div>
 
@@ -204,21 +203,21 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── TOOL CONTENT — same words, homepage section rhythm ─ */}
-        <section className="py-24 bg-[#F2F4EC] border-t border-[#CBE3C4]">
+        <section className="py-24 bg-[#F7FAF5] border-t border-[#E3EDE0]">
           <div className="max-w-6xl mx-auto px-6">
             {content}
           </div>
         </section>
 
         {/* ─── MORE FREE TOOLS ──────────────────────────────────── */}
-        <section className="py-16 bg-white border-t border-[#CBE3C4]">
+        <section className="py-16 bg-white border-t border-[#E3EDE0]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-8">
-              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#007A33] mb-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2DF] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 Free tools
               </span>
-              <h2 className="text-3xl font-bold text-brand-text">More free QuickBooks tools</h2>
+              <h2 className="font-display text-3xl font-bold text-brand-text">More free QuickBooks tools</h2>
               <p className="text-brand-muted text-sm mt-2">9 more free tools — pick one, scan free, no account needed.</p>
             </div>
 
@@ -227,7 +226,7 @@ export async function ToolPageLayout({
                 <Link
                   key={t.href}
                   href={t.href}
-                  className="flex items-center gap-4 rounded-[20px] border border-[#CBE3C4] bg-white p-4"
+                  className="flex items-center gap-4 rounded-[20px] border border-[#E3EDE0] bg-white p-4"
                 >
                   <img
                     src={t.img}
@@ -245,7 +244,7 @@ export async function ToolPageLayout({
                       Free to scan — files are processed in memory and never stored. QBO downloads are on Pro.
                     </span>
                   </span>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E3F2DF] border border-[#CBE3C4] text-[#007A33]">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E3F2DF] border border-[#E3EDE0] text-[#007A33]">
                     <ArrowRight size={18} />
                   </span>
                 </Link>
@@ -255,11 +254,11 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── PRICING — homepage pattern ─────────────────────────── */}
-        <section id="pricing" className="py-24 bg-[#E3F2DF] border-t border-[#CBE3C4]">
+        <section id="pricing" className="py-24 bg-[#EFF7ED] border-t border-[#E3EDE0]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-14">
-              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#007A33] mb-3"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text mb-3">Simple, transparent pricing</h2>
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2DF] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-3"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-brand-text mb-3">Simple, transparent pricing</h2>
               <p className="text-brand-muted text-sm">Start free. Only pay when you need more.</p>
             </div>
             <PricingCards />
@@ -267,16 +266,23 @@ export async function ToolPageLayout({
         </section>
 
         {/* ─── FAQ ──────────────────────────────────────────────── */}
-        <section id="faq" className="py-24 bg-white border-t border-[#CBE3C4]">
+        <section id="faq" className="py-24 bg-white border-t border-[#E3EDE0]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-12">
-              <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#007A33] mb-3">
+              <span className="inline-flex items-center gap-2 rounded-full bg-[#E3F2DF] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 FAQ
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-text">Frequently asked questions</h2>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-brand-text">Frequently asked questions</h2>
             </div>
-            <FAQAccordion items={faqs} />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+              {faqs.map((f) => (
+                <div key={f.q} className="rounded-[24px] border border-[#E3EDE0] bg-[#F7FAF5] p-6">
+                  <h3 className="text-[15px] font-bold text-[#0B1F16] leading-snug">{f.q}</h3>
+                  <p className="text-sm text-[#5B665C] leading-relaxed mt-2">{f.a}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -286,7 +292,7 @@ export async function ToolPageLayout({
           {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
 
           <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-            <h2 className="text-4xl sm:text-5xl font-black text-white mb-5 leading-[1.05]">
+            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-5 leading-[1.08]">
               Bringing statements into QuickBooks?
             </h2>
             <p className="mb-10 max-w-md mx-auto text-sm leading-relaxed text-zinc-400">

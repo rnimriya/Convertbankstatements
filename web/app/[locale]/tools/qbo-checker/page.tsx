@@ -22,18 +22,18 @@ export const metadata: Metadata = {
 export default function QboCheckerPage() {
   return (
     <div className="agri-sans">
-      <Navbar dark />
+      <Navbar />
       <main className="min-h-screen bg-white">
-        <section className="relative overflow-hidden bg-[#0B1F16] px-6 py-16 text-center">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-          <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
+        <section className="relative overflow-hidden px-6 py-16 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
+          <p className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Free Tool
           </p>
-          <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
-            QBO File <span className="agri-serif">Checker</span>
+          <h1 className="relative font-display text-3xl sm:text-5xl font-bold text-[#0B1F16] leading-[1.08] max-w-4xl mx-auto">
+            QBO File <span className="text-[#2CA01C]">Checker</span>
           </h1>
-          <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
+          <p className="relative mt-4 text-lg text-zinc-600 max-w-2xl mx-auto">
             About to import a QBO file into QuickBooks? Check it first. We validate the file&apos;s
             structure, closing balance, statement period, and the duplicate risks QuickBooks
             won&apos;t warn you about until reconciliation breaks.
@@ -44,7 +44,7 @@ export default function QboCheckerPage() {
           <QboChecker />
 
           <div className="mt-14">
-            <h2 className="text-2xl font-extrabold text-zinc-900">What this checker looks for</h2>
+            <h2 className="font-display text-2xl font-bold text-zinc-900">What this checker looks for</h2>
             <ul className="mt-4 space-y-2.5 text-zinc-600 leading-relaxed">
               <li><strong className="text-zinc-900">Valid OFX structure</strong> — a .qbo file is OFX underneath; if the message set is missing, QuickBooks rejects the import outright.</li>
               <li><strong className="text-zinc-900">Ledger (closing) balance</strong> — reconciliation aims at this number. If it&apos;s missing or dated differently from the statement period, expect a fight at month-end.</li>
