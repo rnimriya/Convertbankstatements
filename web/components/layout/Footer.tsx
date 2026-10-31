@@ -144,11 +144,11 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
     <>
       <footer className="bg-[#0B1F16] text-[#E3F2DF]">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="border-b border-[#E3F2DF]/15 pb-[54px] pt-[72px]">
+        <div className="border-b border-[#E3F2DF]/15 pb-[54px] pt-[72px] text-center">
           <p className="agri-mono text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
             {t("kicker")}
           </p>
-          <h2 className="mb-[26px] mt-[18px] max-w-[720px] text-[clamp(34px,4.6vw,54px)] font-extrabold leading-[1.08] tracking-[-0.02em] text-white">
+          <h2 className="mb-[26px] mt-[18px] mx-auto max-w-[720px] font-display text-[clamp(34px,4.6vw,54px)] font-bold leading-[1.08] tracking-[-0.02em] text-white">
             {t("headlineTop")}
             <br />
             {t("headlineBottom")}{" "}
