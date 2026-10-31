@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { GlobalDropbox } from "@/components/GlobalDropbox";
 
 const SOCIAL = [
   {
@@ -143,7 +142,6 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
 
   return (
     <>
-      <GlobalDropbox />
       <footer className="bg-[#0B1F16] text-[#E3F2DF]">
       <div className="mx-auto max-w-6xl px-6">
         <div className="border-b border-[#E3F2DF]/15 pb-[54px] pt-[72px]">
