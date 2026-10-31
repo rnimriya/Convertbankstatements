@@ -41,7 +41,7 @@ export function ToolAuthWall({ path }: { path: string }) {
   const signup = `/signup?redirectTo=${encodeURIComponent(path)}`;
   const login = `/login?redirectTo=${encodeURIComponent(path)}`;
   return (
-    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_2px_10px_rgba(11,31,22,0.04)] overflow-hidden">
       <div className="p-3">
         <div className="flex flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 px-6 py-12 lg:py-16 text-center select-none">
           <div
@@ -181,7 +181,7 @@ export function ToolUpload({
   const dragDepth = useRef(0);
 
   return (
-    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+    <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_2px_10px_rgba(11,31,22,0.04)] overflow-hidden">
 
       {/* ── Drop zone ── */}
       <div className="p-3">
@@ -221,7 +221,7 @@ export function ToolUpload({
             if (f) onFile(f);
           }}
           className={cn(
-            "relative flex flex-col items-center justify-center rounded-[10px] px-6 py-16 lg:py-20 text-center transition-colors select-none",
+            "relative flex flex-col items-center justify-center rounded-[10px] px-6 py-9 lg:py-10 text-center transition-colors select-none",
             busy ? "border-2 border-dashed border-zinc-200" : "cursor-pointer",
             !busy &&
               (dragActive
@@ -243,40 +243,37 @@ export function ToolUpload({
 
           {busy ? (
             /* Busy (static — no motion animation) */
-            <div className="flex flex-col items-center gap-4 py-2">
-              <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#00573F" }}>
-                <Loader2 size={36} className="text-white" strokeWidth={1.6} />
+            <div className="flex flex-col items-center gap-3 py-1">
+              <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full" style={{ background: "#00573F" }}>
+                <Loader2 size={22} className="text-white" strokeWidth={1.8} />
               </div>
-              <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-brand-text">
+              <h2 className="text-lg lg:text-xl font-display font-bold tracking-tight text-brand-text">
                 {busyText}
               </h2>
-              <p className="mt-1 text-base text-brand-muted">This usually takes a few seconds.</p>
+              <p className="text-sm text-brand-muted">This usually takes a few seconds.</p>
             </div>
           ) : (
             /* Idle */
             <>
               <div
-                className="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-300"
-                style={{
-                  background: dragActive ? "#0B3D2E" : "#00573F",
-                  transform: dragActive ? "scale(1.06)" : "scale(1)",
-                }}
+                className="mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full transition-colors"
+                style={{ background: dragActive ? "#2CA01C" : "#E3F2DF" }}
               >
                 {dragActive ? (
-                  <FileText size={36} className="text-white" strokeWidth={1.6} />
+                  <FileText size={22} className="text-white" strokeWidth={1.8} />
                 ) : (
-                  <Upload size={36} className="text-white" strokeWidth={1.6} />
+                  <Upload size={22} className="text-[#007A33]" strokeWidth={1.8} />
                 )}
               </div>
 
-              <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-brand-text">
+              <h2 className="text-lg lg:text-xl font-display font-bold tracking-tight text-brand-text">
                 {dragActive ? activeTitle : title}
               </h2>
-              <p className="mt-1 text-base text-brand-muted">
+              <p className="mt-1 text-sm text-brand-muted">
                 or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
               </p>
 
-              <div className="mt-3 flex items-center gap-2 text-sm text-brand-muted">
+              <div className="mt-2.5 flex items-center gap-2 text-xs text-brand-muted">
                 {meta.map((m, i) => (
                   <span key={i} className="flex items-center gap-2">
                     {i > 0 && <span className="h-1 w-1 rounded-full bg-zinc-300" />}
