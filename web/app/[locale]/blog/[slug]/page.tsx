@@ -235,7 +235,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <div className="mx-auto max-w-[1060px] px-6">
           {/* White card overlapping the hero */}
-          <div className="relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_24px_60px_rgba(11,31,22,0.10)] px-6 sm:px-10 py-9">
+          <div className="relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] px-6 sm:px-10 py-9">
             {/* Feature image — floated, article text wraps around it */}
             <figure className="blog-feature-figure">
               <img src={post.featureImage} alt={post.title} />

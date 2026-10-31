@@ -33,7 +33,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
         </p>
 
         {/* ── Converter card — real UploadCard, internals untouched ── */}
-        <div id="upload" className="scroll-mt-24 max-w-[880px] mx-auto mt-9 text-left rounded-[28px] shadow-[0_24px_60px_rgba(11,31,22,0.13)]">
+        <div id="upload" className="scroll-mt-24 max-w-[880px] mx-auto mt-9 text-left rounded-[28px] shadow-[0_4px_16px_rgba(11,31,22,0.05)]">
           <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
 
           {/* Security note */}

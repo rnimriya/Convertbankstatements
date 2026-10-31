@@ -286,31 +286,6 @@ export async function ToolPageLayout({
           </div>
         </section>
 
-        {/* ─── CTA ──────────────────────────────────────────────── */}
-        <section className="py-28 relative overflow-hidden bg-gradient-to-b from-[#0E3D15] to-[#007A33]">
-
-          {/* Elegant Graph Paper Grid with a bottom-up radial mask fade */}
-
-          <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display text-4xl sm:text-5xl font-bold text-white mb-5 leading-[1.08]">
-              Bringing statements into QuickBooks?
-            </h2>
-            <p className="mb-10 max-w-md mx-auto text-sm leading-relaxed text-zinc-400">
-              Convert any PDF bank statement into a balance-checked QBO or CSV file in minutes.
-              The first 8 pages are on us.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/quickbooks"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-white text-zinc-900"
-              >
-                <span>See the QuickBooks converter</span>
-                <ArrowRight size={15} className="text-[#007A33]" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
       </main>
       <Footer />
     </div>
