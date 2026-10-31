@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
-import { Upload, FileCheck2, AlertTriangle, XCircle, CheckCircle2, ArrowRight, Loader2 } from "lucide-react";
+import { FileCheck2, AlertTriangle, XCircle, CheckCircle2, ArrowRight } from "lucide-react";
+
+import { ToolUpload } from "./tool-shared";
 
 interface Issue { level: "error" | "warning"; message: string }
 interface Analysis {
@@ -28,17 +30,14 @@ const usd = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 export function QboChecker() {
-  const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
   const [result, setResult] = useState<Analysis | null>(null);
 
   async function handleFile(file: File) {
     setBusy(true);
     setError(null);
     setResult(null);
-    setFileName(file.name);
     try {
       const fd = new FormData();
       fd.append("file", file);
@@ -58,53 +57,17 @@ export function QboChecker() {
 
   return (
     <div>
-      <div
-        className={busy ? "mx-auto w-full sm:w-[70%] rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center cursor-pointer shadow-[0_12px_36px_rgba(11,31,22,0.13)] hover:border-pine-400 transition-colors" : "mx-auto w-full sm:w-[70%] rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-[#2CA01C] px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center cursor-pointer shadow-[0_12px_36px_rgba(11,31,22,0.13)]"}
-        onClick={() => inputRef.current?.click()}
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={(e) => {
-          e.preventDefault();
-          const f = e.dataTransfer.files?.[0];
-          if (f) void handleFile(f);
-        }}
-      >
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".qbo,.ofx,.qfx"
-          className="hidden"
-          onChange={(e) => {
-            const f = e.target.files?.[0];
-            if (f) void handleFile(f);
-            e.target.value = "";
-          }}
-        />
-        {busy ? (
-          <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full" style={{ background: "#00573F" }}>
-            <Loader2 className="h-[22px] w-[22px] text-white animate-spin" />
-          </div>
-        ) : (
-          <div className="mx-auto flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#E3F2DF]">
-            <Upload className="h-[22px] w-[22px] text-[#007A33]" />
-          </div>
-        )}
-        <p className="mt-3 text-lg lg:text-xl font-display font-bold tracking-tight text-zinc-900 dark:text-white">
-          {busy ? "Checking your file…" : fileName ?? "Drop a .qbo, .ofx or .qfx file here"}
-        </p>
-        <p className="mt-1 text-sm text-zinc-400">
-          or <span className="font-bold text-zinc-900 dark:text-white underline underline-offset-2">browse files</span>
-        </p>
-        <div className="mt-2.5 flex items-center justify-center gap-2 text-xs text-zinc-400">
-          <span>QBO</span>
-          <span className="h-1 w-1 rounded-full bg-zinc-300" />
-          <span>OFX</span>
-          <span className="h-1 w-1 rounded-full bg-zinc-300" />
-          <span>QFX</span>
-        </div>
-        <p className="mt-3 text-xs text-zinc-400">
-          No account needed · The file is checked in memory and never stored
-        </p>
-      </div>
+      <ToolUpload
+        accept=".qbo,.ofx,.qfx"
+        busy={busy}
+        busyText="Checking your file…"
+        title="Drop a .qbo, .ofx or .qfx file here"
+        meta={["QBO", "OFX", "QFX"]}
+        onFile={(f) => void handleFile(f)}
+      />
+      <p className="mt-3 text-center text-xs text-brand-muted">
+        No account needed · The file is checked in memory and never stored
+      </p>
 
       {error && (
         <p className="mt-4 rounded-[20px] border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">
