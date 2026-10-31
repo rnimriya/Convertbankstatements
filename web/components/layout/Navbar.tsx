@@ -6,9 +6,7 @@ import { NavSessionIsland } from "./NavSessionIsland";
 
 export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string }) {
   const t = await getTranslations("nav");
-  const linkCls = dark
-    ? "text-[13.5px] font-medium text-zinc-300 hover:text-white"
-    : "text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100";
+  const linkCls = "text-[13.5px] font-medium text-zinc-600 hover:text-zinc-900";
 
   const quickBooksGroups = [
     {
@@ -48,21 +46,15 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
     },
   ];
 
-  const navCls = bg
-    ? "sticky top-0 z-50 w-full border-b border-white/10"
-    : dark
-      ? "sticky top-0 z-50 w-full bg-[#0B1F16] border-b border-white/10"
-      : "sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800";
-
   return (
-    <nav className={navCls} style={bg ? { backgroundColor: bg } : undefined}>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex h-16 items-center justify-between">
+    <div className="sticky top-0 z-50 px-3 sm:px-6 pt-3 pb-1">
+      <nav className="mx-auto max-w-6xl rounded-full bg-white/95 backdrop-blur-md border border-zinc-200/90 shadow-[0_10px_36px_rgba(11,31,22,0.10)]">
+        <div className="flex h-14 items-center justify-between px-4 sm:px-5">
 
           {/* ── Logo ── */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
             <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-            <span className={dark ? "hidden sm:block font-bold text-white text-[15px] tracking-tight" : "hidden sm:block font-bold text-zinc-900 dark:text-white text-[15px] tracking-tight"}>
+            <span className="hidden sm:block font-display font-bold text-zinc-900 text-[15px] tracking-tight">
               Convert Statement
             </span>
           </Link>
@@ -83,7 +75,7 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
               </Link>
             ))}
             <NavQuickBooksMenu
-              dark={dark}
+              dark={false}
               menuLabel={t("quickbooks")}
               groups={quickBooksGroups}
             />
@@ -101,17 +93,17 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
             {/* Mobile: the QuickBooks tools menu (desktop links are hidden below md) */}
             <div className="md:hidden">
               <NavQuickBooksMenu
-                dark={dark}
+                dark={false}
                 menuLabel={t("quickbooks")}
                 groups={quickBooksGroups}
               />
             </div>
 
-            <NavSessionIsland signInLabel={t("signIn")} dark={dark} />
+            <NavSessionIsland signInLabel={t("signIn")} dark={false} />
           </div>
 
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

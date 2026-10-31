@@ -101,13 +101,13 @@ export default async function PricingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
       />
-      <Navbar dark />
+      <Navbar />
 
-      <div className="relative overflow-hidden bg-[#0B1F16] px-6 pt-10 pb-28 text-center">
-        <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-        <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</p>
-        <h1 className="relative text-4xl sm:text-[52px] font-extrabold text-white leading-[1.05]">Simple, transparent <span className="agri-serif">pricing</span></h1>
-        <p className="relative mt-3 text-sm text-zinc-300">
+      <div className="relative overflow-hidden px-6 pt-12 pb-28 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
+        <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
+        <p className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</p>
+        <h1 className="relative font-display text-4xl sm:text-[52px] font-bold text-[#0B1F16] leading-[1.08]">Simple, transparent <span className="text-[#2CA01C]">pricing</span></h1>
+        <p className="relative mt-3 text-sm text-zinc-600">
           Start free · All prices in USD · No hidden charges
         </p>
         <div className="relative mt-5 flex justify-center">
@@ -119,17 +119,17 @@ export default async function PricingPage() {
       </div>
 
       <div className="relative z-20 mx-auto max-w-6xl px-6 pb-20 -mt-20">
-        <PricingCards toggleDark />
+        <PricingCards />
       </div>
 
       {/* Comparison table */}
-      <div className="bg-[#F2F4EC] px-6 py-20">
+      <div className="bg-[#F7FAF5] px-6 py-20">
         <div className="mx-auto max-w-6xl">
-          <h2 className="mb-8 text-center text-2xl font-extrabold text-zinc-900">Full comparison</h2>
-          <div className="overflow-hidden rounded-[24px] border border-[#CBE3C4] bg-white">
+          <h2 className="mb-8 text-center font-display text-2xl font-bold text-zinc-900">Full comparison</h2>
+          <div className="overflow-hidden rounded-[24px] border border-[#E3EDE0] bg-white">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#CBE3C4] bg-[#F2F4EC]">
+                <tr className="border-b border-[#E3EDE0] bg-[#F7FAF5]">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">Feature</th>
                   {["Free","Basic","Pro","Business"].map((h) => (
                     <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-[#007A33]" :"text-zinc-500"}`}>{h}</th>
@@ -138,7 +138,7 @@ export default async function PricingPage() {
               </thead>
               <tbody>
                 {COMPARE_ROWS.map(({ feature, free, basic, pro, business }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ?"bg-white" :"bg-[#F2F4EC]"}>
+                  <tr key={feature} className={i % 2 === 0 ?"bg-white" :"bg-[#F7FAF5]"}>
                     <td className="px-5 py-3 font-medium text-zinc-700">{feature}</td>
                     {[free, basic, pro, business].map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300" : val ==="✓" ?"text-[#007A33] font-bold text-base" :"text-zinc-600"}`}>{val}</td>

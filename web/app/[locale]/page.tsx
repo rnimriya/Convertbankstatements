@@ -9,7 +9,6 @@ import {
 } from"lucide-react";
 import { Footer } from"@/components/layout/Footer";
 import { Navbar } from"@/components/layout/Navbar";
-import { FAQAccordion } from"@/components/home/FAQAccordion";
 import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
 
 export const metadata: Metadata = {
@@ -107,18 +106,14 @@ export default async function HomePage() {
   ];
 
   const Label = ({ children, light = false }: { children: ReactNode; light?: boolean }) => (
-    <p className={`agri-mono text-[11px] font-medium uppercase tracking-[0.16em] flex items-center gap-2 ${light ? "text-[#B9D6B2]" : "text-[#007A33]"}`}>
+    <p className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] ${light ? "bg-white/10 text-[#BFE3B8]" : "bg-[#E3F2DF] text-[#007A33]"}`}>
       <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
       {children}
     </p>
   );
-  const bentoCls = (i: number) =>
-    i === 0 ? "bg-[linear-gradient(135deg,#DDFB8A,#8FE07A)] border-transparent"
-    : i === 1 ? "bg-[#0B1F0E] border-[#24452A]"
-    : i === 5 ? "bg-[#BFE3B8] border-transparent"
-    : "bg-white border-[#CBE3C4]";
-  const bentoTitleCls = (i: number) => (i === 1 ? "text-white" : "text-[#101812]");
-  const bentoBodyCls = (i: number) => (i === 0 ? "text-[#2C4416]" : i === 1 ? "text-[#A9BFA9]" : "text-[#5B665C]");
+  const bentoCls = (_i: number) => "bg-white border-[#E3EDE0] shadow-[0_1px_2px_rgba(16,24,40,0.04)]";
+  const bentoTitleCls = (_i: number) => "text-[#101812]";
+  const bentoBodyCls = (_i: number) => "text-[#5B665C]";
 
   const softwareAppSchema = {"@context":"https://schema.org","@type":"SoftwareApplication",
     name:"Convert Statement",
@@ -143,27 +138,27 @@ export default async function HomePage() {
     <>
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
-      <Navbar dark bg="#0B1F16" />
+      <Navbar />
       <main className="overflow-x-hidden agri-sans">
 
         {/* ─── HERO — DARK AGRIFRIKA + CONVERTER ─────────── */}
         <HeroSectionWrapper />
 
         {/* ─── 01 / NUMBERS — PALE SAGE ───────────────────── */}
-        <section className="py-24 bg-[#E3F2DF]">
+        <section className="py-24 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             <Label>01 / ConvertStatement in numbers</Label>
             <div className="grid lg:grid-cols-2 gap-12 mt-6 items-start">
               <div>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16]">The converter built for <span className="agri-serif font-normal">busy books.</span></h2>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16]">The converter built for <span className="text-[#2CA01C]">busy books.</span></h2>
                 <p className="text-[#5B665C] mt-5 leading-relaxed max-w-md">Accountants, bookkeepers, CPAs and small businesses use ConvertStatement to skip manual entry and get reconciliation-ready files in seconds.</p>
-                <a href="#features" className="inline-flex items-center gap-2 rounded-full border border-[#C9D2BC] px-6 py-3.5 text-sm font-bold text-[#0B1F16] whitespace-nowrap mt-6">
+                <a href="#features" className="inline-flex items-center gap-2 rounded-full bg-[#0B1F16] px-6 py-3.5 text-sm font-bold text-white whitespace-nowrap mt-6">
                   Discover the features <ArrowRight size={15} />
                 </a>
               </div>
-              <div className="grid grid-cols-2 border-t border-l border-[#C4CDB2]">
+              <div className="grid grid-cols-2 gap-4">
                 {NUMS.map(({ dot, num, sfx, cap }) => (
-                  <div key={cap} className="border-r border-b border-[#C4CDB2] p-7 sm:p-9">
+                  <div key={cap} className="rounded-[24px] border border-[#E3EDE0] bg-[#F7FAF5] p-7 sm:p-8">
                     <span className="w-[22px] h-[22px] rounded-full bg-[#007A33] text-white flex items-center justify-center text-[11px] mb-5">{dot}</span>
                     <div className="text-[52px] sm:text-[64px] font-extrabold leading-none tracking-tight text-[#0B1F16]">
                       {num}
@@ -182,7 +177,7 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <Label>02 / The problem</Label>
             <div className="grid lg:grid-cols-2 gap-8 mt-6 items-start">
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16]">Manual entry eats your <span className="agri-serif font-normal">week.</span></h2>
+              <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16]">Manual entry eats your <span className="text-[#2CA01C]">week.</span></h2>
               <p className="text-[#5B665C] leading-relaxed">A month of bank statements typed by hand means hours lost, typos that break reconciliation, and a month-end backlog that never shrinks. ConvertStatement reads the PDF and hands you a clean file instead.</p>
             </div>
 
@@ -229,11 +224,10 @@ export default async function HomePage() {
         </section>
 
         {/* ─── 03 / FEATURES — DARK BENTO ─────────────────── */}
-        <section id="features" className="relative py-24 bg-[#0B1F16] text-white overflow-hidden scroll-mt-24">
-          <div aria-hidden className="absolute inset-x-0 top-8 text-center font-extrabold leading-none text-white/[0.04] select-none pointer-events-none whitespace-nowrap" style={{ fontSize: "clamp(80px, 18vw, 260px)" }}>CONVERT</div>
+        <section id="features" className="relative py-24 bg-[#F7FAF5] overflow-hidden scroll-mt-24">
           <div className="relative max-w-6xl mx-auto px-6">
-            <Label light>03 / Features</Label>
-            <p className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] mt-6 max-w-3xl">We turn <span className="text-zinc-500">messy PDFs</span> into <span className="agri-serif font-normal text-[#2CA01C]">ready-to-reconcile</span> data — fast, private, and exact.</p>
+            <Label>03 / Features</Label>
+            <p className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.1] mt-6 max-w-3xl text-[#0B1F16]">We turn <span className="text-zinc-400">messy PDFs</span> into <span className="text-[#2CA01C]">ready-to-reconcile</span> data — fast, private, and exact.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
               {FEATURES.map((f, i) => {
                 const wide = i === FEATURES.length - 1;
@@ -287,13 +281,13 @@ export default async function HomePage() {
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
                 <Label>04 / How it works</Label>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16] mt-5">Three steps. <span className="agri-serif font-normal">Zero typing.</span></h2>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">Three steps. <span className="text-[#2CA01C]">Zero typing.</span></h2>
               </div>
               <p className="text-[#5B665C] leading-relaxed max-w-sm">From a locked PDF to a file your books accept — in less time than making coffee.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-5">
               {steps.map(({ n, img, title, body }) => (
-                <div key={n} className="bg-white border border-[#CBE3C4] rounded-[24px] p-8">
+                <div key={n} className="bg-white border border-[#E3EDE0] rounded-[24px] p-8 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
                   {img ? (
                     <img src={img} alt="" className="w-16 h-16 object-contain mb-5" />
                   ) : null}
@@ -307,14 +301,14 @@ export default async function HomePage() {
         </section>
 
         {/* ─── 05 / FREE QUICKBOOKS TOOLS — DARK BAND ─────── */}
-        <section className="py-24 bg-[#0B1F16] text-white">
+        <section className="py-24 bg-[#EFF7ED]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
-                <Label light>05 / Free QuickBooks tools</Label>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] mt-5">Ten free tools. <span className="agri-serif font-normal text-[#2CA01C]">Scan free.</span></h2>
+                <Label>05 / Free QuickBooks tools</Label>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">Ten free tools. <span className="text-[#2CA01C]">Scan free.</span></h2>
               </div>
-              <p className="text-[#A9BFA9] leading-relaxed max-w-sm">Pick one, scan free, no account needed. QBO downloads are on Pro.</p>
+              <p className="text-[#5B665C] leading-relaxed max-w-sm">Pick one, scan free, no account needed. QBO downloads are on Pro.</p>
             </div>
             <div className="grid sm:grid-cols-2 gap-3.5">
               {TOOLS.map((t) => (
@@ -338,12 +332,12 @@ export default async function HomePage() {
         </section>
 
         {/* ─── 06 / PRICING TEASER — PALE SAGE ─────────────── */}
-        <section id="pricing" className="py-24 bg-[#E3F2DF] scroll-mt-24">
+        <section id="pricing" className="py-24 bg-white scroll-mt-24">
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
                 <Label>06 / Pricing</Label>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16] mt-5">Start free. <span className="agri-serif font-normal">Scale when ready.</span></h2>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">Start free. <span className="text-[#2CA01C]">Scale when ready.</span></h2>
               </div>
               <a href="/pricing" className="inline-flex items-center gap-2 rounded-full border border-[#C9D2BC] px-6 py-3.5 text-sm font-bold text-[#0B1F16] whitespace-nowrap">
                 See all plans <ArrowRight size={15} />
@@ -383,10 +377,24 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-12">
               <Label>07 / FAQ</Label>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16] mt-5">Questions, <span className="agri-serif font-normal">answered.</span></h2>
+              <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">Questions, <span className="text-[#2CA01C]">answered.</span></h2>
             </div>
-            <div className="max-w-3xl">
-              <FAQAccordion items={faqs} />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {faqs.map((f) => (
+                <div key={f.q} className="rounded-[24px] border border-[#E3EDE0] bg-[#F7FAF5] p-6">
+                  <h3 className="text-[15px] font-bold text-[#0B1F16] leading-snug">{f.q}</h3>
+                  <p className="text-sm text-[#5B665C] leading-relaxed mt-2">{f.a}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 rounded-[24px] bg-[#0B1F16] px-7 py-7 sm:px-9 flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className="text-white font-display font-bold text-lg">Still have questions?</p>
+                <p className="text-[#A9BFA9] text-sm mt-0.5">Send us a message and we&apos;ll help you out.</p>
+              </div>
+              <a href="/contact" className="inline-flex items-center gap-2 rounded-full bg-[#2CA01C] px-6 py-3 text-sm font-bold text-white whitespace-nowrap">
+                Contact us <ArrowRight size={15} />
+              </a>
             </div>
           </div>
         </section>
@@ -396,7 +404,7 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-10 sm:py-[72px] text-center text-white" style={{ background: "linear-gradient(180deg, #0E3D15, #007A33)" }}>
               <div aria-hidden className="absolute left-1/2 bottom-[-260px] -translate-x-1/2 w-[900px] h-[500px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,.4), transparent 75%)" }} />
-              <h2 className="relative text-4xl sm:text-[52px] font-extrabold leading-[1.05]">Stop typing statements.<br /><span className="agri-serif font-normal">Start converting.</span></h2>
+              <h2 className="relative font-display text-4xl sm:text-[52px] font-bold leading-[1.08]">Stop typing statements.<br />Start converting.</h2>
               <p className="relative text-[#B9D6B2] mt-4 max-w-[520px] mx-auto">Your first 8 pages are free. Upload a PDF and see a clean spreadsheet in under 15 seconds.</p>
               <div className="relative flex flex-wrap justify-center gap-3 mt-8">
                 <a href="/signup" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[#0B1F16] whitespace-nowrap">

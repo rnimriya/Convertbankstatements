@@ -18,7 +18,7 @@ export function NavAnonymousActions({ signInLabel, dark = false }: { signInLabel
       </Link>
       <Link
         href="/signup"
-        className={dark ? "inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-[13.5px] font-semibold text-[#0B3D2E] bg-pine-400 hover:bg-pine-300 border-0" : "inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-[13.5px] font-semibold text-white bg-pine-800 hover:bg-pine-700 border-0"}
+        className={dark ? "inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-[13.5px] font-semibold text-[#0B3D2E] bg-pine-400 hover:bg-pine-300 border-0" : "inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[13.5px] font-semibold text-white bg-[#2CA01C] hover:bg-[#238a17] border-0"}
       >
         Free Trial
       </Link>

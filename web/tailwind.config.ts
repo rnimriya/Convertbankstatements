@@ -53,7 +53,7 @@ const config: Config = {
       },
       fontFamily: {
         sans:    ["var(--font-manrope)",   "Manrope",             "system-ui", "sans-serif"],
-        display: ["var(--font-manrope)",   "Manrope",             "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)",  "Poppins",             "system-ui", "sans-serif"],
       },
       keyframes: {
         marquee: {
