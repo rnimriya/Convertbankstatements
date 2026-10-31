@@ -163,7 +163,7 @@ export function TeamPanel({ tier, userEmail }: Props) {
             <button
               type="submit"
               disabled={inviting}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 whitespace-nowrap"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2CA01C] text-white text-sm font-semibold hover:bg-[#238a17] disabled:opacity-50 whitespace-nowrap"
             >
               {inviting ? <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Mail className="text-pine-500 dark:text-pine-400"  size={14} />}
               Send invite

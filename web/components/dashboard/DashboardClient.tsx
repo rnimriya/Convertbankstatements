@@ -69,11 +69,11 @@ function PageBanner({
     <div className="shrink-0 px-5 sm:px-6 lg:px-8 pt-6 pb-1">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 bg-pine-100">
-            <Icon size={18} className="text-pine-700" />
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 bg-[#E3F2DF]">
+            <Icon size={18} className="text-[#007A33]" />
           </div>
           <div>
-            <h2 className="text-lg sm:text-[22px] font-black text-brand-text leading-tight tracking-tight">{title}</h2>
+            <h2 className="text-lg sm:text-[22px] font-display font-bold text-brand-text leading-tight tracking-tight">{title}</h2>
             <p className="text-[12px] sm:text-[13px] text-brand-muted mt-0.5 hidden sm:block">{subtitle}</p>
           </div>
         </div>
@@ -174,7 +174,7 @@ export function DashboardClient({
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#F7F7FA]">
+    <div className="flex h-screen overflow-hidden bg-[#F7FAF5]">
 
       {/* ── SIDEBAR OVERLAY (mobile) ─────────────────────────── */}
       {sidebarOpen && (
@@ -186,7 +186,7 @@ export function DashboardClient({
         className={`fixed lg:static inset-y-0 left-0 z-30 w-[264px] flex flex-col bg-brand-surface border-r border-brand-border/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ?"translate-x-0" :"-translate-x-full"}`}
       >
         {/* Logo */}
-        <div className="flex items-center gap-2.5 px-5 py-[18px] border-b border-zinc-100 dark:border-zinc-800">
+        <div className="flex items-center gap-2.5 px-5 py-[18px] border-b border-[#E3EDE0]">
           <a href="/" className="flex items-center gap-2.5">
             <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
             <span className="font-display font-bold text-brand-text text-[16px] tracking-tight">Convert<span className="text-pine-600">Statement</span></span>
@@ -210,7 +210,7 @@ export function DashboardClient({
                       className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-semibold transition-all text-left group ${
                         active
                           ?"bg-pine-100 text-pine-700"
-                          :"text-brand-muted hover:bg-zinc-50 hover:text-brand-text"
+                          :"text-brand-muted hover:bg-[#F7FAF5] hover:text-brand-text"
                       }`}
                     >
                       <Icon
@@ -279,10 +279,10 @@ export function DashboardClient({
         </div>
 
         {/* Sign out */}
-        <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
+        <div className="p-3 border-t border-[#E3EDE0]">
           <button
             onClick={handleSignOut}
-            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-[20px] text-[13px] font-medium text-brand-muted hover:bg-red-50 hover:text-red-600 transition-all"
+            className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13px] font-medium text-brand-muted hover:bg-red-50 hover:text-red-600 transition-all"
           >
             <LogOut className="text-rose-500 dark:text-rose-400"  size={14} />
             {isDemo ? t("goHome") : t("signOut")}
@@ -307,7 +307,7 @@ export function DashboardClient({
           </a>
           <button
             onClick={() => setTab("history")}
-            className="hidden md:flex items-center gap-2 flex-1 max-w-[340px] bg-white border border-[#EBEBF0] rounded-full px-4 py-2 text-[13px] text-brand-muted hover:border-pine-300 transition-colors"
+            className="hidden md:flex items-center gap-2 flex-1 max-w-[340px] bg-white border border-[#E3EDE0] rounded-full px-4 py-2 text-[13px] text-brand-muted hover:border-pine-300 transition-colors"
           >
             <Search size={14} className="shrink-0" />
             <span className="truncate">Search conversions, files…</span>
@@ -383,7 +383,7 @@ export function DashboardClient({
                   <p className="text-brand-muted text-xs font-medium mb-1">
                     {new Date().toLocaleDateString("en-IN", { weekday:"long", month:"long", day:"numeric" })}
                   </p>
-                  <h2 className="text-[24px] lg:text-[28px] font-black text-brand-text leading-tight tracking-tight">
+                  <h2 className="text-[24px] lg:text-[28px] font-display font-bold text-brand-text leading-tight tracking-tight">
                     {(() => { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening"; })()}, {displayName}
                   </h2>
                   <p className="text-brand-muted text-sm mt-1">Here&apos;s what&apos;s happening with your conversions.</p>
@@ -431,14 +431,14 @@ export function DashboardClient({
                     Icon: Clock,
                   },
                 ].map(card => (
-                  <div key={card.label} className="bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
+                  <div key={card.label} className="bg-white rounded-[20px] border border-[#E3EDE0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
                     <div className="flex items-center justify-between mb-3">
                       <p className="text-[13px] font-semibold text-brand-muted">{card.label}</p>
                       <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-pine-50">
                         <card.Icon size={16} className="text-pine-600" />
                       </div>
                     </div>
-                    <p className="text-[26px] lg:text-[30px] font-black text-brand-text tracking-tight leading-none">{card.value}</p>
+                    <p className="text-[26px] lg:text-[30px] font-display font-bold text-brand-text tracking-tight leading-none">{card.value}</p>
                     <p className="text-xs text-brand-muted mt-2">{card.sub}</p>
                   </div>
                 ))}
@@ -448,10 +448,10 @@ export function DashboardClient({
               <div className="grid xl:grid-cols-3 gap-5">
 
                 {/* Recent conversions */}
-                <div className="xl:col-span-2 bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
-                  <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
+                <div className="xl:col-span-2 bg-white rounded-[20px] border border-[#E3EDE0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
+                  <div className="flex items-center justify-between px-5 py-4 border-b border-[#E3EDE0]">
                     <div>
-                      <h3 className="text-sm font-bold text-brand-text">Recent Conversions</h3>
+                      <h3 className="text-sm font-display font-bold text-brand-text">Recent Conversions</h3>
                       <p className="text-xs text-brand-muted mt-0.5">
                         {recentLogs.length === 0 ?"No documents yet" : `Last ${Math.min(5, recentLogs.length)} processed`}
                       </p>
@@ -491,7 +491,7 @@ export function DashboardClient({
                         <div className="col-span-2 text-center">Txns</div>
                         <div className="col-span-1 text-right hidden sm:block">Date</div>
                       </div>
-                      <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
+                      <div className="divide-y divide-[#E3EDE0]">
                         {recentLogs.slice(0, 5).map(log => (
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-brand-surface/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
@@ -515,7 +515,7 @@ export function DashboardClient({
                             </div>
                             <div className="col-span-2 text-center">
                               <span
-                                className="text-sm font-bold px-2 py-0.5 rounded-lg bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-zinc-100"
+                                className="text-sm font-bold px-2 py-0.5 rounded-lg bg-[#EFF7ED] text-[#0B1F16]"
                               >
                                 {log.transactionCount}
                               </span>
@@ -529,7 +529,7 @@ export function DashboardClient({
                         ))}
                       </div>
                       {recentLogs.length > 5 && (
-                        <div className="px-5 py-3 border-t border-zinc-100 dark:border-zinc-800 text-center">
+                        <div className="px-5 py-3 border-t border-[#E3EDE0] text-center">
                           <button onClick={() => setTab("history")} className="text-xs font-semibold text-brand-text hover:text-brand-text/80 transition-colors">
                             View all {recentLogs.length} conversions →
                           </button>
@@ -542,11 +542,11 @@ export function DashboardClient({
                 {/* Right column */}
                 <div className="space-y-4">
                   {/* Plan card */}
-                  <div className="bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-5">
+                  <div className="bg-white rounded-[20px] border border-[#E3EDE0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-5">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-1">Current Plan</p>
-                        <p className="text-xl font-black text-brand-text">{billing.tier}</p>
+                        <p className="text-xl font-display font-bold text-brand-text">{billing.tier}</p>
                       </div>
                       <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
                         billing.tier ==="BUSINESS" ?"bg-pine-100 text-pine-700" :
@@ -572,7 +572,7 @@ export function DashboardClient({
                             />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-black text-brand-text">{usagePercent}%</span>
+                            <span className="text-xs font-display font-bold text-brand-text">{usagePercent}%</span>
                           </div>
                         </div>
                         <div className="flex-1">
@@ -603,7 +603,7 @@ export function DashboardClient({
                     {billing.tier ==="PRO" && (
                       <button
                         onClick={() => setTab("billing")}
-                        className="mt-4 w-full py-2 rounded-[20px] text-xs font-semibold text-brand-muted border border-brand-border hover:border-brand-border transition-colors"
+                        className="mt-4 w-full py-2 rounded-full text-xs font-semibold text-brand-muted border border-[#E3EDE0] hover:border-[#2CA01C] transition-colors"
                       >
                         Manage plan
                       </button>
@@ -611,7 +611,7 @@ export function DashboardClient({
                   </div>
 
                   {/* Quick actions */}
-                  <div className="bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-4">
+                  <div className="bg-white rounded-[20px] border border-[#E3EDE0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-3">Quick Actions</p>
                     <div className="space-y-0.5">
                       {[
@@ -623,13 +623,13 @@ export function DashboardClient({
                         <button
                           key={label}
                           onClick={() => setTab(dest)}
-                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-[20px] hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors group text-left"
+                          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F7FAF5] transition-colors group text-left"
                         >
                           <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-pine-50">
                             <Icon size={13} className="text-pine-600" />
                           </div>
-                          <span className="text-sm font-medium text-brand-muted group-hover:text-zinc-900 dark:group-hover:text-zinc-100 flex-1">{label}</span>
-                          <ChevronRight size={12} className="group-hover:dark:transition-colors text-rose-500 dark:text-rose-400" />
+                          <span className="text-sm font-medium text-brand-muted group-hover:text-brand-text flex-1">{label}</span>
+                          <ChevronRight size={12} className="text-brand-muted" />
                         </button>
                       ))}
                     </div>
@@ -664,13 +664,13 @@ export function DashboardClient({
                 iconBg="#fff7ed"
                 action={
                   /* Mode toggle — lives in the banner action slot */
-                  <div className="flex items-center gap-1 bg-brand-surface border border-brand-border rounded-[20px] p-1">
+                  <div className="flex items-center gap-1 bg-[#EFF7ED] border border-[#E3EDE0] rounded-full p-1">
                     {(["single","bulk"] as const).map(m => (
                       <button
                         key={m}
                         onClick={() => setUploadMode(m)}
-                        className={`px-4 py-1.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
-                          uploadMode === m ?"bg-brand-surface text-brand-text shadow-sm" :"text-brand-muted hover:text-brand-text"
+                        className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                          uploadMode === m ?"bg-white text-brand-text shadow-sm" :"text-brand-muted hover:text-brand-text"
                         }`}
                       >
                         {m ==="single" ? t("singleFile") : t("bulkUpload")}
@@ -707,7 +707,7 @@ export function DashboardClient({
                 iconBg="#eff6ff"
                 action={
                   recentLogs.length > 0 ? (
-                    <span className="text-xs font-semibold text-brand-muted bg-brand-surface border border-brand-border px-3 py-1.5 rounded-[20px]">
+                    <span className="text-xs font-semibold text-brand-muted bg-brand-surface border border-[#E3EDE0] px-3 py-1.5 rounded-full">
                       {recentLogs.length} total
                     </span>
                   ) : undefined
@@ -746,7 +746,7 @@ export function DashboardClient({
                 iconColor="#1A47C8"
                 iconBg="#eff6ff"
                 action={
-                  <span className={`text-xs font-bold px-3 py-1.5 rounded-[20px] ${
+                  <span className={`text-xs font-bold px-3 py-1.5 rounded-full ${
                     billing.tier ==="BUSINESS" ?"bg-pine-100 text-pine-700" :
                     billing.tier ==="PRO"      ?"bg-pine-100 text-pine-700" :"bg-brand-surface text-brand-muted"
                   }`}>

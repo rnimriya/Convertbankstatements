@@ -104,7 +104,7 @@ export function QuickBooksPanel() {
           </p>
           <a
             href="/api/quickbooks/connect"
-            className="inline-flex items-center gap-1.5 rounded-[20px] bg-pine-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-pine-500 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full bg-[#2CA01C] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#238a17] transition-colors"
           >
             <Plug size={14} /> Connect QuickBooks
           </a>

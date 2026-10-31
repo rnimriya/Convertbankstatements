@@ -112,10 +112,10 @@ export function PortalsPanel() {
             />
             <div className="flex flex-col sm:flex-row gap-2 items-center">
               <div className="flex-1 flex items-center rounded-[20px] border border-brand-border bg-brand-surface overflow-hidden focus-within:ring-2 focus-within:ring-navy/10 focus-within:border-navy transition-all">
-                <span className="px-3 py-2.5 text-sm text-brand-muted bg-zinc-50 dark:bg-zinc-900 border-r border-brand-border hidden sm:block">
+                <span className="px-3 py-2.5 text-sm text-brand-muted bg-[#F7FAF5] border-r border-[#E3EDE0] hidden sm:block">
                   convertstatement.online/p/
                 </span>
-                <span className="px-2 py-2.5 text-sm text-brand-muted bg-zinc-50 dark:bg-zinc-900 border-r border-brand-border sm:hidden">
+                <span className="px-2 py-2.5 text-sm text-brand-muted bg-[#F7FAF5] border-r border-[#E3EDE0] sm:hidden">
                   /p/
                 </span>
                 <input
@@ -132,7 +132,7 @@ export function PortalsPanel() {
                 <button
                   onClick={createPortal}
                   disabled={creating}
-                  className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-opacity"
+                  className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-[#2CA01C] text-white text-sm font-semibold hover:bg-[#238a17] disabled:opacity-50 transition-colors"
                 >
                   {creating ? <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Plus className="text-pine-500 dark:text-pine-400"  size={14} />}
                   Create
@@ -147,7 +147,7 @@ export function PortalsPanel() {
       ) : (
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 transition-opacity mb-6"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#2CA01C] text-white text-sm font-semibold hover:bg-[#238a17] transition-colors mb-6"
         >
           <Plus className="text-pine-500 dark:text-pine-400"  size={14} />
           New portal link
@@ -175,7 +175,7 @@ export function PortalsPanel() {
             const isCopied = copiedToken === portal.token;
             return (
               <div key={portal.token} className="bg-brand-surface border border-brand-border rounded-2xl p-4 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-[20px] bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-xl bg-[#0B1F16] flex items-center justify-center shrink-0">
                   <Link2 size={15} className="text-navy dark:text-pine-400 text-pine-500 dark:text-pine-400" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -187,7 +187,7 @@ export function PortalsPanel() {
                 </div>
                 <button
                   onClick={() => copyUrl(portal.token)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${isCopied ?"bg-pine-100 text-pine-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"}`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${isCopied ?"bg-pine-100 text-pine-700" :"bg-[#EFF7ED] text-[#0B1F16] hover:bg-[#E3F2DF]"}`}
                 >
                   {isCopied ? <><CheckCircle2 className="text-pine-500 dark:text-pine-400"  size={12} /> Copied</> : <><Copy className="text-pine-500 dark:text-pine-400"  size={12} /> Copy link</>}
                 </button>
@@ -196,7 +196,7 @@ export function PortalsPanel() {
                     onClick={() => sendReminder(portal.token)}
                     disabled={remindBusy === portal.token}
                     title={`Send a statement reminder to ${portal.clientEmail} (max once per day)`}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${remindedToken === portal.token ?"bg-pine-100 text-pine-700" :"bg-zinc-900 dark:bg-zinc-950/10 text-brand-text hover:bg-zinc-900 dark:bg-zinc-950/20"} disabled:opacity-50`}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shrink-0 ${remindedToken === portal.token ?"bg-pine-100 text-pine-700" :"bg-[#EFF7ED] text-[#0B1F16] hover:bg-[#E3F2DF]"} disabled:opacity-50`}
                   >
                     <Mail size={12} className="text-pine-500 dark:text-pine-400" />
                     {remindBusy === portal.token ? "Sending…" : remindedToken === portal.token ? "Reminder sent" : "Send reminder"}

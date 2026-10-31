@@ -128,12 +128,12 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
           {/* Avatar */}
           <div className="relative shrink-0">
             <div
-              className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center ${avatarUrl ?"" :"bg-zinc-900 dark:bg-zinc-100"}`}
+              className={`w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center ${avatarUrl ?"" :"bg-[#0B1F16]"}`}
             >
               {avatarUrl ? (
                 <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-3xl font-black text-white dark:text-black">{initial}</span>
+                <span className="text-3xl font-display font-bold text-white">{initial}</span>
               )}
             </div>
 
@@ -141,7 +141,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={avatarUploading}
-              className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-zinc-900 dark:bg-zinc-950 flex items-center justify-center shadow-lg border-2 border-white hover:bg-zinc-900 dark:bg-zinc-950/90 transition-colors"
+              className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#0B1F16] flex items-center justify-center shadow-lg border-2 border-white hover:opacity-90 transition-colors"
               title="Upload photo"
             >
               {avatarUploading
@@ -161,7 +161,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
 
           {/* Info */}
           <div className="flex-1 min-w-0">
-            <p className="text-lg font-black text-brand-text truncate">{displayName}</p>
+            <p className="text-lg font-display font-bold text-brand-text truncate">{displayName}</p>
             <p className="text-sm text-brand-muted truncate">{userEmail}</p>
             <div className="flex items-center gap-2 mt-2 flex-wrap">
               <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg ${
@@ -183,7 +183,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={avatarUploading}
-              className="px-4 py-2 rounded-[20px] text-xs font-bold text-white bg-zinc-900 dark:bg-zinc-950 hover:bg-zinc-900 dark:bg-zinc-950/90 transition-colors disabled:opacity-50"
+              className="px-4 py-2 rounded-full text-xs font-bold text-white bg-[#2CA01C] hover:bg-[#238a17] transition-colors disabled:opacity-50"
             >
               {avatarUploading ?"Uploading…" :"Change photo"}
             </button>
@@ -302,7 +302,7 @@ export function AccountSettings({ userEmail, userName, emailVerified, tier, onVe
                 <button
                   type="submit"
                   disabled={pwLoading}
-                  className="flex items-center gap-2 px-4 py-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#2CA01C] text-white text-sm font-semibold hover:bg-[#238a17] disabled:opacity-50"
                 >
                   {pwLoading && <Loader2 size={14} className="animate-spin text-pine-500 dark:text-pine-400" />}
                   Update password
@@ -401,7 +401,7 @@ function NotifRow({ label, description, value, onChange }: {
         onClick={() => onChange(!value)}
         role="switch"
         aria-checked={value}
-        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ?"bg-zinc-900 dark:bg-zinc-100" :"bg-brand-border"}`}
+        className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${value ?"bg-[#2CA01C]" :"bg-brand-border"}`}
       >
         <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-brand-surface rounded-full shadow transition-transform duration-200 ${value ?"translate-x-5" :"translate-x-0"}`} />
       </button>

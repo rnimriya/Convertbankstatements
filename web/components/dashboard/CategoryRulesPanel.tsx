@@ -95,7 +95,7 @@ export function CategoryRulesPanel() {
         <button
           onClick={addRule}
           disabled={saving || pattern.trim().length < 2 || !category.trim()}
-          className="flex items-center justify-center gap-1.5 rounded-[20px] bg-zinc-900 dark:bg-white px-4 py-2.5 text-sm font-semibold text-white dark:text-zinc-900 hover:opacity-90 disabled:opacity-50 transition-opacity"
+          className="flex items-center justify-center gap-1.5 rounded-full bg-[#2CA01C] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#238a17] disabled:opacity-50 transition-opacity"
         >
           {saving ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />} Add rule
         </button>

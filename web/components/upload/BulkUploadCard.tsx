@@ -129,7 +129,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               <a
                 href={zipUrl}
                 download="ConvertStatement-Batch.zip"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#2CA01C] text-white text-xs font-semibold hover:bg-[#238a17] transition-colors"
               >
                 <Download size={12} /> Download all (ZIP)
               </a>
@@ -145,7 +145,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
 
         {/* Multi-bank merge offer */}
         {hasMultipleBanks && successCount > 1 && (
-          <div className="bg-zinc-900 dark:bg-zinc-950/5 dark:bg-zinc-800/40 border border-brand-border rounded-2xl p-4 flex items-center justify-between gap-4">
+          <div className="bg-[#EFF7ED] border border-[#E3EDE0] rounded-2xl p-4 flex items-center justify-between gap-4">
             <div>
               <p className="text-sm font-semibold text-brand-text">Multiple banks detected</p>
               <p className="text-xs text-brand-muted mt-0.5">Merge all into one chronologically-sorted Excel sheet</p>
@@ -154,7 +154,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               <a
                 href={mergeUrl}
                 download="Merged_Statements.xlsx"
-                className="flex items-center gap-1.5 px-4 py-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#2CA01C] text-white text-xs font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
               >
                 <Download className="text-pine-500 dark:text-pine-400"  size={12} /> Download merged
               </a>
@@ -162,7 +162,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               <button
                 onClick={mergeAll}
                 disabled={merging}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-[20px] bg-zinc-900 dark:bg-zinc-950 text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#2CA01C] text-white text-xs font-semibold hover:opacity-90 disabled:opacity-60 transition-opacity whitespace-nowrap"
               >
                 {merging ? <Loader2 size={12} className="animate-spin text-pine-500 dark:text-pine-400" /> : <Merge className="text-pine-500 dark:text-pine-400"  size={12} />}
                 {merging ?"Merging…" :"Merge all banks"}
@@ -206,7 +206,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                   )}
                   {r.exportUrls.xlsx && (
                     <a href={r.exportUrls.xlsx} download={r.fileName.replace(".pdf",".xlsx")}
-                      className="px-2.5 py-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-950/10 dark:bg-brand-400/10 text-brand-text text-xs font-semibold hover:bg-zinc-900 dark:bg-zinc-950/20 dark:hover:bg-brand-400/20 transition-colors">
+                      className="px-2.5 py-1.5 rounded-lg bg-[#EFF7ED] text-[#0B1F16] text-xs font-semibold hover:bg-[#E3F2DF] transition-colors">
                       .xlsx
                     </a>
                   )}
@@ -237,7 +237,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
             </div>
           )}
 
-          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] overflow-hidden">
             <div className="p-3">
               <div
                 {...getRootProps()}
@@ -246,8 +246,8 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                     ? "border-zinc-200 pointer-events-none opacity-70"
                     : "cursor-pointer",
                   phase !== "processing" && (isDragActive
-                    ? "border-zinc-900 dark:border-zinc-100 bg-brand-surface"
-                    : "border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-brand-surface/80")
+                    ? "border-[#2CA01C] bg-[#EFF7ED]"
+                    : "border-zinc-300 bg-white hover:border-[#2CA01C]")
                 )}
               >
                 <input {...getInputProps()} />
@@ -257,7 +257,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                     <div className="relative h-16 w-16">
                       <svg className="h-full w-full animate-spin" style={{ animationDuration: "2s" }} viewBox="0 0 112 112">
                         <circle cx="56" cy="56" r="48" fill="none" stroke="#e4e4e7" strokeWidth="6" />
-                        <circle cx="56" cy="56" r="48" fill="none" stroke="#18181b" strokeWidth="6" strokeLinecap="round"
+                        <circle cx="56" cy="56" r="48" fill="none" stroke="#2CA01C" strokeWidth="6" strokeLinecap="round"
                           strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -265,12 +265,12 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                       </div>
                     </div>
                     <div>
-                      <p className="text-lg font-black text-brand-text">Processing files…</p>
+                      <p className="text-lg font-display font-bold text-brand-text">Processing files…</p>
                       <p className="mt-0.5 text-sm text-brand-muted">Converting sequentially · please wait</p>
                     </div>
                     <div className="h-1.5 w-48 overflow-hidden rounded-full bg-zinc-200">
                       <div className="h-full rounded-full" style={{
-                        background: "linear-gradient(90deg,#52525b,#18181b,#52525b)",
+                        background: "linear-gradient(90deg,#007A33,#2CA01C,#007A33)",
                         backgroundSize: "300% 100%",
                         animation: "progressShimmer 1.8s linear infinite",
                       }} />
@@ -279,18 +279,18 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                 ) : (
                   <>
                     <div
-                      className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
+                      className="mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full transition-all duration-300"
                       style={{
-                        background: isDragActive ? "#09090b" : "#18181b",
+                        background: isDragActive ? "#2CA01C" : "#E3F2DF",
                         transform: isDragActive ? "scale(1.06)" : "scale(1)",
                       }}
                     >
                       {isDragActive
-                        ? <FileText size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />
-                        : <Upload size={26} className="text-white text-pine-500 dark:text-pine-400" strokeWidth={1.6} />}
+                        ? <FileText size={22} color={isDragActive ? "#ffffff" : "#007A33"} strokeWidth={1.6} />
+                        : <Upload size={22} color={isDragActive ? "#ffffff" : "#007A33"} strokeWidth={1.6} />}
                     </div>
 
-                    <h2 className="text-2xl lg:text-3xl font-black tracking-tight text-brand-text">
+                    <h2 className="text-2xl lg:text-3xl font-display font-bold tracking-tight text-brand-text">
                       {isDragActive ? "Release to convert" : "Drop multiple PDFs or a ZIP file"}
                     </h2>
                     <p className="mt-1 text-sm text-brand-muted">

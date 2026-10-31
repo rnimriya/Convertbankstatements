@@ -168,7 +168,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
               </div>
 
               {isExpanded && (
-                <div className="border-t border-zinc-100 dark:border-zinc-800 px-5 py-4 space-y-3">
+                <div className="border-t border-[#E3EDE0] px-5 py-4 space-y-3">
                   {job.error && (
                     <div className="flex items-start gap-2 text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-[20px] px-4 py-3">
                       <AlertTriangle size={14} className="shrink-0 mt-0.5 text-amber-500 dark:text-amber-400" />
@@ -182,7 +182,7 @@ export function QueuePanel({ userEmail, tier }: Props) {
                         <button
                           key={fmt}
                           onClick={() => handleDownload(job.fileName, fmt, url)}
-                          className="flex w-full items-center justify-between rounded-[20px] bg-orange-500 hover:bg-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(249,115,22,0.3)] transition-all"
+                          className="flex w-full items-center justify-between rounded-[20px] bg-[#2CA01C] hover:bg-[#238a17] px-4 py-3 text-sm font-semibold text-white shadow-[0_2px_12px_rgba(44,160,28,0.3)] transition-all"
                         >
                           <span className="flex items-center gap-2">
                             <FileText size={14} className="opacity-80 text-pine-500 dark:text-pine-400" />

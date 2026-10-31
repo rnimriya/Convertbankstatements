@@ -133,7 +133,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
         </span>
         <button
           onClick={() => setAnnual(a => !a)}
-          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ?"bg-zinc-900 dark:bg-zinc-100" :"bg-brand-border"}`}
+          className={`relative w-11 h-6 rounded-full transition-colors duration-200 focus:outline-none ${annual ?"bg-[#2CA01C]" :"bg-brand-border"}`}
           role="switch"
           aria-checked={annual}
         >
@@ -172,29 +172,29 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                 {/* Badge */}
                 <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
                   {isCurrent ? (
-                    <span className="inline-block bg-zinc-900 dark:bg-zinc-100 rounded-full px-5 py-1.5 text-xs font-black text-white dark:text-black shadow-md whitespace-nowrap border border-brand-border">
+                    <span className="inline-block bg-[#0B1F16] rounded-full px-5 py-1.5 text-xs font-display font-bold text-white shadow-md whitespace-nowrap border border-brand-border">
                       Current plan
                     </span>
                   ) : (
-                    <span className="inline-block bg-brand-surface rounded-full px-5 py-1.5 text-xs font-black text-brand-text shadow-md whitespace-nowrap border border-brand-border">
+                    <span className="inline-block bg-brand-surface rounded-full px-5 py-1.5 text-xs font-display font-bold text-brand-text shadow-md whitespace-nowrap border border-brand-border">
                       {plan.badge}
                     </span>
                   )}
                 </div>
 
                 <div
-                  className="relative flex flex-col h-full rounded-[20px] p-7 overflow-hidden bg-zinc-900"
+                  className="relative flex flex-col h-full rounded-[20px] p-7 overflow-hidden bg-[#0B1F16]"
                 >
                   {/* Orb */}
                   <div className="absolute top-0 right-0 w-40 h-40 rounded-full opacity-5 pointer-events-none bg-white" style={{ transform:"translate(30%,-30%)" }} />
 
-                  <p className="font-black text-white text-lg mb-0.5">{plan.name}</p>
+                  <p className="font-display font-bold text-white text-lg mb-0.5">{plan.name}</p>
                   <p className="text-white/60 text-xs mb-5">{plan.tagline}</p>
 
                   {/* Price */}
                   <div className="mb-1">
                     <div className="flex items-end gap-1.5">
-                      <span className="text-5xl font-black text-white tracking-tight">{displayPrice}</span>
+                      <span className="text-5xl font-display font-bold text-white tracking-tight">{displayPrice}</span>
                       {displayPeriod && <span className="text-white/60 text-base mb-1">{displayPeriod}</span>}
                     </div>
                     {showAnnual && plan.annualMonthlyEquiv && (
@@ -232,7 +232,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                   {isCurrent ? (
                     <button
                       disabled
-                      className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-black bg-brand-surface/20 text-white cursor-not-allowed opacity-70"
+                      className="flex w-full items-center justify-center rounded-full py-3.5 text-sm font-black bg-brand-surface/20 text-white cursor-not-allowed opacity-70"
                     >
                       Current plan
                     </button>
@@ -243,7 +243,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                       amountUSD={activeAmount}
                       onSuccess={() => router.refresh()}
                       onError={setError}
-                      className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold bg-white text-black hover:bg-zinc-100 transition-colors shadow-sm"
+                      className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold bg-white text-black hover:bg-zinc-100 transition-colors shadow-sm"
                     />
                   )}
                 </div>
@@ -256,22 +256,22 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
             <div
               key={plan.id}
               className={`relative flex flex-col h-full rounded-[20px] border bg-brand-surface p-7 shadow-sm hover:shadow-md transition-shadow ${
-                isCurrent ?"border-zinc-900 dark:border-zinc-100 ring-2 ring-zinc-900 dark:ring-zinc-100" :"border-brand-border"
+                isCurrent ?"border-[#2CA01C] ring-2 ring-[#2CA01C]" :"border-brand-border"
               }`}
             >
               {isCurrent && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-zinc-900 dark:bg-zinc-100 px-4 py-1 text-xs font-bold text-white dark:text-black whitespace-nowrap shadow-sm border border-brand-border">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#2CA01C] px-4 py-1 text-xs font-bold text-white whitespace-nowrap shadow-sm border border-brand-border">
                   Current plan
                 </div>
               )}
 
-              <p className="font-black text-brand-text text-lg mb-0.5">{plan.name}</p>
+              <p className="font-display font-bold text-brand-text text-lg mb-0.5">{plan.name}</p>
               <p className="text-brand-muted text-xs mb-5">{plan.tagline}</p>
 
               {/* Price */}
               <div className="mb-1">
                 <div className="flex items-end gap-1.5">
-                  <span className="text-4xl font-black text-brand-text tracking-tight">{displayPrice}</span>
+                  <span className="text-4xl font-display font-bold text-brand-text tracking-tight">{displayPrice}</span>
                   {displayPeriod && <span className="text-brand-muted text-sm mb-1">{displayPeriod}</span>}
                 </div>
                 {showAnnual && plan.annualMonthlyEquiv && (
@@ -310,14 +310,14 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
               {isCurrent ? (
                 <button
                   disabled
-                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold bg-brand-surface text-brand-muted cursor-not-allowed"
+                  className="flex w-full items-center justify-center rounded-full py-3.5 text-sm font-bold bg-brand-surface text-brand-muted cursor-not-allowed"
                 >
                   Current plan
                 </button>
               ) : plan.id ==="FREE" || !activePlan ? (
                 <button
                   disabled
-                  className="flex w-full items-center justify-center rounded-2xl py-3.5 text-sm font-bold bg-brand-surface text-brand-muted cursor-not-allowed"
+                  className="flex w-full items-center justify-center rounded-full py-3.5 text-sm font-bold bg-brand-surface text-brand-muted cursor-not-allowed"
                 >
                   Free
                 </button>
@@ -328,7 +328,7 @@ export function PricingSection({ currentTier, onTierChange }: PricingSectionProp
                   amountUSD={activeAmount}
                   onSuccess={() => router.refresh()}
                   onError={setError}
-                  className="flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 border-0 shadow-none"
+                  className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold bg-[#2CA01C] text-white hover:bg-[#238a17] border-0 shadow-none"
                 />
               )}
             </div>
