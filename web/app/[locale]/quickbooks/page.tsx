@@ -113,8 +113,8 @@ const QB_BANKS = [
 const fmtUSD = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
-const h2 = "text-2xl font-extrabold text-zinc-900  mt-12 first:mt-0";
-const para = "mt-3 text-zinc-600  leading-relaxed";
+const h2 = "font-display text-2xl font-bold text-[#0B1F16] mt-12 first:mt-0";
+const para = "mt-3 text-[#5c6f63] leading-relaxed";
 
 export default async function QuickBooksPage() {
   const nonce = BUILD_NONCE;
@@ -163,19 +163,18 @@ export default async function QuickBooksPage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      <Navbar dark />
+      <Navbar />
       <main className="min-h-screen bg-white ">
         {/* ── Header (same pattern as guide pages) ──────────── */}
-        <section className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[140px] pb-16 text-center">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-          <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[140px] pb-16 text-center">
+          <p className="relative inline-flex items-center gap-2 rounded-full border border-[#E3EDE0] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#007A33]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             QuickBooks Reconciliation
           </p>
-          <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
-            Convert PDF Bank Statements for <span className="agri-serif">QuickBooks Reconciliation</span>
+          <h1 className="relative mt-5 font-display text-3xl sm:text-[40px] font-bold text-[#0B1F16] leading-tight max-w-4xl mx-auto">
+            Convert PDF Bank Statements for <span className="text-[#007A33]">QuickBooks Reconciliation</span>
           </h1>
-          <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
+          <p className="relative mt-4 text-lg text-[#5c6f63] max-w-2xl mx-auto">
             Upload a statement PDF, download a balance-checked QBO or CSV file, and reconcile in
             QuickBooks Online or Desktop — without typing a single transaction by hand.
           </p>
@@ -245,7 +244,7 @@ export default async function QuickBooksPage() {
             </ol>
 
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="rounded-[24px] border border-[#CBE3C4]  bg-white  p-6">
+              <div className="rounded-[24px] border border-[#E3EDE0]  bg-white  p-6">
                 <h3 className="font-bold text-zinc-900  mb-3">Importing into QuickBooks Online</h3>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-zinc-600  leading-relaxed">
                   <li>Go to <strong>Transactions → Bank transactions</strong>.</li>
@@ -255,7 +254,7 @@ export default async function QuickBooksPage() {
                   <li>Reconcile the month against the statement&apos;s closing balance.</li>
                 </ol>
               </div>
-              <div className="rounded-[24px] border border-[#CBE3C4]  bg-white  p-6">
+              <div className="rounded-[24px] border border-[#E3EDE0]  bg-white  p-6">
                 <h3 className="font-bold text-zinc-900  mb-3">Importing into QuickBooks Desktop</h3>
                 <ol className="list-decimal list-inside space-y-2 text-sm text-zinc-600  leading-relaxed">
                   <li>Download the <strong>QBO</strong> export from Convert Statement.</li>
@@ -275,7 +274,7 @@ export default async function QuickBooksPage() {
               holds, your result shows a green confirmation. If a step doesn&apos;t add up, you
               get a warning instead, so a broken statement never becomes broken books.
             </p>
-            <div className="mt-5 rounded-[24px] border border-[#CBE3C4] bg-[#E3F2DF] p-4">
+            <div className="mt-5 rounded-[24px] border border-[#E3EDE0] bg-[#E3F2DF] p-4">
               <p className="flex items-center gap-2 font-bold text-[#007A33] text-sm">
                 <CheckCircle2 className="h-5 w-5" /> Balance verified
               </p>
@@ -321,11 +320,11 @@ export default async function QuickBooksPage() {
               </Link>
               .
             </p>
-            <div className="mt-5 overflow-hidden rounded-[24px] border border-[#CBE3C4] ">
+            <div className="mt-5 overflow-hidden rounded-[24px] border border-[#E3EDE0] ">
               {FORMATS.map((f, i) => (
                 <div
                   key={f.name}
-                  className={`flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-6 py-4 ${i % 2 === 0 ? "bg-white " : "bg-[#F2F4EC] "}`}
+                  className={`flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-6 py-4 ${i % 2 === 0 ? "bg-white " : "bg-[#EFF7ED] "}`}
                 >
                   <span className="font-bold text-zinc-900  w-32 shrink-0">{f.name}</span>
                   <span className="text-sm text-zinc-500  flex-1">{f.use}</span>
@@ -367,8 +366,8 @@ export default async function QuickBooksPage() {
 
           {/* Sidebar (same pattern as guide pages) */}
           <div className="lg:col-span-4 space-y-10">
-            <div className="p-6 rounded-[24px] bg-[#007A33] text-white">
-              <h3 className="font-bold mb-2">Ready to convert?</h3>
+            <div className="p-6 rounded-[24px] bg-[#0B1F16] text-white">
+              <h3 className="font-display font-bold mb-2">Ready to convert?</h3>
               <p className="text-[#BFE3B8] text-sm mb-4">
                 Your first 8 pages are free — CSV and Excel included, no credit card required.
               </p>
@@ -378,7 +377,7 @@ export default async function QuickBooksPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-bold text-zinc-900  mb-4 flex items-center gap-2">
+              <h3 className="font-display text-lg font-bold text-[#0B1F16]  mb-4 flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-[#007A33]" /> QuickBooks Guides
               </h3>
               <div className="flex flex-col gap-3">
@@ -386,7 +385,7 @@ export default async function QuickBooksPage() {
                   <Link
                     key={b.slug}
                     href={`/blog/${b.slug}`}
-                    className="group p-4 rounded-[24px] border border-[#CBE3C4]  hover:border-[#007A33] bg-[#F2F4EC] "
+                    className="group p-4 rounded-[24px] border border-[#E3EDE0]  hover:border-[#007A33] bg-[#EFF7ED] "
                   >
                     <h4 className="font-semibold text-zinc-900  text-sm">
                       {b.label}
@@ -397,7 +396,7 @@ export default async function QuickBooksPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-bold text-zinc-900  mb-4 flex items-center gap-2">
+              <h3 className="font-display text-lg font-bold text-[#0B1F16]  mb-4 flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-[#007A33]" /> Free QuickBooks tools
               </h3>
               <div className="flex flex-col gap-3">
@@ -416,7 +415,7 @@ export default async function QuickBooksPage() {
                   <Link
                     key={t.href}
                     href={t.href}
-                    className="group p-4 rounded-[24px] border border-[#CBE3C4]  hover:border-[#007A33] bg-[#F2F4EC] "
+                    className="group p-4 rounded-[24px] border border-[#E3EDE0]  hover:border-[#007A33] bg-[#EFF7ED] "
                   >
                     <h4 className="font-semibold text-zinc-900  text-sm">
                       {t.label}
@@ -427,7 +426,7 @@ export default async function QuickBooksPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-bold text-zinc-900  mb-4 flex items-center gap-2">
+              <h3 className="font-display text-lg font-bold text-[#0B1F16]  mb-4 flex items-center gap-2">
                 <Building2 className="h-5 w-5 text-[#007A33]" /> Specific Bank Converters
               </h3>
               <div className="flex flex-col gap-2">
@@ -446,9 +445,9 @@ export default async function QuickBooksPage() {
         </section>
 
         {/* ── Pricing ───────────────────────────────────────── */}
-        <section className="border-t border-[#CBE3C4] bg-[#E3F2DF]">
+        <section className="border-t border-[#E3EDE0] bg-[#E3F2DF]">
           <div className="mx-auto max-w-6xl px-6 py-12">
-            <h2 className="text-2xl font-extrabold text-zinc-900  text-center">
+            <h2 className="font-display text-2xl font-bold text-[#0B1F16] text-center">
               Less than one hour of a bookkeeper&apos;s time
             </h2>
             <p className="mt-3 text-zinc-500  text-center max-w-2xl mx-auto">
@@ -463,7 +462,7 @@ export default async function QuickBooksPage() {
 
         {/* ── FAQ ───────────────────────────────────────────── */}
         <section className="mx-auto max-w-6xl px-6 py-12">
-          <h2 className="text-2xl font-extrabold text-zinc-900  text-center mb-8">
+          <h2 className="font-display text-2xl font-bold text-[#0B1F16] text-center mb-8">
             QuickBooks conversion questions
           </h2>
           <FAQAccordion items={FAQS} />
@@ -471,15 +470,15 @@ export default async function QuickBooksPage() {
 
         {/* ── Final CTA (guide sidebar box pattern, centered) ── */}
         <section className="mx-auto max-w-6xl px-6 pb-16">
-          <div className="p-8 rounded-[24px] bg-gradient-to-b from-[#0E3D15] to-[#007A33] text-white text-center">
-            <h2 className="text-2xl font-extrabold">Your next statement could take one minute.</h2>
+          <div className="p-8 rounded-[24px] bg-[#0B1F16] text-white text-center">
+            <h2 className="font-display text-2xl font-bold">Your next statement could take one minute.</h2>
             <p className="text-[#BFE3B8] mt-3 max-w-lg mx-auto">
               Upload the PDF, watch the balance check pass, import the QBO. The first 8 pages are
               on us.
             </p>
             <Link
               href="/signup"
-              className="mt-6 inline-block bg-white text-[#0B1F16] font-semibold px-8 py-2.5 rounded-full"
+              className="mt-6 inline-block bg-[#2CA01C] text-white font-semibold px-8 py-2.5 rounded-full hover:bg-[#238a17] transition-colors"
             >
               Start Converting Free
             </Link>
