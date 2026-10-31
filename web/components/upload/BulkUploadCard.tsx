@@ -281,13 +281,13 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
                     <div
                       className="mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full transition-all duration-300"
                       style={{
-                        background: isDragActive ? "#2CA01C" : "#E3F2DF",
+                        background: isDragActive ? "#0B1F16" : "#2CA01C",
                         transform: isDragActive ? "scale(1.06)" : "scale(1)",
                       }}
                     >
                       {isDragActive
-                        ? <FileText size={22} color={isDragActive ? "#ffffff" : "#007A33"} strokeWidth={1.6} />
-                        : <Upload size={22} color={isDragActive ? "#ffffff" : "#007A33"} strokeWidth={1.6} />}
+                        ? <FileText size={22} color="#ffffff" strokeWidth={1.6} />
+                        : <Upload size={22} color="#ffffff" strokeWidth={1.6} />}
                     </div>
 
                     <h2 className="text-2xl lg:text-3xl font-display font-bold tracking-tight text-brand-text">

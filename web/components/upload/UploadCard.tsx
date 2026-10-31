@@ -232,13 +232,13 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     <div
                       className={cn("flex items-center justify-center transition-all duration-300", fullWidth ?"mb-1 h-9 w-9 rounded-2xl" :"mb-3 h-[52px] w-[52px] rounded-full")}
                       style={{
-                        background: fullWidth ? (isDragActive ?"#0B3D2E" :"#00573F") : (isDragActive ?"#2CA01C" :"#E3F2DF"),
+                        background: fullWidth ? (isDragActive ?"#0B3D2E" :"#00573F") : (isDragActive ?"#0B1F16" :"#2CA01C"),
                         transform: isDragActive ?"scale(1.06)" :"scale(1)",
                       }}
                     >
                       {isDragActive
-                        ? <FileText size={fullWidth ? 26 : 22} color={fullWidth || isDragActive ? "#ffffff" : "#007A33"} strokeWidth={1.6} />
-                        : <Upload size={fullWidth ? 26 : 22} color={fullWidth || isDragActive ? "#ffffff" : "#007A33"} strokeWidth={1.6} />}
+                        ? <FileText size={fullWidth ? 26 : 22} color="#ffffff" strokeWidth={1.6} />
+                        : <Upload size={fullWidth ? 26 : 22} color="#ffffff" strokeWidth={1.6} />}
                     </div>
 
                     <h2 className={cn("font-display font-bold tracking-tight text-brand-text", fullWidth ?"text-lg lg:text-xl" :"text-2xl lg:text-3xl")}>
