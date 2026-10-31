@@ -59,7 +59,7 @@ export function QboChecker() {
   return (
     <div>
       <div
-        className={busy ? "mx-auto w-full sm:w-[70%] rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center cursor-pointer shadow-[0_12px_36px_rgba(11,31,22,0.13)] hover:border-pine-400 transition-colors" : "mx-auto w-full sm:w-[70%] rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center cursor-pointer shadow-[0_12px_36px_rgba(11,31,22,0.13)]"}
+        className={busy ? "mx-auto w-full sm:w-[70%] rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center cursor-pointer shadow-[0_12px_36px_rgba(11,31,22,0.13)] hover:border-pine-400 transition-colors" : "mx-auto w-full sm:w-[70%] rounded-[10px] border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-[#2CA01C] px-6 pt-4 pb-9 lg:pt-4 lg:pb-10 text-center cursor-pointer shadow-[0_12px_36px_rgba(11,31,22,0.13)]"}
         onClick={() => inputRef.current?.click()}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => {

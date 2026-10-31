@@ -103,7 +103,7 @@ export default async function PricingPage() {
       />
       <Navbar />
 
-      <div className="relative overflow-hidden px-6 pt-12 pb-28 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
+      <div className="relative overflow-hidden px-6 pt-[124px] pb-28 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
         <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
         <p className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</p>
         <h1 className="relative font-display text-4xl sm:text-[52px] font-bold text-[#0B1F16] leading-[1.08]">Simple, transparent <span className="text-[#2CA01C]">pricing</span></h1>

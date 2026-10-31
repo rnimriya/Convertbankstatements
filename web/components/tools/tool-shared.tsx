@@ -226,7 +226,7 @@ export function ToolUpload({
             !busy &&
               (dragActive
                 ? "border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface"
-                : "border-2 border-dashed border-zinc-300 dark:border-zinc-700")
+                : "border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-[#2CA01C]")
           )}
         >
           <input

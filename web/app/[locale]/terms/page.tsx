@@ -189,7 +189,7 @@ export default function TermsPage() {
  <Navbar dark />
 
  {/* Header */}
- <div className="relative overflow-hidden bg-[#0B1F16] px-6 py-10">
+ <div className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[116px] pb-10">
  <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
  <div className="relative mx-auto max-w-6xl">
  <div className="flex items-center gap-3">

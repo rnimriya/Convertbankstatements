@@ -196,7 +196,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     :"cursor-pointer",
                   !isProcessing && (isDragActive
                     ?(fullWidth ?"border-[6px] border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface" :"border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface")
-                    :(fullWidth ?"dropbox-border-anim-6" :"dropbox-border-anim"))
+                    :(fullWidth ?"border-[6px] border-dashed border-zinc-300 hover:border-[#2CA01C]" :"dropbox-border-anim"))
                 )}
               >
                 {!isProcessing && <input {...getInputProps()} />}

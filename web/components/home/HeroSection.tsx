@@ -16,7 +16,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
       {/* Soft green glow (static, no animation) */}
       <div aria-hidden className="absolute left-1/2 top-[-460px] -translate-x-1/2 w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,.20), transparent 72%)" }} />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-12 pb-14">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center pt-[124px] pb-14">
         <span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-4 py-1.5 text-[12.5px] font-semibold text-[#007A33] shadow-sm">
           <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C]" />
           First 8 pages free — no account needed

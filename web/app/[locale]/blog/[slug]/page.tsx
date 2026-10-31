@@ -196,7 +196,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         {/* Dark hero */}
         <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 65%, #FFFFFF 100%)" }}>
           <div className="absolute left-1/2 -translate-x-1/2 -top-[380px] w-[1000px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.16), transparent 72%)" }} />
-          <div className="relative mx-auto max-w-[1060px] px-6 pt-10 pb-28">
+          <div className="relative mx-auto max-w-[1060px] px-6 pt-[116px] pb-28">
             <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6 font-medium">
               <a href="/" className="hover:text-zinc-900">Home</a>
               <span className="mx-1.5">/</span>
