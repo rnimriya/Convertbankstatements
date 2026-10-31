@@ -11,7 +11,13 @@ interface Props {
 
 export function NavUserMenu({ displayName, email, initial }: Props) {
   const [open, setOpen] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
+
+  /* profile photo (same localStorage store as Settings / dashboard) */
+  useEffect(() => {
+    try { setAvatarUrl(localStorage.getItem("cs_avatar")); } catch { /* storage unavailable */ }
+  }, []);
 
   /* close on outside click */
   useEffect(() => {
@@ -33,9 +39,13 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
         onClick={() => setOpen(v => !v)}
         className="flex items-center gap-2 rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 pl-1.5 pr-3 py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors"
       >
-        <div className="h-6 w-6 rounded-lg bg-gray-900 flex items-center justify-center text-[11px] font-black text-white shrink-0">
-          {initial}
-        </div>
+        {avatarUrl ? (
+          <img src={avatarUrl} alt="" className="h-6 w-6 rounded-lg object-cover shrink-0" />
+        ) : (
+          <div className="h-6 w-6 rounded-lg bg-gray-900 flex items-center justify-center text-[11px] font-black text-white shrink-0">
+            {initial}
+          </div>
+        )}
         <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300 max-w-[100px] truncate hidden sm:block">
           {displayName}
         </span>
@@ -51,9 +61,18 @@ export function NavUserMenu({ displayName, email, initial }: Props) {
           style={{ boxShadow:"0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06)" }}
         >
           {/* User info */}
-          <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800">
-            <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">{displayName}</p>
-            <p className="text-xs text-zinc-400 dark:text-zinc-500 truncate mt-0.5">{email}</p>
+          <div className="px-4 py-3 border-b border-zinc-100 dark:border-zinc-800 flex items-center gap-3">
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="" className="h-9 w-9 rounded-full object-cover shrink-0" />
+            ) : (
+              <div className="h-9 w-9 rounded-full bg-gray-900 flex items-center justify-center text-[13px] font-black text-white shrink-0">
+                {initial}
+              </div>
+            )}
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate">{displayName}</p>
+              <p className="text-xs text-zinc-400 dark:text-zinc-500 truncate mt-0.5">{email}</p>
+            </div>
           </div>
 
           {/* Menu items */}
