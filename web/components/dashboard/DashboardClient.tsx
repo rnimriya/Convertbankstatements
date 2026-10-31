@@ -18,7 +18,7 @@ import type { BillingContext } from"@/types/billing";
 import {
   Upload, History, CreditCard, LogOut, Link2, Users, Settings,
   FileText, Menu, X, Layers, CheckCircle2, AlertTriangle,
-  LayoutDashboard, TrendingUp, Clock, Zap, ChevronRight, ArrowUpRight,
+  LayoutDashboard, TrendingUp, Clock, Zap, ChevronRight, ArrowUpRight, Search,
 } from"lucide-react";
 
 type Tab ="home" |"upload" |"history" |"billing" |"portals" |"team" |"settings" |"queue";
@@ -66,16 +66,14 @@ function PageBanner({
   action?: React.ReactNode;
 }) {
   return (
-    <div className="shrink-0 bg-brand-surface border-b border-zinc-100 dark:border-zinc-800 px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
+    <div className="shrink-0 px-5 sm:px-6 lg:px-8 pt-6 pb-1">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3">
-          <div
-            className="w-9 h-9 sm:w-11 sm:h-11 rounded-[20px] sm:rounded-2xl flex items-center justify-center shrink-0 bg-brand-surface"
-          >
-            <Icon size={17} className="text-brand-text" />
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 bg-pine-100">
+            <Icon size={18} className="text-pine-700" />
           </div>
           <div>
-            <h2 className="text-[15px] sm:text-[17px] font-black text-brand-text leading-tight">{title}</h2>
+            <h2 className="text-lg sm:text-[22px] font-black text-brand-text leading-tight tracking-tight">{title}</h2>
             <p className="text-[12px] sm:text-[13px] text-brand-muted mt-0.5 hidden sm:block">{subtitle}</p>
           </div>
         </div>
@@ -176,7 +174,7 @@ export function DashboardClient({
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-brand-bg">
+    <div className="flex h-screen overflow-hidden bg-[#F7F7FA]">
 
       {/* ── SIDEBAR OVERLAY (mobile) ─────────────────────────── */}
       {sidebarOpen && (
@@ -185,76 +183,14 @@ export function DashboardClient({
 
       {/* ── SIDEBAR ─────────────────────────────────────────── */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-30 w-[220px] flex flex-col bg-brand-surface border-r border-brand-border/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ?"translate-x-0" :"-translate-x-full"}`}
+        className={`fixed lg:static inset-y-0 left-0 z-30 w-[264px] flex flex-col bg-brand-surface border-r border-brand-border/80 transition-transform duration-200 lg:translate-x-0 ${sidebarOpen ?"translate-x-0" :"-translate-x-full"}`}
       >
         {/* Logo */}
         <div className="flex items-center gap-2.5 px-5 py-[18px] border-b border-zinc-100 dark:border-zinc-800">
           <a href="/" className="flex items-center gap-2.5">
-            <img src="/logo.svg" alt="Convert Statement" className="h-7 w-7" />
-            <div className="leading-none">
-              <span className="font-display font-bold text-brand-text text-[14px] tracking-tight block">Convert</span>
-              <span className="text-[10px] font-semibold text-brand-muted tracking-[0.1em] uppercase">Statement</span>
-            </div>
+            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
+            <span className="font-display font-bold text-brand-text text-[16px] tracking-tight">Convert<span className="text-pine-600">Statement</span></span>
           </a>
-        </div>
-
-        {/* User card */}
-        <div className="mx-3 mt-3 mb-2 relative overflow-hidden rounded-2xl bg-gradient-to-b from-zinc-50 to-zinc-100/50 dark:from-zinc-900/80 dark:to-zinc-900/30 border border-zinc-200/80 dark:border-zinc-800/80 shadow-sm transition-all duration-300 hover:shadow-md group">
-          {/* Subtle top highlight */}
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-brand-text/10 dark:via-brand-text/20 to-transparent opacity-50" />
-          
-          <div className="p-3.5">
-            <div className="flex items-center gap-3">
-              <div
-                className="h-9 w-9 rounded-full flex items-center justify-center text-[13px] font-black bg-gradient-to-br from-zinc-800 to-zinc-950 text-white dark:from-zinc-100 dark:to-zinc-300 dark:text-zinc-900 shadow-inner shrink-0"
-              >
-                {initial}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-[13px] font-bold text-zinc-900 dark:text-zinc-100 truncate tracking-tight">{displayName}</p>
-                  <span className={`shrink-0 text-[9px] font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider ${
-                    billing.tier ==="BUSINESS" ?"bg-pine-100 text-pine-700 dark:bg-pine-500/20 dark:text-pine-400" :
-                    billing.tier ==="PRO"      ?"bg-pine-100 text-pine-700 dark:bg-pine-500/20 dark:text-pine-400" :
-                    billing.tier ==="BASIC"    ?"bg-pine-100 text-pine-700 dark:bg-pine-500/20 dark:text-pine-400" :"bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
-                  }`}>
-                    {billing.tier}
-                  </span>
-                </div>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 truncate mt-0.5">{userEmail}</p>
-              </div>
-            </div>
-
-            {(!emailVerified || verificationSent) && (
-              <div className="mt-3 flex items-center gap-2">
-                {!emailVerified && !verificationSent && (
-                  <span className="w-full text-[10px] font-semibold px-2 py-1 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 dark:bg-amber-500/10 dark:border-amber-500/20 dark:text-amber-400 flex items-center justify-center gap-1.5">
-                    <AlertTriangle size={10} /> Email unverified
-                  </span>
-                )}
-                {verificationSent && (
-                  <span className="w-full text-[10px] font-semibold px-2 py-1 rounded-lg bg-pine-50 border border-pine-100 text-pine-700 dark:bg-pine-500/10 dark:border-pine-500/20 dark:text-pine-400 flex items-center justify-center gap-1.5">
-                    <CheckCircle2 size={10} /> Verification sent
-                  </span>
-                )}
-              </div>
-            )}
-            
-            {isPaid && (
-              <div className="mt-3 bg-white dark:bg-zinc-950/50 rounded-[20px] p-2.5 border border-zinc-100 dark:border-zinc-800/50">
-                <div className="flex justify-between items-end mb-1.5">
-                  <span className="text-[9px] font-bold tracking-[0.1em] text-zinc-400 dark:text-zinc-500 uppercase">Usage</span>
-                  <span className="text-[11px] font-semibold text-zinc-700 dark:text-zinc-300">{billing.pagesUsedThisPeriod} <span className="text-zinc-400 font-normal">/ {billing.monthlyPageLimit} pgs</span></span>
-                </div>
-                <div className="h-1.5 w-full bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden shadow-inner">
-                  <div
-                    className="h-full rounded-full transition-all duration-700 ease-out"
-                    style={{ width: `${usagePercent}%`, background: usagePercent > 80 ?"#ef4444" :"linear-gradient(90deg, #6366f1, #a855f7)" }}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
         </div>
 
         {/* Nav */}
@@ -271,15 +207,15 @@ export function DashboardClient({
                     <button
                       key={id}
                       onClick={() => { setTab(id); setSidebarOpen(false); }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-[20px] text-[13px] font-semibold transition-all text-left group ${
+                      className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-semibold transition-all text-left group ${
                         active
-                          ?"bg-brand-surface text-brand-text"
-                          :"text-brand-muted hover:bg-brand-surface hover:text-brand-text"
+                          ?"bg-pine-100 text-pine-700"
+                          :"text-brand-muted hover:bg-zinc-50 hover:text-brand-text"
                       }`}
                     >
                       <Icon
-                        size={14}
-                        className={`shrink-0 transition-colors ${active ?"text-brand-text" :"text-brand-muted group-hover:text-brand-muted"}`}
+                        size={16}
+                        className={`shrink-0 transition-colors ${active ?"text-pine-600" :"text-brand-muted group-hover:text-brand-text"}`}
                       />
                       <span className="flex-1 truncate">{label}</span>
                     </button>
@@ -289,6 +225,58 @@ export function DashboardClient({
             </div>
           ))}
         </nav>
+
+        {/* Plan card + user (bottom, per approved layout) */}
+        <div className="px-3 pb-2 space-y-3">
+          {(!emailVerified || verificationSent) && (
+            <div className="flex items-center gap-2">
+              {!emailVerified && !verificationSent && (
+                <span className="w-full text-[10px] font-semibold px-2 py-1.5 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 flex items-center justify-center gap-1.5">
+                  <AlertTriangle size={10} /> Email unverified
+                </span>
+              )}
+              {verificationSent && (
+                <span className="w-full text-[10px] font-semibold px-2 py-1.5 rounded-lg bg-pine-50 border border-pine-100 text-pine-700 flex items-center justify-center gap-1.5">
+                  <CheckCircle2 size={10} /> Verification sent
+                </span>
+              )}
+            </div>
+          )}
+
+          <div className="rounded-2xl bg-[#0B1F16] text-white p-4">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-[14px] font-bold capitalize">{billing.tier.toLowerCase()} plan</p>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white/80 uppercase tracking-wider">
+                {billing.tier === "FREE" ? "Free" : "Active"}
+              </span>
+            </div>
+            <p className="text-[12px] text-white/60 mt-1">
+              {Math.max(0, billing.monthlyPageLimit - billing.pagesUsedThisPeriod)} of {billing.monthlyPageLimit} pages left this period
+            </p>
+            <div className="h-1.5 w-full bg-white/15 rounded-full overflow-hidden mt-3">
+              <div
+                className="h-full rounded-full transition-all duration-700 ease-out"
+                style={{ width: `${usagePercent}%`, background: usagePercent > 80 ? "#ef4444" : "linear-gradient(90deg, #007A33, #2CA01C)" }}
+              />
+            </div>
+            <button
+              onClick={() => setTab("billing")}
+              className="mt-3.5 w-full py-2 rounded-full text-[13px] font-bold bg-white text-[#0B1F16] hover:bg-pine-100 transition-colors"
+            >
+              {billing.tier === "FREE" ? "Upgrade plan" : "Manage plan"}
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2.5 px-1.5 py-1">
+            <div className="h-9 w-9 rounded-full flex items-center justify-center text-[13px] font-black bg-[#2CA01C] text-white shrink-0">
+              {initial}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[13px] font-bold text-brand-text truncate tracking-tight">{displayName}</p>
+              <p className="text-[11px] text-brand-muted truncate">{userEmail}</p>
+            </div>
+          </div>
+        </div>
 
         {/* Sign out */}
         <div className="p-3 border-t border-zinc-100 dark:border-zinc-800">
@@ -317,20 +305,30 @@ export function DashboardClient({
           <a href="/" className="lg:hidden shrink-0">
             <img src="/logo.svg" alt="" className="h-7 w-7" />
           </a>
+          <button
+            onClick={() => setTab("history")}
+            className="hidden md:flex items-center gap-2 flex-1 max-w-[340px] bg-white border border-[#EBEBF0] rounded-full px-4 py-2 text-[13px] text-brand-muted hover:border-pine-300 transition-colors"
+          >
+            <Search size={14} className="shrink-0" />
+            <span className="truncate">Search conversions, files…</span>
+          </button>
           <div className="flex-1 min-w-0" />
           <div className="flex items-center gap-2 shrink-0">
+            <span className="hidden sm:inline-flex items-center gap-1.5 bg-pine-50 border border-pine-100 text-pine-700 text-[12.5px] font-semibold rounded-full px-3 py-1.5">
+              <b className="font-black">{Math.max(0, billing.monthlyPageLimit - billing.pagesUsedThisPeriod)}</b> pages left
+            </span>
             {tab !=="upload" && (
               <button
                 onClick={() => setTab("upload")}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-[20px] text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-colors"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold bg-[#2CA01C] text-white hover:bg-[#238a17] transition-colors"
               >
-                <Upload className="text-pine-500 dark:text-pine-400"  size={13} />
+                <Upload size={13} />
                 <span className="hidden sm:inline">Convert</span>
               </button>
             )}
             <div className="flex items-center gap-2 bg-brand-surface border border-brand-border rounded-full pl-1 pr-2 sm:pr-3 py-1">
               <div
-                className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black shrink-0"
+                className="h-6 w-6 rounded-full flex items-center justify-center text-[10px] font-black bg-[#2CA01C] text-white shrink-0"
               >
                 {initial}
               </div>
@@ -379,23 +377,23 @@ export function DashboardClient({
           {tab ==="home" && (
             <div className="p-5 lg:p-7 space-y-5 max-w-[1400px]">
 
-              {/* Welcome strip */}
-              <div className="rounded-2xl px-6 py-5 flex items-center justify-between gap-4 flex-wrap relative overflow-hidden bg-brand-surface border border-brand-border shadow-sm">
-                <div className="relative">
-                  <p className="text-brand-muted text-xs font-medium mb-0.5">
+              {/* Greeting header */}
+              <div className="flex items-end justify-between gap-4 flex-wrap px-1 pt-1">
+                <div>
+                  <p className="text-brand-muted text-xs font-medium mb-1">
                     {new Date().toLocaleDateString("en-IN", { weekday:"long", month:"long", day:"numeric" })}
                   </p>
-                  <h2 className="text-xl lg:text-2xl font-black text-brand-text leading-tight">
-                    Welcome back, {displayName}! 👋
+                  <h2 className="text-[24px] lg:text-[28px] font-black text-brand-text leading-tight tracking-tight">
+                    {(() => { const h = new Date().getHours(); return h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : "Good evening"; })()}, {displayName}
                   </h2>
-                  <p className="text-brand-muted text-sm mt-1">Here&apos;s your statement conversion overview.</p>
+                  <p className="text-brand-muted text-sm mt-1">Here&apos;s what&apos;s happening with your conversions.</p>
                 </div>
                 <button
                   onClick={() => setTab("upload")}
-                  className="relative shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-[20px] text-sm font-bold bg-zinc-900 dark:bg-zinc-100 dark:text-black text-white transition-opacity hover:opacity-90"
+                  className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-bold bg-[#2CA01C] text-white hover:bg-[#238a17] transition-colors"
                 >
-                  <Upload className="text-pine-500 dark:text-pine-400"  size={14} />
-                  Start Converting
+                  <Upload size={14} />
+                  New conversion
                 </button>
               </div>
 
@@ -433,15 +431,15 @@ export function DashboardClient({
                     Icon: Clock,
                   },
                 ].map(card => (
-                  <div key={card.label} className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="w-9 h-9 rounded-[20px] flex items-center justify-center bg-brand-surface">
-                        <card.Icon size={16} className="text-brand-text" />
+                  <div key={card.label} className="bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-5 relative overflow-hidden group hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-[13px] font-semibold text-brand-muted">{card.label}</p>
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-pine-50">
+                        <card.Icon size={16} className="text-pine-600" />
                       </div>
                     </div>
-                    <p className="text-2xl lg:text-3xl font-black text-brand-text tracking-tight mb-0.5">{card.value}</p>
-                    <p className="text-[11px] font-bold text-brand-muted uppercase tracking-wider">{card.label}</p>
-                    <p className="text-xs text-brand-muted mt-0.5">{card.sub}</p>
+                    <p className="text-[26px] lg:text-[30px] font-black text-brand-text tracking-tight leading-none">{card.value}</p>
+                    <p className="text-xs text-brand-muted mt-2">{card.sub}</p>
                   </div>
                 ))}
               </div>
@@ -450,7 +448,7 @@ export function DashboardClient({
               <div className="grid xl:grid-cols-3 gap-5">
 
                 {/* Recent conversions */}
-                <div className="xl:col-span-2 bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm overflow-hidden">
+                <div className="xl:col-span-2 bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] overflow-hidden">
                   <div className="flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800">
                     <div>
                       <h3 className="text-sm font-bold text-brand-text">Recent Conversions</h3>
@@ -470,10 +468,8 @@ export function DashboardClient({
 
                   {recentLogs.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
-                      <div
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 bg-brand-surface"
-                      >
-                        <FileText size={24} className="dark: text-pine-500 dark:text-pine-400" />
+                      <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 bg-pine-50">
+                        <FileText size={24} className="text-pine-600" />
                       </div>
                       <p className="font-bold text-brand-text text-base">No documents yet</p>
                       <p className="text-sm text-brand-muted mt-1 max-w-xs">
@@ -481,7 +477,7 @@ export function DashboardClient({
                       </p>
                       <button
                         onClick={() => setTab("upload")}
-                        className="mt-5 px-6 py-2.5 rounded-[20px] text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
+                        className="mt-5 px-6 py-2.5 rounded-full text-sm font-bold bg-[#2CA01C] text-white hover:bg-[#238a17] transition-colors"
                       >
                         Convert your first statement →
                       </button>
@@ -499,8 +495,8 @@ export function DashboardClient({
                         {recentLogs.slice(0, 5).map(log => (
                           <div key={log.id} className="grid grid-cols-12 items-center gap-2 px-5 py-3.5 hover:bg-brand-surface/60 transition-colors">
                             <div className="col-span-5 flex items-center gap-3 min-w-0">
-                              <div className="w-8 h-8 rounded-[20px] bg-brand-surface flex items-center justify-center shrink-0">
-                                <FileText size={14} className="dark: text-pine-500 dark:text-pine-400" />
+                              <div className="w-8 h-8 rounded-lg bg-pine-50 flex items-center justify-center shrink-0">
+                                <FileText size={14} className="text-pine-600" />
                               </div>
                               <div className="min-w-0">
                                 <p className="text-sm font-semibold text-brand-text truncate">{log.fileName}</p>
@@ -546,7 +542,7 @@ export function DashboardClient({
                 {/* Right column */}
                 <div className="space-y-4">
                   {/* Plan card */}
-                  <div className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-5">
+                  <div className="bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-5">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-1">Current Plan</p>
@@ -572,7 +568,7 @@ export function DashboardClient({
                               strokeWidth="8" strokeLinecap="round"
                               strokeDasharray={RING_C}
                               strokeDashoffset={RING_C * (1 - usagePercent / 100)}
-                              className="transition-all duration-700 text-brand-text"
+                              className="transition-all duration-700 text-[#2CA01C]"
                             />
                           </svg>
                           <div className="absolute inset-0 flex items-center justify-center">
@@ -599,7 +595,7 @@ export function DashboardClient({
                     {billing.tier ==="FREE" && (
                       <button
                         onClick={() => setTab("billing")}
-                        className="mt-4 w-full py-2.5 rounded-[20px] text-sm font-bold bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 transition-all hover:-translate-y-0.5"
+                        className="mt-4 w-full py-2.5 rounded-full text-sm font-bold bg-[#2CA01C] text-white hover:bg-[#238a17] transition-colors"
                       >
                         Upgrade to Pro →
                       </button>
@@ -615,7 +611,7 @@ export function DashboardClient({
                   </div>
 
                   {/* Quick actions */}
-                  <div className="bg-brand-surface rounded-2xl border border-brand-border/70 shadow-sm p-4">
+                  <div className="bg-white rounded-[20px] border border-[#EBEBF0] shadow-[0_1px_2px_rgba(16,24,40,0.04)] p-4">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted mb-3">Quick Actions</p>
                     <div className="space-y-0.5">
                       {[
@@ -629,8 +625,8 @@ export function DashboardClient({
                           onClick={() => setTab(dest)}
                           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-[20px] hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors group text-left"
                         >
-                          <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-brand-surface">
-                            <Icon size={13} className="text-brand-muted" />
+                          <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-pine-50">
+                            <Icon size={13} className="text-pine-600" />
                           </div>
                           <span className="text-sm font-medium text-brand-muted group-hover:text-zinc-900 dark:group-hover:text-zinc-100 flex-1">{label}</span>
                           <ChevronRight size={12} className="group-hover:dark:transition-colors text-rose-500 dark:text-rose-400" />
@@ -640,13 +636,13 @@ export function DashboardClient({
                   </div>
 
                   {billing.tier ==="FREE" && (
-                    <div className="rounded-2xl p-5 relative overflow-hidden bg-zinc-900 text-white dark:bg-zinc-100 dark:text-black">
+                    <div className="rounded-[20px] p-5 relative overflow-hidden bg-[#0B1F16] text-white">
                       <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-5 bg-white dark:bg-black" style={{ transform:"translate(30%,-30%)" }} />
                       <p className="text-sm font-bold mb-1">Go Pro — 500 pages/mo</p>
                       <p className="text-xs opacity-60 mb-4">All formats, Google Sheets, priority processing</p>
                       <button
                         onClick={() => setTab("billing")}
-                        className="w-full py-2.5 rounded-[20px] text-sm font-bold bg-white text-black hover:bg-zinc-200 dark:bg-black dark:text-white dark:hover:bg-zinc-800 transition-colors"
+                        className="w-full py-2.5 rounded-full text-sm font-bold bg-[#2CA01C] text-white hover:bg-[#238a17] transition-colors"
                       >
                         See plans →
                       </button>
@@ -730,7 +726,7 @@ export function DashboardClient({
                 icon={Layers}
                 title="Processing Queue"
                 subtitle="Batch jobs and queued conversions"
-                iconColor="#8b5cf6"
+                iconColor="#007A33"
                 iconBg="#f0ffee"
               />
               <div className="p-5 lg:p-8">
@@ -838,7 +834,7 @@ export function DashboardClient({
               key={id}
               onClick={() => setTab(id)}
               className={`flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-semibold transition-colors ${
-                active ?"text-brand-text" :"text-brand-muted hover:text-brand-muted"
+                active ?"text-pine-600" :"text-brand-muted hover:text-brand-text"
               }`}
             >
               <Icon size={17} />
