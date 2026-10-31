@@ -19,7 +19,7 @@ import {
   Upload, History, CreditCard, LogOut, Link2, Users, Settings,
   FileText, Menu, X, Layers, CheckCircle2, AlertTriangle,
   LayoutDashboard, TrendingUp, Clock, Zap, ChevronRight, ArrowUpRight, Search,
-  Plus, Briefcase, HelpCircle,
+  Plus, HelpCircle,
 } from"lucide-react";
 
 type Tab ="home" |"upload" |"history" |"billing" |"portals" |"team" |"settings" |"queue";
@@ -92,6 +92,10 @@ export function DashboardClient({
 }: Props) {
   const t = useTranslations("dashboard");
   const [tab, setTab] = useState<Tab>("home");
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  useEffect(() => {
+    try { setAvatarUrl(localStorage.getItem("cs_avatar")); } catch { /* storage unavailable */ }
+  }, [tab]);
   useEffect(() => {
     const p = new URLSearchParams(window.location.search).get("tab");
     if (p && ["home", "upload", "history", "billing", "portals", "team", "settings", "queue"].includes(p)) {
@@ -164,7 +168,6 @@ export function DashboardClient({
         { id:"upload" as Tab,  label:"Converter", Icon: Upload },
         { id:"history" as Tab, label:"History",   Icon: History },
         { id:"queue" as Tab,   label:"Queue",     Icon: Layers },
-        { label:"QuickBooks Tools", Icon: Briefcase, href:"/quickbooks", badge:"20" },
         { id:"portals" as Tab, label:"Client Portals", Icon: Link2 },
       ],
     },
@@ -212,7 +215,6 @@ export function DashboardClient({
                 {section.items.map((item) => {
                   const href = "href" in item ? item.href : undefined;
                   const id = "id" in item ? item.id : undefined;
-                  const badge = "badge" in item ? item.badge : undefined;
                   const active = id !== undefined && tab === id;
                   const cls = `w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[13.5px] font-semibold transition-all text-left group ${
                     active
@@ -226,9 +228,6 @@ export function DashboardClient({
                         className={`shrink-0 transition-colors ${active ? "text-white" : "text-white/50 group-hover:text-white"}`}
                       />
                       <span className="flex-1 truncate">{item.label}</span>
-                      {badge && (
-                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-[#BFE3B8]">{badge}</span>
-                      )}
                     </>
                   );
                   return href ? (
@@ -292,9 +291,13 @@ export function DashboardClient({
           </div>
 
           <div className="flex items-center gap-2.5 px-1.5 py-1">
-            <div className="h-9 w-9 rounded-full flex items-center justify-center text-[13px] font-black bg-[#2CA01C] text-white shrink-0">
-              {initial}
-            </div>
+            {avatarUrl ? (
+              <img src={avatarUrl} alt="" className="h-9 w-9 rounded-full object-cover shrink-0" />
+            ) : (
+              <div className="h-9 w-9 rounded-full flex items-center justify-center text-[13px] font-black bg-[#2CA01C] text-white shrink-0">
+                {initial}
+              </div>
+            )}
             <div className="min-w-0 flex-1">
               <p className="text-[13px] font-bold text-white truncate tracking-tight">{displayName}</p>
               <p className="text-[11px] text-white/45 truncate">{userEmail}</p>

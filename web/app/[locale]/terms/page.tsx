@@ -186,23 +186,22 @@ For questions about these Terms, contact us at legal@convertstatement.online.`,
 export default function TermsPage() {
  return (
  <div className="agri-sans min-h-screen bg-white">
- <Navbar dark />
+ <Navbar />
 
  {/* Header */}
- <div className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[116px] pb-10">
- <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+ <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[116px] pb-12">
  <div className="relative mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[#007A33]">
- <ScrollText className="h-5 w-5 text-[#2CA01C]" />
+ <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E3F2DF]">
+ <ScrollText className="h-5 w-5 text-[#007A33]" />
  </div>
  <div>
- <h1 className="text-2xl font-extrabold text-white">Terms of Service</h1>
- <p className="agri-mono mt-1 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2]">Terms · Plain and fair</p>
- <p className="text-xs text-zinc-400 mt-0.5">Last updated: June 2026 · Effective immediately</p>
+ <h1 className="font-display text-3xl font-bold text-[#0B1F16]">Terms of Service</h1>
+ <p className="mt-0.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#007A33]">Terms · Plain and fair</p>
+ <p className="text-xs text-zinc-500 mt-3">Last updated: June 2026 · Effective immediately</p>
  </div>
  </div>
- <p className="mt-4 text-sm leading-relaxed text-zinc-300">
+ <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-[#5c6f63]">
  These Terms govern your use of Convert Statement. Please read them carefully. Key points: your data is never stored after processing, payments are processed securely via Razorpay, and you retain full ownership of all your financial documents and extracted data.
  </p>
 
@@ -213,9 +212,9 @@ export default function TermsPage() {
  { label:"Refunds", value:"7 days for subscriptions" },
  { label:"Jurisdiction", value:"Laws of Delaware, USA" },
  ].map(({ label, value }) => (
- <div key={label} className="rounded-[20px] border border-white/10 bg-white/5 px-4 py-3">
- <p className="text-xs text-zinc-400">{label}</p>
- <p className="mt-0.5 text-sm font-semibold text-white">{value}</p>
+ <div key={label} className="rounded-[20px] border border-[#E3EDE0] bg-white px-4 py-3 shadow-[0_2px_10px_rgba(11,31,22,0.04)]">
+ <p className="text-xs text-zinc-500">{label}</p>
+ <p className="mt-0.5 text-sm font-semibold text-[#0B1F16]">{value}</p>
  </div>
  ))}
  </div>
@@ -225,7 +224,7 @@ export default function TermsPage() {
  {/* Content */}
  <div className="mx-auto max-w-6xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-[24px] border border-[#CBE3C4] bg-[#F2F4EC] p-5">
+ <div className="mb-10 rounded-[24px] border border-[#E3EDE0] bg-[#EFF7ED] p-5">
  <p className="agri-mono mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[#007A33]">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
@@ -244,7 +243,7 @@ export default function TermsPage() {
  <div className="space-y-10">
  {SECTIONS.map(({ id, title, content }) => (
  <section key={id} id={id} className="scroll-mt-20">
- <h2 className="mb-3 text-lg font-bold text-zinc-900">{title}</h2>
+ <h2 className="mb-3 font-display text-lg font-bold text-[#0B1F16]">{title}</h2>
  <div className="space-y-3">
  {content.split("\n\n").map((para, i) => {
  const lines = para.split("\n");

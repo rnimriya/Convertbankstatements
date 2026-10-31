@@ -21,27 +21,26 @@ export default async function ContactPage() {
 
   return (
     <div className="agri-sans min-h-screen bg-white">
-      <Navbar dark />
+      <Navbar />
 
-      {/* Localized Header Banner */}
-      <div className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[116px] pb-24">
-        <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+      {/* Header */}
+      <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[116px] pb-14">
         <div className="relative mx-auto max-w-6xl">
-          <p className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
+          <p className="inline-flex items-center gap-2 rounded-full border border-[#E3EDE0] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#007A33]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Contact
           </p>
-          <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
+          <h1 className="mt-4 font-display text-3xl font-bold text-[#0B1F16] sm:text-4xl">
             {t("title")}
           </h1>
-          <p className="mt-2 text-base text-zinc-300 max-w-xl">
+          <p className="mt-2.5 text-base text-[#5c6f63] max-w-xl">
             {t("subtitle")}
           </p>
         </div>
       </div>
 
       {/* Main Body Container */}
-      <div className="relative z-20 mx-auto max-w-6xl px-6 py-16 -mt-16">
+      <div className="relative z-20 mx-auto max-w-6xl px-6 py-14">
         <ContactForm />
       </div>
 
