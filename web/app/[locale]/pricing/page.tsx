@@ -151,25 +151,6 @@ export default async function PricingPage() {
         </div>
       </div>
 
-      <section className="py-24 bg-gradient-to-b from-[#0E3D15] to-[#007A33] relative overflow-hidden">
-        <div
-          className="absolute inset-0 pointer-events-none opacity-10"
-          style={{
-            backgroundImage:"linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
-            backgroundSize:"40px 40px",
-          }}
-        />
-        <div className="relative max-w-3xl mx-auto px-6 text-center">
-          <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Get started today</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">Start with 8 free pages today</h2>
-          <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay securely when you need more · Cancel anytime</p>
-          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-[#2CA01C] text-[#0B1F16] border-0">
-            Create free account
-            <ArrowRight className="h-4 w-4 text-[#0B3D2E]" />
-          </Link>
-          <p className="mt-5 text-xs text-white/40">No credit card required · Pay securely if you need more</p>
-        </div>
-      </section>
       <Footer />
     </div>
   );
