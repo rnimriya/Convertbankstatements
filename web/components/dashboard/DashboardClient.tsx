@@ -50,6 +50,13 @@ interface Props {
 const RING_R = 26;
 const RING_C = 2 * Math.PI * RING_R;
 
+const PLAN_INFO: Record<string, { price: number; annual: number; blurb: string }> = {
+  FREE:     { price: 0,  annual: 0,   blurb: "8 pages free · CSV & Excel · no card needed" },
+  BASIC:    { price: 5,  annual: 48,  blurb: "25 pages/mo · CSV & Excel · email support" },
+  PRO:      { price: 20, annual: 192, blurb: "500 pages/mo · all formats · Google Sheets" },
+  BUSINESS: { price: 75, annual: 720, blurb: "2,000 pages/mo · OCR · API · 5 seats" },
+};
+
 /* ── Shared page heading for non-overview tabs (mockup style) ── */
 function PageBanner({
   title,
@@ -147,6 +154,7 @@ export function DashboardClient({
   const monthName = new Date().toLocaleDateString("en-IN", { month: "long" });
   const resetLabel = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1)
     .toLocaleDateString("en-IN", { month: "short", day: "numeric" });
+  const planInfo = PLAN_INFO[billing.tier] ?? PLAN_INFO.FREE;
 
   const navSections = [
     {
@@ -589,7 +597,8 @@ export function DashboardClient({
               <div className="flex-1 min-h-0 flex flex-col">
                 {uploadMode ==="single" ? (
                   <UploadCard 
-                    billing={billing} 
+                    billing={billing}
+                    variant="workspace"
                     onBillingUpdate={refreshBilling} 
                     userEmail={userEmail} 
                     hasSheetsAccess={hasSheetsAccess}
@@ -617,7 +626,7 @@ export function DashboardClient({
                 }
               />
               <div className="p-5 lg:p-8">
-                <UsageHistory logs={recentLogs} isDemo={isDemo} />
+                <UsageHistory logs={recentLogs} isDemo={isDemo} billing={billing} />
               </div>
             </div>
           )}
@@ -651,8 +660,68 @@ export function DashboardClient({
                   </span>
                 }
               />
-              <div className="p-5 lg:p-8">
-                <PricingSection currentTier={billing.tier} onTierChange={refreshBilling} />
+              <div className="flex-1 overflow-y-auto p-5 lg:p-8">
+                <div className="grid xl:grid-cols-2 gap-5 mb-6 max-w-[1400px]">
+                  {/* Current plan */}
+                  <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] p-6">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-[15px] font-display font-bold text-brand-text">Current plan</h3>
+                      <span className="text-[10.5px] font-bold px-2.5 py-1 rounded-full bg-[#E3F2DF] text-[#007A33] uppercase tracking-wide">
+                        {billing.tier}{billing.tier === "PRO" ? " · Most popular" : ""}
+                      </span>
+                    </div>
+                    <p className="mt-4">
+                      <span className="text-[38px] font-display font-bold text-brand-text leading-none">${planInfo.price}</span>
+                      <span className="text-sm text-brand-muted"> / month{planInfo.annual ? ` · or $${planInfo.annual}/year` : ""}</span>
+                    </p>
+                    <p className="text-[13px] text-brand-muted mt-2.5">{planInfo.blurb}</p>
+                    <p className="text-[13px] text-brand-muted mt-1">
+                      {billing.tier === "FREE" ? "No card on file — upgrade anytime." : "Billed via Razorpay · cancel anytime."}
+                    </p>
+                    <div className="flex flex-wrap gap-2.5 mt-5">
+                      <a href="#dash-plans" className="px-5 py-2.5 rounded-full bg-[#0B1F16] text-white text-sm font-bold hover:opacity-90 transition-opacity">
+                        {billing.tier === "FREE" ? "Upgrade plan" : "Change plan"}
+                      </a>
+                      {billing.tier !== "FREE" && (
+                        <a href="#dash-plans" className="px-5 py-2.5 rounded-full bg-white border border-[#E3EDE0] text-sm font-bold text-brand-text hover:border-[#2CA01C] transition-colors">
+                          Cancel plan
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Usage */}
+                  <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] p-6">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="text-[15px] font-display font-bold text-brand-text">Usage · {monthName}</h3>
+                      <button onClick={() => setTab("history")} className="text-[13px] font-bold text-[#007A33] hover:underline">Full usage →</button>
+                    </div>
+                    <div className="mt-5">
+                      <div className="flex items-center justify-between text-[13px]">
+                        <span className="font-semibold text-brand-text">Pages</span>
+                        <span className="font-bold text-brand-text">{billing.pagesUsedThisPeriod.toLocaleString("en-IN")} / {billing.monthlyPageLimit}</span>
+                      </div>
+                      <div className="h-2 rounded-full bg-[#EFF7ED] mt-2 overflow-hidden">
+                        <div className="h-full rounded-full bg-[#2CA01C] transition-all duration-700" style={{ width: `${usagePercent}%` }} />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-[13px] mt-4">
+                      <span className="font-semibold text-brand-text">Conversions</span>
+                      <span className="font-bold text-brand-text">{totalDocs} total</span>
+                    </div>
+                    <div className="flex items-center justify-between text-[13px] mt-2.5">
+                      <span className="font-semibold text-brand-text">Transactions extracted</span>
+                      <span className="font-bold text-brand-text">{totalTxns.toLocaleString("en-IN")}</span>
+                    </div>
+                    <p className="text-xs text-brand-muted mt-5 pt-4 border-t border-[#EFF4EC]">
+                      Need more pages or seats? Business gives 2,000 pages and 5 seats.
+                    </p>
+                  </div>
+                </div>
+
+                <div id="dash-plans" className="max-w-[1400px] scroll-mt-4">
+                  <PricingSection currentTier={billing.tier} onTierChange={refreshBilling} />
+                </div>
               </div>
             </div>
           )}

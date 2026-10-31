@@ -31,6 +31,7 @@ interface Props {
   userEmail?: string;
   hasSheetsAccess?: boolean;
   fullWidth?: boolean;
+  variant?: "card" | "workspace";
 }
 
 type UploadState =
@@ -40,9 +41,11 @@ type UploadState =
   | { status:"done"; result: ProcessResult & { is_demo?: boolean } }
   | { status:"error"; message: string };
 
-export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth }: Props) {
+export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth, variant }: Props) {
   const [state, setState] = useState<UploadState>({ status:"idle" });
   const [formats, setFormats] = useState<string[]>(["csv"]);
+  const [staged, setStaged] = useState<File | null>(null);
+  const isWorkspace = !fullWidth && variant === "workspace";
   const [formatNotice, setFormatNotice] = useState<string | null>(null);
   const PRO_FORMATS = ["ofx", "qfx", "sheets"];
   const isProTier = billing.tier === "PRO" || billing.tier === "BUSINESS";
@@ -82,9 +85,16 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
         });
         return;
       }
-      if (accepted[0]) uploadFile(accepted[0]);
+      if (accepted[0]) {
+        if (isWorkspace) {
+          setStaged(accepted[0]);
+          setState({ status: "idle" });
+        } else {
+          uploadFile(accepted[0]);
+        }
+      }
     },
-    [uploadFile]
+    [uploadFile, isWorkspace]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -95,7 +105,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     disabled: state.status ==="processing",
   });
 
-  const reset = () => setState({ status:"idle" });
+  const reset = () => { setState({ status:"idle" }); setStaged(null); };
 
   const toggleFormat = (id: string) => {
     if (!isProTier && PRO_FORMATS.includes(id) && !formats.includes(id)) {
@@ -120,6 +130,263 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   const pagesRemaining = Math.max(0, pageLimit - billing.pagesUsedThisPeriod);
   const usedPct = pageLimit > 0 ? Math.min(100, (billing.pagesUsedThisPeriod / pageLimit) * 100) : 0;
   const lowPages = usedPct > 85;
+
+  /* ── Workspace layout (dashboard Converter tab, mockup 07) ── */
+  if (isWorkspace) {
+    const wsProcessing = state.status === "processing";
+    const wsFileName = state.status === "processing" ? state.fileName : "";
+    const done = state.status === "done" ? state.result : null;
+    const pay = state.status === "payment_required" ? state : null;
+    const recon = done?.reconciliation;
+    const money = (v: number) => `$${Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    const fmtAmount = (v: number) => `${v < 0 ? "-" : "+"}${money(v)}`;
+    const fmtDate = (d: string) => {
+      const dt = new Date(d);
+      return isNaN(+dt) ? d : dt.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
+    };
+    const lockedSwitch = (
+      <span className="relative inline-block w-11 h-6 rounded-full bg-[#2CA01C] shrink-0">
+        <span className="absolute right-[3px] top-[3px] w-[18px] h-[18px] rounded-full bg-white" />
+      </span>
+    );
+
+    return (
+      <div className="flex-1 overflow-y-auto">
+        <div className="grid xl:grid-cols-3 gap-5 p-5 lg:p-7 max-w-[1400px]">
+          {/* ── LEFT column ── */}
+          <div className="xl:col-span-2 space-y-5 min-w-0">
+            {state.status === "error" && (
+              <div className="flex items-start gap-2.5 rounded-[20px] border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <AlertCircle size={15} className="mt-0.5 shrink-0 text-red-500" />
+                <span className="flex-1">{state.message}</span>
+                <button onClick={reset} className="shrink-0 font-bold text-red-400 hover:text-red-600">✕</button>
+              </div>
+            )}
+
+            {/* Converter card */}
+            <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] p-3.5">
+              <div
+                {...(wsProcessing ? {} : getRootProps())}
+                className={cn(
+                  "relative flex flex-col items-center justify-center rounded-2xl px-6 py-12 text-center transition-colors select-none border-2 border-dashed",
+                  wsProcessing
+                    ? "border-zinc-200"
+                    : isDragActive
+                      ? "border-[#2CA01C] bg-[#EFF7ED] cursor-pointer"
+                      : "border-zinc-300 hover:border-[#2CA01C] cursor-pointer"
+                )}
+              >
+                {!wsProcessing && <input {...getInputProps()} />}
+                {wsProcessing ? (
+                  <div className="flex flex-col items-center gap-4 py-2">
+                    <div className="relative h-16 w-16">
+                      <svg className="h-full w-full animate-spin" style={{ animationDuration: "2s" }} viewBox="0 0 112 112">
+                        <circle cx="56" cy="56" r="48" fill="none" stroke="#e4e4e7" strokeWidth="6" />
+                        <circle cx="56" cy="56" r="48" fill="none" stroke="#2CA01C" strokeWidth="6" strokeLinecap="round"
+                          strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
+                      </svg>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <FileText size={24} className="text-[#007A33]" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-lg font-display font-bold text-brand-text">Converting…</p>
+                      <p className="mt-0.5 max-w-[280px] truncate text-sm text-brand-muted">{wsFileName}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div
+                      className="mb-3 flex h-[52px] w-[52px] items-center justify-center rounded-full transition-all duration-300"
+                      style={{ background: isDragActive ? "#0B1F16" : "#2CA01C", transform: isDragActive ? "scale(1.06)" : "scale(1)" }}
+                    >
+                      {isDragActive
+                        ? <FileText size={22} color="#ffffff" strokeWidth={1.6} />
+                        : <Upload size={22} color="#ffffff" strokeWidth={1.6} />}
+                    </div>
+                    <h3 className="text-2xl font-display font-bold tracking-tight text-brand-text">
+                      {isDragActive ? "Release to stage" : "Drop your statement PDF"}
+                    </h3>
+                    <p className="mt-1 text-sm text-brand-muted">
+                      or <span className="font-bold text-brand-text underline decoration-zinc-300 underline-offset-2">browse files</span> — PDF only, max {MAX_FILE_MB} MB, password OK
+                    </p>
+                  </>
+                )}
+              </div>
+
+              {/* Staged / converted file row */}
+              {(staged || done) && !wsProcessing && (
+                <div className="mt-3.5 flex items-center gap-3 rounded-2xl bg-[#F7FAF5] border border-[#E3EDE0] px-4 py-3">
+                  <div className="w-9 h-9 rounded-[10px] bg-white border border-[#E3EDE0] flex items-center justify-center shrink-0">
+                    <FileText size={16} className="text-[#007A33]" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-bold text-brand-text truncate">{done ? done.file_name : staged!.name}</p>
+                    <p className="text-xs text-brand-muted truncate">
+                      {done
+                        ? `${done.page_count} pages${done.bank_name ? ` · ${done.bank_name} detected` : ""}`
+                        : `${(staged!.size / 1024 / 1024).toFixed(1)} MB · ready to convert`}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-[11.5px] font-bold px-2.5 py-1 rounded-full bg-[#E3F2DF] text-[#007A33] shrink-0">
+                    {done ? "Done" : "Ready"} <CheckCircle2 size={11} />
+                  </span>
+                  {!done && staged && (
+                    <button onClick={() => setStaged(null)} aria-label="Remove file" className="shrink-0 text-brand-muted hover:text-brand-text font-bold px-1">✕</button>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Payment required */}
+            {pay && (
+              <div className="rounded-[24px] border border-amber-200 bg-amber-50 p-8 text-center">
+                <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-100 flex items-center justify-center mb-4">
+                  <DollarSign className="h-8 w-8 text-amber-600" />
+                </div>
+                <h3 className="text-xl font-display font-bold text-brand-text">Payment Required</h3>
+                <p className="mt-1 text-sm font-medium text-brand-muted">{pay.file.name}</p>
+                <p className="mt-2 text-base text-brand-muted">{pay.message}</p>
+                <div className="flex flex-col gap-2 mt-6 max-w-sm mx-auto">
+                  <Link href="/pricing" className="flex w-full items-center justify-center gap-2 rounded-full py-3.5 text-sm font-bold text-white bg-[#2CA01C] hover:bg-[#238a17] transition-colors">
+                    View Upgrade Plans
+                  </Link>
+                  <button onClick={reset} className="w-full py-3 rounded-full border border-[#E3EDE0] bg-white text-sm font-medium text-zinc-600 hover:bg-[#F7FAF5] transition-colors">Cancel</button>
+                </div>
+              </div>
+            )}
+
+            {/* Preview — first rows */}
+            {done && done.transactions && done.transactions.length > 0 && (
+              <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] overflow-hidden">
+                <div className="flex items-center justify-between gap-3 px-6 py-4">
+                  <h3 className="text-[15px] font-display font-bold text-brand-text">Preview — first rows</h3>
+                  {recon?.checked && (recon.ok ? (
+                    <span className="inline-flex items-center gap-1 text-[11.5px] font-bold px-2.5 py-1 rounded-full bg-[#E3F2DF] text-[#007A33]">Balance check passed <CheckCircle2 size={11} /></span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 text-[11.5px] font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-700">Balance flagged — review</span>
+                  ))}
+                </div>
+                <div className="px-6">
+                  <div className="grid grid-cols-12 py-2 text-[10.5px] font-bold uppercase tracking-[0.08em] text-brand-muted border-b border-[#E3EDE0]">
+                    <div className="col-span-2">Date</div>
+                    <div className="col-span-5">Description</div>
+                    <div className="col-span-2 text-right">Amount</div>
+                    <div className="col-span-3 text-right">Balance</div>
+                  </div>
+                  <div className="divide-y divide-[#EFF4EC]">
+                    {done.transactions.slice(0, 5).map((t, i) => (
+                      <div key={i} className="grid grid-cols-12 py-2.5 text-[13px] items-center">
+                        <div className="col-span-2 text-brand-muted">{fmtDate(t.date)}</div>
+                        <div className="col-span-5 font-medium text-brand-text truncate pr-3">{t.description}</div>
+                        <div className={`col-span-2 text-right font-bold ${t.amount < 0 ? "text-brand-text" : "text-[#007A33]"}`}>{fmtAmount(t.amount)}</div>
+                        <div className="col-span-3 text-right text-brand-muted">{t.balance != null ? money(t.balance) : "—"}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <p className="px-6 py-3.5 text-xs text-brand-muted border-t border-[#EFF4EC]">
+                  {recon?.checked
+                    ? `${done.transaction_count} transactions · Opening ${money(recon.openingBalance ?? 0)} → Closing ${money(recon.closingBalance ?? 0)} · ${recon.ok ? "Chain verified" : "Chain needs review"}`
+                    : `${done.transaction_count} transactions extracted`}
+                </p>
+              </div>
+            )}
+
+            {/* Full result: downloads, Sheets, QuickBooks */}
+            {done && (
+              <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] p-6 lg:p-8">
+                <ProcessingResult result={done} hasSheetsAccess={hasSheetsAccess} onReset={reset} />
+              </div>
+            )}
+          </div>
+
+          {/* ── RIGHT column ── */}
+          <div className="space-y-5 min-w-0">
+            {/* Export formats */}
+            <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] p-5">
+              <h3 className="text-[15px] font-display font-bold text-brand-text mb-3.5">Export formats</h3>
+              <div className="grid grid-cols-3 gap-2.5">
+                {FORMATS.map(f => {
+                  const active = formats.includes(f.id);
+                  const locked = !isProTier && PRO_FORMATS.includes(f.id);
+                  return (
+                    <button
+                      key={f.id}
+                      onClick={() => toggleFormat(f.id)}
+                      className={cn(
+                        "relative flex flex-col items-center gap-1 rounded-2xl border px-2 py-3.5 transition-all",
+                        active
+                          ? "border-[#2CA01C] bg-[#EFF7ED]"
+                          : "border-[#E3EDE0] bg-white hover:border-zinc-300"
+                      )}
+                    >
+                      {active && (
+                        <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#2CA01C] flex items-center justify-center">
+                          <CheckCircle2 size={11} color="#ffffff" />
+                        </span>
+                      )}
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg text-[13px] font-black" style={{ background: f.dotBg, color: f.dotColor }}>
+                        {f.label[0]}
+                      </span>
+                      <span className="text-[13px] font-bold text-brand-text leading-tight">{f.label}</span>
+                      <span className="text-[10.5px] text-brand-muted leading-tight">{f.sub}</span>
+                      {locked && <Lock size={11} className="text-brand-muted opacity-60" />}
+                    </button>
+                  );
+                })}
+              </div>
+              {formatNotice ? (
+                <p className="mt-3.5 text-[11px] font-semibold text-pine-600">{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
+              ) : (
+                <p className="mt-3.5 text-xs text-brand-muted">You get a separate download for each format you pick.</p>
+              )}
+            </div>
+
+            {/* Options (live product behaviour, shown as status) */}
+            <div className="bg-white rounded-[24px] border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] p-5">
+              <h3 className="text-[15px] font-display font-bold text-brand-text mb-1.5">Options</h3>
+              <div className="flex items-center gap-3 py-3 border-b border-[#EFF4EC]">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-brand-text">Balance check</p>
+                  <p className="text-xs text-brand-muted mt-0.5">Runs on every conversion — see the preview</p>
+                </div>
+                {lockedSwitch}
+              </div>
+              <div className="flex items-center gap-3 py-3 border-b border-[#EFF4EC]">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-brand-text">Auto-categorization</p>
+                  <p className="text-xs text-brand-muted mt-0.5">Your category rules apply automatically</p>
+                </div>
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#E3F2DF] text-[#007A33] shrink-0">AUTO</span>
+              </div>
+              <div className="flex items-center gap-3 py-3">
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-brand-text">Delete file after convert</p>
+                  <p className="text-xs text-brand-muted mt-0.5">Always on — files are never stored</p>
+                </div>
+                {lockedSwitch}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <button
+              onClick={() => { if (done) reset(); else if (staged) uploadFile(staged); }}
+              disabled={wsProcessing || (!staged && !done)}
+              className="w-full py-4 rounded-full bg-[#2CA01C] text-white text-[15px] font-bold hover:bg-[#238a17] transition-colors disabled:opacity-40 disabled:hover:bg-[#2CA01C]"
+            >
+              {wsProcessing ? "Converting…" : done ? "Convert another file" : "Convert file →"}
+            </button>
+            <p className="text-center text-xs text-brand-muted -mt-2">
+              {done
+                ? `${done.page_count} pages used · ${pagesRemaining} left this month`
+                : `${pagesRemaining} of ${pageLimit} pages left this month · pages counted when you convert`}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   /* ── Done ── */
   if (state.status ==="done") {
