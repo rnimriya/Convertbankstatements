@@ -194,7 +194,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       <Navbar dark />
       <main className="min-h-screen bg-white">
         {/* Dark hero */}
-        <div className="relative overflow-hidden bg-[#071106] text-white">
+        <div className="relative overflow-hidden bg-[#0B1F16] text-white">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[380px] w-[1000px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.32), transparent 75%)" }} />
           <div className="relative mx-auto max-w-[1060px] px-6 pt-10 pb-28">
             <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6">
@@ -243,7 +243,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
             {/* Author row */}
             <div className="mb-4 text-sm text-zinc-500">
-              <span className="mr-2.5 inline-flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#13541C] font-extrabold text-white align-middle">
+              <span className="mr-2.5 inline-flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#007A33] font-extrabold text-white align-middle">
                 {authorInitials}
               </span>
               <span>
@@ -278,7 +278,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
 
           {/* In-article CTA */}
-          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[24px] bg-gradient-to-b from-[#0E3D15] to-[#13541C] px-8 py-8 text-white">
+          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[24px] bg-gradient-to-b from-[#0E3D15] to-[#007A33] px-8 py-8 text-white">
             <div>
               <p className="font-bold">Skip the manual work</p>
               <p className="text-zinc-400 text-sm mt-1">
@@ -287,7 +287,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             </div>
             <a
               href="/signup"
-              className="shrink-0 rounded-full bg-white px-6 py-3 font-extrabold text-[#071106] whitespace-nowrap"
+              className="shrink-0 rounded-full bg-white px-6 py-3 font-extrabold text-[#0B1F16] whitespace-nowrap"
             >
               Convert my statement →
             </a>
@@ -297,7 +297,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="mt-12 border-t border-zinc-100 pt-8">
             <a
               href={`/${locale}/blog`}
-              className="text-sm font-medium text-[#13541C] hover:underline"
+              className="text-sm font-medium text-[#007A33] hover:underline"
             >
               {t("backToBlog")}
             </a>

@@ -112,7 +112,7 @@ export function PricingCards({ toggleDark = false }: { toggleDark?: boolean }) {
               <div key={plan.name} className="relative h-full">
                 {/* Badge */}
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-                  <span className="inline-block bg-honey-400 rounded-full px-5 py-1.5 text-xs font-black text-[#072b18] border border-transparent whitespace-nowrap">
+                  <span className="inline-block bg-honey-400 rounded-full px-5 py-1.5 text-xs font-black text-[#0B3D2E] border border-transparent whitespace-nowrap">
                     {plan.badge}
                   </span>
                 </div>
@@ -162,7 +162,7 @@ export function PricingCards({ toggleDark = false }: { toggleDark?: boolean }) {
 
                   <Link
                     href={href}
-                    className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold text-[#072b18] bg-pine-400 hover:bg-pine-300 transition-colors border-0"
+                    className="flex items-center justify-center gap-2 rounded-[10px] py-3.5 text-sm font-bold text-[#0B3D2E] bg-pine-400 hover:bg-pine-300 transition-colors border-0"
                   >
                     {plan.cta}
                   </Link>

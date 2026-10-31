@@ -12,7 +12,7 @@ interface Props {
 
 export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAccess }: Props) {
   return (
-    <section className="w-full relative overflow-hidden bg-[#071106] agri-sans">
+    <section className="w-full relative overflow-hidden bg-[#0B1F16] agri-sans">
       {/* Static lime glow (no animation) */}
       <div aria-hidden className="absolute left-1/2 top-[-420px] -translate-x-1/2 w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,.38), rgba(19,84,28,.28) 55%, transparent 75%)" }} />
       <div aria-hidden className="absolute left-0 right-0 bottom-0 h-[180px] pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, rgba(100,203,72,.14))" }} />

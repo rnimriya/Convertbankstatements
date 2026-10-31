@@ -79,10 +79,10 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Navbar dark />
       <main className="min-h-screen bg-white">
-        <section className="relative overflow-hidden bg-[#071106] px-6 py-16 text-center">
+        <section className="relative overflow-hidden bg-[#0B1F16] px-6 py-16 text-center">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Comprehensive Guide
           </p>
           <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
@@ -97,7 +97,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
           {/* Main Content (Pillar) */}
           <div className="lg:col-span-8">
             <article
-              className="prose prose-zinc max-w-none prose-a:text-[#13541C] prose-headings:font-extrabold"
+              className="prose prose-zinc max-w-none prose-a:text-[#007A33] prose-headings:font-extrabold"
               dangerouslySetInnerHTML={{ __html: safeContent }}
             />
           </div>
@@ -107,14 +107,14 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
             {relatedPosts.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-zinc-900  mb-4 flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-[#13541C]" /> Supporting Articles
+                  <BookOpen className="h-5 w-5 text-[#007A33]" /> Supporting Articles
                 </h3>
                 <div className="flex flex-col gap-3">
                   {relatedPosts.map((p) => (
                     <Link
                       key={p.slug}
                       href={`/blog/${p.slug}`}
-                      className="p-4 rounded-[24px] border border-[#D8DEC9] hover:border-[#13541C] bg-[#F2F4EC]"
+                      className="p-4 rounded-[24px] border border-[#CBE3C4] hover:border-[#007A33] bg-[#F2F4EC]"
                     >
                       <h4 className="font-semibold text-zinc-900 text-sm mb-1">
                         {p.title}
@@ -131,14 +131,14 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
             {relatedBanks.length > 0 && (
               <div>
                 <h3 className="text-lg font-bold text-zinc-900  mb-4 flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[#13541C]" /> Specific Bank Guides
+                  <Building2 className="h-5 w-5 text-[#007A33]" /> Specific Bank Guides
                 </h3>
                 <div className="flex flex-col gap-2">
                   {relatedBanks.map((b) => (
                     <Link
                       key={b.slug}
                       href={`/banks/${b.slug}`}
-                      className="text-sm text-zinc-600 hover:text-[#13541C] flex items-center justify-between group"
+                      className="text-sm text-zinc-600 hover:text-[#007A33] flex items-center justify-between group"
                     >
                       {b.name} <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100" />
                     </Link>
@@ -147,10 +147,10 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
               </div>
             )}
             
-            <div className="p-6 rounded-[24px] bg-[#13541C] text-white">
+            <div className="p-6 rounded-[24px] bg-[#007A33] text-white">
               <h3 className="font-bold mb-2">Ready to convert?</h3>
-              <p className="text-[#BACEBA] text-sm mb-4">Secure, fast, and 100% private. Start converting your statements today.</p>
-              <Link href="/signup" className="block w-full text-center bg-white text-[#071106] font-semibold py-2 rounded-full">
+              <p className="text-[#BFE3B8] text-sm mb-4">Secure, fast, and 100% private. Start converting your statements today.</p>
+              <Link href="/signup" className="block w-full text-center bg-white text-[#0B1F16] font-semibold py-2 rounded-full">
                 Start Free Trial
               </Link>
             </div>

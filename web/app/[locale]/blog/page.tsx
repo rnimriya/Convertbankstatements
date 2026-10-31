@@ -36,7 +36,7 @@ export default async function BlogPage({
       <Navbar dark />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-[#071106] py-14 px-6 text-center">
+        <section className="relative overflow-hidden bg-[#0B1F16] py-14 px-6 text-center">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <h1 className="relative font-extrabold text-4xl text-white">
             {t("title")}
@@ -56,7 +56,7 @@ export default async function BlogPage({
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="flex flex-col rounded-[24px] border border-[#D8DEC9] bg-white overflow-hidden"
+                  className="flex flex-col rounded-[24px] border border-[#CBE3C4] bg-white overflow-hidden"
                 >
                   <Link href={`/${locale}/blog/${post.slug}`} className="block overflow-hidden">
                     <img
@@ -72,7 +72,7 @@ export default async function BlogPage({
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-[#E0E6D6] px-2 py-0.5 text-[11px] font-semibold text-[#13541C]"
+                          className="rounded-full bg-[#E3F2DF] px-2 py-0.5 text-[11px] font-semibold text-[#007A33]"
                         >
                           {tag}
                         </span>
@@ -102,7 +102,7 @@ export default async function BlogPage({
               {page > 1 && (
                 <Link
                   href={`/${locale}/blog?page=${page - 1}`}
-                  className="rounded-full border border-[#D8DEC9] px-4 py-2 text-sm font-medium text-zinc-700"
+                  className="rounded-full border border-[#CBE3C4] px-4 py-2 text-sm font-medium text-zinc-700"
                 >
                   {t("previous")}
                 </Link>
@@ -113,7 +113,7 @@ export default async function BlogPage({
               {page < pages && (
                 <Link
                   href={`/${locale}/blog?page=${page + 1}`}
-                  className="rounded-full border border-[#D8DEC9] px-4 py-2 text-sm font-medium text-zinc-700"
+                  className="rounded-full border border-[#CBE3C4] px-4 py-2 text-sm font-medium text-zinc-700"
                 >
                   {t("next")}
                 </Link>

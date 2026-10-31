@@ -51,7 +51,7 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
   const navCls = bg
     ? "sticky top-0 z-50 w-full border-b border-white/10"
     : dark
-      ? "sticky top-0 z-50 w-full bg-[#071106] border-b border-white/10"
+      ? "sticky top-0 z-50 w-full bg-[#0B1F16] border-b border-white/10"
       : "sticky top-0 z-50 w-full bg-brand-bg/80 backdrop-blur-md border-b border-zinc-200 dark:bg-zinc-950/80 dark:border-zinc-800";
 
   return (

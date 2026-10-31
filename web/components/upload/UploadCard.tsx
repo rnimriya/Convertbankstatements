@@ -232,7 +232,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     <div
                       className={cn("flex items-center justify-center rounded-2xl transition-all duration-300", fullWidth ?"mb-1 h-9 w-9" :"mb-3 h-14 w-14")}
                       style={{
-                        background: isDragActive ?"#072b18" :"#164234",
+                        background: isDragActive ?"#0B3D2E" :"#00573F",
                         transform: isDragActive ?"scale(1.06)" :"scale(1)",
                       }}
                     >
@@ -261,7 +261,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     </p>
 
                     {billing.tier ==="FREE" && freeRemaining > 0 && (
-                      <div className={cn("inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#072b18] dark:border-honey-600 dark:bg-honey-400 dark:text-[#072b18]", fullWidth ?"mt-2" :"mt-3")}>
+                      <div className={cn("inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#0B3D2E] dark:border-honey-600 dark:bg-honey-400 dark:text-[#0B3D2E]", fullWidth ?"mt-2" :"mt-3")}>
                         <CheckCircle2 className="text-zinc-900"  size={12} /> {freeRemaining} free page{freeRemaining !== 1 ?"s" :""} left
                       </div>
                     )}

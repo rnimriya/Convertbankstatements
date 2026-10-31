@@ -60,7 +60,7 @@ const ROWS: { feature: string; us: string | boolean; them: string | boolean }[] 
 ];
 
 function Cell({ v }: { v: string | boolean }) {
-  if (v === true) return <Check className="h-5 w-5 text-[#13541C] mx-auto" />;
+  if (v === true) return <Check className="h-5 w-5 text-[#007A33] mx-auto" />;
   if (v === false) return <X className="h-5 w-5 text-zinc-300 mx-auto" />;
   return <span className="text-sm">{v}</span>;
 }
@@ -82,12 +82,12 @@ export default function SynderAlternativePage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar dark />
       <main>
-        <section className="w-full relative overflow-hidden bg-[#071106]">
+        <section className="w-full relative overflow-hidden bg-[#0B1F16]">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
             <div className="text-center mb-6 max-w-4xl mx-auto">
               <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 Comparison
               </span>
               <h1 className="font-extrabold text-white tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
@@ -104,10 +104,10 @@ export default function SynderAlternativePage() {
 
         <section className="py-24 bg-white">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="overflow-x-auto rounded-[24px] border border-[#D8DEC9] bg-white">
+            <div className="overflow-x-auto rounded-[24px] border border-[#CBE3C4] bg-white">
               <table className="w-full text-sm min-w-[640px]">
                 <thead>
-                  <tr className="border-b border-[#D8DEC9]">
+                  <tr className="border-b border-[#CBE3C4]">
                     <th className="px-5 py-3 text-left font-semibold text-zinc-500">Feature</th>
                     <th className="px-5 py-3 text-center font-bold text-zinc-900">Convert Statement</th>
                     <th className="px-5 py-3 text-center font-bold text-zinc-900">Synder</th>
@@ -115,7 +115,7 @@ export default function SynderAlternativePage() {
                 </thead>
                 <tbody>
                   {ROWS.map((r) => (
-                    <tr key={r.feature} className="border-b border-[#D8DEC9]">
+                    <tr key={r.feature} className="border-b border-[#CBE3C4]">
                       <td className="px-5 py-3 font-medium text-zinc-700">{r.feature}</td>
                       <td className="px-5 py-3 text-center"><Cell v={r.us} /></td>
                       <td className="px-5 py-3 text-center"><Cell v={r.them} /></td>
@@ -127,11 +127,11 @@ export default function SynderAlternativePage() {
             <p className="mt-3 text-xs text-zinc-500">
               Synder's pricing and plan details change over time — check Synder's own site
               for current prices. Convert Statement's pricing is on{" "}
-              <Link href="/pricing" className="text-[#13541C] font-semibold hover:underline">its pricing page</Link>.
+              <Link href="/pricing" className="text-[#007A33] font-semibold hover:underline">its pricing page</Link>.
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 mt-14">
-              <div className="rounded-[24px] border border-[#D8DEC9] bg-[#F2F4EC] p-6">
+              <div className="rounded-[24px] border border-[#CBE3C4] bg-[#F2F4EC] p-6">
                 <h2 className="font-bold text-zinc-900 text-lg">Pick Convert Statement when…</h2>
                 <ul className="mt-3 space-y-2 text-sm text-zinc-600 leading-relaxed list-disc list-inside">
                   <li>You convert payouts or statements occasionally, not every day.</li>
@@ -139,11 +139,11 @@ export default function SynderAlternativePage() {
                   <li>You are cleaning up historical books, not syncing live data.</li>
                   <li>You have a PDF statement, a bank CSV, or a file QuickBooks refuses.</li>
                 </ul>
-                <Link href="/tools/free-stripe-to-quickbooks" className="mt-4 inline-flex items-center gap-2 bg-[#071106] text-white font-semibold px-5 py-2.5 rounded-full">
+                <Link href="/tools/free-stripe-to-quickbooks" className="mt-4 inline-flex items-center gap-2 bg-[#0B1F16] text-white font-semibold px-5 py-2.5 rounded-full">
                   Try the free payout converter
                 </Link>
               </div>
-              <div className="rounded-[24px] border border-[#D8DEC9] bg-[#F2F4EC] p-6">
+              <div className="rounded-[24px] border border-[#CBE3C4] bg-[#F2F4EC] p-6">
                 <h2 className="font-bold text-zinc-900 text-lg">Pick Synder when…</h2>
                 <ul className="mt-3 space-y-2 text-sm text-zinc-600 leading-relaxed list-disc list-inside">
                   <li>You want transactions in QuickBooks automatically, as they happen.</li>
@@ -161,7 +161,7 @@ export default function SynderAlternativePage() {
           </div>
         </section>
 
-        <section className="py-24 bg-[#F2F4EC] border-t border-[#D8DEC9]">
+        <section className="py-24 bg-[#F2F4EC] border-t border-[#CBE3C4]">
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 text-center mb-12">Frequently asked questions</h2>
             <FAQAccordion items={FAQS} />

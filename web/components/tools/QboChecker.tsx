@@ -80,11 +80,11 @@ export function QboChecker() {
           }}
         />
         {busy ? (
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#00573F" }}>
             <Loader2 className="h-9 w-9 text-white animate-spin" />
           </div>
         ) : (
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#00573F" }}>
             <Upload className="h-9 w-9 text-white" />
           </div>
         )}

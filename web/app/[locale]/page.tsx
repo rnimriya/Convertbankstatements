@@ -107,16 +107,16 @@ export default async function HomePage() {
   ];
 
   const Label = ({ children, light = false }: { children: ReactNode; light?: boolean }) => (
-    <p className={`agri-mono text-[11px] font-medium uppercase tracking-[0.16em] flex items-center gap-2 ${light ? "text-[#B9D6B2]" : "text-[#13541C]"}`}>
-      <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
+    <p className={`agri-mono text-[11px] font-medium uppercase tracking-[0.16em] flex items-center gap-2 ${light ? "text-[#B9D6B2]" : "text-[#007A33]"}`}>
+      <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
       {children}
     </p>
   );
   const bentoCls = (i: number) =>
     i === 0 ? "bg-[linear-gradient(135deg,#DDFB8A,#8FE07A)] border-transparent"
     : i === 1 ? "bg-[#0B1F0E] border-[#24452A]"
-    : i === 5 ? "bg-[#BACEBA] border-transparent"
-    : "bg-white border-[#D8DEC9]";
+    : i === 5 ? "bg-[#BFE3B8] border-transparent"
+    : "bg-white border-[#CBE3C4]";
   const bentoTitleCls = (i: number) => (i === 1 ? "text-white" : "text-[#101812]");
   const bentoBodyCls = (i: number) => (i === 0 ? "text-[#2C4416]" : i === 1 ? "text-[#A9BFA9]" : "text-[#5B665C]");
 
@@ -143,31 +143,31 @@ export default async function HomePage() {
     <>
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
-      <Navbar dark bg="#071106" />
+      <Navbar dark bg="#0B1F16" />
       <main className="overflow-x-hidden agri-sans">
 
         {/* ─── HERO — DARK AGRIFRIKA + CONVERTER ─────────── */}
         <HeroSectionWrapper />
 
         {/* ─── 01 / NUMBERS — PALE SAGE ───────────────────── */}
-        <section className="py-24 bg-[#E0E6D6]">
+        <section className="py-24 bg-[#E3F2DF]">
           <div className="max-w-6xl mx-auto px-6">
             <Label>01 / ConvertStatement in numbers</Label>
             <div className="grid lg:grid-cols-2 gap-12 mt-6 items-start">
               <div>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#071106]">The converter built for <span className="agri-serif font-normal">busy books.</span></h2>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16]">The converter built for <span className="agri-serif font-normal">busy books.</span></h2>
                 <p className="text-[#5B665C] mt-5 leading-relaxed max-w-md">Accountants, bookkeepers, CPAs and small businesses use ConvertStatement to skip manual entry and get reconciliation-ready files in seconds.</p>
-                <a href="#features" className="inline-flex items-center gap-2 rounded-full border border-[#C9D2BC] px-6 py-3.5 text-sm font-bold text-[#071106] whitespace-nowrap mt-6">
+                <a href="#features" className="inline-flex items-center gap-2 rounded-full border border-[#C9D2BC] px-6 py-3.5 text-sm font-bold text-[#0B1F16] whitespace-nowrap mt-6">
                   Discover the features <ArrowRight size={15} />
                 </a>
               </div>
               <div className="grid grid-cols-2 border-t border-l border-[#C4CDB2]">
                 {NUMS.map(({ dot, num, sfx, cap }) => (
                   <div key={cap} className="border-r border-b border-[#C4CDB2] p-7 sm:p-9">
-                    <span className="w-[22px] h-[22px] rounded-full bg-[#13541C] text-white flex items-center justify-center text-[11px] mb-5">{dot}</span>
-                    <div className="text-[52px] sm:text-[64px] font-extrabold leading-none tracking-tight text-[#071106]">
+                    <span className="w-[22px] h-[22px] rounded-full bg-[#007A33] text-white flex items-center justify-center text-[11px] mb-5">{dot}</span>
+                    <div className="text-[52px] sm:text-[64px] font-extrabold leading-none tracking-tight text-[#0B1F16]">
                       {num}
-                      <span className="text-[#13541C]">{sfx}</span>
+                      <span className="text-[#007A33]">{sfx}</span>
                     </div>
                     <p className="text-[13px] text-[#5B665C] mt-2">{cap}</p>
                   </div>
@@ -182,7 +182,7 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <Label>02 / The problem</Label>
             <div className="grid lg:grid-cols-2 gap-8 mt-6 items-start">
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#071106]">Manual entry eats your <span className="agri-serif font-normal">week.</span></h2>
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16]">Manual entry eats your <span className="agri-serif font-normal">week.</span></h2>
               <p className="text-[#5B665C] leading-relaxed">A month of bank statements typed by hand means hours lost, typos that break reconciliation, and a month-end backlog that never shrinks. ConvertStatement reads the PDF and hands you a clean file instead.</p>
             </div>
 
@@ -198,7 +198,7 @@ export default async function HomePage() {
                 ].map((n, i, arr) => (
                   <span key={n.label} className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
                     <span className="text-center shrink-0 sm:w-[120px]">
-                      <span className="block w-[34px] h-[34px] rounded-full bg-[#64CB48] border-[5px] border-[#1E3A22] mx-auto mb-3" style={{ boxShadow: "0 0 0 1px #64CB48" }} />
+                      <span className="block w-[34px] h-[34px] rounded-full bg-[#2CA01C] border-[5px] border-[#1E3A22] mx-auto mb-3" style={{ boxShadow: "0 0 0 1px #2CA01C" }} />
                       <b className="block text-sm">{n.label}</b>
                       <span className="agri-mono text-[10px] tracking-[0.14em] uppercase text-[#7E967F]">{n.cap}</span>
                     </span>
@@ -209,18 +209,18 @@ export default async function HomePage() {
             </div>
 
             {/* Ruled rows */}
-            <div className="border-t border-[#D8DEC9] mt-12">
+            <div className="border-t border-[#CBE3C4] mt-12">
               {[
                 { rn: "01", title: "Manual typing", body: "Every line re-keyed by hand — slow, dull, and easy to get wrong." },
                 { rn: "02", title: "Copy-paste errors", body: "Pasted tables split, merge and misalign — then reconciliation fails." },
                 { rn: "03", title: "Month-end backlog", body: "Statements pile up while close week waits on clean data." },
               ].map((r) => (
-                <div key={r.rn} className="grid sm:grid-cols-[56px_1fr_1.2fr_48px] gap-2 sm:gap-6 sm:items-center py-6 border-b border-[#D8DEC9]">
+                <div key={r.rn} className="grid sm:grid-cols-[56px_1fr_1.2fr_48px] gap-2 sm:gap-6 sm:items-center py-6 border-b border-[#CBE3C4]">
                   <span className="agri-mono text-xs text-[#5B665C] hidden sm:block">{r.rn}</span>
-                  <h3 className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#071106]">{r.title}</h3>
+                  <h3 className="text-xl sm:text-[26px] font-extrabold tracking-tight text-[#0B1F16]">{r.title}</h3>
                   <p className="text-sm text-[#5B665C] leading-relaxed">{r.body}</p>
-                  <span className="hidden sm:flex w-11 h-11 rounded-full border border-[#D8DEC9] items-center justify-center shrink-0">
-                    <ArrowUpRight size={17} className="text-[#071106]" />
+                  <span className="hidden sm:flex w-11 h-11 rounded-full border border-[#CBE3C4] items-center justify-center shrink-0">
+                    <ArrowUpRight size={17} className="text-[#0B1F16]" />
                   </span>
                 </div>
               ))}
@@ -229,11 +229,11 @@ export default async function HomePage() {
         </section>
 
         {/* ─── 03 / FEATURES — DARK BENTO ─────────────────── */}
-        <section id="features" className="relative py-24 bg-[#071106] text-white overflow-hidden scroll-mt-24">
+        <section id="features" className="relative py-24 bg-[#0B1F16] text-white overflow-hidden scroll-mt-24">
           <div aria-hidden className="absolute inset-x-0 top-8 text-center font-extrabold leading-none text-white/[0.04] select-none pointer-events-none whitespace-nowrap" style={{ fontSize: "clamp(80px, 18vw, 260px)" }}>CONVERT</div>
           <div className="relative max-w-6xl mx-auto px-6">
             <Label light>03 / Features</Label>
-            <p className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] mt-6 max-w-3xl">We turn <span className="text-zinc-500">messy PDFs</span> into <span className="agri-serif font-normal text-[#64CB48]">ready-to-reconcile</span> data — fast, private, and exact.</p>
+            <p className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.08] mt-6 max-w-3xl">We turn <span className="text-zinc-500">messy PDFs</span> into <span className="agri-serif font-normal text-[#2CA01C]">ready-to-reconcile</span> data — fast, private, and exact.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
               {FEATURES.map((f, i) => {
                 const wide = i === FEATURES.length - 1;
@@ -246,28 +246,28 @@ export default async function HomePage() {
                     {f.img ? (
                       <img src={f.img} alt="" className={`w-16 h-16 object-contain shrink-0 ${wide ? "mb-5 sm:mb-0" : "mb-5"}`} />
                     ) : (
-                      <div className={`w-16 h-16 rounded-full bg-[#E0E6D6] border border-[#D8DEC9] flex items-center justify-center shrink-0 ${wide ? "mb-5 sm:mb-0" : "mb-5"}`}>
+                      <div className={`w-16 h-16 rounded-full bg-[#E3F2DF] border border-[#CBE3C4] flex items-center justify-center shrink-0 ${wide ? "mb-5 sm:mb-0" : "mb-5"}`}>
                         {f.icon}
                       </div>
                     )}
                     <div>
                       {showStat && (
-                        <div className={`text-[56px] font-extrabold leading-none tracking-tight mb-2 ${i === 0 ? "text-[#071106]" : "text-[#101812]"}`}>
+                        <div className={`text-[56px] font-extrabold leading-none tracking-tight mb-2 ${i === 0 ? "text-[#0B1F16]" : "text-[#101812]"}`}>
                           {f.stat}
-                          <span className="text-[#13541C]">{f.statSuffix}</span>
+                          <span className="text-[#007A33]">{f.statSuffix}</span>
                         </div>
                       )}
                       <h3 className={`text-[21px] font-extrabold tracking-tight mb-2 ${bentoTitleCls(i)}`}>{f.title}</h3>
                       <p className={`text-sm leading-relaxed ${bentoBodyCls(i)}`}>{f.body}</p>
                       {f.badge && (
-                        <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#13541C] bg-[#E0E6D6] px-3 py-1.5 rounded-full">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48]" /> {f.badge}
+                        <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#007A33] bg-[#E3F2DF] px-3 py-1.5 rounded-full">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C]" /> {f.badge}
                         </div>
                       )}
                       {f.chips && (
                         <div className="mt-4 flex flex-wrap gap-2">
                           {f.chips.map((c) => (
-                            <span key={c} className="px-3 py-1.5 rounded-full text-xs font-bold border border-[#D8DEC9] bg-white text-[#3f3f46]">
+                            <span key={c} className="px-3 py-1.5 rounded-full text-xs font-bold border border-[#CBE3C4] bg-white text-[#3f3f46]">
                               {c}
                             </span>
                           ))}
@@ -287,18 +287,18 @@ export default async function HomePage() {
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
                 <Label>04 / How it works</Label>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#071106] mt-5">Three steps. <span className="agri-serif font-normal">Zero typing.</span></h2>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16] mt-5">Three steps. <span className="agri-serif font-normal">Zero typing.</span></h2>
               </div>
               <p className="text-[#5B665C] leading-relaxed max-w-sm">From a locked PDF to a file your books accept — in less time than making coffee.</p>
             </div>
             <div className="grid md:grid-cols-3 gap-5">
               {steps.map(({ n, img, title, body }) => (
-                <div key={n} className="bg-white border border-[#D8DEC9] rounded-[24px] p-8">
+                <div key={n} className="bg-white border border-[#CBE3C4] rounded-[24px] p-8">
                   {img ? (
                     <img src={img} alt="" className="w-16 h-16 object-contain mb-5" />
                   ) : null}
-                  <p className="agri-mono text-[11px] tracking-[0.16em] text-[#13541C]">STEP {n}</p>
-                  <h3 className="text-[21px] font-extrabold tracking-tight text-[#071106] mt-2 mb-2">{title}</h3>
+                  <p className="agri-mono text-[11px] tracking-[0.16em] text-[#007A33]">STEP {n}</p>
+                  <h3 className="text-[21px] font-extrabold tracking-tight text-[#0B1F16] mt-2 mb-2">{title}</h3>
                   <p className="text-sm text-[#5B665C] leading-relaxed">{body}</p>
                 </div>
               ))}
@@ -307,12 +307,12 @@ export default async function HomePage() {
         </section>
 
         {/* ─── 05 / FREE QUICKBOOKS TOOLS — DARK BAND ─────── */}
-        <section className="py-24 bg-[#071106] text-white">
+        <section className="py-24 bg-[#0B1F16] text-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
                 <Label light>05 / Free QuickBooks tools</Label>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] mt-5">Ten free tools. <span className="agri-serif font-normal text-[#64CB48]">Scan free.</span></h2>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] mt-5">Ten free tools. <span className="agri-serif font-normal text-[#2CA01C]">Scan free.</span></h2>
               </div>
               <p className="text-[#A9BFA9] leading-relaxed max-w-sm">Pick one, scan free, no account needed. QBO downloads are on Pro.</p>
             </div>
@@ -321,14 +321,14 @@ export default async function HomePage() {
                 <Link
                   key={t.href}
                   href={t.href}
-                  className="flex items-center gap-4 bg-white border border-[#D8DEC9] rounded-[20px] px-5 py-4"
+                  className="flex items-center gap-4 bg-white border border-[#CBE3C4] rounded-[20px] px-5 py-4"
                 >
                   <img src={t.img} alt="" width={56} height={56} loading="lazy" className="h-14 w-14 shrink-0 rounded-[14px] bg-[#F2F4EC] object-contain" />
                   <span className="min-w-0">
                     <span className="block text-base font-bold text-[#101812]">{t.label}</span>
                     <span className="block text-[13px] text-[#5B665C] mt-0.5 leading-snug">{t.desc}</span>
                   </span>
-                  <span className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#D8DEC9] text-[#101812]">
+                  <span className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#CBE3C4] text-[#101812]">
                     <ArrowRight size={15} />
                   </span>
                 </Link>
@@ -338,20 +338,20 @@ export default async function HomePage() {
         </section>
 
         {/* ─── 06 / PRICING TEASER — PALE SAGE ─────────────── */}
-        <section id="pricing" className="py-24 bg-[#E0E6D6] scroll-mt-24">
+        <section id="pricing" className="py-24 bg-[#E3F2DF] scroll-mt-24">
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
                 <Label>06 / Pricing</Label>
-                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#071106] mt-5">Start free. <span className="agri-serif font-normal">Scale when ready.</span></h2>
+                <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16] mt-5">Start free. <span className="agri-serif font-normal">Scale when ready.</span></h2>
               </div>
-              <a href="/pricing" className="inline-flex items-center gap-2 rounded-full border border-[#C9D2BC] px-6 py-3.5 text-sm font-bold text-[#071106] whitespace-nowrap">
+              <a href="/pricing" className="inline-flex items-center gap-2 rounded-full border border-[#C9D2BC] px-6 py-3.5 text-sm font-bold text-[#0B1F16] whitespace-nowrap">
                 See all plans <ArrowRight size={15} />
               </a>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
               {PRICE_PLANS.map((p) => (
-                <div key={p.name} className={`rounded-[24px] p-8 border flex flex-col ${p.hot ? "bg-[#071106] text-white border-[#071106]" : "bg-white border-[#D8DEC9] text-[#101812]"}`}>
+                <div key={p.name} className={`rounded-[24px] p-8 border flex flex-col ${p.hot ? "bg-[#0B1F16] text-white border-[#0B1F16]" : "bg-white border-[#CBE3C4] text-[#101812]"}`}>
                   <p className="text-[15px] font-bold">{p.name}{p.hot ? " · Most popular" : ""}</p>
                   <p className="text-[56px] font-extrabold leading-none tracking-tight mt-5 mb-1">
                     {p.price}
@@ -361,14 +361,14 @@ export default async function HomePage() {
                   <ul className="my-6 flex flex-col gap-2.5 text-sm">
                     {p.features.map((feat) => (
                       <li key={feat} className="flex gap-2">
-                        <span className={`font-bold ${p.hot ? "text-[#64CB48]" : "text-[#13541C]"}`}>✓</span>
+                        <span className={`font-bold ${p.hot ? "text-[#2CA01C]" : "text-[#007A33]"}`}>✓</span>
                         <span>{feat}</span>
                       </li>
                     ))}
                   </ul>
                   <a
                     href="/pricing"
-                    className={`inline-flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold whitespace-nowrap mt-auto w-full ${p.hot ? "bg-[#64CB48] text-[#071106]" : p.name === "Free" ? "bg-[#071106] text-white" : "border border-[#C9D2BC] text-[#071106]"}`}
+                    className={`inline-flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-bold whitespace-nowrap mt-auto w-full ${p.hot ? "bg-[#2CA01C] text-[#0B1F16]" : p.name === "Free" ? "bg-[#0B1F16] text-white" : "border border-[#C9D2BC] text-[#0B1F16]"}`}
                   >
                     {p.btn}
                   </a>
@@ -383,7 +383,7 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-12">
               <Label>07 / FAQ</Label>
-              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#071106] mt-5">Questions, <span className="agri-serif font-normal">answered.</span></h2>
+              <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-[1.04] text-[#0B1F16] mt-5">Questions, <span className="agri-serif font-normal">answered.</span></h2>
             </div>
             <div className="max-w-3xl">
               <FAQAccordion items={faqs} />
@@ -394,12 +394,12 @@ export default async function HomePage() {
         {/* ─── CTA BAND ───────────────────────────────────── */}
         <section className="py-24 bg-white pt-0">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-10 sm:py-[72px] text-center text-white" style={{ background: "linear-gradient(180deg, #0E3D15, #13541C)" }}>
+            <div className="relative overflow-hidden rounded-[32px] px-6 py-16 sm:px-10 sm:py-[72px] text-center text-white" style={{ background: "linear-gradient(180deg, #0E3D15, #007A33)" }}>
               <div aria-hidden className="absolute left-1/2 bottom-[-260px] -translate-x-1/2 w-[900px] h-[500px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,.4), transparent 75%)" }} />
               <h2 className="relative text-4xl sm:text-[52px] font-extrabold leading-[1.05]">Stop typing statements.<br /><span className="agri-serif font-normal">Start converting.</span></h2>
               <p className="relative text-[#B9D6B2] mt-4 max-w-[520px] mx-auto">Your first 8 pages are free. Upload a PDF and see a clean spreadsheet in under 15 seconds.</p>
               <div className="relative flex flex-wrap justify-center gap-3 mt-8">
-                <a href="/signup" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[#071106] whitespace-nowrap">
+                <a href="/signup" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[#0B1F16] whitespace-nowrap">
                   Convert free <ArrowRight size={15} />
                 </a>
                 <a href="/pricing" className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3.5 text-sm font-bold text-white whitespace-nowrap">

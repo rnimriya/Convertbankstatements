@@ -53,22 +53,22 @@ export function ContactForm() {
     <div className="grid gap-10 md:grid-cols-3">
       {/* Contact Info Sidebar */}
       <div className="md:col-span-1 space-y-6">
-        <div className="rounded-[28px] border border-[#D8DEC9] bg-[#F2F4EC] p-6 shadow-sm">
+        <div className="rounded-[28px] border border-[#CBE3C4] bg-[#F2F4EC] p-6 shadow-sm">
           <h2 className="text-lg font-bold text-zinc-800  flex items-center gap-2">
-            <Mail className="h-5 w-5 text-[#13541C]" />
+            <Mail className="h-5 w-5 text-[#007A33]" />
             {t("emailUs")}
           </h2>
           <a
             href="mailto:support@convertstatement.online"
-            className="mt-2 block text-sm font-semibold text-[#13541C] hover:underline"
+            className="mt-2 block text-sm font-semibold text-[#007A33] hover:underline"
           >
             support@convertstatement.online
           </a>
         </div>
 
-        <div className="rounded-[28px] border border-[#D8DEC9] bg-[#F2F4EC] p-6 shadow-sm">
+        <div className="rounded-[28px] border border-[#CBE3C4] bg-[#F2F4EC] p-6 shadow-sm">
           <h2 className="text-lg font-bold text-zinc-800  flex items-center gap-2">
-            <Clock className="h-5 w-5 text-[#13541C]" />
+            <Clock className="h-5 w-5 text-[#007A33]" />
             {t("supportHours")}
           </h2>
           <p className="mt-2 text-sm text-zinc-600  font-medium">
@@ -79,11 +79,11 @@ export function ContactForm() {
 
       {/* Main Contact Form Panel */}
       <div className="md:col-span-2">
-        <div className="rounded-[28px] border border-[#D8DEC9] bg-white p-8 shadow-sm">
+        <div className="rounded-[28px] border border-[#CBE3C4] bg-white p-8 shadow-sm">
           {success ? (
             <div className="py-8 text-center space-y-4">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E0E6D6]">
-                <CheckCircle2 className="h-8 w-8 text-[#13541C]" />
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#E3F2DF]">
+                <CheckCircle2 className="h-8 w-8 text-[#007A33]" />
               </div>
               <h3 className="text-xl font-bold text-zinc-800 ">
                 {t("success")}
@@ -93,7 +93,7 @@ export function ContactForm() {
               </p>
               <button
                 onClick={() => setSuccess(false)}
-                className="mt-4 rounded-[14px] border border-[#D8DEC9] bg-zinc-50 px-6 py-2.5 text-xs font-semibold text-zinc-600  hover:bg-zinc-100"
+                className="mt-4 rounded-[14px] border border-[#CBE3C4] bg-zinc-50 px-6 py-2.5 text-xs font-semibold text-zinc-600  hover:bg-zinc-100"
               >
                 Send another message
               </button>
@@ -119,7 +119,7 @@ export function ContactForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={t("namePlaceholder")}
-                    className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none"
+                    className="w-full rounded-[14px] border border-[#CBE3C4] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#007A33] focus:outline-none"
                   />
                 </div>
 
@@ -134,7 +134,7 @@ export function ContactForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t("emailPlaceholder")}
-                    className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none"
+                    className="w-full rounded-[14px] border border-[#CBE3C4] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#007A33] focus:outline-none"
                   />
                 </div>
               </div>
@@ -150,7 +150,7 @@ export function ContactForm() {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder={t("subjectPlaceholder")}
-                  className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none"
+                  className="w-full rounded-[14px] border border-[#CBE3C4] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#007A33] focus:outline-none"
                 />
               </div>
 
@@ -165,14 +165,14 @@ export function ContactForm() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={t("messagePlaceholder")}
-                  className="w-full rounded-[14px] border border-[#D8DEC9] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#13541C] focus:outline-none resize-none"
+                  className="w-full rounded-[14px] border border-[#CBE3C4] bg-white/50 px-4 py-3 text-sm text-zinc-800  placeholder-slate-400 focus:border-[#007A33] focus:outline-none resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-[#64CB48] px-6 py-3.5 font-bold text-[#071106] shadow-glow  disabled:opacity-50"
+                className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-[#2CA01C] px-6 py-3.5 font-bold text-[#0B1F16] shadow-glow  disabled:opacity-50"
               >
                 {loading ? (
                   <>

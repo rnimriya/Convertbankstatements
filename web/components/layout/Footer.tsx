@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { GlobalDropbox } from "@/components/GlobalDropbox";
 
 const SOCIAL = [
   {
@@ -102,7 +103,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 text-zinc-300 hover:border-[#64CB48] hover:text-white"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 text-zinc-300 hover:border-[#2CA01C] hover:text-white"
                   >
                     {icon}
                   </a>
@@ -141,21 +142,23 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
   const [productCol, qbCol, accountCol, legalCol] = NAV;
 
   return (
-    <footer className="bg-[#071106] text-[#E0E6D6]">
+    <>
+      <GlobalDropbox />
+      <footer className="bg-[#0B1F16] text-[#E3F2DF]">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="border-b border-[#E0E6D6]/15 pb-[54px] pt-[72px]">
-          <p className="agri-mono text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+        <div className="border-b border-[#E3F2DF]/15 pb-[54px] pt-[72px]">
+          <p className="agri-mono text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
             {t("kicker")}
           </p>
           <h2 className="mb-[26px] mt-[18px] max-w-[720px] text-[clamp(34px,4.6vw,54px)] font-extrabold leading-[1.08] tracking-[-0.02em] text-white">
             {t("headlineTop")}
             <br />
             {t("headlineBottom")}{" "}
-            <span className="agri-serif text-[#BACEBA]">{t("headlineAccent")}</span>
+            <span className="agri-serif text-[#BFE3B8]">{t("headlineAccent")}</span>
           </h2>
           <Link
             href="/signup"
-            className="inline-block rounded-full bg-[#64CB48] px-[26px] py-[14px] text-[15px] font-bold text-[#071106]"
+            className="inline-block rounded-full bg-[#2CA01C] px-[26px] py-[14px] text-[15px] font-bold text-white"
           >
             {t("ctaStart")}
           </Link>
@@ -171,7 +174,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
             </p>
             <a
               href="mailto:support@convertstatement.online"
-              className="mt-3 block break-all text-[13px] text-[#E0E6D6]"
+              className="mt-3 block break-all text-[13px] text-[#E3F2DF]"
             >
               support@convertstatement.online
             </a>
@@ -183,7 +186,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-[#E0E6D6]/25 text-[#E0E6D6] hover:border-[#64CB48] hover:text-white"
+                  className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-[#E3F2DF]/25 text-[#E3F2DF] hover:border-[#2CA01C] hover:text-white"
                 >
                   {icon}
                 </a>
@@ -192,7 +195,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
           </div>
 
           <div>
-            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
               {productCol.heading}
             </h3>
             <ul className="space-y-[10px]">
@@ -207,7 +210,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
           </div>
 
           <div>
-            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
               {qbCol.heading}
             </h3>
             <ul className="space-y-[10px]">
@@ -219,7 +222,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
                 </li>
               ))}
               <li>
-                <Link href="/quickbooks" className="text-[13.5px] font-bold text-[#64CB48]">
+                <Link href="/quickbooks" className="text-[13.5px] font-bold text-[#2CA01C]">
                   {t("allQuickbooksTools")} →
                 </Link>
               </li>
@@ -228,7 +231,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
 
           {[accountCol, legalCol].map(({ heading, links }) => (
             <div key={heading}>
-              <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#64CB48]">
+              <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
                 {heading}
               </h3>
               <ul className="space-y-[10px]">
@@ -244,12 +247,13 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
           ))}
         </div>
 
-        <div className="flex flex-col justify-between gap-2 border-t border-[#E0E6D6]/15 pb-[30px] pt-[22px] text-xs text-[#8B968A] sm:flex-row">
+        <div className="flex flex-col justify-between gap-2 border-t border-[#E3F2DF]/15 pb-[30px] pt-[22px] text-xs text-[#8B968A] sm:flex-row">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("prices")}</p>
           <p>{t("payments")}</p>
         </div>
       </div>
-    </footer>
+      </footer>
+    </>
   );
 }

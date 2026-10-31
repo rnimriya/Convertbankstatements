@@ -103,9 +103,9 @@ export default async function PricingPage() {
       />
       <Navbar dark />
 
-      <div className="relative overflow-hidden bg-[#071106] px-6 pt-10 pb-28 text-center">
+      <div className="relative overflow-hidden bg-[#0B1F16] px-6 pt-10 pb-28 text-center">
         <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-        <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3"><span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />Pricing</p>
+        <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</p>
         <h1 className="relative text-4xl sm:text-[52px] font-extrabold text-white leading-[1.05]">Simple, transparent <span className="agri-serif">pricing</span></h1>
         <p className="relative mt-3 text-sm text-zinc-300">
           Start free · All prices in USD · No hidden charges
@@ -126,13 +126,13 @@ export default async function PricingPage() {
       <div className="bg-[#F2F4EC] px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-8 text-center text-2xl font-extrabold text-zinc-900">Full comparison</h2>
-          <div className="overflow-hidden rounded-[24px] border border-[#D8DEC9] bg-white">
+          <div className="overflow-hidden rounded-[24px] border border-[#CBE3C4] bg-white">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#D8DEC9] bg-[#F2F4EC]">
+                <tr className="border-b border-[#CBE3C4] bg-[#F2F4EC]">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">Feature</th>
                   {["Free","Basic","Pro","Business"].map((h) => (
-                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-[#13541C]" :"text-zinc-500"}`}>{h}</th>
+                    <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-[#007A33]" :"text-zinc-500"}`}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -141,7 +141,7 @@ export default async function PricingPage() {
                   <tr key={feature} className={i % 2 === 0 ?"bg-white" :"bg-[#F2F4EC]"}>
                     <td className="px-5 py-3 font-medium text-zinc-700">{feature}</td>
                     {[free, basic, pro, business].map((val, j) => (
-                      <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300" : val ==="✓" ?"text-[#13541C] font-bold text-base" :"text-zinc-600"}`}>{val}</td>
+                      <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300" : val ==="✓" ?"text-[#007A33] font-bold text-base" :"text-zinc-600"}`}>{val}</td>
                     ))}
                   </tr>
                 ))}
@@ -151,7 +151,7 @@ export default async function PricingPage() {
         </div>
       </div>
 
-      <section className="py-24 bg-gradient-to-b from-[#0E3D15] to-[#13541C] relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-b from-[#0E3D15] to-[#007A33] relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none opacity-10"
           style={{
@@ -163,9 +163,9 @@ export default async function PricingPage() {
           <p className="text-xs font-semibold text-white/50 uppercase tracking-widest mb-4">Get started today</p>
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">Start with 8 free pages today</h2>
           <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed text-sm">No credit card required · Pay securely when you need more · Cancel anytime</p>
-          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-[#64CB48] text-[#071106] border-0">
+          <Link href="/signup" className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-[#2CA01C] text-[#0B1F16] border-0">
             Create free account
-            <ArrowRight className="h-4 w-4 text-[#072b18]" />
+            <ArrowRight className="h-4 w-4 text-[#0B3D2E]" />
           </Link>
           <p className="mt-5 text-xs text-white/40">No credit card required · Pay securely if you need more</p>
         </div>

@@ -65,12 +65,12 @@ export default function QuickBooksCleanupPage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar dark />
       <main>
-        <section className="w-full relative overflow-hidden bg-[#071106]">
+        <section className="w-full relative overflow-hidden bg-[#0B1F16]">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-10 pb-12">
             <div className="text-center mb-6 max-w-4xl mx-auto">
               <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 Service
               </span>
               <h1 className="font-extrabold text-white tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
@@ -84,7 +84,7 @@ export default function QuickBooksCleanupPage() {
               <div className="mt-6">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-[#64CB48] text-[#071106]"
+                  className="inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-bold bg-[#2CA01C] text-[#0B1F16]"
                 >
                   Get a free cleanup assessment
                 </Link>
@@ -106,7 +106,7 @@ export default function QuickBooksCleanupPage() {
                 { title: "Consistent categorization", body: "The same vendor is categorized the same way every month, so your profit and loss stops changing shape from one month to the next." },
                 { title: "Every month re-reconciled", body: "Each month is reconciled against its statement until the difference is zero — or the remaining difference is listed with the exact entries behind it." },
               ].map((c) => (
-                <div key={c.title} className="rounded-[24px] border border-[#D8DEC9] bg-white p-6">
+                <div key={c.title} className="rounded-[24px] border border-[#CBE3C4] bg-white p-6">
                   <h3 className="font-bold text-zinc-900">{c.title}</h3>
                   <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{c.body}</p>
                 </div>
@@ -121,8 +121,8 @@ export default function QuickBooksCleanupPage() {
                 { title: "Cleanup", body: "We convert, dedupe, categorize, and re-reconcile month by month, and review the result before delivery." },
                 { title: "Delivery and report", body: "You get the cleaned books (as files you import, or delivered directly if you prefer) plus a short report of what was wrong and what changed." },
               ].map((s, i) => (
-                <li key={s.title} className="flex gap-4 rounded-[24px] border border-[#D8DEC9] bg-white p-6">
-                  <span className="agri-mono text-2xl font-medium text-[#13541C]">{String(i + 1).padStart(2, "0")}</span>
+                <li key={s.title} className="flex gap-4 rounded-[24px] border border-[#CBE3C4] bg-white p-6">
+                  <span className="agri-mono text-2xl font-medium text-[#007A33]">{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <h3 className="font-bold text-zinc-900">{s.title}</h3>
                     <p className="mt-1 text-sm text-zinc-600 leading-relaxed">{s.body}</p>
@@ -131,14 +131,14 @@ export default function QuickBooksCleanupPage() {
               ))}
             </ol>
 
-            <div className="mt-16 rounded-[24px] bg-[#071106] p-8 text-white text-center">
+            <div className="mt-16 rounded-[24px] bg-[#0B1F16] p-8 text-white text-center">
               <h2 className="text-2xl font-bold">Start with the free assessment</h2>
               <p className="mt-2 text-sm text-zinc-400 max-w-xl mx-auto">
                 No commitment, no charge for the diagnosis. If the quote does not make sense
                 for you, you keep the assessment and the free tools below.
               </p>
               <div className="mt-5 flex flex-wrap justify-center gap-3">
-                <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-[#071106] font-semibold px-5 py-2.5 rounded-full">
+                <Link href="/contact" className="inline-flex items-center gap-2 bg-white text-[#0B1F16] font-semibold px-5 py-2.5 rounded-full">
                   Contact us — subject “QuickBooks Cleanup”
                 </Link>
                 <Link href="/tools/free-qbo-cleanup-checker" className="inline-flex items-center gap-2 border border-white/25 text-white font-semibold px-5 py-2.5 rounded-full">
@@ -149,7 +149,7 @@ export default function QuickBooksCleanupPage() {
           </div>
         </section>
 
-        <section className="py-24 bg-[#F2F4EC] border-t border-[#D8DEC9]">
+        <section className="py-24 bg-[#F2F4EC] border-t border-[#CBE3C4]">
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl sm:text-4xl font-bold text-zinc-900 text-center mb-12">Frequently asked questions</h2>
             <FAQAccordion items={FAQS} />

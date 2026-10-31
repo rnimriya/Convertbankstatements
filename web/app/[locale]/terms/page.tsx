@@ -189,12 +189,12 @@ export default function TermsPage() {
  <Navbar dark />
 
  {/* Header */}
- <div className="relative overflow-hidden bg-[#071106] px-6 py-10">
+ <div className="relative overflow-hidden bg-[#0B1F16] px-6 py-10">
  <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
  <div className="relative mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
- <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[#13541C]">
- <ScrollText className="h-5 w-5 text-[#64CB48]" />
+ <div className="flex h-10 w-10 items-center justify-center rounded-[14px] bg-[#007A33]">
+ <ScrollText className="h-5 w-5 text-[#2CA01C]" />
  </div>
  <div>
  <h1 className="text-2xl font-extrabold text-white">Terms of Service</h1>
@@ -225,14 +225,14 @@ export default function TermsPage() {
  {/* Content */}
  <div className="mx-auto max-w-6xl px-6 py-12">
  {/* Table of contents */}
- <div className="mb-10 rounded-[24px] border border-[#D8DEC9] bg-[#F2F4EC] p-5">
- <p className="agri-mono mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[#13541C]">Contents</p>
+ <div className="mb-10 rounded-[24px] border border-[#CBE3C4] bg-[#F2F4EC] p-5">
+ <p className="agri-mono mb-3 text-[11px] font-medium uppercase tracking-[0.16em] text-[#007A33]">Contents</p>
  <div className="grid gap-1 sm:grid-cols-2">
  {SECTIONS.map(({ id, title }) => (
  <a
  key={id}
  href={`#${id}`}
- className="text-sm text-[#13541C] hover:underline underline-offset-2"
+ className="text-sm text-[#007A33] hover:underline underline-offset-2"
  >
  {title}
  </a>
@@ -293,7 +293,7 @@ export default function TermsPage() {
  </div>
 
  {/* Bottom note */}
- <div className="mt-12 rounded-[24px] border border-[#D8DEC9] bg-[#E0E6D6] p-5 text-sm text-[#13541C]">
+ <div className="mt-12 rounded-[24px] border border-[#CBE3C4] bg-[#E3F2DF] p-5 text-sm text-[#007A33]">
  <p className="font-semibold">Questions about these Terms?</p>
  <p className="mt-1">
  Email us at{""}

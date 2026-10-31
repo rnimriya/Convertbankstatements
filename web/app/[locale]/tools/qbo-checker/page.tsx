@@ -24,10 +24,10 @@ export default function QboCheckerPage() {
     <div className="agri-sans">
       <Navbar dark />
       <main className="min-h-screen bg-white">
-        <section className="relative overflow-hidden bg-[#071106] px-6 py-16 text-center">
+        <section className="relative overflow-hidden bg-[#0B1F16] px-6 py-16 text-center">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Free Tool
           </p>
           <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
@@ -55,7 +55,7 @@ export default function QboCheckerPage() {
             <p className="mt-5 text-zinc-600 leading-relaxed">
               Files converted with Convert Statement are built to pass every one of these checks —
               the running balances are verified against the statement itself before the QBO is
-              generated. <a href="/quickbooks" className="text-[#13541C] font-semibold hover:underline">See how the QuickBooks converter works</a>.
+              generated. <a href="/quickbooks" className="text-[#007A33] font-semibold hover:underline">See how the QuickBooks converter works</a>.
             </p>
           </div>
         </section>

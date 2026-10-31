@@ -46,7 +46,7 @@ export function ToolAuthWall({ path }: { path: string }) {
         <div className="flex flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-brand-border bg-zinc-50/60 dark:bg-zinc-900/50 px-6 py-12 lg:py-16 text-center select-none">
           <div
             className="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl"
-            style={{ background: "#164234" }}
+            style={{ background: "#00573F" }}
           >
             <Lock size={36} className="text-white" strokeWidth={1.6} />
           </div>
@@ -244,7 +244,7 @@ export function ToolUpload({
           {busy ? (
             /* Busy (static — no motion animation) */
             <div className="flex flex-col items-center gap-4 py-2">
-              <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#164234" }}>
+              <div className="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl" style={{ background: "#00573F" }}>
                 <Loader2 size={36} className="text-white" strokeWidth={1.6} />
               </div>
               <h2 className="text-3xl lg:text-4xl font-black tracking-tight text-brand-text">
@@ -258,7 +258,7 @@ export function ToolUpload({
               <div
                 className="mb-3 flex h-20 w-20 items-center justify-center rounded-2xl transition-all duration-300"
                 style={{
-                  background: dragActive ? "#072b18" : "#164234",
+                  background: dragActive ? "#0B3D2E" : "#00573F",
                   transform: dragActive ? "scale(1.06)" : "scale(1)",
                 }}
               >

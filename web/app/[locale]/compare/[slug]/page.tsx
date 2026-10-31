@@ -37,7 +37,7 @@ function CompareRow({ feature, us, them }: RowProps) {
   const renderValue = (val: string | boolean) => {
     if (typeof val === "boolean") {
       return val ? (
-        <Check className="h-5 w-5 text-[#13541C]" />
+        <Check className="h-5 w-5 text-[#007A33]" />
       ) : (
         <X className="h-5 w-5 text-zinc-300" />
       );
@@ -46,7 +46,7 @@ function CompareRow({ feature, us, them }: RowProps) {
   };
 
   return (
-    <tr className="border-b border-[#D8DEC9]">
+    <tr className="border-b border-[#CBE3C4]">
       <td className="py-3 pr-4 text-sm font-medium text-zinc-700">{feature}</td>
       <td className="py-3 px-4 text-center">{renderValue(us)}</td>
       <td className="py-3 pl-4 text-center">{renderValue(them)}</td>
@@ -97,10 +97,10 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
       <Navbar dark />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-[#071106] px-6 py-16 text-center">
+        <section className="relative overflow-hidden bg-[#0B1F16] px-6 py-16 text-center">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#64CB48] shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Competitor Comparison
           </p>
           <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-3xl mx-auto">
@@ -116,9 +116,9 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b-2 border-[#D8DEC9]">
+                <tr className="border-b-2 border-[#CBE3C4]">
                   <th className="py-3 pr-4 text-left text-xs uppercase tracking-wider text-zinc-400">Feature</th>
-                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-[#13541C] font-bold">
+                  <th className="py-3 px-4 text-center text-xs uppercase tracking-wider text-[#007A33] font-bold">
                     Convert Statement
                   </th>
                   <th className="py-3 pl-4 text-center text-xs uppercase tracking-wider text-zinc-400">
@@ -145,7 +145,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
         </section>
 
         {/* Why Convert Statement Wins */}
-        <section className="bg-[#E0E6D6] border-y border-[#D8DEC9] px-6 py-12">
+        <section className="bg-[#E3F2DF] border-y border-[#CBE3C4] px-6 py-12">
           <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-bold text-zinc-900 mb-6">
               Why teams choose Convert Statement over {comp.name}
@@ -153,12 +153,12 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
             <ul className="space-y-4">
               {comp.weaknesses.map((w, i) => (
                 <li key={i} className="flex gap-3 items-start">
-                  <Check className="h-5 w-5 text-[#13541C] mt-0.5 shrink-0" />
+                  <Check className="h-5 w-5 text-[#007A33] mt-0.5 shrink-0" />
                   <span className="text-sm text-zinc-600">{w}</span>
                 </li>
               ))}
               <li className="flex gap-3 items-start">
-                <Check className="h-5 w-5 text-[#13541C] mt-0.5 shrink-0" />
+                <Check className="h-5 w-5 text-[#007A33] mt-0.5 shrink-0" />
                 <span className="text-sm text-zinc-600">
                   Convert Statement processes files in-memory with zero storage — your financial data is never saved on any server.
                 </span>
@@ -177,14 +177,14 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
           </p>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 rounded-full bg-[#13541C] px-6 py-3 text-sm font-semibold text-white shadow-lg"
+            className="inline-flex items-center gap-2 rounded-full bg-[#007A33] px-6 py-3 text-sm font-semibold text-white shadow-lg"
           >
             Try Convert Statement Free <ArrowRight className="h-4 w-4" />
           </Link>
         </section>
 
         {/* Other comparisons */}
-        <section className="border-t border-[#D8DEC9] px-6 py-10">
+        <section className="border-t border-[#CBE3C4] px-6 py-10">
           <div className="mx-auto max-w-6xl">
             <h3 className="text-lg font-bold text-zinc-900 mb-4">Other comparisons</h3>
             <div className="flex flex-wrap gap-3">
@@ -192,7 +192,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
                 <Link
                   key={c.slug}
                   href={`/compare/${c.slug}`}
-                  className="rounded-full border border-[#D8DEC9] px-4 py-1.5 text-sm text-zinc-600 hover:border-[#13541C] hover:text-[#13541C]"
+                  className="rounded-full border border-[#CBE3C4] px-4 py-1.5 text-sm text-zinc-600 hover:border-[#007A33] hover:text-[#007A33]"
                 >
                   vs {c.name}
                 </Link>
