@@ -183,20 +183,20 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-sm overflow-hidden">
+          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] overflow-hidden">
 
             {/* ── Drop zone ── */}
-            <div className={cn(fullWidth ?"p-2" :"p-3")}>
+            <div className={cn(fullWidth ?"p-3" :"p-3")}>
               <div
                 {...(isProcessing ? {} : getRootProps())}
                 className={cn("relative flex flex-col items-center justify-center rounded-2xl px-6 text-center transition-colors select-none",
-                  fullWidth ?"py-[33px]" :"py-12 lg:py-16",
+                  fullWidth ?"py-[26px]" :"py-12 lg:py-16",
                   isProcessing
-                    ?(fullWidth ?"border-[6px] border-dashed border-zinc-200" :"border-2 border-dashed border-zinc-200")
+                    ?(fullWidth ?"border-2 border-dashed border-zinc-200" :"border-2 border-dashed border-zinc-200")
                     :"cursor-pointer",
                   !isProcessing && (isDragActive
-                    ?(fullWidth ?"border-[6px] border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface" :"border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface")
-                    :(fullWidth ?"border-[6px] border-dashed border-zinc-300 hover:border-[#2CA01C]" :"dropbox-border-anim"))
+                    ?(fullWidth ?"border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface" :"border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface")
+                    :(fullWidth ?"border-2 border-dashed border-zinc-300 hover:border-[#2CA01C]" :"dropbox-border-anim"))
                 )}
               >
                 {!isProcessing && <input {...getInputProps()} />}

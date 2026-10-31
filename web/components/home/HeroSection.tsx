@@ -23,8 +23,8 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
         </span>
 
         <h1
-          className="font-display font-bold text-[#0B1F16] tracking-tight leading-[1.05] mt-6 mb-4"
-          style={{ fontSize: "clamp(2.5rem, 5.6vw, 4.1rem)" }}
+          className="font-display font-bold text-[#0B1F16] tracking-tight leading-[1.08] mt-6 mb-4"
+          style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
         >
           Bank statements <span className="text-[#2CA01C]">converter</span>
         </h1>
@@ -33,7 +33,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
         </p>
 
         {/* ── Converter card — real UploadCard, internals untouched ── */}
-        <div id="upload" className="scroll-mt-24 max-w-[880px] mx-auto mt-9 text-left rounded-[28px] shadow-[0_4px_16px_rgba(11,31,22,0.05)]">
+        <div id="upload" className="scroll-mt-24 max-w-[704px] mx-auto mt-[14px] text-left rounded-[28px] shadow-[0_12px_36px_rgba(11,31,22,0.13)]">
           <UploadCard billing={billing} onBillingUpdate={onBillingUpdate} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
 
           {/* Security note */}
