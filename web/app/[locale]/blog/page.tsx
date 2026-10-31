@@ -33,15 +33,16 @@ export default async function BlogPage({
 
   return (
     <div className="agri-sans">
-      <Navbar dark />
+      <Navbar />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-[#0B1F16] py-14 px-6 text-center">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-          <h1 className="relative font-extrabold text-4xl text-white">
+        <section className="relative overflow-hidden py-16 px-6 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
+          <span className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Blog</span>
+          <h1 className="relative font-display font-bold text-4xl sm:text-5xl text-[#0B1F16] tracking-tight">
             {t("title")}
           </h1>
-          <p className="relative mt-3 text-base text-zinc-300 max-w-xl mx-auto">
+          <p className="relative mt-3 text-base text-zinc-600 max-w-xl mx-auto">
             {t("subtitle")}
             {total > 0 && <span className="ml-1">{t("articlesCount", { count: total })}</span>}
           </p>
@@ -56,7 +57,7 @@ export default async function BlogPage({
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="flex flex-col rounded-[24px] border border-[#CBE3C4] bg-white overflow-hidden"
+                  className="flex flex-col rounded-[24px] border border-[#E3EDE0] bg-white overflow-hidden shadow-[0_1px_2px_rgba(16,24,40,0.04)]"
                 >
                   <Link href={`/${locale}/blog/${post.slug}`} className="block overflow-hidden">
                     <img
@@ -79,7 +80,7 @@ export default async function BlogPage({
                       ))}
                     </div>
                     <Link href={`/${locale}/blog/${post.slug}`}>
-                      <h2 className="font-bold text-zinc-900 leading-snug">
+                      <h2 className="font-display font-bold text-zinc-900 leading-snug">
                         {post.title}
                       </h2>
                     </Link>
@@ -102,7 +103,7 @@ export default async function BlogPage({
               {page > 1 && (
                 <Link
                   href={`/${locale}/blog?page=${page - 1}`}
-                  className="rounded-full border border-[#CBE3C4] px-4 py-2 text-sm font-medium text-zinc-700"
+                  className="rounded-full border border-[#E3EDE0] px-4 py-2 text-sm font-medium text-zinc-700"
                 >
                   {t("previous")}
                 </Link>
@@ -113,7 +114,7 @@ export default async function BlogPage({
               {page < pages && (
                 <Link
                   href={`/${locale}/blog?page=${page + 1}`}
-                  className="rounded-full border border-[#CBE3C4] px-4 py-2 text-sm font-medium text-zinc-700"
+                  className="rounded-full border border-[#E3EDE0] px-4 py-2 text-sm font-medium text-zinc-700"
                 >
                   {t("next")}
                 </Link>

@@ -191,16 +191,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar dark />
+      <Navbar />
       <main className="min-h-screen bg-white">
         {/* Dark hero */}
-        <div className="relative overflow-hidden bg-[#0B1F16] text-white">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[380px] w-[1000px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.32), transparent 75%)" }} />
+        <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 65%, #FFFFFF 100%)" }}>
+          <div className="absolute left-1/2 -translate-x-1/2 -top-[380px] w-[1000px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.16), transparent 72%)" }} />
           <div className="relative mx-auto max-w-[1060px] px-6 pt-10 pb-28">
-            <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6">
-              <a href="/" className="hover:text-zinc-300">Home</a>
+            <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6 font-medium">
+              <a href="/" className="hover:text-zinc-900">Home</a>
               <span className="mx-1.5">/</span>
-              <a href={`/${locale}/blog`} className="hover:text-zinc-300">Blog</a>
+              <a href={`/${locale}/blog`} className="hover:text-zinc-900">Blog</a>
               {post.tags[0] && (
                 <>
                   <span className="mx-1.5">/</span>
@@ -208,25 +208,25 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </>
               )}
             </nav>
-            <h1 className="text-[40px] sm:text-[58px] font-extrabold leading-[1.05] max-w-[900px]">
+            <h1 className="font-display text-[40px] sm:text-[56px] font-bold text-[#0B1F16] leading-[1.08] tracking-tight max-w-[900px]">
               {titleHead ? <>{titleHead} </> : null}
-              <span className="agri-serif">
+              <span className="text-[#2CA01C]">
                 {titleTail}
               </span>
             </h1>
-            <p className="text-zinc-400 text-[19px] leading-relaxed max-w-[760px] mt-5">
+            <p className="text-zinc-600 text-[19px] leading-relaxed max-w-[760px] mt-5">
               {post.excerpt}
             </p>
             <div className="flex flex-wrap gap-2.5 mt-6">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-zinc-700 px-3.5 py-1.5 text-[13px] text-zinc-300"
+                  className="rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[13px] font-medium text-zinc-600 shadow-sm"
                 >
                   {tag}
                 </span>
               ))}
-              <span className="rounded-full border border-zinc-700 px-3.5 py-1.5 text-[13px] text-zinc-300">
+              <span className="rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[13px] font-medium text-zinc-600 shadow-sm">
                 {readingMinutes} min read
               </span>
             </div>
@@ -235,7 +235,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <div className="mx-auto max-w-[1060px] px-6">
           {/* White card overlapping the hero */}
-          <div className="relative z-10 -mt-16 rounded-[20px] bg-white shadow-[0_24px_60px_rgba(0,0,0,0.18)] px-6 sm:px-10 py-9">
+          <div className="relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_24px_60px_rgba(11,31,22,0.10)] px-6 sm:px-10 py-9">
             {/* Feature image — floated, article text wraps around it */}
             <figure className="blog-feature-figure">
               <img src={post.featureImage} alt={post.title} />
@@ -262,7 +262,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <div className="mt-9">
                 <h2
                   id={faqHeadingId ?? undefined}
-                  className="text-[28px] font-bold text-zinc-900 scroll-mt-24 mb-[18px] clear-both"
+                  className="font-display text-[28px] font-bold text-zinc-900 scroll-mt-24 mb-[18px] clear-both"
                 >
                   Frequently asked questions
                 </h2>
@@ -280,8 +280,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           {/* In-article CTA */}
           <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[24px] bg-gradient-to-b from-[#0E3D15] to-[#007A33] px-8 py-8 text-white">
             <div>
-              <p className="font-bold">Skip the manual work</p>
-              <p className="text-zinc-400 text-sm mt-1">
+              <p className="font-display font-bold text-lg">Skip the manual work</p>
+              <p className="text-[#BFE3B8] text-sm mt-1">
                 Convert your bank statement to Excel, CSV or QBO in minutes.
               </p>
             </div>
