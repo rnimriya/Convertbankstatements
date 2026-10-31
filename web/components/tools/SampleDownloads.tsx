@@ -10,7 +10,7 @@ export function SampleDownloads({ ids }: { ids?: string[] }) {
     ? SAMPLES.filter((s) => ids.includes(s.id))
     : SAMPLES;
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap justify-center gap-2">
       {list.map((s) => (
         <button
           key={s.id}

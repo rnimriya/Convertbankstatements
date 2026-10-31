@@ -181,7 +181,7 @@ export function ToolUpload({
   const dragDepth = useRef(0);
 
   return (
-    <div className="mx-auto w-full sm:w-[70%] rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_2px_10px_rgba(11,31,22,0.04)] overflow-hidden">
+    <div className="mx-auto w-full sm:w-[70%] rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] overflow-hidden">
 
       {/* ── Drop zone ── */}
       <div className="p-3">
@@ -226,7 +226,7 @@ export function ToolUpload({
             !busy &&
               (dragActive
                 ? "border-2 border-dashed border-zinc-900 dark:border-zinc-100 bg-brand-surface"
-                : "dropbox-border-anim")
+                : "border-2 border-dashed border-zinc-300 dark:border-zinc-700")
           )}
         >
           <input

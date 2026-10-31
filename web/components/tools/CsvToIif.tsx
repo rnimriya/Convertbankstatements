@@ -126,7 +126,7 @@ export function CsvToIif() {
         activeTitle="Release to convert"
         onFile={(f) => void handleFile(f)}
       />
-      <div className="mt-4">
+      <div className="mt-4 text-center">
         <p className="text-xs text-zinc-500 mb-2">Try it without your own data first:</p>
         <SampleDownloads ids={["generic-csv"]} />
       </div>
