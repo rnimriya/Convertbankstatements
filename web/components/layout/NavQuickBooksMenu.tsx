@@ -14,6 +14,9 @@ export interface QuickBooksMenuGroup {
   items: QuickBooksMenuItem[];
 }
 
+/* Group dot colours — QuickBooks green family, one per column */
+const GROUP_DOTS = ["#2CA01C", "#007A33", "#00573F"];
+
 export function NavQuickBooksMenu({
   menuLabel,
   groups,
@@ -56,21 +59,23 @@ export function NavQuickBooksMenu({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="true"
-        className={dark ? "flex items-center gap-1 text-[13.5px] font-medium text-zinc-300 hover:text-white transition-colors duration-150" : "flex items-center gap-1 text-[13.5px] font-medium text-brand-muted hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-150"}
+        className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-[13.5px] font-medium transition-colors duration-150 ${
+          open ? "bg-zinc-100 text-zinc-900" : "text-zinc-600 hover:text-zinc-900"
+        }`}
       >
         {menuLabel}
         <ChevronDown
           size={13}
-          className={`dark:transition-transform duration-150 ${open ? "rotate-180" : ""}`}
+          className={`transition-transform duration-150 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       {open && (
-        <div className="absolute right-0 md:left-0 md:right-auto mt-2 w-80 max-w-[calc(100vw-2rem)] max-h-[75vh] overflow-y-auto rounded-[20px] bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 shadow-xl z-50">
-          <div className="py-1.5">
+        <div className="absolute right-0 lg:left-1/2 lg:right-auto lg:-translate-x-1/2 mt-3 w-[min(94vw,480px)] lg:w-[730px] max-h-[75vh] overflow-y-auto rounded-2xl bg-white border border-zinc-200 shadow-[0_24px_60px_rgba(11,31,22,0.14)] z-50 p-5 sm:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
             {groups.map((group, gi) => (
-              <div key={group.label} className={gi > 0 ? "mt-1.5 border-t border-zinc-100 dark:border-zinc-800/80 pt-1.5" : ""}>
-                <p className="px-4 pt-2 pb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-zinc-400 dark:text-zinc-500">
+              <div key={group.label}>
+                <p className="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-zinc-400">
                   {group.label}
                 </p>
                 {group.items.map((item) => (
@@ -78,9 +83,16 @@ export function NavQuickBooksMenu({
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block px-4 py-2 text-[13.5px] font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                    className="flex items-start gap-2.5 rounded-lg px-3 py-2 hover:bg-zinc-100 transition-colors"
                   >
-                    {item.label}
+                    <span
+                      aria-hidden
+                      className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: GROUP_DOTS[gi % GROUP_DOTS.length] }}
+                    />
+                    <span className="text-[13.5px] font-semibold leading-snug text-zinc-800">
+                      {item.label}
+                    </span>
                   </Link>
                 ))}
               </div>
