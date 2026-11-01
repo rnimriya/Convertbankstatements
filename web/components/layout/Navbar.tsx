@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
+import { MobileMenu } from "./MobileMenu";
 import { NavQuickBooksMenu } from "./NavQuickBooksMenu";
 import { NavSessionIsland } from "./NavSessionIsland";
 
@@ -51,13 +52,28 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
       <nav className="mx-auto max-w-6xl rounded-full bg-white/95 backdrop-blur-md border border-zinc-200/90 shadow-[0_10px_36px_rgba(11,31,22,0.10)]">
         <div className="flex h-14 items-center justify-between px-4 sm:px-5">
 
-          {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
-            <span className="hidden sm:block font-display font-bold text-zinc-900 text-[15px] tracking-tight">
-              Convert Statement
-            </span>
-          </Link>
+          {/* ── Left: mobile hamburger (opens the left drawer) + logo ── */}
+          <div className="flex items-center gap-1.5 shrink-0">
+            <MobileMenu
+              mainLinks={[
+                { href: "/#how-it-works", label: t("howItWorks") },
+                { href: "/#features", label: t("features") },
+                { href: "/pricing", label: t("pricing") },
+                { href: "/#faq", label: t("faq") },
+              ]}
+              groups={quickBooksGroups}
+              quickbooksLabel={t("quickbooks")}
+              allToolsLabel={t("allTools")}
+              menuLabel={t("menu")}
+              closeLabel={t("close")}
+            />
+            <Link href="/" className="flex items-center gap-2.5 shrink-0">
+              <img src="/logo.svg" alt="Convert Statement" className="h-8 w-8" />
+              <span className="hidden sm:block font-display font-bold text-zinc-900 text-[15px] tracking-tight">
+                Convert Statement
+              </span>
+            </Link>
+          </div>
 
           {/* ── Nav links ── */}
           <div className="hidden md:flex items-center gap-8">
@@ -89,16 +105,6 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
 
           {/* ── Right side — session resolves client-side so pages stay static ── */}
           <div className="flex items-center gap-3">
-
-            {/* Mobile: the QuickBooks tools menu (desktop links are hidden below md) */}
-            <div className="md:hidden">
-              <NavQuickBooksMenu
-                dark={false}
-                menuLabel={t("quickbooks")}
-                groups={quickBooksGroups}
-              />
-            </div>
-
             <NavSessionIsland signInLabel={t("signIn")} dark={false} />
           </div>
 

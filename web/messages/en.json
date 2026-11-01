@@ -43,7 +43,10 @@
     "qboSplitter": "QBO File Splitter",
     "invoiceImportChecker": "Invoice Import Checker",
     "vendor1099Checker": "1099 Vendor Checker",
-    "payrollJournalGenerator": "Payroll Journal Generator"
+    "payrollJournalGenerator": "Payroll Journal Generator",
+    "menu": "Menu",
+    "close": "Close",
+    "allTools": "All tools"
   },
   "hero": {
     "badge": "Major global banks · Instant results",
