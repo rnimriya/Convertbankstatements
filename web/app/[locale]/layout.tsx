@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, JetBrains_Mono, Poppins } from "next/font/google";
+import { Nunito_Sans, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -9,16 +9,18 @@ import { AnnouncementBanner } from "@/components/AnnouncementBanner";
 import type { Locale } from "@/i18n/routing";
 import "../globals.css";
 
-const manrope = Manrope({
+// QuickBooks-style typography: one humanist sans family for body and
+// headings (Nunito Sans — the closest free match to Avenir Next).
+const manrope = Nunito_Sans({
   subsets: ["latin"],
   variable: "--font-manrope",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
 });
 
-const poppins = Poppins({
+const poppins = Nunito_Sans({
   subsets: ["latin"],
   variable: "--font-poppins",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800", "900"],
 });
 
 const jetbrainsMono = JetBrains_Mono({

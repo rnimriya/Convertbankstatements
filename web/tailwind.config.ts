@@ -52,8 +52,8 @@ const config: Config = {
         "border-subtle": "rgb(var(--border-subtle) / <alpha-value>)",
       },
       fontFamily: {
-        sans:    ["var(--font-manrope)",   "Manrope",             "system-ui", "sans-serif"],
-        display: ["var(--font-poppins)",  "Poppins",             "system-ui", "sans-serif"],
+        sans:    ["var(--font-manrope)",   "Nunito Sans",             "system-ui", "sans-serif"],
+        display: ["var(--font-poppins)",  "Nunito Sans",             "system-ui", "sans-serif"],
       },
       keyframes: {
         marquee: {
