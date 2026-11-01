@@ -187,3 +187,23 @@ use the live browser:
 
 Report per-URL: indexing requested OK / failed + reason. This step is part of
 the daily cron (added 2026-10-10 at owner's request).
+
+## IndexNow submission (Bing/Yandex instant indexing — owner order, 2026-11-01)
+
+After new articles are live (HTTP 200 verified), ALSO submit every new blog
+URL via IndexNow — this is what gets pages into Bing (and Yandex) fast, and
+it is a plain API call: no browser, no daily quota.
+
+- The site's IndexNow key file lives at `web/public/<key>.txt`, where the
+  32-hex-char filename IS the key (it is public by design — the file must be
+  reachable at the site root for verification).
+- POST JSON to `https://api.indexnow.org/indexnow`:
+  `{"host": "www.convertstatement.online", "key": "<key>",
+  "keyLocation": "https://www.convertstatement.online/<key>.txt",
+  "urlList": [<today's new URLs>]}`.
+- HTTP 200/202 = accepted. On failure, note it in the report and continue —
+  never block publishing or the report on IndexNow.
+- Bing Webmaster verification is already in place (BingSiteAuth.xml at the
+  site root + `msvalidate.01` meta in the layout, both live since Oct 2026);
+  the dashboard "Verify" click is the owner's manual step and is NOT needed
+  for IndexNow to work.
