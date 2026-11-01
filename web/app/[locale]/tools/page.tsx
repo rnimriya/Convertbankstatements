@@ -86,7 +86,7 @@ const GROUPS: { label: string; tools: Tool[] }[] = [
     label: "Checkers & Utilities",
     tools: [
       { slug: "free-qbo-cleanup-checker", name: "QBO Cleanup Checker", desc: "Scan your QBO file for duplicates and mess — free report, no signup.", icon: ScanSearch },
-      { slug: "qbo-checker", name: "QBO File Checker", desc: "Verify a QBO file's balance chain and structure before you import it.", icon: ShieldCheck, dark: true },
+      { slug: "qbo-checker", name: "QBO File Checker", desc: "Verify a QBO file's balance chain and structure before you import it.", icon: ShieldCheck },
       { slug: "qbo-import-errors", name: "QBO Import Error Decoder", desc: "Paste a QuickBooks import error and learn what it means and how to fix it.", icon: BookOpen },
       { slug: "reconciliation-finder", name: "Reconciliation Finder", desc: "Compare a statement against QuickBooks to find missing or duplicate entries.", icon: Scale },
       { slug: "qbo-splitter", name: "QBO File Splitter", desc: "Split a big QBO file into smaller chunks QuickBooks can handle.", icon: Scissors, tag: "free" },
@@ -169,20 +169,21 @@ export default function ToolsIndexPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
       <Navbar />
-      <main className="mx-auto w-full max-w-6xl px-6">
+      <main>
         {/* ── Hero ── */}
-        <section className="pt-[124px]">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16 text-center">
+          <div className="mx-auto w-full max-w-6xl">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#D8E8D2] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] shadow-sm">
             <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#2CA01C]" />
             The Toolbox
           </span>
-          <h1 className="mb-3 max-w-[760px] font-display text-[2rem] font-bold leading-[1.12] tracking-tight text-[#0B1F16] sm:text-[2.55rem]">
+          <h1 className="mx-auto mb-3 max-w-[760px] font-display font-bold leading-[1.08] tracking-tight text-[#0B1F16]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)" }}>
             Small tools. <span className="text-[#2CA01C]">Big bookkeeping headaches,</span> gone.
           </h1>
-          <p className="max-w-[620px] text-base text-[#50614F]">
+          <p className="mx-auto max-w-[620px] text-base text-[#50614F]">
             Nineteen focused tools for QuickBooks users — each one does a single job properly, right in your browser.
           </p>
-          <div className="mt-6 flex gap-10">
+          <div className="mt-6 flex justify-center gap-10">
             <div>
               <span className="block font-display text-2xl font-bold text-[#0B1F16]">19</span>
               <span className="text-xs text-[#6B7D6A]">tools</span>
@@ -196,10 +197,12 @@ export default function ToolsIndexPage() {
               <span className="text-xs text-[#6B7D6A]">categories</span>
             </div>
           </div>
+          </div>
         </section>
 
+        <div className="mx-auto w-full max-w-6xl px-6">
         {/* ── Bento grid ── */}
-        <section className="grid grid-cols-1 gap-4 pb-4 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="grid grid-cols-1 gap-4 pb-4 pt-12 sm:grid-cols-2 lg:grid-cols-4">
           <ToolCard tool={FEATURED} wide />
           {GROUPS.map((group) => (
             <Fragment key={group.label}>
@@ -220,6 +223,7 @@ export default function ToolsIndexPage() {
           </Link>
           .
         </p>
+        </div>
       </main>
       <Footer />
     </div>
