@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPosts } from "@/lib/blog/posts";
 import { localizePost } from "@/lib/blog/i18n";
@@ -238,7 +239,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] px-6 sm:px-10 py-9">
             {/* Feature image — floated, article text wraps around it */}
             <figure className="blog-feature-figure">
-              <img src={post.featureImage} alt={post.title} />
+              <Image
+                src={post.featureImage}
+                alt={post.title}
+                width={1600}
+                height={1067}
+                sizes="(max-width: 768px) 100vw, 340px"
+                priority
+              />
             </figure>
 
             {/* Author row */}

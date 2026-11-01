@@ -20,6 +20,11 @@ const securityHeaders = [
 const nextConfig = {
   poweredByHeader: false,
   compress: true,
+  images: {
+    // Blog feature images are local /blog/*.webp; the pipeline's emergency
+    // fallback is a picsum URL, which next/image would otherwise refuse.
+    remotePatterns: [{ protocol: "https", hostname: "picsum.photos" }],
+  },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
@@ -88,6 +93,18 @@ const nextConfig = {
       {
         source: "/demo/:path*",
         headers: immutableCache,
+      },
+      {
+        // Self-hosted fonts: filenames are stable (not content-hashed), so
+        // cache for 30 days with a day of stale-while-revalidate instead of
+        // immutable — a future font swap still propagates within a month.
+        source: "/fonts/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
       },
       {
         source: "/(.*)",

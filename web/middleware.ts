@@ -128,6 +128,25 @@ export async function middleware(request: NextRequest) {
       : "public, s-maxage=3600, stale-while-revalidate=86400"
   );
 
+  // Vercel's platform discards the browser-facing Cache-Control above on
+  // locale-rewritten (prefix-less) responses — the origin function's
+  // private/no-store wins there, so public HTML was never edge-cached
+  // (measured 2026-11-01: TTFB 0.55–1.84s, X-Vercel-Cache always MISS).
+  // Vercel-CDN-Cache-Control is the platform's own channel for exactly this:
+  // it steers the CDN cache independently of the browser header. Anonymous
+  // requests only — a request carrying a session cookie never gets the CDN
+  // header, so no response tied to a session can be stored at the edge.
+  if (!dynamic && !token) {
+    response.headers.set(
+      "Vercel-CDN-Cache-Control",
+      "public, s-maxage=3600, stale-while-revalidate=86400"
+    );
+    response.headers.set(
+      "CDN-Cache-Control",
+      "public, s-maxage=3600, stale-while-revalidate=86400"
+    );
+  }
+
   // Sliding session renewal: if the token is still valid but older than the
   // slide threshold, re-issue it with a fresh 7-day expiry so active users stay
   // logged in. Idle sessions still expire at the original 7-day mark. The same

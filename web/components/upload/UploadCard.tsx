@@ -7,7 +7,21 @@ import {
   CheckCircle2, Lock, Zap,
 } from"lucide-react";
 import { FreePagesIndicator } from"./FreePagesIndicator";
-import { ProcessingResult } from"./ProcessingResult";
+import dynamic from "next/dynamic";
+
+// ProcessingResult pulls in the analytics dashboard + export chain, which a
+// first-time visitor does not need until a conversion finishes. Loading it
+// lazily keeps that weight out of the page's First Load JS (2026-11-01).
+const ProcessingResult = dynamic(
+  () => import("./ProcessingResult").then((m) => m.ProcessingResult),
+  {
+    loading: () => (
+      <div className="py-10 text-center text-sm text-zinc-500">
+        Preparing your result…
+      </div>
+    ),
+  }
+);
 import type { BillingContext, ProcessResult } from"@/types/billing";
 import { cn } from"@/lib/utils";
 import Link from"next/link";

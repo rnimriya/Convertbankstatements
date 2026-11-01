@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Manrope, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -14,12 +15,6 @@ import "../globals.css";
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const poppins = Manrope({
-  subsets: ["latin"],
-  variable: "--font-poppins",
   weight: ["400", "500", "600", "700", "800"],
 });
 
@@ -151,9 +146,6 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="google-site-verification" content="yMseDO6GsCeGGbrHzYqqoSkfIf7GtYFkAYbbWJwGEyI" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        {/* Google Analytics 4 */}
-        <script async nonce={nonce} src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9" />
         {/*
           Single light theme only: this nonce'd pre-paint script forces
           "light", clears any stored dark preference, and stays CSP-clean
@@ -167,12 +159,6 @@ export default async function LocaleLayout({
         />
         <script
           nonce={nonce}
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9P4SZSM3B9');`,
-          }}
-        />
-        <script
-          nonce={nonce}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
@@ -182,7 +168,21 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${manrope.variable} ${jetbrainsMono.variable} ${poppins.variable} font-sans antialiased`}>
+      <body className={`${manrope.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        {/* Google Analytics 4 — lazyOnload: analytics must never compete
+            with the critical first paint (moved out of <head> 2026-11-01). */}
+        <Script
+          nonce={nonce}
+          strategy="lazyOnload"
+          src="https://www.googletagmanager.com/gtag/js?id=G-9P4SZSM3B9"
+        />
+        <Script
+          nonce={nonce}
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9P4SZSM3B9');`,
+          }}
+        />
         <NextIntlClientProvider messages={messages}>
           <AnnouncementBanner />
           {children}
