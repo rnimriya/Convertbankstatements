@@ -61,8 +61,8 @@ export function InvoiceChecker() {
         activeTitle="Release to check"
         onFile={(f) => void handleFile(f)}
       />
-      <div className="mt-4">
-        <p className="text-xs text-zinc-500 mb-2">No file handy? Download a sample invoice CSV with a few planted issues, then drop it in above to see the checker work:</p>
+      <div className="mt-4 text-center">
+        <p className="text-xs text-zinc-500 mb-2 max-w-xl mx-auto">No file handy? Download a sample invoice CSV with a few planted issues, then drop it in above to see the checker work:</p>
         <button
           onClick={downloadSample}
           className="inline-flex items-center gap-2 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white font-semibold px-4 py-2 rounded-lg hover:border-pine-400 text-sm"
