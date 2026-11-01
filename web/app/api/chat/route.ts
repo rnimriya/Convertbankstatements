@@ -64,7 +64,7 @@ async function discoverFlashModels(apiKey: string): Promise<string[]> {
       const rank = (n: string) => (n === "gemini-3.8-flash" ? 0 : n.includes("lite") ? 2 : 1);
       return rank(a) - rank(b);
     });
-    return names.slice(0, 3);
+    return names.slice(0, 8);
   } catch {
     return [];
   }
@@ -146,48 +146,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ reply: FALLBACK_REPLY });
   }
 
+  /* Attempt plan (live-diagnosed 2026-11-01): gemini-3.8-flash — the OCR
+     model — repeatedly timed out at 30s for chat while Google's free tier
+     was returning 503 "high demand" spikes, and gemini-2.5-flash is closed
+     to this project (404). A support chat does not need the flagship:
+     walk DISTINCT models, fastest/least-contended first (flash-latest,
+     then Lite models, then 3.8), 18s each, first real answer wins. */
   const primaryModel = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
-  const isTransient = (err: unknown): boolean => {
-    const status = (err as { status?: number })?.status;
-    const msg = err instanceof Error ? err.message : String(err);
-    return (
-      status === 429 ||
-      status === 503 ||
-      msg.includes("aborted") ||
-      msg.includes("no text") ||
-      msg.includes("timed out")
-    );
-  };
-
-  /* Attempt plan (live-diagnosed 2026-11-01): the free tier throws
-     transient timeouts and 503 "high demand" spikes — retry the primary
-     once after a short pause, then fall to one alternate model.
-     gemini-2.5-flash is skipped: it is closed to this project (404). */
-  try {
-    const reply = await geminiChat(apiKey, primaryModel, messages);
-    return NextResponse.json({ reply });
-  } catch (err) {
-    console.error(`[chat] Gemini failed on ${primaryModel}:`, err);
-    if (!isTransient(err)) {
-      /* Non-transient (e.g. 404 model closed): go straight to alternates. */
-    } else {
-      await new Promise((r) => setTimeout(r, 2_500));
-      try {
-        const reply = await geminiChat(apiKey, primaryModel, messages);
-        return NextResponse.json({ reply });
-      } catch (err2) {
-        console.error(`[chat] Gemini retry failed on ${primaryModel}:`, err2);
-      }
-    }
-  }
-
   const discovered = await discoverFlashModels(apiKey);
-  const alternates = discovered
-    .filter((m) => m !== primaryModel && m !== "gemini-2.5-flash")
-    .sort((a, b) => (a === "gemini-flash-latest" ? -1 : b === "gemini-flash-latest" ? 1 : 0));
-  for (const model of alternates.slice(0, 1)) {
+  const pool = discovered.length > 0 ? discovered : [primaryModel];
+  const ordered: string[] = [];
+  const pushUnique = (m?: string) => {
+    if (m && m !== "gemini-2.5-flash" && !ordered.includes(m)) ordered.push(m);
+  };
+  pushUnique(pool.find((m) => m === "gemini-flash-latest"));
+  pool.filter((m) => m.includes("lite")).forEach(pushUnique);
+  pushUnique(primaryModel);
+  pool.forEach(pushUnique);
+
+  for (const model of ordered.slice(0, 3)) {
     try {
-      const reply = await geminiChat(apiKey, model, messages, 25_000);
+      const reply = await geminiChat(apiKey, model, messages, 18_000);
       return NextResponse.json({ reply });
     } catch (err) {
       console.error(`[chat] Gemini failed on ${model}:`, err);
