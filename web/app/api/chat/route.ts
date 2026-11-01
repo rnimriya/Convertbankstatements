@@ -11,6 +11,10 @@ import { CHAT_SYSTEM_PROMPT } from "@/lib/chat/knowledge";
 
 const GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta";
 
+/* Retries against transient Gemini free-tier spikes can take a while —
+   give the function room beyond the platform default where allowed. */
+export const maxDuration = 120;
+
 const FALLBACK_REPLY =
   "Sorry — I'm having a little trouble answering right now. Please try again in a moment, or reach our team from the [Contact page](https://www.convertstatement.online/contact) and we'll help you there.";
 
@@ -69,8 +73,14 @@ async function discoverFlashModels(apiKey: string): Promise<string[]> {
 async function geminiChat(
   apiKey: string,
   model: string,
-  messages: ChatMessage[]
+  messages: ChatMessage[],
+  timeoutMs = 30_000
 ): Promise<string> {
+  /* Gemini 3.x models support thinkingLevel — "low" keeps a support chat
+     fast (the default thinking depth made short answers take >25s under
+     load, verified live 2026-11-01). Older models don't know the field,
+     so it is only sent to 3.x / flash-latest. */
+  const supportsThinkingLevel = model.startsWith("gemini-3") || model === "gemini-flash-latest";
   const res = await fetch(`${GEMINI_API_BASE}/models/${model}:generateContent`, {
     method: "POST",
     headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
@@ -80,11 +90,13 @@ async function geminiChat(
         role: m.role === "assistant" ? "model" : "user",
         parts: [{ text: m.content }],
       })),
-      /* 2500, not 700: Gemini 3.x Flash spends output tokens on internal
-         "thinking" first — a small cap can leave zero visible text. */
-      generationConfig: { temperature: 0.3, maxOutputTokens: 2500 },
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 1200,
+        ...(supportsThinkingLevel ? { thinkingConfig: { thinkingLevel: "low" } } : {}),
+      },
     }),
-    signal: AbortSignal.timeout(25_000),
+    signal: AbortSignal.timeout(timeoutMs),
   });
 
   const data = (await res.json().catch(() => null)) as {
@@ -128,38 +140,58 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
-  const debug = req.headers.get("x-chat-debug") === "dbg-7f3ka9-temp";
-  const errors: string[] = [];
-
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     console.error("[chat] GEMINI_API_KEY not configured");
-    return NextResponse.json({ reply: FALLBACK_REPLY, ...(debug ? { debug: { errors: ["no_key"] } } : {}) });
+    return NextResponse.json({ reply: FALLBACK_REPLY });
   }
 
   const primaryModel = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
+  const isTransient = (err: unknown): boolean => {
+    const status = (err as { status?: number })?.status;
+    const msg = err instanceof Error ? err.message : String(err);
+    return (
+      status === 429 ||
+      status === 503 ||
+      msg.includes("aborted") ||
+      msg.includes("no text") ||
+      msg.includes("timed out")
+    );
+  };
+
+  /* Attempt plan (live-diagnosed 2026-11-01): the free tier throws
+     transient timeouts and 503 "high demand" spikes — retry the primary
+     once after a short pause, then fall to one alternate model.
+     gemini-2.5-flash is skipped: it is closed to this project (404). */
   try {
     const reply = await geminiChat(apiKey, primaryModel, messages);
     return NextResponse.json({ reply });
   } catch (err) {
     console.error(`[chat] Gemini failed on ${primaryModel}:`, err);
-    errors.push(`${primaryModel}: ${err instanceof Error ? err.message : String(err)}`);
+    if (!isTransient(err)) {
+      /* Non-transient (e.g. 404 model closed): go straight to alternates. */
+    } else {
+      await new Promise((r) => setTimeout(r, 2_500));
+      try {
+        const reply = await geminiChat(apiKey, primaryModel, messages);
+        return NextResponse.json({ reply });
+      } catch (err2) {
+        console.error(`[chat] Gemini retry failed on ${primaryModel}:`, err2);
+      }
+    }
   }
 
-  /* A model can be listed yet closed to this project, or return an empty
-     body — walk the discovered Flash models (same pattern as the OCR path)
-     and take the first one that actually answers. */
   const discovered = await discoverFlashModels(apiKey);
-  errors.push(`discovered: ${discovered.join(",") || "none"}`);
-  const alternates = discovered.filter((m) => m !== primaryModel);
-  for (const model of alternates.slice(0, 2)) {
+  const alternates = discovered
+    .filter((m) => m !== primaryModel && m !== "gemini-2.5-flash")
+    .sort((a, b) => (a === "gemini-flash-latest" ? -1 : b === "gemini-flash-latest" ? 1 : 0));
+  for (const model of alternates.slice(0, 1)) {
     try {
-      const reply = await geminiChat(apiKey, model, messages);
+      const reply = await geminiChat(apiKey, model, messages, 25_000);
       return NextResponse.json({ reply });
     } catch (err) {
       console.error(`[chat] Gemini failed on ${model}:`, err);
-      errors.push(`${model}: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
-  return NextResponse.json({ reply: FALLBACK_REPLY, ...(debug ? { debug: { errors } } : {}) });
+  return NextResponse.json({ reply: FALLBACK_REPLY });
 }
