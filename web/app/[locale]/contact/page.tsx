@@ -24,7 +24,7 @@ export default async function ContactPage() {
       <Navbar />
 
       {/* Header */}
-      <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[116px] pb-14">
+      <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16">
         <div className="relative mx-auto max-w-6xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-[#E3EDE0] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#007A33]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />

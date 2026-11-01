@@ -97,7 +97,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
       <Navbar dark />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[140px] pb-16 text-center">
+        <section className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[124px] pb-16 text-center">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />

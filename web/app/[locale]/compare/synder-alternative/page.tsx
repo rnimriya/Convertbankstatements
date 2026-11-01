@@ -84,7 +84,7 @@ export default function SynderAlternativePage() {
       <main>
         <section className="w-full relative overflow-hidden bg-[#0B1F16]">
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-[116px] pb-12">
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-[124px] pb-12">
             <div className="text-center mb-6 max-w-4xl mx-auto">
               <span className="agri-mono inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
@@ -102,7 +102,7 @@ export default function SynderAlternativePage() {
           </div>
         </section>
 
-        <section className="py-24 bg-white">
+        <section className="py-12 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             <div className="overflow-x-auto rounded-[24px] border border-[#CBE3C4] bg-white">
               <table className="w-full text-sm min-w-[640px]">

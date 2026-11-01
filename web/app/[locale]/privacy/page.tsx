@@ -166,7 +166,7 @@ export default function PrivacyPage() {
  <Navbar />
 
  {/* Header */}
- <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[116px] pb-12">
+ <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16">
  <div className="relative mx-auto max-w-6xl">
  <div className="flex items-center gap-3">
  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#E3F2DF]">

@@ -243,7 +243,7 @@
     "forgotPassword": "Forgot password?",
     "referralTitle": "You were invited! 🎉",
     "referralDesc": "Sign up now and both you and your friend get 50 bonus free pages.",
-    "termsText": "By continuing you agree to our {terms} & {privacy}",
+    "termsText": "By continuing you agree to our <terms>Terms</terms> & <privacy>Privacy</privacy>",
     "termsLink": "Terms",
     "privacyLink": "Privacy Policy",
     "backToHome": "← Back to home",

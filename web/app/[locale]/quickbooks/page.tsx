@@ -166,7 +166,7 @@ export default async function QuickBooksPage() {
       <Navbar />
       <main className="min-h-screen bg-white ">
         {/* ── Header (same pattern as guide pages) ──────────── */}
-        <section className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[140px] pb-16 text-center">
+        <section className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16 text-center">
           <p className="relative inline-flex items-center gap-2 rounded-full border border-[#E3EDE0] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#007A33]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             QuickBooks Reconciliation

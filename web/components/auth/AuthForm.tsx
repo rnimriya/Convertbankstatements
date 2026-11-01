@@ -11,7 +11,7 @@ import {
 type Mode ="login" |"signup";
 type ErrorCode ="USER_NOT_FOUND" |"WRONG_PASSWORD" | null;
 
-const INPUT ="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-navy focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-navy/10";
+const INPUT ="w-full rounded-[20px] border border-zinc-200 dark:border-zinc-800 bg-[#F7FAF5] dark:bg-zinc-950 px-4 py-3 text-sm text-zinc-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 outline-none transition focus:border-[#2CA01C] focus:bg-white dark:bg-zinc-950 dark:focus:bg-gray-800 focus:ring-2 focus:ring-[#2CA01C]/15";
 
 export function AuthForm({ mode }: { mode: Mode }) {
   const t = useTranslations("auth");
@@ -77,7 +77,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
 
   if (success) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
+      <div className="flex min-h-screen items-center justify-center bg-[#F7FAF5] dark:bg-zinc-950 px-4">
         <div className="flex flex-col items-center gap-4 rounded-2xl border border-pine-200 dark:border-pine-900 bg-white dark:bg-zinc-900 p-12 text-center shadow-sm">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-pine-100 dark:bg-pine-900/30">
             <CheckCircle2 className="h-8 w-8 text-pine-600 text-pine-500 dark:text-pine-400" />
@@ -90,7 +90,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-zinc-950">
+    <div className="flex min-h-screen flex-col bg-[#F7FAF5] dark:bg-zinc-950">
       <div className="flex flex-1 items-center justify-center px-6 py-12">
         <div className="w-full max-w-md">
           <div className="mb-8 text-center">
@@ -140,7 +140,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
               {mode ==="signup" && (
                 <div className="space-y-1.5">
                   <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-200">
-                    {t("nameLabel")}{""}
+                    {t("nameLabel")}{" "}
                     <span className="font-normal text-zinc-400 dark:text-zinc-500">{t("nameOptional")}</span>
                   </label>
                   <input
@@ -219,7 +219,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 id="auth-submit"
                 type="submit"
                 disabled={loading}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-[20px] bg-zinc-900 dark:bg-white py-3 text-sm font-bold text-white dark:text-black shadow-lg shadow-navy/20 hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-[20px] bg-[#2CA01C] py-3 text-sm font-bold text-white shadow-lg shadow-[#2CA01C]/25 hover:bg-[#238a17] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
@@ -229,7 +229,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
                 ) : (
                   <>
                     {mode ==="login" ? t("loginButton") : t("signupButton")}
-                    <ArrowRight className="h-4 w-4 text-amber-500 dark:text-amber-400" />
+                    <ArrowRight className="h-4 w-4 text-white" />
                   </>
                 )}
               </button>
@@ -251,10 +251,10 @@ export function AuthForm({ mode }: { mode: Mode }) {
             </p>
 
             <p className="mt-3 text-center text-sm text-zinc-500 dark:text-zinc-400">
-              {mode ==="login" ? t("switchToSignup") : t("switchToLogin")}{""}
+              {mode ==="login" ? t("switchToSignup") : t("switchToLogin")}{" "}
               <Link
                 href={mode ==="login" ?"/signup" :"/login"}
-                className="font-semibold text-navy dark:text-pine-400 hover:underline"
+                className="font-semibold text-[#007A33] dark:text-pine-400 hover:underline"
               >
                 {mode ==="login" ? t("signupLink") : t("loginLink")}
               </Link>

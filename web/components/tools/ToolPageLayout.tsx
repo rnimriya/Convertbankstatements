@@ -119,7 +119,7 @@ export async function ToolPageLayout({
           {/* Elegant Graph Paper Grid with a top-down radial mask fade */}
 
           {/* Content container — same width as /blog (max-w-6xl) */}
-          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-[116px] pb-24">
+          <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-[124px] pb-24">
 
             {/* ── Headline block — centered ── */}
             <div className="text-center mb-6 max-w-4xl mx-auto">
