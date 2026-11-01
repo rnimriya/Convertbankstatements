@@ -18,10 +18,14 @@ Zero mistakes tolerance.
 
 - `angles` (5): convert-to-excel, convert-to-csv-quickbooks, import-to-xero,
   password-protected-pdf, statements-for-tax-filing
-- Each day: **4 bank posts + 1 QuickBooks keyword post** (see QB track below).
-  The 4 banks are consecutive from SUPPORTED_BANKS (dedupe by slug via
+- Each day: **3 trending posts + 1 bank post + 1 QuickBooks keyword post**
+  (see the trending track and QB track below; owner order 2026-11-01,
+  supersedes the 2026-10-20 mix of 4 bank + 1 QB).
+  The bank post is the next one from SUPPORTED_BANKS (dedupe by slug via
   `generateBankSlug`), one shared angle per day, angle rotates daily.
-- Advance `bankIndex` by 4 and `angleIndex` by 1 after a successful run.
+- Advance `bankIndex` by the number of bank posts published that day
+  (1 normally; more when a trending or QB slot fell back to a bank post)
+  and `angleIndex` by 1 after each run.
 - 516 banks × 5 angles of unique bank content; never repeat a bank+angle combo.
 
 ## QuickBooks keyword track (owner order, 2026-10-20)
@@ -48,6 +52,43 @@ sourced from real Google/Bing autocomplete searches (2026-10-20 harvest).
 - Write honestly from the angle brief: our tools are file-based converters
   and checkers, NOT live sync integrations — never claim a direct/native
   Stripe/PayPal-to-QuickBooks connection.
+
+## Trending track (owner order, 2026-11-01)
+
+Owner: of the 5 daily articles, 3 must be trending content, and their
+keywords must be trending AND searchable — keyword stuffing is banned.
+
+- Daily slots 1–3 (ids `gen-YYYY-MM-DD-01..03`) = trending posts;
+  slot 4 = bank post, slot 5 = QB post (QB track unchanged).
+- Topic selection (BEFORE writing, every run): scan real data —
+  Google Trends US daily RSS (`https://trends.google.com/trending/rss?geo=US`),
+  Google/Bing autocomplete for domain seed terms, and current
+  accounting/bookkeeping/tax news (IRS changes, QuickBooks/Xero changes,
+  bank news, seasonal tax topics).
+- A topic qualifies only if BOTH hold: (i) it connects honestly to the
+  product domain (bank statements, bookkeeping, accounting, QuickBooks/Xero,
+  taxes, small-business finance, PDF/Excel workflows) and to a real
+  ConvertStatement page/tool it can link to; (ii) its primary keyword is
+  validated searchable (seen in autocomplete suggestions or Trends with
+  real volume). Record each pick's evidence (source + exact term) in the
+  run notes and the final report.
+- Dedupe against all existing slugs/titles and the last 7 days of trending
+  picks — never repeat a topic or near-duplicate angle.
+- If fewer than 3 topics genuinely qualify, fill the empty slots with bank
+  rotation posts and report exactly that. Never invent a trend.
+- Article rules: same template and gates as bank posts (50–60 char title
+  containing the primary keyword naturally, ≥800 words, ≥4 H2s, FAQ,
+  ≥3 verified internal links with ≥1 to a tool/product page, unique
+  photorealistic images, SEO alt format). Primary keyword goes in the
+  first 100 words, ≥2 H2s and one FAQ question — naturally.
+- EXTRA GATES for trending posts: (a) keyword evidence recorded;
+  (b) NO-STUFFING — the exact primary-keyword phrase appears at most
+  6 times in the body and the text reads naturally; a stuffed article
+  fails and goes to the review folder like any other gate failure.
+  A failed trending slot is NOT backfilled the same day.
+- Honesty: original angle only — never copy a news article or another
+  site's content, never clickbait, never claim anything about the trend
+  that the source data does not support.
 
 ## Article template (every article MUST follow)
 
