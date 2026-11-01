@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { AlertTriangle, CheckCircle2, Download, Lock, Search } from "lucide-react";
+import { AlertTriangle, ArrowLeftRight, CheckCircle2, Download, Lock, Search } from "lucide-react";
 import { ToolUpload, QboGateNotice, usd, downloadTextFile, downloadFromApi } from "./tool-shared";
 import type { ReconEntry, ReconResult } from "@/lib/tools/reconciliation";
 
@@ -91,43 +91,53 @@ export function ReconciliationFinder() {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <p className="text-sm font-semibold text-zinc-900 dark:text-white mb-2">1 · Bank statement export</p>
-          <ToolUpload
-            accept=".csv,.qbo,.ofx,.qfx"
-            busy={false}
-            busyText=""
-            title={statementFile?.name ?? "Drop the statement file here"}
-            meta={["CSV · QBO · OFX", "Max 10 MB"]}
-            activeTitle="Release to add"
-            onFile={(f) => setStatementFile(f)}
-          />
+      {/* Option A (owner pick): both uploads inside one card */}
+      <div className="mx-auto w-full max-w-[880px] rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] p-5 sm:p-6 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-center">
+          <div>
+            <p className="text-sm font-semibold text-zinc-900 dark:text-white mb-2">1 · Bank statement export</p>
+            <ToolUpload
+              bare
+              accept=".csv,.qbo,.ofx,.qfx"
+              busy={false}
+              busyText=""
+              title={statementFile?.name ?? "Drop the statement file here"}
+              meta={["CSV · QBO · OFX", "Max 10 MB"]}
+              activeTitle="Release to add"
+              onFile={(f) => setStatementFile(f)}
+            />
+          </div>
+          <div className="hidden md:flex h-10 w-10 items-center justify-center rounded-full bg-[#0B1F16] text-white shadow-[0_4px_12px_rgba(11,31,22,0.25)]">
+            <ArrowLeftRight size={17} />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-zinc-900 dark:text-white mb-2">2 · QuickBooks export</p>
+            <ToolUpload
+              bare
+              accept=".csv,.qbo,.ofx,.qfx"
+              busy={false}
+              busyText=""
+              title={qboFile?.name ?? "Drop the QuickBooks file here"}
+              meta={["CSV · QBO · OFX", "Max 10 MB"]}
+              activeTitle="Release to add"
+              onFile={(f) => setQboFile(f)}
+            />
+          </div>
         </div>
-        <div>
-          <p className="text-sm font-semibold text-zinc-900 dark:text-white mb-2">2 · QuickBooks export</p>
-          <ToolUpload
-            accept=".csv,.qbo,.ofx,.qfx"
-            busy={false}
-            busyText=""
-            title={qboFile?.name ?? "Drop the QuickBooks file here"}
-            meta={["CSV · QBO · OFX", "Max 10 MB"]}
-            activeTitle="Release to add"
-            onFile={(f) => setQboFile(f)}
-          />
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => void compare()}
+            disabled={busy || !statementFile || !qboFile}
+            className="inline-flex items-center gap-2 bg-pine-600 text-white font-semibold px-8 py-3 rounded-full hover:bg-pine-700 disabled:opacity-60"
+          >
+            <Search className="h-4 w-4" /> {busy ? "Comparing…" : "Find the differences"}
+          </button>
+          {(!statementFile || !qboFile) && (
+            <p className="mt-2.5 text-xs text-zinc-500">Upload both files first — the statement on the left, the QuickBooks export on the right.</p>
+          )}
         </div>
       </div>
-
-      <button
-        onClick={() => void compare()}
-        disabled={busy || !statementFile || !qboFile}
-        className="mt-5 inline-flex items-center gap-2 bg-pine-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-pine-700 disabled:opacity-60"
-      >
-        <Search className="h-4 w-4" /> {busy ? "Comparing…" : "Find the differences"}
-      </button>
-      {(!statementFile || !qboFile) && (
-        <p className="mt-2 text-xs text-zinc-500">Upload both files first — the statement on the left, the QuickBooks export on the right.</p>
-      )}
 
       {error && (
         <p className="mt-4 rounded-[20px] border border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-300">

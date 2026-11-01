@@ -166,6 +166,7 @@ export function ToolUpload({
   title,
   meta,
   activeTitle = "Release to upload",
+  bare = false,
   onFile,
 }: {
   accept: string;
@@ -174,17 +175,15 @@ export function ToolUpload({
   title: string;
   meta: string[];
   activeTitle?: string;
+  /** Render only the dashed drop zone (no white card frame) — for embedding inside another card. */
+  bare?: boolean;
   onFile: (file: File) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragActive, setDragActive] = useState(false);
   const dragDepth = useRef(0);
 
-  return (
-    <div className="mx-auto w-full sm:w-[70%] rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] overflow-hidden">
-
-      {/* ── Drop zone ── */}
-      <div className="p-3">
+  const zone = (
         <div
           role="button"
           tabIndex={0}
@@ -284,7 +283,13 @@ export function ToolUpload({
             </>
           )}
         </div>
-      </div>
+  );
+
+  if (bare) return zone;
+
+  return (
+    <div className="mx-auto w-full sm:w-[70%] rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] overflow-hidden">
+      <div className="p-3">{zone}</div>
     </div>
   );
 }
