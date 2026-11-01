@@ -35,13 +35,13 @@ function parseMessages(body: unknown): ChatMessage[] | null {
   return out;
 }
 
-async function discoverFlashModel(apiKey: string): Promise<string | null> {
+async function discoverFlashModels(apiKey: string): Promise<string[]> {
   try {
     const res = await fetch(`${GEMINI_API_BASE}/models`, {
       headers: { "x-goog-api-key": apiKey },
       signal: AbortSignal.timeout(15_000),
     });
-    if (!res.ok) return null;
+    if (!res.ok) return [];
     const data = (await res.json()) as {
       models?: Array<{ name?: string; supportedGenerationMethods?: string[] }>;
     };
@@ -60,9 +60,9 @@ async function discoverFlashModel(apiKey: string): Promise<string | null> {
       const rank = (n: string) => (n === "gemini-3.8-flash" ? 0 : n.includes("lite") ? 2 : 1);
       return rank(a) - rank(b);
     });
-    return names[0] ?? null;
+    return names.slice(0, 3);
   } catch {
-    return null;
+    return [];
   }
 }
 
@@ -80,7 +80,9 @@ async function geminiChat(
         role: m.role === "assistant" ? "model" : "user",
         parts: [{ text: m.content }],
       })),
-      generationConfig: { temperature: 0.3, maxOutputTokens: 700 },
+      /* 2500, not 700: Gemini 3.x Flash spends output tokens on internal
+         "thinking" first — a small cap can leave zero visible text. */
+      generationConfig: { temperature: 0.3, maxOutputTokens: 2500 },
     }),
     signal: AbortSignal.timeout(25_000),
   });
@@ -137,22 +139,20 @@ export async function POST(req: NextRequest) {
     const reply = await geminiChat(apiKey, primaryModel, messages);
     return NextResponse.json({ reply });
   } catch (err) {
-    const status = (err as { status?: number })?.status;
-    // A model can be listed yet closed to this project (404) — discover a
-    // Flash model that actually answers and retry once, like the OCR path.
-    if (status === 404 || status === 400) {
-      try {
-        const alt = await discoverFlashModel(apiKey);
-        if (alt && alt !== primaryModel) {
-          const reply = await geminiChat(apiKey, alt, messages);
-          return NextResponse.json({ reply });
-        }
-      } catch (err2) {
-        console.error("[chat] Gemini retry failed:", err2);
-      }
-    } else {
-      console.error("[chat] Gemini failed:", err);
-    }
-    return NextResponse.json({ reply: FALLBACK_REPLY });
+    console.error(`[chat] Gemini failed on ${primaryModel}:`, err);
   }
+
+  /* A model can be listed yet closed to this project, or return an empty
+     body — walk the discovered Flash models (same pattern as the OCR path)
+     and take the first one that actually answers. */
+  const alternates = (await discoverFlashModels(apiKey)).filter((m) => m !== primaryModel);
+  for (const model of alternates.slice(0, 2)) {
+    try {
+      const reply = await geminiChat(apiKey, model, messages);
+      return NextResponse.json({ reply });
+    } catch (err) {
+      console.error(`[chat] Gemini failed on ${model}:`, err);
+    }
+  }
+  return NextResponse.json({ reply: FALLBACK_REPLY });
 }
