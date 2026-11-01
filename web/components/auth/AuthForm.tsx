@@ -95,7 +95,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         <div className="w-full max-w-md">
           <div className="mb-8 text-center">
             <img src="/logo.svg" alt="Convert Statement" className="mx-auto mb-5 h-12 w-12" />
-            <h1 className="font-display text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+            <h1 className="font-display text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
               {mode ==="login" ? t("loginTitle") : t("signupTitle")}
             </h1>
             <p className="mt-2 text-[0.95rem] text-zinc-500 dark:text-zinc-400">

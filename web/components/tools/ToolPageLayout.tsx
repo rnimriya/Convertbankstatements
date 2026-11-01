@@ -129,7 +129,7 @@ export async function ToolPageLayout({
               </span>
               <h1
                 className="font-display font-bold text-[#0B1F16] tracking-tight leading-[1.08] mb-4"
-                style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+                style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)" }}
               >
                 {title.split(/(QBO)/g).map((part, i) =>
                   part === "QBO" ? <span key={i} className="text-[#2CA01C]">QBO</span> : part

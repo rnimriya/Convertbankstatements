@@ -171,7 +171,7 @@ export default async function QuickBooksPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             QuickBooks Reconciliation
           </p>
-          <h1 className="relative mt-5 font-display text-3xl sm:text-[40px] font-bold text-[#0B1F16] leading-tight max-w-4xl mx-auto">
+          <h1 className="relative mt-5 font-display text-2xl sm:text-[32px] font-bold text-[#0B1F16] leading-tight max-w-4xl mx-auto">
             Convert PDF Bank Statements for <span className="text-[#007A33]">QuickBooks Reconciliation</span>
           </h1>
           <p className="relative mt-4 text-lg text-[#5c6f63] max-w-2xl mx-auto">

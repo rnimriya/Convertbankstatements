@@ -103,7 +103,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Competitor Comparison
           </p>
-          <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-3xl mx-auto">
+          <h1 className="relative text-2xl sm:text-[1.8rem] font-extrabold text-white leading-tight max-w-3xl mx-auto">
             Convert Statement vs <span className="agri-serif">{comp.name}</span>
           </h1>
           <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">

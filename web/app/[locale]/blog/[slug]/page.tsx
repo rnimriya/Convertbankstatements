@@ -208,7 +208,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
                 </>
               )}
             </nav>
-            <h1 className="font-display text-[40px] sm:text-[56px] font-bold text-[#0B1F16] leading-[1.08] tracking-tight max-w-[900px]">
+            <h1 className="font-display text-[32px] sm:text-[44.8px] font-bold text-[#0B1F16] leading-[1.08] tracking-tight max-w-[900px]">
               {titleHead ? <>{titleHead} </> : null}
               <span className="text-[#2CA01C]">
                 {titleTail}

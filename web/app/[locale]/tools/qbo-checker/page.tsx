@@ -30,7 +30,7 @@ export default function QboCheckerPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Free Tool
           </p>
-          <h1 className="relative font-display text-3xl sm:text-5xl font-bold text-[#0B1F16] leading-[1.08] max-w-4xl mx-auto">
+          <h1 className="relative font-display text-2xl sm:text-[2.4rem] font-bold text-[#0B1F16] leading-[1.08] max-w-4xl mx-auto">
             QBO File <span className="text-[#2CA01C]">Checker</span>
           </h1>
           <p className="relative mt-4 text-lg text-zinc-600 max-w-2xl mx-auto">

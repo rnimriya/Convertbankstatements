@@ -20,7 +20,7 @@ export default async function AdminBlogPage() {
       <div className="mx-auto max-w-5xl">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl font-extrabold text-zinc-900 dark:text-white">Blog Posts</h1>
+            <h1 className="text-[1.2rem] font-extrabold text-zinc-900 dark:text-white">Blog Posts</h1>
             <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
               {posts.length} total posts
             </p>

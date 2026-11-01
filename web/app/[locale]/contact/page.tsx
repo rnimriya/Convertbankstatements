@@ -30,7 +30,7 @@ export default async function ContactPage() {
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Contact
           </p>
-          <h1 className="mt-4 font-display text-3xl font-bold text-[#0B1F16] sm:text-4xl">
+          <h1 className="mt-4 font-display text-2xl font-bold text-[#0B1F16] sm:text-[1.8rem]">
             {t("title")}
           </h1>
           <p className="mt-2.5 text-base text-[#5c6f63] max-w-xl">

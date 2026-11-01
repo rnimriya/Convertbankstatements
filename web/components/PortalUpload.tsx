@@ -70,7 +70,7 @@ export function PortalUpload({ portalToken, portalLabel }: Props) {
         {/* Header */}
         <div className="text-center mb-8">
           <img src="/logo.svg" alt="Convert Statement" className="h-10 w-10 mx-auto mb-4" />
-          <h1 className="font-display text-2xl font-bold text-zinc-900 dark:text-white">{portalLabel}</h1>
+          <h1 className="font-display text-[1.2rem] font-bold text-zinc-900 dark:text-white">{portalLabel}</h1>
           <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">Upload your bank statement PDF below. Your document will be converted and shared securely.</p>
         </div>
 

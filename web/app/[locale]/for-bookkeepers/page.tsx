@@ -73,7 +73,7 @@ export default function ForBookkeepersPage() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 For bookkeepers
               </span>
-              <h1 className="font-extrabold text-white tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
+              <h1 className="font-extrabold text-white tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.28rem, 2.4vw, 1.92rem)" }}>
                 One place for every client's <span className="agri-serif">statements</span>
               </h1>
               <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">

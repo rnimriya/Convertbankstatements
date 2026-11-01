@@ -24,7 +24,7 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
 
         <h1
           className="font-display font-bold text-[#0B1F16] tracking-tight leading-[1.08] mt-6 mb-4"
-          style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+          style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)" }}
         >
           Bank statements <span className="text-[#2CA01C]">converter</span>
         </h1>

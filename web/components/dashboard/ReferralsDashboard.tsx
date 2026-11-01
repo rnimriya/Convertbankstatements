@@ -43,7 +43,7 @@ export function ReferralsDashboard({ referralUrl, pagesCredited }: Props) {
           Back to dashboard
         </Link>
 
-        <h1 className="font-display text-2xl font-bold text-brand-text mb-2">Refer & Earn</h1>
+        <h1 className="font-display text-[1.2rem] font-bold text-brand-text mb-2">Refer & Earn</h1>
         <p className="text-brand-muted text-sm mb-8">
           Share your link. When a friend signs up, you both get <span className="font-semibold text-brand-text">50 free pages</span> — no strings attached.
         </p>

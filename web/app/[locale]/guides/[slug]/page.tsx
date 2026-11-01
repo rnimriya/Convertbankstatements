@@ -85,7 +85,7 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
             <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
             Comprehensive Guide
           </p>
-          <h1 className="relative text-3xl sm:text-4xl font-extrabold text-white leading-tight max-w-4xl mx-auto">
+          <h1 className="relative text-2xl sm:text-[1.8rem] font-extrabold text-white leading-tight max-w-4xl mx-auto">
             {cluster.title}
           </h1>
           <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">

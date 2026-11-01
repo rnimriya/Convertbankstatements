@@ -63,7 +63,7 @@ function ResetPasswordForm() {
           <XCircle className="h-8 w-8 text-red-500 text-rose-500 dark:text-rose-400" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-white">Invalid reset link</h1>
+          <h1 className="text-base font-bold text-zinc-900 dark:text-white">Invalid reset link</h1>
           <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
             This password reset link is missing a token. Please request a new one.
           </p>
@@ -82,7 +82,7 @@ function ResetPasswordForm() {
           <CheckCircle2 className="h-8 w-8 text-pine-500 text-pine-500 dark:text-pine-400" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-zinc-900 dark:text-white">Password updated!</h1>
+          <h1 className="text-base font-bold text-zinc-900 dark:text-white">Password updated!</h1>
           <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
             Your password has been reset successfully. Redirecting you to sign in…
           </p>
@@ -100,7 +100,7 @@ function ResetPasswordForm() {
         <div className="flex h-10 w-10 items-center justify-center rounded-[20px] bg-brand-50 dark:bg-brand-900/30">
           <ShieldCheck className="h-5 w-5 dark:text-pine-400 text-pine-500 dark:text-pine-400" />
         </div>
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Reset password</h1>
+        <h1 className="text-[1.2rem] font-bold text-zinc-900 dark:text-white">Reset password</h1>
       </div>
       <p className="mt-1 mb-6 text-sm text-zinc-500 dark:text-zinc-400">
         Choose a strong new password for your account.

@@ -196,7 +196,7 @@ export default function TermsPage() {
  <ScrollText className="h-5 w-5 text-[#007A33]" />
  </div>
  <div>
- <h1 className="font-display text-3xl font-bold text-[#0B1F16]">Terms of Service</h1>
+ <h1 className="font-display text-2xl font-bold text-[#0B1F16]">Terms of Service</h1>
  <p className="mt-0.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#007A33]">Terms · Plain and fair</p>
  <p className="text-xs text-zinc-500 mt-3">Last updated: June 2026 · Effective immediately</p>
  </div>

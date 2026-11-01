@@ -90,7 +90,7 @@ export default function SynderAlternativePage() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
                 Comparison
               </span>
-              <h1 className="font-extrabold text-white tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
+              <h1 className="font-extrabold text-white tracking-tight leading-[1.07] mb-4" style={{ fontSize: "clamp(1.28rem, 2.4vw, 1.92rem)" }}>
                 A Synder alternative, <span className="agri-serif">honestly compared</span>
               </h1>
               <p className="text-[0.95rem] text-zinc-300 max-w-2xl mx-auto leading-relaxed">
