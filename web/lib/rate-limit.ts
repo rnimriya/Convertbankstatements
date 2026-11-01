@@ -24,6 +24,9 @@ interface Bucket {
 const AUTH_BUCKET: Bucket = { limit: 10, window: "1 m", prefix: "cs:rl" };
 // Upload bucket: stricter — each upload can trigger a paid Claude Vision call.
 const UPLOAD_BUCKET: Bucket = { limit: 8, window: "1 m", prefix: "cs:rl:upload" };
+// Chat bucket: generous for a real conversation, tight enough to stop a
+// script burning Gemini quota through the public support chat.
+const CHAT_BUCKET: Bucket = { limit: 20, window: "1 m", prefix: "cs:rl:chat" };
 
 const _rl = new Map<string, Ratelimit>();
 
@@ -92,4 +95,9 @@ export async function checkRateLimit(req: NextRequest): Promise<NextResponse | n
 /** Stricter limiter for file-processing endpoints (cost-amplification protection). */
 export async function checkUploadRateLimit(req: NextRequest): Promise<NextResponse | null> {
   return enforce(req, UPLOAD_BUCKET);
+}
+
+/** Limiter for the public support-chat endpoint (Gemini cost protection). */
+export async function checkChatRateLimit(req: NextRequest): Promise<NextResponse | null> {
+  return enforce(req, CHAT_BUCKET);
 }
