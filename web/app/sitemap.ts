@@ -17,6 +17,7 @@ const STATIC_CONFIGS: RouteConfig[] = [
   { path: "/", changeFrequency: "weekly", priority: 1.0 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.9 },
   { path: "/quickbooks", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/tools", changeFrequency: "monthly", priority: 0.9 },
   { path: "/tools/qbo-checker", changeFrequency: "monthly", priority: 0.8 },
   { path: "/tools/free-qbo-cleanup-checker", changeFrequency: "monthly", priority: 0.8 },
   { path: "/tools/free-stripe-to-quickbooks", changeFrequency: "monthly", priority: 0.8 },

@@ -42,6 +42,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
       heading: t("quickbooks"),
       links: [
         { label: t("quickbooksReconciliation"), href: "/quickbooks" },
+        { label: t("allTools"),                 href: "/tools" },
         { label: t("qboDuplicateFinder"),       href: "/tools/free-qbo-cleanup-checker" },
         { label: t("stripeQboConverter"),       href: "/tools/free-stripe-to-quickbooks" },
         { label: t("paypalPayoutQboConverter"),  href: "/tools/free-paypal-to-quickbooks" },
