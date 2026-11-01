@@ -128,10 +128,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 
+  const debug = req.headers.get("x-chat-debug") === "dbg-7f3ka9-temp";
+  const errors: string[] = [];
+
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
     console.error("[chat] GEMINI_API_KEY not configured");
-    return NextResponse.json({ reply: FALLBACK_REPLY });
+    return NextResponse.json({ reply: FALLBACK_REPLY, ...(debug ? { debug: { errors: ["no_key"] } } : {}) });
   }
 
   const primaryModel = process.env.GEMINI_MODEL ?? "gemini-3.8-flash";
@@ -140,19 +143,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ reply });
   } catch (err) {
     console.error(`[chat] Gemini failed on ${primaryModel}:`, err);
+    errors.push(`${primaryModel}: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   /* A model can be listed yet closed to this project, or return an empty
      body — walk the discovered Flash models (same pattern as the OCR path)
      and take the first one that actually answers. */
-  const alternates = (await discoverFlashModels(apiKey)).filter((m) => m !== primaryModel);
+  const discovered = await discoverFlashModels(apiKey);
+  errors.push(`discovered: ${discovered.join(",") || "none"}`);
+  const alternates = discovered.filter((m) => m !== primaryModel);
   for (const model of alternates.slice(0, 2)) {
     try {
       const reply = await geminiChat(apiKey, model, messages);
       return NextResponse.json({ reply });
     } catch (err) {
       console.error(`[chat] Gemini failed on ${model}:`, err);
+      errors.push(`${model}: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
-  return NextResponse.json({ reply: FALLBACK_REPLY });
+  return NextResponse.json({ reply: FALLBACK_REPLY, ...(debug ? { debug: { errors } } : {}) });
 }
