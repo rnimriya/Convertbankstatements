@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Manrope, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -13,16 +13,20 @@ import "../globals.css";
 
 // Cheapcab typography: Manrope for everything — body and headings
 // (single family, weights 400-800, same setup as cheapcab.online).
-const manrope = Manrope({
-  subsets: ["latin"],
+// Fonts are SELF-HOSTED via next/font/local — do not switch back to
+// next/font/google: its build-time download from Google failed on Vercel
+// on 2026-11-02 (next-font-loader "Cannot read properties of null") and
+// took the whole production build down.
+const manrope = localFont({
+  src: "../fonts/manrope.woff2",
   variable: "--font-manrope",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "200 800",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
+const jetbrainsMono = localFont({
+  src: "../fonts/jetbrains-mono.woff2",
   variable: "--font-mono",
-  weight: ["400", "500", "600"],
+  weight: "100 800",
 });
 
 // Static locales for prerendering — every public page below this layout can
