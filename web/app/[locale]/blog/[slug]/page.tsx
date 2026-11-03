@@ -237,14 +237,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         <div className="mx-auto max-w-[1060px] px-6">
           {/* White card overlapping the hero */}
           <div className="relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] px-6 sm:px-10 py-9">
-            {/* Feature image — floated, article text wraps around it */}
+            {/* Feature image — full-width banner at the top of the card
+                (owner pick "Fix 2", 2026-11-03: no floated image, no
+                empty space beside article images) */}
             <figure className="blog-feature-figure">
               <Image
                 src={post.featureImage}
                 alt={post.title}
                 width={1600}
                 height={1067}
-                sizes="(max-width: 768px) 100vw, 340px"
+                sizes="(max-width: 768px) 100vw, 964px"
                 priority
               />
             </figure>
