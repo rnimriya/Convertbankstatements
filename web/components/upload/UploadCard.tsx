@@ -4,7 +4,7 @@ import { useCallback, useState } from"react";
 import { useDropzone } from"react-dropzone";
 import {
   Upload, FileText, DollarSign, AlertCircle,
-  CheckCircle2, Lock, Zap,
+  CheckCircle2, Lock, Zap, Plus, ChevronDown,
 } from"lucide-react";
 import { FreePagesIndicator } from"./FreePagesIndicator";
 import dynamic from "next/dynamic";
@@ -464,21 +464,21 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div className="rounded-[20px] border border-brand-border bg-brand-surface shadow-[0_12px_36px_rgba(11,31,22,0.13)] overflow-hidden">
+          <div>
 
-            {/* ── Drop zone ── */}
-            <div className={cn(fullWidth ?"p-3" :"p-3")}>
+            {/* ── Drop zone — WordToPDF-style, green (owner pick 2026-11-03):
+                pale green dashed box + big split Choose File button ── */}
+            <div>
               <div
                 {...(isProcessing ? {} : getRootProps())}
-                className={cn("relative flex flex-col items-center justify-center rounded-2xl px-6 text-center transition-colors select-none",
-                  fullWidth ?"py-[26px]" :"py-12 lg:py-16",
+                className={cn("relative flex min-h-[300px] flex-col items-center justify-center rounded-lg px-6 py-16 text-center transition-colors select-none",
                   isProcessing
-                    ?(fullWidth ?"border-2 border-dashed border-zinc-200" :"border-2 border-dashed border-zinc-200")
-                    :"cursor-pointer",
+                    ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-[#F7FAF5]"
+                    : "cursor-pointer",
                   !isProcessing && (isDragActive
-                    ?(fullWidth ?"border-2 border-dashed border-[#2CA01C] bg-[#EFF7ED]" :"border-2 border-dashed border-[#2CA01C] bg-[#EFF7ED]")
-                    :(fullWidth ?"border-2 border-dashed border-zinc-300 hover:border-[#2CA01C]" :"border-2 border-dashed border-zinc-300 hover:border-[#2CA01C]"))
-                )}
+                    ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#E7F3E0]"
+                    : "border-[2.5px] border-dashed border-[#8FCE7E] bg-[#F2F8EF] hover:bg-[#EFF7EA]"))
+                }
               >
                 {!isProcessing && <input {...getInputProps()} />}
 
@@ -508,43 +508,44 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                     </div>
                   </div>
                 ) : (
-                  /* Idle (compact) */
+                  /* Idle (compact) — WordToPDF-style split button */
                   <>
-                    <div
-                      className={cn("flex items-center justify-center transition-all duration-300", fullWidth ?"mb-1 h-9 w-9 rounded-2xl" :"mb-3 h-[52px] w-[52px] rounded-full")}
-                      style={{
-                        background: fullWidth ? (isDragActive ?"#0B3D2E" :"#00573F") : (isDragActive ?"#0B1F16" :"#2CA01C"),
-                        transform: isDragActive ?"scale(1.06)" :"scale(1)",
-                      }}
-                    >
-                      {isDragActive
-                        ? <FileText size={fullWidth ? 26 : 22} color="#ffffff" strokeWidth={1.6} />
-                        : <Upload size={fullWidth ? 26 : 22} color="#ffffff" strokeWidth={1.6} />}
-                    </div>
-
-                    <h2 className={cn("font-display font-bold tracking-tight text-brand-text", fullWidth ?"text-lg lg:text-xl" :"text-2xl lg:text-3xl")}>
-                      {isDragActive ?"Release to convert" :"Drop your statement PDF"}
-                    </h2>
-                    <p className="mt-1 text-sm text-brand-muted">
-                      or <span className="font-bold text-brand-text underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-2">browse files</span>
-                    </p>
-
-                    <div className={cn("flex items-center gap-2 text-xs text-brand-muted", fullWidth ?"mt-2" :"mt-3")}>
-                      <span>PDF only</span>
-                      <span className="h-1 w-1 rounded-full bg-zinc-300" />
-                      <span>Max {MAX_FILE_MB} MB</span>
-                      <span className="h-1 w-1 rounded-full bg-zinc-300" />
-                      <span>Password OK</span>
-                    </div>
-
-                    <p className={cn("text-[11px] text-brand-muted", fullWidth ?"mt-1" :"mt-2")}>
-                      {BANKS.join(" ·")} <span className="text-zinc-300 dark:text-zinc-600">+400 more</span>
-                    </p>
-
-                    {billing.tier ==="FREE" && freeRemaining > 0 && (
-                      <div className={cn("inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#0B3D2E] dark:border-honey-600 dark:bg-honey-400 dark:text-[#0B3D2E]", fullWidth ?"mt-2" :"mt-3")}>
-                        <CheckCircle2 className="text-zinc-900"  size={12} /> {freeRemaining} free page{freeRemaining !== 1 ?"s" :""} left
+                    {isDragActive ? (
+                      <div className="flex flex-col items-center gap-3 py-2">
+                        <FileText size={44} className="text-[#007A33]" strokeWidth={1.4} />
+                        <p className="font-display text-[22px] font-bold text-brand-text">Release to convert</p>
+                        <p className="text-sm text-brand-muted">Drop the PDF to start converting</p>
                       </div>
+                    ) : (
+                      <>
+                        <div className="inline-flex overflow-hidden rounded-md shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]">
+                          <span className="flex min-w-[240px] items-center justify-center gap-2.5 bg-[#2CA01C] px-12 py-[18px] text-lg font-bold tracking-wide text-white">
+                            <Plus size={24} strokeWidth={2.5} /> Choose File
+                          </span>
+                          <span className="flex items-center border-l border-white/20 bg-[#007A33] px-4 text-white">
+                            <ChevronDown size={20} />
+                          </span>
+                        </div>
+                        <p className="mt-[18px] text-[13px] font-medium text-slate-500">
+                          {billing.tier === "FREE"
+                            ? "First 8 pages free · No account needed · Or drop your statement PDF here"
+                            : "Or drop your statement PDF here"}
+                        </p>
+                        <p className="mt-1.5 text-xs text-slate-400">
+                          PDF only · Max {MAX_FILE_MB} MB · Password OK · By proceeding, you agree to our{" "}
+                          <Link href="/terms" className="underline underline-offset-2" onClick={(e) => e.stopPropagation()}>
+                            Terms of Use
+                          </Link>.
+                        </p>
+                        <p className="mt-3 text-[11px] text-slate-400">
+                          {BANKS.join(" ·")} <span className="text-zinc-300">+400 more</span>
+                        </p>
+                        {billing.tier === "FREE" && freeRemaining > 0 && (
+                          <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#0B3D2E]">
+                            <CheckCircle2 className="text-zinc-900" size={12} /> {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} left
+                          </div>
+                        )}
+                      </>
                     )}
                   </>
                 )}
@@ -553,7 +554,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
 
             {/* ── Toolbar: format + pages + trust ── */}
             {!isProcessing && (
-              <div className={cn("border-t border-[#E3EDE0] px-4", fullWidth ?"py-2.5" :"py-3.5")}>
+              <div className={cn("px-1", fullWidth ?"pt-4" :"pt-5")}>
                 {/* Format pills */}
                 <div className={cn("flex flex-wrap items-center gap-2", fullWidth && "justify-center")}>
                   <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
