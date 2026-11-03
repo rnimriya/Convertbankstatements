@@ -4,7 +4,7 @@ import { useCallback, useState } from"react";
 import { useDropzone } from"react-dropzone";
 import {
   Upload, FileText, DollarSign, AlertCircle,
-  CheckCircle2, Lock, Zap, Plus, ChevronDown, Monitor, Files,
+  CheckCircle2, Lock, Zap, Plus, ChevronDown, Monitor, Files, HardDrive, CloudDownload,
 } from"lucide-react";
 import { FreePagesIndicator } from"./FreePagesIndicator";
 import dynamic from "next/dynamic";
@@ -24,6 +24,7 @@ const ProcessingResult = dynamic(
 );
 import type { BillingContext, ProcessResult } from"@/types/billing";
 import { cn } from"@/lib/utils";
+import { DROPBOX_ENABLED, GOOGLE_ENABLED, pickFromDropbox, pickFromGoogleDrive } from"@/lib/imports/cloud";
 import Link from"next/link";
 
 const MAX_FILE_MB = 50;
@@ -126,6 +127,21 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
       }
     },
     [uploadFile, isWorkspace]
+  );
+
+  // Cloud import (Drive / Dropbox): the picker runs in the browser, the
+  // downloaded File then goes through the exact same onDrop pipeline.
+  const importCloud = useCallback(
+    async (source: "drive" | "dropbox") => {
+      setMenuOpen(false);
+      try {
+        const file = source === "drive" ? await pickFromGoogleDrive() : await pickFromDropbox();
+        if (file) onDrop([file], []);
+      } catch (e) {
+        setState({ status: "error", message: e instanceof Error ? e.message : "Import failed. Please try again." });
+      }
+    },
+    [onDrop],
   );
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
@@ -572,6 +588,24 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                                   <FileText size={16} className="shrink-0 text-slate-400" /> Try a sample statement
                                   <span className="ml-auto rounded-full bg-[#E3F2DF] px-2 py-0.5 text-[10px] font-extrabold text-[#007A33]">DEMO</span>
                                 </button>
+                                {GOOGLE_ENABLED && (
+                                  <button
+                                    type="button"
+                                    onClick={(e) => { e.stopPropagation(); void importCloud("drive"); }}
+                                    className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                                  >
+                                    <HardDrive size={16} className="shrink-0 text-slate-400" /> From Google Drive
+                                  </button>
+                                )}
+                                {DROPBOX_ENABLED && (
+                                  <button
+                                    type="button"
+                                    onClick={(e) => { e.stopPropagation(); void importCloud("dropbox"); }}
+                                    className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                                  >
+                                    <CloudDownload size={16} className="shrink-0 text-slate-400" /> From Dropbox
+                                  </button>
+                                )}
                                 <Link
                                   href="/dashboard"
                                   onClick={(e) => e.stopPropagation()}
