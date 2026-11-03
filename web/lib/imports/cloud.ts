@@ -56,7 +56,7 @@ function loadScript(id: string, src: string, attrs?: Record<string, string>): Pr
 
 /** Opens the Dropbox Chooser; resolves the picked PDF as a File, or null
  *  when the user cancels. Throws on real failures. */
-export async function pickFromDropbox(): Promise<File | null> {
+export async function pickFromDropbox(extensions: string[] = [".pdf"]): Promise<File | null> {
   if (!DROPBOX_ENABLED) throw new Error("Dropbox import is not configured yet.");
   await loadScript("dropboxjs", "https://www.dropbox.com/static/api/2/dropins.js", {
     "data-app-key": DROPBOX_APP_KEY,
@@ -86,14 +86,15 @@ export async function pickFromDropbox(): Promise<File | null> {
       },
       linkType: "direct",
       multiselect: false,
-      extensions: [".pdf"],
+      ...(extensions.length > 0 ? { extensions } : {}),
     });
   });
 }
 
 /** Opens the Google Drive Picker (sign-in via Google Identity Services);
  *  resolves the picked PDF as a File, or null when the user cancels. */
-export async function pickFromGoogleDrive(): Promise<File | null> {
+export async function pickFromGoogleDrive(options?: { pdfOnly?: boolean }): Promise<File | null> {
+  const pdfOnly = options?.pdfOnly !== false;
   if (!GOOGLE_ENABLED) throw new Error("Google Drive import is not configured yet.");
   await loadScript("gapi-js", "https://apis.google.com/js/api.js");
   await loadScript("gsi-client", "https://accounts.google.com/gsi/client");
@@ -127,7 +128,11 @@ export async function pickFromGoogleDrive(): Promise<File | null> {
     const picker = new w.google.picker.PickerBuilder()
       .setDeveloperKey(GOOGLE_API_KEY)
       .setOAuthToken(accessToken)
-      .addView(new w.google.picker.DocsView(w.google.picker.ViewId.DOCS).setMimeTypes("application/pdf"))
+      .addView(
+        pdfOnly
+          ? new w.google.picker.DocsView(w.google.picker.ViewId.DOCS).setMimeTypes("application/pdf")
+          : new w.google.picker.DocsView(w.google.picker.ViewId.DOCS),
+      )
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .setCallback((data: any) => {
         if (data.action === w.google.picker.Action.PICKED) resolve(data.docs?.[0] ?? null);
