@@ -4,7 +4,7 @@ import { useCallback, useState } from"react";
 import { useDropzone } from"react-dropzone";
 import {
   Upload, FileText, DollarSign, AlertCircle,
-  CheckCircle2, Lock, Zap, Plus, ChevronDown, Monitor, Files, HardDrive, CloudDownload,
+  CheckCircle2, Lock, Zap, Plus, ChevronDown, Monitor, HardDrive, CloudDownload, Link2, X,
 } from"lucide-react";
 import { FreePagesIndicator } from"./FreePagesIndicator";
 import dynamic from "next/dynamic";
@@ -63,6 +63,11 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   const isWorkspace = !fullWidth && variant === "workspace";
   const [formatNotice, setFormatNotice] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cloudNotice, setCloudNotice] = useState<string | null>(null);
+  const [urlModalOpen, setUrlModalOpen] = useState(false);
+  const [urlInput, setUrlInput] = useState("");
+  const [urlError, setUrlError] = useState<string | null>(null);
+  const [urlBusy, setUrlBusy] = useState(false);
   const PRO_FORMATS = ["ofx", "qfx", "sheets"];
   const isProTier = billing.tier === "PRO" || billing.tier === "BUSINESS";
 
@@ -91,22 +96,6 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     }
   }, [formats, onBillingUpdate]);
 
-  // "Try a sample statement" — the API's demo mode (?demo=true) returns a
-  // sample conversion without an upload; no pages are charged.
-  const runDemo = useCallback(async () => {
-    setMenuOpen(false);
-    setState({ status: "processing", fileName: "Chase_Sample_Statement.pdf" });
-    try {
-      const res = await fetch("/api/process-statement?demo=true", { method: "POST" });
-      const data = await res.json().catch(() => null);
-      if (!res.ok || !data) throw new Error(data?.message ?? "The sample could not be loaded. Please try again.");
-      setState({ status: "done", result: data });
-      onBillingUpdate();
-    } catch (e) {
-      setState({ status: "error", message: e instanceof Error ? e.message : "The sample could not be loaded. Please try again." });
-    }
-  }, [onBillingUpdate]);
-
   const onDrop = useCallback(
     (accepted: File[], rejected: { file: File; errors: readonly { code: string }[] }[]) => {
       if (rejected.length > 0) {
@@ -134,15 +123,64 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   const importCloud = useCallback(
     async (source: "drive" | "dropbox") => {
       setMenuOpen(false);
+      setCloudNotice(null);
       try {
         const file = source === "drive" ? await pickFromGoogleDrive() : await pickFromDropbox();
-        if (file) onDrop([file], []);
+        if (file) {
+          if (file.size > MAX_FILE_MB * 1024 * 1024) {
+            setState({ status: "error", message: `File exceeds ${MAX_FILE_MB} MB.` });
+            return;
+          }
+          onDrop([file], []);
+        }
       } catch (e) {
         setState({ status: "error", message: e instanceof Error ? e.message : "Import failed. Please try again." });
       }
     },
     [onDrop],
   );
+
+  // Cloud option abhi keys ke bina visible hai (owner ka design order);
+  // click par jhoota picker nahi khulta — saaf "coming soon" notice banta hai.
+  const cloudSoon = useCallback((name: string) => {
+    setMenuOpen(false);
+    setCloudNotice(`${name} import is coming soon — please use From Device for now.`);
+  }, []);
+
+  // From URL: browser hi link se PDF lata hai (CORS wale hosts par chalta
+  // hai); fail ho to saaf wajah + From Device ka rasta dikhta hai.
+  const importFromUrl = useCallback(async () => {
+    const raw = urlInput.trim();
+    let parsed: URL;
+    try {
+      parsed = new URL(raw);
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") throw new Error("protocol");
+    } catch {
+      setUrlError("Please paste a valid link starting with http:// or https://.");
+      return;
+    }
+    setUrlBusy(true);
+    setUrlError(null);
+    try {
+      const res = await fetch(parsed.toString());
+      if (!res.ok) throw new Error("fetch failed");
+      const blob = await res.blob();
+      if (blob.size > MAX_FILE_MB * 1024 * 1024) {
+        setUrlError(`That file exceeds ${MAX_FILE_MB} MB.`);
+        return;
+      }
+      const last = decodeURIComponent(parsed.pathname.split("/").filter(Boolean).pop() ?? "");
+      const name = last.toLowerCase().endsWith(".pdf") ? last : "statement.pdf";
+      const file = new File([blob], name, { type: "application/pdf" });
+      setUrlModalOpen(false);
+      setUrlInput("");
+      onDrop([file], []);
+    } catch {
+      setUrlError("Could not fetch a PDF from that link — the site may be blocking downloads. Please download the file yourself and use From Device instead.");
+    } finally {
+      setUrlBusy(false);
+    }
+  }, [urlInput, onDrop]);
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
@@ -495,15 +533,15 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div>
+          <div className="rounded-[30px] border border-[#e2e2e2] bg-white p-5 shadow-[0_20px_25px_-5px_rgba(11,31,22,0.12),0_8px_10px_-6px_rgba(11,31,22,0.10)]">
 
             {/* ── Drop zone — Design v3 (owner-approved 2026-11-03): white
                 bg + XL shadow, radius 20px, split Choose File button with
                 source dropdown, extra margin around the box ── */}
-            <div className="my-5">
+            <div>
               <div
                 {...(isProcessing ? {} : getRootProps())}
-                className={cn("relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] px-6 py-16 text-center transition-colors select-none shadow-[0_20px_25px_-5px_rgba(11,31,22,0.12),0_8px_10px_-6px_rgba(11,31,22,0.10)]",
+                className={cn("relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] p-0 text-center transition-colors select-none",
                   isProcessing
                     ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-white"
                     : "cursor-pointer",
@@ -582,37 +620,25 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                                 </button>
                                 <button
                                   type="button"
-                                  onClick={(e) => { e.stopPropagation(); runDemo(); }}
+                                  onClick={(e) => { e.stopPropagation(); if (DROPBOX_ENABLED) { void importCloud("dropbox"); } else { cloudSoon("Dropbox"); } }}
                                   className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
                                 >
-                                  <FileText size={16} className="shrink-0 text-slate-400" /> Try a sample statement
-                                  <span className="ml-auto rounded-full bg-[#E3F2DF] px-2 py-0.5 text-[10px] font-extrabold text-[#007A33]">DEMO</span>
+                                  <CloudDownload size={16} className="shrink-0 text-slate-400" /> From Dropbox
                                 </button>
-                                {GOOGLE_ENABLED && (
-                                  <button
-                                    type="button"
-                                    onClick={(e) => { e.stopPropagation(); void importCloud("drive"); }}
-                                    className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                                  >
-                                    <HardDrive size={16} className="shrink-0 text-slate-400" /> From Google Drive
-                                  </button>
-                                )}
-                                {DROPBOX_ENABLED && (
-                                  <button
-                                    type="button"
-                                    onClick={(e) => { e.stopPropagation(); void importCloud("dropbox"); }}
-                                    className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                                  >
-                                    <CloudDownload size={16} className="shrink-0 text-slate-400" /> From Dropbox
-                                  </button>
-                                )}
-                                <Link
-                                  href="/dashboard"
-                                  onClick={(e) => e.stopPropagation()}
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); if (GOOGLE_ENABLED) { void importCloud("drive"); } else { cloudSoon("Google Drive"); } }}
+                                  className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                                >
+                                  <HardDrive size={16} className="shrink-0 text-slate-400" /> From Google Drive
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); setMenuOpen(false); setUrlError(null); setUrlModalOpen(true); }}
                                   className="flex w-full items-center gap-3 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
                                 >
-                                  <Files size={16} className="shrink-0 text-slate-400" /> Bulk upload — multiple PDFs
-                                </Link>
+                                  <Link2 size={16} className="shrink-0 text-slate-400" /> From URL
+                                </button>
                               </div>
                             </>
                           )}
@@ -643,9 +669,34 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               </div>
             </div>
 
+            {/* ── From URL modal (WordToPDF-style) ── */}
+            {urlModalOpen && (
+              <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm" onClick={() => setUrlModalOpen(false)}>
+                <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 text-left shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                  <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#2CA01C] text-white"><Link2 size={15} /></span>
+                      <h3 className="text-sm font-bold text-slate-900 sm:text-base">Import from Web URL</h3>
+                    </div>
+                    <button type="button" aria-label="Close" onClick={() => setUrlModalOpen(false)} className="p-1 text-slate-400 hover:text-slate-700"><X size={17} /></button>
+                  </div>
+                  <form className="mt-4 space-y-4" onSubmit={(e) => { e.preventDefault(); void importFromUrl(); }}>
+                    <div className="space-y-1.5">
+                      <label htmlFor="cs-url-import" className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Enter PDF document link</label>
+                      <input id="cs-url-import" type="url" value={urlInput} onChange={(e) => setUrlInput(e.target.value)} placeholder="https://example.com/statement.pdf" required className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm text-slate-800 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#2CA01C]" />
+                      {urlError && <p className="text-[11px] font-medium text-rose-500">{urlError}</p>}
+                    </div>
+                    <button type="submit" disabled={urlBusy} className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#2CA01C] py-3 text-sm font-bold text-white transition-colors hover:bg-[#35B424] disabled:opacity-60">
+                      {urlBusy ? "Fetching file…" : "Import File"}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
+
             {/* ── Toolbar: format + pages + trust ── */}
             {!isProcessing && (
-              <div className={cn("px-1", fullWidth ?"pt-4" :"pt-5")}>
+              <div className="pt-4">
                 {/* Format pills */}
                 <div className={cn("flex flex-wrap items-center gap-2", fullWidth && "justify-center")}>
                   <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
@@ -677,6 +728,9 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   })}
                 </div>
 
+                {cloudNotice && (
+                  <p className={cn("mt-2 text-[11px] font-semibold text-pine-600", fullWidth && "text-center")}>{cloudNotice}</p>
+                )}
                 {formatNotice ? (
                   <p className={cn("mt-2 text-[11px] font-semibold text-pine-600", fullWidth && "text-center")}>{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
                 ) : (
