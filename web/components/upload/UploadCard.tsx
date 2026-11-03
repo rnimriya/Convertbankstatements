@@ -4,7 +4,7 @@ import { useCallback, useState } from"react";
 import { useDropzone } from"react-dropzone";
 import {
   Upload, FileText, DollarSign, AlertCircle,
-  CheckCircle2, Lock, Zap, Plus, ChevronDown,
+  CheckCircle2, Lock, Zap, Plus, ChevronDown, Monitor, Files,
 } from"lucide-react";
 import { FreePagesIndicator } from"./FreePagesIndicator";
 import dynamic from "next/dynamic";
@@ -61,6 +61,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   const [staged, setStaged] = useState<File | null>(null);
   const isWorkspace = !fullWidth && variant === "workspace";
   const [formatNotice, setFormatNotice] = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const PRO_FORMATS = ["ofx", "qfx", "sheets"];
   const isProTier = billing.tier === "PRO" || billing.tier === "BUSINESS";
 
@@ -89,6 +90,22 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     }
   }, [formats, onBillingUpdate]);
 
+  // "Try a sample statement" — the API's demo mode (?demo=true) returns a
+  // sample conversion without an upload; no pages are charged.
+  const runDemo = useCallback(async () => {
+    setMenuOpen(false);
+    setState({ status: "processing", fileName: "Chase_Sample_Statement.pdf" });
+    try {
+      const res = await fetch("/api/process-statement?demo=true", { method: "POST" });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data) throw new Error(data?.message ?? "The sample could not be loaded. Please try again.");
+      setState({ status: "done", result: data });
+      onBillingUpdate();
+    } catch (e) {
+      setState({ status: "error", message: e instanceof Error ? e.message : "The sample could not be loaded. Please try again." });
+    }
+  }, [onBillingUpdate]);
+
   const onDrop = useCallback(
     (accepted: File[], rejected: { file: File; errors: readonly { code: string }[] }[]) => {
       if (rejected.length > 0) {
@@ -111,7 +128,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
     [uploadFile, isWorkspace]
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
     accept: {"application/pdf": [".pdf"] },
     maxFiles: 1,
@@ -142,8 +159,6 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   // Inline page-usage stats for the compact toolbar.
   const pageLimit = billing.monthlyPageLimit;
   const pagesRemaining = Math.max(0, pageLimit - billing.pagesUsedThisPeriod);
-  const usedPct = pageLimit > 0 ? Math.min(100, (billing.pagesUsedThisPeriod / pageLimit) * 100) : 0;
-  const lowPages = usedPct > 85;
 
   /* ── Workspace layout (dashboard Converter tab, mockup 07) ── */
   if (isWorkspace) {
@@ -466,18 +481,19 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
 
           <div>
 
-            {/* ── Drop zone — WordToPDF-style, green (owner pick 2026-11-03):
-                pale green dashed box + big split Choose File button ── */}
-            <div>
+            {/* ── Drop zone — Design v3 (owner-approved 2026-11-03): white
+                bg + XL shadow, radius 20px, split Choose File button with
+                source dropdown, extra margin around the box ── */}
+            <div className="my-5">
               <div
                 {...(isProcessing ? {} : getRootProps())}
-                className={cn("relative flex min-h-[300px] flex-col items-center justify-center rounded-lg px-6 py-16 text-center transition-colors select-none",
+                className={cn("relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] px-6 py-16 text-center transition-colors select-none shadow-[0_20px_25px_-5px_rgba(11,31,22,0.12),0_8px_10px_-6px_rgba(11,31,22,0.10)]",
                   isProcessing
-                    ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-[#F7FAF5]"
+                    ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-white"
                     : "cursor-pointer",
                   !isProcessing && (isDragActive
-                    ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#E7F3E0]"
-                    : "border-[2.5px] border-dashed border-[#8FCE7E] bg-[#F2F8EF] hover:bg-[#EFF7EA]"))
+                    ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#F2F8EF]"
+                    : "border-[2.5px] border-dashed border-[#8FCE7E] bg-white hover:bg-[#FBFDFB]"))
                 }
               >
                 {!isProcessing && <input {...getInputProps()} />}
@@ -518,15 +534,56 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                       </div>
                     ) : (
                       <>
-                        <div className="inline-flex overflow-hidden rounded-md shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]">
-                          <span className="flex min-w-[240px] items-center justify-center gap-2.5 bg-[#2CA01C] px-12 py-[18px] text-lg font-bold tracking-wide text-white">
-                            <Plus size={24} strokeWidth={2.5} /> Choose File
-                          </span>
-                          <span className="flex items-center border-l border-white/20 bg-[#007A33] px-4 text-white">
-                            <ChevronDown size={20} />
-                          </span>
+                        <div className="relative">
+                          <div className="inline-flex overflow-hidden rounded-md shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]">
+                            <button
+                              type="button"
+                              onClick={(e) => { e.stopPropagation(); open(); }}
+                              className="flex min-w-[240px] items-center justify-center gap-2.5 bg-[#2CA01C] px-12 py-[18px] text-lg font-bold tracking-wide text-white transition-colors hover:bg-[#35B424]"
+                            >
+                              <Plus size={24} strokeWidth={2.5} /> Choose File
+                            </button>
+                            <button
+                              type="button"
+                              aria-label="More ways to add a statement"
+                              aria-expanded={menuOpen}
+                              onClick={(e) => { e.stopPropagation(); setMenuOpen((o) => !o); }}
+                              className="flex items-center border-l border-white/20 bg-[#007A33] px-4 text-white transition-colors hover:bg-[#006B2C]"
+                            >
+                              <ChevronDown size={20} className={cn("transition-transform duration-200", menuOpen && "rotate-180")} />
+                            </button>
+                          </div>
+                          {menuOpen && (
+                            <>
+                              <div className="fixed inset-0 z-40" onClick={(e) => { e.stopPropagation(); setMenuOpen(false); }} />
+                              <div className="absolute right-0 top-[calc(100%+10px)] z-50 w-[252px] overflow-hidden rounded-xl border border-slate-200 bg-white text-left shadow-[0_20px_25px_-5px_rgba(11,31,22,0.18),0_8px_10px_-6px_rgba(11,31,22,0.12)]">
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); setMenuOpen(false); open(); }}
+                                  className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                                >
+                                  <Monitor size={16} className="shrink-0 text-slate-400" /> From Device
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={(e) => { e.stopPropagation(); runDemo(); }}
+                                  className="flex w-full items-center gap-3 border-b border-slate-50 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                                >
+                                  <FileText size={16} className="shrink-0 text-slate-400" /> Try a sample statement
+                                  <span className="ml-auto rounded-full bg-[#E3F2DF] px-2 py-0.5 text-[10px] font-extrabold text-[#007A33]">DEMO</span>
+                                </button>
+                                <Link
+                                  href="/dashboard"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="flex w-full items-center gap-3 px-5 py-3.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                                >
+                                  <Files size={16} className="shrink-0 text-slate-400" /> Bulk upload — multiple PDFs
+                                </Link>
+                              </div>
+                            </>
+                          )}
                         </div>
-                        <p className="mt-[18px] text-[13px] font-medium text-slate-500">
+                        <p className="mt-3.5 text-[13px] font-medium text-slate-500">
                           {billing.tier === "FREE"
                             ? "First 8 pages free · No account needed · Or drop your statement PDF here"
                             : "Or drop your statement PDF here"}
@@ -592,22 +649,6 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   <p className={cn("mt-2 text-[11px] text-brand-muted", fullWidth && "text-center")}>Pick one or more formats — you get a separate download for each.</p>
                 )}
 
-                {/* Pages usage + trust */}
-                <div className={cn("flex flex-wrap items-center justify-between gap-x-4 gap-y-2", fullWidth ?"mt-2" :"mt-3")}>
-                  <div className="flex min-w-[220px] max-w-[260px] flex-1 items-center gap-2.5">
-                    <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Pages</span>
-                    <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-brand-surface">
-                      <div className={cn("h-full rounded-full transition-all", lowPages ?"bg-amber-400" :"bg-[#2CA01C]")} style={{ width: `${usedPct}%` }} />
-                    </div>
-                    <span className={cn("shrink-0 text-[11px] font-bold tabular-nums", lowPages ?"text-amber-600" :"text-brand-muted")}>
-                      {pagesRemaining}/{pageLimit}
-                    </span>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-3">
-                    <span className="flex items-center gap-1 text-[11px] text-brand-muted"><Lock className="text-rose-500 dark:text-rose-400"  size={11} /> Not stored on our servers</span>
-                    <span className="flex items-center gap-1 text-[11px] text-brand-muted"><Zap size={11} className="text-amber-400 text-amber-500 dark:text-amber-400" /> ~11s</span>
-                  </div>
-                </div>
               </div>
             )}
           </div>
