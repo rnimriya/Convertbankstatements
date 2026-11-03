@@ -179,6 +179,20 @@
   }
 }
 
+/* Content tables — white background + light shadow (owner order
+   2026-11-03). Applies site-wide inside <main>: pricing, compare and
+   tool result tables, and any table inside a blog article. */
+main table {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(11, 31, 22, 0.05), 0 12px 32px rgba(11, 31, 22, 0.06);
+}
+/* When a table sits alone inside a card wrapper (pricing, compare, tool
+   pages), the wrapper clips the table's own shadow — put the same light
+   shadow on the wrapper instead so it stays visible. */
+main div:has(> table:only-child) {
+  box-shadow: 0 1px 3px rgba(11, 31, 22, 0.05), 0 12px 32px rgba(11, 31, 22, 0.06);
+}
+
 /* Blog article body — Design C v3 (owner-approved 2026-10-27) with the
    2026-11-03 "Fix 2" image layout (owner pick): feature image is a
    full-width banner, and inline figures pair the image (left) with a

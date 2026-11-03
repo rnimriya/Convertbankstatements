@@ -112,21 +112,43 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   if (faqHeadingMatch && faqHeadingMatch.index !== undefined) {
     const faqStart = faqHeadingMatch.index;
     const faqTail = contentWithIds.slice(faqStart + faqHeadingMatch[0].length);
-    const qaRegex = /<p><strong>([\s\S]*?)<\/strong><br\s*\/?>([\s\S]*?)<\/p>/gi;
+    // The FAQ section ends where the next h2 section begins (if any);
+    // anything from there on is trailing content, not FAQ.
+    const nextH2 = faqTail.search(/<h2[\s>]/i);
+    const faqPart = nextH2 >= 0 ? faqTail.slice(0, nextH2) : faqTail;
+    const afterFaq = nextH2 >= 0 ? faqTail.slice(nextH2) : "";
     const pairs: { q: string; a: string }[] = [];
-    let qaMatch: RegExpExecArray | null;
     let lastEnd = 0;
-    while ((qaMatch = qaRegex.exec(faqTail)) !== null) {
+    // Format A (older posts): <p><strong>Question</strong><br>Answer</p>
+    const qaRegex = /<p><strong>([\s\S]*?)<\/strong><br\s*\/?>([\s\S]*?)<\/p>/gi;
+    let qaMatch: RegExpExecArray | null;
+    while ((qaMatch = qaRegex.exec(faqPart)) !== null) {
       pairs.push({
         q: qaMatch[1].replace(/<[^>]+>/g, "").trim(),
         a: qaMatch[2].trim(),
       });
       lastEnd = qaMatch.index + qaMatch[0].length;
     }
+    // Format B (current pipeline): <h3>Question</h3> followed by the answer
+    // HTML up to the next question. These posts used to fall back to plain
+    // Q&A text because only Format A was parsed (fixed 2026-11-03, owner
+    // order: FAQ must always render as an accordion).
+    if (pairs.length === 0) {
+      const h3Regex = /<h3[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3[^>]*>|$)/gi;
+      let h3Match: RegExpExecArray | null;
+      while ((h3Match = h3Regex.exec(faqPart)) !== null) {
+        const q = h3Match[1].replace(/<[^>]+>/g, "").trim();
+        const a = h3Match[2].trim();
+        if (q && a) {
+          pairs.push({ q, a });
+          lastEnd = h3Match.index + h3Match[0].length;
+        }
+      }
+    }
     if (pairs.length > 0) {
       faqItems = pairs;
       mainContent = contentWithIds.slice(0, faqStart);
-      faqTrailingHtml = faqTail.slice(lastEnd).trim();
+      faqTrailingHtml = (faqPart.slice(lastEnd).trim() + afterFaq).trim();
       const tocFaq = tocHeadings.find((h) => /frequently asked questions/i.test(h.text));
       faqHeadingId = tocFaq ? tocFaq.id : "frequently-asked-questions";
     }

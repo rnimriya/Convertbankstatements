@@ -129,7 +129,7 @@ export default async function PricingPage() {
           <div className="overflow-hidden rounded-[24px] border border-[#E3EDE0] bg-white">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-[#E3EDE0] bg-[#F7FAF5]">
+                <tr className="border-b border-[#E3EDE0] bg-white">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">Feature</th>
                   {["Free","Basic","Pro","Business"].map((h) => (
                     <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-[#007A33]" :"text-zinc-500"}`}>{h}</th>
@@ -138,7 +138,7 @@ export default async function PricingPage() {
               </thead>
               <tbody>
                 {COMPARE_ROWS.map(({ feature, free, basic, pro, business }, i) => (
-                  <tr key={feature} className={i % 2 === 0 ?"bg-white" :"bg-[#F7FAF5]"}>
+                  <tr key={feature} className={"bg-white"}>
                     <td className="px-5 py-3 font-medium text-zinc-700">{feature}</td>
                     {[free, basic, pro, business].map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300" : val ==="✓" ?"text-[#007A33] font-bold text-base" :"text-zinc-600"}`}>{val}</td>
