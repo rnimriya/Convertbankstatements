@@ -19,35 +19,35 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "How do I convert a CSV file to OFX?",
-    a: "Upload your .csv file above and press Convert to OFX. The converter reads each row — date, description and amount — and downloads an OFX file holding the same transactions. It is fully free and needs no account.",
+    a: "Export a CSV with a header row from your bank, drop it into the converter above (one .csv file, up to 10 MB), and press Convert to OFX. The file downloads automatically and the confirmation tells you how many transactions were converted. It is fully free, needs no account, and your file is processed in memory and never stored.",
   },
   {
     q: "What does my CSV need for the conversion to work?",
-    a: "One row per transaction with a date, a description and an amount — the shape a normal bank CSV export already has. Amounts are copied exactly, so a signed amount column works as-is.",
+    a: "A header row the converter can recognize — a date column (Date, Posted or Transaction Date), a description column (Description, Payee or Name), and either one signed Amount column or a Debit and Credit pair. Rows whose date or amount cannot be read are skipped, so compare the converted transaction count with the number of rows you expected.",
   },
   {
-    q: "Does the OFX file include a closing balance or account number?",
-    a: "Only if your source carried one — and a plain CSV does not. The converter never invents a closing balance or bank identity, so the output holds your transactions without made-up account details.",
+    q: "What is inside the OFX file this converter builds?",
+    a: "A standard OFX 1.02 statement: a sign-on block, an account block, and one STMTTRN entry per transaction carrying its type (CREDIT or DEBIT), posted date, amount, description, memo and a unique transaction ID (FITID). The FITID is generated from the transaction's own date, description and amount, so converting the same CSV again produces the same IDs instead of fresh duplicates.",
   },
   {
-    q: "Is any amount changed or converted to another currency?",
-    a: "No. Amounts are copied exactly, with no currency conversion. A row that says -96.40 in the CSV is -96.40 in the OFX.",
+    q: "Does the OFX include my real account number or closing balance?",
+    a: "No — a plain CSV carries neither, and the converter invents neither. The account ID is written as a placeholder (0000000000) and there is no closing ledger balance, because your source file has none. The transactions, dates and amounts are exactly yours; only the bank identity fields are generic, which is the honest limit of a CSV source.",
   },
   {
-    q: "My app is QuickBooks or Quicken — is OFX the right target?",
-    a: "QuickBooks imports QBO files, so use the CSV to QBO converter for QuickBooks. Quicken uses QFX, its own OFX variant, so the CSV to QFX converter is the closer match there. Plain OFX suits apps that ask for OFX by name.",
+    q: "Is OFX the same thing as QBO or QFX?",
+    a: "They are one family. QBO is OFX 1.02 as QuickBooks Web Connect uses it, and QFX is Quicken's variant of the same structure with an institution ID added. Plain OFX is the generic form: choose it when your software asks for OFX by name. If your destination is QuickBooks or Quicken specifically, the dedicated QBO and QFX converters on this site are the closer match.",
   },
   {
-    q: "Is my data uploaded or stored?",
-    a: "Your file is processed in memory to build the conversion and is not stored afterwards. We never sell or share your financial data, and the download is fully free with no account.",
+    q: "Is this converter really free, and what happens to my file?",
+    a: "Yes — the conversion and the download are fully free with no account and no paid tier behind them. The file is processed in memory to build the OFX and is never stored, sold or shared.",
   },
 ];
 
 const HOWTO = [
-  { title: "Get your CSV file", body: "Use the .csv file you already have, or export a fresh one from the bank or app that produced it." },
-  { title: "Upload it here", body: "Drop the CSV file into the converter above — one file, up to 10 MB, no account needed." },
-  { title: "Convert to OFX", body: "Press Convert to OFX. The transactions are read and rebuilt in OFX format, with amounts copied exactly." },
-  { title: "Download the OFX file", body: "Save the converted file — fully free — and open or import it wherever you need the OFX version." },
+  { title: "Export the CSV from your bank", body: "Download the date range you need as CSV. Keep the bank's header row — the converter reads Date, Description and Amount (or a Debit/Credit pair) from it." },
+  { title: "Upload it here", body: "Drop the .csv file into the converter above — one file, up to 10 MB, no account needed. Files are processed in memory and never stored." },
+  { title: "Convert to OFX", body: "Press Convert to OFX. Each readable row becomes an OFX transaction with its date, description, amount and a generated transaction ID." },
+  { title: "Download and import the OFX", body: "The .ofx file downloads automatically. Check the transaction count in the confirmation, then import it into the app that asked for OFX." },
 ];
 
 const H2 = "text-2xl font-extrabold text-zinc-900 dark:text-white";
@@ -72,26 +72,80 @@ export default function CsvToOfxPage() {
       privacyLine="No account needed · Processed in memory, never stored"
       content={
         <>
-          <h2 className={H2}>Why convert a CSV to OFX?</h2>
+          <h2 className={H2}>Your bank gave you a spreadsheet. Your software wants an OFX file.</h2>
           <p className={P}>
-            A CSV is a spreadsheet, not an import file. Many banks hand you one because it opens anywhere, but the app you actually keep your books in often expects OFX — Open Financial Exchange, the standard format banks export for software to read. When the download and the destination disagree on format, the transactions are stuck in the middle.
+            OFX — Open Financial Exchange — is the format banks themselves use to hand transactions to software. It is the plain, unbranded member of the family: QBO is OFX dressed for QuickBooks, QFX is OFX dressed for Quicken, and plain OFX is what a long list of other tools still ask for by name — desktop finance apps like GnuCash and Moneydance, bookkeeping utilities, migration tools, and older accounting software that predates the Intuit variants. When one of those is your destination, a bank CSV is the wrong shape twice over: it is a grid of text with no statement structure, no transaction IDs, and no statement period.
           </p>
           <p className={P}>
-            Converting the CSV to OFX bridges that gap without retyping anything. The rows you already have become a structured OFX statement the receiving app can read in one import, instead of a spreadsheet it cannot open at all.
-          </p>
-          <h2 className={H2M}>What the conversion does</h2>
-          <p className={P}>
-            The converter reads your spreadsheet rows — one row per transaction — and writes each one into the OFX as a transaction with its date, description and amount. Amounts are copied exactly as they appear in the CSV, with no currency conversion and no rounding beyond what is already in the file.
+            The mismatch shows up in ordinary ways. The app&apos;s import menu lists OFX and grey-spreadsheets nothing. Or it does offer a CSV import, but makes you re-map the columns by hand for every single file, every single month. Or the bank used to offer an OFX download next to the CSV and quietly removed it, leaving the spreadsheet as the only export. In each case the transactions themselves are fine — they are just wearing the wrong container. This converter rebuilds that container: your rows go in as a spreadsheet and come out as a structured OFX 1.02 statement, with each transaction carrying a type, a posted date, an amount, your description and memo text, and a unique FITID generated from the transaction itself, so an OFX reader that checks IDs sees a proper statement rather than anonymous rows.
           </p>
           <p className={P}>
-            A CSV carries no bank identity and no closing balance, and the converter invents neither. The OFX you download holds the transactions themselves; if you need a QuickBooks Web Connect file with a balance check instead, the <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a> is built for that destination.
+            One limit is worth stating before you convert, because it shapes everything below: a CSV knows nothing about the account it came from. It has no bank routing identity, no account number and no closing balance, so the OFX built from it cannot honestly carry them either — the account fields are placeholders and there is no ledger balance. Software that simply reads transactions takes the file as it is. Software that validates the file against a specific bank&apos;s identity needs the bank&apos;s own OFX download, and no converter can truthfully substitute for that.
           </p>
-          <h2 className={H2M}>Format notes and where the OFX goes next</h2>
+
+          <h2 className={H2M}>How to convert CSV to OFX with this converter</h2>
           <p className={P}>
-            OFX is the family format underneath several better-known names: QBO files for QuickBooks are OFX 1.02 underneath, and QFX is Quicken's variant of the same structure. An OFX file is therefore a good neutral hand-off — most finance apps that import anything import OFX.
+            <strong>Step 1 — Export the CSV from your bank.</strong> Sign in to your bank and download the period you need as a CSV, keeping the export exactly as the bank produced it. Any normal bank shape works: one header row, then a date column, a description or payee column, and either a single signed amount column or separate debit and credit columns. Do not tidy the file in Excel first unless you have to — a fresh export is the most reliable input there is.
           </p>
           <p className={P}>
-            If your destination is Quicken rather than a general OFX reader, use the <a href="/tools/csv-to-qfx" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QFX converter</a> so the file arrives in Quicken's own variant. And if you later need the data back in a spreadsheet, the <a href="/tools/ofx-to-csv" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">OFX to CSV converter</a> reverses this conversion row for row.
+            <strong>Step 2 — Upload it.</strong> Drop the .csv into the tool at the top of this page. One file at a time, up to 10 MB — that is years of transactions for most accounts. There is no account to create and nothing to install; the file is processed in memory and never stored.
+          </p>
+          <p className={P}>
+            <strong>Step 3 — Convert.</strong> Press <strong>Convert to OFX</strong>. The converter reads your header row and auto-detects which column is the date, which is the description, and whether amounts live in one signed column or a debit/credit pair — a debit becomes a negative amount and a credit stays positive, the sign convention OFX expects. Each readable row becomes one STMTTRN entry in OFX 1.02, sorted by date, with its own generated FITID. A row whose date or amount cannot be read is skipped rather than guessed at.
+          </p>
+          <p className={P}>
+            <strong>Step 4 — Download and check the count.</strong> The .ofx file downloads automatically, fully free, and the confirmation message tells you how many transactions were converted. Compare that number with the rows in your CSV before you import: it is the fastest possible check that nothing was skipped. Then import the OFX into your software and spot-check the first and last transactions against the bank&apos;s own statement.
+          </p>
+
+          <h2 className={H2M}>When a CSV to OFX conversion goes wrong</h2>
+          <h3 className={H3}>The converter says it cannot read the file</h3>
+          <p className={P}>
+            This almost always means the header row was not recognized. The converter looks for familiar headers — Date, Posted, Transaction Date; Description, Payee, Name; Amount, or Debit and Credit. A bank that labels its columns something idiosyncratic, or a file with a title line, an account-summary block or blank rows above the real headers, defeats the detection. The fix is small: delete anything above the header row and, if the bank&apos;s labels are unusual, rename the headers to the plain words above in a copy of the file. If there is no header row at all, add one — without it there is nothing to detect from.
+          </p>
+          <h3 className={H3}>Deposits and payments come out swapped</h3>
+          <p className={P}>
+            Sign handling is the classic CSV trap. Amounts in (parentheses) are read as negative, as accounting notation intends, and a leading minus sign is honored. The dangerous file is the one where withdrawals and deposits are both positive numbers in a single Amount column, distinguished only by a separate Type or Dr/Cr column the converter does not map — in that shape there is genuinely nothing in the amount itself to convert, and the honest repair is to split the export into debit and credit columns before converting. If your bank offers both layouts, the debit/credit layout is the safer download.
+          </p>
+          <h3 className={H3}>Excel touched the file and now rows are missing</h3>
+          <p className={P}>
+            Opening a CSV in Excel and re-saving it rewrites data quietly: dates flip to your computer&apos;s locale format, leading zeros fall off reference numbers, long numbers become scientific notation, and stray subtotal or “Total” rows the bank included get carried along — rows with no readable amount are then skipped at conversion, which is correct behavior but shows up as a short transaction count. If the count in the confirmation is lower than expected, go back to the untouched bank export rather than debugging the edited copy.
+          </p>
+          <h3 className={H3}>The OFX imports, but the account looks generic</h3>
+          <p className={P}>
+            That is the placeholder identity described above, not a defect in your data: the file&apos;s bank ID and account ID are generic values because a CSV contains no real ones, and there is no closing balance for the same reason. Most OFX readers import the transactions and let you attach them to the right account on their side. If your software instead rejects files whose bank identity it cannot verify, it is asking for something only your bank can issue — download the OFX from the bank if it still offers one, and keep this route for the files it does not.
+          </p>
+
+          <h2 className={H2M}>Three routes from CSV to OFX, honestly compared</h2>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr>
+                  <th className={TH}>Route</th>
+                  <th className={TH}>Best for</th>
+                  <th className={TH}>Where it breaks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className={TD}>Map the CSV inside your app&apos;s own importer</td>
+                  <td className={TD}>One small file, one time, in an app with a good CSV importer</td>
+                  <td className={TD}>The mapping work repeats for every file and every bank, and some apps have no CSV import at all</td>
+                </tr>
+                <tr>
+                  <td className={TD}>Download OFX directly from the bank</td>
+                  <td className={TD}>The authoritative file, with real bank identity and closing balance — when the bank still offers it</td>
+                  <td className={TD}>Many banks now offer CSV only, or limit OFX to recent months</td>
+                </tr>
+                <tr>
+                  <td className={TD}>Convert the CSV to OFX here</td>
+                  <td className={TD}>Any bank CSV, any period, for software that reads OFX transactions</td>
+                  <td className={TD}>No real bank identity or closing balance can come from a CSV — the file carries transactions, not the bank&apos;s credentials</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className={P}>
+            If the software asking for a file is actually QuickBooks or Quicken, skip plain OFX and use the variant it expects: the <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a> for QuickBooks, or the <a href="/tools/csv-to-qfx" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QFX converter</a> for Quicken. For the legacy plain-text format some older apps still require, there is a <a href="/tools/csv-to-qif" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QIF converter</a> as well. And the trip is reversible: the <a href="/tools/ofx-to-csv" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">OFX to CSV converter</a> lays any OFX file back out as spreadsheet rows when you need to inspect one.
           </p>
         </>
       }
