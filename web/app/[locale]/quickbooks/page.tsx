@@ -411,6 +411,21 @@ export default async function QuickBooksPage() {
                   { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout → QuickBooks" },
                   { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder" },
                   { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained" },
+                  { href: "/tools/bulk-import-quickbooks", label: "Bulk Importer for QuickBooks" },
+                  { href: "/tools/bulk-export-quickbooks", label: "Bulk Exporter for QuickBooks" },
+                  { href: "/tools/bulk-deleter-quickbooks", label: "Bulk Deleter for QuickBooks" },
+                  { href: "/tools/qbo-to-csv", label: "QBO → CSV Converter" },
+                  { href: "/tools/csv-to-iif", label: "CSV → IIF Converter (QuickBooks Desktop)" },
+                  { href: "/tools/ofx-to-qbo", label: "OFX → QBO + BID Fixer" },
+                  { href: "/tools/iif-to-excel", label: "IIF → Excel Converter" },
+                  { href: "/tools/qbo-file-editor", label: "QBO File Editor" },
+                  { href: "/tools/qbo-merger", label: "QBO File Merger" },
+                  { href: "/tools/qbo-splitter", label: "QBO File Splitter" },
+                  { href: "/tools/square-to-quickbooks", label: "Square → QuickBooks Payout Converter" },
+                  { href: "/tools/etsy-to-quickbooks", label: "Etsy → QuickBooks Converter" },
+                  { href: "/tools/invoice-import-checker", label: "Invoice Import Checker" },
+                  { href: "/tools/1099-checker", label: "1099 Vendor Checker" },
+                  { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator" },
                 ].map((t) => (
                   <Link
                     key={t.href}

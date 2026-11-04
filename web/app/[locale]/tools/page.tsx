@@ -193,15 +193,15 @@ export default function ToolsIndexPage() {
             Small tools. <span className="text-[#2CA01C]">Big bookkeeping headaches,</span> gone.
           </h1>
           <p className="mx-auto max-w-[620px] text-base text-[#50614F]">
-            Nineteen focused tools for QuickBooks users — each one does a single job properly, right in your browser.
+            Twenty-five focused tools for QuickBooks users — each one does a single job properly, right in your browser.
           </p>
           <div className="mt-6 flex justify-center gap-10">
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">19</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">25</span>
               <span className="text-xs text-[#6B7D6A]">tools</span>
             </div>
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">9</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">15</span>
               <span className="text-xs text-[#6B7D6A]">completely free</span>
             </div>
             <div>

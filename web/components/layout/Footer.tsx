@@ -52,6 +52,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
         { label: t("shopifyToQuickbooks"),      href: "/tools/shopify-to-quickbooks" },
         { label: t("reconciliationFinder"),     href: "/tools/reconciliation-finder" },
         { label: t("qboImportErrors"),          href: "/tools/qbo-import-errors" },
+        { label: t("qboChecker"),               href: "/tools/qbo-checker" },
         { label: t("qboToCsv"),                 href: "/tools/qbo-to-csv" },
         { label: t("ofxToQboFixer"),            href: "/tools/ofx-to-qbo" },
         { label: t("squareToQuickbooks"),       href: "/tools/square-to-quickbooks" },
@@ -172,7 +173,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-9 py-[52px] lg:grid-cols-[1.4fr_1fr_1.5fr_1fr_1fr]">
+        <div className="grid grid-cols-2 gap-9 py-[52px] lg:grid-cols-[1.3fr_0.9fr_1.25fr_1.25fr_0.9fr_0.9fr]">
           <div className="col-span-2 lg:col-span-1">
             <p className="max-w-[270px] text-[13px] leading-[1.7] text-[#B9C2B2]">
               {t("tagline")}
@@ -214,23 +215,35 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
             </ul>
           </div>
 
+          {/* All 27 QuickBooks links, split across two columns so every
+              tool is in the footer without one very long column. */}
           <div>
             <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
               {qbCol.heading}
             </h3>
             <ul className="space-y-[10px]">
-              {qbCol.links.slice(0, 8).map(({ label, href }) => (
+              {qbCol.links.slice(0, 14).map(({ label, href }) => (
                 <li key={label}>
                   <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
                     {label}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/quickbooks" className="text-[13.5px] font-bold text-[#2CA01C]">
-                  {t("allQuickbooksTools")} →
-                </Link>
-              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
+              {t("moreQuickbooksTools")}
+            </h3>
+            <ul className="space-y-[10px]">
+              {qbCol.links.slice(14).map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

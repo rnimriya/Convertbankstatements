@@ -218,6 +218,7 @@
     "shopifyToQuickbooks": "Shopify to QuickBooks",
     "reconciliationFinder": "Reconciliation Difference Finder",
     "qboImportErrors": "QBO Import Errors, Explained",
+    "qboChecker": "QBO File Checker",
     "qboToCsv": "QBO to CSV Converter",
     "ofxToQboFixer": "OFX to QBO Converter & Fixer",
     "csvToIif": "CSV to IIF (QuickBooks Desktop)",
@@ -239,7 +240,8 @@
     "headlineAccent": "out.",
     "ctaStart": "Start converting free",
     "ctaNote": "8 pages free · No card needed",
-    "allQuickbooksTools": "All QuickBooks tools"
+    "allQuickbooksTools": "All QuickBooks tools",
+    "moreQuickbooksTools": "More QuickBooks Tools"
   },
   "auth": {
     "loginTitle": "Welcome back",

@@ -91,6 +91,21 @@ export default async function HomePage() {
     { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout to QuickBooks", img: "/tools/tool-shopify.webp", desc: "Convert Shopify payouts to QBO" },
     { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder", img: "/tools/tool-recon.webp", desc: "Find what does not match, fast" },
     { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained", img: "/tools/tool-errors.webp", desc: "Decode QuickBooks import errors" },
+    { href: "/tools/bulk-import-quickbooks", label: "Bulk Importer for QuickBooks", img: "/tools/tool-csv.webp", desc: "Merge many CSVs into one QBO or IIF file" },
+    { href: "/tools/bulk-export-quickbooks", label: "Bulk Exporter for QuickBooks", img: "/tools/tool-recon.webp", desc: "Combine up to 10 QBO files into one sheet" },
+    { href: "/tools/bulk-deleter-quickbooks", label: "Bulk Deleter for QuickBooks", img: "/tools/tool-duplicates.webp", desc: "Remove duplicates from a QBO file" },
+    { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", img: "/tools/tool-csv.webp", desc: "Turn a QBO file back into a clean CSV" },
+    { href: "/tools/csv-to-iif", label: "CSV to IIF Converter", img: "/tools/tool-errors.webp", desc: "Build IIF files for QuickBooks Desktop" },
+    { href: "/tools/ofx-to-qbo", label: "OFX to QBO + BID Fixer", img: "/tools/tool-checker.webp", desc: "Fix broken OFX files QuickBooks rejects" },
+    { href: "/tools/iif-to-excel", label: "IIF to Excel Converter", img: "/tools/tool-receipt.webp", desc: "Turn IIF exports into readable sheets" },
+    { href: "/tools/qbo-file-editor", label: "QBO File Editor", img: "/tools/tool-checker.webp", desc: "Edit dates, names and amounts in a QBO" },
+    { href: "/tools/qbo-merger", label: "QBO File Merger", img: "/tools/tool-recon.webp", desc: "Combine several QBO files into one" },
+    { href: "/tools/qbo-splitter", label: "QBO File Splitter", img: "/tools/tool-errors.webp", desc: "Split a big QBO into smaller chunks" },
+    { href: "/tools/square-to-quickbooks", label: "Square to QuickBooks", img: "/tools/tool-shopify.webp", desc: "Convert Square payouts to QBO" },
+    { href: "/tools/etsy-to-quickbooks", label: "Etsy to QuickBooks", img: "/tools/tool-amazon.webp", desc: "Convert Etsy payment files to QBO" },
+    { href: "/tools/invoice-import-checker", label: "Invoice Import Checker", img: "/tools/tool-checker.webp", desc: "Check invoice files before they fail" },
+    { href: "/tools/1099-checker", label: "1099 Vendor Checker", img: "/tools/tool-receipt.webp", desc: "See which vendors cross the 1099 limit" },
+    { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator", img: "/tools/tool-duplicates.webp", desc: "Build a balanced payroll journal entry" },
   ];
   const NUMS = [
     { dot: "↗", num: "15", sfx: "s", cap: "multi-page PDFs converted, start to finish" },
@@ -305,10 +320,10 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
-                <Label>05 / Free QuickBooks tools</Label>
-                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">Ten free tools. <span className="text-[#2CA01C]">Scan free.</span></h2>
+                <Label>05 / QuickBooks tools</Label>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">All 25 tools. <span className="text-[#2CA01C]">Fifteen free.</span></h2>
               </div>
-              <p className="text-[#5B665C] leading-relaxed max-w-sm">Pick one, scan free, no account needed. QBO downloads are on Pro.</p>
+              <p className="text-[#5B665C] leading-relaxed max-w-sm">Pick any tool — fifteen are completely free, no account needed.</p>
             </div>
             <div className="grid sm:grid-cols-2 gap-3.5">
               {TOOLS.map((t) => (
