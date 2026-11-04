@@ -8,6 +8,7 @@ import { Badge } from"@/components/ui/Badge";
 import { Alert } from "@/components/ui/Alert";
 import { AnalyticsDashboard } from "./AnalyticsDashboard";
 import { PreImportCheck } from "@/components/tools/PreImportCheck";
+import { ReviewPrompt } from "@/components/review/ReviewPrompt";
 
 interface Props {
   result: ProcessResult & { is_demo?: boolean };
@@ -337,6 +338,8 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
             )}
           </div>
         )}
+
+        <ReviewPrompt />
       </div>
 
       {/* Transaction preview */}
