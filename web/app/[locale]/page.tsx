@@ -6,10 +6,6 @@ import { Link } from"@/i18n/navigation";
 import {
   ArrowRight, ArrowUpRight, Zap, Lock, Globe,
   Download, Upload, Shield, Clock, CreditCard, FileCheck, FileText,
-  ArrowRightLeft, BookOpen, Calculator, ClipboardCheck, ClipboardList,
-  FileDown, FileSpreadsheet, FileUp, Layers, Package, Pencil, Receipt,
-  Scale, ScanSearch, Scissors, ShieldCheck, ShoppingBag, ShoppingCart,
-  Store, Trash2, Wallet, Wrench, type LucideIcon,
 } from"lucide-react";
 import { Footer } from"@/components/layout/Footer";
 import { Navbar } from"@/components/layout/Navbar";
@@ -88,35 +84,35 @@ export default async function HomePage() {
     href: string;
     label: string;
     desc: string;
-    icon: LucideIcon;
+    img: string;
     tag?: "free" | "pop";
   };
   const TOOLS: HomeTool[] = [
-    { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", desc: "Convert any CSV or Excel file into a QBO file QuickBooks imports cleanly.", icon: ArrowRightLeft, tag: "pop" },
-    { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", desc: "Turn a QBO file back into a clean CSV or Excel sheet you can edit.", icon: FileDown, tag: "free" },
-    { href: "/tools/csv-to-iif", label: "CSV to IIF Converter", desc: "Build IIF files for QuickBooks Desktop imports — no manual mapping pain.", icon: FileUp, tag: "free" },
-    { href: "/tools/ofx-to-qbo", label: "OFX to QBO + BID Fixer", desc: "Fix broken OFX/QFX files and the INTU.BID error so QuickBooks accepts them.", icon: Wrench, tag: "free" },
-    { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QuickBooks", desc: "Snap a receipt and get a QuickBooks-ready expense entry from it.", icon: Receipt },
-    { href: "/tools/bulk-import-quickbooks", label: "Bulk Importer for QuickBooks", desc: "Merge many CSV files, map the columns once, and build one QBO or IIF import file.", icon: Upload, tag: "free" },
-    { href: "/tools/bulk-export-quickbooks", label: "Bulk Exporter for QuickBooks", desc: "Combine up to 10 QBO, OFX or QFX files into one clean CSV or Excel sheet.", icon: Download, tag: "free" },
-    { href: "/tools/iif-to-excel", label: "IIF to Excel Converter", desc: "Turn a QuickBooks Desktop IIF export into a readable Excel or CSV sheet.", icon: FileSpreadsheet, tag: "free" },
-    { href: "/tools/free-stripe-to-quickbooks", label: "Stripe to QuickBooks", desc: "Convert Stripe payouts into QBO entries with fees split out properly.", icon: CreditCard },
-    { href: "/tools/free-paypal-to-quickbooks", label: "PayPal to QuickBooks", desc: "Turn PayPal payout files into clean QuickBooks imports.", icon: Wallet },
-    { href: "/tools/amazon-to-quickbooks", label: "Amazon to QuickBooks", desc: "Amazon seller payouts converted into QuickBooks-ready files.", icon: ShoppingCart },
-    { href: "/tools/shopify-to-quickbooks", label: "Shopify to QuickBooks", desc: "Shopify payout reports mapped and converted for QuickBooks.", icon: ShoppingBag },
-    { href: "/tools/square-to-quickbooks", label: "Square to QuickBooks", desc: "Square payouts to QBO — sales, fees and taxes in the right lines.", icon: Store, tag: "free" },
-    { href: "/tools/etsy-to-quickbooks", label: "Etsy to QuickBooks", desc: "Etsy payment files converted into QuickBooks-ready imports.", icon: Package, tag: "free" },
-    { href: "/tools/free-qbo-cleanup-checker", label: "QBO Cleanup Checker", desc: "Scan your QBO file for duplicates and mess — free report, no signup.", icon: ScanSearch },
-    { href: "/tools/qbo-checker", label: "QBO File Checker", desc: "Verify a QBO file's balance chain and structure before you import it.", icon: ShieldCheck },
-    { href: "/tools/qbo-import-errors", label: "QBO Import Error Decoder", desc: "Paste a QuickBooks import error and learn what it means and how to fix it.", icon: BookOpen },
-    { href: "/tools/reconciliation-finder", label: "Reconciliation Finder", desc: "Compare a statement against QuickBooks to find missing or duplicate entries.", icon: Scale },
-    { href: "/tools/qbo-splitter", label: "QBO File Splitter", desc: "Split a big QBO file into smaller chunks QuickBooks can handle.", icon: Scissors, tag: "free" },
-    { href: "/tools/bulk-deleter-quickbooks", label: "Bulk Deleter for QuickBooks", desc: "Remove duplicate or unwanted transactions from a QBO file before you import it.", icon: Trash2, tag: "free" },
-    { href: "/tools/qbo-file-editor", label: "QBO File Editor", desc: "Edit dates, names and amounts inside a QBO file, with find-and-replace for payees.", icon: Pencil, tag: "free" },
-    { href: "/tools/qbo-merger", label: "QBO File Merger", desc: "Combine several QBO files from the same account into one clean file.", icon: Layers, tag: "free" },
-    { href: "/tools/invoice-import-checker", label: "Invoice Import Checker", desc: "Check invoice files for errors before they fail inside QuickBooks.", icon: ClipboardCheck, tag: "free" },
-    { href: "/tools/1099-checker", label: "1099 Vendor Checker", desc: "Check which vendors cross the 1099 threshold and need forms.", icon: ClipboardList, tag: "free" },
-    { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator", desc: "Build a balanced payroll journal entry for QuickBooks in minutes.", icon: Calculator, tag: "free" },
+    { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", desc: "Convert any CSV or Excel file into a QBO file QuickBooks imports cleanly.", img: "/tools/tool-csv.webp", tag: "pop" },
+    { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", desc: "Turn a QBO file back into a clean CSV or Excel sheet you can edit.", img: "/tools/tool-qbo-csv.webp", tag: "free" },
+    { href: "/tools/csv-to-iif", label: "CSV to IIF Converter", desc: "Build IIF files for QuickBooks Desktop imports — no manual mapping pain.", img: "/tools/tool-csv-iif.webp", tag: "free" },
+    { href: "/tools/ofx-to-qbo", label: "OFX to QBO + BID Fixer", desc: "Fix broken OFX/QFX files and the INTU.BID error so QuickBooks accepts them.", img: "/tools/tool-ofx-fix.webp", tag: "free" },
+    { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QuickBooks", desc: "Snap a receipt and get a QuickBooks-ready expense entry from it.", img: "/tools/tool-receipt.webp" },
+    { href: "/tools/bulk-import-quickbooks", label: "Bulk Importer for QuickBooks", desc: "Merge many CSV files, map the columns once, and build one QBO or IIF import file.", img: "/tools/tool-bulk-import.webp", tag: "free" },
+    { href: "/tools/bulk-export-quickbooks", label: "Bulk Exporter for QuickBooks", desc: "Combine up to 10 QBO, OFX or QFX files into one clean CSV or Excel sheet.", img: "/tools/tool-bulk-export.webp", tag: "free" },
+    { href: "/tools/iif-to-excel", label: "IIF to Excel Converter", desc: "Turn a QuickBooks Desktop IIF export into a readable Excel or CSV sheet.", img: "/tools/tool-iif-excel.webp", tag: "free" },
+    { href: "/tools/free-stripe-to-quickbooks", label: "Stripe to QuickBooks", desc: "Convert Stripe payouts into QBO entries with fees split out properly.", img: "/tools/tool-stripe.webp" },
+    { href: "/tools/free-paypal-to-quickbooks", label: "PayPal to QuickBooks", desc: "Turn PayPal payout files into clean QuickBooks imports.", img: "/tools/tool-paypal.webp" },
+    { href: "/tools/amazon-to-quickbooks", label: "Amazon to QuickBooks", desc: "Amazon seller payouts converted into QuickBooks-ready files.", img: "/tools/tool-amazon.webp" },
+    { href: "/tools/shopify-to-quickbooks", label: "Shopify to QuickBooks", desc: "Shopify payout reports mapped and converted for QuickBooks.", img: "/tools/tool-shopify.webp" },
+    { href: "/tools/square-to-quickbooks", label: "Square to QuickBooks", desc: "Square payouts to QBO — sales, fees and taxes in the right lines.", img: "/tools/tool-square.webp", tag: "free" },
+    { href: "/tools/etsy-to-quickbooks", label: "Etsy to QuickBooks", desc: "Etsy payment files converted into QuickBooks-ready imports.", img: "/tools/tool-etsy.webp", tag: "free" },
+    { href: "/tools/free-qbo-cleanup-checker", label: "QBO Cleanup Checker", desc: "Scan your QBO file for duplicates and mess — free report, no signup.", img: "/tools/tool-duplicates.webp" },
+    { href: "/tools/qbo-checker", label: "QBO File Checker", desc: "Verify a QBO file's balance chain and structure before you import it.", img: "/tools/tool-checker.webp" },
+    { href: "/tools/qbo-import-errors", label: "QBO Import Error Decoder", desc: "Paste a QuickBooks import error and learn what it means and how to fix it.", img: "/tools/tool-errors.webp" },
+    { href: "/tools/reconciliation-finder", label: "Reconciliation Finder", desc: "Compare a statement against QuickBooks to find missing or duplicate entries.", img: "/tools/tool-recon.webp" },
+    { href: "/tools/qbo-splitter", label: "QBO File Splitter", desc: "Split a big QBO file into smaller chunks QuickBooks can handle.", img: "/tools/tool-splitter.webp", tag: "free" },
+    { href: "/tools/bulk-deleter-quickbooks", label: "Bulk Deleter for QuickBooks", desc: "Remove duplicate or unwanted transactions from a QBO file before you import it.", img: "/tools/tool-bulk-delete.webp", tag: "free" },
+    { href: "/tools/qbo-file-editor", label: "QBO File Editor", desc: "Edit dates, names and amounts inside a QBO file, with find-and-replace for payees.", img: "/tools/tool-editor.webp", tag: "free" },
+    { href: "/tools/qbo-merger", label: "QBO File Merger", desc: "Combine several QBO files from the same account into one clean file.", img: "/tools/tool-merger.webp", tag: "free" },
+    { href: "/tools/invoice-import-checker", label: "Invoice Import Checker", desc: "Check invoice files for errors before they fail inside QuickBooks.", img: "/tools/tool-invoice.webp", tag: "free" },
+    { href: "/tools/1099-checker", label: "1099 Vendor Checker", desc: "Check which vendors cross the 1099 threshold and need forms.", img: "/tools/tool-1099.webp", tag: "free" },
+    { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator", desc: "Build a balanced payroll journal entry for QuickBooks in minutes.", img: "/tools/tool-payroll.webp", tag: "free" },
   ];
   const NUMS = [
     { dot: "↗", num: "15", sfx: "s", cap: "multi-page PDFs converted, start to finish" },
@@ -341,16 +337,13 @@ export default async function HomePage() {
                 three cards per row on desktop. */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {TOOLS.map((t) => {
-                const Icon = t.icon;
                 return (
                   <Link
                     key={t.href}
                     href={t.href}
                     className="group flex flex-col rounded-[22px] border border-[#E3EDE0] bg-white p-5 shadow-[0_1px_3px_rgba(11,31,22,0.05)] transition-colors hover:border-[#CBE3C4]"
                   >
-                    <span className="mb-3 flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-[#EFF7ED] text-[#2CA01C]">
-                      <Icon className="h-6 w-6" strokeWidth={1.8} />
-                    </span>
+                    <img src={t.img} alt="" width={52} height={52} loading="lazy" className="mb-3 h-[52px] w-[52px] rounded-[14px] bg-[#F2F4EC] object-contain" />
                     <span className="font-display text-[15.5px] font-bold text-[#0B1F16]">{t.label}</span>
                     <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#5C6F5B]">{t.desc}</span>
                     <span className="mt-3 flex items-center justify-between">
