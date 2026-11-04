@@ -1,6 +1,6 @@
 import Link from"next/link";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
-import { DollarSign, ArrowRight } from"lucide-react";
+import { DollarSign, ArrowRight, Upload, Download, Trash2, Pencil, Layers, FileSpreadsheet } from"lucide-react";
 import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
 import { PricingCards } from"@/components/PricingCards";
@@ -23,6 +23,7 @@ const COMPARE_ROWS = [
   { feature:"Excel export", free:"✓", basic:"✓", pro:"✓", business:"✓" },
   { feature:"OFX / QFX export", free:"—", basic:"—", pro:"✓", business:"✓" },
   { feature:"QBO export (QuickBooks)", free:"—", basic:"—", pro:"✓", business:"✓" },
+  { feature:"QuickBooks bulk tools (Importer, Exporter, Deleter, Editor, Merger)", free:"✓", basic:"✓", pro:"✓", business:"✓" },
   { feature:"Google Sheets", free:"—", basic:"—", pro:"✓", business:"✓" },
   { feature:"API access", free:"—", basic:"—", pro:"—", business:"✓" },
   { feature:"Team seats", free:"1", basic:"1", pro:"1", business:"5" },
@@ -148,6 +149,44 @@ export default async function PricingPage() {
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+
+      {/* Bulk suite value section */}
+      <div className="bg-white px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-4 text-center"><span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Included free</span></p>
+          <h2 className="text-center font-display text-2xl font-bold text-zinc-900 sm:text-3xl">The QuickBooks bulk suite is free — on every plan</h2>
+          <p className="mx-auto mt-4 max-w-3xl text-center text-sm leading-relaxed text-zinc-600">
+            Bulk importing, exporting, deleting, editing and merging QuickBooks files is sold as a premium add-on elsewhere:
+            SaasAnt&apos;s bulk tools start at <strong className="text-zinc-800">$25/month</strong>, and Transaction Pro&apos;s
+            Importer, Exporter &amp; Deleter bundle runs <strong className="text-zinc-800">$250/year</strong>. Here, the same
+            file-based jobs are free for every user — no plan upgrade, no signup.
+          </p>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { href: "/tools/bulk-import-quickbooks", name: "Bulk Importer for QuickBooks", desc: "Merge many CSV files, map columns once, build one QBO or IIF import file.", Icon: Upload },
+              { href: "/tools/bulk-export-quickbooks", name: "Bulk Exporter for QuickBooks", desc: "Combine up to 10 QBO, OFX or QFX files into one clean CSV or Excel sheet.", Icon: Download },
+              { href: "/tools/bulk-deleter-quickbooks", name: "Bulk Deleter for QuickBooks", desc: "Remove duplicate or unwanted transactions from a QBO file before importing.", Icon: Trash2 },
+              { href: "/tools/qbo-file-editor", name: "QBO File Editor", desc: "Edit dates, names and amounts inside a QBO file, with find-and-replace.", Icon: Pencil },
+              { href: "/tools/qbo-merger", name: "QBO File Merger", desc: "Combine several QBO files from the same account into one clean file.", Icon: Layers },
+              { href: "/tools/iif-to-excel", name: "IIF to Excel Converter", desc: "Turn a QuickBooks Desktop IIF export into a readable Excel or CSV sheet.", Icon: FileSpreadsheet },
+            ].map(({ href, name, desc, Icon }) => (
+              <Link key={href} href={href} className="group flex flex-col rounded-[22px] border border-[#E3EDE0] bg-white p-5 shadow-[0_1px_3px_rgba(11,31,22,0.05)] hover:border-[#CBE3C4]">
+                <span className="mb-3 flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-[#EFF7ED] text-[#2CA01C]">
+                  <Icon className="h-6 w-6" strokeWidth={1.8} />
+                </span>
+                <span className="font-display text-[15.5px] font-bold text-[#0B1F16]">{name}</span>
+                <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#5C6F5B]">{desc}</span>
+                <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-[#2CA01C]">
+                  Open tool <ArrowRight className="h-3.5 w-3.5" />
+                </span>
+              </Link>
+            ))}
+          </div>
+          <p className="mt-8 text-center text-[13px] text-zinc-500">
+            These six are part of a library of <Link href="/tools" className="font-semibold text-[#2CA01C] underline underline-offset-2">15 completely free QuickBooks tools</Link> — free with every plan, including the free one.
+          </p>
         </div>
       </div>
 
