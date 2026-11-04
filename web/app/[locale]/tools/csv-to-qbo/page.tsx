@@ -136,8 +136,8 @@ export default function CsvToQboPage() {
             </table>
           </div>
           <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A bank transaction spreadsheet with dates, descriptions and amounts ready to map into QuickBooks fields" className="w-full shrink-0 rounded-[16px] sm:w-[300px]" loading="lazy" />
-            <figcaption className="text-sm leading-relaxed text-[#33502F]"><span className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#007A33]">Illustration</span>A typical bank CSV export before conversion — dates, descriptions and amounts in the bank&rsquo;s own columns, ready to be mapped into QuickBooks fields.</figcaption>
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A bank transaction spreadsheet with dates, descriptions and amounts ready to map into QuickBooks fields" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">A typical bank CSV export before conversion — dates, descriptions and amounts in the bank&rsquo;s own columns, ready to be mapped into QuickBooks fields.</figcaption>
           </figure>
 
           <h2 className={H2M}>Direct CSV upload vs a converted QBO file</h2>
@@ -265,8 +265,8 @@ export default function CsvToQboPage() {
           </p>
 
           <figure className="mt-10 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
-            <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper reviewing converted transactions against a bank statement before importing them" className="w-full shrink-0 rounded-[16px] sm:w-[300px]" loading="lazy" />
-            <figcaption className="text-sm leading-relaxed text-[#33502F]"><span className="mb-1.5 block text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#007A33]">Illustration</span>A two-minute review before importing saves an hour of cleanup after — checking names, amounts and duplicates while the file is still outside your books.</figcaption>
+            <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper reviewing converted transactions against a bank statement before importing them" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">A two-minute review before importing saves an hour of cleanup after — checking names, amounts and duplicates while the file is still outside your books.</figcaption>
           </figure>
 
           <h2 className={H2M}>The two-minute check that prevents reconciliation pain</h2>
