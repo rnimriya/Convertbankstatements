@@ -21,43 +21,27 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "How do I get a paper receipt into QuickBooks?",
-    a: "Take a clear, straight-on photo of the full receipt and upload it here. AI reads the vendor, date, line items, and totals; you review and edit every line (and the category) before downloading. The CSV is free; a QBO of the expense lines is included on Pro.",
+    a: "Take a clear, straight-on photo of the full receipt and upload it here. AI reads the vendor, date, line items and totals; you review and edit every line and its category before downloading. The CSV is free with a free account; the QBO of the expense lines is on Pro.",
   },
   {
-    q: "How accurate is the receipt reading?",
-    a: "It handles clean printed receipts well, but handwriting, faded thermal print, folds, and glare can cause misreads — which is why every line is editable and the total is recomputed live as you fix things. Always compare the total to the receipt before importing.",
+    q: "Does QuickBooks have its own receipt scanner?",
+    a: "QuickBooks Online has receipt capture in its mobile app: it snaps one receipt and attaches it to an expense inside QBO. QuickBooks Desktop has no equivalent. This tool is the file route — it turns a receipt photo or PDF (one receipt per upload) into an importable CSV or QBO expense file, which also works for Desktop and for a shoebox of paper receipts worked through one at a time.",
   },
   {
-    q: "Are the expenses categorized automatically?",
-    a: "Yes — each line gets a suggested category (Food & Dining, Fuel, Office Supplies, and so on) from the same vendor-rule engine our statement converter uses. You can change any category in the dropdown before downloading.",
-  },
-  {
-    q: "Can I upload a PDF instead of a photo?",
-    a: "Yes. PDF receipts go through the same extraction — text PDFs are read directly, scanned PDFs through AI vision.",
-  },
-  {
-    q: "How do I import the QBO into QuickBooks?",
-    a: "Import it like any bank file: QuickBooks Online via Transactions → Bank transactions → Upload a file, or Desktop via File → Utilities → Import → Web Connect Files. Each receipt line arrives as an expense transaction with a unique ID; categorize and reconcile as usual.",
-  },
-  {
-    q: "Does QuickBooks have a receipt scanner?",
-    a: "QuickBooks Online has receipt capture in its mobile app, which snaps a photo and attaches it to an expense inside QBO — handy for one-off receipts, but it only works inside QBO. This tool covers the rest of the pile: it turns any receipt photo into an importable QBO or CSV expense file with vendor, date, and totals already extracted, so it also works for QuickBooks Desktop and for shoeboxes of paper receipts a client hands you.",
-  },
-  {
-    q: "What if the extracted total doesn't match my receipt?",
+    q: "What if the extracted total does not match my receipt?",
     a: "Trust the paper, not the extraction. The review screen recomputes the total live as you edit, so fix the misread line — a 3 read as an 8 is the classic — until the screen total equals the printed total to the cent. Only download once they match; that match is your proof the entry is right.",
   },
   {
-    q: "Can it read receipts in other currencies?",
-    a: "It reads what is printed, including foreign-currency totals on travel receipts. Check the currency in the review step: the amount is usually read correctly while the currency may be assumed from the vendor's country. Enter the expense in QuickBooks in the receipt's own currency and let QuickBooks convert at the card rate.",
+    q: "How accurate is the receipt reading?",
+    a: "It handles clean printed receipts well, but handwriting, faded thermal print, folds and glare can cause misreads — which is why every line is editable and the total is recomputed as you fix things. Always compare the total to the receipt and to the card charge before importing.",
   },
   {
-    q: "Should I keep the paper receipt after converting?",
-    a: "Yes — keep the photo or the paper. The QBO file carries the numbers into QuickBooks, but the receipt itself is the supporting document your accountant (and the IRS) wants behind the expense. Save the image with the same date and vendor name as the entry and it stays findable years later.",
+    q: "Can I upload a PDF instead of a photo?",
+    a: "Yes. PDF receipts go through the same extraction — text PDFs are read directly, scanned PDFs through AI vision. Emailed receipts and vendor PDFs therefore end up in the same format as photographed paper receipts, with the same review step in between.",
   },
   {
-    q: "Is my receipt uploaded to your servers?",
-    a: "No. Your receipt is processed in memory to extract the line items and is not stored afterwards. We never sell or share your financial data.",
+    q: "Is my receipt stored, and what is free?",
+    a: "Your receipt is processed in memory to extract the line items and is not stored afterwards. Extraction and the CSV download are free with a free account (an account is required to use this tool); the .QBO download is on the Pro plan. We never sell or share your financial data.",
   },
 ];
 
@@ -148,14 +132,6 @@ export default function ReceiptToQuickBooksPage() {
             history attached to you instead of floating in a browser tab. Nothing is stored after
             processing; the file you download is the record.
           </p>
-          <p className={P}>
-            Not every receipt is paper. Emailed receipts and vendor PDFs go through the same
-            extraction — text PDFs are read directly, scans through the same vision chain as
-            photos — so the pile from your inbox and the pile from your glovebox end up in one
-            consistent format, with the same review step in between. That consistency is what makes
-            a month of expenses import as one calm batch instead of twelve small arguments.
-          </p>
-
           <h2 className={H2M}>A worked example: one receipt, read end to end</h2>
           <p className={P}>
             Take an ordinary office-supply run (sample receipt, shown for illustration). This is
@@ -257,15 +233,6 @@ export default function ReceiptToQuickBooksPage() {
             hunts for at month-end.
           </p>
 
-          <p className={P}>
-            One habit ties this together: process receipts in the week they happen, in small
-            batches. The photos are sharper in your camera roll than in a drawer, the business
-            purpose is still in your head for the note, and the totals can be matched against card
-            charges that are still on your banking app's first screen. Ten receipts a week is a
-            five-minute routine; two hundred in December is a lost weekend — and the difference is
-            nothing but timing.
-          </p>
-
           <h2 className={H2M}>A shoebox every month? Make it a system</h2>
           <p className={P}>
             One receipt is a chore; a client's monthly envelope of them is a workflow. Your free
@@ -283,7 +250,11 @@ export default function ReceiptToQuickBooksPage() {
             <a href="/quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">statement-to-QBO converter</a>{" "}
             handles full bank statements with a balance check, and the{" "}
             <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO Converter</a>{" "}
-            turns any bank CSV export into the same QuickBooks-ready format.
+            turns any bank CSV export into the same QuickBooks-ready format. And when the
+            shoebox arrives alongside a folder of monthly bank CSVs, the{" "}
+            <a href="/tools/bulk-import-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Bulk Importer for QuickBooks</a>{" "}
+            merges those CSVs with one column mapping — receipts are still worked one at a time
+            here, each with its own review.
           </p>
         </>
       }

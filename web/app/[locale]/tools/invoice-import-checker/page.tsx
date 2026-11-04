@@ -21,43 +21,27 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "What does the invoice import checker validate?",
-    a: "Every row is checked for what QuickBooks Online invoice import needs: a customer name, a readable invoice date, a product or service item, and a positive amount. It also flags duplicate invoice numbers and amounts, quantities, or rates it cannot read — before any of them can fail inside QuickBooks.",
+    a: "Every row of your invoice CSV against what QuickBooks Online's invoice import needs: a customer on every row, a readable invoice date, a product/service item per line, numeric quantity and rate, and a positive amount. It also applies the safe fixes — dates reformatted to MM/DD/YYYY, currency symbols cleaned, a missing amount calculated from quantity × rate — and returns a cleaned CSV holding only the rows with no errors.",
   },
   {
-    q: "What fixes does it apply automatically?",
-    a: "Three safe fixes. Dates are reformatted to MM/DD/YYYY, as QuickBooks expects. Currency symbols and thousands separators are cleaned out of amounts, turning $1,200.00 into 1200.00. When an amount is missing but quantity and rate are present, it is calculated from quantity × rate. Each fix is marked on its row.",
-  },
-  {
-    q: "Which columns does my invoice CSV need?",
-    a: "At minimum, a customer column and an invoice date column. The checker recognizes common header names — Customer, Customer Name, Client, Invoice Date, Txn Date — and also picks up invoice number, due date, item, quantity, rate, and amount columns when they are present. Missing essentials are reported, not guessed.",
-  },
-  {
-    q: "What happens to rows with errors?",
-    a: "They stay visible in the report with the error written on the row, and they are left out of the downloaded QuickBooks-ready CSV. One bad row cannot stall the import: the clean rows go in now, and you fix the flagged rows in your source file and import them later.",
-  },
-  {
-    q: "What format is the downloaded CSV in?",
-    a: "The download uses the column layout QuickBooks Online invoice import accepts: InvoiceNo, Customer, InvoiceDate, DueDate, ItemName, ItemQuantity, ItemRate, and ItemAmount, with all dates in MM/DD/YYYY. Map those columns on the QuickBooks import screen and the rows import as single-line invoices.",
-  },
-  {
-    q: "Is my data uploaded or stored?",
-    a: "Your file is processed in memory to build the report and the cleaned download, and it is not stored afterwards — the report and the fixed CSV exist only in your browser session and your download. We never sell or share your financial data.",
-  },
-  {
-    q: "My dates are in ISO format, like 2026-01-15. Do I need to fix them first?",
-    a: "No. Any readable date that is not already in MM/DD/YYYY is reformatted automatically, and the change is shown on the row as a fix. Mixed formats in one file are fine — each date is converted on its own. Only a date the checker cannot read becomes an error.",
+    q: "How many invoices can QuickBooks Online import at once?",
+    a: "QuickBooks Online's invoice import accepts up to 1,000 rows and 100 invoices per upload. This checker does not impose those caps — it checks files of any size — so use its row count to plan your batches: a file over 1,000 rows, or spanning more than 100 distinct invoice numbers, has to be split into uploads that stay under both limits.",
   },
   {
     q: "What if the same invoice number appears twice in my file?",
-    a: "The first use is treated as the original. The second row is flagged as a duplicate, with the line where the number first appeared, and it is held out of the download — QuickBooks would reject it or create an invoice with the same number, so it never imports silently.",
+    a: "The checker flags it as a duplicate document number, naming the line where the number was first used. One caution: multiple lines of one invoice legitimately share an invoice number in some exports, while in QuickBooks a repeated number across different invoices causes exactly the duplicate-number error people hit at upload. Check the flagged rows — if they are separate invoices, renumber one before uploading.",
   },
   {
-    q: "Can the checker calculate a missing invoice amount?",
-    a: "Yes, when the row has both a quantity and a rate: the amount is calculated as quantity × rate and marked as a fix, so the row can import. If quantity or rate is missing or unreadable, nothing can be calculated safely, and the row is flagged as an error.",
+    q: "Do customer and item names have to match QuickBooks exactly?",
+    a: "Yes — QuickBooks Online matches customers and products/services by name at import, and a name that does not match an existing one can fail the row or create a duplicate customer or item. This checker validates the file itself (it cannot see your QuickBooks lists), so before uploading, compare the customer and item names in the cleaned CSV against the names in your QuickBooks — spelling, punctuation and all.",
   },
   {
-    q: "Does every row need a product or service item?",
-    a: "Yes — QuickBooks attaches every invoice line to a product or service, so a row with no item is flagged as an error. If your export names the column Description or Product/Service instead of Item, the checker still finds it; only a genuinely blank item holds the row back.",
+    q: "What happens to rows with errors?",
+    a: "They are left out of the downloaded CSV, with the row-by-row report naming each error and the line it sits on. A bad row therefore cannot fail the whole QuickBooks upload. Fix the row in your source file, re-check it, and import it in the next batch.",
+  },
+  {
+    q: "Is my data uploaded or stored, and is the checker free?",
+    a: "The checker is fully free with no account. Your CSV is processed in memory to build the report and the cleaned download, and is not stored afterwards. We never sell or share your financial data.",
   },
 ];
 
@@ -148,6 +132,16 @@ export default function InvoiceImportCheckerPage() {
             <figcaption className="text-sm leading-relaxed text-[#33502F]">Invoice rows in a spreadsheet, mid-check.</figcaption>
           </figure>
 
+          <p className={P}>
+            One limit sits above the row rules: QuickBooks Online's invoice import accepts at
+            most <strong className="text-zinc-900 dark:text-white">1,000 rows and 100 invoices per upload</strong>.
+            A perfectly clean file that crosses either cap still fails at upload time, so the
+            batch is part of the check: count your rows (the summary above does it for you),
+            count your distinct invoice numbers, and split a large file into uploads that stay
+            under both. Splitting by invoice keeps multi-line invoices whole — never cut
+            through the middle of one invoice's rows.
+          </p>
+
           <h2 className={H2M}>What the checker enforces, row by row</h2>
           <p className={P}>
             Every row gets one of three verdicts — clean, fixed, or error — and the report shows
@@ -187,15 +181,7 @@ export default function InvoiceImportCheckerPage() {
             file — the import maps the eight columns above, and the cleaned download carries
             exactly the layout it expects.
           </p>
-          <p className={P}>
-            One more habit pays off later: export from your billing tool monthly, while the
-            invoices are still familiar. A file checked in the same week it was created takes
-            minutes to repair, because the person who raised the invoices still remembers the
-            odd customer name and the one-off discount. The same file checked six months
-            later, at year-end, turns every flagged row into a small research project — the
-            checker still finds the problems, but only you can answer them.
-          </p>
-
+          
           <h2 className={H2M}>A worked example: three rows, three outcomes</h2>
           <p className={P}>
             A three-line extract from a sample export shows how the verdicts land (sample data,
@@ -269,14 +255,7 @@ export default function InvoiceImportCheckerPage() {
             in the source file identical to the names in QuickBooks, and tidy the item list
             there after any large import.
           </p>
-          <h3 className={H3}>Totals look different after import</h3>
-          <p className={P}>
-            The import treats ItemAmount as the line amount. If your export carried tax inside
-            that amount, or split a line's value oddly across columns, the totals shift. Keep
-            tax out of the eight import columns, let each row's amount be the full line total,
-            and let QuickBooks apply its own tax settings on top.
-          </p>
-
+          
           <h2 className={H2M}>Fixing the rows that were left out</h2>
           <p className={P}>
             The rows held back are the real work list, and they are usually quick: a missing
@@ -288,17 +267,12 @@ export default function InvoiceImportCheckerPage() {
             importing instead of repairing afterwards.
           </p>
 
-          <h2 className={H2M}>Importing invoices every month? Make it a system</h2>
           <p className={P}>
-            A monthly billing run deserves the same treatment as a monthly bank feed. This
-            checker is completely free with no account, and it stays that way — but the work
-            around it is where an account earns its keep: a free account keeps your statement
-            conversions in one searchable history, the dashboard adds bulk conversion when a
-            whole month of statements lands at once, and client portals let bookkeepers collect
-            files from clients through their own upload links. Pair this page with the{" "}
+            Pair this page with the{" "}
             <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
-            for the bank side of the same month-end, and the whole close — invoices in, bank
-            activity in, both verified first — runs the same way every time.
+            for the bank side of the same month-end, and the{" "}
+            <a href="/tools/free-receipt-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Receipt to QuickBooks converter</a>{" "}
+            for the expense side — invoices in, bank activity in, receipts in, each verified before it reaches QuickBooks.
           </p>
         </>
       }

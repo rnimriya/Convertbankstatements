@@ -134,6 +134,59 @@ export default function BulkDeleterQuickBooksPage() {
             to repair a file QuickBooks rejects outright, use the{" "}
             <a href="/tools/ofx-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">OFX to QBO fixer</a>.
           </p>
+
+          <h2 className={H2M}>Cleaning the file, step by step</h2>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 1 — Upload the file you were about to import.</strong>{" "}
+            Drop in one .qbo, .ofx or .qfx file (up to 10 MB). The tool lists every transaction
+            it contains, with the statement period, the money-in and money-out totals, and the
+            closing balance — the same numbers QuickBooks would have worked from.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 2 — Choose what should not be imported.</strong>{" "}
+            Tick rows by hand, or click Select duplicates to tick every repeated transaction in
+            one go. The automatic test is the strict one: same date, same amount and same
+            description, with the first copy always kept.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 3 — Review the selection before you trust it.</strong>{" "}
+            Ticked rows are highlighted and a counter shows how many of the total will be
+            removed. Read the ticked list — that review is the difference between a cleaned
+            file and a smaller wrong file.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 4 — Download the cleaned QBO and import that instead.</strong>{" "}
+            The download is rebuilt as a clean Web Connect file holding only the kept rows.
+            Import it into QuickBooks the normal way; the removed transactions never reach
+            your books, and your original file stays untouched on your computer if you ever
+            need it.
+          </p>
+
+          <h2 className={H2M}>Three ways to deal with duplicates, honestly compared</h2>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Delete inside QuickBooks after import.</strong>{" "}
+            This is the only route that works once transactions are already in the company —
+            but it is one-by-one work in most plans, it leaves voids and deletions in the audit
+            trail, and a reconciled duplicate takes the reconciliation difference with it when
+            it goes.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Use a connected in-company deleter app.</strong>{" "}
+            Apps in that category authorize against your live QuickBooks company and batch-delete
+            transactions that are already posted. That is a genuinely different capability from
+            this page — and a genuinely different trust decision, because the app can act inside
+            your live books. If your duplicates are already imported and there are hundreds of
+            them, that category exists for a reason.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Clean the file before import (this page).</strong>{" "}
+            No connection, no authorization, nothing posted anywhere: the unwanted rows are
+            removed from the file, so there is nothing to delete later and no audit-trail
+            debris. Its limit is the mirror of its strength — it can only help before the
+            import happens. Spotting duplicates inside the file first is the job of the{" "}
+            <a href="/tools/free-qbo-cleanup-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO Duplicate Finder</a>,
+            which grades them by transaction ID before you remove anything.
+          </p>
         </>
       }
     />

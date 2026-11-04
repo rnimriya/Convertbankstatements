@@ -24,36 +24,24 @@ const FAQS: ToolFaq[] = [
     a: "It reads up to 10 QBO, OFX or QFX files, pools every transaction into one list sorted by date, removes exact duplicates, and builds a single new QBO file you can import in one go. It is the opposite of the QBO splitter, which cuts one file into a smaller date range.",
   },
   {
-    q: "Which files should I merge together?",
-    a: "Files for the same bank account — typically consecutive statement downloads, like January's and February's QBO from the same checking account. The merged file carries one account number, so merging files from different accounts would put one account's transactions under another account's identity in QuickBooks.",
+    q: "How are duplicates removed when files overlap?",
+    a: "A row is removed only when another row has the same transaction ID (FITID), the same date, and the same amount — the fingerprint of the overlap you get when two downloads cover some of the same days. Genuine repeat transactions (two identical purchases on the same day carry different FITIDs) are always kept, and rows with no FITID are never removed, because without an ID there is no proof they are duplicates.",
   },
   {
-    q: "How are duplicates handled?",
-    a: "A row is removed only when another row has the same transaction ID (FITID), the same date, and the same amount — the fingerprint of the overlap you get when two downloads cover some of the same days. Genuine repeat transactions (two identical purchases on the same day carry different FITIDs) are always kept, and rows with no FITID are never removed, because without an ID there is no proof they are duplicates.",
+    q: "Is this the same as merging two QuickBooks company files?",
+    a: "No — and the search words collide, so the distinction matters. Merging company files means combining two QuickBooks companies' entire books — charts of accounts, lists, history — which is a migration project. This tool merges statement files: several QBO downloads for one bank account combined into one QBO. It never touches a company file.",
+  },
+  {
+    q: "Which files should I merge together?",
+    a: "Files for the same bank account — typically consecutive statement downloads, like January's and February's QBO from the same checking account. The merged file carries one account number, so merging files from different accounts would put one account's transactions under another account's identity in QuickBooks.",
   },
   {
     q: "Where does the merged file's closing balance come from?",
     a: "From the statement with the latest period end in your set — that is the balance the merged period actually closes at. The account number is taken from your files as well. If none of the files carries a closing balance, the merged file has none either; the merger never invents one.",
   },
   {
-    q: "Does the order I add the files matter?",
-    a: "No. Transactions are sorted by date in the merged file regardless of upload order, the duplicate check looks across the whole pool, and the closing balance is chosen by statement period, not by position in the list.",
-  },
-  {
-    q: "Can I merge credit card QBO files?",
-    a: "Yes — credit card downloads use the same format with a credit-card section, and they merge the same way. The same-account rule applies with extra force: merge one card's files together, never two different cards.",
-  },
-  {
-    q: "How many files and transactions can I merge?",
-    a: "Up to 10 files at a time, each up to 10 MB. A merged file can hold up to 10,000 transactions — far beyond what a set of bank statement downloads normally contains. If you have more than 10 files, merge them in batches and merge the results.",
-  },
-  {
-    q: "What if the files overlap by a few days?",
-    a: "That is the case this tool is built for. Banks often include a few days from the previous period in a new download. The overlapping rows share FITIDs, so the exact-duplicate removal drops the second copy of each and the merged totals stay correct.",
-  },
-  {
-    q: "Is my data uploaded or stored?",
-    a: "Your files are parsed in memory to build the merged file and are not stored afterwards. We never sell or share your financial data, and both downloads are fully free with no account.",
+    q: "How many files can I merge, and is it free?",
+    a: "Up to 10 files at a time, each up to 10 MB, and the merged file can hold up to 10,000 transactions. If you have more than 10 files, merge them in batches and merge the results. The tool is fully free with no account, and your files are processed in memory and never stored.",
   },
 ];
 
@@ -157,6 +145,32 @@ export default function QboMergerPage() {
             the result through the{" "}
             <a href="/tools/qbo-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO File Checker</a>{" "}
             before importing, so any identity mismatch surfaces before QuickBooks sees the file.
+          </p>
+
+          <h2 className={H2M}>Merging the files, step by step</h2>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 1 — Add one account's files.</strong>{" "}
+            Drop in the .qbo, .ofx or .qfx downloads for a single account — up to 10 files. Order
+            does not matter; the pool is sorted by date at the end.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 2 — Merge and read the summary.</strong>{" "}
+            The tool pools every transaction, drops the rows that match on FITID, date and amount,
+            and reports exactly how many duplicates were removed and what each file contributed.
+            If that count is not what the overlap should explain, stop and look before downloading.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 3 — Download one QBO and import it once.</strong>{" "}
+            The merged file carries the latest statement's closing balance and the account's own
+            number. One Web Connect import now covers the whole period, instead of one import per
+            monthly slice.
+          </p>
+          <p className={P}>
+            One naming warning, because the same words mean a different job elsewhere: this is
+            statement-file merging, not <em>company-file</em> merging. Combining two QuickBooks
+            companies — their lists, balances and history — is a migration, not a file utility,
+            and no QBO tool does it. If your files are monthly downloads for one account, you are
+            in the right place; if your problem is two companies, it is a different project.
           </p>
 
           <h2 className={H2M}>After the merge</h2>

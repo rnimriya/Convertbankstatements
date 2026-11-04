@@ -25,27 +25,23 @@ const FAQS: ToolFaq[] = [
   },
   {
     q: "Does this tool connect to my QuickBooks account or post transactions for me?",
-    a: "No. This is a file-based tool: it prepares a standard import file on our side and you import that file yourself inside QuickBooks. It never asks for your QuickBooks login, never connects to your company, and never posts, edits, or deletes anything in your books. You review the file's transactions in QuickBooks before they are added, exactly as with any bank upload.",
+    a: "No. This is a file-based tool: it prepares a standard import file and you import that file yourself inside QuickBooks. It never asks for your QuickBooks login, never connects to your company, and never posts, edits or deletes anything in your books. You review the file's transactions in QuickBooks before they are added, exactly as with any bank upload.",
   },
   {
     q: "Which CSV files can I use?",
-    a: "Any bank or card CSV export that has a header row and, at minimum, a date column, a description or payee column, and either one signed amount column or a debit/credit column pair. The tool auto-detects the columns from common header names and shows you the mapping before building; if a column is matched wrongly, change it in the mapping step. All files in one batch should share the same column layout, which is automatic when they come from the same bank.",
+    a: "Any bank or card CSV export that has a header row and, at minimum, a date column, a description or payee column, and either one signed amount column or a debit/credit column pair. The tool auto-detects the columns and shows you the mapping before building. All files in one batch should share the same column layout, which is automatic when they come from the same bank. Up to 20 files at a time, each up to 10 MB.",
   },
   {
     q: "How many transactions can I merge into one file?",
-    a: "Up to 10,000 transactions in total, with each CSV up to 10 MB. That cap is a practical one: QuickBooks itself imports very large files slowly and reviews of giant batches get unwieldy, so a month-end for most small businesses — typically a few hundred to a few thousand rows — fits comfortably. For a multi-year cleanup, build one file per year and import them in sequence.",
+    a: "Up to 10,000 transactions in total across the whole batch — the tool stops the build with a clear message if the files hold more. That covers a month-end for most small businesses many times over. For a multi-year cleanup, build one file per year (or per batch of 10,000) and import them in sequence.",
   },
   {
     q: "What are the account fields for in the IIF option?",
-    a: "An IIF file is double-entry: every bank transaction is balanced by an offset line against another account. The bank account field is the account the money moves through, and deposits are offset to the income account while payments are offset to the expense account. Use the exact names from your QuickBooks Desktop chart of accounts, because IIF imports match accounts by name. You can re-categorize individual transactions after importing — the defaults simply keep the file valid and balanced.",
-  },
-  {
-    q: "Will importing the QBO file create duplicates in QuickBooks Online?",
-    a: "Each transaction in the QBO carries a unique ID derived from the transaction itself — the same mechanism bank downloads use. If you import the same file twice, QuickBooks recognizes the IDs and treats the second import as already-downloaded transactions rather than new ones. Duplicates can still appear if the same transactions also arrive through a live bank connection, so pick one route per account and stick to it.",
+    a: "An IIF file is double-entry: every bank transaction is balanced by an offset line against another account. The bank account field is the account the money moves through; deposits are offset to the income account and payments to the expense account. Use the exact names from your QuickBooks Desktop chart of accounts, because IIF imports match accounts by name.",
   },
   {
     q: "Is my data uploaded or stored?",
-    a: "Your files are processed in memory to build the import file and are not stored afterwards. We never sell or share your financial data, and the tool is free with no account. The one thing that persists is the column mapping, and only in your own browser's local storage on your device — it is offered back to you on your next visit and never leaves your machine except as part of a build request.",
+    a: "Your files are processed in memory to build the import file and are not stored afterwards. The tool is fully free with no account. The column mapping is kept only in your own browser's local storage on your device, and is offered back on your next visit.",
   },
 ];
 
@@ -165,6 +161,29 @@ export default function BulkImportQuickBooksPage() {
             turns a Web Connect file back into a spreadsheet, and the{" "}
             <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
             handles a single CSV with a running-balance check when you do not need the bulk merge.
+          </p>
+
+          <h2 className={H2M}>Where bulk imports go wrong</h2>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Files with different layouts in one batch.</strong>{" "}
+            One mapping covers the whole batch, so a Chase CSV and a credit-union CSV with
+            different column orders cannot share it. Batch by source: one run per bank layout,
+            one import file per run.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Overlapping months.</strong>{" "}
+            If March's export and the first-quarter export both contain March, the merged file
+            contains March twice. The QBO's transaction IDs protect you on a straight
+            re-import of the same file, but two different exports of the same activity can
+            carry different IDs — check overlaps before you build, and scan the result with the{" "}
+            <a href="/tools/qbo-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO File Checker</a>{" "}
+            if a range looks doubled.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Crossing the 10,000-row cap mid-cleanup.</strong>{" "}
+            The build stops rather than silently truncating, so split the batch at a clean
+            boundary — by year or by account — and import the files in date order, reviewing
+            each in QuickBooks before the next.
           </p>
         </>
       }

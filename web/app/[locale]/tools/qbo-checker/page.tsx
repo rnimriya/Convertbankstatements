@@ -3,6 +3,34 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { QboChecker } from "@/components/tools/QboChecker";
 import { SimilarToolsSection } from "@/components/tools/SimilarTools";
+import { BUILD_NONCE } from "@/lib/csp-nonce";
+
+const FAQS = [
+  {
+    q: "Which file types can I check?",
+    a: "Any Web Connect or OFX-family file: .qbo, .ofx and .qfx, for bank or credit-card accounts. CSV and PDF statements are not OFX files — convert those first with the CSV to QBO converter or the statement converter, then check the result here.",
+  },
+  {
+    q: "Is the check really free?",
+    a: "Yes. Scanning a file needs no account and costs nothing, and this checker has no download to gate — the report is the whole product. The file is processed in memory to build the report and is never stored afterwards. We never sell or share financial data.",
+  },
+  {
+    q: "Will checking my file change it?",
+    a: "No. The checker only reads — the report describes problems, it does not repair them. Repairs live in their own tools, so you always decide what gets changed: the OFX to QBO fixer for bank IDs and structure, the QBO Duplicate Finder for a cleaned file with repeated transaction IDs dropped.",
+  },
+  {
+    q: "The report says the closing balance is wrong, but my statement looks right. Which do I trust?",
+    a: "The statement. The balance inside a file can be mistyped by whatever generated it, or dated at the wrong day. If the rows add up to the statement but the file's closing balance disagrees, the file is the problem — regenerate or fix it, never 'correct' your books to match a bad file.",
+  },
+  {
+    q: "How is this different from the QBO Duplicate Finder?",
+    a: "This checker validates the whole file before import — structure, bank identity, balances, statement period, transaction IDs and totals — and gives a verdict. The Duplicate Finder does one job deeply: it groups repeated FITIDs and repeated rows inside the file and, on Pro, builds a cleaned QBO. Use the checker for the verdict, the finder for the cleanup.",
+  },
+  {
+    q: "QuickBooks already rejected my file. Can the checker still help?",
+    a: "Yes — that is its best use. QuickBooks shows one generic refusal (OL-222, or 'unable to verify financial institution'); the checker names the specific cause in the file: a broken tag, a missing or delisted bank ID, the wrong format flavour. Once you know which one it is, the fix is usually a minute in the fixer or a fresh download from your bank.",
+  },
+];
 
 const PAGE_URL = "https://www.convertstatement.online/tools/qbo-checker";
 
@@ -21,8 +49,19 @@ export const metadata: Metadata = {
 };
 
 export default function QboCheckerPage() {
+  const nonce = BUILD_NONCE;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
   return (
     <div className="agri-sans">
+      <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Navbar />
       <main className="min-h-screen bg-white">
         <section className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 60%, #FFFFFF 100%)" }}>
@@ -68,6 +107,33 @@ export default function QboCheckerPage() {
           </div>
 
           <div className="mt-14">
+            <h2 className="font-display text-2xl font-bold text-zinc-900">How to check a file, step by step</h2>
+            <p className="mt-3 text-zinc-600 leading-relaxed">
+              <strong className="text-zinc-900">Step 1 — Upload the file you were about to import.</strong>{" "}
+              Drop in the .qbo, .ofx or .qfx file (up to 10 MB). The scan is free, needs no
+              account, and the file is read in memory — nothing is stored.
+            </p>
+            <p className="mt-3 text-zinc-600 leading-relaxed">
+              <strong className="text-zinc-900">Step 2 — Read the verdict, then the findings.</strong>{" "}
+              The report leads with whether the file is safe to import, then lists each finding
+              with the row or field responsible — structure and bank identity first, because
+              those decide whether QuickBooks accepts the file at all.
+            </p>
+            <p className="mt-3 text-zinc-600 leading-relaxed">
+              <strong className="text-zinc-900">Step 3 — Fix the file, or re-export it.</strong>{" "}
+              Identity and detail problems are repaired in the file; missing rows and truncated
+              downloads mean going back to the bank for a fresh export. Either way, the fix
+              happens before import, not inside your books afterwards.
+            </p>
+            <p className="mt-3 text-zinc-600 leading-relaxed">
+              <strong className="text-zinc-900">Step 4 — Re-check, then import.</strong>{" "}
+              Run the repaired file through this checker again. A clean report is the signal to
+              import — and worth keeping with the statement as the record that the file was
+              verified first.
+            </p>
+          </div>
+
+          <div className="mt-14">
             <h2 className="font-display text-2xl font-bold text-zinc-900">Six checks, one verdict</h2>
             <p className="mt-3 text-zinc-600 leading-relaxed">
               A QBO file can fail in ways QuickBooks never describes — it either refuses the file
@@ -76,12 +142,9 @@ export default function QboCheckerPage() {
               each problem with the row it belongs to:
             </p>
             <p className="mt-5 text-zinc-600 leading-relaxed">
-              The areas are ordered by consequence. Structure and bank identity decide whether
-              the file imports at all. The balance chain and the totals decide whether it imports
-              <em> correctly</em> — the failures that surface weeks later at reconciliation.
-              Transaction IDs and dates decide whether importing the same period twice is safe.
-              A file can pass the first two areas and still fail your books on the rest, which is
-              why the report covers all six instead of stopping at "valid OFX".
+              The areas are ordered by consequence: structure and identity decide whether the
+              file imports at all; balances and totals decide whether it imports <em>correctly</em>;
+              IDs and dates decide whether importing the same period twice is safe.
             </p>
             <div className="mt-6 overflow-x-auto rounded-2xl border border-zinc-200">
               <table className="w-full text-sm min-w-[640px]">
@@ -236,6 +299,22 @@ export default function QboCheckerPage() {
           </div>
 
           <div className="mt-14">
+            <h2 className="font-display text-2xl font-bold text-zinc-900">Three routes when a file fails, honestly compared</h2>
+            <p className="mt-3 text-zinc-600 leading-relaxed">
+              <strong className="text-zinc-900">Fix the file</strong> when its structure is sound but its
+              details are off — a bank ID, a closing balance, dates outside the period. Cheapest
+              route, and the transactions stay exactly as the bank issued them.{" "}
+              <strong className="text-zinc-900">Re-export from the bank</strong> when the data itself is
+              damaged — rows missing mid-period, a truncated download, the wrong account's file.
+              Slower, but no editor can invent rows the export dropped.{" "}
+              <strong className="text-zinc-900">Import anyway and repair inside QuickBooks</strong> is
+              the route to avoid: every problem the checker names here becomes manual cleanup
+              inside live books, with the reconciliation difference as your only map. The check
+              exists so the third route is never necessary.
+            </p>
+          </div>
+
+          <div className="mt-14">
             <h2 className="font-display text-2xl font-bold text-zinc-900">What the checker cannot see</h2>
             <p className="mt-3 text-zinc-600 leading-relaxed">
               Honesty about scope: this checker validates the file, not your bookkeeping. It
@@ -272,38 +351,12 @@ export default function QboCheckerPage() {
           <div className="mt-14">
             <h2 className="font-display text-2xl font-bold text-zinc-900">QBO checker questions, answered</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">Which file types can I check?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">Any Web Connect or OFX-family file: .qbo, .ofx and .qfx, for bank or credit-card accounts. CSV and PDF statements are not OFX files — convert those first with the CSV to QBO converter or the statement converter, then check the result here.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">Is the check really free?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">Yes. Scanning a file needs no account and costs nothing. The file is processed in memory to build the report and is never stored afterwards — the same privacy rule as every tool on this site. We never sell or share financial data.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">Will checking my file change it?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">No. The checker only reads — the report describes problems, it does not repair them. Repairs live in their own tools, so you always decide what gets changed: the OFX fixer for bank IDs and dates, the Duplicate Finder for repeated transaction IDs.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">My bank gave me a QFX file. Will QuickBooks take it?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">Often not directly — QFX is Quicken's flavour of the same format, and QuickBooks checks the bank ID and format markers before accepting a file. Run it through this checker first; if identity or format findings appear, the OFX to QBO fixer rebuilds it as a proper QBO.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">The report says the closing balance is wrong, but my statement looks right. Which do I trust?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">The statement. The balance inside a file can be mistyped by whatever generated it, or dated at the wrong day. If the rows add up to the statement but the file's closing balance disagrees, the file is the problem — regenerate or fix it, never "correct" your books to match a bad file.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">How is this different from the QBO Duplicate Finder?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">This checker reports on the whole file — structure, balances, dates, totals and IDs. The Duplicate Finder does one job deeply: it lists repeated transaction IDs and produces a cleaned file with the duplicates removed. Use the checker for a verdict, the finder for the cleanup.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">Can it check a credit-card QBO file?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">Yes. Credit-card files use the same OFX family with a card message set instead of a bank one, and the same things go wrong: repeated IDs, balances that disagree with the rows, dates outside the period. The report reads both shapes the same way.</p>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 p-5">
-                <h3 className="font-bold text-zinc-900">QuickBooks already rejected my file. Can the checker still help?</h3>
-                <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">Yes — that is its best use. QuickBooks shows one generic refusal; the checker names the specific cause: a broken tag, a missing bank ID, the wrong format flavour. Once you know which one it is, the fix is usually a minute in the fixer or a fresh download from your bank.</p>
-              </div>
+              {FAQS.map((f) => (
+                <div key={f.q} className="rounded-2xl border border-zinc-200 p-5">
+                  <h3 className="font-bold text-zinc-900">{f.q}</h3>
+                  <p className="mt-2 text-zinc-600 leading-relaxed text-[15px]">{f.a}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

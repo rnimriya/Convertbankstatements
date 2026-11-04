@@ -20,51 +20,35 @@ export const metadata: Metadata = {
 
 const FAQS: ToolFaq[] = [
   {
-    q: "How do I find duplicate transactions in QuickBooks Online?",
-    a: "QuickBooks has no built-in duplicate finder, so most people sort the register by amount and eyeball it. This tool automates that: upload a .qbo, .ofx, or .csv export and it flags repeated transaction IDs, identical date/amount/payee rows, and near-duplicates (same amount within 3 days with a similar payee name) — with a 0–100 health score. Review the flagged groups before deleting anything.",
+    q: "How do I find duplicates inside a QBO file before I import it?",
+    a: "Upload the .qbo, .ofx, .qfx or .csv file here — the scan is free and needs no account. The report groups repeated transaction IDs (FITIDs), identical date/amount/payee rows, and near-duplicates (same amount within 3 days under a similar payee name), with a 0–100 health score. Everything is found inside the file, before QuickBooks ever sees it.",
   },
   {
-    q: "What causes duplicate transactions in QuickBooks?",
-    a: "The usual causes are importing the same statement or bank feed range twice, manual entries that overlap the bank feed, and re-imported QBO files whose transaction IDs changed. Files converted with Convert Statement carry content-derived IDs, so re-importing the same statement is recognized safely instead of duplicated.",
+    q: "What counts as a duplicate — and what does not?",
+    a: "Two rows sharing one FITID are the same transaction seen twice: a true duplicate. Rows with the same date, amount and payee but different IDs are probable duplicates to review. The same amount on different days is usually genuine — subscriptions and habits repeat. Only repeated IDs are treated as certain.",
   },
   {
-    q: "Can I delete the duplicates straight from this tool?",
-    a: "No — and that's deliberate. Near-duplicates can be genuine repeats (two identical coffee purchases in a week), so every flagged group needs your judgment. Pro users can download a cleaned QBO with the exact duplicates removed and every transaction ID regenerated; review it, then import it into QuickBooks.",
+    q: "Can this tool delete the duplicates for me?",
+    a: "The scan itself only reports. On Pro, the cleaned QBO download drops the exact duplicates and regenerates missing or repeated transaction IDs, ready to import instead of the original. Near-duplicates are never removed automatically — they can be genuine repeat purchases, so they stay flagged for your judgment.",
   },
   {
     q: "What does the health score mean?",
-    a: "It starts at 100 and subtracts 10 per error (structural problems, balance breaks), 5 per duplicate instance, and 2 per warning. A score of 90+ is a clean file; anything under 70 deserves a cleanup pass before month-end.",
+    a: "It starts at 100 and subtracts 10 per error (structural problems, balance breaks), 5 per duplicate instance, and 2 per warning. A score of 90 or above is a clean file; anything under 70 deserves a cleanup pass before you import it.",
   },
   {
-    q: "My reconciliation difference never goes to zero. Will this help?",
-    a: "Often, yes. The most common causes of a stuck reconciliation difference are duplicate transactions and old uncleared items — both are flagged here, including uncleared entries older than 90 days (from CSV exports with a cleared/status column). If the file carries running balances, the tool also verifies the balance chain.",
+    q: "Is this the same as deleting duplicates inside QuickBooks?",
+    a: "No. This checker works on the file before import — it never connects to your QuickBooks company and cannot remove anything already in your books. If the messy file was already imported, the duplicates have to be excluded or deleted inside QuickBooks itself; if it has not been imported yet, clean the file and import the cleaned version once.",
   },
   {
-    q: "Why do I have duplicate bank transactions in QuickBooks Online?",
-    a: "The most common cause is overlap: you import a bank statement file for dates the live bank feed already pulled in, so every transaction lands twice. Connector apps re-syncing old data and staff entering expenses manually are close seconds. This checker flags the doubled rows by transaction ID, date, and amount — exclude one set in QuickBooks (never both), and next time import only the dates your feed doesn't cover.",
-  },
-  {
-    q: "What is a FITID, and why does it decide what counts as a duplicate?",
-    a: "A FITID is the unique transaction ID inside every QBO transaction — the fingerprint QuickBooks itself uses to avoid importing the same transaction twice. Two rows sharing one FITID are the same transaction seen twice: a true duplicate. Two rows that merely share an amount have different fingerprints and are usually both real.",
-  },
-  {
-    q: "Two identical amounts in my register — is one always a duplicate?",
-    a: "No. Same amount, different days, different IDs is how real life looks: the same coffee, the same subscription, the same weekly fuel stop. This checker only calls a row a certain duplicate when the transaction ID repeats; amount-only matches are shown as near-duplicates for you to judge, never removed automatically.",
-  },
-  {
-    q: "Should I import the cleaned QBO over transactions already in QuickBooks?",
-    a: "No — the cleaned file replaces the messy file; it does not patch live books. If the transactions are not in QuickBooks yet, import the cleaned QBO instead of the original. If they are already there, exclude or delete the duplicate copies inside QuickBooks and keep the cleaned file as the record of what changed.",
-  },
-  {
-    q: "Is my file uploaded to your servers?",
-    a: "No. Your file is processed in memory to build the report and is not stored afterwards. We never sell or share your financial data.",
+    q: "Is my file uploaded or stored, and what is free?",
+    a: "Your file is processed in memory to build the report and is not stored afterwards. The scan, the report and the CSV report download are free with no account; only the cleaned QBO download is on Pro. We never sell or share your financial data.",
   },
 ];
 
 const HOWTO = [
   { title: "Upload your file", body: "Drop in a .qbo, .ofx, .qfx, or .csv export from QuickBooks or your bank." },
   { title: "Read the report", body: "Get a 0–100 health score, every duplicate group with its rows, and all structural findings." },
-  { title: "Clean up", body: "Review flagged groups, delete confirmed duplicates in QuickBooks, or download a cleaned QBO on Pro — and ask about a full cleanup if the books are months behind." },
+  { title: "Clean the file", body: "Download the cleaned QBO on Pro — exact duplicates removed, missing or repeated IDs regenerated — and import it instead of the original. If the original was already imported, the copies inside QuickBooks have to be removed there." },
 ];
 
 const H2 = "text-2xl font-extrabold text-zinc-900 dark:text-white";

@@ -142,6 +142,51 @@ export default function BulkExportQuickBooksPage() {
             <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
             turns a spreadsheet back into a QuickBooks-ready file.
           </p>
+
+          <h2 className={H2M}>Merging the files, step by step</h2>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 1 — Collect the files.</strong>{" "}
+            Gather the .qbo, .ofx or .qfx downloads you want in one sheet: up to 10 files, each
+            up to 10 MB, from any mix of bank and credit card accounts.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 2 — Add them one at a time and check the list.</strong>{" "}
+            Files are added individually so you can see exactly what is in the merge and remove
+            anything added by mistake before exporting.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 3 — Choose CSV or Excel.</strong>{" "}
+            Both downloads hold the same merged rows. CSV suits importing into other software;
+            Excel (.xlsx) suits a person reading, sorting and annotating.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 4 — Export and verify the counts.</strong>{" "}
+            The result panel lists how many rows each file contributed. Check those counts
+            against the statements before you rely on the sheet — a file that contributed zero
+            rows was empty or unreadable, and it is far better to learn that here.
+          </p>
+
+          <h2 className={H2M}>Problems a merged export surfaces — and the fixes</h2>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">A file contributes no rows.</strong>{" "}
+            Usually the download was truncated, or it is not really a QBO/OFX file at all (a CSV
+            renamed by a browser is the classic). Re-download it untouched and add it again.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Totals do not match the statements.</strong>{" "}
+            Work the Source File column: filter the sheet to one file at a time and total it
+            against that statement. The mismatch isolates to a single source file almost every
+            time — most often an overlapping download counted twice, which the Transaction ID
+            column exposes when you sort by it.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">You need the data back in QuickBooks shape.</strong>{" "}
+            A merged spreadsheet is a reading and migration format, not an import file. To move
+            the other way — many CSVs into one import file — use the{" "}
+            <a href="/tools/bulk-import-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Bulk Importer for QuickBooks</a>;
+            to combine QBO files into a single QBO instead of a spreadsheet, use the{" "}
+            <a href="/tools/qbo-merger" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO File Merger</a>.
+          </p>
         </>
       }
     />

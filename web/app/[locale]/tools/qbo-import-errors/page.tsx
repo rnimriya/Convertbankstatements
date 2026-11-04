@@ -20,44 +20,28 @@ export const metadata: Metadata = {
 
 const FAQS: ToolFaq[] = [
   {
-    q: "Why does QuickBooks say my QBO file has duplicate transactions?",
-    a: "QuickBooks identifies imported transactions by their FITID (transaction ID). When two rows share one FITID, QuickBooks treats the second as already imported and skips it, or rejects the file. The QBO Duplicate Finder lists every repeated ID; its cleaned QBO download (Pro) drops exact duplicates and regenerates missing IDs.",
-  },
-  {
-    q: "What does a ledger-balance mismatch mean?",
-    a: "The closing balance in the file (LEDGERBAL) does not agree with its transactions, or with the balance QuickBooks already holds for that account. Compare it with the statement's closing balance, and confirm the import account — a checking file sent to savings produces exactly this error.",
-  },
-  {
-    q: "My file imports but the transactions are missing. What happened?",
-    a: "Usually one of two causes: the file's statement period (DTSTART–DTEND) covers dates QuickBooks already imported, so rows were silently skipped as duplicates; or the transactions landed in the wrong account. Check the account first, then the period, then run the cleanup checker to see whether those FITIDs were already used.",
-  },
-  {
-    q: "What if QuickBooks says the file is not a valid Web Connect file?",
-    a: "QuickBooks accepts OFX 1.02 files with a .qbo extension and, for US accounts, USD currency. A file saved as .ofx, a Quicken QFX file renamed to .qbo, or a file with a non-USD currency tag will be refused. Re-export as QBO with a QuickBooks converter, and check the extension first.",
-  },
-  {
-    q: "Can I fix a broken QBO by editing it in a text editor?",
-    a: "For one small problem, yes: a duplicated FITID can be made unique, and a wrong closing balance can be corrected to match the statement. But OFX is unforgiving — one broken tag corrupts the file. Beyond a row or two, use the cleanup checker, then verify with the QBO checker before importing.",
-  },
-  {
     q: "What does 'Unable to verify financial institution' mean?",
-    a: "QuickBooks checks the file's bank ID (INTU.BID) against Intuit's list before accepting it. A missing, mistyped, or delisted ID triggers this message even if every transaction is correct. Regenerate the file with a valid bank ID, or repair it with the OFX to QBO fixer.",
+    a: "QuickBooks checks the file's bank ID (INTU.BID) against Intuit's list before accepting it. A missing, mistyped or delisted ID triggers this message even if every transaction is correct. It is a statement about the file's sign-on block, not your data. Regenerate the file with a valid bank ID, or repair it with the OFX to QBO fixer.",
   },
   {
     q: "What is error OL-222 in QuickBooks Desktop?",
     a: "OL-222 is Desktop's way of saying the file is not a valid Web Connect file: the OFX structure is malformed — a broken or missing tag, a truncated download, or content that was never OFX. Re-download the file untouched, or run it through the QBO File Checker to find where the structure breaks.",
   },
   {
+    q: "What is error OL-293?",
+    a: "OL-293 is a Desktop Web Connect sign-on error: QuickBooks could not complete the sign-on with the institution identity carried in the file. From the file's side, that points at the sign-on block — the institution ID (FID) and bank ID (INTU.BID) — being missing, stale or mismatched to the account, rather than at the transactions. Rebuilding the file with a valid bank ID, or re-downloading it from the bank, is the usual fix.",
+  },
+  {
+    q: "Why does QuickBooks say my QBO file has duplicate transactions?",
+    a: "QuickBooks identifies imported transactions by their FITID (transaction ID). When two rows share one FITID, QuickBooks treats the second as already imported and skips it, or rejects the file. The QBO Duplicate Finder lists every repeated ID inside the file before import; its cleaned QBO download (Pro) drops exact duplicates and regenerates missing IDs.",
+  },
+  {
     q: "Why does QuickBooks reject my CSV for being too large?",
-    a: "QuickBooks Online caps direct CSV uploads at 350 KB, and a year of busy account activity sails past that. Convert the CSV to QBO instead — the cap does not apply the same way — or split the export into monthly files and import them one at a time, checking each before the next.",
+    a: "QuickBooks Online caps direct CSV uploads at 350 KB, and a year of busy account activity sails past that. Convert the CSV to QBO instead — the Web Connect route is not capped the same way — or split the export into monthly files and import them one at a time, checking each before the next.",
   },
   {
     q: "My transactions imported with money in and money out reversed. Why?",
     a: "The sign convention flipped somewhere: either the bank exports money out as positive numbers, or separate debit and credit columns were mapped in the wrong order during conversion. Delete the imported batch, fix the mapping in the file, and re-import — do not correct it entry by entry.",
-  },
-  {
-    q: "Is my data uploaded or stored when I use the checkers linked here?",
-    a: "No. The checkers linked from this page process files in memory to build their reports, and nothing is stored afterwards — the sample files on this page are the only downloads involved. We never sell or share your financial data, and you can test everything with the samples first.",
   },
 ];
 
@@ -214,6 +198,18 @@ export default function QboImportErrorsPage() {
             file.qbo.txt), or a temporary failure mid-import. Re-download the file, confirm the
             extension is exactly .qbo and the size matches the source, and import again before
             assuming the file's contents are at fault.
+          </p>
+
+          <h3 className={H3}>OL-293: the sign-on block, not the transactions</h3>
+          <p className={P}>
+            OL-293 belongs to the same family as the verify-institution message: Desktop is
+            refusing the file's sign-on, not its contents. The institution identity the file
+            carries — its FID and INTU.BID — does not match what QuickBooks expects for that
+            bank, usually because the file was generated with a stale or guessed bank ID, or
+            the bank was delisted and re-listed under a new one. No transaction edit fixes it;
+            the file has to be rebuilt with a valid bank ID (the{" "}
+            <a href="/tools/ofx-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">OFX to QBO fixer</a>{" "}
+            does exactly that) or re-downloaded from the bank.
           </p>
 
           <h2 className={H2M}>Content errors: missing info and oversized files</h2>

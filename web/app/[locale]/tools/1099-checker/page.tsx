@@ -21,43 +21,27 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "What does the 1099 vendor checker do?",
-    a: "It reads a bank CSV or QBO file, takes only the money-out rows, and groups them by vendor — total paid, payment count, and last payment date for each. Vendors at or above the threshold you set are highlighted. It is an informational report only, not tax filing or advice.",
+    a: "It reads a bank CSV or QBO/OFX file, takes only the money-out rows, and groups them by vendor — total paid across the year, payment count, and last payment date for each. Vendors at or above the threshold you set are highlighted. Per-vendor totals are the whole point: the $600 rule is cumulative, so twelve $75 payments to one contractor are a filing question even though no single payment looks like one. It is an informational report only, not tax filing or advice.",
   },
   {
     q: "What threshold should I use?",
-    a: "The tool's default threshold is $600, the familiar cutoff for reporting payments for services, and you can change it to any amount. Rules have exceptions and they change, so treat the default as a starting point for your review and confirm the current rules with your tax professional.",
+    a: "The tool's default is $600 — the familiar Form 1099-NEC threshold for payments for services to one vendor in a calendar year — and you can change it to any amount; the table and the downloadable report update immediately. Run it lower, say $400, to see who is one ordinary job away from crossing next year. Confirm the current rules with your tax professional.",
+  },
+  {
+    q: "Do payments by card or PayPal count toward my 1099-NEC total?",
+    a: "Generally no. Payments made by credit or debit card, or through a third-party payment network such as PayPal, are reported by the payment processor on Form 1099-K — you do not also report them on Form 1099-NEC. The checker totals what is in the file you upload, so for a filing-ready list, work from payments made by check, ACH or cash, and let your tax professional make the final call on anything mixed.",
+  },
+  {
+    q: "Are payments to corporations exempt?",
+    a: "Generally yes — payments to corporations are the standing exception to 1099-NEC reporting. The exception to the exception is attorneys: fees paid to an attorney or law firm are reportable even when the firm is incorporated. LLCs are not automatically exempt either — how an LLC is taxed (sole proprietor, partnership or corporation) decides, which is one reason the W-9 matters.",
   },
   {
     q: "How are vendor name variants handled?",
     a: "Names are normalized before grouping: capitalization and punctuation are ignored, and common entity suffixes such as LLC and Inc, plus trailing store or location numbers, are stripped. “ACME LLC”, “Acme, LLC”, and “ACME” therefore total as one vendor instead of three small ones slipping under your threshold.",
   },
   {
-    q: "Does it count deposits and money in?",
-    a: "No. Only money-out rows (negative amounts) count as payments to vendors. Deposits, refunds in, and other money-in rows are ignored, so a vendor who also paid you does not inflate the total you review at year end.",
-  },
-  {
-    q: "Which files does it accept?",
-    a: "A bank transaction CSV with date, description, and amount columns, or a QBO, OFX, or QFX file exported from your bank or QuickBooks. Both go through the same grouping, so you get the same vendor list either way — use whichever export you already have.",
-  },
-  {
     q: "Is this tax filing or tax advice?",
-    a: "No. This is an informational report only — not tax filing and not tax advice. Thresholds and rules have real exceptions: payments to corporations and payments made by card are often treated differently, for example. Confirm your actual filing obligations with your tax professional before January deadlines.",
-  },
-  {
-    q: "What kinds of payments count toward the $600 threshold?",
-    a: "Generally, payments of $600 or more to an unincorporated vendor or contractor for services — the payments Form 1099-NEC exists to report. Merchandise and goods generally do not count, most payments to corporations are excepted, and money your business received never counts. Exceptions are common; confirm with your tax professional.",
-  },
-  {
-    q: "One vendor appears under two names. Will the totals combine?",
-    a: "Yes, when the names are variants of each other. The checker ignores capitalization, punctuation, and entity suffixes, so “ACME LLC” at $400.00 and “Acme, LLC” at $350.00 combine into one vendor at $750.00 across two payments — above the $600 threshold, even though neither spelling reaches it alone.",
-  },
-  {
-    q: "When should I collect a W-9 from a vendor?",
-    a: "Before you pay them the first time — that is the habit that prevents the January scramble. With a W-9 on file you already hold the vendor's legal name and tax ID when forms are due, instead of chasing signatures while deadlines approach. The checker shows you who to ask.",
-  },
-  {
-    q: "What should I do with the vendor report?",
-    a: "Share it with your bookkeeper or tax professional, then work the highlighted list: request a W-9 from any vendor missing one, verify legal names and totals against your records, and keep the CSV with your year-end file. Vendors just below the threshold are worth a note for next year.",
+    a: "No. This is an informational report only — not tax filing and not tax advice. Thresholds and rules have real exceptions, and they change. Share the report with your bookkeeper or tax professional, request a W-9 from any highlighted vendor missing one, and confirm your actual filing obligations before the January deadlines.",
   },
 ];
 
@@ -246,40 +230,7 @@ export default function VendorChecker1099Page() {
             builds the entry for the payroll side.
           </p>
 
-          <h2 className={H2M}>The W-9 habit that ends the scramble</h2>
-          <p className={P}>
-            Totals are only half of a filing. For each vendor over the line you also need a
-            legal name and a tax ID, and both live on Form W-9. Collected before the first
-            payment — as a routine condition of getting paid — a W-9 costs one email.
-            Collected in January, it costs twenty, plus the vendors who have moved, closed,
-            or stopped answering. Use this report as the request list: everyone above the
-            threshold, plus everyone close enough to cross it next year, gets the request
-            while there is still time to be polite about it.
-          </p>
-          <p className={P}>
-            There is a second reason to collect the form early: the legal name on the W-9 is
-            the name the filing has to match. A vendor you know by a trade name may file taxes
-            under a different legal name entirely, and a mismatch between the name and tax ID
-            on a form can draw follow-up notices that take far longer to resolve than the
-            original request would have. The report gives you the payment facts; the W-9 gives
-            you the filing facts; January goes smoothly when both are already in the drawer.
-          </p>
-
-          <h2 className={H2M}>Checking vendors every quarter? Make it a system</h2>
-          <p className={P}>
-            Run quarterly, this report stops being a tax-season artifact and becomes a
-            bookkeeping habit — thresholds crossed in March are W-9s collected in April, not
-            surprises in January. The checker itself is completely free with no account.
-            Around it, a free account keeps your statement conversions in one searchable
-            history, the dashboard adds bulk conversion when statements land for several
-            accounts at once, and client portals let bookkeepers gather files from clients
-            through their own upload links. The bank activity behind these totals comes from
-            the same exports as the{" "}
-            <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
-            — check the vendors here, convert the statements there, and the year closes
-            itself a quarter at a time.
-          </p>
-        </>
+          </>
       }
     />
   );

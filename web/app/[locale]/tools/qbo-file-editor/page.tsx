@@ -24,36 +24,24 @@ const FAQS: ToolFaq[] = [
     a: "It edits the transactions inside a copy of your QBO, OFX or QFX file: each transaction's date, name (payee text) and amount. You can also delete individual rows and run find & replace across all transaction names. When you are done, the tool builds a brand-new QBO file from the edited rows and you download that. Your original file is never modified.",
   },
   {
-    q: "Does this change anything inside QuickBooks?",
-    a: "No. This is a file editor, not a QuickBooks connection — nothing here logs into QuickBooks or touches your company file. The edited QBO only affects QuickBooks if you choose to import it afterwards, the same as any Web Connect file from your bank.",
+    q: "Why can't I download while a row is highlighted as invalid?",
+    a: "Because the rebuilt QBO would carry the same defect. If any row has an invalid date or an amount that is not a number, the QBO download is blocked and the row is highlighted and left out of the totals until you fix it. That block is deliberate: it stops a typo made in the editor from becoming a broken import in QuickBooks.",
   },
   {
     q: "Why can't I edit the transaction ID (FITID) column?",
     a: "On purpose. The FITID is how QuickBooks recognises a transaction it has already imported — it is the duplicate-detection key. If IDs could be edited casually, a re-import would either duplicate transactions or skip real ones. The editor shows FITIDs read-only and carries them into the rebuilt file unchanged.",
   },
   {
+    q: "What is find & replace good for?",
+    a: "Cleaning up payee text in bulk, so QuickBooks' matching and categorization rules can work after import. Bank files carry truncated or coded names — the same merchant under five spellings. Find the bank's version, replace it with the name your books use, and every matching transaction is renamed at once. Matching is exact and case-sensitive, and the tool tells you how many names contain the text before you apply it.",
+  },
+  {
     q: "Is it safe to change an amount or a date?",
     a: "Only when you are correcting the file before its first import. If some of these transactions are already in QuickBooks, importing an edited copy can create mismatches: an edited amount will not match the transaction QuickBooks already has, and reconciliation targets move. The safe pattern is to edit the file first, check the totals on this page against your statement, and import once.",
   },
   {
-    q: "What happens to the file's closing (ledger) balance?",
-    a: "It is carried into the rebuilt file exactly as it was, along with the account number. The editor does not recompute it — so if you change amounts or delete rows, check the totals shown on this page: the net change of your edited rows plus the opening balance should still land on that closing balance, or reconciliation in QuickBooks will show a difference to investigate.",
-  },
-  {
-    q: "What format is the downloaded file?",
-    a: "A clean OFX 1.02 Web Connect file (.qbo) — the dialect of OFX current QuickBooks versions accept — with full timestamps and the original FITIDs preserved. OFX and QFX uploads are rebuilt in the same format, so this page doubles as a format normalizer.",
-  },
-  {
-    q: "What is find & replace good for?",
-    a: "Cleaning up payee text in bulk. Bank files often carry truncated or coded names — the same merchant appearing under five spellings. Find the bank's version, replace it with the name your books use, and every matching transaction is renamed at once. Matching is exact and case-sensitive, and the tool tells you how many names contain the text before you apply it.",
-  },
-  {
-    q: "Can I add brand-new transactions in the editor?",
-    a: "No — the editor works on the transactions the file already contains. To build a QBO from data that is not in a file yet, use the CSV to QBO converter: it turns a spreadsheet of transactions into a Web Connect file with generated IDs and a balance-chain check.",
-  },
-  {
-    q: "Is my data uploaded or stored?",
-    a: "Your file is parsed in memory so its transactions can be shown in the table, and it is not stored afterwards. We never sell or share your financial data, and the tool is fully free with no account.",
+    q: "Does this change anything inside QuickBooks, and is it free?",
+    a: "No — this is a file editor, not a QuickBooks connection; nothing here logs into QuickBooks or touches your company. The edited QBO only affects QuickBooks if you choose to import it afterwards. The tool is fully free with no account, and your file is processed in memory and never stored.",
   },
 ];
 
@@ -166,6 +154,18 @@ export default function QboFileEditorPage() {
             And if you are not sure the file is sound, run it through the{" "}
             <a href="/tools/qbo-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO File Checker</a>{" "}
             first — it diagnoses without changing a byte.
+          </p>
+
+          <h2 className={H2M}>Invalid cells block the download — on purpose</h2>
+          <p className={P}>
+            Edit a date into a shape that is not a real date, or clear an amount by accident,
+            and the editor does not quietly work around you. The row is highlighted, it drops
+            out of the money-in / money-out / net totals, and the QBO download stays blocked
+            until every row is valid again. That friction is the feature: a spreadsheet would
+            happily export the typo, and QuickBooks would reject the file — or worse, accept
+            it with a wrong amount. Here the mistake is caught in the same screen where it was
+            made, while the statement is still open next to you. Fix the cell, watch the
+            totals return, and only then download.
           </p>
 
           <h2 className={H2M}>How the rebuild works</h2>

@@ -21,43 +21,27 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "Why doesn't my QuickBooks account reconcile?",
-    a: "Almost always one of four things: a transaction recorded in QuickBooks but not on the statement (or the reverse), an amount that differs by a fee or a partial payment, a transaction posted on a different date than it cleared, or a duplicate. This tool separates those cases instead of giving you one lump difference to hunt through.",
-  },
-  {
-    q: "What files should I upload?",
-    a: "Two exports for the same period: your bank statement as CSV (or QBO/OFX) and your QuickBooks transactions as CSV (or QBO). In QuickBooks Online, export from the account register or a transaction report. Both files need date, description, and amount columns.",
-  },
-  {
-    q: "How does the matching decide two entries are the same?",
-    a: "In passes. First, exact matches: same date, same amount, and a matching payee or description. Then near matches: the same amount and payee a few days apart becomes a date-drift pair, and the same date and payee with a different amount becomes an amount mismatch. Whatever is left over is reported as missing or extra.",
-  },
-  {
-    q: "What is a date-drift entry? Is it a real problem?",
-    a: "Usually not. A date-drift entry has the same amount and payee on both sides but posted a few days apart — the difference between when you recorded it and when it cleared the bank. It explains a timing difference at month-end but is not an error to fix.",
-  },
-  {
-    q: "What does the matched-only QBO contain?",
-    a: "Only the entries that agreed on both sides, with fresh transaction IDs. It is for importing into a clean account — not for re-importing the whole month, which would duplicate entries that already imported correctly. The matched-only download is on Pro; the full difference report (CSV) is free.",
+    a: "Almost always because specific entries differ from the statement: a transaction missing from QuickBooks, one entered twice, an amount that differs, or a sign flipped. This finder compares your statement file against your QuickBooks export and lists the exact entries in each category, instead of leaving you with one unexplained difference.",
   },
   {
     q: "My difference is exactly one transaction. What do I do?",
-    a: "Look at the missing or extra list for that amount. A missing entry means it was never recorded in QuickBooks — record it. An extra entry means it was recorded twice, voided, or belongs to another period — delete or void it in QuickBooks, after checking the statement.",
+    a: "A single entry is missing or doubled by that amount. Search the missing and extra lists for that exact amount first — it is almost always sitting there. Add the missing entry or remove the extra copy in QuickBooks, then re-run the comparison.",
   },
   {
     q: "My difference is exactly twice one transaction. What happened?",
-    a: "One entry was recorded with its sign reversed — money out entered as money in, or the reverse. The difference is that transaction counted twice: once wrongly added, and once missing where it should have been subtracted. Find the entry with that amount in the mismatch or extra lists and correct its direction in QuickBooks.",
+    a: "That entry's sign is flipped: money out recorded as money in counts once as a wrong addition and once as a missing subtraction, doubling the effect. Find the amount in the amount-mismatch findings and correct its direction in QuickBooks.",
   },
   {
-    q: "Can I compare files from QuickBooks Desktop?",
-    a: "Yes. Export the account register or a transaction report from Desktop and save it as CSV, then upload it as the QuickBooks side. The statement side can be a CSV, QBO, or OFX file from your bank. Both sides just need date, description, and amount columns.",
+    q: "What if my difference is divisible by 9?",
+    a: "Read it as transposed digits until proven otherwise: swapping two digits in a number (for example, 1,250 entered as 1,520) always changes the value by a multiple of 9. Compare the amount-mismatch list against the statement amounts digit by digit — the culprit is a real transaction typed with two digits reversed.",
   },
   {
-    q: "What do I get to download?",
-    a: "The full difference report as a CSV — every finding with its kind, and both sides' dates, payees, and amounts — is free. On Pro you can also download a matched-only QBO: just the entries that agreed, with fresh transaction IDs, for importing into a clean account.",
+    q: "What do I get to download, and what is free?",
+    a: "The full differences report — every finding, with matched rows included for reference — downloads as a CSV, free with no account. A matched-entries-only QBO, for rebuilding a clean import from the entries that agree, is a Pro download. Both files are processed in memory and never stored.",
   },
   {
-    q: "Is my data uploaded or stored?",
-    a: "No. Both files are processed in memory to build the comparison and are not stored afterwards. We never sell or share your financial data.",
+    q: "What is a date-drift entry? Is it a real problem?",
+    a: "Usually not. A date-drift entry matches the statement on amount and payee but posted a few days apart — typically a posting-date versus cleared-date difference between the bank and QuickBooks. The finder lists them separately so they do not masquerade as real discrepancies in the missing and extra lists.",
   },
 ];
 
@@ -174,18 +158,22 @@ export default function ReconciliationFinderPage() {
             wrong addition and once as a missing subtraction. Find the amount in the
             mismatch list and correct its direction.
           </p>
+          <h3 className={H3}>Divisible by 9: transposed digits</h3>
+          <p className={P}>
+            If the difference divides evenly by 9, suspect a transposition before anything
+            else. Swapping two digits in an amount — $1,250 recorded as $1,520, a $270
+            difference — always produces a multiple of 9, a bookkeeping fingerprint as old as
+            double-entry itself. Work the amount-mismatch list and compare each amount against
+            the statement digit by digit; the wrong entry is a real transaction, typed with
+            two digits reversed.
+          </p>
           <h3 className={H3}>Off by a round number</h3>
           <p className={P}>
             Round differences ($50, $200, $1,000) rarely come from bank activity. Look for a
             manual journal entry, an edited opening balance, or a transaction typed from
             memory rather than imported.
           </p>
-          <h3 className={H3}>Off by a few cents</h3>
-          <p className={P}>
-            Rounding, a small bank fee recorded net instead of gross, or a partial payment.
-            The amount-mismatch list, sorted by size, usually surfaces it in seconds.
-          </p>
-
+          
           <h2 className={H2M}>A worked example: the $142.50 difference</h2>
           <p className={P}>
             A bookkeeper reconciling a March checking account is off by $142.50. The
@@ -274,21 +262,7 @@ export default function ReconciliationFinderPage() {
           </p>
 
           <h2 className={H2M}>When the difference will not go to zero</h2>
-          <p className={P}>
-            If the list is empty but QuickBooks still shows a difference, the problem is
-            outside the two files: an opening balance that was edited after a previous
-            reconciliation, an uncleared transaction from an earlier period, or a
-            reconciliation report discrepancy carried forward. Undo the last reconciliation
-            in QuickBooks and redo it with the clean list in hand. And if the gap spans
-            several months of accumulated entries, our{" "}
-            <a href="/services/quickbooks-cleanup" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QuickBooks cleanup service</a>{" "}
-            handles it with a free assessment first. Checking a single file before import
-            instead? Use the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO Duplicate Finder</a>{" "}
-            or the{" "}
-            <a href="/tools/qbo-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO File Checker</a>.
-          </p>
-        </>
+                  </>
       }
     />
   );

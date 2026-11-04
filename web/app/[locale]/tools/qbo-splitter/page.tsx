@@ -21,39 +21,23 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "Why would I split or trim a QBO file?",
-    a: "Common reasons: importing one month at a time from a multi-month file, re-importing a short period after a problem without touching the rest of the file, or sharing only one period's transactions. Trimming to the dates you need keeps the import limited to exactly that range.",
+    a: "To import only the period you actually need: one quarter out of a year-long download for an accountant, one month out of a catch-up file so the review stays manageable, or nothing but the rows after your opening balance date. Trimming the file beats importing everything and deleting inside QuickBooks afterwards.",
   },
   {
     q: "What happens to the closing balance in the trimmed file?",
-    a: "When the original file carries a closing (ledger) balance, the tool rebuilds running balances from it and sets the trimmed file's closing balance to the balance after the last kept transaction. That keeps the balance chain consistent, so reconciliation in QuickBooks starts from the right target for the kept period.",
+    a: "It is recomputed: the trimmed file closes at the running balance of the last kept transaction, rebuilt from the original file's own balance chain — not the original file's closing balance, which described the longer period. That is what lets the chunk reconcile against its own statement. If the original file carried no closing balance, the trimmed file uses a zero ledger balance and the tool says so before you download.",
   },
   {
-    q: "What if my file has no closing balance?",
-    a: "Then there is no real balance to carry over. The trimmed file carries a zero ledger balance instead, and the tool tells you this before you download. You can still import the transactions — you will simply set the reconciliation target in QuickBooks yourself, from your bank statement.",
-  },
-  {
-    q: "Are the start and end dates inclusive?",
-    a: "Yes. Transactions dated exactly on the start date or exactly on the end date are kept. The tool shows live counts of how many transactions are kept, how many are dropped before the range, and how many are dropped after it, so you can check the range before downloading.",
-  },
-  {
-    q: "Which file types can I split?",
-    a: "QBO, OFX, and QFX files — they are all OFX format underneath. The download is always a QBO file containing only the transactions inside your chosen date range, keeping each transaction's original date, name, amount, and transaction ID.",
+    q: "Can I use a split for a partial-period import?",
+    a: "Yes — that is the main use. Import the kept range now and the rest later, or import only the dates after a mid-period opening balance so pre-opening rows never enter the books. Keep the ranges tiling: one chunk ends the day before the next begins, with no gap and no overlap.",
   },
   {
     q: "Do the split files keep the same transaction IDs?",
-    a: "Yes. Every kept transaction retains its original FITID, unchanged. That stability matters: if you import two chunks and their ranges ever overlap, QuickBooks can recognize the shared transactions instead of posting them twice — and re-importing the same chunk is recognized as already imported.",
+    a: "Yes. Kept transactions retain their original FITIDs, dates, names and amounts — only the file around them changes. If a chunk is imported after the original file was already imported, QuickBooks can still recognize the transactions it has seen.",
   },
   {
     q: "Can I split one file into several chunks in a single pass?",
-    a: "Each pass produces one trimmed file for one date range, so splitting a year into months means running the months you need one at a time. The kept and dropped counts update live as you set the dates, which makes repeating the process for the next range quick.",
-  },
-  {
-    q: "Should I split by calendar months or by statement periods?",
-    a: "Statement periods are safer. Split on the same dates your bank statement uses, and the closing balance of each chunk lines up with a statement you can check against. Calendar months work too, but a chunk that cuts across two statements is harder to reconcile later.",
-  },
-  {
-    q: "Will QuickBooks accept a trimmed file like a normal bank download?",
-    a: "Yes. The trimmed file is rebuilt as a standard QBO with the kept period, the kept transactions, and a closing balance that matches them, so QuickBooks imports it through the same bank-feed or Web Connect route as a file your bank issued — it does not look hand-edited.",
+    a: "Each pass produces one trimmed file for one date range, so splitting a year into months means running the months you need one at a time. The kept, dropped-before and dropped-after counts update live as you set the dates, which makes repeating the process for the next range quick.",
   },
   {
     q: "Is this tool really free, and is my file stored?",
@@ -159,15 +143,7 @@ export default function QboSplitterPage() {
             file name, like "2026-Q2-only.qbo", prevents the classic mix-up of importing the
             same chunk twice under two names.
           </p>
-          <p className={P}>
-            Keep a simple log as you go: the original file's name, each chunk's range, and the
-            date you imported it. Three lines in a notebook or a spreadsheet. Months later,
-            when a reconciliation question points at a specific week, the log tells you which
-            chunk carried it and what its neighbors were — turning an afternoon of file
-            archaeology into a thirty-second lookup. Every bookkeeper who imports in pieces
-            eventually wishes they had started the log with the first chunk.
-          </p>
-
+          
           <h2 className={H2M}>A worked example: six months trimmed to two</h2>
           <p className={P}>
             Take a sample file covering January 1 to June 30 with six transactions and a

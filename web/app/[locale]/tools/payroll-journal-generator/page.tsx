@@ -21,43 +21,27 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "What does a payroll journal entry include?",
-    a: "Gross wages are debited to Wages Expense, and employer payroll taxes to Payroll Tax Expense. The credits are the withholding and tax payables — federal, state, employee and employer Social Security and Medicare, FUTA, SUTA — plus Wages Payable for the net pay employees actually received.",
+    a: "One balanced entry per pay period: gross wages debited to Wages Expense, employer payroll taxes debited to Payroll Tax Expense, and credits for each amount held back or owed — federal and state withholding, Social Security and Medicare, FUTA and SUTA payable — with net pay credited to Wages Payable (or your bank account when it has been paid). Debits and credits always total the same.",
   },
   {
-    q: "How does the generator check net pay?",
-    a: "It computes net pay as gross wages minus the employee deductions — federal withholding, state withholding, employee Social Security, and employee Medicare — and compares that figure with the net pay you entered. If the two differ, the expected net pay is shown and downloads stay blocked until they agree.",
-  },
-  {
-    q: "Why must debits equal credits before import?",
-    a: "QuickBooks rejects a journal entry whose debits and credits do not match. The generator totals both sides live as you type and only enables the downloads when the two totals are equal and net pay checks out, so the file you download is one QuickBooks will accept.",
-  },
-  {
-    q: "What is the difference between the CSV and the IIF download?",
-    a: "The CSV is the journal format QuickBooks Online imports: one row per line, with the journal date, account, debit, credit, and a payroll description. The IIF is the tab-delimited format for QuickBooks Desktop, written as a GENERAL JOURNAL transaction with signed amounts — debits positive, credits negative.",
-  },
-  {
-    q: "Can I use my own account names?",
-    a: "Yes. The account fields are prefilled with the usual names — Wages Expense, Payroll Tax Expense, the withholding and tax payables, and Wages Payable — and you can change any of them to match your chart of accounts before downloading. The amounts and the balancing checks do not change.",
-  },
-  {
-    q: "Is my payroll data uploaded or stored?",
-    a: "No. This tool runs entirely in your browser: there is no upload and no API call, and nothing you type is sent or stored. Close the tab and the numbers are gone with it — nothing is saved anywhere, ever.",
+    q: "Can I build the entry from a Gusto, ADP or Paychex report?",
+    a: "Yes — that is the workflow this generator exists for. When payroll runs outside QuickBooks, the provider's payroll report for the period already holds every total you need: gross pay, each employee withholding, the employer taxes, and net pay. Type those totals in here and download one balanced entry instead of re-deriving the accounting from a pay stub.",
   },
   {
     q: "What happens if my entry is out of balance?",
-    a: "The downloads stay disabled and the page shows the difference between total debits and total credits, plus the most likely reason. In practice the culprit is almost always net pay: retype it as gross wages minus the employee deductions and the entry usually balances immediately.",
+    a: "The downloads stay locked. The generator totals debits and credits as you type and also checks that net pay equals gross wages minus employee deductions; until both hold, it names the difference instead of letting you export. QuickBooks refuses an unbalanced journal entry anyway — the generator simply refuses first, while the payroll report is still open.",
   },
   {
     q: "How do employer taxes appear in the entry?",
-    a: "Employer Social Security, Medicare, FUTA, and SUTA are extra cost on top of gross wages: they are debited to Payroll Tax Expense and credited to the tax payables. Employee shares are different — they come out of gross wages through withholding, so they are never a second expense.",
+    a: "As their own debit and their own credits, never folded into wages. The employer's share of Social Security and Medicare, plus FUTA and SUTA, is debited to Payroll Tax Expense — a real cost of employing people, separate from gross wages — and credited to the matching tax payable accounts until the taxes are remitted.",
   },
   {
-    q: "How do I record the downloaded entry in QuickBooks?",
-    a: "In QuickBooks Online, import the journal CSV through the Import data screen, or recreate it under New → Journal entry — create any missing accounts first, or the import will fail. In Desktop, import the IIF file from the Utilities menu and review the entry in the journal before saving.",
+    q: "What is the difference between the CSV and the IIF download?",
+    a: "Same entry, two doors. The CSV is the journal-import shape for QuickBooks Online; the IIF file is for QuickBooks Desktop, built with TRNS/SPL rows. Both are free, and both unlock only when the entry balances. Account names in either file are the ones you set in the form, so match them to your chart of accounts first.",
   },
   {
-    q: "How often should I record a payroll journal entry?",
-    a: "Once per pay period is cleanest — the entry then matches the net pay that leaves the bank and the withholdings you remit. A single monthly summary entry also works if your payroll is stable. Whichever rhythm you choose, keep it consistent so reconciliations line up period to period.",
+    q: "Is my payroll data uploaded or stored?",
+    a: "No. The entry is calculated in your browser from the totals you type, and the downloads are generated locally — nothing is uploaded or stored. The generator is fully free with no account.",
   },
 ];
 
@@ -251,36 +235,7 @@ export default function PayrollJournalGeneratorPage() {
             the payroll report's rounding rather than forcing a line to fit.
           </p>
 
-          <h2 className={H2M}>The monthly payroll routine</h2>
-          <p className={P}>
-            Record the entry every pay period, or as one monthly summary — consistency matters
-            more than the choice. Then watch the payable accounts behave: withholding and tax
-            payables rise with each entry and fall as you remit deposits, and at year end the
-            wage and tax totals in these entries are the same numbers that feed the W-2 and
-            Form 941 reconciliations. When the bank side disagrees with the books, the{" "}
-            <a href="/tools/reconciliation-finder" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Reconciliation Difference Finder</a>{" "}
-            names the entries a reconciliation is off by. Each quarter, the same entries feed
-            a second check: the wages and withholding your journal shows for the quarter
-            should agree with the totals on the quarterly payroll tax return, and any gap
-            between them is far easier to explain in April than the following January. And people you pay who are not
-            employees do not belong in this entry at all — their totals live in the 1099
-            world, in the{" "}
-            <a href="/tools/1099-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">1099 Vendor Checker</a>.
-          </p>
-
-          <h2 className={H2M}>Running payroll every month? Make it a system</h2>
-          <p className={P}>
-            This generator runs entirely in your browser and stays free — nothing is uploaded,
-            so payroll numbers never leave the machine you typed them on. The system around it
-            is where an account helps: a free account keeps your statement conversions in one
-            searchable history, the dashboard adds bulk conversion when a month of bank
-            statements lands at once, and client portals let bookkeepers collect files from
-            several clients through their own upload links. The payroll entry proves what
-            should have left the account; the{" "}
-            <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
-            brings in what actually did — and the two should tell the same story every month.
-          </p>
-        </>
+          </>
       }
     />
   );
