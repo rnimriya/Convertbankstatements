@@ -61,6 +61,12 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
         { label: t("invoiceImportChecker"),     href: "/tools/invoice-import-checker" },
         { label: t("vendor1099Checker"),        href: "/tools/1099-checker" },
         { label: t("payrollJournalGenerator"),  href: "/tools/payroll-journal-generator" },
+        { label: t("bulkImporter"),             href: "/tools/bulk-import-quickbooks" },
+        { label: t("bulkExporter"),             href: "/tools/bulk-export-quickbooks" },
+        { label: t("bulkDeleter"),              href: "/tools/bulk-deleter-quickbooks" },
+        { label: t("qboFileEditor"),            href: "/tools/qbo-file-editor" },
+        { label: t("qboMerger"),                href: "/tools/qbo-merger" },
+        { label: t("iifToExcel"),               href: "/tools/iif-to-excel" },
       ],
     },
     {

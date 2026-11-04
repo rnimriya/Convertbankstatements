@@ -12,8 +12,14 @@ import {
   ClipboardCheck,
   ClipboardList,
   CreditCard,
+  Download,
   FileDown,
+  FileSpreadsheet,
   FileUp,
+  Layers,
+  Pencil,
+  Trash2,
+  Upload,
   Package,
   Receipt,
   Scale,
@@ -31,14 +37,14 @@ import {
 const PAGE_URL = "https://www.convertstatement.online/tools";
 
 export const metadata: Metadata = {
-  title: "All QuickBooks Tools — 19 Free Converters, Checkers & Fixers | Convert Statement",
+  title: "All QuickBooks Tools — 25 Converters, Checkers & Fixers | Convert Statement",
   description:
-    "Every Convert Statement tool on one page: CSV to QBO, QBO to CSV, payout converters for Stripe, PayPal, Amazon, Shopify, Square and Etsy, plus QBO checkers, a reconciliation finder and more. 9 tools are completely free.",
+    "Every Convert Statement tool on one page: CSV to QBO, QBO to CSV, payout converters for Stripe, PayPal, Amazon, Shopify, Square and Etsy, plus QBO checkers, a reconciliation finder and more. 15 tools are completely free.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "All QuickBooks Tools — Converters, Checkers & Fixers",
     description:
-      "19 focused tools for QuickBooks users: file converters, payout imports and pre-import checkers. 9 are completely free, no signup needed.",
+      "25 focused tools for QuickBooks users: file converters, payout imports and pre-import checkers. 15 are completely free, no signup needed.",
     url: PAGE_URL,
     type: "website",
   },
@@ -69,6 +75,9 @@ const GROUPS: { label: string; tools: Tool[] }[] = [
       { slug: "csv-to-iif", name: "CSV to IIF Converter", desc: "Build IIF files for QuickBooks Desktop imports — no manual mapping pain.", icon: FileUp, tag: "free" },
       { slug: "ofx-to-qbo", name: "OFX to QBO + BID Fixer", desc: "Fix broken OFX/QFX files and the INTU.BID error so QuickBooks accepts them.", icon: Wrench, tag: "free" },
       { slug: "free-receipt-to-quickbooks", name: "Receipt to QuickBooks", desc: "Snap a receipt and get a QuickBooks-ready expense entry from it.", icon: Receipt },
+      { slug: "bulk-import-quickbooks", name: "Bulk Importer for QuickBooks", desc: "Merge many CSV files, map the columns once, and build one QBO or IIF import file.", icon: Upload, tag: "free" },
+      { slug: "bulk-export-quickbooks", name: "Bulk Exporter for QuickBooks", desc: "Combine up to 10 QBO, OFX or QFX files into one clean CSV or Excel sheet.", icon: Download, tag: "free" },
+      { slug: "iif-to-excel", name: "IIF to Excel Converter", desc: "Turn a QuickBooks Desktop IIF export into a readable Excel or CSV sheet.", icon: FileSpreadsheet, tag: "free" },
     ],
   },
   {
@@ -90,6 +99,9 @@ const GROUPS: { label: string; tools: Tool[] }[] = [
       { slug: "qbo-import-errors", name: "QBO Import Error Decoder", desc: "Paste a QuickBooks import error and learn what it means and how to fix it.", icon: BookOpen },
       { slug: "reconciliation-finder", name: "Reconciliation Finder", desc: "Compare a statement against QuickBooks to find missing or duplicate entries.", icon: Scale },
       { slug: "qbo-splitter", name: "QBO File Splitter", desc: "Split a big QBO file into smaller chunks QuickBooks can handle.", icon: Scissors, tag: "free" },
+      { slug: "bulk-deleter-quickbooks", name: "Bulk Deleter for QuickBooks", desc: "Remove duplicate or unwanted transactions from a QBO file before you import it.", icon: Trash2, tag: "free" },
+      { slug: "qbo-file-editor", name: "QBO File Editor", desc: "Edit dates, names and amounts inside a QBO file, with find-and-replace for payees.", icon: Pencil, tag: "free" },
+      { slug: "qbo-merger", name: "QBO File Merger", desc: "Combine several QBO files from the same account into one clean file.", icon: Layers, tag: "free" },
       { slug: "invoice-import-checker", name: "Invoice Import Checker", desc: "Check invoice files for errors before they fail inside QuickBooks.", icon: ClipboardCheck, tag: "free" },
       { slug: "1099-checker", name: "1099 Vendor Checker", desc: "Check which vendors cross the 1099 threshold and need forms.", icon: ClipboardList, tag: "free" },
       { slug: "payroll-journal-generator", name: "Payroll Journal Generator", desc: "Build a balanced payroll journal entry for QuickBooks in minutes.", icon: Calculator, tag: "free" },
