@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog/posts";
 import { locales } from "@/i18n/routing";
 import { getTopBanksForSEO } from "@/lib/seo/banks";
+import { TOP_20_BANKS } from "@/lib/seo/banks-top20";
 import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { getAllClusterSlugs } from "@/lib/seo/clusters";
 
@@ -46,6 +47,15 @@ const STATIC_CONFIGS: RouteConfig[] = [
   { path: "/services/quickbooks-cleanup", changeFrequency: "monthly", priority: 0.7 },
   { path: "/for-bookkeepers", changeFrequency: "monthly", priority: 0.7 },
   { path: "/compare/synder-alternative", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/bank-statement-to-excel", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/bank-statement-to-csv", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/pdf-to-qbo", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/best-bank-statement-converter", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/compare/docuclipper-alternative", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/compare/bankstatementconverter-alternative", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/compare/nanonets-alternative", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/compare/moneythumb-alternative", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/partners", changeFrequency: "monthly", priority: 0.6 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
   { path: "/signup", changeFrequency: "yearly", priority: 0.7 },
   { path: "/login", changeFrequency: "yearly", priority: 0.5 },
@@ -96,8 +106,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // 3. Bank SEO Pages (Programmatic)
-  const banks = getTopBanksForSEO(50);
+  // 3. Bank SEO Pages (Programmatic) — top-50 list merged with the curated
+  // top-20 US banks so every rebuilt bank landing is always in the sitemap.
+  const bankMap = new Map(getTopBanksForSEO(50).map((b) => [b.slug, b]));
+  for (const b of TOP_20_BANKS) {
+    if (!bankMap.has(b.slug)) bankMap.set(b.slug, { slug: b.slug, name: b.name });
+  }
+  const banks = Array.from(bankMap.values());
   const bankEntries: MetadataRoute.Sitemap = banks.map((bank) => {
     const bankPath = `/banks/${bank.slug}`;
     return {
