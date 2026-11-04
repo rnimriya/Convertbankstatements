@@ -22,9 +22,15 @@ const SOCIAL = [
   },
 ];
 
-export async function Footer({ variant }: { variant?: "agri" | "light" }) {
+/**
+ * Site-wide footer — "Tool Index" design (owner-approved 2026-11-04):
+ * compact top area (brand, Product / Account / Legal columns, CTA block),
+ * a full index of every tool below the divider, then the legal bottom bar.
+ * One design everywhere; the `variant` prop is kept so existing callers
+ * (e.g. the dashboard shell) keep working unchanged.
+ */
+export async function Footer({ variant: _variant }: { variant?: "agri" | "light" }) {
   const t = await getTranslations("footer");
-  const agri = variant !== "light";
 
   const NAV = [
     {
@@ -111,100 +117,32 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
     },
   ];
 
-  if (!agri) {
-    return (
-      <footer className="bg-pine-800">
-        <div className="mx-auto max-w-6xl px-6 py-10">
-          <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
-            <div className="max-w-xs">
-              <p className="text-xs leading-relaxed text-zinc-300">
-                {t("tagline")}
-              </p>
-              <p className="mt-2 text-xs text-zinc-300">
-                support@convertstatement.online
-              </p>
-              <p className="mt-2 text-xs text-zinc-300">
-                {t("payments")}
-              </p>
-              <div className="mt-4 flex items-center gap-2">
-                {SOCIAL.map(({ label, href, icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/20 text-zinc-300 hover:border-[#2CA01C] hover:text-white"
-                  >
-                    {icon}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-10 text-sm sm:gap-14">
-              {NAV.map(({ heading, links }) => (
-                <div key={heading} className="space-y-2">
-                  <p className="font-semibold text-white">{heading}</p>
-                  {links.map(({ label, href }) => (
-                    <p key={label}>
-                      <Link
-                        href={href}
-                        className="text-zinc-300 hover:text-white"
-                      >
-                        {label}
-                      </Link>
-                    </p>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 border-t border-pine-700 pt-6 flex flex-col items-center justify-between gap-2 sm:flex-row text-xs text-zinc-400">
-            <p>{t("copyright", { year: new Date().getFullYear() })}</p>
-            <p>{t("prices")}</p>
-          </div>
-        </div>
-      </footer>
-    );
-  }
-
   const [productCol, qbCol, formatCol, accountCol, legalCol] = NAV;
 
-  return (
-    <>
-      <footer className="bg-[#0B1F16] text-[#E3F2DF]">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="border-b border-[#E3F2DF]/15 pb-[54px] pt-[72px] text-center">
-          <p className="agri-mono text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
-            {t("kicker")}
-          </p>
-          <h2 className="mb-[26px] mt-[18px] mx-auto max-w-[720px] font-display text-[clamp(34px,4.6vw,54px)] font-bold leading-[1.08] tracking-[-0.02em] text-white">
-            {t("headlineTop")}
-            <br />
-            {t("headlineBottom")}{" "}
-            <span className="agri-serif text-[#BFE3B8]">{t("headlineAccent")}</span>
-          </h2>
-          <Link
-            href="/signup"
-            className="inline-block rounded-full bg-[#2CA01C] px-[26px] py-[14px] text-[15px] font-bold text-white"
-          >
-            {t("ctaStart")}
-          </Link>
-          <span className="mt-3 block text-[13px] text-[#9FA99B] sm:ml-4 sm:mt-0 sm:inline-block">
-            {t("ctaNote")}
-          </span>
-        </div>
+  // The tool index: every QuickBooks tool link followed by every format
+  // converter — the same arrays the columns above are built from, so the
+  // index can never drift from them.
+  const indexLinks = [...qbCol.links, ...formatCol.links];
 
-        <div className="grid grid-cols-2 gap-9 py-[52px] lg:grid-cols-[1.15fr_0.8fr_1.1fr_1.1fr_1.1fr_0.8fr_0.8fr]">
+  const headingCls =
+    "agri-mono mb-4 min-h-[30px] text-[11px] font-bold uppercase tracking-[0.14em] text-[#2CA01C]";
+  const linkCls = "text-[13.5px] text-[#CBD4C2] hover:text-white";
+
+  return (
+    <footer className="bg-[#0B1F16] text-[#E3F2DF]">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-8">
+        {/* Compact top area: brand, main columns, CTA */}
+        <div className="grid grid-cols-2 gap-x-[38px] gap-y-10 pb-[36px] pt-[46px] lg:grid-cols-[1.35fr_0.62fr_0.62fr_0.62fr_0.95fr]">
           <div className="col-span-2 lg:col-span-1">
-            <p className="max-w-[270px] text-[13px] leading-[1.7] text-[#B9C2B2]">
+            <p className="text-[19px] font-extrabold tracking-[-0.015em] text-white">
+              Convert<span className="text-[#2CA01C]">Statement</span>
+            </p>
+            <p className="mt-[14px] max-w-[340px] text-[13px] leading-[1.7] text-[#B9C2B2]">
               {t("tagline")}
             </p>
             <a
               href="mailto:support@convertstatement.online"
-              className="mt-3 block break-all text-[13px] text-[#E3F2DF]"
+              className="mt-3 block text-[13px] text-[#E3F2DF]"
             >
               support@convertstatement.online
             </a>
@@ -216,7 +154,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-[#E3F2DF]/25 text-[#E3F2DF] hover:border-[#2CA01C] hover:text-white"
+                  className="flex h-[34px] w-[34px] items-center justify-center rounded-[9px] border border-[#E3F2DF]/30 text-[#E3F2DF] hover:border-[#2CA01C] hover:text-white"
                 >
                   {icon}
                 </a>
@@ -224,78 +162,13 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
             </div>
           </div>
 
-          <div>
-            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
-              {productCol.heading}
-            </h3>
-            <ul className="space-y-[10px]">
-              {productCol.links.map(({ label, href }) => (
-                <li key={label}>
-                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* All 27 QuickBooks links, split across two columns so every
-              tool is in the footer without one very long column. */}
-          <div>
-            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
-              {qbCol.heading}
-            </h3>
-            <ul className="space-y-[10px]">
-              {qbCol.links.slice(0, 14).map(({ label, href }) => (
-                <li key={label}>
-                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
-              {t("moreQuickbooksTools")}
-            </h3>
-            <ul className="space-y-[10px]">
-              {qbCol.links.slice(14).map(({ label, href }) => (
-                <li key={label}>
-                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Third tool column: the 19 format converters. */}
-          <div>
-            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
-              {formatCol.heading}
-            </h3>
-            <ul className="space-y-[10px]">
-              {formatCol.links.map(({ label, href }) => (
-                <li key={label}>
-                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {[accountCol, legalCol].map(({ heading, links }) => (
+          {[productCol, accountCol, legalCol].map(({ heading, links }) => (
             <div key={heading}>
-              <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
-                {heading}
-              </h3>
-              <ul className="space-y-[10px]">
+              <h3 className={headingCls}>{heading}</h3>
+              <ul className="space-y-[9px]">
                 {links.map(({ label, href }) => (
                   <li key={label}>
-                    <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
+                    <Link href={href} className={linkCls}>
                       {label}
                     </Link>
                   </li>
@@ -303,15 +176,53 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
               </ul>
             </div>
           ))}
+
+          <div className="col-span-2 self-start lg:col-span-1">
+            <Link
+              href="/signup"
+              className="inline-block rounded-full bg-[#2CA01C] px-6 py-3 text-[14.5px] font-bold text-white"
+            >
+              {t("ctaStart")}
+            </Link>
+            <p className="mt-[10px] text-[12.5px] leading-[1.6] text-[#9FA99B]">
+              {t("ctaNote")}
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-2 border-t border-[#E3F2DF]/15 pb-[30px] pt-[22px] text-xs text-[#8B968A] sm:flex-row">
+        {/* All-tools index */}
+        <div className="border-t border-[#E3F2DF]/[0.14] pb-[38px] pt-[30px]">
+          <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+            <p className="agri-mono text-[11.5px] font-bold uppercase tracking-[0.14em] text-[#2CA01C]">
+              {t("allToolsIndex")}
+            </p>
+            <p className="text-[12.5px] text-[#8B968A]">{t("allToolsNote")}</p>
+          </div>
+          <ul className="columns-2 [column-gap:38px] md:columns-3 lg:columns-5">
+            {indexLinks.map(({ label, href }, i) => (
+              <li key={href} className="mb-2 break-inside-avoid">
+                <Link
+                  href={href}
+                  className={
+                    i < 2
+                      ? "text-[13px] font-bold text-white"
+                      : "text-[13px] text-[#CBD4C2] hover:text-white"
+                  }
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col justify-between gap-2 border-t border-[#E3F2DF]/[0.14] pb-[26px] pt-[20px] text-[12px] text-[#8B968A] sm:flex-row">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
           <p>{t("prices")}</p>
           <p>{t("payments")}</p>
         </div>
       </div>
-      </footer>
-    </>
+    </footer>
   );
 }
