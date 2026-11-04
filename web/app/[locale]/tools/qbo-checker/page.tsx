@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { QboChecker } from "@/components/tools/QboChecker";
+import { SimilarToolsSection } from "@/components/tools/SimilarTools";
 
 const PAGE_URL = "https://www.convertstatement.online/tools/qbo-checker";
 
@@ -263,6 +264,11 @@ export default function QboCheckerPage() {
             </p>
           </div>
 
+        </section>
+
+        <SimilarToolsSection currentPath="/tools/qbo-checker" />
+
+        <section className="mx-auto max-w-6xl px-6 pb-12">
           <div className="mt-14">
             <h2 className="font-display text-2xl font-bold text-zinc-900">QBO checker questions, answered</h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
