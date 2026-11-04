@@ -20,52 +20,36 @@ export const metadata: Metadata = {
 
 const FAQS: ToolFaq[] = [
   {
-    q: "How do I record PayPal payouts in QuickBooks correctly?",
-    a: "Do not book the net transfer as sales — it understates revenue and hides fees. Use a clearing account: gross payments in as income, refunds against it, fees as an expense against it, then each transfer as a move to checking. This tool builds that split from your activity CSV.",
-  },
-  {
     q: "Which PayPal export should I upload?",
-    a: "In PayPal, go to Activity → Statements → Activity download and choose CSV. That file has the Date, Type, Gross, Fee, and Net columns the tool needs. Bank transfers in the file are used to split activity into payout periods.",
+    a: "In PayPal, go to Activity, then Statements, and choose the Activity download as CSV. The converter needs the Date, Type, Gross, Fee, and Net columns that file carries. Leave the bank transfer rows in — the tool uses each transfer to a bank account to close one payout period and start the next.",
   },
   {
-    q: "How are PayPal fees and refunds handled?",
-    a: "Processing fees become expense lines, refunds reduce gross sales (PayPal keeps its fixed fee on refunded payments, and that flows through to the fee line), and chargebacks are broken out separately. The tie-out check verifies everything nets to the transfer amount.",
+    q: "Are PayPal withdrawals to my bank account income?",
+    a: "No. A withdrawal moves money you already earned from your PayPal balance to your own bank account — a transfer between two of your accounts, not new revenue. The income happened when buyers paid, at gross. This converter treats every withdrawal row as the transfer line out of the PayPal clearing account, so sales are counted once, when received.",
   },
   {
-    q: "Are withdrawals to my bank account income?",
-    a: "No. A withdrawal moves money you already earned from your PayPal balance to your own bank account — it is a transfer between your accounts, not new revenue. Book it as a transfer out of the PayPal clearing account into checking. Treating it as income double-counts sales you recorded at gross.",
+    q: "How do I record PayPal fees in QuickBooks?",
+    a: "PayPal prints the fee on every activity row, in its own Fee column — the mistake is importing only Gross or only Net and throwing that column away. The converter reads the fee on each row and posts each period's total as an expense line through the clearing account, so revenue stays gross and the cost of taking PayPal payments shows as a real expense.",
   },
   {
-    q: "How do I import the QBO into QuickBooks?",
-    a: "First create a bank account in QuickBooks named 'PayPal Clearing'. Import the QBO there, then match each transfer line against the real PayPal transfer deposit in your bank feed. When the clearing account nets to zero, the period is fully reconciled.",
+    q: "Why doesn't one of my periods tie out to its withdrawal?",
+    a: "Usually timing inside PayPal. A payment under a temporary hold, or an eCheck that had not cleared, appears in your activity before the money can be part of a withdrawal; it settles in a later period. A refund issued after the withdrawal was calculated lands in the next period too. The tool shows the difference per period so you can match it to the hold, the pending payment, or the late refund.",
   },
   {
-    q: "What's the difference from the Stripe converter?",
-    a: "The accounting is the same clearing-account model, but the parsing is built for PayPal's activity export — including its transfer-to-bank rows, which the tool uses to split your activity into payout periods automatically, each one tied out to its own transfer.",
+    q: "Is this PayPal to QuickBooks converter free?",
+    a: "The scan, the per-period summary, the tie-out check, and the clearing-entries CSV download are free with no account. The .QBO download is on Pro. Activity not yet withdrawn is reported as an open period with no transfer to check against — nothing is dropped just because the money is still sitting in PayPal.",
   },
   {
-    q: "Can I import the same activity period twice?",
-    a: "Re-running a file is safe: every clearing entry carries a unique transaction ID, and QuickBooks ignores rows it has already imported. The risk is mixing routes — importing overlapping exports through the bank feed and through this converter in the same period. Pick one route per period and overlaps stop mattering.",
-  },
-  {
-    q: "What do currency conversion lines mean for my books?",
-    a: "When a payment arrives in another currency, PayPal converts it at its own rate before it reaches your balance. Those rows are conversion lines, not sales: the converter treats them as movements between currency balances inside the clearing account, so the converted amount is what your income reflects.",
-  },
-  {
-    q: "How do I connect PayPal to QuickBooks Online?",
-    a: "PayPal's QuickBooks connector exists, but it syncs summarized activity and is a common source of miscategorized fees and duplicates. The file route is easier to audit: download the activity CSV, convert it into gross, refund, and fee lines through a clearing account, and import once — no sync to break.",
-  },
-  {
-    q: "Is my data uploaded to your servers?",
-    a: "No. Your CSV is processed in memory to build the payout summary and the download files, and it is not stored on our servers afterwards. Nothing is kept between sessions, and we never sell, share, or use your financial data for anything else.",
+    q: "Can I import the same PayPal period twice?",
+    a: "The converted entries carry unique transaction IDs derived from the period, and QuickBooks skips IDs it has already imported. The real duplicate risk with PayPal is overlapping downloads — one file ending on the 31st and the next starting on the 28th to be safe — fed through different routes. Keep date ranges non-overlapping and use one route per period.",
   },
 ];
 
 const HOWTO = [
-  { title: "Download from PayPal", body: "In PayPal, go to Activity → Statements → Activity download and choose CSV." },
-  { title: "Upload it here", body: "Drop the CSV in — the tool parses it and splits activity into payout periods at each bank transfer." },
-  { title: "Review the tie-out", body: "Check gross, fees, and refunds per period, and confirm each period ties out to its transfer." },
-  { title: "Import into QuickBooks", body: "Download the CSV free, or the QBO on Pro, and import it into a PayPal Clearing account in QuickBooks." },
+  { title: "Download from PayPal", body: "In PayPal, go to Activity → Statements → Activity download and choose CSV — the file with Date, Type, Gross, Fee, and Net columns, including its bank transfer rows." },
+  { title: "Upload it here", body: "Drop the CSV in (max 10 MB, no account). The tool parses PayPal's activity layout and splits the activity into periods at each withdrawal to your bank." },
+  { title: "Review the tie-out", body: "Check each period's gross, fees, refunds, and chargebacks, and confirm the period ties out to its withdrawal amount. Activity not yet withdrawn shows as an open period." },
+  { title: "Download and import", body: "Download the clearing-entries CSV free, or the .QBO on Pro, and import it into a PayPal Clearing account in QuickBooks. Match each transfer line to the real withdrawal deposit in your bank feed." },
 ];
 
 const H2 = "text-2xl font-extrabold text-zinc-900 dark:text-white";
@@ -89,95 +73,81 @@ export default function PayPalToQuickBooksPage() {
       privacyLine="No account needed · Processed in memory, never stored"
       content={
         <>
-          <h2 className={H2}>Why the transfer in your bank is not the sale</h2>
+          <h2 className={H2}>A PayPal withdrawal is a transfer, not a sale</h2>
           <p className={P}>
-            PayPal collects money the moment a buyer pays, but it pays you on your schedule, not the
-            sale's. When you withdraw, what lands in your bank is everything since the last
-            withdrawal — sales, minus PayPal's fees, minus refunds you issued, plus a few lines that
-            were never sales at all. Book that transfer as revenue and three errors land at once:
-            income is understated by the fees and refunds buried inside it, fee expense disappears
-            from the P&L, and any non-sale movement in the account gets dressed up as business
-            income at tax time.
+            PayPal pays you on two different clocks. Buyers pay the moment they check out, and the
+            money lands in your PayPal balance at gross, with PayPal's fee taken on each payment.
+            You get paid when you withdraw — and a withdrawal is simply everything that has
+            accumulated since the last one: this week's sales, minus fees, minus a refund you
+            issued for last month's order, minus a chargeback, with nothing in the bank-feed line
+            to say which is which. Book that withdrawal as revenue and income is understated by
+            every fee and refund inside it, fee expense disappears from the profit and loss
+            statement, and money that was never a sale at all gets reported as if it were.
           </p>
           <p className={P}>
-            The way out is already sitting in PayPal's own reports: the activity download records
-            every payment at gross, with its fee and net beside it. Run that file through a clearing
-            account — income in at gross, fees and refunds against it, withdrawals out as transfers —
-            and the transfer stops being a mystery number and becomes the one line that has to
-            match. That is the split this converter builds.
-          </p>
-
-          <h2 className={H2M}>Anatomy of a PayPal activity download</h2>
-          <p className={P}>
-            Unlike a per-payout bundle, PayPal's export is one continuous ledger in which every row
-            carries three money columns — Gross, Fee, and Net. What separates a clean import from a
-            mess is the row types:
+            PayPal's own activity download is the document that untangles this, because it records
+            every payment at gross with its fee and its net printed beside it, and it records every
+            withdrawal as a row of its own. Run that file through a clearing account — payments in
+            at gross, fees and refunds against them, each withdrawal out as a transfer to checking
+            — and the withdrawal stops being a mystery number. It becomes the proof: if a period's
+            activity nets exactly to the withdrawal that closed it, the period is reconciled. That
+            is the split this converter builds, period by period.
           </p>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr>
-                  <th className={TH}>Row in the export</th>
+                  <th className={TH}>Row in the activity download</th>
                   <th className={TH}>What it really is</th>
-                  <th className={TH}>How it should be booked</th>
+                  <th className={TH}>Line it becomes</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td className={TD}><strong>Payment received</strong></td><td className={TD}>A buyer's payment, shown at its full gross amount</td><td className={TD}>Income, into the clearing account</td></tr>
-                <tr><td className={TD}><strong>Payment fee</strong></td><td className={TD}>PayPal's processing charge, already shown as its own column</td><td className={TD}>Merchant fees expense</td></tr>
-                <tr><td className={TD}><strong>Refund or reversal</strong></td><td className={TD}>Money returned to a buyer; PayPal keeps its fixed fee on the original payment</td><td className={TD}>Contra-income, with the kept fee staying in expense</td></tr>
-                <tr><td className={TD}><strong>Chargeback</strong></td><td className={TD}>A payment reversed by the buyer's bank or card issuer</td><td className={TD}>Contra-income, tracked on its own line</td></tr>
-                <tr><td className={TD}><strong>Currency conversion</strong></td><td className={TD}>A balance converted between currencies at PayPal's rate</td><td className={TD}>A movement between currency balances — not a sale</td></tr>
-                <tr><td className={TD}><strong>Withdrawal to bank</strong></td><td className={TD}>Your own money moving to your own bank account</td><td className={TD}>Transfer from clearing to checking — never income</td></tr>
+                <tr><td className={TD}><strong>Payment received</strong></td><td className={TD}>A buyer's payment — website payment, express checkout, or invoice payment — shown at gross with its fee</td><td className={TD}>Income into PayPal Clearing; the fee goes to the fees line</td></tr>
+                <tr><td className={TD}><strong>Refund or reversal</strong></td><td className={TD}>Money returned to a buyer</td><td className={TD}>Contra-income, reducing gross sales</td></tr>
+                <tr><td className={TD}><strong>Chargeback / dispute</strong></td><td className={TD}>A payment reversed through the buyer's bank or card issuer</td><td className={TD}>Its own contra line, tracked separately from ordinary refunds</td></tr>
+                <tr><td className={TD}><strong>Fee rows</strong></td><td className={TD}>PayPal charges that appear as rows of their own rather than in a payment's Fee column</td><td className={TD}>Expense lines through the clearing account</td></tr>
+                <tr><td className={TD}><strong>Transfer / withdrawal to bank</strong></td><td className={TD}>Your own money moving to your own bank account</td><td className={TD}>Transfer from PayPal Clearing to checking — the tie-out target for the period it closes</td></tr>
               </tbody>
             </table>
           </div>
 
-          <h2 className={H2M}>How this converter splits activity into payout periods</h2>
+          <h2 className={H2M}>How to convert a PayPal activity download, step by step</h2>
           <p className={P}>
-            PayPal never labels a "payout" the way other platforms do, so the converter reconstructs
-            them: it scans the activity file for withdrawal-to-bank rows and treats each withdrawal
-            as the end of a period. Everything since the previous withdrawal belongs to the transfer
-            that followed it. Each period is then totalled — gross in, fees, refunds, chargebacks —
-            and checked against the withdrawal amount before any entries are built.
+            <strong className="text-zinc-900 dark:text-white">Step 1 — Download the activity file from PayPal.</strong>{" "}
+            Go to Activity, then Statements (in some accounts, Reports and then Statements), choose
+            the Activity download, set your date range, and select CSV. The converter needs a file
+            with Gross and Type columns — the standard activity download, which carries Date, Type,
+            name, Gross, Fee, and Net. Leave the transfer rows in: they look like clutter, but they
+            are how the tool knows where one payout period ends and the next begins.
           </p>
           <p className={P}>
-            Periods with no withdrawal — money still sitting in PayPal when the file ends — are reported as an open period, so nothing is silently dropped. The result has the same shape as any other platform's payout: a set of clearing-account
-            entries per period, each row carrying a unique transaction ID derived from the period,
-            so QuickBooks recognizes a re-import instead of duplicating it. The per-period summary
-            is free to view with no account; the CSV download is free, and the QBO file is on Pro.
+            <strong className="text-zinc-900 dark:text-white">Step 2 — Upload the CSV.</strong>{" "}
+            Drop the file into the tool above (CSV, up to 10 MB). The scan is free, needs no
+            account, and the file is processed in memory and never stored. If the file does not
+            look like a PayPal activity export — no Gross or Type column — the tool stops and tells
+            you which download to use instead of guessing.
           </p>
-
-          <h2 className={H2M}>The clearing-account method for PayPal</h2>
           <p className={P}>
-            The clearing account stands in for your PayPal balance inside QuickBooks. Money enters
-            it when buyers pay, leaves it when you withdraw, and whatever sits in it at month-end is
-            simply PayPal money you have not withdrawn yet — which is correct, and provable:
+            <strong className="text-zinc-900 dark:text-white">Step 3 — Review the periods and their tie-outs.</strong>{" "}
+            PayPal never labels a payout, so the converter reconstructs periods from your own
+            behaviour: it sorts the activity, takes each transfer-to-bank row in date order, and
+            assigns every row since the previous transfer to the period that transfer closed.
+            Each period is totalled — gross in, refunds, chargebacks, fees — and checked against
+            that period's withdrawal amount. Activity after your last withdrawal is reported as an
+            open period with no bank total to check against, which is correct: that money is still
+            in PayPal, and the clearing account should still be holding it.
           </p>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-zinc-600 dark:text-zinc-300 marker:font-bold marker:text-[#007A33]">
-            <li>Create a bank account in QuickBooks named <strong className="text-zinc-900 dark:text-white">PayPal Clearing</strong> (one-time setup).</li>
-            <li>Record gross payments received as income into PayPal Clearing.</li>
-            <li>Record fees as an expense and refunds as contra-income against the same account.</li>
-            <li>Record each withdrawal as a transfer from PayPal Clearing to your checking account.</li>
-            <li>Match the transfer to the deposit that appears in your bank feed.</li>
-          </ol>
           <p className={P}>
-            When a period is fully posted, its activity in the clearing account nets to zero and the
-            remaining balance is just the money still sitting in PayPal — no unexplained difference
-            to chase.
-          </p>
-
-          <h2 className={H2M}>Downloading the right report from PayPal</h2>
-          <p className={P}>
-            In PayPal, go to <strong className="text-zinc-900 dark:text-white">Activity</strong>, then <strong className="text-zinc-900 dark:text-white">Statements</strong> (in some accounts,
-            Reports → Statements), choose <strong className="text-zinc-900 dark:text-white">Activity download</strong>, set your date range, and select
-            CSV. The standard activity download already includes the Date, Type, Gross, Fee, and Net
-            columns the converter needs. Match the range to how you actually withdraw — weekly
-            withdrawals inside a monthly file are fine, because the converter splits at each
-            withdrawal anyway. One discipline matters: never re-download a range you have already
-            imported and feed both files in; overlapping exports are the number one cause of
-            duplicated PayPal income. If your account holds more than one currency, the converter keeps
-            conversion lines as movements between balances instead of mistaking them for income.
+            <strong className="text-zinc-900 dark:text-white">Step 4 — Download and import.</strong>{" "}
+            The clearing-entries CSV is free; the .QBO download is on Pro. Create a bank account in
+            QuickBooks named PayPal Clearing once, import the file into it, and match each transfer
+            line against the withdrawal deposit in your checking feed. Whatever balance remains in
+            the clearing account afterwards should equal the money still sitting in your PayPal
+            balance — a check you can run at any month-end. Take card payments directly as well?
+            The{" "}
+            <a href="/tools/free-stripe-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Stripe payout converter</a>{" "}
+            applies the same clearing model to Stripe's exports.
           </p>
 
           <figure className="mt-10 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
@@ -185,105 +155,68 @@ export default function PayPalToQuickBooksPage() {
             <figcaption className="text-sm leading-relaxed text-[#33502F]">A PayPal activity export — the gross, fee, and net columns are what make a clean split possible.</figcaption>
           </figure>
 
-          <h2 className={H2M}>A worked example: one withdrawal period, tied out</h2>
+          <h2 className={H2M}>PayPal problems that break the tie-out: symptoms and fixes</h2>
+          <h3 className={H3}>Withdrawals booked as income, so sales count twice</h3>
           <p className={P}>
-            Sample figures, rounded on purpose. One week of activity, closed out by a single
-            withdrawal:
+            The withdrawal is the most visible PayPal number in a bank feed, which is why it gets
+            categorized as sales — and if the underlying payments were also recorded anywhere, the
+            same money is now revenue twice. Even on its own it is wrong: it reports the net, not
+            the gross, and it dates income by when you withdrew rather than when you sold. The fix
+            is structural: withdrawals are only ever transfers out of the clearing account.
           </p>
+          <h3 className={H3}>Holds and pending payments make a period come up short</h3>
+          <p className={P}>
+            Not every payment in the activity file was final when it downloaded. An eCheck clears
+            days after the sale; PayPal can place a temporary hold on a payment under review. That
+            money appears in your activity before it can be part of a withdrawal, so the period
+            that contains the sale can show a difference against the withdrawal that closed it —
+            and the held money then settles inside a later period's arithmetic. The converter
+            counts each row in the period where it appears in the file, which is the same place
+            your withdrawal puts it; when a period flags a difference, check PayPal for holds and
+            pending payments in that window first, before assuming an error.
+          </p>
+          <h3 className={H3}>The Fee column never made it into QuickBooks</h3>
+          <p className={P}>
+            PayPal does the hard part for you — the fee is printed on every row — and imports still
+            lose it by mapping only one money column. Map Gross alone and fees vanish from the
+            profit and loss statement; map Net as the sale amount and revenue is understated by
+            exactly the fees. Either way the business looks more profitable per sale than it is.
+            The converter reads all three columns: Gross to income, Fee to expense, Net as the
+            arithmetic that has to tie to the withdrawal.
+          </p>
+          <h3 className={H3}>Overlapping downloads duplicate a few days every month</h3>
+          <p className={P}>
+            The classic PayPal duplicate is a date range chosen "to be safe": last month's file
+            ended on the 31st, this month's starts on the 28th, and three days now exist in two
+            files. Converted QBO entries carry unique IDs that protect the import, but the clean
+            habit costs nothing: download contiguous, non-overlapping ranges, and let each
+            withdrawal close exactly one period.
+          </p>
+
+          <h2 className={H2M}>Three ways to get PayPal activity into QuickBooks, compared</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr><th className={TH}>Line</th><th className={TH}>Amount</th></tr>
+                <tr>
+                  <th className={TH}>Route</th>
+                  <th className={TH}>What it costs you</th>
+                  <th className={TH}>Where it breaks</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td className={TD}>Gross payments received</td><td className={TD}>$1,800.00</td></tr>
-                <tr><td className={TD}>Refunds issued</td><td className={TD}>−$150.00</td></tr>
-                <tr><td className={TD}>Processing fees (from the Fee column)</td><td className={TD}>−$62.00</td></tr>
-                <tr><td className={TD}>Chargebacks</td><td className={TD}>$0.00</td></tr>
-                <tr><td className={TD}><strong>Withdrawal to the bank</strong></td><td className={TD}><strong>$1,588.00</strong></td></tr>
+                <tr><td className={TD}><strong>Connector / sync apps</strong></td><td className={TD}>A monthly subscription, and a live connection to maintain</td><td className={TD}>A sync is only as good as its mapping: summarized syncs are a common source of fees posted to the wrong account and of duplicates when a sync overlaps a manual import. Check what yours actually posts, line by line, before trusting it</td></tr>
+                <tr><td className={TD}><strong>Spreadsheet hand-entry</strong></td><td className={TD}>Free, and survivable for a quiet month</td><td className={TD}>PayPal activity is row after row of small payments; hand-entry skips fee rows, mistypes amounts, and gives you no period tie-out to prove the month before it enters the books</td></tr>
+                <tr><td className={TD}><strong>This file-based converter</strong></td><td className={TD}>The scan, summary, and CSV are free; the .QBO download is on Pro. No live connection to QuickBooks is offered or needed</td><td className={TD}>You download and import a file per period — routine instead of automatic — and periods are reconstructed from your withdrawal rows, so an export with no withdrawals yet comes back as one open period</td></tr>
               </tbody>
             </table>
           </div>
           <p className={P}>
-            The tie-out: $1,800.00 − $150.00 − $62.00 = $1,588.00. In the clearing account that is
-            $1,800.00 of income, $150.00 of contra-income, and $62.00 of fee expense, leaving exactly
-            $1,588.00 — which the withdrawal transfers to checking and zeroes the period. Booked as
-            a single "sale" of $1,588.00, the same week would understate revenue by $212.00 and make
-            the fees vanish entirely. (Sample figures, shown for illustration.)
-          </p>
-
-          <h2 className={H2M}>PayPal mistakes that distort the books</h2>
-          <h3 className={H3}>Booking withdrawals as income</h3>
-          <p className={P}>
-            The withdrawal is the most visible PayPal number in your bank feed, which is exactly why
-            it gets booked — and why it is wrong. It is a movement of money you already own, between
-            two of your own accounts. Income was earned when the buyers paid, at gross; the
-            withdrawal is only the transfer that proves it arrived.
-          </p>
-          <h3 className={H3}>Ignoring the Fee column</h3>
-          <p className={P}>
-            PayPal is generous enough to print the fee on every row — and imports still throw it
-            away by mapping only Gross, or only Net. Map Gross alone and fees disappear from the
-            P&L; map Net as the sale and revenue is understated by the same amount. The fee column
-            has to land in its own expense account.
-          </p>
-          <h3 className={H3}>Importing the same period twice</h3>
-          <p className={P}>
-            Overlapping date ranges are the classic PayPal duplicate: last month's file ended on the
-            31st, this month's started on the 28th "to be safe", and three days now exist twice.
-            Converted entries carry unique IDs that protect you here; bank-feed imports of the same
-            rows often do not.
-          </p>
-          <h3 className={H3}>Treating currency conversions as sales</h3>
-          <p className={P}>
-            A conversion row looks like money arriving, and booked as income it manufactures revenue
-            out of your own balance. It is a movement between currency balances at PayPal's rate —
-            the income was the original payment, counted once, in the currency it settled in.
-          </p>
-
-          <h2 className={H2M}>Pending payments, holds, and eChecks</h2>
-          <p className={P}>
-            Not every payment in the activity file was final when it downloaded. A buyer paying by
-            eCheck clears days after the sale; PayPal can place a temporary hold on a payment under
-            review; a payment sent to an unconfirmed address can sit pending. Those rows appear in
-            the export before the money is truly yours, and they settle in whichever period they
-            clear — not the period of the original sale.
-          </p>
-          <p className={P}>
-            The converter counts each row in the period where it appears in the file, which is the
-            same place your withdrawal arithmetic puts it. If you re-download a range after a hold
-            releases, import the newer file for that period rather than adding its rows a second
-            time — the periods are reconstructed from the file you give it.
-          </p>
-
-          <h2 className={H2M}>When a period will not tie out</h2>
-          <p className={P}>
-            Most differences have ordinary causes. A payment was still pending or on hold when the
-            withdrawal was calculated, so it belongs to the next period. An eCheck cleared days after
-            the sale date. A refund was issued in a later period than the payment it reverses — the
-            sale sits in one period, the contra-income in the next, and each period still ties on
-            its own. Foreign-currency rows settled at PayPal's conversion rate, not the rate on the
-            invoice. The tie-out names the difference per period; if QuickBooks and the bank still
-            disagree after importing, the{" "}
-            <a href="/tools/reconciliation-finder" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Reconciliation Difference Finder</a>{" "}
-            compares your statement against QuickBooks entry by entry.
-          </p>
-
-          <h2 className={H2M}>Make it a system, not a monthly rescue</h2>
-          <p className={P}>
-            PayPal bookkeeping breaks when it is done from memory at month-end; it holds up when
-            each period follows the same five steps. A free account keeps every conversion in one
-            searchable history, so the activity file behind a questioned number is always findable.
-            The dashboard adds bulk conversion when several months land at once, and client portals
-            if clients send you their own PayPal exports — each client uploads through their own
-            link. QBO downloads sit on{" "}
-            <a href="/pricing" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Pro</a>,
-            and if you also take card payments directly, the{" "}
-            <a href="/tools/free-stripe-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Stripe to QuickBooks converter</a>{" "}
-            applies the same clearing model there. Run the{" "}
-            <a href="/tools/free-qbo-cleanup-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO Duplicate Finder</a>{" "}
-            over any file you are unsure about — with PayPal, the cheapest error is the duplicate
-            you catch before importing.
+            Sellers who also run a storefront can keep the same discipline with the{" "}
+            <a href="/tools/etsy-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Etsy statement converter</a>{" "}
+            or the{" "}
+            <a href="/tools/square-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Square payout converter</a>,
+            and a plain bank CSV belongs in the{" "}
+            <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>.
           </p>
         </>
       }

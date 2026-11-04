@@ -21,51 +21,35 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "How do I record Square payouts in QuickBooks?",
-    a: "Record by payout, not by day. Each Square payout bundles many sales with processing fees and refunds already deducted, and the deposit date rarely matches the sale dates. This tool unpacks each payout into gross sales, refunds, and fees through a Square clearing account, then transfers the net to checking — when the clearing account nets to zero, the payout is reconciled.",
+    a: "Record by payout, not by day. A Square payout bundles card sales from the till with processing fees and refunds already deducted, and the deposit lands after the sales it covers. This tool unpacks each payout into gross sales, refunds, and fees through a Square Clearing account, then transfers the net to checking. When clearing nets to zero for a payout, that deposit is reconciled.",
   },
   {
     q: "Which Square export should I upload?",
-    a: "A Square payout CSV with columns: payout-id, date, type, gross, fee, and net. In Square Dashboard, open your reports and export the payout detail as a CSV. If your export uses different headers, rename them to match — the tool reads exactly these six columns.",
+    a: "A Square payout CSV with the columns payout-id, date, type, gross, fee, and net. In Square Dashboard, open your reports or your balance and payout views and export the payout detail as a CSV. The converter also recognizes a few alternate header names — gross sales, net total, event type — and if yours still differ, rename the headers to the six above before uploading.",
   },
   {
-    q: "What is the payout tie-out check?",
-    a: "The tool verifies Gross − Fees − Refunds = Payout for every payout, against the deposit total in your payout rows. A green 'Ties out' badge means the payout reconciles to the penny. If it shows a difference, check Square for reserve holds, chargebacks, or sales from other periods swept into the payout before importing.",
+    q: "Is this Square to QuickBooks converter really free?",
+    a: "Yes — completely, on this page. The scan, the per-payout summary, the tie-out check, the clearing-entries CSV, and the .QBO download are all free, and no account is needed for any of them. Your file is processed in memory to build the summary and the downloads, and it is not stored afterwards.",
   },
   {
-    q: "How are Square fees handled?",
-    a: "Processing fees are expense lines through the clearing account, refunds are contra-income lines reducing gross sales, and chargebacks appear as their own lines. The fee column in your export is taken as given — the tool does not estimate Square's fee schedule.",
+    q: "Does the converter separate the sales tax I collected through Square?",
+    a: "Not as its own line. The payout export this tool reads has no tax column — sale rows arrive at gross, so any sales tax collected at the till stays inside the gross line. Keep that in mind when you categorize: tax collected is a liability owed to the state, not revenue, so the gross line should not sit entirely in a sales account if your totals include tax.",
   },
   {
-    q: "How do I import the QBO into QuickBooks?",
-    a: "First create a bank account in QuickBooks named 'Square Clearing'. Import the QBO there, then match the transfer line against the real payout deposit in your bank feed. When the clearing account nets to zero, the payout is fully reconciled. The CSV works the same way through QuickBooks Online's manual upload.",
-  },
-  {
-    q: "Why did my payout not tie out?",
-    a: "A difference usually has a name: a Square reserve hold, a chargeback settled after the payout closed, a Square Loans payment, or an instant-transfer fee taken outside the payout rows. Compare the difference amount with your Square activity for those dates — it almost always matches one of those items exactly.",
+    q: "Why did my Square payout not tie out?",
+    a: "Compare the difference amount with your Square activity for the payout dates — it usually matches one item exactly: a fee row missing from the export, a reserve hold, a chargeback settled after the payout closed, or a deduction Square takes outside the payout rows, such as a loan repayment or an instant-transfer fee, which needs its own line. Fix the cause before importing rather than forcing the payout to fit.",
   },
   {
     q: "Can I convert several months of Square payouts at once?",
-    a: "Yes. Export a longer date range from Square and upload the single CSV — the tool groups rows by payout ID, so every payout still ties out separately. Review any payout flagged with a difference before importing, and consider importing month by month so your QuickBooks review stays manageable.",
-  },
-  {
-    q: "Do I need a separate clearing account for each Square location?",
-    a: "One clearing account per payout stream is the clean rule. If two locations settle into the same bank account under different payout IDs, separate clearing accounts keep each location's tie-out provable. If they share one payout, one clearing account is enough — the payout, not the location, is the unit.",
-  },
-  {
-    q: "What about the sales tax I collected through Square?",
-    a: "Tax collected is part of gross sales in your export, not income. The converter keeps tax visible as its own line when your export breaks it out, so it can sit in a sales-tax payable account instead of inflating revenue. Check the line before importing and map it to your tax account.",
-  },
-  {
-    q: "Is this tool really free?",
-    a: "Yes. The payout summary, the CSV download, and the QBO download are all free on this tool, and no account is needed. Your CSV is processed in memory to build the summary and is not stored afterwards — we never sell or share your financial data.",
+    a: "Yes. Export a longer date range and upload the single CSV — rows are grouped by payout ID, so every payout still gets its own summary and tie-out. Review any payout flagged with a difference before importing, and consider importing month by month anyway, so the review inside QuickBooks stays manageable.",
   },
 ];
 
 const HOWTO = [
-  { title: "Export from Square", body: "In Square Dashboard, open your reports, export the payout detail as a CSV, with payout-id, date, type, gross, fee, and net columns." },
-  { title: "Upload it here", body: "Drop the CSV in — the tool groups everything into payouts automatically." },
-  { title: "Review the tie-out", body: "Check each payout's gross, fees, and refunds, and confirm the payout ties out to the bank deposit." },
-  { title: "Import into QuickBooks", body: "Download the CSV or the QBO — both are free — and import it into a Square Clearing account in QuickBooks." },
+  { title: "Export from Square", body: "In Square Dashboard, open your reports or balance/payout views, export the payout detail as a CSV, and check it carries payout-id, date, type, gross, fee, and net columns — rename headers if yours differ." },
+  { title: "Upload it here", body: "Drop the CSV in (max 10 MB, no account). The tool groups everything into payouts by payout ID automatically." },
+  { title: "Review the tie-out", body: "Check each payout's gross, refunds, and fees, and confirm the payout ties out to the deposit total recorded in the payout rows." },
+  { title: "Download and import", body: "Download the CSV or the .QBO — both are free on this tool — and import it into a Square Clearing account in QuickBooks. Match the transfer line to the real deposit in your bank feed." },
 ];
 
 const H2 = "text-2xl font-extrabold text-zinc-900 dark:text-white";
@@ -90,196 +74,152 @@ export default function SquareToQuickBooksPage() {
       privacyLine="No account needed · Both downloads free · Processed in memory, never stored"
       content={
         <>
-          <h2 className={H2}>Why a Square payout is not a sales figure</h2>
+          <h2 className={H2}>A Square deposit is card sales with the fees already taken out</h2>
           <p className={P}>
-            The amount Square sends to your bank looks like income, but it is not your sales. It is
-            what remains of several days of selling after Square has already taken its processing
-            fees and handed refunds back to customers — and it lands a day or more after the sales
-            themselves, so the dates never line up with your daily reports. Book the deposit as
-            sales and two things go quietly wrong: your revenue is understated by every fee and
-            refund, and the fees themselves disappear from your books, taking an expense record —
-            and a tax deduction — with them.
+            For a shop, café, salon, or market stall running on Square, the rhythm is familiar:
+            customers tap and swipe all day, and the bank shows a deposit later that is close to
+            the day's takings but never equal to them. That deposit is what remains of a batch of
+            card sales after Square has deducted its processing fees and handed refunds back to
+            customers — net money, arriving on Square's schedule rather than the till's. Book it as
+            sales and revenue is understated by every fee and refund inside it, while the fees —
+            a real, deductible cost of taking cards — vanish from the books entirely.
           </p>
           <p className={P}>
-            The fix is to unpack each payout before it touches your books. This converter reads your
-            Square payout CSV, groups the rows by payout, and rebuilds what actually happened:
-            gross sales as income, refunds against income, fees as an expense, taxes kept visible,
-            and the payout itself as a plain transfer of the net. Nothing is estimated — every line
-            comes straight from your export.
-          </p>
-
-          <h2 className={H2M}>What the converter builds for each payout</h2>
-          <p className={P}>
-            Every payout becomes a small set of entries routed through a Square clearing account —
-            a holding account whose only job is to prove the payout adds up before the money is
-            treated as deposited:
+            The daily sales report says one number, the bank says another, and neither is wrong — they measure different things. The payout export is the bridge — it
+            lists the sales inside each deposit together with the fees and refunds that separate
+            the two numbers. This converter rebuilds each payout from that export through a Square
+            Clearing account: gross sales in as income, refunds against income, fees out as
+            expense, and the payout itself as a transfer to checking that matches the bank feed to
+            the penny. This tool is fully free — summary, CSV, and QBO alike.
           </p>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr>
-                  <th className={TH}>Entry</th>
-                  <th className={TH}>What it is</th>
-                  <th className={TH}>Where it lands</th>
+                  <th className={TH}>Row in the payout export</th>
+                  <th className={TH}>What it really is</th>
+                  <th className={TH}>Line it becomes</th>
                 </tr>
               </thead>
               <tbody>
-                <tr><td className={TD}><strong>Gross sales</strong></td><td className={TD}>Every sale row in the payout, before deductions</td><td className={TD}>Income, into Square Clearing</td></tr>
-                <tr><td className={TD}><strong>Refunds</strong></td><td className={TD}>Money returned to customers</td><td className={TD}>Contra-income — reduces gross sales</td></tr>
-                <tr><td className={TD}><strong>Processing fees</strong></td><td className={TD}>The fee column from your export, taken as given</td><td className={TD}>A Square fees expense line</td></tr>
-                <tr><td className={TD}><strong>Sales tax</strong></td><td className={TD}>The tax portion, when your export breaks it out</td><td className={TD}>Sales tax payable — it is never income</td></tr>
-                <tr><td className={TD}><strong>Chargebacks</strong></td><td className={TD}>Disputed payments Square pulled back</td><td className={TD}>Their own line, so they never hide inside refunds</td></tr>
-                <tr><td className={TD}><strong>Net transfer</strong></td><td className={TD}>The amount Square actually sent to your bank</td><td className={TD}>Transfer from Square Clearing to checking</td></tr>
+                <tr><td className={TD}><strong>Sale / charge</strong></td><td className={TD}>A card sale rung up at the till, at gross, with its processing fee beside it</td><td className={TD}>Income into Square Clearing; the fee goes to the fees line</td></tr>
+                <tr><td className={TD}><strong>Refund</strong></td><td className={TD}>Money returned to a customer</td><td className={TD}>Contra-income, reducing gross sales</td></tr>
+                <tr><td className={TD}><strong>Fee</strong></td><td className={TD}>A Square charge that appears as a row of its own</td><td className={TD}>A Square fees expense line</td></tr>
+                <tr><td className={TD}><strong>Chargeback / dispute</strong></td><td className={TD}>A disputed payment Square pulled back</td><td className={TD}>Its own contra line, kept out of ordinary refunds</td></tr>
+                <tr><td className={TD}><strong>Adjustment</strong></td><td className={TD}>A correction Square posts against the payout</td><td className={TD}>Its own line, flagged for a manual look</td></tr>
+                <tr><td className={TD}><strong>Payout</strong></td><td className={TD}>The net Square actually sent to your bank, in the export's net column</td><td className={TD}>Transfer from Square Clearing to checking — the tie-out target</td></tr>
               </tbody>
             </table>
           </div>
+
+          <h2 className={H2M}>How to convert a Square payout export, step by step</h2>
           <p className={P}>
-            Two properties of the output matter as much as the lines themselves. Every entry
-            carries a unique transaction ID derived from the payout it belongs to, so importing the
-            same payout twice — the classic month-end accident — is recognized by QuickBooks
-            instead of duplicated. And because the entries are dated from the payout, your income,
-            refunds and fees all land in the period the money actually moved, which keeps monthly
-            reports honest even when a payout straddles two months of selling.
+            <strong className="text-zinc-900 dark:text-white">Step 1 — Export the payout detail from Square.</strong>{" "}
+            In Square Dashboard, open your reports, or your balance view and its payout list, and
+            export the payout detail as a CSV. Before uploading, check the columns: the tool reads
+            payout-id, date, type, gross, fee, and net. It also recognizes Square's alternate
+            header names — gross sales, net total, event type — and anything else can be renamed
+            in a spreadsheet in a minute. A file with no type or gross column is rejected with an
+            explanation rather than guessed at.
           </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 2 — Upload the CSV.</strong>{" "}
+            Drop the file into the tool above (CSV, up to 10 MB). No account is needed, and the
+            file is processed in memory and never stored. One export can cover many payouts at
+            once: the rows are grouped by payout ID, so a month of daily deposits converts in a
+            single pass while each payout keeps its own summary.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 3 — Review each payout's tie-out.</strong>{" "}
+            For every payout you see gross sales, refunds, disputes, fees, and adjustments totalled
+            separately, the computed net, and — where your file's payout rows carry the deposit
+            total — a tie-out verdict against the amount Square actually sent. The fee figures are
+            read from your export's fee column exactly as given; the tool never estimates what
+            Square's fee schedule should have charged. A payout that does not tie out shows its
+            difference before you import anything.
+          </p>
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 4 — Download and import.</strong>{" "}
+            Both downloads on this tool are free: the clearing-entries CSV and the .QBO file.
+            Create a bank account in QuickBooks named Square Clearing once. Import the QBO into it
+            — in QuickBooks Online, through Bank transactions and Upload from file; in Desktop,
+            through File, Utilities, Import, Web Connect Files — then categorize the lines and
+            match the transfer against the real deposit in your checking feed. Every entry carries
+            a unique transaction ID derived from its payout, so an accidental re-import is
+            recognized instead of duplicated.
+          </p>
+
           <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
             <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A Square payout spreadsheet with gross, fee and net columns ready to split into QuickBooks entries" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
             <figcaption className="text-sm leading-relaxed text-[#33502F]">A Square payout export, before it is split into sales, refunds and fees.</figcaption>
           </figure>
 
-          <h2 className={H2M}>Exporting the payout report from Square</h2>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-zinc-600 dark:text-zinc-300 marker:font-bold marker:text-[#007A33]">
-            <li>In Square Dashboard, open <strong className="text-zinc-900 dark:text-white">Reports</strong> — or <strong className="text-zinc-900 dark:text-white">Balance → View all payouts</strong> — and pick the date range you want to convert.</li>
-            <li>Export the payout detail as a CSV.</li>
-            <li>Check the columns before you upload: the tool reads <strong className="text-zinc-900 dark:text-white">payout-id, date, type, gross, fee, net</strong>. Rename headers in a spreadsheet if yours differ.</li>
-            <li>Drop the file into the converter above and review the payout summary.</li>
-          </ol>
+          <h2 className={H2M}>Square problems that break reconciliation, and their fixes</h2>
+          <h3 className={H3}>The daily report and the bank deposit never agree</h3>
           <p className={P}>
-            One export can cover many payouts at once. The tool groups rows by payout ID, so a month
-            of daily payouts converts in a single pass — and each payout still ties out on its own,
-            which is what makes the result safe to import.
+            This is the POS version of the payout problem: the daily summary counts sales when
+            they are rung up, while the deposit counts a payout batch, net of fees and refunds,
+            settling later. Sellers burn hours trying to force one to equal the other. The fix is
+            to stop comparing them directly. Let the daily report run the shop — staffing,
+            best-sellers, busy hours — and let payouts run the books, because the payout is what
+            the bank actually received.
           </p>
+          <h3 className={H3}>Daily sales entries and payout entries running at the same time</h3>
           <p className={P}>
-            A practical rhythm: convert weekly if your volume is high, monthly if it is not, but
-            always convert the same range you will reconcile. Converting a range that overlaps your
-            last import is how duplicate entries are born — and while the transaction IDs on these
-            files protect you, a clean range is still the cheapest protection of all.
+            There are two legitimate ways to keep Square books and they must never overlap. If your
+            routine already enters daily sales summaries into QuickBooks, importing payout entries
+            as well counts the same sales twice — once at the till's total, once inside the payout.
+            Pick one system: daily summaries, using payouts only to reconcile, or payout-based
+            entries like this tool builds, which are fewer, self-proving, and far quicker to
+            reconcile, at the cost of recognizing the income on the payout rather than the sale
+            date. Consistency is what makes either auditable.
+          </p>
+          <h3 className={H3}>Fees buried, or tax treated as revenue</h3>
+          <p className={P}>
+            Fees lumped into cost of goods sold, or netted silently against sales, distort your
+            margins and make a fee increase invisible — for a card-heavy business, the fees line is
+            often the first number worth renegotiating, and it can only be negotiated if it exists.
+            The same care applies at the till's tax: this export shape carries no separate tax
+            column, so sales tax collected sits inside the gross amounts. Fees get their own
+            expense line from this converter; the tax inside gross is yours to route to a
+            sales-tax payable account when you categorize, not to leave inflating revenue.
+          </p>
+          <h3 className={H3}>A clearing balance that will not return to zero</h3>
+          <p className={P}>
+            A leftover balance in Square Clearing is not rounding — it is an unexplained piece of a
+            payout: a missed fee row, a hold, a deduction taken outside the payout rows. Left
+            alone, every later reconciliation inherits it. Chase the difference while the payout is
+            in front of you, using the per-payout amount the tool reports; it almost always matches
+            one Square item exactly. That returning-to-zero is the control that makes the whole
+            method trustworthy.
           </p>
 
-          <h2 className={H2M}>A worked example: the sample file on this page</h2>
-          <p className={P}>
-            The sample payout file you can download above contains a single payout. Here is exactly
-            what the converter makes of it:
-          </p>
+          <h2 className={H2M}>Three ways to get Square payouts into QuickBooks, compared</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
-                <tr><th className={TH}>Line</th><th className={TH}>Amount</th></tr>
+                <tr>
+                  <th className={TH}>Route</th>
+                  <th className={TH}>What it costs you</th>
+                  <th className={TH}>Where it breaks</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td className={TD}>Gross sales</td><td className={TD}>$350.00</td></tr>
-                <tr><td className={TD}>Refunds</td><td className={TD}>−$40.00</td></tr>
-                <tr><td className={TD}>Processing fees</td><td className={TD}>−$10.75</td></tr>
-                <tr><td className={TD}><strong>Net payout</strong></td><td className={TD}><strong>$299.25</strong></td></tr>
+                <tr><td className={TD}><strong>Connector / sync apps</strong></td><td className={TD}>A monthly subscription, plus setup for each location and account mapping</td><td className={TD}>Daily-grain syncs bring every sale into QuickBooks whether you need it there or not, and the deposit still has to be reconciled against the synced detail; a sync overlapping manual entries double-counts the same sales</td></tr>
+                <tr><td className={TD}><strong>Spreadsheet hand-entry</strong></td><td className={TD}>Free, and fine for a single quiet location</td><td className={TD}>Daily payouts mean daily typing; fee rows get skipped on busy weeks, and nothing verifies that a hand-built entry sums to the deposit before it posts</td></tr>
+                <tr><td className={TD}><strong>This file-based converter</strong></td><td className={TD}>Free in full — scan, summary, CSV, and QBO, with no account. No live connection to QuickBooks is offered or needed</td><td className={TD}>You export and import a file per period instead of syncing, and entries are dated from the payout, so day-level sales reporting stays in Square's own reports where it belongs</td></tr>
               </tbody>
             </table>
           </div>
           <p className={P}>
-            Follow it through the clearing account: it starts at zero, takes in $350.00 of sales,
-            pays out $40.00 of refunds and $10.75 of fees, and is left holding exactly $299.25 — the
-            amount Square deposited. The transfer moves that $299.25 to checking and the clearing
-            account returns to zero. That zero is the whole point: it proves every cent of the payout
-            is explained, which is what the "Ties out" badge on this page certifies.
-          </p>
-
-          <h2 className={H2M}>Importing the result into QuickBooks</h2>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-zinc-600 dark:text-zinc-300 marker:font-bold marker:text-[#007A33]">
-            <li>Create a bank account in QuickBooks named <strong className="text-zinc-900 dark:text-white">Square Clearing</strong> — once only; you will reuse it for every payout.</li>
-            <li>Import the QBO into that account: in Online, <strong className="text-zinc-900 dark:text-white">Bank transactions → Upload from file</strong>; in Desktop, <strong className="text-zinc-900 dark:text-white">File → Utilities → Import → Web Connect Files</strong>.</li>
-            <li>Categorize the lines: sales to your income account, fees to a Square fees expense, refunds against income.</li>
-            <li>Match the transfer line against the real deposit in your checking feed. When the clearing balance reads zero, the payout is reconciled.</li>
-          </ol>
-          <p className={P}>
-            Prefer CSV? The download works through QuickBooks Online's manual upload the same way —
-            both files are free on this tool.
-          </p>
-
-          <h2 className={H2M}>Daily summaries or payout entries? Pick one system</h2>
-          <p className={P}>
-            There are two legitimate ways to keep Square books, and they must never overlap. The
-            daily-summary method enters each day's sales from your Square reports and lets the bank
-            feed handle the deposits; it suits businesses that need day-level reporting. The
-            payout method — what this converter builds — enters nothing until money moves, then
-            records each payout's full anatomy through the clearing account; it suits anyone whose
-            real question is "did I get paid correctly, and what did it cost?" Payout entries are
-            fewer, self-proving, and far quicker to reconcile, but they report income on the payout
-            date rather than the sale date. Choose based on how you actually review your numbers —
-            then convert every payout the same way, because consistency is what makes either system
-            auditable.
-          </p>
-
-          <h2 className={H2M}>Mistakes that quietly wreck Square bookkeeping</h2>
-          <h3 className={H3}>Recording the bank deposit as sales</h3>
-          <p className={P}>
-            The deposit is net, so income is understated and fees vanish entirely. Month after month
-            this understates revenue on your reports and overstates nothing — the worst kind of
-            error, because nothing ever looks broken. Always record the payout's components, never
-            the deposit alone.
-          </p>
-          <h3 className={H3}>Recording daily sales and the payout too</h3>
-          <p className={P}>
-            If your point-of-sale routine already enters daily sales summaries, importing payout
-            entries as well counts the same sales twice. Pick one system: either daily summaries
-            (and use the payout only to reconcile fees) or payout-based entries like this tool
-            builds. Never both for the same period.
-          </p>
-          <h3 className={H3}>Burying the fees</h3>
-          <p className={P}>
-            Fees lumped into cost of goods sold, or netted against sales with no line of their own,
-            distort your margins and make fee increases invisible. A dedicated Square fees expense
-            line shows exactly what card acceptance costs you each month — often the first number a
-            growing business renegotiates.
-          </p>
-          <h3 className={H3}>Ignoring a clearing balance that will not zero</h3>
-          <p className={P}>
-            A leftover balance in the clearing account is not a rounding error; it is an unexplained
-            piece of a payout — a missed fee, a hold, or a refund that settled late. Leave it and
-            every later reconciliation inherits the confusion. The balance returning to zero is the
-            control that makes the whole method trustworthy.
-          </p>
-
-          <h2 className={H2M}>When a payout does not tie out</h2>
-          <p className={P}>
-            A tie-out difference almost always has a shape, and the shape names the cause. A
-            difference equal to a fee means a fee row never made it into the export. A round amount
-            usually means a reserve hold. A difference that exactly matches a sale from the payout's
-            first day suggests the sale settled into the next payout instead. And deductions that
-            appear in Square but not in your payout rows — Square Loans repayments, instant-transfer
-            fees — are taken outside the payout and need their own line. Compare the difference
-            against your Square activity for the payout dates before importing. It is worth fixing
-            the cause rather than forcing the import: an unexplained difference carried into
-            QuickBooks becomes a clearing balance that never zeroes, and it will sit in every
-            reconciliation from then on, disguised as your mistake instead of Square's timing. If a
-            converted file itself is refused by QuickBooks, the{" "}
-            <a href="/tools/qbo-import-errors" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO import-error decoder</a>{" "}
-            explains the message and its fix.
-          </p>
-
-          <h2 className={H2M}>Every payout, every week? Make it a system</h2>
-          <p className={P}>
-            This converter stays free — the summary, the CSV and the QBO are all free, with no
-            account needed. What an account adds is the system around it: a free account keeps every
-            conversion in one searchable history, so last quarter's payout files are never lost in a
-            downloads folder. The dashboard adds bulk conversion when a whole month of statements
-            lands at once, and client portals if you keep books for other people — each client
-            uploads through their own link and the conversion bills to you.
-          </p>
-          <p className={P}>
-            Selling through other channels too? The same clearing-account model powers our{" "}
-            <a href="/tools/free-stripe-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Stripe QBO Converter</a>,{" "}
-            <a href="/tools/shopify-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Shopify Payout Converter</a>,{" "}
-            <a href="/tools/etsy-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Etsy Payout Converter</a>, and{" "}
-            <a href="/tools/free-paypal-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">PayPal Payout Converter</a>{" "}
-            — one method, learned once, applied everywhere you sell.
+            Convert the same range you will reconcile, and never a range that overlaps your last import. Selling online as well as at the till? The{" "}
+            <a href="/tools/shopify-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Shopify payout converter</a>{" "}
+            and the{" "}
+            <a href="/tools/free-paypal-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">PayPal payout converter</a>{" "}
+            use the same clearing method, and a marketplace shop can add the{" "}
+            <a href="/tools/etsy-to-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Etsy statement converter</a>{" "}
+            — while a plain bank CSV belongs in the{" "}
+            <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>.
           </p>
         </>
       }
