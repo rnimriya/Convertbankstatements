@@ -193,9 +193,9 @@ export default function QboImportErrorsPage() {
             to find exactly where the structure breaks, then regenerate the file instead of editing
             tags by hand.
           </p>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="Rows of a bank CSV export with dates, descriptions and amounts — the raw material a QBO file is built from, where most import errors begin" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: most import errors start as ordinary spreadsheet rows — a flipped sign, a mixed date format, a missing column.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="Rows of a bank CSV export with dates, descriptions and amounts — the raw material a QBO file is built from, where most import errors begin" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Most import errors start as ordinary spreadsheet rows — a flipped sign, a mixed date format, a missing column.</figcaption>
           </figure>
 
           <h2 className={H2M}>Connection errors: OL-155 and failed downloads</h2>

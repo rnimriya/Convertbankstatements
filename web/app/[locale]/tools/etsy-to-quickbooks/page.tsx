@@ -141,9 +141,9 @@ export default function EtsyToQuickBooksPage() {
               </tbody>
             </table>
           </div>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-review.webp" alt="A seller reviewing an Etsy monthly statement against converted QuickBooks entries before importing them" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: reviewing the month's Etsy statement before it becomes bookkeeping.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-review.webp" alt="A seller reviewing an Etsy monthly statement against converted QuickBooks entries before importing them" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Reviewing the month's Etsy statement before it becomes bookkeeping.</figcaption>
           </figure>
 
           <h2 className={H2M}>Downloading the monthly statement from Etsy</h2>

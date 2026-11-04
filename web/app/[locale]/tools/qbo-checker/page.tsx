@@ -201,9 +201,9 @@ export default function QboCheckerPage() {
               corrupt it quietly, and duplicate findings decide whether it is safe to import the
               same period twice.
             </p>
-            <figure className="mt-6">
-              <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper comparing a QBO checker report against the original bank statement before importing the file into QuickBooks" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-              <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: two minutes with a checker report beats an afternoon repairing a bad import.</figcaption>
+            <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+              <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper comparing a QBO checker report against the original bank statement before importing the file into QuickBooks" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+              <figcaption className="text-sm leading-relaxed text-[#33502F]">Two minutes with a checker report beats an afternoon repairing a bad import.</figcaption>
             </figure>
           </div>
 

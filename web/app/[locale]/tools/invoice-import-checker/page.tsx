@@ -143,9 +143,9 @@ export default function InvoiceImportCheckerPage() {
             the header names in your source file can vary; what cannot vary is the content —
             a real customer, a real date, a real item, and a positive amount on every row.
           </p>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A spreadsheet of invoice rows with customers, dates and amounts being checked before a QuickBooks import" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: invoice rows in a spreadsheet, mid-check.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A spreadsheet of invoice rows with customers, dates and amounts being checked before a QuickBooks import" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Invoice rows in a spreadsheet, mid-check.</figcaption>
           </figure>
 
           <h2 className={H2M}>What the checker enforces, row by row</h2>

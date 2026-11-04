@@ -196,9 +196,9 @@ export default function ShopifyToQuickBooksPage() {
             spreadsheet can never give you.
           </p>
 
-          <figure className="mt-10">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A Shopify payout spreadsheet with charge, refund, fee, and net columns ready to split for QuickBooks" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: a payout export — charges, refunds, fees, and adjustments, one payout per group.</figcaption>
+          <figure className="mt-10 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A Shopify payout spreadsheet with charge, refund, fee, and net columns ready to split for QuickBooks" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">A payout export — charges, refunds, fees, and adjustments, one payout per group.</figcaption>
           </figure>
 
           <h2 className={H2M}>A worked example: one payout, tied out</h2>

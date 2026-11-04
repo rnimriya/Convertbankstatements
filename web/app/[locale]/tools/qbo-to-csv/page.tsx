@@ -134,9 +134,9 @@ export default function QboToCsvPage() {
               </tbody>
             </table>
           </div>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A spreadsheet of bank transactions converted out of a QBO file, with date, description, amount and transaction ID columns" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: the same transactions, laid out as rows anyone can open.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A spreadsheet of bank transactions converted out of a QBO file, with date, description, amount and transaction ID columns" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">The same transactions, laid out as rows anyone can open.</figcaption>
           </figure>
 
           <h2 className={H2M}>The five columns you get</h2>

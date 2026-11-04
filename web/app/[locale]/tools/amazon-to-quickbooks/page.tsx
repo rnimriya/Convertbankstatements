@@ -206,9 +206,9 @@ export default function AmazonToQuickBooksPage() {
             or audit, so when Seller Central offers both, always download the transaction view.
           </p>
 
-          <figure className="mt-10">
-            <img src="/tools/csv-to-qbo-review.webp" alt="A seller reviewing an Amazon settlement breakdown against the deposit that reached the bank" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: reviewing one settlement's sales, refunds, and fees before it is imported.</figcaption>
+          <figure className="mt-10 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-review.webp" alt="A seller reviewing an Amazon settlement breakdown against the deposit that reached the bank" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Reviewing one settlement's sales, refunds, and fees before it is imported.</figcaption>
           </figure>
 
           <h2 className={H2M}>A worked example: one settlement, tied out</h2>

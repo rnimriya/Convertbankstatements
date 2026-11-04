@@ -151,9 +151,9 @@ export default function PayrollJournalGeneratorPage() {
             transit, and their balances should fall back as each deposit is remitted after the
             pay date.
           </p>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper reviewing a payroll journal entry against the payroll report before posting it" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: reviewing the entry line by line before it posts.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper reviewing a payroll journal entry against the payroll report before posting it" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Reviewing the entry line by line before it posts.</figcaption>
           </figure>
 
           <h2 className={H2M}>The balancing rule, and how this tool enforces it</h2>

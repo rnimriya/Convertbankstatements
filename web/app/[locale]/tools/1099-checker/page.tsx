@@ -142,9 +142,9 @@ export default function VendorChecker1099Page() {
               </tbody>
             </table>
           </div>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-desk.webp" alt="A desk with a laptop, calculator and vendor paperwork during a year-end payment review" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: a year-end vendor review, minus the spreadsheet marathon.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-desk.webp" alt="A desk with a laptop, calculator and vendor paperwork during a year-end payment review" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">A year-end vendor review, minus the spreadsheet marathon.</figcaption>
           </figure>
 
           <h2 className={H2M}>How the checker builds your vendor list</h2>

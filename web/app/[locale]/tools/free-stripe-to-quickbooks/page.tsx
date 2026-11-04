@@ -197,9 +197,9 @@ export default function StripeToQuickBooksPage() {
             month at a time works once the routine is set.
           </p>
 
-          <figure className="mt-10">
-            <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper reviewing a Stripe payout breakdown line by line against the bank deposit" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: checking a payout's gross, fees, and refunds against the deposit before it is imported.</figcaption>
+          <figure className="mt-10 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-review.webp" alt="A bookkeeper reviewing a Stripe payout breakdown line by line against the bank deposit" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Checking a payout's gross, fees, and refunds against the deposit before it is imported.</figcaption>
           </figure>
 
           <h2 className={H2M}>A worked example: one payout, tied out</h2>

@@ -141,9 +141,9 @@ export default function SquareToQuickBooksPage() {
             refunds and fees all land in the period the money actually moved, which keeps monthly
             reports honest even when a payout straddles two months of selling.
           </p>
-          <figure className="mt-6">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A Square payout spreadsheet with gross, fee and net columns ready to split into QuickBooks entries" className="w-full rounded-[20px] border border-[#E3EDE0]" loading="lazy" />
-            <figcaption className="mt-2 text-center text-xs text-zinc-400">Illustration: a Square payout export, before it is split into sales, refunds and fees.</figcaption>
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="A Square payout spreadsheet with gross, fee and net columns ready to split into QuickBooks entries" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">A Square payout export, before it is split into sales, refunds and fees.</figcaption>
           </figure>
 
           <h2 className={H2M}>Exporting the payout report from Square</h2>
