@@ -14,16 +14,27 @@ export interface QuickBooksMenuGroup {
   items: QuickBooksMenuItem[];
 }
 
+export interface QuickBooksFeatured {
+  kicker: string;
+  title: string;
+  description: string;
+  links: QuickBooksMenuItem[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
 /* Group dot colours — QuickBooks green family, one per column */
 const GROUP_DOTS = ["#2CA01C", "#007A33", "#00573F"];
 
 export function NavQuickBooksMenu({
   menuLabel,
   groups,
+  featured,
   dark = false,
 }: {
   menuLabel: string;
   groups: QuickBooksMenuGroup[];
+  featured: QuickBooksFeatured;
   dark?: boolean;
 }) {
   const [open, setOpen] = useState(false);
@@ -71,32 +82,72 @@ export function NavQuickBooksMenu({
       </button>
 
       {open && (
-        <div className="absolute right-0 lg:left-1/2 lg:right-auto lg:-translate-x-1/2 mt-3 w-[min(94vw,480px)] lg:w-[730px] max-h-[75vh] overflow-y-auto rounded-2xl bg-white border border-zinc-200 shadow-[0_24px_60px_rgba(11,31,22,0.14)] z-50 p-5 sm:p-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-5">
-            {groups.map((group, gi) => (
-              <div key={group.label}>
-                <p className="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-zinc-400">
-                  {group.label}
-                </p>
-                {group.items.map((item) => (
+        <div className="absolute right-0 xl:left-1/2 xl:right-auto xl:-translate-x-1/2 mt-3 w-[min(94vw,480px)] lg:w-[min(980px,94vw)] max-h-[75vh] overflow-y-auto rounded-[24px] bg-white border border-zinc-200 shadow-[0_24px_60px_rgba(11,31,22,0.14)] z-50">
+          <div className="flex">
+            {/* Featured panel — the Bulk Suite (desktop only) */}
+            <div className="hidden lg:flex w-[300px] shrink-0 flex-col bg-[#0B1F16] px-[26px] py-[28px]">
+              <p className="mb-[10px] text-[11px] font-extrabold uppercase tracking-[0.14em] text-[#8FCE7E]">
+                {featured.kicker}
+              </p>
+              <p className="text-[21px] font-extrabold leading-tight tracking-[-0.01em] text-white">
+                {featured.title}
+              </p>
+              <p className="mt-[10px] text-[13.5px] leading-[1.55] text-[#B9CDB4]">
+                {featured.description}
+              </p>
+              <div className="mt-4">
+                {featured.links.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="flex items-start gap-2.5 rounded-lg px-3 py-2 hover:bg-zinc-100 transition-colors"
+                    className="flex items-center gap-[9px] border-b border-white/10 py-[10px] text-sm font-semibold text-white transition-colors hover:text-[#8FCE7E]"
                   >
-                    <span
-                      aria-hidden
-                      className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
-                      style={{ background: GROUP_DOTS[gi % GROUP_DOTS.length] }}
-                    />
-                    <span className="text-[13.5px] font-semibold leading-snug text-zinc-800">
-                      {item.label}
+                    <span aria-hidden className="font-extrabold text-[#2CA01C]">
+                      →
                     </span>
+                    {item.label}
                   </Link>
                 ))}
               </div>
-            ))}
+              <div className="mt-auto pt-[22px]">
+                <Link
+                  href={featured.ctaHref}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-full bg-[#2CA01C] py-[11px] text-center text-sm font-bold text-white transition-colors hover:bg-[#33B122]"
+                >
+                  {featured.ctaLabel}
+                </Link>
+              </div>
+            </div>
+
+            {/* Tool groups */}
+            <div className="min-w-0 flex-1 p-5 sm:p-6 lg:px-[28px] lg:py-[26px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_1.15fr] gap-x-6 gap-y-5 lg:gap-6">
+                {groups.map((group, gi) => (
+                  <div key={group.label}>
+                    <p className="pt-1 pb-[7px] text-[11px] font-bold uppercase tracking-[0.14em] text-zinc-400">
+                      {group.label}
+                    </p>
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className="flex items-start gap-2 py-[4.5px] text-[13px] font-semibold leading-[1.35] text-zinc-700 transition-colors hover:text-zinc-950"
+                      >
+                        <span
+                          aria-hidden
+                          className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full"
+                          style={{ background: GROUP_DOTS[gi % GROUP_DOTS.length] }}
+                        />
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

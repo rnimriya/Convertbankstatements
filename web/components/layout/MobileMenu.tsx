@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import type { QuickBooksMenuGroup } from "./NavQuickBooksMenu";
+import type { QuickBooksMenuGroup, QuickBooksFeatured } from "./NavQuickBooksMenu";
 
 /* Group dot colours — same QuickBooks green family as the desktop mega menu */
 const GROUP_DOTS = ["#2CA01C", "#007A33", "#00573F"];
@@ -12,6 +12,7 @@ const GROUP_DOTS = ["#2CA01C", "#007A33", "#00573F"];
 export function MobileMenu({
   mainLinks,
   groups,
+  featured,
   quickbooksLabel,
   allToolsLabel,
   menuLabel,
@@ -19,6 +20,7 @@ export function MobileMenu({
 }: {
   mainLinks: { href: string; label: string }[];
   groups: QuickBooksMenuGroup[];
+  featured: QuickBooksFeatured;
   quickbooksLabel: string;
   allToolsLabel: string;
   menuLabel: string;
@@ -114,6 +116,35 @@ export function MobileMenu({
           <p className="px-3 pt-6 pb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-zinc-400">
             {quickbooksLabel}
           </p>
+
+          {/* Featured panel — the Bulk Suite, same as the desktop mega menu */}
+          <div className="mt-2 rounded-2xl bg-[#0B1F16] p-4">
+            <p className="text-[10.5px] font-extrabold uppercase tracking-[0.14em] text-[#8FCE7E]">
+              {featured.kicker}
+            </p>
+            <p className="mt-1.5 text-[17px] font-extrabold leading-tight text-white">
+              {featured.title}
+            </p>
+            <p className="mt-1 text-[12.5px] leading-relaxed text-[#B9CDB4]">
+              {featured.description}
+            </p>
+            <div className="mt-1.5">
+              {featured.links.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={close}
+                  tabIndex={open ? 0 : -1}
+                  className="flex items-center gap-2 border-b border-white/10 py-2 text-[13.5px] font-semibold text-white last:border-b-0"
+                >
+                  <span aria-hidden className="font-extrabold text-[#2CA01C]">
+                    →
+                  </span>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
           {groups.map((group, gi) => (
             <div key={group.label} className="pt-2">
               <p className="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-zinc-400">

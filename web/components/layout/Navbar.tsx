@@ -53,6 +53,19 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
     },
   ];
 
+  const quickBooksFeatured = {
+    kicker: t("bulkSuiteKicker"),
+    title: t("bulkSuiteTitle"),
+    description: t("bulkSuiteDesc"),
+    links: [
+      { href: "/tools/bulk-import-quickbooks", label: t("bulkImporter") },
+      { href: "/tools/bulk-export-quickbooks", label: t("bulkExporter") },
+      { href: "/tools/bulk-deleter-quickbooks", label: t("bulkDeleter") },
+    ],
+    ctaLabel: t("browseAllTools"),
+    ctaHref: "/tools",
+  };
+
   return (
     <div className="sticky top-0 z-50 px-3 sm:px-6 pt-3 pb-1 -mb-[72px]">
       <nav className="mx-auto max-w-6xl rounded-full bg-white/95 backdrop-blur-md border border-zinc-200/90 shadow-[0_10px_36px_rgba(11,31,22,0.10)]">
@@ -68,6 +81,7 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
                 { href: "/#faq", label: t("faq") },
               ]}
               groups={quickBooksGroups}
+              featured={quickBooksFeatured}
               quickbooksLabel={t("quickbooks")}
               allToolsLabel={t("allTools")}
               menuLabel={t("menu")}
@@ -100,6 +114,7 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
               dark={false}
               menuLabel={t("quickbooks")}
               groups={quickBooksGroups}
+              featured={quickBooksFeatured}
             />
             <Link
               href="/#faq"
