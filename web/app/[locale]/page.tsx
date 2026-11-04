@@ -6,6 +6,10 @@ import { Link } from"@/i18n/navigation";
 import {
   ArrowRight, ArrowUpRight, Zap, Lock, Globe,
   Download, Upload, Shield, Clock, CreditCard, FileCheck, FileText,
+  ArrowRightLeft, BookOpen, Calculator, ClipboardCheck, ClipboardList,
+  FileDown, FileSpreadsheet, FileUp, Layers, Package, Pencil, Receipt,
+  Scale, ScanSearch, Scissors, ShieldCheck, ShoppingBag, ShoppingCart,
+  Store, Trash2, Wallet, Wrench, type LucideIcon,
 } from"lucide-react";
 import { Footer } from"@/components/layout/Footer";
 import { Navbar } from"@/components/layout/Navbar";
@@ -80,32 +84,39 @@ export default async function HomePage() {
     { q: tFaq("q5"), a: tFaq("a5") },
     { q: tFaq("q6"), a: tFaq("a6") },
   ];
-  const TOOLS = [
-    { href: "/tools/free-qbo-cleanup-checker", label: "QBO Duplicate Finder", img: "/tools/tool-duplicates.webp", desc: "Find duplicate transactions hiding in a QBO file" },
-    { href: "/tools/free-stripe-to-quickbooks", label: "Stripe QBO Converter", img: "/tools/tool-stripe.webp", desc: "Convert Stripe payouts to QBO" },
-    { href: "/tools/free-paypal-to-quickbooks", label: "PayPal Payout to QBO Converter", img: "/tools/tool-paypal.webp", desc: "Convert PayPal payouts to QBO" },
-    { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QBO", img: "/tools/tool-receipt.webp", desc: "Turn receipts into QBO rows" },
-    { href: "/tools/qbo-checker", label: "QBO File Checker", img: "/tools/tool-checker.webp", desc: "Validate a QBO file before import" },
-    { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", img: "/tools/tool-csv.webp", desc: "Convert CSV rows to QuickBooks QBO" },
-    { href: "/tools/amazon-to-quickbooks", label: "Amazon Settlement to QuickBooks", img: "/tools/tool-amazon.webp", desc: "Convert Amazon payouts to QBO" },
-    { href: "/tools/shopify-to-quickbooks", label: "Shopify Payout to QuickBooks", img: "/tools/tool-shopify.webp", desc: "Convert Shopify payouts to QBO" },
-    { href: "/tools/reconciliation-finder", label: "Reconciliation Difference Finder", img: "/tools/tool-recon.webp", desc: "Find what does not match, fast" },
-    { href: "/tools/qbo-import-errors", label: "QBO Import Errors, Explained", img: "/tools/tool-errors.webp", desc: "Decode QuickBooks import errors" },
-    { href: "/tools/bulk-import-quickbooks", label: "Bulk Importer for QuickBooks", img: "/tools/tool-csv.webp", desc: "Merge many CSVs into one QBO or IIF file" },
-    { href: "/tools/bulk-export-quickbooks", label: "Bulk Exporter for QuickBooks", img: "/tools/tool-recon.webp", desc: "Combine up to 10 QBO files into one sheet" },
-    { href: "/tools/bulk-deleter-quickbooks", label: "Bulk Deleter for QuickBooks", img: "/tools/tool-duplicates.webp", desc: "Remove duplicates from a QBO file" },
-    { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", img: "/tools/tool-csv.webp", desc: "Turn a QBO file back into a clean CSV" },
-    { href: "/tools/csv-to-iif", label: "CSV to IIF Converter", img: "/tools/tool-errors.webp", desc: "Build IIF files for QuickBooks Desktop" },
-    { href: "/tools/ofx-to-qbo", label: "OFX to QBO + BID Fixer", img: "/tools/tool-checker.webp", desc: "Fix broken OFX files QuickBooks rejects" },
-    { href: "/tools/iif-to-excel", label: "IIF to Excel Converter", img: "/tools/tool-receipt.webp", desc: "Turn IIF exports into readable sheets" },
-    { href: "/tools/qbo-file-editor", label: "QBO File Editor", img: "/tools/tool-checker.webp", desc: "Edit dates, names and amounts in a QBO" },
-    { href: "/tools/qbo-merger", label: "QBO File Merger", img: "/tools/tool-recon.webp", desc: "Combine several QBO files into one" },
-    { href: "/tools/qbo-splitter", label: "QBO File Splitter", img: "/tools/tool-errors.webp", desc: "Split a big QBO into smaller chunks" },
-    { href: "/tools/square-to-quickbooks", label: "Square to QuickBooks", img: "/tools/tool-shopify.webp", desc: "Convert Square payouts to QBO" },
-    { href: "/tools/etsy-to-quickbooks", label: "Etsy to QuickBooks", img: "/tools/tool-amazon.webp", desc: "Convert Etsy payment files to QBO" },
-    { href: "/tools/invoice-import-checker", label: "Invoice Import Checker", img: "/tools/tool-checker.webp", desc: "Check invoice files before they fail" },
-    { href: "/tools/1099-checker", label: "1099 Vendor Checker", img: "/tools/tool-receipt.webp", desc: "See which vendors cross the 1099 limit" },
-    { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator", img: "/tools/tool-duplicates.webp", desc: "Build a balanced payroll journal entry" },
+  type HomeTool = {
+    href: string;
+    label: string;
+    desc: string;
+    icon: LucideIcon;
+    tag?: "free" | "pop";
+  };
+  const TOOLS: HomeTool[] = [
+    { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", desc: "Convert any CSV or Excel file into a QBO file QuickBooks imports cleanly.", icon: ArrowRightLeft, tag: "pop" },
+    { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", desc: "Turn a QBO file back into a clean CSV or Excel sheet you can edit.", icon: FileDown, tag: "free" },
+    { href: "/tools/csv-to-iif", label: "CSV to IIF Converter", desc: "Build IIF files for QuickBooks Desktop imports — no manual mapping pain.", icon: FileUp, tag: "free" },
+    { href: "/tools/ofx-to-qbo", label: "OFX to QBO + BID Fixer", desc: "Fix broken OFX/QFX files and the INTU.BID error so QuickBooks accepts them.", icon: Wrench, tag: "free" },
+    { href: "/tools/free-receipt-to-quickbooks", label: "Receipt to QuickBooks", desc: "Snap a receipt and get a QuickBooks-ready expense entry from it.", icon: Receipt },
+    { href: "/tools/bulk-import-quickbooks", label: "Bulk Importer for QuickBooks", desc: "Merge many CSV files, map the columns once, and build one QBO or IIF import file.", icon: Upload, tag: "free" },
+    { href: "/tools/bulk-export-quickbooks", label: "Bulk Exporter for QuickBooks", desc: "Combine up to 10 QBO, OFX or QFX files into one clean CSV or Excel sheet.", icon: Download, tag: "free" },
+    { href: "/tools/iif-to-excel", label: "IIF to Excel Converter", desc: "Turn a QuickBooks Desktop IIF export into a readable Excel or CSV sheet.", icon: FileSpreadsheet, tag: "free" },
+    { href: "/tools/free-stripe-to-quickbooks", label: "Stripe to QuickBooks", desc: "Convert Stripe payouts into QBO entries with fees split out properly.", icon: CreditCard },
+    { href: "/tools/free-paypal-to-quickbooks", label: "PayPal to QuickBooks", desc: "Turn PayPal payout files into clean QuickBooks imports.", icon: Wallet },
+    { href: "/tools/amazon-to-quickbooks", label: "Amazon to QuickBooks", desc: "Amazon seller payouts converted into QuickBooks-ready files.", icon: ShoppingCart },
+    { href: "/tools/shopify-to-quickbooks", label: "Shopify to QuickBooks", desc: "Shopify payout reports mapped and converted for QuickBooks.", icon: ShoppingBag },
+    { href: "/tools/square-to-quickbooks", label: "Square to QuickBooks", desc: "Square payouts to QBO — sales, fees and taxes in the right lines.", icon: Store, tag: "free" },
+    { href: "/tools/etsy-to-quickbooks", label: "Etsy to QuickBooks", desc: "Etsy payment files converted into QuickBooks-ready imports.", icon: Package, tag: "free" },
+    { href: "/tools/free-qbo-cleanup-checker", label: "QBO Cleanup Checker", desc: "Scan your QBO file for duplicates and mess — free report, no signup.", icon: ScanSearch },
+    { href: "/tools/qbo-checker", label: "QBO File Checker", desc: "Verify a QBO file's balance chain and structure before you import it.", icon: ShieldCheck },
+    { href: "/tools/qbo-import-errors", label: "QBO Import Error Decoder", desc: "Paste a QuickBooks import error and learn what it means and how to fix it.", icon: BookOpen },
+    { href: "/tools/reconciliation-finder", label: "Reconciliation Finder", desc: "Compare a statement against QuickBooks to find missing or duplicate entries.", icon: Scale },
+    { href: "/tools/qbo-splitter", label: "QBO File Splitter", desc: "Split a big QBO file into smaller chunks QuickBooks can handle.", icon: Scissors, tag: "free" },
+    { href: "/tools/bulk-deleter-quickbooks", label: "Bulk Deleter for QuickBooks", desc: "Remove duplicate or unwanted transactions from a QBO file before you import it.", icon: Trash2, tag: "free" },
+    { href: "/tools/qbo-file-editor", label: "QBO File Editor", desc: "Edit dates, names and amounts inside a QBO file, with find-and-replace for payees.", icon: Pencil, tag: "free" },
+    { href: "/tools/qbo-merger", label: "QBO File Merger", desc: "Combine several QBO files from the same account into one clean file.", icon: Layers, tag: "free" },
+    { href: "/tools/invoice-import-checker", label: "Invoice Import Checker", desc: "Check invoice files for errors before they fail inside QuickBooks.", icon: ClipboardCheck, tag: "free" },
+    { href: "/tools/1099-checker", label: "1099 Vendor Checker", desc: "Check which vendors cross the 1099 threshold and need forms.", icon: ClipboardList, tag: "free" },
+    { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator", desc: "Build a balanced payroll journal entry for QuickBooks in minutes.", icon: Calculator, tag: "free" },
   ];
   const NUMS = [
     { dot: "↗", num: "15", sfx: "s", cap: "multi-page PDFs converted, start to finish" },
@@ -325,23 +336,42 @@ export default async function HomePage() {
               </div>
               <p className="text-[#5B665C] leading-relaxed max-w-sm">Pick any tool — fifteen are completely free, no account needed.</p>
             </div>
-            <div className="grid sm:grid-cols-2 gap-3.5">
-              {TOOLS.map((t) => (
-                <Link
-                  key={t.href}
-                  href={t.href}
-                  className="flex items-center gap-4 bg-white border border-[#CBE3C4] rounded-[20px] px-5 py-4"
-                >
-                  <img src={t.img} alt="" width={56} height={56} loading="lazy" className="h-14 w-14 shrink-0 rounded-[14px] bg-[#F2F4EC] object-contain" />
-                  <span className="min-w-0">
-                    <span className="block text-base font-bold text-[#101812]">{t.label}</span>
-                    <span className="block text-[13px] text-[#5B665C] mt-0.5 leading-snug">{t.desc}</span>
-                  </span>
-                  <span className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#CBE3C4] text-[#101812]">
-                    <ArrowRight size={15} />
-                  </span>
-                </Link>
-              ))}
+            {/* Same card as the /tools page: per-tool Lucide icon tile,
+                name, description, free/popular tag and an Open tool link —
+                three cards per row on desktop. */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {TOOLS.map((t) => {
+                const Icon = t.icon;
+                return (
+                  <Link
+                    key={t.href}
+                    href={t.href}
+                    className="group flex flex-col rounded-[22px] border border-[#E3EDE0] bg-white p-5 shadow-[0_1px_3px_rgba(11,31,22,0.05)] transition-colors hover:border-[#CBE3C4]"
+                  >
+                    <span className="mb-3 flex h-[46px] w-[46px] items-center justify-center rounded-xl bg-[#EFF7ED] text-[#2CA01C]">
+                      <Icon className="h-6 w-6" strokeWidth={1.8} />
+                    </span>
+                    <span className="font-display text-[15.5px] font-bold text-[#0B1F16]">{t.label}</span>
+                    <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#5C6F5B]">{t.desc}</span>
+                    <span className="mt-3 flex items-center justify-between">
+                      {t.tag === "free" ? (
+                        <span className="inline-block rounded-full bg-[#E4F4E0] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#1E7A12]">
+                          100% Free
+                        </span>
+                      ) : t.tag === "pop" ? (
+                        <span className="inline-block rounded-full bg-[#FFF3D6] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#8A6100]">
+                          Most popular
+                        </span>
+                      ) : (
+                        <span />
+                      )}
+                      <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-[#2CA01C]">
+                        Open tool <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
