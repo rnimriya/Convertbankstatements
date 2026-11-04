@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTopBanksForSEO, getBankBySlug } from "@/lib/seo/banks";
+import { getTopBankBySlug, TOP_20_SLUGS } from "@/lib/seo/banks-top20";
+import { BankLanding } from "@/components/banks/BankLanding";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { CheckCircle2, FileText, Lock, Zap, Upload, Settings2, Download, ChevronDown } from "lucide-react";
@@ -12,16 +14,15 @@ import { SamplePreview } from "@/components/banks/SamplePreview";
 // so this page must render dynamically like the blog/guide pages — a
 // generateStaticParams without the locale segment 500s in production.
 
-// Only render the top 50 banks at build time.
+// Pre-render the top 50 banks plus the curated top-20 US bank landings.
 export async function generateStaticParams() {
-  const banks = getTopBanksForSEO(50);
-  return banks.map((bank) => ({
-    slug: bank.slug,
-  }));
+  const slugs = new Set(getTopBanksForSEO(50).map((b) => b.slug));
+  for (const slug of TOP_20_SLUGS) slugs.add(slug);
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
-  const { slug, locale } = await params;
+  const { slug } = await params;
   const bankName = getBankBySlug(slug);
 
   if (!bankName) {
@@ -29,11 +30,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 
   const title = `Convert ${bankName} Bank Statements to Excel & CSV | ConvertStatement`;
-  const description = `Convert your ${bankName} PDF bank statement to Excel, CSV, OFX or Google Sheets in under 15 seconds. Free for your first 8 pages — no manual typing, 99.4% accuracy.`;
+  const description = `Convert your ${bankName} PDF bank statement to Excel, CSV, OFX, QBO or Google Sheets. Free for your first 8 pages — no manual typing, no credit card required.`;
   return {
     title,
     description,
-    alternates: { canonical: `https://www.convertstatement.online/${locale}/banks/${slug}` },
+    alternates: { canonical: `https://www.convertstatement.online/banks/${slug}` },
     openGraph: { title, description, url: `https://www.convertstatement.online/banks/${slug}` },
   };
 }
@@ -44,6 +45,14 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
 
   if (!bankName) {
     notFound();
+  }
+
+  // Top-20 US banks get the rebuilt light-V3 landing (working converter,
+  // download steps, curated FAQs). Every other supported bank keeps the
+  // legacy rendering below.
+  const topBank = getTopBankBySlug(slug);
+  if (topBank) {
+    return <BankLanding bank={topBank} bankName={bankName} />;
   }
 
   const nonce = BUILD_NONCE;
@@ -266,7 +275,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
         <div className="py-24 bg-white">
           <div className="text-center max-w-2xl mx-auto px-6">
             <h2 className="text-3xl font-bold mb-4">Stop typing {bankName} transactions manually</h2>
-            <p className="text-zinc-600 mb-8">Join 10,000+ finance professionals converting statements in seconds.</p>
+            <p className="text-zinc-600 mb-8">Convert your first 8 pages free — no credit card required.</p>
             <Link
               href="/signup"
               className="inline-flex items-center justify-center gap-2 bg-white text-[#0B1F16] px-8 py-4 rounded-full text-sm font-bold shadow-xl"
