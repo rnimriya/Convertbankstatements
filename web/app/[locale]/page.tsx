@@ -113,6 +113,25 @@ export default async function HomePage() {
     { href: "/tools/invoice-import-checker", label: "Invoice Import Checker", desc: "Check invoice files for errors before they fail inside QuickBooks.", img: "/tools/tool-invoice.webp", tag: "free" },
     { href: "/tools/1099-checker", label: "1099 Vendor Checker", desc: "Check which vendors cross the 1099 threshold and need forms.", img: "/tools/tool-1099.webp", tag: "free" },
     { href: "/tools/payroll-journal-generator", label: "Payroll Journal Generator", desc: "Build a balanced payroll journal entry for QuickBooks in minutes.", img: "/tools/tool-payroll.webp", tag: "free" },
+    { href: "/tools/csv-to-ofx", label: "CSV to OFX Converter", desc: "Turn a spreadsheet of transactions into an OFX file — the format banks and finance apps exchange.", img: "/tools/tool-csv-to-ofx.webp", tag: "free" },
+    { href: "/tools/csv-to-qfx", label: "CSV to QFX Converter", desc: "Build a QFX file from CSV rows — Quicken's version of OFX, ready to import.", img: "/tools/tool-csv-to-qfx.webp", tag: "free" },
+    { href: "/tools/csv-to-qif", label: "CSV to QIF Converter", desc: "Convert CSV transactions into a QIF file for older Quicken versions and legacy apps.", img: "/tools/tool-csv-to-qif.webp", tag: "free" },
+    { href: "/tools/iif-to-csv", label: "IIF to CSV Converter", desc: "Turn a QuickBooks Desktop IIF file back into a plain CSV you can review in any spreadsheet.", img: "/tools/tool-iif-to-csv.webp", tag: "free" },
+    { href: "/tools/ofx-to-csv", label: "OFX to CSV Converter", desc: "Read a bank OFX file into a clean CSV — one row per transaction.", img: "/tools/tool-ofx-to-csv.webp", tag: "free" },
+    { href: "/tools/ofx-to-qfx", label: "OFX to QFX Converter", desc: "Repackage an OFX download as QFX for Quicken, keeping the bank identity from the file.", img: "/tools/tool-ofx-to-qfx.webp", tag: "free" },
+    { href: "/tools/ofx-to-pdf", label: "OFX to PDF Converter", desc: "Turn an OFX statement into a tidy PDF document you can print, file or share.", img: "/tools/tool-ofx-to-pdf.webp", tag: "free" },
+    { href: "/tools/qbo-to-iif", label: "QBO to IIF Converter", desc: "Convert a QuickBooks Web Connect (QBO) file into IIF for QuickBooks Desktop.", img: "/tools/tool-qbo-to-iif.webp", tag: "free" },
+    { href: "/tools/qbo-to-pdf", label: "QBO to PDF Converter", desc: "Make a readable PDF statement from a QBO file — no QuickBooks needed to view it.", img: "/tools/tool-qbo-to-pdf.webp", tag: "free" },
+    { href: "/tools/qfx-to-csv", label: "QFX to CSV Converter", desc: "Open a Quicken QFX download as a spreadsheet — every transaction as a row.", img: "/tools/tool-qfx-to-csv.webp", tag: "free" },
+    { href: "/tools/qfx-to-excel", label: "QFX to Excel Converter", desc: "Convert a QFX file straight into an Excel workbook you can sort and filter.", img: "/tools/tool-qfx-to-excel.webp", tag: "free" },
+    { href: "/tools/qfx-to-ofx", label: "QFX to OFX Converter", desc: "Convert Quicken's QFX back into plain OFX for other finance software.", img: "/tools/tool-qfx-to-ofx.webp", tag: "free" },
+    { href: "/tools/qfx-to-pdf", label: "QFX to PDF Converter", desc: "Turn a QFX download into a clean PDF statement for your records.", img: "/tools/tool-qfx-to-pdf.webp", tag: "free" },
+    { href: "/tools/qfx-to-qbo", label: "QFX to QBO Converter", desc: "Convert a Quicken QFX file into QBO so QuickBooks can import it.", img: "/tools/tool-qfx-to-qbo.webp", tag: "free" },
+    { href: "/tools/qfx-to-qif", label: "QFX to QIF Converter", desc: "Convert QFX transactions into legacy QIF for older apps that still read it.", img: "/tools/tool-qfx-to-qif.webp", tag: "free" },
+    { href: "/tools/qif-to-csv", label: "QIF to CSV Converter", desc: "Rescue legacy QIF data into a modern CSV spreadsheet.", img: "/tools/tool-qif-to-csv.webp", tag: "free" },
+    { href: "/tools/qif-to-excel", label: "QIF to Excel Converter", desc: "Convert a QIF file into an Excel workbook you can sort and filter.", img: "/tools/tool-qif-to-excel.webp", tag: "free" },
+    { href: "/tools/qif-to-pdf", label: "QIF to PDF Converter", desc: "Turn a QIF file into a readable PDF statement you can print or share.", img: "/tools/tool-qif-to-pdf.webp", tag: "free" },
+    { href: "/tools/qif-to-qbo", label: "QIF to QBO Converter", desc: "Bring old Quicken QIF transactions into QuickBooks as a QBO file.", img: "/tools/tool-qif-to-qbo.webp", tag: "free" },
   ];
   const NUMS = [
     { dot: "↗", num: "15", sfx: "s", cap: "multi-page PDFs converted, start to finish" },
@@ -328,9 +347,9 @@ export default async function HomePage() {
             <div className="flex flex-wrap justify-between items-end gap-8 mb-12">
               <div>
                 <Label>05 / QuickBooks tools</Label>
-                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">All 25 tools. <span className="text-[#2CA01C]">Fifteen free.</span></h2>
+                <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16] mt-5">All 44 tools. <span className="text-[#2CA01C]">Thirty-four free.</span></h2>
               </div>
-              <p className="text-[#5B665C] leading-relaxed max-w-sm">Pick any tool — fifteen are completely free, no account needed.</p>
+              <p className="text-[#5B665C] leading-relaxed max-w-sm">Pick any tool — thirty-four are completely free, no account needed.</p>
             </div>
             {/* Same card as the /tools page: per-tool Lucide icon tile,
                 name, description, free/popular tag and an Open tool link —

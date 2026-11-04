@@ -71,6 +71,30 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
       ],
     },
     {
+      heading: t("formatConverters"),
+      links: [
+        { label: t("csvToOfx"),   href: "/tools/csv-to-ofx" },
+        { label: t("csvToQfx"),   href: "/tools/csv-to-qfx" },
+        { label: t("csvToQif"),   href: "/tools/csv-to-qif" },
+        { label: t("iifToCsv"),   href: "/tools/iif-to-csv" },
+        { label: t("ofxToCsv"),   href: "/tools/ofx-to-csv" },
+        { label: t("ofxToQfx"),   href: "/tools/ofx-to-qfx" },
+        { label: t("ofxToPdf"),   href: "/tools/ofx-to-pdf" },
+        { label: t("qboToIif"),   href: "/tools/qbo-to-iif" },
+        { label: t("qboToPdf"),   href: "/tools/qbo-to-pdf" },
+        { label: t("qfxToCsv"),   href: "/tools/qfx-to-csv" },
+        { label: t("qfxToExcel"), href: "/tools/qfx-to-excel" },
+        { label: t("qfxToOfx"),   href: "/tools/qfx-to-ofx" },
+        { label: t("qfxToPdf"),   href: "/tools/qfx-to-pdf" },
+        { label: t("qfxToQbo"),   href: "/tools/qfx-to-qbo" },
+        { label: t("qfxToQif"),   href: "/tools/qfx-to-qif" },
+        { label: t("qifToCsv"),   href: "/tools/qif-to-csv" },
+        { label: t("qifToExcel"), href: "/tools/qif-to-excel" },
+        { label: t("qifToPdf"),   href: "/tools/qif-to-pdf" },
+        { label: t("qifToQbo"),   href: "/tools/qif-to-qbo" },
+      ],
+    },
+    {
       heading: t("account"),
       links: [
         { label: t("signIn"),      href: "/login" },
@@ -146,7 +170,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
     );
   }
 
-  const [productCol, qbCol, accountCol, legalCol] = NAV;
+  const [productCol, qbCol, formatCol, accountCol, legalCol] = NAV;
 
   return (
     <>
@@ -173,7 +197,7 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-9 py-[52px] lg:grid-cols-[1.3fr_0.9fr_1.25fr_1.25fr_0.9fr_0.9fr]">
+        <div className="grid grid-cols-2 gap-9 py-[52px] lg:grid-cols-[1.15fr_0.8fr_1.1fr_1.1fr_1.1fr_0.8fr_0.8fr]">
           <div className="col-span-2 lg:col-span-1">
             <p className="max-w-[270px] text-[13px] leading-[1.7] text-[#B9C2B2]">
               {t("tagline")}
@@ -238,6 +262,22 @@ export async function Footer({ variant }: { variant?: "agri" | "light" }) {
             </h3>
             <ul className="space-y-[10px]">
               {qbCol.links.slice(14).map(({ label, href }) => (
+                <li key={label}>
+                  <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Third tool column: the 19 format converters. */}
+          <div>
+            <h3 className="agri-mono mb-4 text-[11px] uppercase tracking-[0.14em] text-[#2CA01C]">
+              {formatCol.heading}
+            </h3>
+            <ul className="space-y-[10px]">
+              {formatCol.links.map(({ label, href }) => (
                 <li key={label}>
                   <Link href={href} className="text-[13.5px] text-[#CBD4C2] hover:text-white">
                     {label}

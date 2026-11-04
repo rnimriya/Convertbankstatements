@@ -185,7 +185,7 @@ export default async function PricingPage() {
             ))}
           </div>
           <p className="mt-8 text-center text-[13px] text-zinc-500">
-            These six are part of a library of <Link href="/tools" className="font-semibold text-[#2CA01C] underline underline-offset-2">15 completely free QuickBooks tools</Link> — free with every plan, including the free one.
+            These six are part of a library of <Link href="/tools" className="font-semibold text-[#2CA01C] underline underline-offset-2">34 completely free QuickBooks tools</Link> — free with every plan, including the free one.
           </p>
         </div>
       </div>

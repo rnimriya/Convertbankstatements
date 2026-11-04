@@ -8,6 +8,25 @@ import {
   ArrowRight,
   ArrowRightLeft,
   BookOpen,
+  Braces,
+  FileCheck,
+  FileCode,
+  FileDigit,
+  FileOutput,
+  FileSymlink,
+  FileText,
+  FileType,
+  FileType2,
+  Files,
+  Landmark,
+  LayoutGrid,
+  List,
+  ListOrdered,
+  Printer,
+  RefreshCw,
+  Repeat,
+  Sheet,
+  Table,
   Calculator,
   ClipboardCheck,
   ClipboardList,
@@ -37,14 +56,14 @@ import {
 const PAGE_URL = "https://www.convertstatement.online/tools";
 
 export const metadata: Metadata = {
-  title: "All QuickBooks Tools — 25 Converters, Checkers & Fixers | Convert Statement",
+  title: "All QuickBooks Tools — 44 Converters, Checkers & Fixers | Convert Statement",
   description:
-    "Every Convert Statement tool on one page: CSV to QBO, QBO to CSV, payout converters for Stripe, PayPal, Amazon, Shopify, Square and Etsy, plus QBO checkers, a reconciliation finder and more. 15 tools are completely free.",
+    "Every Convert Statement tool on one page: CSV to QBO, QBO to CSV, payout converters for Stripe, PayPal, Amazon, Shopify, Square and Etsy, plus QBO checkers, a reconciliation finder and more. 34 tools are completely free.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "All QuickBooks Tools — Converters, Checkers & Fixers",
     description:
-      "25 focused tools for QuickBooks users: file converters, payout imports and pre-import checkers. 15 are completely free, no signup needed.",
+      "44 focused tools for QuickBooks users: file converters, payout imports and pre-import checkers. 34 are completely free, no signup needed.",
     url: PAGE_URL,
     type: "website",
   },
@@ -78,6 +97,10 @@ const GROUPS: { label: string; tools: Tool[] }[] = [
       { slug: "bulk-import-quickbooks", name: "Bulk Importer for QuickBooks", desc: "Merge many CSV files, map the columns once, and build one QBO or IIF import file.", icon: Upload, tag: "free" },
       { slug: "bulk-export-quickbooks", name: "Bulk Exporter for QuickBooks", desc: "Combine up to 10 QBO, OFX or QFX files into one clean CSV or Excel sheet.", icon: Download, tag: "free" },
       { slug: "iif-to-excel", name: "IIF to Excel Converter", desc: "Turn a QuickBooks Desktop IIF export into a readable Excel or CSV sheet.", icon: FileSpreadsheet, tag: "free" },
+      { slug: "csv-to-ofx", name: "CSV to OFX Converter", desc: "Turn a spreadsheet of transactions into an OFX file — the format banks and finance apps exchange.", icon: FileOutput, tag: "free" },
+      { slug: "csv-to-qfx", name: "CSV to QFX Converter", desc: "Build a QFX file from CSV rows — Quicken's version of OFX, ready to import.", icon: FileSymlink, tag: "free" },
+      { slug: "csv-to-qif", name: "CSV to QIF Converter", desc: "Convert CSV transactions into a QIF file for older Quicken versions and legacy apps.", icon: FileText, tag: "free" },
+      { slug: "iif-to-csv", name: "IIF to CSV Converter", desc: "Turn a QuickBooks Desktop IIF file back into a plain CSV you can review in any spreadsheet.", icon: Table, tag: "free" },
     ],
   },
   {
@@ -89,6 +112,26 @@ const GROUPS: { label: string; tools: Tool[] }[] = [
       { slug: "shopify-to-quickbooks", name: "Shopify to QuickBooks", desc: "Shopify payout reports mapped and converted for QuickBooks.", icon: ShoppingBag },
       { slug: "square-to-quickbooks", name: "Square to QuickBooks", desc: "Square payouts to QBO — sales, fees and taxes in the right lines.", icon: Store, tag: "free" },
       { slug: "etsy-to-quickbooks", name: "Etsy to QuickBooks", desc: "Etsy payment files converted into QuickBooks-ready imports.", icon: Package, tag: "free" },
+    ],
+  },
+  {
+    label: "File Converters",
+    tools: [
+      { slug: "ofx-to-csv", name: "OFX to CSV Converter", desc: "Read a bank OFX file into a clean CSV — one row per transaction.", icon: List, tag: "free" },
+      { slug: "ofx-to-qfx", name: "OFX to QFX Converter", desc: "Repackage an OFX download as QFX for Quicken, keeping the bank identity from the file.", icon: Repeat, tag: "free" },
+      { slug: "ofx-to-pdf", name: "OFX to PDF Converter", desc: "Turn an OFX statement into a tidy PDF document you can print, file or share.", icon: Printer, tag: "free" },
+      { slug: "qbo-to-iif", name: "QBO to IIF Converter", desc: "Convert a QuickBooks Web Connect (QBO) file into IIF for QuickBooks Desktop.", icon: FileCode, tag: "free" },
+      { slug: "qbo-to-pdf", name: "QBO to PDF Converter", desc: "Make a readable PDF statement from a QBO file — no QuickBooks needed to view it.", icon: FileType, tag: "free" },
+      { slug: "qfx-to-csv", name: "QFX to CSV Converter", desc: "Open a Quicken QFX download as a spreadsheet — every transaction as a row.", icon: Sheet, tag: "free" },
+      { slug: "qfx-to-excel", name: "QFX to Excel Converter", desc: "Convert a QFX file straight into an Excel workbook you can sort and filter.", icon: LayoutGrid, tag: "free" },
+      { slug: "qfx-to-ofx", name: "QFX to OFX Converter", desc: "Convert Quicken's QFX back into plain OFX for other finance software.", icon: RefreshCw, tag: "free" },
+      { slug: "qfx-to-pdf", name: "QFX to PDF Converter", desc: "Turn a QFX download into a clean PDF statement for your records.", icon: FileType2, tag: "free" },
+      { slug: "qfx-to-qbo", name: "QFX to QBO Converter", desc: "Convert a Quicken QFX file into QBO so QuickBooks can import it.", icon: Landmark, tag: "free" },
+      { slug: "qfx-to-qif", name: "QFX to QIF Converter", desc: "Convert QFX transactions into legacy QIF for older apps that still read it.", icon: Braces, tag: "free" },
+      { slug: "qif-to-csv", name: "QIF to CSV Converter", desc: "Rescue legacy QIF data into a modern CSV spreadsheet.", icon: ListOrdered, tag: "free" },
+      { slug: "qif-to-excel", name: "QIF to Excel Converter", desc: "Convert a QIF file into an Excel workbook you can sort and filter.", icon: FileDigit, tag: "free" },
+      { slug: "qif-to-pdf", name: "QIF to PDF Converter", desc: "Turn a QIF file into a readable PDF statement you can print or share.", icon: Files, tag: "free" },
+      { slug: "qif-to-qbo", name: "QIF to QBO Converter", desc: "Bring old Quicken QIF transactions into QuickBooks as a QBO file.", icon: FileCheck, tag: "free" },
     ],
   },
   {
@@ -193,19 +236,19 @@ export default function ToolsIndexPage() {
             Small tools. <span className="text-[#2CA01C]">Big bookkeeping headaches,</span> gone.
           </h1>
           <p className="mx-auto max-w-[620px] text-base text-[#50614F]">
-            Twenty-five focused tools for QuickBooks users — each one does a single job properly, right in your browser.
+            Forty-four focused tools for QuickBooks users — each one does a single job properly, right in your browser.
           </p>
           <div className="mt-6 flex justify-center gap-10">
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">25</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">44</span>
               <span className="text-xs text-[#6B7D6A]">tools</span>
             </div>
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">15</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">34</span>
               <span className="text-xs text-[#6B7D6A]">completely free</span>
             </div>
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">3</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">4</span>
               <span className="text-xs text-[#6B7D6A]">categories</span>
             </div>
           </div>
