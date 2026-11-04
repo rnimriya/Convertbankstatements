@@ -68,7 +68,7 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
 
   return (
     <div className="sticky top-0 z-50 px-3 sm:px-6 pt-3 pb-1 -mb-[72px]">
-      <nav className="mx-auto max-w-6xl rounded-full bg-white/95 backdrop-blur-md border border-zinc-200/90 shadow-[0_10px_36px_rgba(11,31,22,0.10)]">
+      <nav className="relative mx-auto max-w-6xl rounded-full bg-white/95 backdrop-blur-md border border-zinc-200/90 shadow-[0_10px_36px_rgba(11,31,22,0.10)]">
         <div className="flex h-14 items-center justify-between px-4 sm:px-5">
 
           {/* ── Left: mobile hamburger (opens the left drawer) + logo ── */}

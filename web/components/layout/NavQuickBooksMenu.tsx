@@ -60,7 +60,6 @@ export function NavQuickBooksMenu({
 
   return (
     <div
-      className="relative"
       ref={ref}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
@@ -82,7 +81,11 @@ export function NavQuickBooksMenu({
       </button>
 
       {open && (
-        <div className="absolute right-0 xl:left-1/2 xl:right-auto xl:-translate-x-1/2 mt-3 w-[min(94vw,480px)] lg:w-[min(980px,94vw)] max-h-[75vh] overflow-y-auto rounded-[24px] bg-white border border-zinc-200 shadow-[0_24px_60px_rgba(11,31,22,0.14)] z-50">
+        /* Positioned against the navbar pill (the pill is `relative`), so the
+           panel centres on the navbar itself — not on this button. The pt-3
+           is a transparent hover bridge between the pill and the card. */
+        <div className="absolute left-1/2 top-full z-50 w-[min(980px,94vw)] -translate-x-1/2 pt-3">
+          <div className="max-h-[75vh] overflow-y-auto rounded-[24px] bg-white border border-zinc-200 shadow-[0_24px_60px_rgba(11,31,22,0.14)]">
           <div className="flex">
             {/* Featured panel — the Bulk Suite (desktop only) */}
             <div className="hidden lg:flex w-[300px] shrink-0 flex-col bg-[#0B1F16] px-[26px] py-[28px]">
@@ -148,6 +151,7 @@ export function NavQuickBooksMenu({
                 ))}
               </div>
             </div>
+          </div>
           </div>
         </div>
       )}
