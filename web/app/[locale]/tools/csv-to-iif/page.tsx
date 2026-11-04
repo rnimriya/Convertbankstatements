@@ -21,51 +21,36 @@ export const metadata: Metadata = {
 const FAQS: ToolFaq[] = [
   {
     q: "How do I convert a CSV file to IIF for QuickBooks Desktop?",
-    a: "Upload your bank's CSV export, check the mapping (date, payee, and an amount or debit/credit pair), and set your bank, income, and expense account names to match your chart of accounts. Download the IIF and import it in QuickBooks Desktop via File → Utilities → Import → IIF Files.",
+    a: "Upload your bank's CSV export, check the mapping (date, payee, and an amount or debit/credit pair), and set your bank, income, and expense account names to match your chart of accounts. Download the IIF and import it in QuickBooks Desktop via File → Utilities → Import → IIF Files — after backing up your company file.",
   },
   {
-    q: "Should I back up my company file before importing an IIF?",
-    a: "Yes. Make a backup first (File, then Back Up Company in QuickBooks Desktop). IIF imports cannot be undone in one step, so a backup is the standard way to protect your books before any import. If anything looks wrong after importing, you can restore the backup and try again.",
+    q: "Why can't QuickBooks Desktop just import my bank CSV?",
+    a: "Desktop has no native CSV bank import — that upload exists only in QuickBooks Online. Desktop moves data through IIF files and Web Connect (QBO) files instead, so a bank CSV has to be converted into one of those formats before Desktop will touch it.",
   },
   {
-    q: "How are deposits and payments handled in the IIF file?",
-    a: "A positive amount becomes a DEPOSIT — bank line positive, offset line negative against your income account. A negative amount becomes a CHECK — bank line negative, offset line positive against your expense account. Each pair sums to zero, which is the double-entry convention IIF expects.",
+    q: "What are the TRNS and SPL lines in an IIF file?",
+    a: "They are the two halves of every transaction. The file opens with header rows (!TRNS, !SPL, !ENDTRNS) that declare the columns. Each transaction is then a TRNS line against your bank account, an SPL line carrying the opposite amount against your income or expense account, and an ENDTRNS marker. The pair always sums to zero — that is the double-entry rule IIF is built on.",
+  },
+  {
+    q: "Why do the account names have to match exactly?",
+    a: "Desktop matches account names as text, character for character. If a name in the file does not exist in your chart of accounts, Desktop typically offers to create it during import — which is how a typo becomes a duplicate account. Copy the names from your chart of accounts, and for a subaccount use the full path joined by a colon, such as Utilities:Electric.",
   },
   {
     q: "What if my CSV uses debit and credit columns instead of one amount column?",
-    a: "Map both columns. Debit rows (money out) become negative amounts and credit rows (money in) stay positive. A row that fills neither side is skipped and counted in the warnings so you can check it.",
+    a: "Map both columns and leave the single Amount column unmapped. Debit rows (money out) become negative amounts and credit rows (money in) stay positive. A row that fills neither side is skipped and counted in the warnings so you can check it.",
   },
   {
-    q: "What happens if an account name does not exist in QuickBooks Desktop?",
-    a: "Type account names exactly as they appear in your chart of accounts, including spelling. If a name does not exist yet, QuickBooks Desktop will typically ask whether to create it during import. Checking the names here first avoids creating duplicate or misspelled accounts in your books.",
-  },
-  {
-    q: "Why must every IIF entry sum to zero?",
-    a: "IIF is double-entry: each TRNS line needs an SPL line so books stay balanced. A $1,000 deposit adds $1,000 to the bank account and removes $1,000 from income. If a pair does not sum to zero, QuickBooks Desktop can reject or mispost it.",
-  },
-  {
-    q: "Can I edit the IIF file in Excel before importing?",
-    a: "Risky — IIF files are tab-delimited text, and Excel can reformat dates, strip leading characters, and save with the wrong delimiter, all of which break the import. If you must inspect it, open a copy in a text editor — and never re-save it from Excel.",
-  },
-  {
-    q: "Which date format does IIF require?",
-    a: "MM/DD/YYYY — month first, then day, then a four-digit year. This converter writes dates in that format automatically from your CSV. It matters because a day-first file does not error politely: 03/04/2026 silently becomes March 4 instead of April 3, and the transaction lands in the wrong month.",
-  },
-  {
-    q: "Does IIF work with QuickBooks Online?",
-    a: "No. IIF is a QuickBooks Desktop format; QuickBooks Online does not import IIF files. If your books live in QuickBooks Online, convert the same CSV with the CSV to QBO converter instead and import the result through the bank feed — the workflow is the same, only the file changes.",
-  },
-  {
-    q: "Is this tool really free, and is my data stored?",
-    a: "Yes — the IIF download is fully free, with no account and no Pro plan required. Your CSV is processed in memory to build the conversion and is not stored afterwards. We never sell or share your financial data.",
+    q: "Is this converter free, and is my data stored?",
+    a: "Yes — the IIF download is fully free, with no account and no Pro plan required, for CSV files up to 10 MB. Your CSV is processed in memory to build the conversion and is not stored afterwards.",
   },
 ];
 
 const HOWTO = [
   { title: "Export from your bank", body: "Download your transactions as a CSV from your bank's website — any export with date, description, and amount columns works." },
-  { title: "Upload and map columns", body: "Drop the CSV in. The tool auto-detects the column mapping from your header row, and you can correct any column here." },
+  { title: "Upload and check the mapping", body: "Drop the CSV in. The tool auto-detects the column mapping from your header row, and changing a dropdown re-reads the file right away." },
   { title: "Set your account names", body: "Enter your QuickBooks Desktop bank account, income account for deposits, and expense account for payments, exactly as named in your chart of accounts." },
-  { title: "Download and import", body: "Download the free IIF file, back up your company file, then import it in QuickBooks Desktop from File, then Utilities, then Import, then IIF Files." },
+  { title: "Download the IIF (free)", body: "Save the file — every transaction is written as a balanced TRNS/SPL pair under the !TRNS/!SPL header rows." },
+  { title: "Back up, then import", body: "Back up your company file, then in QuickBooks Desktop go to File → Utilities → Import → IIF Files and choose the downloaded file." },
 ];
 
 const H2 = "text-2xl font-extrabold text-zinc-900 dark:text-white";
@@ -90,34 +75,38 @@ export default function CsvToIifPage() {
       privacyLine="Fully free, no account needed · Processed in memory, never stored"
       content={
         <>
-          <h2 className={H2}>Why QuickBooks Desktop still runs on IIF</h2>
+          <h2 className={H2}>QuickBooks Desktop has no CSV bank import — IIF is the bridge</h2>
           <p className={P}>
-            QuickBooks Desktop never learned the friendly CSV import that QuickBooks Online
-            has. For Desktop, the long-standing way to move data in and out without retyping
-            it is IIF — Intuit Interchange Format — a plain-text format Desktop has accepted
-            for decades. If your bank gives you a CSV and your books live in Desktop, an IIF
-            file is the bridge between them.
+            If your books live in QuickBooks Desktop, the friendly CSV upload you may have seen in
+            QuickBooks Online simply is not there. Desktop never got a CSV bank import. What it has
+            accepted for decades is IIF — Intuit Interchange Format — a plain-text, tab-delimited
+            format built for moving lists and transactions in and out of a company file. When your
+            bank hands you a CSV and Desktop is where the books live, an IIF file is the bridge
+            between the two.
           </p>
           <p className={P}>
-            The catch is that IIF is unforgiving to build by hand. The header block has to
-            name the columns in exactly the expected order. The file must be tab-delimited,
-            not comma-delimited. Dates must be written month/day/year. And every transaction
-            needs a second, offsetting line, or the entry does not balance and the import
-            misposts. One wrong character in a hundred-row file can spoil the whole run.
-            This converter takes your bank's CSV and produces a file that observes every one
-            of those rules — free, with your own account names baked in.
+            The catch is that IIF is unforgiving to build by hand, and it is picky in ways a CSV
+            never is. The file must open with header rows — !TRNS, !SPL and !ENDTRNS — that declare
+            the columns in exactly the expected order. Every transaction needs two lines, not one:
+            a TRNS line against the bank account and an SPL line carrying the opposite amount
+            against an income or expense account, so each pair sums to zero. Dates must be written
+            MM/DD/YYYY. And the account names are matched as text: they must be spelled exactly as
+            they appear in your chart of accounts, or Desktop will offer to create new accounts
+            you never wanted. One wrong character in a hundred-row file can spoil the whole run.
           </p>
-
-          <h2 className={H2M}>What an IIF file actually is</h2>
           <p className={P}>
-            An IIF file is a tab-delimited text file built from two kinds of lines. It opens
-            with three header rows whose names start with an exclamation mark; those rows
-            declare the columns for everything that follows. After the headers, each
-            transaction is a small block: a TRNS line, one or more SPL lines, and an ENDTRNS
-            line to close it. The whole file for a month of banking is just those blocks
-            repeated:
+            This converter handles the format rules for you. It reads your bank&rsquo;s CSV, lets you
+            check the column mapping, takes your own bank, income and expense account names, and
+            writes a balanced IIF file you can download free. If some of your books live in
+            QuickBooks Online instead, the same CSV belongs in the{" "}
+            <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
+            — IIF is a Desktop-only format, and Online does not import it.
           </p>
-          <div className="mt-4 overflow-x-auto">
+          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
+            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="Rows of a bank CSV export, each one ready to become a balanced transaction and split line pair in an IIF file" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
+            <figcaption className="text-sm leading-relaxed text-[#33502F]">Each CSV row becomes a balanced pair of IIF lines — a TRNS line and its SPL offset.</figcaption>
+          </figure>
+          <div className="mt-6 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr>
@@ -130,79 +119,64 @@ export default function CsvToIifPage() {
                 <tr><td className={TD}><strong>!TRNS</strong></td><td className={TD}>Header, once</td><td className={TD}>Names the columns of every transaction line</td></tr>
                 <tr><td className={TD}><strong>!SPL</strong></td><td className={TD}>Header, once</td><td className={TD}>Names the columns of every split (offset) line</td></tr>
                 <tr><td className={TD}><strong>!ENDTRNS</strong></td><td className={TD}>Header, once</td><td className={TD}>Declares the marker that closes each transaction</td></tr>
-                <tr><td className={TD}><strong>TRNS</strong></td><td className={TD}>Once per transaction</td><td className={TD}>The transaction itself: date, bank account, amount, payee</td></tr>
+                <tr><td className={TD}><strong>TRNS</strong></td><td className={TD}>Once per transaction</td><td className={TD}>The transaction itself: date, bank account, amount, payee — typed DEPOSIT or CHECK</td></tr>
                 <tr><td className={TD}><strong>SPL</strong></td><td className={TD}>Once per transaction here</td><td className={TD}>The offsetting line, against the income or expense account</td></tr>
                 <tr><td className={TD}><strong>ENDTRNS</strong></td><td className={TD}>Once per transaction</td><td className={TD}>Closes the block so the next transaction can begin</td></tr>
               </tbody>
             </table>
           </div>
-          <figure className="mt-6 flex flex-col gap-5 rounded-[24px] border border-[#D8E8D2] bg-[#EFF7ED] p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
-            <img src="/tools/csv-to-qbo-spreadsheet.webp" alt="Rows of a bank CSV export, each one ready to become a balanced transaction and split line pair in an IIF file" className="w-full shrink-0 rounded-[16px] sm:w-[400px]" loading="lazy" />
-            <figcaption className="text-sm leading-relaxed text-[#33502F]">Each CSV row becomes a balanced pair of IIF lines.</figcaption>
-          </figure>
 
-          <h2 className={H2M}>The one rule IIF never forgives: every entry must balance</h2>
+          <h2 className={H2M}>How to convert a CSV to IIF with this converter</h2>
           <p className={P}>
-            IIF is double-entry bookkeeping in text form. The TRNS line moves money in the
-            bank account; the SPL line must move exactly the same amount in the opposite
-            direction against another account. Add the two lines together and they must sum
-            to zero — always, for every transaction, to the cent. A deposit of $1,000.00 is
-            +$1,000.00 on the bank line and −$1,000.00 on the split line against your income
-            account. A check for $250.50 is −$250.50 on the bank line and +$250.50 against
-            your expense account. When a hand-built file breaks this rule — a rounding
-            difference, a split typed from memory — Desktop can refuse the entry or post it
-            somewhere you did not intend, and the imbalance surfaces later as a register that
-            will not reconcile. This converter constructs each pair from the same amount, so
-            a pair cannot drift apart: whatever the TRNS line says, the SPL line is its exact
-            mirror.
+            <strong className="text-zinc-900 dark:text-white">Step 1 — Export the CSV from your bank.</strong>{" "}
+            Download the date range you need as CSV. Any export with a header row and date,
+            description and amount columns works — Chase, Bank of America, Wells Fargo, Citi,
+            Capital One and most regional banks and credit unions all export this shape. Keep the
+            bank&rsquo;s original file untouched; opening it in a spreadsheet first invites quiet edits
+            to dates and amounts.
           </p>
           <p className={P}>
-            "To the cent" is not a figure of speech. An amount like $33.335 cannot exist in
-            the file — every value is rounded to two decimals before the pair is written, and
-            both lines take the same rounded value, so rounding can never open a gap between
-            them. If your CSV carries amounts with more precision, the rounding happens once,
-            visibly, in the converted file you can review — not silently inside QuickBooks
-            during the import.
-          </p>
-
-          <h2 className={H2M}>How to convert and import, step by step</h2>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-zinc-600 dark:text-zinc-300 marker:font-bold marker:text-[#007A33]">
-            <li><strong className="text-zinc-900 dark:text-white">Export from your bank.</strong> Download your transactions as CSV — any export with date, description, and amount columns works.</li>
-            <li><strong className="text-zinc-900 dark:text-white">Upload and map.</strong> Drop the CSV in; the mapping is auto-detected from your headers, and you can correct any column.</li>
-            <li><strong className="text-zinc-900 dark:text-white">Set your account names.</strong> Enter the bank, income, and expense accounts exactly as they appear in your Desktop chart of accounts.</li>
-            <li><strong className="text-zinc-900 dark:text-white">Back up the company file.</strong> In Desktop: File → Back Up Company. IIF imports cannot be undone in one step; the backup is your way back.</li>
-            <li><strong className="text-zinc-900 dark:text-white">Import the IIF.</strong> File → Utilities → Import → IIF Files, choose the file you downloaded, and review the register entries it creates.</li>
-          </ol>
-
-          <h2 className={H2M}>Getting the inputs right</h2>
-          <p className={P}>
-            Three inputs decide whether the import is boring — and boring is what you want.
-            First, account names: they are matched as text, character for character, so copy
-            them from your chart of accounts rather than typing from memory; a near-miss name
-            is how duplicate accounts are born. Second, dates: the converter reads your CSV's
-            dates and writes them as MM/DD/YYYY, the only order IIF should carry, so an
-            export from a day-first country cannot smuggle April 3 in as March 4. Third, the
-            CSV itself: keep the bank's original file untouched. Opening it in a spreadsheet
-            first invites quiet edits — reformatted dates, amounts turned into text — that
-            make any converter's job harder. Upload the file the bank gave you.
+            <strong className="text-zinc-900 dark:text-white">Step 2 — Upload it and check the mapping.</strong>{" "}
+            Drop the file into the tool above (CSV files up to 10 MB). The tool reads your header
+            row and auto-detects the date, payee and amount columns. Map either one signed amount
+            column (money out negative) or a debit and a credit column — never both. If a dropdown
+            is wrong, change it and the file is re-read right away. Rows that cannot be read are
+            skipped and counted in the warnings, never silently dropped.
           </p>
           <p className={P}>
-            One more naming case worth knowing: subaccounts. If the account you want lives
-            under a parent in your chart of accounts — Electric under Utilities, for example —
-            IIF expects the full path joined by a colon: "Utilities:Electric". Type just
-            "Electric" and Desktop will look for a top-level account by that name, fail to
-            find it, and offer to create one. The converter passes through whatever you type,
-            so give it the full path for any account that has a parent.
+            <strong className="text-zinc-900 dark:text-white">Step 3 — Set your three account names.</strong>{" "}
+            Type the bank account these transactions belong to, the income account deposits should
+            post against, and the expense account payments should post against — exactly as they
+            appear in your Desktop chart of accounts, including the full colon path for
+            subaccounts (Utilities:Electric, not just Electric). The defaults are Business
+            Checking, Uncategorized Income and Uncategorized Expense; replace them with your real
+            names. Changing a name and leaving the field re-runs the conversion.
           </p>
-
-          <h2 className={H2M}>A worked example: two entries as IIF lines</h2>
           <p className={P}>
-            Below are the first two transactions of a sample file, shown field by field: a
-            $1,000.00 deposit posted to Sales Income, and a $250.50 check posted to Rent
-            Expense. In the real file these lines are separated by tabs, not columns:
+            <strong className="text-zinc-900 dark:text-white">Step 4 — Review the preview, then download.</strong>{" "}
+            The preview shows the parsed transactions — date, payee and signed amount — with the
+            first 50 rows on screen and every row in the download. A positive amount becomes a
+            DEPOSIT: bank line positive, offset line negative against your income account. A
+            negative amount becomes a CHECK: bank line negative, offset line positive against
+            your expense account. Each pair sums to zero by construction, because both lines are
+            written from the same rounded amount. Download the .IIF — it is fully free.
           </p>
-          <div className="mt-4 overflow-x-auto">
+          <p className={P}>
+            <strong className="text-zinc-900 dark:text-white">Step 5 — Back up, then import into Desktop.</strong>{" "}
+            In QuickBooks Desktop, first make a backup (File → Back Up Company) — IIF imports
+            cannot be undone in one step, so the backup is your way back. Then go to File →
+            Utilities → Import → IIF Files, choose the downloaded file, and review the register
+            entries it creates against your chart of accounts.
+          </p>
+          <p className={P}>
+            Working through a stack of monthly CSVs rather than one file? The{" "}
+            <a href="/tools/bulk-import-quickbooks" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">Bulk Importer for QuickBooks</a>{" "}
+            merges many CSV files, maps the columns once and builds a single import file — IIF
+            included.
+          </p>
+          <div className="mt-6 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
+              <caption className="pb-3 text-left font-semibold text-zinc-900 dark:text-white">A worked example: two CSV rows as IIF lines (tabs in the real file)</caption>
               <thead>
                 <tr><th className={TH}>Line</th><th className={TH}>Date</th><th className={TH}>Account</th><th className={TH}>Amount</th><th className={TH}>Payee / memo</th></tr>
               </thead>
@@ -217,77 +191,69 @@ export default function CsvToIifPage() {
             </table>
           </div>
           <p className={P}>
-            Read the pairs: +1,000.00 and −1,000.00 sum to zero; −250.50 and +250.50 sum to
-            zero. The bank account ends up $749.50 richer, income records the $1,000.00 sale,
-            and rent records the $250.50 cost — a complete, balanced piece of bookkeeping from
-            two CSV rows. (Sample data, shown for illustration.)
+            Read the pairs: +1,000.00 and −1,000.00 sum to zero; −250.50 and +250.50 sum to zero.
+            The bank account ends up $749.50 richer, income records the sale, and rent records the
+            cost. (Sample data, shown for illustration.)
           </p>
 
           <h2 className={H2M}>When an IIF import goes wrong</h2>
+          <h3 className={H3}>QuickBooks created accounts you did not want</h3>
+          <p className={P}>
+            The most common IIF accident. Desktop cannot find an account name from the file, offers
+            to create it, and one accepted prompt for a typo later your chart of accounts has a
+            near-duplicate that transactions scatter across. Cancel the import, correct the names
+            here to match your chart exactly — subaccounts with their full colon path — and convert
+            again. This is the mistake the backup exists for.
+          </p>
           <h3 className={H3}>The entry is not balanced</h3>
           <p className={P}>
-            The signature failure of hand-edited files: a TRNS and SPL that differ by a cent,
-            or a split line deleted to "simplify" the file. Desktop may reject the block or
-            post the difference somewhere unhelpful. Files from this converter are built as
-            mirrored pairs, so if you see this error, the file was changed after download —
-            convert a fresh copy and import that.
+            The signature failure of hand-edited files: a TRNS and SPL that differ by a cent, or a
+            split line deleted to &ldquo;simplify&rdquo; the file. Desktop may reject the block or post the
+            difference somewhere unhelpful. Files from this converter are built as mirrored pairs
+            from one rounded amount, so if you see this error, the file was changed after download
+            — convert a fresh copy and import that.
           </p>
           <h3 className={H3}>Excel destroyed the file</h3>
           <p className={P}>
-            IIF lives and dies by its tabs. Open the file in Excel and three things quietly
-            happen: dates get reformatted into whatever the spreadsheet prefers, long numbers
-            can be restyled, and saving replaces the tab delimiters with commas or spaces. The
-            result looks similar and imports terribly. If you need to look inside an IIF file,
-            use a plain text editor — and never re-save from Excel a file you plan to import.
+            IIF lives and dies by its tabs. Open the file in Excel and dates get reformatted,
+            long numbers can be restyled, and saving replaces the tab delimiters with commas or
+            spaces. The result looks similar and imports terribly. If you need to look inside an
+            IIF file, use a plain text editor — count the ENDTRNS lines to check the transaction
+            count — and never re-save from Excel a file you plan to import. To audit a Desktop
+            export in a spreadsheet safely, go the other direction with the{" "}
+            <a href="/tools/iif-to-excel" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">IIF to Excel converter</a>.
           </p>
-          <h3 className={H3}>Transactions land in the wrong month</h3>
+          <h3 className={H3}>Transactions land in the wrong month — or land twice</h3>
           <p className={P}>
-            IIF dates must be MM/DD/YYYY. A file written day-first does not produce an error —
-            it produces April transactions filed in March, discovered weeks later when the
-            register will not reconcile. This converter always writes month-first, and the
-            worked example above shows the exact format every date in your file will carry.
-          </p>
-          <h3 className={H3}>QuickBooks created accounts you did not want</h3>
-          <p className={P}>
-            When Desktop cannot find an account name from the file, it offers to create it.
-            Accept that prompt for a typo and your chart of accounts grows a near-duplicate
-            that transactions then scatter across. Cancel the import, correct the names here
-            to match your chart exactly, and convert again — this is the mistake the backup
-            exists for.
+            IIF dates must be MM/DD/YYYY; a day-first file does not error, it files April
+            transactions in March. This converter always writes month-first. The second trap is
+            the opposite of the QBO route: an IIF file carries no transaction IDs, so Desktop has
+            no duplicate check — import the same file twice and you own two of everything. Keep
+            the downloaded file with the backup you made, so any imported batch can be traced to
+            exactly one CSV.
           </p>
 
-          <h2 className={H2M}>The two-minute review before you import</h2>
+          <h2 className={H2M}>Three routes into QuickBooks Desktop, honestly compared</h2>
+          <div className="mt-4 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr>
+                  <th className={TH}>Route</th>
+                  <th className={TH}>Where it shines</th>
+                  <th className={TH}>Where it breaks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td className={TD}><strong>Convert the CSV to IIF (this page)</strong></td><td className={TD}>Posts straight into the accounts you name; fully free; the file is readable text you can check before importing</td><td className={TD}>No duplicate protection — re-importing doubles entries; one income and one expense offset account for the whole file, so you categorize in Desktop afterwards</td></tr>
+                <tr><td className={TD}><strong>Convert the CSV to QBO and use Web Connect</strong></td><td className={TD}>Imports through the bank-feed door, with a unique ID per transaction, so a re-import is recognized</td><td className={TD}>The .QBO download is on Pro on that page; transactions land in the bank feed for review rather than posting directly to named accounts</td></tr>
+                <tr><td className={TD}><strong>Type the transactions in by hand</strong></td><td className={TD}>Nothing to convert; fine for two or three missing entries</td><td className={TD}>Every row is a chance to transpose a digit or pick the wrong account — and there is no file left to audit afterwards</td></tr>
+              </tbody>
+            </table>
+          </div>
           <p className={P}>
-            IIF gives you a rare gift: the file is readable before it touches your books.
-            Open the download in a text editor and run three checks. Count the ENDTRNS lines —
-            that is your transaction count, and it should match the CSV you started with.
-            Spot-check the first pair and confirm the two amounts mirror each other. Read the
-            account names once against your chart of accounts. Two minutes, and the import
-            holds no surprises. If your workflow also involves QBO files, the{" "}
-            <a href="/tools/qbo-checker" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">QBO File Checker</a>{" "}
-            gives those files the same kind of pre-import review.
-          </p>
-          <p className={P}>
-            Keep the reviewed download together with the backup you made of the company file.
-            If a question ever arises about an imported batch — which CSV it came from, which
-            account names were used — the pair answers it completely: the backup shows the
-            books before, and the IIF shows exactly what was added.
-          </p>
-
-          <h2 className={H2M}>Converting every month? Make it a system</h2>
-          <p className={P}>
-            Desktop bookkeeping tends to be a monthly ritual: bank export in, IIF across,
-            reconcile. When that ritual repeats, a free account keeps every CSV you converted
-            and every IIF you produced in one searchable history — the file behind a question
-            from two quarters ago is findable in seconds. The dashboard adds bulk conversion
-            when a client sends a stack of statement PDFs at once, and client portals let
-            clients upload through their own link instead of emailing attachments. Downloads
-            on this page stay fully free either way; the account simply keeps the trail.
-          </p>
-          <p className={P}>
-            Using QuickBooks Online for some clients instead? The same CSV goes through the{" "}
-            <a href="/tools/csv-to-qbo" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">CSV to QBO converter</a>{" "}
-            to become a Web Connect file — one source export, both destinations covered.
+            Already have Desktop data in IIF form and need it back out? The{" "}
+            <a href="/tools/iif-to-csv" className="font-semibold text-pine-600 hover:underline dark:text-pine-400">IIF to CSV converter</a>{" "}
+            turns a Desktop export back into a plain spreadsheet you can review anywhere.
           </p>
         </>
       }
