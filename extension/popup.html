@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConvertStatement — Bank Statement Converter</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <main class="popup">
+    <header class="brand">
+      <img class="brand-logo" src="logo.svg" alt="" width="40" height="40" />
+      <div class="brand-text">
+        <h1 class="brand-name">ConvertStatement</h1>
+        <p class="brand-tag">Bank Statement Converter</p>
+      </div>
+    </header>
+
+    <p class="intro">
+      Convert bank statement PDFs to Excel, CSV or QuickBooks (QBO).
+      First 8 pages free.
+    </p>
+
+    <nav class="actions" aria-label="ConvertStatement links">
+      <button type="button" class="btn btn-primary" data-url="https://www.convertstatement.online/">
+        Convert a statement
+      </button>
+      <button type="button" class="btn btn-secondary" data-url="https://www.convertstatement.online/tools">
+        QuickBooks tools
+      </button>
+      <button type="button" class="btn btn-secondary" data-url="https://www.convertstatement.online/tools/bulk-import-quickbooks">
+        Bulk tools — free
+      </button>
+    </nav>
+
+    <p class="note">
+      Opens ConvertStatement in a new tab — drop your PDF there to convert.
+      This extension collects no data and makes no requests on its own.
+    </p>
+
+    <footer class="footer">
+      <span class="footer-site">convertstatement.online</span>
+      <a href="https://www.convertstatement.online/pricing" data-url="https://www.convertstatement.online/pricing" class="footer-link">Pricing</a>
+    </footer>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
