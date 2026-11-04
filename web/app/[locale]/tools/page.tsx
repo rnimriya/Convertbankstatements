@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { TOOL_CARDS } from "@/lib/tools/similar";
+import ToolsGuideContent from "@/components/tools/ToolsGuideContent";
 import { ArrowRight } from "lucide-react";
 
 const PAGE_URL = "https://www.convertstatement.online/tools";
@@ -231,6 +232,8 @@ export default function ToolsIndexPage() {
           </Link>
           .
         </p>
+
+        <ToolsGuideContent />
         </div>
       </main>
       <Footer />
