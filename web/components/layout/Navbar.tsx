@@ -96,7 +96,10 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
           </div>
 
           {/* ── Nav links ── */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* self-stretch: the row spans the pill's full height so the
+              QuickBooks hover zone reaches the pill's bottom edge with no
+              dead strip before the dropdown panel. */}
+          <div className="hidden md:flex items-center gap-8 self-stretch">
             {[
               { href: "/#how-it-works", label: t("howItWorks") },
               { href: "/#features",     label: t("features") },

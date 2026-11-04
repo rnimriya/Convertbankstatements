@@ -39,6 +39,20 @@ export function NavQuickBooksMenu({
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /* Hover intent: cancel any pending close as soon as the pointer is back
+     over the button or the panel; on leave, wait a beat before closing so a
+     slow or slightly diagonal mouse path to the panel never kills the menu
+     mid-click (the bug reported 2026-11-04). */
+  const openMenu = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  const scheduleClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(false), 250);
+  };
 
   /* close on outside click */
   useEffect(() => {
@@ -61,12 +75,19 @@ export function NavQuickBooksMenu({
   return (
     <div
       ref={ref}
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      /* self-stretch: this hover zone spans the pill's full height, so the
+         pointer never crosses a dead strip between the button and the panel
+         (the panel hangs from the pill's bottom edge, not the button's). */
+      className="flex items-center self-stretch"
+      onMouseEnter={openMenu}
+      onMouseLeave={scheduleClose}
     >
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          if (closeTimer.current) clearTimeout(closeTimer.current);
+          setOpen((v) => !v);
+        }}
         aria-expanded={open}
         aria-haspopup="true"
         className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-[13.5px] font-medium transition-colors duration-150 ${
