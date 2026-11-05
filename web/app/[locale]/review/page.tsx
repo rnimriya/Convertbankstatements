@@ -21,7 +21,12 @@ export const metadata: Metadata = {
 // URLs are added here ONLY once a profile is confirmed live — never guess
 // or invent a platform URL. While this list is empty, the page shows an
 // honest "reviews open soon" note instead of review buttons.
-const REVIEWS: { platform: string; url: string }[] = [];
+const REVIEWS: { platform: string; url: string }[] = [
+  {
+    platform: "G2",
+    url: "https://www.g2.com/products/convertstatement/reviews",
+  },
+];
 
 export default function ReviewPage() {
   return (
