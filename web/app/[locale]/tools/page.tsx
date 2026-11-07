@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { TOOL_CARDS } from "@/lib/tools/similar";
 import ToolsGuideContent from "@/components/tools/ToolsGuideContent";
+import BankLinks from "@/components/banks/BankLinks";
 import { ArrowRight } from "lucide-react";
 
 const PAGE_URL = "https://www.convertstatement.online/tools";
@@ -234,6 +235,10 @@ export default function ToolsIndexPage() {
         </p>
 
         <ToolsGuideContent />
+
+        <section className="mx-auto max-w-6xl px-6 pb-24 pt-4">
+          <BankLinks />
+        </section>
         </div>
       </main>
       <Footer />

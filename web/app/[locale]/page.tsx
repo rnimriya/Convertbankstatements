@@ -10,6 +10,7 @@ import {
 import { Footer } from"@/components/layout/Footer";
 import { Navbar } from"@/components/layout/Navbar";
 import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
+import BankLinks from"@/components/banks/BankLinks";
 
 export const metadata: Metadata = {
   alternates: { canonical:"https://www.convertstatement.online" },
@@ -452,6 +453,16 @@ export default async function HomePage() {
               <a href="/contact" className="inline-flex items-center gap-2 rounded-full bg-[#2CA01C] px-6 py-3 text-sm font-bold text-white whitespace-nowrap">
                 Contact us <ArrowRight size={15} />
               </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── 08 / BANKS — INTERNAL LINKS ─────────────────── */}
+        <section className="py-24 bg-[#F7FAF5]">
+          <div className="max-w-6xl mx-auto px-6">
+            <Label>08 / Banks</Label>
+            <div className="mt-6">
+              <BankLinks />
             </div>
           </div>
         </section>
