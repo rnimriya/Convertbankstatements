@@ -69,7 +69,7 @@ export const metadata: Metadata = {
       "Global banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Monthly plans from $5 after that.",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "Convert Statement — PDF to Excel converter for banks",
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
       "Global banks. CSV, Excel, OFX, QFX. First 8 pages free. Monthly plans from $5.",
-    images: ["/opengraph-image"],
+    images: ["/twitter-image.png"],
   },
   icons: {
     icon: "/logo.svg",
