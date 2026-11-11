@@ -44,7 +44,7 @@ function buildCsp(nonce: string, extraNonce?: string): string {
   const extra = extraNonce ? ` 'nonce-${extraNonce}'` : "";
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'${extra} https://checkout.razorpay.com https://www.googletagmanager.com https://www.dropbox.com https://apis.google.com https://accounts.google.com`,
+    `script-src 'self' 'nonce-${nonce}'${extra} https://checkout.razorpay.com https://www.googletagmanager.com https://www.dropbox.com https://apis.google.com https://accounts.google.com https://va.vercel-scripts.com`,
     "frame-src https://api.razorpay.com https://docs.google.com",
     "connect-src 'self' https: https://api.razorpay.com https://dl.dropboxusercontent.com https://www.googleapis.com",
     "style-src 'self' 'unsafe-inline'",

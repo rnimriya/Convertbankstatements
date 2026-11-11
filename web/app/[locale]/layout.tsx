@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import localFont from "next/font/local";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
@@ -188,6 +189,9 @@ export default async function LocaleLayout({
             __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9P4SZSM3B9');`,
           }}
         />
+        {/* Vercel Web Analytics — enabled by owner 2026-11-11; collects
+            visitors/pageviews alongside GA4. */}
+        <Analytics />
         <NextIntlClientProvider messages={messages}>
           <AnnouncementBanner />
           {children}
