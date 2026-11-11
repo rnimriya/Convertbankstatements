@@ -39,6 +39,10 @@ export interface User {
   emailVerifyToken?: string | null;
   emailVerifyExpiry?: string | null;
   googleSheetsRefreshToken?: string | null;
+  /** AutoPay Khoj Pro (separate from converter tiers — set by the Razorpay webhook). */
+  khojPro?: boolean;
+  khojProPlan?: string | null;
+  khojSubscriptionId?: string | null;
 
   teamId?: string | null;
   teamRole?: "owner" | "member" | null;
@@ -123,6 +127,9 @@ function toHash(u: User): Record<string, string | number> {
     emailVerifyToken: u.emailVerifyToken ? encryptField(u.emailVerifyToken) : "",
     emailVerifyExpiry: u.emailVerifyExpiry ?? "",
     googleSheetsRefreshToken: encryptField(u.googleSheetsRefreshToken),
+    khojPro: u.khojPro ? "1" : "0",
+    khojProPlan: u.khojProPlan ?? "",
+    khojSubscriptionId: u.khojSubscriptionId ?? "",
 
     teamId: u.teamId ?? "",
     teamRole: u.teamRole ?? "",
@@ -163,6 +170,9 @@ function fromHash(h: Record<string, string>): User {
     emailVerifyToken: h.emailVerifyToken ? decryptField(h.emailVerifyToken) : null,
     emailVerifyExpiry: h.emailVerifyExpiry || null,
     googleSheetsRefreshToken: decryptField(h.googleSheetsRefreshToken) || null,
+    khojPro: String(h.khojPro) === "1",
+    khojProPlan: h.khojProPlan || null,
+    khojSubscriptionId: h.khojSubscriptionId || null,
 
     teamId: h.teamId || null,
     teamRole: (h.teamRole || null) as User["teamRole"],
@@ -417,6 +427,35 @@ export async function upgradeTier(
     user.billingCycle = billingCycle;
     user.pagesUsed = 0;
     user.lastPeriodResetAt = new Date().toISOString();
+    await fileWrite(users);
+  }
+}
+
+/**
+ * Set the AutoPay Khoj Pro flag (Razorpay webhook only). Deliberately
+ * independent of converter tiers: a Khoj subscription must never
+ * change the user's converter plan, and vice versa.
+ */
+export async function setKhojPro(
+  userId: string,
+  active: boolean,
+  plan: string | null,
+  subscriptionId: string | null
+): Promise<void> {
+  if (useRedis()) {
+    await r().hset(UK(userId), {
+      khojPro: active ? "1" : "0",
+      khojProPlan: plan ?? "",
+      khojSubscriptionId: subscriptionId ?? "",
+    });
+    return;
+  }
+  const users = await fileRead();
+  const user = users.find(u => u.id === userId);
+  if (user) {
+    user.khojPro = active;
+    user.khojProPlan = plan;
+    user.khojSubscriptionId = subscriptionId;
     await fileWrite(users);
   }
 }

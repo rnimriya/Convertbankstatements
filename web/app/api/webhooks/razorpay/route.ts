@@ -5,7 +5,8 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { verifyWebhookSignature } from "@/lib/razorpay";
-import { upgradeTier, findById, markWebhookProcessed } from "@/lib/auth/users";
+import { upgradeTier, findById, markWebhookProcessed, setKhojPro } from "@/lib/auth/users";
+import { isKhojPlanKey } from "@/lib/autopay/pro-plans";
 import { TIER_CONFIG } from "@/lib/config/tiers";
 import { logSecurityEvent, ipFromHeaders } from "@/lib/security-log";
 
@@ -74,6 +75,9 @@ export async function POST(req: NextRequest) {
       const tier = PLAN_TIER[plan];
       const cycle = plan.endsWith("_annual") ? "annual" : "monthly";
       await upgradeTier(userId, tier, TIER_CONFIG[tier].pagesPerMonth, cycle);
+    } else if (isKhojPlanKey(plan)) {
+      // AutoPay Khoj Pro: flip ONLY the khoj flag — converter tiers are untouched.
+      await setKhojPro(userId, true, plan, subscriptionId);
     }
   }
   
@@ -82,8 +86,13 @@ export async function POST(req: NextRequest) {
     const subscription = (event.payload as Record<string, unknown>)?.subscription as Record<string, unknown> | undefined;
     const notes = (subscription?.entity as Record<string, unknown>)?.notes as Record<string, string> | undefined;
     const userId: string = notes?.userId ?? "";
-    
-    if (userId) {
+    const plan: string = notes?.plan ?? "";
+
+    if (userId && isKhojPlanKey(plan)) {
+      // Khoj Pro ended: clear ONLY the khoj flag. The old code path below
+      // would have wrongly downgraded the user's converter tier to FREE.
+      await setKhojPro(userId, false, null, null);
+    } else if (userId) {
       // Downgrade to FREE
       await upgradeTier(userId, "FREE", TIER_CONFIG.FREE.pagesPerMonth, "monthly");
     }
