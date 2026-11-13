@@ -8,7 +8,7 @@ import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { AnnouncementBanner } from "@/components/AnnouncementBanner";
-import { ChatWidget } from "@/components/chat/ChatWidget";
+import { ChatWidgetLazy } from "@/components/chat/ChatWidgetLazy";
 import type { Locale } from "@/i18n/routing";
 import "../globals.css";
 
@@ -195,7 +195,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <AnnouncementBanner />
           {children}
-          <ChatWidget />
+          <ChatWidgetLazy />
         </NextIntlClientProvider>
       </body>
     </html>

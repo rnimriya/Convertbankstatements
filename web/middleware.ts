@@ -119,13 +119,15 @@ export async function middleware(request: NextRequest) {
 
   // Cache behavior: static-tier pages render identically for every visitor
   // (session UI resolves client-side via /api/auth/me), so the edge may cache
-  // them for an hour with a day of stale-while-revalidate. Dynamic-tier
+  // them for six hours with a day of stale-while-revalidate (raised from 1h
+  // on 2026-11-13 — content only changes on deploy, and the SWR window keeps
+  // long-tail bank/blog pages warm at the edge between deploys). Dynamic-tier
   // pages must never be cached — auth state is evaluated per request.
   response.headers.set(
     "Cache-Control",
     dynamic
       ? "private, no-cache, no-store"
-      : "public, s-maxage=3600, stale-while-revalidate=86400"
+      : "public, s-maxage=21600, stale-while-revalidate=86400"
   );
 
   // Vercel's platform discards the browser-facing Cache-Control above on
@@ -139,11 +141,11 @@ export async function middleware(request: NextRequest) {
   if (!dynamic && !token) {
     response.headers.set(
       "Vercel-CDN-Cache-Control",
-      "public, s-maxage=3600, stale-while-revalidate=86400"
+      "public, s-maxage=21600, stale-while-revalidate=86400"
     );
     response.headers.set(
       "CDN-Cache-Control",
-      "public, s-maxage=3600, stale-while-revalidate=86400"
+      "public, s-maxage=21600, stale-while-revalidate=86400"
     );
   }
 

@@ -95,6 +95,34 @@ const nextConfig = {
         headers: immutableCache,
       },
       {
+        source: "/tools/:path*.webp",
+        headers: immutableCache,
+      },
+      {
+        source: "/tools/:path*.png",
+        headers: immutableCache,
+      },
+      {
+        source: "/quickbooks/:path*.jpg",
+        headers: immutableCache,
+      },
+      {
+        source: "/quickbooks/:path*.webp",
+        headers: immutableCache,
+      },
+      {
+        source: "/features/:path*",
+        headers: immutableCache,
+      },
+      {
+        source: "/personas/:path*",
+        headers: immutableCache,
+      },
+      {
+        source: "/steps/:path*",
+        headers: immutableCache,
+      },
+      {
         // Self-hosted fonts: filenames are stable (not content-hashed), so
         // cache for 30 days with a day of stale-while-revalidate instead of
         // immutable — a future font swap still propagates within a month.
