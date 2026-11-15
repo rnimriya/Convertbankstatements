@@ -170,12 +170,16 @@ export async function POST(req: NextRequest) {
   const pushUnique = (m?: string) => {
     if (m && m !== "gemini-2.5-flash" && !ordered.includes(m)) ordered.push(m);
   };
-  /* Order revised 2026-11-15 (deep test: replies took ~39s): the primary
-     model is the one extraction already proves fast on this project, so
-     it goes first; the alias and Lite models stay as fallbacks. */
+  /* Order revised twice on 2026-11-15. Deep test found replies taking
+     ~39s; Vercel logs then showed BOTH gemini-3.8-flash and
+     gemini-flash-latest timing out / returning 503 "high demand" on
+     this project's free tier, while a Lite model quietly answered on
+     the third attempt every time. Lite models have their own, far less
+     contended capacity and are plenty for short support answers — so
+     they go first now, with the big models as fallbacks. */
+  pool.filter((m) => m.includes("lite")).forEach(pushUnique);
   pushUnique(primaryModel);
   pushUnique(pool.find((m) => m === "gemini-flash-latest"));
-  pool.filter((m) => m.includes("lite")).forEach(pushUnique);
   pool.forEach(pushUnique);
 
   for (const model of ordered.slice(0, 3)) {
