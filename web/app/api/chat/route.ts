@@ -39,7 +39,16 @@ function parseMessages(body: unknown): ChatMessage[] | null {
   return out;
 }
 
+/* The model list for a project changes rarely — cache it per instance
+   instead of paying a /models round-trip on every chat message
+   (deep-test 2026-11-15: chat replies took ~39s end to end). */
+let modelCache: { at: number; models: string[] } | null = null;
+const MODEL_CACHE_TTL_MS = 10 * 60 * 1000;
+
 async function discoverFlashModels(apiKey: string): Promise<string[]> {
+  if (modelCache && Date.now() - modelCache.at < MODEL_CACHE_TTL_MS) {
+    return modelCache.models;
+  }
   try {
     const res = await fetch(`${GEMINI_API_BASE}/models`, {
       headers: { "x-goog-api-key": apiKey },
@@ -64,7 +73,9 @@ async function discoverFlashModels(apiKey: string): Promise<string[]> {
       const rank = (n: string) => (n === "gemini-3.8-flash" ? 0 : n.includes("lite") ? 2 : 1);
       return rank(a) - rank(b);
     });
-    return names.slice(0, 8);
+    const top = names.slice(0, 8);
+    if (top.length > 0) modelCache = { at: Date.now(), models: top };
+    return top;
   } catch {
     return [];
   }
@@ -159,14 +170,17 @@ export async function POST(req: NextRequest) {
   const pushUnique = (m?: string) => {
     if (m && m !== "gemini-2.5-flash" && !ordered.includes(m)) ordered.push(m);
   };
+  /* Order revised 2026-11-15 (deep test: replies took ~39s): the primary
+     model is the one extraction already proves fast on this project, so
+     it goes first; the alias and Lite models stay as fallbacks. */
+  pushUnique(primaryModel);
   pushUnique(pool.find((m) => m === "gemini-flash-latest"));
   pool.filter((m) => m.includes("lite")).forEach(pushUnique);
-  pushUnique(primaryModel);
   pool.forEach(pushUnique);
 
   for (const model of ordered.slice(0, 3)) {
     try {
-      const reply = await geminiChat(apiKey, model, messages, 18_000);
+      const reply = await geminiChat(apiKey, model, messages, 12_000);
       return NextResponse.json({ reply });
     } catch (err) {
       console.error(`[chat] Gemini failed on ${model}:`, err);
