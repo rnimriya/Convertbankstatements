@@ -169,8 +169,14 @@ export async function POST(req: NextRequest) {
     let ipPages = 0;
     const redis = getRedis();
     if (redis) {
-      const stored = await redis.get<number>(ANON_IP_KEY(clientIp(req)));
-      ipPages = typeof stored === "number" && stored >= 0 ? stored : 0;
+      try {
+        const stored = await redis.get<number>(ANON_IP_KEY(clientIp(req)));
+        ipPages = typeof stored === "number" && stored >= 0 ? stored : 0;
+      } catch (err) {
+        // Redis trouble must not break anonymous conversion — the cookie
+        // counter still applies on its own.
+        console.error("[process-statement] Redis IP counter read failed — continuing with cookie tracking only.", err);
+      }
     }
     pagesUsed = Math.max(cookiePages, ipPages);
   }
@@ -298,9 +304,13 @@ export async function POST(req: NextRequest) {
     // cookie deletion. INCRBY is atomic; refresh the TTL on each write.
     const redis = getRedis();
     if (redis) {
-      const key = ANON_IP_KEY(clientIp(req));
-      await redis.incrby(key, pageCount);
-      await redis.expire(key, ANON_TTL_SECONDS);
+      try {
+        const key = ANON_IP_KEY(clientIp(req));
+        await redis.incrby(key, pageCount);
+        await redis.expire(key, ANON_TTL_SECONDS);
+      } catch (err) {
+        console.error("[process-statement] Redis IP counter write failed — continuing.", err);
+      }
     }
   }
 

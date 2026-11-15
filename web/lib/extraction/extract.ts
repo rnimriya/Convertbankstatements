@@ -22,16 +22,22 @@ const VISION_IP_DAILY_CAP = parseInt(process.env.VISION_IP_DAILY_CAP ?? "25", 10
 async function visionBudgetExceeded(clientIp?: string): Promise<boolean> {
   const redis = getRedis();
   if (!redis) return false; // no durable store (local dev) — can't enforce
-  const day = new Date().toISOString().slice(0, 10);
-  const ttl = 93_600; // ~26h
-  const g = await redis.incr(`cs:vision:global:${day}`);
-  if (g === 1) await redis.expire(`cs:vision:global:${day}`, ttl);
-  if (g > VISION_DAILY_CAP) return true;
-  if (clientIp) {
-    const ipKey = `cs:vision:ip:${clientIp}:${day}`;
-    const c = await redis.incr(ipKey);
-    if (c === 1) await redis.expire(ipKey, ttl);
-    if (c > VISION_IP_DAILY_CAP) return true;
+  try {
+    const day = new Date().toISOString().slice(0, 10);
+    const ttl = 93_600; // ~26h
+    const g = await redis.incr(`cs:vision:global:${day}`);
+    if (g === 1) await redis.expire(`cs:vision:global:${day}`, ttl);
+    if (g > VISION_DAILY_CAP) return true;
+    if (clientIp) {
+      const ipKey = `cs:vision:ip:${clientIp}:${day}`;
+      const c = await redis.incr(ipKey);
+      if (c === 1) await redis.expire(ipKey, ttl);
+      if (c > VISION_IP_DAILY_CAP) return true;
+    }
+  } catch (err) {
+    // A Redis outage must not block extraction entirely; provider-side
+    // quotas still bound the spend while the counter is unavailable.
+    console.error("[extraction] Vision budget check failed — allowing extraction.", err);
   }
   return false;
 }
