@@ -10,6 +10,7 @@ export async function GET() {
     configured: qbConfigured(),
     connected: Boolean(conn),
     realmId: conn?.realmId ?? null,
+    companyName: conn?.companyName ?? null,
     environment: process.env.QB_ENVIRONMENT === "production" ? "production" : "sandbox",
   });
 }

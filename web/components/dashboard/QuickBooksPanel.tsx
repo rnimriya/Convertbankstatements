@@ -7,6 +7,7 @@ interface Status {
   configured: boolean;
   connected: boolean;
   realmId: string | null;
+  companyName: string | null;
   environment: string;
 }
 
@@ -68,7 +69,7 @@ export function QuickBooksPanel() {
       ) : status.connected ? (
         <div className="mt-2 space-y-3">
           <p className="text-sm text-pine-600 dark:text-pine-400 font-semibold">
-            ✓ Connected to QuickBooks company {status.realmId} ({status.environment})
+            ✓ Connected to QuickBooks company {status.companyName ?? status.realmId} ({status.environment})
           </p>
           <div>
             <label className="text-sm text-brand-muted block mb-1.5">

@@ -19,6 +19,7 @@ export interface QbConnection {
   accessToken: string;
   refreshToken: string;
   expiresAt: number; // epoch ms
+  companyName?: string;
 }
 
 const _mem = new Map<string, QbConnection>();
@@ -119,6 +120,19 @@ export async function exchangeCode(uid: string, code: string, realmId: string): 
     refreshToken: tokens.refresh_token,
     expiresAt: Date.now() + tokens.expires_in * 1000,
   };
+  // Best-effort: fetch the human-readable company name for display.
+  try {
+    const res = await fetch(`${qbApiBase(realmId)}/companyinfo/${realmId}`, {
+      headers: { Authorization: `Bearer ${tokens.access_token}`, Accept: "application/json" },
+    });
+    if (res.ok) {
+      const info = await res.json();
+      const name = info?.CompanyInfo?.CompanyName;
+      if (typeof name === "string" && name) conn.companyName = name;
+    }
+  } catch {
+    // Display nicety only — never fail the connection over it.
+  }
   await saveConnection(uid, conn);
   return conn;
 }
@@ -139,6 +153,7 @@ export async function freshAccessToken(uid: string): Promise<{ token: string; re
       accessToken: tokens.access_token,
       refreshToken: tokens.refresh_token,
       expiresAt: Date.now() + tokens.expires_in * 1000,
+      companyName: conn.companyName,
     };
     await saveConnection(uid, updated);
     return { token: updated.accessToken, realmId: updated.realmId };
