@@ -75,9 +75,23 @@ async function enforce(req: NextRequest, bucket: Bucket): Promise<NextResponse |
     console.error("[security][rate-limit] Redis not configured in production — rate limiting is per-instance and bypassable. Set UPSTASH_REDIS_REST_URL/TOKEN.");
   }
 
-  const allowed = rl
-    ? (await rl.limit(ip)).success
-    : memAllow(`${bucket.prefix}:${ip}`, bucket.limit);
+  // If Redis is configured but unreachable or rejecting auth (e.g. a bad
+  // token), the limiter must degrade to the in-memory window instead of
+  // throwing — a rate-limiter outage must never take the endpoint down.
+  let allowed: boolean;
+  if (rl) {
+    try {
+      allowed = (await rl.limit(ip)).success;
+    } catch (err) {
+      console.error(
+        "[security][rate-limit] Redis limiter failed — falling back to in-memory limiting.",
+        err
+      );
+      allowed = memAllow(`${bucket.prefix}:${ip}`, bucket.limit);
+    }
+  } else {
+    allowed = memAllow(`${bucket.prefix}:${ip}`, bucket.limit);
+  }
 
   if (!allowed) {
     return NextResponse.json(
