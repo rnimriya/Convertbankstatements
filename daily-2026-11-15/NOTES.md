@@ -28,10 +28,24 @@
 - Dedupe: none of the 3 trending slugs/titles appear in SEED+GENERATED posts, and none repeats or near-duplicates the last 7 days of trending picks (Nov 14: 1099-k-threshold-2026, home-office-deduction-2026, payroll-tax-cap-2026; Nov 13: expense-report-template-excel, small-business-saturday-2026, balance-sheet-template-excel; Nov 12: w-9-form-2026, profit-and-loss-statement-template-excel, cash-flow-statement; Nov 11: bank-statement-example, bank-statement-in-spanish, bank-reconciliation; Nov 10: irs-transcript, xero-vs-quickbooks, irs-direct-pay; Nov 9: irs-mileage-rate-2026, year-end-tax-planning-2026, december-15-tax-deadline; Nov 8: 2027-tax-brackets, bank-statement-template, 1099-vs-w2). "bank statement meaning" is a different search intent from Nov 11's "bank statement example" (what it is vs. a sample document); "estimated tax payments 2026" covers payment mechanics/safe harbor, distinct from the earlier due-dates list post.
 
 ## Posts
-- (to fill after gates)
+- 01 small-business-taxes-for-beginners — kw "small business taxes for beginners", body count 4, H2-with-kw 2, 2087 words, title 50, excerpt 153.
+- 02 estimated-tax-payments-2026 — kw "estimated tax payments 2026", body count 4, H2-with-kw 2, 2172 words, title 54, excerpt 156.
+- 03 bank-statement-meaning — kw "bank statement meaning", body count 4, H2-with-kw 2, 2154 words, title 55, excerpt 154.
+- 04 bank-of-kigali-import-to-xero — kw "import bank of kigali bank statement to xero", 1710 words, title 55, excerpt 156.
+- 05 bank-of-maharashtra-import-to-xero — kw "import bank of maharashtra bank statement to xero", 1756 words, title 54, excerpt 157.
 
 ## Images
-- (to fill after generation)
+- 15/15 generated via media pipeline (5 feature 1600px + 10 inline 1200px), PIL WebP q80, all <150 KB (largest: bank-of-kigali feature 106,612 B).
+- Mapping by explicit name stem from media tool results (convert.py MAP), never mtime.
+- Gate fixes: 3 excerpts trimmed to 150-160 (were 166/164/163), re-run clean.
 
 ## Deploy
-- (to fill after push)
+- Commit dc54b54 pushed via HTTPS (5f48b31..dc54b54 main -> main). tsc clean.
+- PRODUCTION DOMAIN DOWN: https://www.convertstatement.online returns 402 DEPLOYMENT_DISABLED ("Payment required") on homepage AND all 5 new blog URLs — Vercel paused the old 'rakesh kumar's projects' team. Yesterday (Nov 14) the same URLs returned 200, so the 402 started sometime after Nov 14 ~07:23 IST.
+- NEW PROJECT IS LIVE: https://convertbankstatements-web-beta.vercel.app returns 200 on homepage AND all 5 new blog URLs — the Amit-team project deployed dc54b54 and serves the new posts. The production domain still points at the old paused project; the domain move (migration Stage B/C) is pending.
+- GitHub deployments API: NO deployment record for dc54b54 yet (newest is 7780408338 for 5f48b31, success). The old Vercel integration appears dead while the team is paused; the beta URL is the live proof the new project deployed.
+- IndexNow: SKIPPED deliberately — production URLs return 402, so submitting them would point Bing at dead pages. Will submit once the domain move restores 200s.
+- GSC: browser task browser-task:8a1ce266-0573-5d67-8472-635a3fc978b6 running (queue top-down). Queue file: 121 pending / 33 submitted after appending today's 5 blog URLs to the END of pending. NOTE: queue file was last modified Nov 14 07:23 IST and shows 11 URLs moved pending->submitted since yesterday's notes (127/22 -> 116/33 before today's append) — that move is NOT explained by yesterday's run notes, which said GSC was blocked; recorded here as an open discrepancy.
+
+## Deploy — DONE
+- GSC: 0/12 submitted — BLOCKED on sign-in, but the state CHANGED since Nov 14: a Google account IS now signed in, but it is the WRONG one — BrightDoor Media (social@brightdoormedia.online). xookad@gmail.com is not signed in and did not appear in the account menu. No sign-in attempted, saved password NOT retried. Owner must sign in to Search Console as xookad@gmail.com (or make it the active account), then the queue can resume. Queue unchanged by this run: 121 pending / 33 submitted (today's 5 blog URLs at the END of pending).
