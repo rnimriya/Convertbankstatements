@@ -35,4 +35,9 @@
 - Gate fixes: 4 excerpts trimmed to 150-160 (were 171/174/163/175).
 
 ## Deploy
-- (to fill after push)
+- Commit 835b991 pushed via HTTPS (39470c9..835b991 main -> main). tsc clean.
+- Production deploy LAGGED: at +4 min all 5 new blog URLs 404 on www.convertstatement.online while the new project's beta deployment (convertbankstatements-web-beta.vercel.app) already served all 5 with 200. After a further ~3 min wait, all 5 returned 200 on production too. Production deploy simply takes ~7 min, not 4.
+- GitHub deployments API: newest deployment still 7780408338 (2026-11-14, for 5f48b31) — NO deployment record for 835b991. The new Amit-team project does not create GitHub deployment records (same as yesterday's dc54b54); live URL checks are the proof of deploy.
+- IndexNow: HTTP 200 accepted for all 5 new URLs (key fe4e1ad6...).
+- Queue: today's 5 blog URLs appended to END of pending in indexing-priority-queue.json (126 pending / 33 submitted). NOTE: the task body's "pricing and /banks/hdfc-bank are first" is stale — neither is in pending (both already submitted); file's actual top is /banks/westpac.
+- GSC: 0/15 submitted — BLOCKED again. Browser task browser-task:aed8bba4-504b-53b0-9ff0-88592be37b7f stopped before submitting anything: active Google account in Search Console is seowalabhai009@gmail.com (rakesh kumar); xookad@gmail.com is present in the account switcher but marked "Signed out". No sign-in attempted, no password retried. Owner must sign in to Search Console as xookad@gmail.com (or make it the active account), then the queue can resume. Queue unchanged by this run: 126 pending / 33 submitted (today's 5 blog URLs at the END of pending).
