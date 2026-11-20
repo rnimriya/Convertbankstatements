@@ -31,7 +31,14 @@
 - 15/15 generated via media pipeline (3 subagents × 5), all verified on disk 1920×1280 WebP before convert. Convert.py: 15/15, features 1600px, inlines 1200px, all <150 KB (largest: deductions feature 71,752 B).
 
 ## Deploy
-(TODO — fill after push + live checks)
+- Commit 7eeeb6b pushed via HTTPS (794117c..7eeeb6b main -> main). tsc clean.
+- Live checks ~4 min after push: all 5 new blog URLs 200 on www.convertstatement.online; homepage 200.
+- GitHub deployments API: not checked (unauthenticated requests rate-limited on shared egress IP; Amit-team project creates no GitHub deployment records — same as Nov 15–19). Live URL checks are the proof of deploy.
+- IndexNow: HTTP 200 accepted for all 5 new URLs (key fe4e1ad6ecd7fc8c0f83f40e5faddc5a verified live).
+- Rotation: bankIndex 140→142, angleIndex 2→3, qbTopicIndex stays 28 (QB queue exhausted), totalPublished 206→211.
+- Indexing queue: 130 pending / 43 submitted → 135 pending (today's 5 at END of pending).
 
 ## GSC
-(TODO)
+- Browser opened on seowalabhai009@gmail.com — switched to xookad@gmail.com via account menu, then selected URL-prefix property https://www.convertstatement.online/ (no access to sc-domain property, as before). Overview: 290 indexed / 345 not indexed pages.
+- 0/14 submitted: URL #1 /blog/how-to-upload-receipts-to-quickbooks-online FAILED with Google's generic error "Oops! Something went wrong. We had a problem submitting your indexing request. Please try again later." (same Google-side error as 2026-11-07; NOT a quota message). Stopped immediately per rule; URLs #2–14 not attempted. Nothing moved to submitted — all 135 URLs stay pending, queue top unchanged for tomorrow.
+- Queue after: 135 pending / 43 submitted. Today's 5 new blog URLs remain at END of pending (submitted via IndexNow only today).
