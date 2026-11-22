@@ -20,13 +20,25 @@
 - Dedupe: none of the 3 trending slugs/titles appear in SEED+GENERATED posts (exact-slug check), and none repeats or near-duplicates the last 7 days of trending picks (Nov 20: import-bank-statement-into-xero, csv-to-quickbooks, small-business-tax-deductions-2026; Nov 19: convert-pdf-to-csv-for-quickbooks, w2-form-2026, tax-season-2026-start-date; Nov 18: pdf-to-excel-converter-free, 1099-nec-form-2026, excel-template-for-small-business-accounting; Nov 17: bank-statement-pdf-to-excel, small-business-accounting-software-free; Nov 16: bank-statements-for-rental-application, tax-filing-2026-deadline, receipt-to-excel; Nov 15: small-business-taxes-for-beginners, estimated-tax-payments-2026, bank-statement-meaning; Nov 14: 1099-k-threshold-2026, home-office-deduction-2026, payroll-tax-cap-2026). "small-business-accounting-software-without-subscription" is a one-time-purchase/no-monthly-fee angle, distinct from Nov 17's free-software post; "receipt-scanner-for-taxes" is a tax-record angle, distinct from the QBO receipt-import posts.
 
 ## Posts
-(TBD — fill after gates)
+- 01 small-business-accounting-software-without-subscription — kw "small business accounting software without subscription", body count 4 (limit 6), H2-with-kw 2, 2373 words, title 55, excerpt 155.
+- 02 business-expense-tracker-excel — kw "business expense tracker excel", body count 4 (limit 6), H2-with-kw 2, 2153 words, title 50, excerpt 154.
+- 03 receipt-scanner-for-taxes — kw "receipt scanner for taxes", body count 5 (limit 6), H2-with-kw 2, 2043 words, title 52, excerpt 160.
+- 04 banner-bank-password-protected-pdf — kw "banner bank password protected pdf", 1862 words, title 56, excerpt 158.
+- 05 banorte-password-protected-pdf — kw "banorte password protected pdf", 2034 words, title 52, excerpt 159.
+- Gates: all 10 pass on all 5 (gates.py FAILS={}). One fix during run: Banner Bank post initially had only 1 inline image in content (2nd figure missing) — added the inline-2 figure, re-ran gates clean. Excerpts 01 (174) and 02 (164) trimmed to 155/154 before gates.
 
 ## Images
-(TBD)
+- 15/15 generated via media pipeline (3 subagents × 5), all verified on disk 1920×1200/1280 WebP before convert. Convert.py: 15/15, features 1600px, inlines 1200px, all <150 KB (largest: banorte feature 113,438 B).
 
 ## Deploy
-(TBD)
+- Commit 3aad03b pushed via HTTPS (7eeeb6b..3aad03b main -> main). Also pushed yesterday's unpushed notes commit 31f0808. tsc clean.
+- Live checks ~4 min after push: all 5 new blog URLs 200 on www.convertstatement.online; homepage 200.
+- GitHub deployments API: not checked (unauthenticated requests rate-limited on shared egress IP; Amit-team project creates no GitHub deployment records — same as Nov 15–20). Live URL checks are the proof of deploy.
+- IndexNow: HTTP 200 accepted for all 5 new URLs (key fe4e1ad6ecd7fc8c0f83f40e5faddc5a verified live).
+- Rotation: bankIndex 142→144, angleIndex 3→4, qbTopicIndex stays 28 (QB queue exhausted), totalPublished 211→216.
+- Indexing queue: 135 pending / 43 submitted → 140 pending (today's 5 at END of pending) → after GSC: 129 pending / 54 submitted.
 
 ## GSC
-(TBD)
+- Browser opened on seowalabhai009@gmail.com — switched to xookad@gmail.com via account menu (no password needed), selected URL-prefix property https://www.convertstatement.online/ (no access to sc-domain property, as before).
+- 11/14 submitted: queue URLs #1–11 accepted ("Indexing requested — URL was added to a priority crawl queue"). URL #12 /blog/kotak-811-account-statement hit Google's daily quota ("Quota Exceeded... try submitting this again tomorrow"); stopped per rule; #13–14 not attempted. No generic "Oops!" error today.
+- Queue after: 129 pending / 54 submitted. Top pending now: kotak-811-account-statement, indian-bank-statement-formats-differences, how-to-download-statement-for-all-accounts.
