@@ -11,6 +11,7 @@ import { getTopBanksForSEO } from "@/lib/seo/banks";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Building2 } from "lucide-react";
 import sanitizeHtml from "sanitize-html";
+import { IndiaStickyBar } from "@/components/inner-india/IndiaInner";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -36,7 +37,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function GuidePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
-  if (isIndiaSite() && QB_GUIDE_SLUGS.has(slug)) notFound(); // .in: no QuickBooks content
+  const IN = isIndiaSite();
+  if (IN && QB_GUIDE_SLUGS.has(slug)) notFound(); // .in: no QuickBooks content
   const cluster = getClusterBySlug(slug);
   if (!cluster) notFound();
 
@@ -85,17 +87,25 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
     <div className="agri-sans">
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Navbar dark />
-      <main className="min-h-screen bg-white">
-        <section className="relative overflow-hidden bg-[#0B1F16] px-6 pt-[124px] pb-16 text-center">
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
-          <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
+      <main className={IN ? "min-h-screen bg-[#FAFAFC]" : "min-h-screen bg-white"}>
+        <section className={IN
+          ? "india-dark-band relative overflow-hidden bg-[#052e22] px-6 pt-14 pb-16 text-center"
+          : "relative overflow-hidden bg-[#0B1F16] px-6 pt-[124px] pb-16 text-center"}>
+          {!IN && (
+            <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
+          )}
+          <p className={IN
+            ? "relative text-[11px] font-bold uppercase tracking-[0.18em] text-[#6ee7b7] mb-3.5"
+            : "agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3"}>
+            {!IN && <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />}
             Comprehensive Guide
           </p>
-          <h1 className="relative text-2xl sm:text-[1.8rem] font-extrabold text-white leading-tight max-w-4xl mx-auto">
+          <h1 className={IN
+            ? "relative font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-[1.15] max-w-4xl mx-auto"
+            : "relative text-2xl sm:text-[1.8rem] font-extrabold text-white leading-tight max-w-4xl mx-auto"}>
             {cluster.title}
           </h1>
-          <p className="relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto">
+          <p className={IN ? "relative mt-4 text-lg text-[#d1fae5] max-w-2xl mx-auto" : "relative mt-4 text-lg text-zinc-300 max-w-2xl mx-auto"}>
             {cluster.description}
           </p>
         </section>
@@ -121,7 +131,9 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
                     <Link
                       key={p.slug}
                       href={`/blog/${p.slug}`}
-                      className="p-4 rounded-[24px] border border-[#CBE3C4] hover:border-[#007A33] bg-[#F2F4EC]"
+                      className={IN
+                        ? "p-4 rounded-xl border border-[#e2e8f0] hover:border-[#a7f3d0] bg-white"
+                        : "p-4 rounded-[24px] border border-[#CBE3C4] hover:border-[#007A33] bg-[#F2F4EC]"}
                     >
                       <h4 className="font-semibold text-zinc-900 text-sm mb-1">
                         {p.title}
@@ -154,15 +166,18 @@ export default async function GuidePage({ params }: { params: Promise<{ locale: 
               </div>
             )}
             
-            <div className="p-6 rounded-[24px] bg-[#007A33] text-white">
+            <div className={IN ? "p-6 rounded-xl bg-[#047857] text-white" : "p-6 rounded-[24px] bg-[#007A33] text-white"}>
               <h3 className="font-bold mb-2">Ready to convert?</h3>
-              <p className="text-[#BFE3B8] text-sm mb-4">Secure, fast, and 100% private. Start converting your statements today.</p>
-              <Link href="/signup" className="block w-full text-center bg-white text-[#0B1F16] font-semibold py-2 rounded-full">
+              <p className={IN ? "text-[#d1fae5] text-sm mb-4" : "text-[#BFE3B8] text-sm mb-4"}>Secure, fast, and 100% private. Start converting your statements today.</p>
+              <Link href="/signup" className={IN
+                ? "block w-full text-center bg-white text-[#0f172a] font-semibold py-2 rounded-[10px]"
+                : "block w-full text-center bg-white text-[#0B1F16] font-semibold py-2 rounded-full"}>
                 Start Free Trial
               </Link>
             </div>
           </div>
         </section>
+        {IN && <IndiaStickyBar />}
       </main>
       <Footer />
     </div>

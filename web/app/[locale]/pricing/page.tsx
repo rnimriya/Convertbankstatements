@@ -5,6 +5,7 @@ import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
 import { PricingCards } from"@/components/PricingCards";
 import { isIndiaSite } from "@/lib/site-region";
+import { IndiaHeadingBand, IndiaSecHead, IndiaStickyBar } from "@/components/inner-india/IndiaInner";
 
 const IN = isIndiaSite();
 
@@ -162,6 +163,20 @@ export default async function PricingPage() {
       />
       <Navbar />
 
+      {IN ? (
+        <IndiaHeadingBand
+          eyebrow="Pricing"
+          title={<>Simple, transparent <span className="text-[#34d399]">pricing</span></>}
+          subtitle="Start free · All prices in ₹ · No hidden charges"
+        >
+          <div className="relative mt-6 flex justify-center">
+            <div className="flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-medium text-[#d1fae5] w-fit">
+              <DollarSign className="h-3.5 w-3.5 text-[#34d399]" />
+              UPI · Cards · Net Banking · Wallets
+            </div>
+          </div>
+        </IndiaHeadingBand>
+      ) : (
       <div className="relative overflow-hidden px-6 pt-[124px] pb-28 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
         <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
         <p className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</p>
@@ -176,16 +191,21 @@ export default async function PricingPage() {
           </div>
         </div>
       </div>
+      )}
 
-      <div className="relative z-20 mx-auto max-w-6xl px-6 pb-20 -mt-20">
+      <div className={IN ? "relative z-20 mx-auto max-w-7xl px-4 py-20" : "relative z-20 mx-auto max-w-6xl px-6 pb-20 -mt-20"}>
         <PricingCards />
       </div>
 
       {/* Comparison table */}
-      <div className="bg-[#F7FAF5] px-6 py-20">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="mb-8 text-center font-display text-2xl font-bold text-zinc-900">Full comparison</h2>
-          <div className="overflow-hidden rounded-[24px] border border-[#E3EDE0] bg-white">
+      <div className={IN ? "bg-white border-y border-[#e2e8f0] px-4 py-20" : "bg-[#F7FAF5] px-6 py-20"}>
+        <div className={IN ? "mx-auto max-w-7xl" : "mx-auto max-w-6xl"}>
+          {IN ? (
+            <IndiaSecHead center eyebrow="Compare" title="Full comparison" />
+          ) : (
+            <h2 className="mb-8 text-center font-display text-2xl font-bold text-zinc-900">Full comparison</h2>
+          )}
+          <div className={IN ? "overflow-hidden rounded-xl border border-[#e2e8f0] bg-white" : "overflow-hidden rounded-[24px] border border-[#E3EDE0] bg-white"}>
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-[#E3EDE0] bg-white">
@@ -250,6 +270,7 @@ export default async function PricingPage() {
       </div>
       )}
 
+      {IN && <IndiaStickyBar />}
       <Footer />
     </div>
   );

@@ -4,6 +4,15 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { PricingCards } from "@/components/PricingCards";
 import { SimilarToolsSection } from "@/components/tools/SimilarTools";
+import { isIndiaSite } from "@/lib/site-region";
+import {
+  IndiaHeadingBand,
+  IndiaDropboxCard,
+  IndiaSecHead,
+  IndiaStepCards,
+  IndiaFaqCards,
+  IndiaStickyBar,
+} from "@/components/inner-india/IndiaInner";
 import {
   CheckCircle2,
   Zap, Shield, Lock,
@@ -91,6 +100,87 @@ export async function ToolPageLayout({
     howToSteps.length === 4
       ? "grid md:grid-cols-2 lg:grid-cols-4"
       : "grid md:grid-cols-3";
+
+  /* convertstatement.in — Option A (homepage-matched) shell, owner pick
+     2026-11-27. Same tool, content, schema; design only. */
+  if (isIndiaSite()) {
+    return (
+      <div className="agri-sans">
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+        <Navbar />
+        <main className="overflow-x-hidden bg-[#FAFAFC]">
+
+          <IndiaHeadingBand eyebrow={eyebrow} title={title} subtitle={subtitle}>
+            <IndiaDropboxCard>
+              <div className="min-w-0 max-w-full">
+                {tool}
+                <div className="mt-4 flex items-center justify-center gap-2">
+                  <CheckCircle2 size={14} className="shrink-0 text-[#047857]" />
+                  <p className="text-[12.5px] text-zinc-500">
+                    <span className="font-semibold text-zinc-700">Bank-grade security</span>
+                    {" "}— {privacyLine}
+                  </p>
+                </div>
+              </div>
+            </IndiaDropboxCard>
+          </IndiaHeadingBand>
+
+          <div className="w-full max-w-7xl mx-auto px-4 mt-6">
+            <div className="pt-6 border-t border-[#e2e8f0]">
+              <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+                {pills.map(({ icon, label }) => (
+                  <div key={label} className="flex items-center gap-2 text-[12.5px] text-[#64748b]">
+                    <span className="text-[#047857]">{icon}</span>
+                    <span>{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <section id="how-it-works" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24 mt-10">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead center eyebrow="How it works" title={howToName} />
+              <IndiaStepCards steps={howToSteps} />
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              {content}
+            </div>
+          </section>
+
+          <SimilarToolsSection currentPath={currentPath} />
+
+          <section id="pricing" className="py-20 scroll-mt-24">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead
+                center
+                eyebrow="Pricing"
+                title="Simple, transparent pricing"
+                body="Start free. Only pay when you need more."
+              />
+              <PricingCards />
+            </div>
+          </section>
+
+          <section id="faq" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead center eyebrow="FAQ" title="Frequently asked questions" />
+              <div className="max-w-4xl mx-auto">
+                <IndiaFaqCards faqs={faqs} />
+              </div>
+            </div>
+          </section>
+
+          <IndiaStickyBar />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="agri-sans">

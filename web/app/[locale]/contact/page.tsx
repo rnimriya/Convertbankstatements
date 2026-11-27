@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { isIndiaSite } from "@/lib/site-region";
+import { IndiaHeadingBand, IndiaStickyBar } from "@/components/inner-india/IndiaInner";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -20,12 +22,16 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const t = await getTranslations("contact");
+  const IN = isIndiaSite();
 
   return (
-    <div className="agri-sans min-h-screen bg-white">
+    <div className={IN ? "agri-sans min-h-screen bg-[#FAFAFC]" : "agri-sans min-h-screen bg-white"}>
       <Navbar />
 
       {/* Header */}
+      {IN ? (
+        <IndiaHeadingBand eyebrow="Contact" title={t("title")} subtitle={t("subtitle")} />
+      ) : (
       <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16">
         <div className="relative mx-auto max-w-6xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-[#E3EDE0] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#007A33]">
@@ -40,12 +46,14 @@ export default async function ContactPage() {
           </p>
         </div>
       </div>
+      )}
 
       {/* Main Body Container */}
-      <div className="relative z-20 mx-auto max-w-6xl px-6 py-14">
+      <div className={IN ? "relative z-20 mx-auto max-w-7xl px-4 py-16" : "relative z-20 mx-auto max-w-6xl px-6 py-14"}>
         <ContactForm />
       </div>
 
+      {IN && <IndiaStickyBar />}
       <Footer />
     </div>
   );

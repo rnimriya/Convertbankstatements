@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSimilarTools } from "@/lib/tools/similar";
+import { isIndiaSite } from "@/lib/site-region";
+import { IndiaSecHead, IndiaLinkCards } from "@/components/inner-india/IndiaInner";
 
 /**
  * "Similar tools" cards section — six family-related tool cards for the
@@ -10,6 +12,21 @@ import { getSimilarTools } from "@/lib/tools/similar";
  */
 export function SimilarToolsSection({ currentPath }: { currentPath: string }) {
   const similar = getSimilarTools(currentPath);
+
+  /* convertstatement.in — Option A shell (owner pick 2026-11-27). */
+  if (isIndiaSite()) {
+    return (
+      <section className="py-20 bg-white border-y border-[#e2e8f0]">
+        <div className="max-w-7xl mx-auto px-4">
+          <IndiaSecHead eyebrow="Similar tools" title="Similar tools" body={similar.subline} />
+          <IndiaLinkCards
+            items={similar.tools.map((t) => ({ href: `/tools/${t.slug}`, label: t.name, desc: t.desc, img: t.img }))}
+          />
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 bg-white border-t border-[#E3EDE0]">
       <div className="max-w-6xl mx-auto px-6">

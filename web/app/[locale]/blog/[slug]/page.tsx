@@ -11,6 +11,8 @@ import { RELATED_MAP } from "@/lib/blog/related";
 import { getTranslations } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import sanitizeHtml from "sanitize-html";
+import { isIndiaSite } from "@/lib/site-region";
+import { IndiaStickyBar } from "@/components/inner-india/IndiaInner";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -57,6 +59,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   const post = localizePost(rawPost, locale);
   const t = await getTranslations({ locale, namespace: "blog" });
+  const IN = isIndiaSite();
 
   const comments: never[] = [];
   const nonce = BUILD_NONCE;
@@ -217,41 +220,52 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <Navbar />
-      <main className="min-h-screen bg-white">
-        {/* Dark hero */}
-        <div className="relative overflow-hidden" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 65%, #FFFFFF 100%)" }}>
-          <div className="absolute left-1/2 -translate-x-1/2 -top-[380px] w-[1000px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.16), transparent 72%)" }} />
-          <div className="relative mx-auto max-w-[1060px] px-6 pt-[124px] pb-28">
-            <nav aria-label="Breadcrumb" className="text-[13px] text-zinc-500 mb-6 font-medium">
-              <a href="/" className="hover:text-zinc-900">Home</a>
+      <main className={IN ? "min-h-screen bg-[#FAFAFC]" : "min-h-screen bg-white"}>
+        {/* Hero — IN: dark #052e22 band (Option A); .online: light gradient */}
+        <div
+          className={IN ? "india-dark-band relative overflow-hidden bg-[#052e22]" : "relative overflow-hidden"}
+          style={IN ? undefined : { background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 65%, #FFFFFF 100%)" }}
+        >
+          {!IN && (
+            <div className="absolute left-1/2 -translate-x-1/2 -top-[380px] w-[1000px] h-[700px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.16), transparent 72%)" }} />
+          )}
+          <div className={IN ? "relative mx-auto max-w-[1060px] px-6 pt-12 pb-28" : "relative mx-auto max-w-[1060px] px-6 pt-[124px] pb-28"}>
+            <nav aria-label="Breadcrumb" className={IN ? "text-[13px] text-[#a7f3d0] mb-6 font-medium" : "text-[13px] text-zinc-500 mb-6 font-medium"}>
+              <a href="/" className={IN ? "hover:text-white" : "hover:text-zinc-900"}>Home</a>
               <span className="mx-1.5">/</span>
-              <a href={`/${locale}/blog`} className="hover:text-zinc-900">Blog</a>
+              <a href={`/${locale}/blog`} className={IN ? "hover:text-white" : "hover:text-zinc-900"}>Blog</a>
               {post.tags[0] && (
                 <>
                   <span className="mx-1.5">/</span>
-                  <span>{post.tags[0]}</span>
+                  <span className={IN ? "text-white" : undefined}>{post.tags[0]}</span>
                 </>
               )}
             </nav>
-            <h1 className="font-display text-[32px] sm:text-[44.8px] font-bold text-[#0B1F16] leading-[1.08] tracking-tight max-w-[900px]">
+            <h1 className={IN
+              ? "font-display text-[32px] sm:text-[44.8px] font-extrabold text-white leading-[1.08] tracking-tight max-w-[900px]"
+              : "font-display text-[32px] sm:text-[44.8px] font-bold text-[#0B1F16] leading-[1.08] tracking-tight max-w-[900px]"}>
               {titleHead ? <>{titleHead} </> : null}
-              <span className="text-[#2CA01C]">
+              <span className={IN ? "text-[#34d399]" : "text-[#2CA01C]"}>
                 {titleTail}
               </span>
             </h1>
-            <p className="text-zinc-600 text-[19px] leading-relaxed max-w-[760px] mt-5">
+            <p className={IN ? "text-[#d1fae5] text-[19px] leading-relaxed max-w-[760px] mt-5" : "text-zinc-600 text-[19px] leading-relaxed max-w-[760px] mt-5"}>
               {post.excerpt}
             </p>
             <div className="flex flex-wrap gap-2.5 mt-6">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[13px] font-medium text-zinc-600 shadow-sm"
+                  className={IN
+                    ? "rounded-full bg-white/10 border border-white/25 px-3.5 py-1.5 text-[13px] font-medium text-[#d1fae5]"
+                    : "rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[13px] font-medium text-zinc-600 shadow-sm"}
                 >
                   {tag}
                 </span>
               ))}
-              <span className="rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[13px] font-medium text-zinc-600 shadow-sm">
+              <span className={IN
+                ? "rounded-full bg-white/10 border border-white/25 px-3.5 py-1.5 text-[13px] font-medium text-[#d1fae5]"
+                : "rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[13px] font-medium text-zinc-600 shadow-sm"}>
                 {readingMinutes} min read
               </span>
             </div>
@@ -260,7 +274,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
         <div className="mx-auto max-w-[1060px] px-6">
           {/* White card overlapping the hero */}
-          <div className="relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] px-6 sm:px-10 py-9">
+          <div className={IN
+            ? "relative z-10 -mt-16 rounded-xl bg-white border border-[#e2e8f0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] px-6 sm:px-10 py-9"
+            : "relative z-10 -mt-16 rounded-[24px] bg-white border border-[#E3EDE0] shadow-[0_2px_10px_rgba(11,31,22,0.04)] px-6 sm:px-10 py-9"}>
             {/* Feature image — full-width banner at the top of the card
                 (owner pick "Fix 2", 2026-11-03: no floated image, no
                 empty space beside article images) */}
@@ -312,7 +328,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           </div>
 
           {/* In-article CTA */}
-          <div className="mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[24px] bg-gradient-to-b from-[#0E3D15] to-[#007A33] px-8 py-8 text-white">
+          <div className={IN
+            ? "mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl bg-[#047857] px-8 py-8 text-white"
+            : "mt-9 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-[24px] bg-gradient-to-b from-[#0E3D15] to-[#007A33] px-8 py-8 text-white"}>
             <div>
               <p className="font-display font-bold text-lg">Skip the manual work</p>
               <p className="text-[#BFE3B8] text-sm mt-1">
@@ -346,6 +364,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             initialComments={comments}
           />
         </div>
+        {IN && <IndiaStickyBar />}
       </main>
       <Footer />
     </div>

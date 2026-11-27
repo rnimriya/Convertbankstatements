@@ -438,3 +438,7 @@ body.india-site .india-nav-auth a[href$="/signup"]:hover { background-color: #04
    anchored sections clearance under the sticky header. */
 body.india-site .pt-\[124px\] { padding-top: 48px !important; }
 body.india-site .scroll-mt-24 { scroll-margin-top: 132px !important; }
+
+/* Inner-page dark heading bands (Option A, owner pick 2026-11-27):
+   old #2CA01C accent spans inside page titles read as #34d399 on dark. */
+body.india-site .india-dark-band .text-\[\#2CA01C\] { color: #34d399 !important; }

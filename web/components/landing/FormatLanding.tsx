@@ -1,10 +1,22 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2 } from "lucide-react";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LandingConverter } from "./LandingConverter";
+import { isIndiaSite } from "@/lib/site-region";
+import {
+  IndiaHeadingBand,
+  IndiaDropboxCard,
+  IndiaTrustRow,
+  IndiaSecHead,
+  IndiaStepCards,
+  IndiaFaqCards,
+  IndiaLinkCards,
+  IndiaFinalCta,
+  IndiaStickyBar,
+} from "@/components/inner-india/IndiaInner";
 
 export interface LandingFaq {
   q: string;
@@ -117,6 +129,137 @@ export function FormatLanding({
       { "@type": "Offer", name: "Business", price: "75", priceCurrency: "USD" },
     ],
   };
+
+  /* convertstatement.in — Option A (homepage-matched) shell, owner pick
+     2026-11-27. Same data, schema and converter; design only. */
+  if (isIndiaSite()) {
+    return (
+      <div className="agri-sans">
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
+        <Navbar />
+        <main className="overflow-x-hidden bg-[#FAFAFC]">
+
+          <IndiaHeadingBand eyebrow={eyebrow} title={title} subtitle={subtitle}>
+            <IndiaDropboxCard>
+              <LandingConverter />
+            </IndiaDropboxCard>
+            <IndiaTrustRow />
+          </IndiaHeadingBand>
+
+          <section id="how-it-works" className="py-20 bg-white border-b border-[#e2e8f0] scroll-mt-24">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead center eyebrow="How it works" title={howToName} />
+              <IndiaStepCards steps={steps} />
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              {children}
+            </div>
+          </section>
+
+          {showBanks && (
+            <section className="py-20 bg-white border-y border-[#e2e8f0]">
+              <div className="max-w-7xl mx-auto px-4">
+                <IndiaSecHead
+                  center
+                  eyebrow="Supported banks"
+                  title="Statements from major banks"
+                  body="The converter works with statements from hundreds of banks. Start with yours:"
+                />
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {BANKS.map((b) => (
+                    <Link key={b.href} href={b.href} className="flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-5 hover:border-[#a7f3d0]">
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-base font-bold text-[#0f172a]">{b.name}</span>
+                        <span className="mt-0.5 block text-sm leading-relaxed text-[#64748b]">{b.note}</span>
+                      </span>
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#ecfdf5] border border-[#d1fae5] text-[#047857]">
+                        <ArrowRight size={18} />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+                <p className="text-center text-sm text-[#64748b] mt-6">
+                  Don&rsquo;t see your bank listed here? The converter above accepts statement PDFs from hundreds of banks — upload yours and check the preview before you download.
+                </p>
+              </div>
+            </section>
+          )}
+
+          <section className="py-20 bg-white border-y border-[#e2e8f0]">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead eyebrow="Related converters" title="Need a different format?" />
+              <IndiaLinkCards items={related} />
+            </div>
+          </section>
+
+          <section id="pricing" className="py-20 scroll-mt-24">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead
+                center
+                eyebrow="Pricing"
+                title="Simple, transparent pricing"
+                body="Start free — your first 8 pages are free on every account. Only pay when you need more."
+              />
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+                {PLANS.map((p) => (
+                  <div key={p.name} className="bg-white rounded-xl px-[30px] py-[34px] border border-[#e2e8f0] flex flex-col">
+                    <p className="text-[15px] font-extrabold uppercase tracking-[0.08em] text-[#64748b]">{p.name}</p>
+                    <p className="text-[44px] font-extrabold tracking-tight leading-none text-[#0f172a] mt-2.5 mb-1">
+                      {p.price}
+                      {p.per && <small className="text-base font-semibold text-[#64748b]">{p.per}</small>}
+                    </p>
+                    <p className="text-[15px] font-bold text-[#047857] mb-5">{p.caption}</p>
+                    <ul className="grid gap-[11px] mb-7">
+                      {p.features.map((feat) => (
+                        <li key={feat} className="flex gap-2.5 items-start text-[15px] text-[#334155]">
+                          <Check size={16} strokeWidth={2.6} className="text-[#047857] shrink-0 mt-[3px]" />{feat}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href="/pricing" className="inline-flex items-center justify-center rounded-[10px] px-5 py-3 text-[15px] font-bold whitespace-nowrap mt-auto w-full border border-[#047857] text-[#047857]">
+                      See the {p.name} plan
+                    </Link>
+                  </div>
+                ))}
+              </div>
+              <p className="text-center text-sm text-[#64748b] mt-8">
+                Full plan details, annual pricing and what each format needs: <Link href="/pricing" className="font-semibold text-[#047857] hover:underline">see pricing</Link>
+              </p>
+            </div>
+          </section>
+
+          <section id="faq" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead center eyebrow="FAQ" title="Frequently asked questions" />
+              <div className="max-w-4xl mx-auto">
+                <IndiaFaqCards faqs={faqs} />
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaFinalCta
+                title="Convert your statement now"
+                body="Your first 8 pages are free and no account is needed. Upload a PDF statement above and download a clean file."
+                href="#converter"
+                secondaryHref="/pricing"
+                secondaryLabel="See pricing"
+              />
+            </div>
+          </section>
+
+          <IndiaStickyBar />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="agri-sans">

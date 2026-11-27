@@ -4,6 +4,8 @@ import { localizePost } from "@/lib/blog/i18n";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { getTranslations } from "next-intl/server";
+import { isIndiaSite } from "@/lib/site-region";
+import { IndiaHeadingBand, IndiaStickyBar } from "@/components/inner-india/IndiaInner";
 
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -30,12 +32,25 @@ export default async function BlogPage({
 
   // Apply locale translations to posts for listing
   const posts = rawPosts.map((p) => localizePost(p, locale));
+  const IN = isIndiaSite();
 
   return (
     <div className="agri-sans">
       <Navbar />
-      <main className="min-h-screen bg-white">
+      <main className={IN ? "min-h-screen bg-[#FAFAFC]" : "min-h-screen bg-white"}>
         {/* Hero */}
+        {IN ? (
+          <IndiaHeadingBand
+            eyebrow="Blog"
+            title={t("title")}
+            subtitle={
+              <>
+                {t("subtitle")}
+                {total > 0 && <span className="ml-1">{t("articlesCount", { count: total })}</span>}
+              </>
+            }
+          />
+        ) : (
         <section className="relative overflow-hidden pt-[124px] pb-16 px-6 text-center" style={{ background: "linear-gradient(180deg, #E9F5E4 0%, #F4FAF1 70%, #FFFFFF 100%)" }}>
           <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(44,160,28,0.18), transparent 72%)" }} />
           <span className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Blog</span>
@@ -47,9 +62,10 @@ export default async function BlogPage({
             {total > 0 && <span className="ml-1">{t("articlesCount", { count: total })}</span>}
           </p>
         </section>
+        )}
 
         {/* Grid */}
-        <section className="mx-auto max-w-6xl px-6 py-12">
+        <section className={IN ? "mx-auto max-w-7xl px-4 py-16" : "mx-auto max-w-6xl px-6 py-12"}>
           {posts.length === 0 ? (
             <p className="text-center text-zinc-500">{t("noPostsYet")}</p>
           ) : (
@@ -57,7 +73,9 @@ export default async function BlogPage({
               {posts.map((post) => (
                 <article
                   key={post.id}
-                  className="flex flex-col rounded-[24px] border border-[#E3EDE0] bg-white overflow-hidden shadow-[0_1px_2px_rgba(16,24,40,0.04)]"
+                  className={IN
+                    ? "flex flex-col rounded-xl border border-[#e2e8f0] bg-white overflow-hidden"
+                    : "flex flex-col rounded-[24px] border border-[#E3EDE0] bg-white overflow-hidden shadow-[0_1px_2px_rgba(16,24,40,0.04)]"}
                 >
                   <Link href={`/${locale}/blog/${post.slug}`} className="block overflow-hidden">
                     <img
@@ -73,7 +91,9 @@ export default async function BlogPage({
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-full bg-[#E3F2DF] px-2 py-0.5 text-[11px] font-semibold text-[#007A33]"
+                          className={IN
+                            ? "rounded-full bg-[#ecfdf5] px-2 py-0.5 text-[11px] font-semibold text-[#047857]"
+                            : "rounded-full bg-[#E3F2DF] px-2 py-0.5 text-[11px] font-semibold text-[#007A33]"}
                         >
                           {tag}
                         </span>
@@ -122,6 +142,7 @@ export default async function BlogPage({
             </div>
           )}
         </section>
+        {IN && <IndiaStickyBar />}
       </main>
       <Footer />
     </div>

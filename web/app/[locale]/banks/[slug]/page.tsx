@@ -10,6 +10,15 @@ import { CheckCircle2, FileText, Lock, Zap, Upload, Settings2, Download, Chevron
 import { Link } from "@/i18n/navigation";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { SamplePreview } from "@/components/banks/SamplePreview";
+import {
+  IndiaHeadingBand,
+  IndiaSecHead,
+  IndiaStepCards,
+  IndiaFaqCards,
+  IndiaFinalCta,
+  IndiaStickyBar,
+  IndiaIconTile,
+} from "@/components/inner-india/IndiaInner";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -147,6 +156,128 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
       "acceptedAnswer": { "@type": "Answer", "text": f.a },
     })),
   };
+
+  /* convertstatement.in — Option A (homepage-matched) shell, owner pick
+     2026-11-27. Same content, schema and CTA; design only. */
+  if (isIndiaSite()) {
+    return (
+      <div className="agri-sans min-h-screen bg-[#FAFAFC] flex flex-col text-zinc-900 antialiased">
+        <Navbar />
+
+        <main className="flex-1">
+          <IndiaHeadingBand
+            eyebrow="Bank converter"
+            title={<>Convert <span className="text-[#34d399]">{bankName}</span> Statements to Excel</>}
+            subtitle={`Upload your ${bankName} PDF bank statements and instantly convert them to CSV, Excel, OFX for Tally, or Google Sheets. Zero manual data entry required.`}
+            breadcrumb={
+              <nav aria-label="Breadcrumb" className="text-[13px] text-[#a7f3d0] font-medium">
+                <Link href="/" className="hover:text-white">Home</Link>
+                <span className="mx-1.5">/</span>
+                <Link href="/tools" className="hover:text-white">Tools</Link>
+                <span className="mx-1.5">/</span>
+                <span className="text-white">{bankName}</span>
+              </nav>
+            }
+          >
+            <div className="mt-8">
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#0f172a] px-8 py-4 rounded-xl text-sm font-bold shadow-xl"
+              >
+                Start Converting Free <Zap size={16} className="text-[#047857]" />
+              </Link>
+              <p className="mt-4 text-sm text-[#a7f3d0]">8 pages free · No credit card required</p>
+            </div>
+          </IndiaHeadingBand>
+
+          <section className="py-20 bg-white border-b border-[#e2e8f0]">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead
+                center
+                eyebrow="How it works"
+                title={`How to convert ${bankName} statements in 3 steps`}
+                body="From PDF to spreadsheet in under a minute."
+              />
+              <IndiaStepCards steps={steps.map((s) => ({ title: s.title, body: s.body }))} />
+            </div>
+          </section>
+
+          <SamplePreview bankName={bankName} />
+
+          <section className="py-20 bg-white border-y border-[#e2e8f0]">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead
+                eyebrow="Why ConvertStatement"
+                title={`Why use ConvertStatement for ${bankName}?`}
+              />
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
+                  <IndiaIconTile><Zap size={24} className="text-[#047857]" /></IndiaIconTile>
+                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Lightning Fast</h3>
+                  <p className="text-[15px] text-[#64748b] leading-relaxed">Convert multi-page {bankName} PDFs into structured spreadsheets in under 15 seconds.</p>
+                </div>
+                <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
+                  <IndiaIconTile><Lock size={24} className="text-[#047857]" /></IndiaIconTile>
+                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">100% Private</h3>
+                  <p className="text-[15px] text-[#64748b] leading-relaxed">We never store your {bankName} financial data. Files are processed entirely in memory.</p>
+                </div>
+                <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
+                  <IndiaIconTile><FileText size={24} className="text-[#047857]" /></IndiaIconTile>
+                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Multiple Formats</h3>
+                  <p className="text-[15px] text-[#64748b] leading-relaxed">Export to Excel, CSV, Google Sheets, or OFX for seamless import into Tally.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead center eyebrow="FAQ" title={`${bankName} conversion FAQs`} />
+              <div className="max-w-4xl mx-auto">
+                <IndiaFaqCards faqs={faqs} />
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20 bg-white border-y border-[#e2e8f0]">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaSecHead center eyebrow="More banks" title="Convert statements from other banks" />
+              <div className="flex flex-wrap justify-center gap-3">
+                {relatedBanks.map((b) => (
+                  <Link
+                    key={b.slug}
+                    href={`/banks/${b.slug}`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#e2e8f0] text-sm font-medium hover:border-[#a7f3d0]"
+                  >
+                    <CheckCircle2 size={15} className="text-[#047857]" />
+                    {b.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="max-w-7xl mx-auto px-4">
+              <IndiaFinalCta
+                title={`Stop typing ${bankName} transactions manually`}
+                body="Convert your first 8 pages free — no credit card required."
+                href="/signup"
+                label="Convert free — 8 pages"
+              />
+            </div>
+          </section>
+
+          <IndiaStickyBar />
+        </main>
+
+        <Footer />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
+        <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
+      </div>
+    );
+  }
 
   return (
     <div className="agri-sans min-h-screen bg-white flex flex-col text-zinc-900 antialiased">

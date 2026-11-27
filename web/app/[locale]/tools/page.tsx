@@ -10,6 +10,7 @@ import { withoutQbSlugs } from "@/lib/tools/qb-filter";
 import ToolsGuideContent from "@/components/tools/ToolsGuideContent";
 import BankLinks from "@/components/banks/BankLinks";
 import { ArrowRight } from "lucide-react";
+import { IndiaHeadingBand, IndiaStickyBar } from "@/components/inner-india/IndiaInner";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -139,7 +140,9 @@ const FREE_COUNT = ALL_TOOLS.filter((t) => t.tag === "free").length;
 function Tag({ tag, dark }: { tag?: Tool["tag"]; dark?: boolean }) {
   if (tag === "free")
     return (
-      <span className="inline-block rounded-full bg-[#E4F4E0] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#1E7A12]">
+      <span className={IN
+        ? "inline-block rounded-full bg-[#ecfdf5] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#047857]"
+        : "inline-block rounded-full bg-[#E4F4E0] px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-[#1E7A12]"}>
         100% Free
       </span>
     );
@@ -155,6 +158,34 @@ function Tag({ tag, dark }: { tag?: Tool["tag"]; dark?: boolean }) {
 function ToolCard({ tool, wide }: { tool: Tool; wide?: boolean }) {
   const dark = tool.dark;
   const img = TOOL_CARDS[tool.slug]?.img;
+
+  /* convertstatement.in — Option A card (homepage tools-grid style). */
+  if (IN) {
+    return (
+      <Link
+        href={`/tools/${tool.slug}`}
+        className="group flex flex-col rounded-xl border border-[#e2e8f0] bg-white p-5 hover:border-[#a7f3d0]"
+      >
+        <img
+          src={img}
+          alt=""
+          width={52}
+          height={52}
+          loading="lazy"
+          className="mb-3 h-[52px] w-[52px] shrink-0 rounded-[14px] bg-[#f8fafc] object-contain"
+        />
+        <span className="font-display text-[15.5px] font-bold text-[#0f172a]">{tool.name}</span>
+        <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#64748b]">{tool.desc}</span>
+        <span className="mt-3 flex items-center justify-between">
+          <Tag tag={tool.tag} />
+          <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-[#047857]">
+            Open tool <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </span>
+      </Link>
+    );
+  }
+
   return (
     <Link
       href={`/tools/${tool.slug}`}
@@ -200,7 +231,7 @@ export default function ToolsIndexPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7FAF5]">
+    <div className={IN ? "min-h-screen bg-[#FAFAFC]" : "min-h-screen bg-[#F7FAF5]"}>
       <script
         nonce={BUILD_NONCE}
         type="application/ld+json"
@@ -209,6 +240,28 @@ export default function ToolsIndexPage() {
       <Navbar />
       <main>
         {/* ── Hero ── */}
+        {IN ? (
+          <IndiaHeadingBand
+            eyebrow="The Toolbox"
+            title={<>Small tools. <span className="text-[#34d399]">Big bookkeeping headaches,</span> gone.</>}
+            subtitle={`${ALL_TOOLS.length} focused file converters — each one does a single job properly, right in your browser.`}
+          >
+            <div className="mt-8 flex justify-center gap-10">
+              <div>
+                <span className="block font-display text-2xl font-extrabold text-white">{ALL_TOOLS.length}</span>
+                <span className="text-xs text-[#a7f3d0]">tools</span>
+              </div>
+              <div>
+                <span className="block font-display text-2xl font-extrabold text-white">{FREE_COUNT}</span>
+                <span className="text-xs text-[#a7f3d0]">completely free</span>
+              </div>
+              <div>
+                <span className="block font-display text-2xl font-extrabold text-white">{VISIBLE_GROUPS.length}</span>
+                <span className="text-xs text-[#a7f3d0]">categories</span>
+              </div>
+            </div>
+          </IndiaHeadingBand>
+        ) : (
         <section className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16 text-center">
           <div className="mx-auto w-full max-w-6xl">
           <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#D8E8D2] bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] shadow-sm">
@@ -239,14 +292,17 @@ export default function ToolsIndexPage() {
           </div>
           </div>
         </section>
+        )}
 
-        <div className="mx-auto w-full max-w-6xl px-6">
+        <div className={IN ? "mx-auto w-full max-w-7xl px-4" : "mx-auto w-full max-w-6xl px-6"}>
         {/* ── Bento grid ── */}
         <section className="grid grid-cols-1 gap-4 pb-4 pt-12 sm:grid-cols-2 lg:grid-cols-4">
           {VISIBLE_FEATURED && <ToolCard tool={VISIBLE_FEATURED} wide />}
           {VISIBLE_GROUPS.map((group) => (
             <Fragment key={group.label}>
-              <h2 className="col-span-full pt-5 text-[13px] font-bold uppercase tracking-[0.1em] text-[#8AA086]">
+              <h2 className={IN
+                ? "col-span-full pt-5 text-[11px] font-bold uppercase tracking-[0.18em] text-[#047857]"
+                : "col-span-full pt-5 text-[13px] font-bold uppercase tracking-[0.1em] text-[#8AA086]"}>
                 {group.label}
               </h2>
               {group.tools.map((tool) => (
@@ -268,10 +324,11 @@ export default function ToolsIndexPage() {
 
         {!IN && <ToolsGuideContent />}
 
-        <section className="mx-auto max-w-6xl px-6 pb-24 pt-4">
+        <section className={IN ? "pb-24 pt-4" : "mx-auto max-w-6xl px-6 pb-24 pt-4"}>
           <BankLinks />
         </section>
         </div>
+        {IN && <IndiaStickyBar />}
       </main>
       <Footer />
     </div>
