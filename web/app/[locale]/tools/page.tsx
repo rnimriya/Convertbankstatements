@@ -242,7 +242,6 @@ export default function ToolsIndexPage() {
         {/* ── Hero ── */}
         {IN ? (
           <IndiaHeadingBand
-            eyebrow="The Toolbox"
             title={<>Small tools. <span className="text-[#34d399]">Big bookkeeping headaches,</span> gone.</>}
             subtitle={`${ALL_TOOLS.length} focused file converters — each one does a single job properly, right in your browser.`}
           >

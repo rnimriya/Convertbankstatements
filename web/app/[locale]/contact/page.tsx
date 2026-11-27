@@ -30,7 +30,7 @@ export default async function ContactPage() {
 
       {/* Header */}
       {IN ? (
-        <IndiaHeadingBand eyebrow="Contact" title={t("title")} subtitle={t("subtitle")} />
+        <IndiaHeadingBand title={t("title")} subtitle={t("subtitle")} />
       ) : (
       <div className="relative overflow-hidden bg-gradient-to-b from-[#EFF7ED] to-[#F7FAF5] px-6 pt-[124px] pb-16">
         <div className="relative mx-auto max-w-6xl">

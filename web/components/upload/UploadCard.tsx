@@ -50,6 +50,9 @@ interface Props {
   hasSheetsAccess?: boolean;
   fullWidth?: boolean;
   variant?: "card" | "workspace";
+  /** Dark-band styling (convertstatement.in Hero Sample 1): no white
+      card — the dashed drop zone sits directly on the dark background. */
+  dark?: boolean;
 }
 
 type UploadState =
@@ -59,7 +62,7 @@ type UploadState =
   | { status:"done"; result: ProcessResult & { is_demo?: boolean } }
   | { status:"error"; message: string };
 
-export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth, variant }: Props) {
+export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth, variant, dark }: Props) {
   const [state, setState] = useState<UploadState>({ status:"idle" });
   const [formats, setFormats] = useState<string[]>(["csv"]);
   const [staged, setStaged] = useState<File | null>(null);
@@ -524,7 +527,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
   /* ── Compact, centered upload card ── */
   return (
     <div className="h-full overflow-y-auto">
-      <div className="min-h-full flex items-center justify-center p-4 sm:p-6">
+      <div className={cn("min-h-full flex items-center justify-center", dark ? "p-0" : "p-4 sm:p-6")}>
         <div className={cn("w-full", fullWidth ?"max-w-full" :"max-w-4xl")}>
 
           {/* Error banner */}
@@ -536,7 +539,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             </div>
           )}
 
-          <div className="rounded-[30px] border border-[#e2e2e2] bg-white p-5 shadow-[0_20px_25px_-5px_rgba(11,31,22,0.12),0_8px_10px_-6px_rgba(11,31,22,0.10)]">
+          <div className={dark ? "bg-transparent" : "rounded-[30px] border border-[#e2e2e2] bg-white p-5 shadow-[0_20px_25px_-5px_rgba(11,31,22,0.12),0_8px_10px_-6px_rgba(11,31,22,0.10)]"}>
 
             {/* ── Drop zone — Design v3 (owner-approved 2026-11-03): white
                 bg + XL shadow, radius 20px, split Choose File button with
@@ -544,13 +547,21 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
             <div>
               <div
                 {...(isProcessing ? {} : getRootProps())}
-                className={cn("relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] p-0 text-center transition-colors select-none",
-                  isProcessing
-                    ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-white"
-                    : "cursor-pointer",
-                  !isProcessing && (isDragActive
-                    ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#F2F8EF]"
-                    : "border-[2.5px] border-dashed border-[#8FCE7E] bg-white hover:bg-[#FBFDFB]"))
+                className={dark
+                  ? cn("relative flex min-h-[255px] flex-col items-center justify-center rounded-[18px] px-5 py-9 sm:px-7 sm:py-11 text-center transition-colors select-none",
+                      isProcessing
+                        ? "border-2 border-dashed border-white/40 bg-white/[0.045]"
+                        : "cursor-pointer",
+                      !isProcessing && (isDragActive
+                        ? "border-2 border-dashed border-[#34d399] bg-white/[0.08]"
+                        : "border-2 border-dashed border-white/40 bg-white/[0.045] hover:bg-white/[0.07]"))
+                  : cn("relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] p-0 text-center transition-colors select-none",
+                      isProcessing
+                        ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-white"
+                        : "cursor-pointer",
+                      !isProcessing && (isDragActive
+                        ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#F2F8EF]"
+                        : "border-[2.5px] border-dashed border-[#8FCE7E] bg-white hover:bg-[#FBFDFB]"))
                 }
               >
                 {!isProcessing && <input {...getInputProps()} />}
@@ -560,19 +571,19 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   <div className="flex flex-col items-center gap-4 py-2">
                     <div className="relative h-16 w-16">
                       <svg className="h-full w-full animate-spin" style={{ animationDuration:"2s" }} viewBox="0 0 112 112">
-                        <circle cx="56" cy="56" r="48" fill="none" stroke="#e4e4e7" strokeWidth="6" />
-                        <circle cx="56" cy="56" r="48" fill="none" stroke="#2CA01C" strokeWidth="6" strokeLinecap="round"
+                        <circle cx="56" cy="56" r="48" fill="none" stroke={dark ? "rgba(255,255,255,0.25)" : "#e4e4e7"} strokeWidth="6" />
+                        <circle cx="56" cy="56" r="48" fill="none" stroke={dark ? "#34d399" : "#2CA01C"} strokeWidth="6" strokeLinecap="round"
                           strokeDasharray={`${2 * Math.PI * 48 * 0.75} ${2 * Math.PI * 48 * 0.25}`} />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <FileText size={24} className="text-[#007A33]" />
+                        <FileText size={24} className={dark ? "text-[#34d399]" : "text-[#007A33]"} />
                       </div>
                     </div>
                     <div>
-                      <p className="text-lg font-display font-bold text-brand-text">Converting…</p>
-                      <p className="mt-0.5 max-w-[260px] truncate text-sm text-brand-muted">{procState.fileName}</p>
+                      <p className={cn("text-lg font-display font-bold", dark ? "text-white" : "text-brand-text")}>Converting…</p>
+                      <p className={cn("mt-0.5 max-w-[260px] truncate text-sm", dark ? "text-white/70" : "text-brand-muted")}>{procState.fileName}</p>
                     </div>
-                    <div className="h-1.5 w-48 overflow-hidden rounded-full bg-zinc-200">
+                    <div className={cn("h-1.5 w-48 overflow-hidden rounded-full", dark ? "bg-white/20" : "bg-zinc-200")}>
                       <div className="h-full rounded-full" style={{
                         background:"linear-gradient(90deg,#007A33,#2CA01C,#007A33)",
                         backgroundSize:"300% 100%",
@@ -585,18 +596,27 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                   <>
                     {isDragActive ? (
                       <div className="flex flex-col items-center gap-3 py-2">
-                        <FileText size={44} className="text-[#007A33]" strokeWidth={1.4} />
-                        <p className="font-display text-[22px] font-bold text-brand-text">Release to convert</p>
-                        <p className="text-sm text-brand-muted">Drop the PDF to start converting</p>
+                        <FileText size={44} className={dark ? "text-[#34d399]" : "text-[#007A33]"} strokeWidth={1.4} />
+                        <p className={cn("font-display text-[22px] font-bold", dark ? "text-white" : "text-brand-text")}>Release to convert</p>
+                        <p className={cn("text-sm", dark ? "text-white/70" : "text-brand-muted")}>Drop the PDF to start converting</p>
                       </div>
                     ) : (
                       <>
+                        {dark && (
+                          <>
+                            <div className="mb-[18px] flex h-16 w-16 items-center justify-center rounded-full bg-[#34d399]/[0.14]">
+                              <Upload size={30} className="text-[#34d399]" strokeWidth={2.2} />
+                            </div>
+                            <p className="text-xl font-extrabold text-white">Drop your bank statement PDF here</p>
+                            <p className="my-3.5 text-sm font-semibold text-[#8fb3a4]">or</p>
+                          </>
+                        )}
                         <div className="relative">
-                          <div className="inline-flex overflow-hidden rounded-md shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]">
+                          <div className={cn("inline-flex overflow-hidden shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]", dark ? "rounded-xl" : "rounded-md")}>
                             <button
                               type="button"
                               onClick={(e) => { e.stopPropagation(); open(); }}
-                              className="flex min-w-[240px] items-center justify-center gap-2.5 bg-[#2CA01C] px-12 py-[18px] text-lg font-bold tracking-wide text-white transition-colors hover:bg-[#35B424]"
+                              className={cn("flex min-w-[240px] items-center justify-center gap-2.5 px-12 py-[18px] text-lg font-bold tracking-wide text-white transition-colors", dark ? "bg-[#047857] hover:bg-[#065f46]" : "bg-[#2CA01C] hover:bg-[#35B424]")}
                             >
                               <Plus size={24} strokeWidth={2.5} /> Choose File
                             </button>
@@ -605,7 +625,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                               aria-label="More ways to add a statement"
                               aria-expanded={menuOpen}
                               onClick={(e) => { e.stopPropagation(); setMenuOpen((o) => !o); }}
-                              className="flex items-center border-l border-white/20 bg-[#007A33] px-4 text-white transition-colors hover:bg-[#006B2C]"
+                              className={cn("flex items-center border-l border-white/20 px-4 text-white transition-colors", dark ? "bg-[#065f46] hover:bg-[#064e3b]" : "bg-[#007A33] hover:bg-[#006B2C]")}
                             >
                               <ChevronDown size={20} className={cn("transition-transform duration-200", menuOpen && "rotate-180")} />
                             </button>
@@ -646,23 +666,23 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                             </>
                           )}
                         </div>
-                        <p className="mt-3.5 text-[13px] font-medium text-slate-500">
+                        <p className={cn("mt-3.5 text-[13px] font-medium", dark ? "text-[#a7c4b8]" : "text-slate-500")}>
                           {billing.tier === "FREE"
                             ? "First 8 pages free · No account needed · Or drop your statement PDF here"
                             : "Or drop your statement PDF here"}
                         </p>
-                        <p className="mt-1.5 text-xs text-slate-400">
+                        <p className={cn("mt-1.5 text-xs", dark ? "text-white/60" : "text-slate-400")}>
                           PDF only · Max {MAX_FILE_MB} MB · Password OK · By proceeding, you agree to our{" "}
                           <Link href="/terms" className="underline underline-offset-2" onClick={(e) => e.stopPropagation()}>
                             Terms of Use
                           </Link>.
                         </p>
-                        <p className="mt-3 text-[11px] text-slate-400">
-                          {BANKS.join(" ·")} <span className="text-zinc-300">{BANKS_REGION === "IN" ? `+${visibleBankCount() - BANKS.length} more` : "+400 more"}</span>
+                        <p className={cn("mt-3 text-[11px]", dark ? "text-white/50" : "text-slate-400")}>
+                          {BANKS.join(" ·")} <span className={dark ? "text-white/40" : "text-zinc-300"}>{BANKS_REGION === "IN" ? `+${visibleBankCount() - BANKS.length} more` : "+400 more"}</span>
                         </p>
                         {billing.tier === "FREE" && freeRemaining > 0 && (
-                          <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#0B3D2E]">
-                            <CheckCircle2 className="text-zinc-900" size={12} /> {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} left
+                          <div className={cn("mt-3 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold", dark ? "border-[#34d399]/30 bg-[#34d399]/[0.14] text-[#a7f3d0]" : "border-honey-200 bg-honey-400 text-[#0B3D2E]")}>
+                            <CheckCircle2 className={dark ? "text-[#34d399]" : "text-zinc-900"} size={12} /> {freeRemaining} free page{freeRemaining !== 1 ? "s" : ""} left
                           </div>
                         )}
                       </>
@@ -702,7 +722,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
               <div className="pt-4">
                 {/* Format pills */}
                 <div className={cn("flex flex-wrap items-center gap-2", fullWidth && "justify-center")}>
-                  <span className="shrink-0 text-[10px] font-black uppercase tracking-[0.14em] text-brand-muted">Format</span>
+                  <span className={cn("shrink-0 text-[10px] font-black uppercase tracking-[0.14em]", dark ? "text-white/60" : "text-brand-muted")}>Format</span>
                   {FORMATS.map(f => {
                     const active = formats.includes(f.id);
                     const locked = !isProTier && PRO_FORMATS.includes(f.id);
@@ -711,9 +731,13 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                         key={f.id}
                         onClick={() => toggleFormat(f.id)}
                         className={cn("flex items-center gap-1.5 rounded-lg border px-2.5 text-[13px] font-bold transition-all", fullWidth ?"py-1" :"py-1.5",
-                          active
-                            ?"border-transparent text-white bg-[#0B1F16]"
-                            :"border-brand-border bg-brand-surface text-brand-muted hover:border-zinc-300 dark:hover:border-zinc-700"
+                          dark
+                            ? (active
+                                ?"border-transparent text-white bg-[#047857]"
+                                :"border-white/25 bg-white/[0.06] text-[#a7f3d0] hover:border-white/40")
+                            : (active
+                                ?"border-transparent text-white bg-[#0B1F16]"
+                                :"border-brand-border bg-brand-surface text-brand-muted hover:border-zinc-300 dark:hover:border-zinc-700")
                         )}
                       >
                         <span
@@ -732,12 +756,12 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                 </div>
 
                 {cloudNotice && (
-                  <p className={cn("mt-2 text-[11px] font-semibold text-pine-600", fullWidth && "text-center")}>{cloudNotice}</p>
+                  <p className={cn("mt-2 text-[11px] font-semibold", dark ? "text-[#6ee7b7]" : "text-pine-600", fullWidth && "text-center")}>{cloudNotice}</p>
                 )}
                 {formatNotice ? (
-                  <p className={cn("mt-2 text-[11px] font-semibold text-pine-600", fullWidth && "text-center")}>{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
+                  <p className={cn("mt-2 text-[11px] font-semibold", dark ? "text-[#6ee7b7]" : "text-pine-600", fullWidth && "text-center")}>{formatNotice} <a href="/pricing" className="underline">See Pro plan</a></p>
                 ) : (
-                  <p className={cn("mt-2 text-[11px] text-brand-muted", fullWidth && "text-center")}>Pick one or more formats — you get a separate download for each.</p>
+                  <p className={cn("mt-2 text-[11px]", dark ? "text-white/60" : "text-brand-muted", fullWidth && "text-center")}>Pick one or more formats — you get a separate download for each.</p>
                 )}
 
               </div>

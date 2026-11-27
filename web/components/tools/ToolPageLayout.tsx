@@ -111,14 +111,16 @@ export async function ToolPageLayout({
         <Navbar />
         <main className="overflow-x-hidden bg-[#FAFAFC]">
 
-          <IndiaHeadingBand eyebrow={eyebrow} title={title} subtitle={subtitle}>
-            <IndiaDropboxCard>
+          {/* Hero Sample 1 (owner 2026-11-27): no eyebrow above the H1,
+              dropbox directly on the dark band (no white card). */}
+          <IndiaHeadingBand title={title} subtitle={subtitle}>
+            <IndiaDropboxCard bare>
               <div className="min-w-0 max-w-full">
                 {tool}
                 <div className="mt-4 flex items-center justify-center gap-2">
-                  <CheckCircle2 size={14} className="shrink-0 text-[#047857]" />
-                  <p className="text-[12.5px] text-zinc-500">
-                    <span className="font-semibold text-zinc-700">Bank-grade security</span>
+                  <CheckCircle2 size={14} className="shrink-0 text-[#34d399]" />
+                  <p className="text-[12.5px] text-white/60">
+                    <span className="font-semibold text-white/80">Bank-grade security</span>
                     {" "}— {privacyLine}
                   </p>
                 </div>

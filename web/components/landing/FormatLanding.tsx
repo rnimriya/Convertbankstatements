@@ -77,6 +77,7 @@ export function FormatLanding({
   steps,
   faqs,
   showBanks = false,
+  sample1Hero = false,
   related,
   children,
 }: {
@@ -89,6 +90,10 @@ export function FormatLanding({
   steps: LandingStep[];
   faqs: LandingFaq[];
   showBanks?: boolean;
+  /** Hero Sample 1 inner style (.in only, owner 2026-11-27): no eyebrow
+      above the H1, dropbox directly on the dark band (no white card).
+      All FormatLanding pages pass it; default keeps the Option A shell. */
+  sample1Hero?: boolean;
   related: RelatedLink[];
   children: ReactNode;
 }) {
@@ -141,9 +146,9 @@ export function FormatLanding({
         <Navbar />
         <main className="overflow-x-hidden bg-[#FAFAFC]">
 
-          <IndiaHeadingBand eyebrow={eyebrow} title={title} subtitle={subtitle}>
-            <IndiaDropboxCard>
-              <LandingConverter />
+          <IndiaHeadingBand eyebrow={sample1Hero ? undefined : eyebrow} title={title} subtitle={subtitle}>
+            <IndiaDropboxCard bare={sample1Hero}>
+              <LandingConverter dark={sample1Hero} />
             </IndiaDropboxCard>
             <IndiaTrustRow />
           </IndiaHeadingBand>

@@ -16,7 +16,7 @@ const GUEST_BILLING: BillingContext = {
  * UploadCard the homepage hero embeds (same component, same props), with the
  * same guest-billing bootstrap as components/home/HeroSectionWrapper.
  */
-export function LandingConverter() {
+export function LandingConverter({ dark = false }: { dark?: boolean } = {}) {
   const [billing, setBilling] = useState<BillingContext>(GUEST_BILLING);
   const [hasSheetsAccess, setHasSheetsAccess] = useState(false);
   const [userEmail, setUserEmail] = useState<string | undefined>();
@@ -34,12 +34,12 @@ export function LandingConverter() {
 
   return (
     <div id="converter" className="scroll-mt-24 max-w-[845px] mx-auto mt-2 text-left rounded-[28px]">
-      <UploadCard billing={billing} onBillingUpdate={fetchBilling} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} />
+      <UploadCard billing={billing} onBillingUpdate={fetchBilling} userEmail={userEmail} hasSheetsAccess={hasSheetsAccess} fullWidth={true} dark={dark} />
 
       {/* Security note */}
       <div className="mt-4 flex items-center justify-center gap-2">
-        <p className="text-[12.5px] text-zinc-500">
-          <span className="font-semibold text-zinc-700">Bank-grade security</span>
+        <p className={dark ? "text-[12.5px] text-white/60" : "text-[12.5px] text-zinc-500"}>
+          <span className={dark ? "font-semibold text-white/80" : "font-semibold text-zinc-700"}>Bank-grade security</span>
           {" "}— Files processed securely and deleted immediately
         </p>
       </div>

@@ -109,12 +109,13 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
           {!IN && (
             <div className="absolute left-1/2 -translate-x-1/2 -top-[420px] w-[1100px] h-[800px] pointer-events-none" style={{ background: "radial-gradient(closest-side, rgba(100,203,72,0.38), rgba(19,84,28,0.28) 55%, transparent 75%)" }} />
           )}
-          <p className={IN
-            ? "relative text-[11px] font-bold uppercase tracking-[0.18em] text-[#6ee7b7] mb-3.5"
-            : "agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3"}>
-            {!IN && <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />}
-            Competitor Comparison
-          </p>
+          {/* Hero Sample 1 (.in): no eyebrow above the H1. */}
+          {!IN && (
+            <p className="agri-mono relative inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-[#B9D6B2] mb-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />
+              Competitor Comparison
+            </p>
+          )}
           <h1 className={IN
             ? "relative font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-[1.15] max-w-3xl mx-auto"
             : "relative text-2xl sm:text-[1.8rem] font-extrabold text-white leading-tight max-w-3xl mx-auto"}>

@@ -169,6 +169,7 @@ export function ToolUpload({
   meta,
   activeTitle = "Release to upload",
   bare = false,
+  dark = false,
   onFile,
 }: {
   accept: string;
@@ -179,6 +180,10 @@ export function ToolUpload({
   activeTitle?: string;
   /** Render only the dashed drop zone (no white card frame) — for embedding inside another card. */
   bare?: boolean;
+  /** Hero Sample 1 (.in only, owner 2026-11-27): no white card frame —
+      the dashed zone sits directly on the dark #052e22 band, mirroring
+      UploadCard's `dark` treatment. Default off = .online unchanged. */
+  dark?: boolean;
   onFile: (file: File) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -298,16 +303,27 @@ export function ToolUpload({
         const f = e.dataTransfer.files?.[0];
         if (f) feedFile(f);
       }}
-      className={cn(
-        "relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] p-0 text-center transition-colors select-none",
-        busy
-          ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-white"
-          : "cursor-pointer",
-        !busy &&
-          (dragActive
-            ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#F2F8EF]"
-            : "border-[2.5px] border-dashed border-[#8FCE7E] bg-white hover:bg-[#FBFDFB]"),
-      )}
+      className={dark
+        ? cn(
+            "relative flex min-h-[255px] flex-col items-center justify-center rounded-[18px] px-5 py-9 sm:px-7 sm:py-11 text-center transition-colors select-none",
+            busy
+              ? "border-2 border-dashed border-white/40 bg-white/[0.045]"
+              : "cursor-pointer",
+            !busy &&
+              (dragActive
+                ? "border-2 border-dashed border-[#34d399] bg-white/[0.08]"
+                : "border-2 border-dashed border-white/40 bg-white/[0.045] hover:bg-white/[0.07]"),
+          )
+        : cn(
+            "relative flex min-h-[255px] flex-col items-center justify-center rounded-[20px] p-0 text-center transition-colors select-none",
+            busy
+              ? "border-[2.5px] border-dashed border-[#CFE0CC] bg-white"
+              : "cursor-pointer",
+            !busy &&
+              (dragActive
+                ? "border-[2.5px] border-dashed border-[#2CA01C] bg-[#F2F8EF]"
+                : "border-[2.5px] border-dashed border-[#8FCE7E] bg-white hover:bg-[#FBFDFB]"),
+          )}
     >
       <input
         ref={inputRef}
@@ -327,23 +343,32 @@ export function ToolUpload({
           <div className="flex h-[52px] w-[52px] items-center justify-center rounded-full" style={{ background: "#00573F" }}>
             <Loader2 size={22} className="text-white" strokeWidth={1.8} />
           </div>
-          <h2 className="text-lg lg:text-xl font-display font-bold tracking-tight text-brand-text">
+          <h2 className={cn("text-lg lg:text-xl font-display font-bold tracking-tight", dark ? "text-white" : "text-brand-text")}>
             {busyText}
           </h2>
-          <p className="text-sm text-brand-muted">This usually takes a few seconds.</p>
+          <p className={cn("text-sm", dark ? "text-white/70" : "text-brand-muted")}>This usually takes a few seconds.</p>
         </div>
       ) : (
         /* Idle — split Choose File button + source dropdown (homepage v6) */
         <>
+          {dark && (
+            <>
+              <div className="mb-[18px] flex h-16 w-16 items-center justify-center rounded-full bg-[#34d399]/[0.14]">
+                <Upload size={30} className="text-[#34d399]" strokeWidth={2.2} />
+              </div>
+              <p className="text-xl font-extrabold text-white">{title}</p>
+              <p className="my-3.5 text-sm font-semibold text-[#8fb3a4]">or</p>
+            </>
+          )}
           <div className="relative">
-            <div className="inline-flex overflow-hidden rounded-md shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]">
+            <div className={cn("inline-flex overflow-hidden shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]", dark ? "rounded-xl" : "rounded-md")}>
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   openPicker();
                 }}
-                className="flex min-w-[240px] items-center justify-center gap-2.5 bg-[#2CA01C] px-12 py-[18px] text-lg font-bold tracking-wide text-white transition-colors hover:bg-[#35B424]"
+                className={cn("flex min-w-[240px] items-center justify-center gap-2.5 px-12 py-[18px] text-lg font-bold tracking-wide text-white transition-colors", dark ? "bg-[#047857] hover:bg-[#065f46]" : "bg-[#2CA01C] hover:bg-[#35B424]")}
               >
                 <Plus size={24} strokeWidth={2.5} /> Choose File
               </button>
@@ -355,7 +380,7 @@ export function ToolUpload({
                   e.stopPropagation();
                   setMenuOpen((o) => !o);
                 }}
-                className="flex items-center border-l border-white/20 bg-[#007A33] px-4 text-white transition-colors hover:bg-[#006B2C]"
+                className={cn("flex items-center border-l border-white/20 px-4 text-white transition-colors", dark ? "bg-[#065f46] hover:bg-[#064e3b]" : "bg-[#007A33] hover:bg-[#006B2C]")}
               >
                 <ChevronDown size={20} className={cn("transition-transform duration-200", menuOpen && "rotate-180")} />
               </button>
@@ -419,13 +444,13 @@ export function ToolUpload({
             )}
           </div>
 
-          <p className="mt-3.5 px-4 text-[13px] font-medium text-slate-500">
+          <p className={cn("mt-3.5 px-4 text-[13px] font-medium", dark ? "text-[#a7c4b8]" : "text-slate-500")}>
             {dragActive ? activeTitle : dropHint}
           </p>
-          <div className="mt-1.5 flex items-center gap-2 px-4 text-xs text-slate-400">
+          <div className={cn("mt-1.5 flex items-center gap-2 px-4 text-xs", dark ? "text-white/60" : "text-slate-400")}>
             {meta.map((m, i) => (
               <span key={i} className="flex items-center gap-2">
-                {i > 0 && <span className="h-1 w-1 rounded-full bg-zinc-300" />}
+                {i > 0 && <span className={cn("h-1 w-1 rounded-full", dark ? "bg-white/30" : "bg-zinc-300")} />}
                 <span>{m}</span>
               </span>
             ))}
@@ -437,7 +462,7 @@ export function ToolUpload({
 
   const extras = (
     <>
-      {notice && <p className="mt-3 text-center text-[11px] font-semibold text-pine-600">{notice}</p>}
+      {notice && <p className={cn("mt-3 text-center text-[11px] font-semibold", dark ? "text-[#34d399]" : "text-pine-600")}>{notice}</p>}
       {urlModalOpen && (
         <div className="fixed inset-0 z-[999] flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm" onClick={() => setUrlModalOpen(false)}>
           <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 text-left shadow-2xl" onClick={(e) => e.stopPropagation()}>
@@ -488,7 +513,7 @@ export function ToolUpload({
     </>
   );
 
-  if (bare)
+  if (bare || dark)
     return (
       <>
         {zone}

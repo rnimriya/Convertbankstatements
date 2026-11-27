@@ -63,7 +63,8 @@ export function IndiaHeadingBand({
   breadcrumb,
   children,
 }: {
-  eyebrow: string;
+  /** Optional — Hero Sample 1 style (owner 2026-11-27) omits it. */
+  eyebrow?: string;
   title: ReactNode;
   subtitle?: ReactNode;
   breadcrumb?: ReactNode;
@@ -73,7 +74,7 @@ export function IndiaHeadingBand({
     <section className="india-dark-band relative overflow-hidden bg-[#052e22] text-white">
       <div className="relative z-10 mx-auto max-w-[900px] px-4 pt-14 pb-16 text-center">
         {breadcrumb && <div className="mb-6 text-left">{breadcrumb}</div>}
-        <IndiaEyebrow light>{eyebrow}</IndiaEyebrow>
+        {eyebrow && <IndiaEyebrow light>{eyebrow}</IndiaEyebrow>}
         <h1 className="font-display font-extrabold tracking-[-0.02em] leading-[1.14] text-4xl sm:text-5xl text-white">
           {title}
         </h1>
@@ -86,8 +87,17 @@ export function IndiaHeadingBand({
   );
 }
 
-/** White card that holds the real dropbox inside the dark band. */
-export function IndiaDropboxCard({ children }: { children: ReactNode }) {
+/** White card that holds the real dropbox inside the dark band.
+    With `bare` (Hero Sample 1, owner 2026-11-27) there is no white
+    card — the dropbox sits directly on the dark band. */
+export function IndiaDropboxCard({ children, bare = false }: { children: ReactNode; bare?: boolean }) {
+  if (bare) {
+    return (
+      <div className="mt-8 min-w-0 max-w-full text-left">
+        <div className="min-w-0 max-w-full overflow-x-auto">{children}</div>
+      </div>
+    );
+  }
   return (
     <div className="mt-8 min-w-0 max-w-full bg-white border border-[#e2e8f0] rounded-xl p-5 sm:p-6 text-left shadow-[0_24px_50px_-24px_rgba(0,0,0,0.45)]">
       <div className="min-w-0 max-w-full overflow-x-auto">{children}</div>

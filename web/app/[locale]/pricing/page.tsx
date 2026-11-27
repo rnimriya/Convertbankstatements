@@ -165,7 +165,6 @@ export default async function PricingPage() {
 
       {IN ? (
         <IndiaHeadingBand
-          eyebrow="Pricing"
           title={<>Simple, transparent <span className="text-[#34d399]">pricing</span></>}
           subtitle="Start free · All prices in ₹ · No hidden charges"
         >

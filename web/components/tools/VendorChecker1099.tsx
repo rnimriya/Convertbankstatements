@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Download } from "lucide-react";
 import { ToolUpload, usd, downloadTextFile } from "./tool-shared";
+import { isIndiaSite } from "@/lib/site-region";
 
 interface VendorGroup {
   vendor: string;
@@ -81,6 +82,7 @@ export function VendorChecker1099() {
         title={fileName ?? "Drop a bank CSV or QBO file here"}
         meta={["CSV or QBO / OFX", "Max 10 MB"]}
         activeTitle="Release to check"
+        dark={isIndiaSite()}
         onFile={(f) => void handleFile(f)}
       />
 
@@ -122,7 +124,7 @@ export function VendorChecker1099() {
             </div>
           </div>
 
-          <div className="mt-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
+          <div className={`mt-5 rounded-2xl border border-zinc-200 dark:border-zinc-800 overflow-hidden${isIndiaSite() ? " bg-white" : ""}`}>
             <div className="px-5 py-3 bg-zinc-50 dark:bg-zinc-900/60 border-b border-zinc-200 dark:border-zinc-800">
               <p className="font-bold text-zinc-900 dark:text-white">Payments by vendor ({result.sourceKind === "csv" ? "CSV" : "QBO"} file)</p>
               <p className="text-xs text-zinc-500 mt-0.5">Name variants are grouped together — for example, “ACME LLC” and “Acme, LLC” count as one vendor. Only money out is counted; deposits are ignored.</p>

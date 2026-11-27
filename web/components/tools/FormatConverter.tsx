@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { CheckCircle2, Download, FileSpreadsheet, X } from "lucide-react";
 import { ToolUpload } from "./tool-shared";
+import { isIndiaSite } from "@/lib/site-region";
+import { cn } from "@/lib/utils";
 
 function formatSize(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
@@ -46,6 +48,8 @@ export function FormatConverter({
   accept: string;
   outputExt: string;
 }) {
+  /* Hero Sample 1 (.in only): dropbox sits directly on the dark band. */
+  const dark = isIndiaSite();
   const [file, setFile] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -114,6 +118,7 @@ export function FormatConverter({
         title={`Drop your ${fromLabel} file here`}
         meta={[`${fromLabel} file`, "Max 10 MB", "Fully free"]}
         activeTitle="Release to add the file"
+        dark={dark}
         onFile={addFile}
       />
 
@@ -125,18 +130,18 @@ export function FormatConverter({
 
       {file && (
         <div className="mt-8">
-          <div className="rounded-2xl border border-zinc-200 overflow-hidden">
-            <ul className="divide-y divide-zinc-100">
+          <div className={cn("rounded-2xl border overflow-hidden", dark ? "border-white/25 bg-white/[0.06]" : "border-zinc-200")}>
+            <ul className={cn("divide-y", dark ? "divide-white/10" : "divide-zinc-100")}>
               <li className="flex items-center gap-3 px-5 py-2.5 text-sm">
-                <FileSpreadsheet className="h-4 w-4 shrink-0 text-pine-600" />
-                <span className="font-medium text-zinc-900 truncate">{file.name}</span>
-                <span className="text-xs text-zinc-400 shrink-0">{formatSize(file.size)}</span>
+                <FileSpreadsheet className={cn("h-4 w-4 shrink-0", dark ? "text-[#34d399]" : "text-pine-600")} />
+                <span className={cn("font-medium truncate", dark ? "text-white" : "text-zinc-900")}>{file.name}</span>
+                <span className={cn("text-xs shrink-0", dark ? "text-white/60" : "text-zinc-400")}>{formatSize(file.size)}</span>
                 <button
                   type="button"
                   onClick={removeFile}
                   disabled={busy}
                   aria-label={`Remove ${file.name}`}
-                  className="ml-auto shrink-0 rounded-full p-1 text-zinc-400 hover:text-zinc-700 disabled:opacity-50"
+                  className={cn("ml-auto shrink-0 rounded-full p-1 disabled:opacity-50", dark ? "text-white/60 hover:text-white" : "text-zinc-400 hover:text-zinc-700")}
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -153,7 +158,7 @@ export function FormatConverter({
               <Download className="h-4 w-4" /> {busy ? "Converting…" : `Convert to ${toLabel}`}
             </button>
           </div>
-          <p className="mt-3 text-xs text-zinc-400">
+          <p className={cn("mt-3 text-xs", dark ? "text-white/60" : "text-zinc-400")}>
             Fully free, no account; files are processed in memory and never stored.
           </p>
         </div>

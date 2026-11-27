@@ -41,7 +41,6 @@ export default async function BlogPage({
         {/* Hero */}
         {IN ? (
           <IndiaHeadingBand
-            eyebrow="Blog"
             title={t("title")}
             subtitle={
               <>

@@ -166,7 +166,6 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
 
         <main className="flex-1">
           <IndiaHeadingBand
-            eyebrow="Bank converter"
             title={<>Convert <span className="text-[#34d399]">{bankName}</span> Statements to Excel</>}
             subtitle={`Upload your ${bankName} PDF bank statements and instantly convert them to CSV, Excel, OFX for Tally, or Google Sheets. Zero manual data entry required.`}
             breadcrumb={

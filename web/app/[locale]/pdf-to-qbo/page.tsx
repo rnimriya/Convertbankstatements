@@ -85,6 +85,7 @@ export default function PdfToQboPage() {
       howToName="How to convert a PDF bank statement to QBO"
       steps={STEPS}
       faqs={FAQS}
+      sample1Hero
       related={[
         { href: "/tools/csv-to-qbo", label: "CSV to QBO Converter", desc: "Already have a CSV? Map its columns and convert it to QBO instead of starting from the PDF." },
         { href: "/tools/ofx-to-qbo", label: "OFX to QBO Fixer", desc: "Have an OFX or QFX file QuickBooks refuses? Repair its bank ID into a valid QBO." },

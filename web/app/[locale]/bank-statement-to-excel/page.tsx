@@ -91,6 +91,7 @@ export default function BankStatementToExcelPage() {
       steps={STEPS}
       faqs={FAQS}
       showBanks
+      sample1Hero
       related={withoutQbTools([
         { href: "/bank-statement-to-csv", label: "Bank Statement to CSV", desc: "The same converter with a plain-text CSV download — the most portable format." },
         { href: "/pdf-to-qbo", label: "PDF to QBO Converter", desc: "Skip the spreadsheet and turn a statement PDF straight into a QuickBooks QBO file." },
