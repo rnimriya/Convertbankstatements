@@ -45,7 +45,9 @@ export const metadata: Metadata = {
     template: "%s | Convert Statement",
   },
   description:
-    "Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free.",
+    process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
+      ? "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and other Indian banks into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free."
+      : "Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free.",
   keywords: [
     "Wells Fargo PDF to Excel",
     "Citibank statement converter",
@@ -67,7 +69,9 @@ export const metadata: Metadata = {
     siteName: "Convert Statement",
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
-      "Global banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Monthly plans from $5 after that.",
+      process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
+        ? "Indian banks supported — SBI, HDFC, ICICI, Axis, Kotak and more. CSV, Excel, OFX for Tally, Google Sheets. First 8 pages free. Monthly plans from ₹499 after that."
+        : "Global banks supported. CSV, Excel, OFX for Tally, QFX for QuickBooks, Google Sheets. First 8 pages free. Monthly plans from $5 after that.",
     images: [
       {
         url: "/opengraph-image.png",
@@ -81,7 +85,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Convert Statement — Convert Bank PDFs to Excel, CSV & Tally",
     description:
-      "Global banks. CSV, Excel, OFX, QFX. First 8 pages free. Monthly plans from $5.",
+      process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
+        ? "Indian banks. CSV, Excel, OFX for Tally. First 8 pages free. Monthly plans from ₹499."
+        : "Global banks. CSV, Excel, OFX, QFX. First 8 pages free. Monthly plans from $5.",
     images: ["/twitter-image.png"],
   },
   icons: {

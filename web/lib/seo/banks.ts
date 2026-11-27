@@ -1,4 +1,5 @@
 import { SUPPORTED_BANKS } from "@/lib/config/banks";
+import { isBankVisible } from "@/lib/config/bank-region";
 
 export interface BankSEOInfo {
   slug: string;
@@ -16,6 +17,7 @@ export function getTopBanksForSEO(limit: number = 50): BankSEOInfo[] {
   const uniqueBanks = new Map<string, string>(); // slug -> name
 
   for (const [, name] of SUPPORTED_BANKS) {
+    if (!isBankVisible(name)) continue;
     if (uniqueBanks.size >= limit && !uniqueBanks.has(generateBankSlug(name))) {
         // If we hit the limit, don't add more, but keep iterating? No, we can just break if we hit the limit, 
         // wait, we only want to break when we have `limit` unique banks.
@@ -37,7 +39,7 @@ export function getTopBanksForSEO(limit: number = 50): BankSEOInfo[] {
 export function getBankBySlug(slug: string): string | null {
   for (const [, name] of SUPPORTED_BANKS) {
     if (generateBankSlug(name) === slug) {
-      return name;
+      return isBankVisible(name) ? name : null;
     }
   }
   return null;

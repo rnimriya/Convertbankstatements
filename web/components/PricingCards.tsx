@@ -3,6 +3,7 @@
 import { useState } from"react";
 import Link from"next/link";
 import { Check } from"lucide-react";
+import { isIndiaSite } from "@/lib/site-region";
 
 const MONTHLY_PLANS = [
   {
@@ -70,8 +71,64 @@ const MONTHLY_PLANS = [
   },
 ];
 
+// India (.in): same 3 paid tiers at owner-set round ₹ prices (2026-11-27).
+// Annual = monthly × 12 × 0.8 (the same 20%-off rule as the USD plans).
+// Feature lists are the USD tiers' lists unchanged, except bank coverage.
+const IN_PLANS = [
+  {
+    name:"Basic",
+    price:"₹499",
+    period:"/ mo",
+    annualPrice:"₹4,790",
+    annualPeriod:"/ year",
+    annualMonthlyEquiv:"₹399/mo",
+    tagline:"For light, occasional use",
+    highlight: false,
+    badge: null,
+    features: ["25 pages / month","CSV & Excel export","Indian banks support","All 34 free QuickBooks tools included","Email support"],
+    notIncluded: ["Google Sheets","OFX / QFX export"],
+    cta:"Start Basic",
+    href:"/signup?plan=basic",
+    annualHref:"/signup?plan=basic_annual",
+  },
+  {
+    name:"Pro",
+    price:"₹1,999",
+    period:"/ mo",
+    annualPrice:"₹19,190",
+    annualPeriod:"/ year",
+    annualMonthlyEquiv:"₹1,599/mo",
+    tagline:"Perfect for CAs & individuals",
+    highlight: true,
+    badge:"Most popular",
+    features: ["500 pages / month","All export formats","Google Sheets export","Priority processing","Smart Auto-Categorization (Beta)","Pre-Export Analytics (Beta)","All 34 free QuickBooks tools included","Email support"],
+    notIncluded: ["API access","Team seats"],
+    cta:"Start Pro",
+    href:"/signup?plan=pro",
+    annualHref:"/signup?plan=pro_annual",
+  },
+  {
+    name:"Business",
+    price:"₹6,999",
+    period:"/ month",
+    annualPrice:"₹67,190",
+    annualPeriod:"/ year",
+    annualMonthlyEquiv:"₹5,599/mo",
+    tagline:"For CA firms & fintech teams",
+    highlight: false,
+    badge: null,
+    features: ["2,000 pages / month","All export formats","OCR for Scanned PDFs","Direct Accounting Push (Coming Soon)","Smart Auto-Categorization (Beta)","Pre-Export Analytics (Beta)","Secure Client Portal (Beta)","API access","5 team seats","All 34 free QuickBooks tools included","Dedicated support"],
+    notIncluded: [],
+    cta:"Start Business",
+    href:"/signup?plan=business",
+    annualHref:"/signup?plan=business_annual",
+  },
+];
+
 export function PricingCards({ toggleDark = false }: { toggleDark?: boolean }) {
   const [annual, setAnnual] = useState(false);
+  const IN = isIndiaSite();
+  const PLANS = IN ? IN_PLANS : MONTHLY_PLANS;
 
   return (
     <>
@@ -99,8 +156,8 @@ export function PricingCards({ toggleDark = false }: { toggleDark?: boolean }) {
       </div>
 
       {/* Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 items-stretch max-w-6xl mx-auto">
-        {MONTHLY_PLANS.map((plan) => {
+      <div className={`grid gap-6 sm:grid-cols-2 ${IN ? "lg:grid-cols-3" : "lg:grid-cols-4"} items-stretch max-w-6xl mx-auto`}>
+        {PLANS.map((plan) => {
           const showAnnual = annual && plan.annualPrice !== null;
           const displayPrice = showAnnual ? plan.annualPrice! : plan.price;
           const displayPeriod = showAnnual ? plan.annualPeriod! : plan.period;

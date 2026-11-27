@@ -6,6 +6,8 @@ import { GENERATED_POSTS } from "./generated";
 import { POST_IMAGES } from "./images";
 import { RELATED_MAP } from "./related";
 import { POST_TRANSLATIONS } from "./i18n";
+import { isIndiaSite } from "@/lib/site-region";
+import { isIndiaRelevantPost } from "./india-filter";
 
 const DATA_FILE =
   process.env.NODE_ENV === "production"
@@ -85,7 +87,9 @@ export function getPublishedPosts(
   page = 1,
   limit = 12
 ): { posts: BlogPost[]; total: number; pages: number } {
-  const all = getAllPosts().filter((p) => p.published);
+  const all = getAllPosts().filter(
+    (p) => p.published && (!isIndiaSite() || isIndiaRelevantPost(p))
+  );
   const total = all.length;
   const pages = Math.ceil(total / limit);
   const posts = all.slice((page - 1) * limit, page * limit);

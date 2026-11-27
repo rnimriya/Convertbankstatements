@@ -105,12 +105,19 @@ const QB_BLOGS = [
   { slug: "td-bank-convert-to-csv-quickbooks", label: "Import TD Bank statements into QuickBooks" },
 ];
 
-const QB_BANKS = [
-  { slug: "jpmorgan-chase", label: "Chase statement converter" },
-  { slug: "bank-of-america", label: "Bank of America statement converter" },
-  { slug: "wells-fargo", label: "Wells Fargo statement converter" },
-  { slug: "citibank", label: "Citibank statement converter" },
-];
+const QB_BANKS = process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
+  ? [
+      { slug: "state-bank-of-india-sbi", label: "SBI statement converter" },
+      { slug: "hdfc-bank", label: "HDFC Bank statement converter" },
+      { slug: "icici-bank", label: "ICICI Bank statement converter" },
+      { slug: "axis-bank", label: "Axis Bank statement converter" },
+    ]
+  : [
+      { slug: "jpmorgan-chase", label: "Chase statement converter" },
+      { slug: "bank-of-america", label: "Bank of America statement converter" },
+      { slug: "wells-fargo", label: "Wells Fargo statement converter" },
+      { slug: "citibank", label: "Citibank statement converter" },
+    ];
 
 const fmtUSD = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });

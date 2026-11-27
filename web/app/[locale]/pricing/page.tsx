@@ -4,16 +4,21 @@ import { DollarSign, ArrowRight, Upload, Download, Trash2, Pencil, Layers, FileS
 import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
 import { PricingCards } from"@/components/PricingCards";
+import { isIndiaSite } from "@/lib/site-region";
+
+const IN = isIndiaSite();
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
 export const metadata = {
   title:"Pricing — Convert Statement",
-  description:"Start free with 8 pages, then choose a Pro plan at $20/month (500 pages) or Business at $75/month (2,000 pages) for CAs and teams.",
+  description: IN
+    ? "Start free with 8 pages, then choose a Pro plan at ₹1,999/month (500 pages) or Business at ₹6,999/month (2,000 pages) for CAs and teams in India."
+    : "Start free with 8 pages, then choose a Pro plan at $20/month (500 pages) or Business at $75/month (2,000 pages) for CAs and teams.",
   alternates: { canonical:`${BASE}/pricing` },
   openGraph: {
     title:"Pricing — Convert Statement",
-    description:"8 pages free · Pro $20/mo · Business $75/mo",
+    description: IN ? "8 pages free · Pro ₹1,999/mo · Business ₹6,999/mo" : "8 pages free · Pro $20/mo · Business $75/mo",
     url:`${BASE}/pricing`,
   },
 };
@@ -29,7 +34,7 @@ const COMPARE_ROWS = [
   { feature:"Google Sheets", free:"—", basic:"—", pro:"✓", business:"✓" },
   { feature:"API access", free:"—", basic:"—", pro:"—", business:"✓" },
   { feature:"Team seats", free:"1", basic:"1", pro:"1", business:"5" },
-  { feature:"Payment methods", free:"—", basic:"Card", pro:"Card", business:"Card" },
+  { feature:"Payment methods", free:"—", basic: IN ? "UPI · Cards · Net Banking" : "Card", pro: IN ? "UPI · Cards · Net Banking" : "Card", business: IN ? "UPI · Cards · Net Banking" : "Card" },
   { feature:"Smart Auto-Categorization (Beta)", free:"✓", basic:"✓", pro:"✓", business:"✓" },
   { feature:"OCR for Scanned PDFs", free:"✓", basic:"✓", pro:"✓", business:"✓" },
   { feature:"Balance-Check reconciliation", free:"✓", basic:"✓", pro:"✓", business:"✓" },
@@ -41,58 +46,109 @@ const COMPARE_ROWS = [
 
 const pricingSchema = {"@context":"https://schema.org","@type":"Product",
   name:"Convert Statement",
-  description:"Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
+  description: process.env.NEXT_PUBLIC_BANKS_REGION === "IN" ? "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and other Indian banks into CSV, Excel, OFX for Tally, or Google Sheets." : "Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
   url:BASE,
   brand: {"@type":"Brand", name:"Convert Statement" },
-  offers: [
-    {"@type":"Offer",
-      name:"Free",
-      price:"0",
-      priceCurrency:"USD",
-      description:"8 pages free forever, no credit card required",
-      availability:"https://schema.org/InStock",
-      url:`${BASE}/signup`,
-    },
-    {"@type":"Offer",
-      name:"Basic",
-      price:"5",
-      priceCurrency:"USD",
-      priceSpecification: {"@type":"UnitPriceSpecification",
-        price:"5",
-        priceCurrency:"USD",
-        unitText:"month",
-      },
-      description:"25 pages/month, standard processing",
-      availability:"https://schema.org/InStock",
-      url:`${BASE}/signup?plan=basic`,
-    },
-    {"@type":"Offer",
-      name:"Pro",
-      price:"20",
-      priceCurrency:"USD",
-      priceSpecification: {"@type":"UnitPriceSpecification",
-        price:"20",
-        priceCurrency:"USD",
-        unitText:"month",
-      },
-      description:"500 pages/month, Google Sheets, priority processing",
-      availability:"https://schema.org/InStock",
-      url:`${BASE}/signup?plan=pro`,
-    },
-    {"@type":"Offer",
-      name:"Business",
-      price:"75",
-      priceCurrency:"USD",
-      priceSpecification: {"@type":"UnitPriceSpecification",
-        price:"75",
-        priceCurrency:"USD",
-        unitText:"month",
-      },
-      description:"2,000 pages/month for CA firms and fintech teams",
-      availability:"https://schema.org/InStock",
-      url:`${BASE}/signup?plan=business`,
-    },
-  ],
+  // India (.in): same tiers at owner-set round ₹ prices (2026-11-27).
+  offers: IN
+    ? [
+        {"@type":"Offer",
+          name:"Free",
+          price:"0",
+          priceCurrency:"INR",
+          description:"8 pages free forever, no credit card required",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup`,
+        },
+        {"@type":"Offer",
+          name:"Basic",
+          price:"499",
+          priceCurrency:"INR",
+          priceSpecification: {"@type":"UnitPriceSpecification",
+            price:"499",
+            priceCurrency:"INR",
+            unitText:"month",
+          },
+          description:"25 pages/month, standard processing",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup?plan=basic`,
+        },
+        {"@type":"Offer",
+          name:"Pro",
+          price:"1999",
+          priceCurrency:"INR",
+          priceSpecification: {"@type":"UnitPriceSpecification",
+            price:"1999",
+            priceCurrency:"INR",
+            unitText:"month",
+          },
+          description:"500 pages/month, Google Sheets, priority processing",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup?plan=pro`,
+        },
+        {"@type":"Offer",
+          name:"Business",
+          price:"6999",
+          priceCurrency:"INR",
+          priceSpecification: {"@type":"UnitPriceSpecification",
+            price:"6999",
+            priceCurrency:"INR",
+            unitText:"month",
+          },
+          description:"2,000 pages/month for CA firms and fintech teams",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup?plan=business`,
+        },
+      ]
+    : [
+        {"@type":"Offer",
+          name:"Free",
+          price:"0",
+          priceCurrency:"USD",
+          description:"8 pages free forever, no credit card required",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup`,
+        },
+        {"@type":"Offer",
+          name:"Basic",
+          price:"5",
+          priceCurrency:"USD",
+          priceSpecification: {"@type":"UnitPriceSpecification",
+            price:"5",
+            priceCurrency:"USD",
+            unitText:"month",
+          },
+          description:"25 pages/month, standard processing",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup?plan=basic`,
+        },
+        {"@type":"Offer",
+          name:"Pro",
+          price:"20",
+          priceCurrency:"USD",
+          priceSpecification: {"@type":"UnitPriceSpecification",
+            price:"20",
+            priceCurrency:"USD",
+            unitText:"month",
+          },
+          description:"500 pages/month, Google Sheets, priority processing",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup?plan=pro`,
+        },
+        {"@type":"Offer",
+          name:"Business",
+          price:"75",
+          priceCurrency:"USD",
+          priceSpecification: {"@type":"UnitPriceSpecification",
+            price:"75",
+            priceCurrency:"USD",
+            unitText:"month",
+          },
+          description:"2,000 pages/month for CA firms and fintech teams",
+          availability:"https://schema.org/InStock",
+          url:`${BASE}/signup?plan=business`,
+        },
+      ],
 };
 
 export default async function PricingPage() {
@@ -111,7 +167,7 @@ export default async function PricingPage() {
         <p className="relative inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] mb-4 shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Pricing</p>
         <h1 className="relative font-display text-[1.8rem] sm:text-[41.6px] font-bold text-[#0B1F16] leading-[1.08]">Simple, transparent <span className="text-[#2CA01C]">pricing</span></h1>
         <p className="relative mt-3 text-sm text-zinc-600">
-          Start free · All prices in USD · No hidden charges
+          {IN ? "Start free · All prices in ₹ · No hidden charges" : "Start free · All prices in USD · No hidden charges"}
         </p>
         <div className="relative mt-5 flex justify-center">
           <div className="flex items-center gap-1.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 py-2 text-xs font-medium text-zinc-500 dark:text-zinc-400 shadow-sm w-fit">
@@ -134,7 +190,7 @@ export default async function PricingPage() {
               <thead>
                 <tr className="border-b border-[#E3EDE0] bg-white">
                   <th className="px-5 py-3.5 text-left text-xs font-bold uppercase tracking-wider text-zinc-500">Feature</th>
-                  {["Free","Basic","Pro","Business"].map((h) => (
+                  {(IN ? ["Basic","Pro","Business"] : ["Free","Basic","Pro","Business"]).map((h) => (
                     <th key={h} className={`px-4 py-3.5 text-center text-xs font-bold uppercase tracking-wider ${h ==="Pro" ?"text-[#007A33]" :"text-zinc-500"}`}>{h}</th>
                   ))}
                 </tr>
@@ -143,7 +199,7 @@ export default async function PricingPage() {
                 {COMPARE_ROWS.map(({ feature, free, basic, pro, business }, i) => (
                   <tr key={feature} className={"bg-white"}>
                     <td className="px-5 py-3 font-medium text-zinc-700">{feature}</td>
-                    {[free, basic, pro, business].map((val, j) => (
+                    {(IN ? [basic, pro, business] : [free, basic, pro, business]).map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300" : val ==="✓" ?"text-[#007A33] font-bold text-base" :"text-zinc-600"}`}>{val}</td>
                     ))}
                   </tr>

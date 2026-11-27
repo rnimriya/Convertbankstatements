@@ -5,6 +5,7 @@ import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { COMPETITORS, getCompetitorBySlug, getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { Check, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { visibleBankCount } from "@/lib/config/bank-region";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -138,7 +139,7 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
                 <CompareRow feature="JSON export" us={false} them={comp.outputFormats.some((f) => f.toLowerCase().includes("json"))} />
                 <CompareRow feature="API access" us={true} them={comp.hasAPI} />
                 <CompareRow feature="Bulk processing" us={true} them={comp.hasBulkProcessing} />
-                <CompareRow feature="Bank coverage" us="400+ banks globally" them={comp.bankCoverage} />
+                <CompareRow feature="Bank coverage" us={process.env.NEXT_PUBLIC_BANKS_REGION === "IN" ? `${visibleBankCount()} Indian banks` : "400+ banks globally"} them={comp.bankCoverage} />
                 <CompareRow feature="Processing speed" us="Under 15 seconds" them={comp.speed} />
                 <CompareRow feature="Zero-storage privacy" us={true} them={false} />
               </tbody>

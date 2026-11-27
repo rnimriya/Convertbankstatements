@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { isIndiaSite } from "@/lib/site-region";
+
+const IN = isIndiaSite();
 import Link from "next/link";
 import {
   FormatLanding,
@@ -12,8 +15,9 @@ const PAGE_URL = `${BASE}/bank-statement-to-excel`;
 
 export const metadata: Metadata = {
   title: "Bank Statement to Excel Converter — PDF to XLSX | Convert Statement",
-  description:
-    "Convert a PDF bank statement to Excel (.xlsx): one row per transaction with dates, descriptions, amounts and the running balance where the statement shows one. First 8 pages free, no account needed; Excel export is included on every plan.",
+  description: IN
+    ? "Convert an Indian bank statement PDF (SBI, HDFC, ICICI, Axis, Kotak and more) to Excel (.xlsx): one row per transaction with dates, descriptions, amounts and the running balance where the statement shows one. First 8 pages free, no account needed; Excel export is included on every plan."
+    : "Convert a PDF bank statement to Excel (.xlsx): one row per transaction with dates, descriptions, amounts and the running balance where the statement shows one. First 8 pages free, no account needed; Excel export is included on every plan.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Bank Statement to Excel Converter — PDF to XLSX",
@@ -46,11 +50,15 @@ const FAQS: LandingFaq[] = [
   },
   {
     q: "Is converting a bank statement to Excel free?",
-    a: "Your first 8 pages are free and no account is needed, and Excel export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is $5/month for 25 pages, Pro is $20/month for 500 pages, and Business is $75/month for 2,000 pages.",
+    a: IN
+      ? "Your first 8 pages are free and no account is needed, and Excel export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is ₹499/month for 25 pages, Pro is ₹1,999/month for 500 pages, and Business is ₹6,999/month for 2,000 pages."
+      : "Your first 8 pages are free and no account is needed, and Excel export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is $5/month for 25 pages, Pro is $20/month for 500 pages, and Business is $75/month for 2,000 pages.",
   },
   {
     q: "Which banks does this work with?",
-    a: "The converter works with statement PDFs from hundreds of banks, including JPMorgan Chase, Bank of America and Wells Fargo — their converter pages are linked above. If your bank issues a standard PDF statement, upload it and check the preview before downloading.",
+    a: IN
+      ? "The converter works with statement PDFs from Indian banks including SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank and Bank of Baroda — their converter pages are linked above. If your bank issues a standard PDF statement, upload it and check the preview before downloading."
+      : "The converter works with statement PDFs from hundreds of banks, including JPMorgan Chase, Bank of America and Wells Fargo — their converter pages are linked above. If your bank issues a standard PDF statement, upload it and check the preview before downloading.",
   },
   {
     q: "My statement PDF is password-protected. Can I still convert it?",
@@ -62,7 +70,9 @@ const FAQS: LandingFaq[] = [
   },
   {
     q: "Can I get CSV or QuickBooks formats instead of Excel?",
-    a: "Yes. The same converter also exports CSV on every plan, and QBO, QFX, OFX and Google Sheets on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload; if your books are in QuickBooks, the PDF to QBO converter is the direct route.",
+    a: IN
+      ? "Yes. The same converter also exports CSV on every plan, and OFX for Tally, QBO, QFX and Google Sheets on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload; if your books are in Tally, export OFX and import it into Tally."
+      : "Yes. The same converter also exports CSV on every plan, and QBO, QFX, OFX and Google Sheets on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload; if your books are in QuickBooks, the PDF to QBO converter is the direct route.",
   },
 ];
 
@@ -71,7 +81,9 @@ export default function BankStatementToExcelPage() {
     <FormatLanding
       eyebrow="Bank statement converter"
       title={<>Bank statement to <span className="text-[#2CA01C]">Excel</span> converter</>}
-      subtitle="Upload a PDF bank statement and download a clean Excel (.xlsx) file — every transaction on its own row, with dates, descriptions and amounts in proper columns. First 8 pages free, no account needed."
+      subtitle={IN
+        ? "Upload an Indian bank statement PDF — SBI, HDFC, ICICI, Axis, Kotak and more — and download a clean Excel (.xlsx) file, every transaction on its own row. Ready for Tally, GST and tax filing. First 8 pages free, no account needed."
+        : "Upload a PDF bank statement and download a clean Excel (.xlsx) file — every transaction on its own row, with dates, descriptions and amounts in proper columns. First 8 pages free, no account needed."}
       pageUrl={PAGE_URL}
       softwareDescription="Convert PDF bank statements to Excel (.xlsx) with Convert Statement: one row per transaction with dates, descriptions, amounts and the running balance where the statement shows one. First 8 pages free."
       howToName="How to convert a bank statement to Excel"
@@ -120,10 +132,15 @@ export default function BankStatementToExcelPage() {
             title: "Bookkeeping",
             body: "Sort and filter a month of transactions, group spending by description, and reconcile the totals against your accounting records — without typing a single line by hand.",
           },
-          {
-            title: "Tax preparation",
-            body: "Total income and deductible spending category by category in the spreadsheet, so the numbers you hand to your accountant or tax software start from the statement itself.",
-          },
+          IN
+            ? {
+                title: "GST & tax filing",
+                body: "Total income and expenses category by category in the spreadsheet, so the numbers behind your GST returns and ITR start from the statement itself — no re-typing for your CA.",
+              }
+            : {
+                title: "Tax preparation",
+                body: "Total income and deductible spending category by category in the spreadsheet, so the numbers you hand to your accountant or tax software start from the statement itself.",
+              },
           {
             title: "Loan applications",
             body: "Check your own statement totals and spot anything unexpected before you share the official PDF with a lender — a spreadsheet makes a month of income and outgoings easy to review line by line.",

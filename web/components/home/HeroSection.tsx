@@ -2,6 +2,8 @@
 
 import type { BillingContext } from "@/types/billing";
 import { UploadCard } from "@/components/upload/UploadCard";
+import { BANKS_REGION, bankCountLabel } from "@/lib/config/bank-region";
+import { isIndiaSite } from "@/lib/site-region";
 
 interface Props {
   billing: BillingContext;
@@ -29,7 +31,9 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
           Bank statements <span className="text-[#2CA01C]">converter</span>
         </h1>
         <p className="text-zinc-600 text-lg max-w-xl mx-auto leading-relaxed">
-          Convert PDF bank statements to Excel, CSV, QBO, OFX and Google Sheets in under 15 seconds.
+          {isIndiaSite()
+            ? "Convert SBI, HDFC, ICICI and other Indian bank statement PDFs to Excel, CSV, OFX for Tally and Google Sheets in under 15 seconds."
+            : "Convert PDF bank statements to Excel, CSV, QBO, OFX and Google Sheets in under 15 seconds."}
         </p>
 
         {/* ── Converter card — real UploadCard, internals untouched ── */}
@@ -48,11 +52,11 @@ export function HeroSection({ billing, onBillingUpdate, userEmail, hasSheetsAcce
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-7 text-[13px] font-semibold text-zinc-600">
           <span><span className="text-[#007A33] font-bold">✓</span> Files processed in memory</span>
           <span><span className="text-[#007A33] font-bold">✓</span> Never stored</span>
-          <span><span className="text-[#007A33] font-bold">✓</span> 400+ banks covered</span>
+          <span><span className="text-[#007A33] font-bold">✓</span> {bankCountLabel()} banks covered</span>
         </div>
 
         <p className="mt-8 text-[13px] font-medium text-zinc-400 tracking-wide">
-          Chase · Wells Fargo · Bank of America · Citi · Capital One · U.S. Bank · Truist · HSBC · Barclays · Santander · BMO · Kotak
+          {BANKS_REGION === "IN" ? "SBI · HDFC · ICICI · Axis · Kotak · PNB · Bank of Baroda · Canara · Union Bank · IDFC FIRST · Yes Bank · IndusInd" : "Chase · Wells Fargo · Bank of America · Citi · Capital One · U.S. Bank · Truist · HSBC · Barclays · Santander · BMO · Kotak"}
         </p>
       </div>
     </section>

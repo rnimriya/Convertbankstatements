@@ -26,11 +26,14 @@ import type { BillingContext, ProcessResult } from"@/types/billing";
 import { cn } from"@/lib/utils";
 import { DROPBOX_ENABLED, GOOGLE_ENABLED, pickFromDropbox, pickFromGoogleDrive } from"@/lib/imports/cloud";
 import Link from"next/link";
+import { BANKS_REGION, visibleBankCount } from "@/lib/config/bank-region";
 
 const MAX_FILE_MB = 50;
 const FREE_PAGE_CAP = 8;
 
-const BANKS = ["Chase","Wells Fargo","Bank of America","Citi","Capital One","U.S. Bank","Truist"];
+const BANKS = BANKS_REGION === "IN"
+  ? ["SBI","HDFC","ICICI","Axis","Kotak","PNB","Bank of Baroda"]
+  : ["Chase","Wells Fargo","Bank of America","Citi","Capital One","U.S. Bank","Truist"];
 
 const FORMATS = [
   { id:"csv",    label:"CSV",    sub:"Universal",    dotColor:"#43A047", dotBg:"#E8F5E9" },
@@ -655,7 +658,7 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                           </Link>.
                         </p>
                         <p className="mt-3 text-[11px] text-slate-400">
-                          {BANKS.join(" ·")} <span className="text-zinc-300">+400 more</span>
+                          {BANKS.join(" ·")} <span className="text-zinc-300">{BANKS_REGION === "IN" ? `+${visibleBankCount() - BANKS.length} more` : "+400 more"}</span>
                         </p>
                         {billing.tier === "FREE" && freeRemaining > 0 && (
                           <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-honey-200 bg-honey-400 px-3 py-1 text-xs font-semibold text-[#0B3D2E]">

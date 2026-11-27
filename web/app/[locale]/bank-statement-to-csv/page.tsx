@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { isIndiaSite } from "@/lib/site-region";
+
+const IN = isIndiaSite();
 import Link from "next/link";
 import {
   FormatLanding,
@@ -12,8 +15,9 @@ const PAGE_URL = `${BASE}/bank-statement-to-csv`;
 
 export const metadata: Metadata = {
   title: "Bank Statement to CSV Converter — PDF to CSV | Convert Statement",
-  description:
-    "Convert a PDF bank statement to CSV: plain text, one row per transaction with dates, descriptions and amounts. Opens in any spreadsheet and imports into accounting tools. First 8 pages free, no account needed; CSV export is included on every plan.",
+  description: IN
+    ? "Convert an Indian bank statement PDF (SBI, HDFC, ICICI, Axis, Kotak and more) to CSV: plain text, one row per transaction with dates, descriptions and amounts. Opens in any spreadsheet and imports into Tally and other accounting tools. First 8 pages free, no account needed; CSV export is included on every plan."
+    : "Convert a PDF bank statement to CSV: plain text, one row per transaction with dates, descriptions and amounts. Opens in any spreadsheet and imports into accounting tools. First 8 pages free, no account needed; CSV export is included on every plan.",
   alternates: { canonical: PAGE_URL },
   openGraph: {
     title: "Bank Statement to CSV Converter — PDF to CSV",
@@ -46,7 +50,9 @@ const FAQS: LandingFaq[] = [
   },
   {
     q: "Is converting a bank statement to CSV free?",
-    a: "Your first 8 pages are free and no account is needed, and CSV export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is $5/month for 25 pages, Pro is $20/month for 500 pages, and Business is $75/month for 2,000 pages.",
+    a: IN
+      ? "Your first 8 pages are free and no account is needed, and CSV export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is ₹499/month for 25 pages, Pro is ₹1,999/month for 500 pages, and Business is ₹6,999/month for 2,000 pages."
+      : "Your first 8 pages are free and no account is needed, and CSV export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is $5/month for 25 pages, Pro is $20/month for 500 pages, and Business is $75/month for 2,000 pages.",
   },
   {
     q: "What exactly is a CSV file?",
@@ -58,7 +64,9 @@ const FAQS: LandingFaq[] = [
   },
   {
     q: "Can I import the CSV into my accounting software?",
-    a: "In most cases, yes — CSV is the standard exchange format for transactions, and accounting and bookkeeping tools generally accept a CSV import with date, description and amount columns. Check your tool's import screen for the column order it expects before uploading. If your books are in QuickBooks, the PDF to QBO converter on this site produces the Web Connect format QuickBooks prefers.",
+    a: IN
+      ? "In most cases, yes — CSV is the standard exchange format for transactions, and accounting tools generally accept a CSV import with date, description and amount columns. Check your tool's import screen for the column order it expects before uploading. If your books are in Tally, export OFX from the same converter — OFX is the format Tally accepts for bank statement import."
+      : "In most cases, yes — CSV is the standard exchange format for transactions, and accounting and bookkeeping tools generally accept a CSV import with date, description and amount columns. Check your tool's import screen for the column order it expects before uploading. If your books are in QuickBooks, the PDF to QBO converter on this site produces the Web Connect format QuickBooks prefers.",
   },
   {
     q: "Are my statements stored after conversion?",
@@ -71,7 +79,9 @@ export default function BankStatementToCsvPage() {
     <FormatLanding
       eyebrow="Bank statement converter"
       title={<>Bank statement to <span className="text-[#2CA01C]">CSV</span> converter</>}
-      subtitle="Upload a PDF bank statement and download a plain-text CSV — one row per transaction with dates, descriptions and amounts. It opens in any spreadsheet and imports into accounting tools. First 8 pages free, no account needed."
+      subtitle={IN
+        ? "Upload an Indian bank statement PDF — SBI, HDFC, ICICI, Axis, Kotak and more — and download a plain-text CSV, one row per transaction. It opens in any spreadsheet and imports into Tally and other accounting tools. First 8 pages free, no account needed."
+        : "Upload a PDF bank statement and download a plain-text CSV — one row per transaction with dates, descriptions and amounts. It opens in any spreadsheet and imports into accounting tools. First 8 pages free, no account needed."}
       pageUrl={PAGE_URL}
       softwareDescription="Convert PDF bank statements to CSV with Convert Statement: plain text, one row per transaction with dates, descriptions, amounts and the running balance where the statement shows one. First 8 pages free."
       howToName="How to convert a bank statement to CSV"

@@ -19,7 +19,9 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.o
 // Pre-render the top 50 banks plus the curated top-20 US bank landings.
 export async function generateStaticParams() {
   const slugs = new Set(getTopBanksForSEO(50).map((b) => b.slug));
-  for (const slug of TOP_20_SLUGS) slugs.add(slug);
+  for (const slug of TOP_20_SLUGS) {
+    if (getBankBySlug(slug)) slugs.add(slug);
+  }
   return Array.from(slugs).map((slug) => ({ slug }));
 }
 

@@ -2,18 +2,28 @@
 
 import { useState, useEffect } from"react";
 import { ArrowDownLeft, ArrowUpRight, Download, Loader2, CheckCircle2 } from"lucide-react";
+import { BANKS_REGION } from "@/lib/config/bank-region";
 
 type Phase ="idle" |"processing" |"done";
 
-const BANKS = [
-  { name:"JPMorgan Chase", initial:"J", hex:"#005EB8" },
-  { name:"Wells Fargo",    initial:"W", hex:"#D71E28" },
-  { name:"Bank of America", initial:"B", hex:"#C41230" },
-  { name:"Citi",           initial:"C", hex:"#2557D6" },
-];
+const BANKS = BANKS_REGION === "IN"
+  ? [
+      { name:"State Bank of India", initial:"S", hex:"#22409A" },
+      { name:"HDFC Bank",           initial:"H", hex:"#004C8F" },
+      { name:"ICICI Bank",          initial:"I", hex:"#F58220" },
+      { name:"Axis Bank",           initial:"A", hex:"#97144D" },
+    ]
+  : [
+      { name:"JPMorgan Chase", initial:"J", hex:"#005EB8" },
+      { name:"Wells Fargo",    initial:"W", hex:"#D71E28" },
+      { name:"Bank of America", initial:"B", hex:"#C41230" },
+      { name:"Citi",           initial:"C", hex:"#2557D6" },
+    ];
 
-const FILES = ["Chase_Statement_Jan2025.pdf","WellsFargo_Account_Nov2024.pdf","BoA_Q3_2025.pdf","Citi_Dec2024.pdf",
-];
+const FILES = BANKS_REGION === "IN"
+  ? ["SBI_Statement_Jan2025.pdf","HDFC_Account_Nov2024.pdf","ICICI_Q3_2025.pdf","Axis_Dec2024.pdf"]
+  : ["Chase_Statement_Jan2025.pdf","WellsFargo_Account_Nov2024.pdf","BoA_Q3_2025.pdf","Citi_Dec2024.pdf"];
+
 
 const TXNS = [
   { desc:"PAYROLL DIRECT DEP",   amt:"+$4,500.00", pos: true,  date:"01 Jan" },

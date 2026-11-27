@@ -3,6 +3,9 @@ import { getAllPosts } from "@/lib/blog/posts";
 import { locales } from "@/i18n/routing";
 import { getTopBanksForSEO } from "@/lib/seo/banks";
 import { TOP_20_BANKS } from "@/lib/seo/banks-top20";
+import { isBankVisible } from "@/lib/config/bank-region";
+import { isIndiaSite } from "@/lib/site-region";
+import { isIndiaRelevantPost } from "@/lib/blog/india-filter";
 import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { getAllClusterSlugs } from "@/lib/seo/clusters";
 
@@ -113,7 +116,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // 2. Blog posts (with alternate language links)
-  const posts = getAllPosts().filter((p) => p.published);
+  const posts = getAllPosts().filter(
+    (p) => p.published && (!isIndiaSite() || isIndiaRelevantPost(p))
+  );
   const blogEntries: MetadataRoute.Sitemap = posts.map((post) => {
     const blogPath = `/blog/${post.slug}`;
     return {
@@ -129,6 +134,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // top-20 US banks so every rebuilt bank landing is always in the sitemap.
   const bankMap = new Map(getTopBanksForSEO(50).map((b) => [b.slug, b]));
   for (const b of TOP_20_BANKS) {
+    if (!isBankVisible(b.name)) continue;
     if (!bankMap.has(b.slug)) bankMap.set(b.slug, { slug: b.slug, name: b.name });
   }
   const banks = Array.from(bankMap.values());

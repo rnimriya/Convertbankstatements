@@ -10,6 +10,9 @@ import {
 import { Footer } from"@/components/layout/Footer";
 import { Navbar } from"@/components/layout/Navbar";
 import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
+import { LegacyHome } from"@/components/home-legacy/LegacyHome";
+import { BANKS_REGION, bankCountLabel, visibleBankCount } from "@/lib/config/bank-region";
+import { isIndiaSite } from "@/lib/site-region";
 import BankLinks from"@/components/banks/BankLinks";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
@@ -19,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  const IN = isIndiaSite();
   const tHow   = await getTranslations("howItWorks");
   const tFeat  = await getTranslations("features");
   const tFaq   = await getTranslations("faq");
@@ -35,10 +39,10 @@ export default async function HomePage() {
     { icon: <Zap size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"15", statSuffix:"s", title: tFeat("fastTitle"), body: tFeat("fastBody"), img:"/features/feature-fast.webp" },
     { icon: <Shield size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("privateTitle"), body: tFeat("privateBody"), badge:"Zero storage", img:"/features/feature-private.webp" },
     { icon: <FileCheck size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody"), img:"/features/feature-accurate.webp" },
-    { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: tFeat("banksTitle"), body: tFeat("banksBody"), img:"/features/feature-banks.webp" },
+    { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: IN ? "Indian banks covered" : tFeat("banksTitle"), body: IN ? "SBI, HDFC, ICICI, Axis, Kotak, PNB and other Indian banks — savings, current and salary accounts." : tFeat("banksBody"), img:"/features/feature-banks.webp" },
     { icon: <Lock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody"), img:"/features/feature-password.webp" },
-    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
-    { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
+    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: IN ? "Excel, CSV, OFX for Tally, QBO and Google Sheets in one tool." : tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
+    { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: IN ? "First 8 pages free. Then monthly plans from ₹499 — no subscription traps." : tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
     { icon: <Clock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody"), img:"/features/feature-instant.webp" },
   ];
 
@@ -51,7 +55,7 @@ export default async function HomePage() {
       img:"/steps/step-upload.webp",
       icon: <Upload className="text-pine-500 dark:text-pine-400"  size={20} />,
       title: tHow("step1Title"),
-      body: tHow("step1Body"),
+      body: IN ? "Drag & drop or click to select. Works with SBI, HDFC, ICICI, Axis, Kotak and other Indian banks, including password-protected files." : tHow("step1Body"),
       gradient:"bg-zinc-100 text-zinc-900",
       glow:"",
     },
@@ -60,7 +64,7 @@ export default async function HomePage() {
       img:"/steps/step-format.webp",
       icon: <FileCheck className="text-pine-600 dark:text-pine-400"  size={20} />,
       title: tHow("step2Title"),
-      body: tHow("step2Body"),
+      body: IN ? "Pick Excel, CSV, OFX for Tally, QBO, or Google Sheets — each optimized for its target." : tHow("step2Body"),
       gradient:"bg-zinc-100 text-zinc-900",
       glow:"",
     },
@@ -75,14 +79,23 @@ export default async function HomePage() {
     },
   ];
 
-  const faqs = [
-    { q: tFaq("q1"), a: tFaq("a1") },
-    { q: tFaq("q2"), a: tFaq("a2") },
-    { q: tFaq("q3"), a: tFaq("a3") },
-    { q: tFaq("q4"), a: tFaq("a4") },
-    { q: tFaq("q5"), a: tFaq("a5") },
-    { q: tFaq("q6"), a: tFaq("a6") },
-  ];
+  const faqs = IN
+    ? [
+        { q: "Which banks are supported?", a: "Indian banks including SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank, Bank of Baroda, Canara Bank and more. Email us if yours isn't listed." },
+        { q: "Is my financial data safe?", a: "Yes. PDFs are processed in memory and deleted immediately after conversion. Nothing is stored on disk or in a database." },
+        { q: "Can I process password-protected PDFs?", a: "Yes. Enter the password during upload. We never store the password." },
+        { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free — no card needed. That covers most 1-3 month statements. After that, paid plans start at ₹499/month." },
+        { q: "How do I import into Tally?", a: "Export as OFX from Convert Statement — OFX is the format Tally accepts for bank statement import — then import it into Tally. For spreadsheets, download the Excel file or send it straight to Google Sheets." },
+        { q: "Which payment methods do you accept?", a: "We accept UPI, cards and net banking via Razorpay." },
+      ]
+    : [
+        { q: tFaq("q1"), a: tFaq("a1") },
+        { q: tFaq("q2"), a: tFaq("a2") },
+        { q: tFaq("q3"), a: tFaq("q3") },
+        { q: tFaq("q4"), a: tFaq("a4") },
+        { q: tFaq("q5"), a: tFaq("a5") },
+        { q: tFaq("q6"), a: tFaq("a6") },
+      ];
   type HomeTool = {
     href: string;
     label: string;
@@ -139,15 +152,26 @@ export default async function HomePage() {
   const NUMS = [
     { dot: "↗", num: "15", sfx: "s", cap: "multi-page PDFs converted, start to finish" },
     { dot: "✓", num: "99.4", sfx: "%", cap: "amount, date and reference accuracy" },
-    { dot: "⌂", num: "400", sfx: "+", cap: "banks covered, worldwide" },
+    BANKS_REGION === "IN"
+      ? { dot: "⌂", num: String(visibleBankCount()), sfx: "", cap: "Indian banks covered" }
+      : { dot: "⌂", num: "400", sfx: "+", cap: "banks covered, worldwide" },
     { dot: "★", num: "8", sfx: "", cap: "pages free on every account, forever" },
   ];
-  const PRICE_PLANS = [
-    { name: "Free", price: "$0", suffix: "", per: "forever", features: ["8 pages free", "Excel & CSV export", "400+ banks"], btn: "Start free", hot: false },
-    { name: "Basic", price: "$5", suffix: " /mo", per: "for occasional converts", features: ["25 pages a month", "All export formats", "Password PDFs"], btn: "Choose Basic", hot: false },
-    { name: "Pro", price: "$20", suffix: " /mo", per: "for firms & bookkeepers", features: ["Everything in Basic", "QBO / QFX / OFX downloads", "Priority processing"], btn: "Choose Pro", hot: true },
-    { name: "Business", price: "$75", suffix: " /mo", per: "for high-volume teams", features: ["Everything in Pro", "High-volume conversion", "Team-ready workflow"], btn: "Choose Business", hot: false },
-  ];
+  // India (.in): the same 3 paid tiers at owner-set round ₹ prices
+  // (2026-11-27): Basic ₹499/mo, Pro ₹1,999/mo, Business ₹6,999/mo.
+  // Feature lists unchanged from the USD tiers.
+  const PRICE_PLANS = IN
+    ? [
+        { name: "Basic", price: "₹499", suffix: " /mo", per: "for occasional converts", features: ["25 pages a month", "All export formats", "Password PDFs"], btn: "Choose Basic", hot: false },
+        { name: "Pro", price: "₹1,999", suffix: " /mo", per: "for firms & bookkeepers", features: ["Everything in Basic", "QBO / QFX / OFX downloads", "Priority processing"], btn: "Choose Pro", hot: true },
+        { name: "Business", price: "₹6,999", suffix: " /mo", per: "for high-volume teams", features: ["Everything in Pro", "High-volume conversion", "Team-ready workflow"], btn: "Choose Business", hot: false },
+      ]
+    : [
+        { name: "Free", price: "$0", suffix: "", per: "forever", features: ["8 pages free", "Excel & CSV export", `${bankCountLabel()} banks`], btn: "Start free", hot: false },
+        { name: "Basic", price: "$5", suffix: " /mo", per: "for occasional converts", features: ["25 pages a month", "All export formats", "Password PDFs"], btn: "Choose Basic", hot: false },
+        { name: "Pro", price: "$20", suffix: " /mo", per: "for firms & bookkeepers", features: ["Everything in Basic", "QBO / QFX / OFX downloads", "Priority processing"], btn: "Choose Pro", hot: true },
+        { name: "Business", price: "$75", suffix: " /mo", per: "for high-volume teams", features: ["Everything in Pro", "High-volume conversion", "Team-ready workflow"], btn: "Choose Business", hot: false },
+      ];
 
   const Label = ({ children, light = false }: { children: ReactNode; light?: boolean }) => (
     <p className={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] ${light ? "bg-white/10 text-[#BFE3B8]" : "bg-[#E3F2DF] text-[#007A33]"}`}>
@@ -164,13 +188,20 @@ export default async function HomePage() {
     applicationCategory:"FinanceApplication",
     operatingSystem:"Web",
     url:BASE,
-    description:"Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
-    offers: [
-      {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"USD" },
-      {"@type":"Offer", name:"Basic", price:"5", priceCurrency:"USD" },
-      {"@type":"Offer", name:"Pro", price:"20", priceCurrency:"USD" },
-      {"@type":"Offer", name:"Business", price:"75", priceCurrency:"USD" },
-    ],
+    description: BANKS_REGION === "IN" ? `Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and ${visibleBankCount()} Indian banks into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.` : "Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
+    offers: IN
+      ? [
+          {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"INR" },
+          {"@type":"Offer", name:"Basic", price:"499", priceCurrency:"INR" },
+          {"@type":"Offer", name:"Pro", price:"1999", priceCurrency:"INR" },
+          {"@type":"Offer", name:"Business", price:"6999", priceCurrency:"INR" },
+        ]
+      : [
+          {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"USD" },
+          {"@type":"Offer", name:"Basic", price:"5", priceCurrency:"USD" },
+          {"@type":"Offer", name:"Pro", price:"20", priceCurrency:"USD" },
+          {"@type":"Offer", name:"Business", price:"75", priceCurrency:"USD" },
+        ],
   };
 
   const faqPageSchema = {"@context":"https://schema.org","@type":"FAQPage",
@@ -183,6 +214,9 @@ export default async function HomePage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }} />
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
       <Navbar />
+      {IN ? (
+        <LegacyHome tools={TOOLS} pricePlans={PRICE_PLANS} faqs={faqs} />
+      ) : (
       <main className="overflow-x-hidden agri-sans">
 
         {/* ─── HERO — DARK AGRIFRIKA + CONVERTER ─────────── */}
@@ -195,7 +229,7 @@ export default async function HomePage() {
             <div className="grid lg:grid-cols-2 gap-12 mt-6 items-start">
               <div>
                 <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#0B1F16]">The converter built for <span className="text-[#2CA01C]">busy books.</span></h2>
-                <p className="text-[#5B665C] mt-5 leading-relaxed max-w-md">Accountants, bookkeepers, CPAs and small businesses use ConvertStatement to skip manual entry and get reconciliation-ready files in seconds.</p>
+                <p className="text-[#5B665C] mt-5 leading-relaxed max-w-md">{IN ? "CAs, accountants and small businesses across India use ConvertStatement to skip manual entry and get Tally- and GST-ready files in seconds." : "Accountants, bookkeepers, CPAs and small businesses use ConvertStatement to skip manual entry and get reconciliation-ready files in seconds."}</p>
                 <a href="#features" className="inline-flex items-center gap-2 rounded-full bg-[#0B1F16] px-6 py-3.5 text-sm font-bold text-white whitespace-nowrap mt-6">
                   Discover the features <ArrowRight size={15} />
                 </a>
@@ -233,7 +267,7 @@ export default async function HomePage() {
                   { label: "Bank PDF", cap: "Source" },
                   { label: "Parsed rows", cap: "Dates · Amounts" },
                   { label: "Excel · CSV", cap: "Spreadsheet" },
-                  { label: "QBO · OFX", cap: "QuickBooks" },
+                  IN ? { label: "OFX · Excel", cap: "Tally-ready" } : { label: "QBO · OFX", cap: "QuickBooks" },
                 ].map((n, i, arr) => (
                   <span key={n.label} className="flex flex-col sm:flex-row items-center w-full sm:w-auto">
                     <span className="text-center shrink-0 sm:w-[120px]">
@@ -403,7 +437,7 @@ export default async function HomePage() {
                 See all plans <ArrowRight size={15} />
               </a>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+            <div className={`grid sm:grid-cols-2 ${IN ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-5 items-stretch`}>
               {PRICE_PLANS.map((p) => (
                 <div key={p.name} className={`rounded-[24px] p-8 border flex flex-col ${p.hot ? "bg-[#0B1F16] text-white border-[#0B1F16]" : "bg-white border-[#CBE3C4] text-[#101812]"}`}>
                   <p className="text-[15px] font-bold">{p.name}{p.hot ? " · Most popular" : ""}</p>
@@ -489,6 +523,7 @@ export default async function HomePage() {
         </section>
 
       </main>
+      )}
       <Footer variant="agri" />
     </>
   );

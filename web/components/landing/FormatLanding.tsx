@@ -28,11 +28,17 @@ const STEP_IMGS = [
   "/steps/step-download.webp",
 ];
 
-const BANKS = [
-  { href: "/banks/jpmorgan-chase", name: "JPMorgan Chase", note: "Convert Chase statement PDFs" },
-  { href: "/banks/bank-of-america", name: "Bank of America", note: "Convert Bank of America statement PDFs" },
-  { href: "/banks/wells-fargo", name: "Wells Fargo", note: "Convert Wells Fargo statement PDFs" },
-];
+const BANKS = process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
+  ? [
+      { href: "/banks/state-bank-of-india-sbi", name: "State Bank of India (SBI)", note: "Convert SBI statement PDFs" },
+      { href: "/banks/hdfc-bank", name: "HDFC Bank", note: "Convert HDFC Bank statement PDFs" },
+      { href: "/banks/icici-bank", name: "ICICI Bank", note: "Convert ICICI Bank statement PDFs" },
+    ]
+  : [
+      { href: "/banks/jpmorgan-chase", name: "JPMorgan Chase", note: "Convert Chase statement PDFs" },
+      { href: "/banks/bank-of-america", name: "Bank of America", note: "Convert Bank of America statement PDFs" },
+      { href: "/banks/wells-fargo", name: "Wells Fargo", note: "Convert Wells Fargo statement PDFs" },
+    ];
 
 const PLANS = [
   { name: "Free", price: "$0", per: "", caption: "forever", features: ["8 pages free", "Excel & CSV export"] },
