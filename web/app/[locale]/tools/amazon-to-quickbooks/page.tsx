@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayoutConverter } from "@/components/tools/PayoutConverter";
+import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -62,6 +64,8 @@ const TH = "border border-[#E3EDE0] bg-[#EFF7ED] px-3 py-2 text-left font-semibo
 const TD = "border border-[#E3EDE0] px-3 py-2 text-zinc-600 dark:text-zinc-300 align-top";
 
 export default function AmazonToQuickBooksPage() {
+  if (isIndiaSite()) notFound(); // convertstatement.in: no QuickBooks content (owner order 2026-11-27)
+
   return (
     <ToolPageLayout
       eyebrow="Free Tool"

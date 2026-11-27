@@ -9,6 +9,8 @@ import { FAQAccordion } from "@/components/home/FAQAccordion";
 import {
   ArrowRight, BookOpen, Building2, Check, X, CheckCircle2,
 } from "lucide-react";
+import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -126,6 +128,8 @@ const h2 = "font-display text-2xl font-bold text-[#0B1F16] mt-12 first:mt-0";
 const para = "mt-3 text-[#5c6f63] leading-relaxed";
 
 export default async function QuickBooksPage() {
+  if (isIndiaSite()) notFound(); // convertstatement.in: no QuickBooks content (owner order 2026-11-27)
+
   const nonce = BUILD_NONCE;
 
   const softwareSchema = {

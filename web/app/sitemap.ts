@@ -6,6 +6,7 @@ import { TOP_20_BANKS } from "@/lib/seo/banks-top20";
 import { isBankVisible } from "@/lib/config/bank-region";
 import { isIndiaSite } from "@/lib/site-region";
 import { isIndiaRelevantPost } from "@/lib/blog/india-filter";
+import { isQbPath, QB_GUIDE_SLUGS } from "@/lib/tools/qb-filter";
 import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { getAllClusterSlugs } from "@/lib/seo/clusters";
 
@@ -107,7 +108,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   // 1. Static pages (with alternate language links)
-  const staticEntries: MetadataRoute.Sitemap = STATIC_CONFIGS.map((cfg) => ({
+  const staticEntries: MetadataRoute.Sitemap = STATIC_CONFIGS.filter(
+    (cfg) => !isIndiaSite() || !isQbPath(cfg.path)
+  ).map((cfg) => ({
     url: getUrl(cfg.path),
     lastModified: now,
     changeFrequency: cfg.changeFrequency,
@@ -163,7 +166,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   // 5. SEO Content Clusters (Pillar Pages)
-  const clusterSlugs = getAllClusterSlugs();
+  const clusterSlugs = getAllClusterSlugs().filter(
+    (slug) => !isIndiaSite() || !QB_GUIDE_SLUGS.has(slug)
+  );
   const guideEntries: MetadataRoute.Sitemap = clusterSlugs.map((slug) => {
     const guidePath = `/guides/${slug}`;
     return {

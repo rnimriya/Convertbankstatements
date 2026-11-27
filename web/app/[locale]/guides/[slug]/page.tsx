@@ -1,4 +1,6 @@
 import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
+import { QB_GUIDE_SLUGS } from "@/lib/tools/qb-filter";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
@@ -14,7 +16,9 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.o
 
 
 export function generateStaticParams() {
-  return getAllClusterSlugs().map((slug) => ({ slug }));
+  return getAllClusterSlugs()
+    .filter((slug) => !isIndiaSite() || !QB_GUIDE_SLUGS.has(slug))
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }) {
@@ -32,6 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function GuidePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale, slug } = await params;
+  if (isIndiaSite() && QB_GUIDE_SLUGS.has(slug)) notFound(); // .in: no QuickBooks content
   const cluster = getClusterBySlug(slug);
   if (!cluster) notFound();
 

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { BulkDeleter } from "@/components/tools/BulkDeleter";
+import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -59,6 +61,8 @@ const H2M = "text-2xl font-extrabold text-zinc-900 dark:text-white mt-12";
 const P = "mt-3 text-zinc-600 dark:text-zinc-300 leading-relaxed";
 
 export default function BulkDeleterQuickBooksPage() {
+  if (isIndiaSite()) notFound(); // convertstatement.in: no QuickBooks content (owner order 2026-11-27)
+
   return (
     <ToolPageLayout
       fullyFree

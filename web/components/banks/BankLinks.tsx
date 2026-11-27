@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 import { ArrowUpRight } from "lucide-react";
 import { getBankBySlug, getTopBanksForSEO, type BankSEOInfo } from "@/lib/seo/banks";
 
@@ -64,7 +65,7 @@ export default function BankLinks() {
       </h2>
       <p className="text-[#5B665C] mt-4 leading-relaxed max-w-2xl">
         Every bank below has its own converter page with the exact steps for that bank&apos;s statement
-        format — PDF to Excel, CSV, QBO, OFX or Google Sheets. Your first 8 pages are free.
+        format — {isIndiaSite() ? "PDF to Excel, CSV, OFX for Tally or Google Sheets" : "PDF to Excel, CSV, QBO, OFX or Google Sheets"}. Your first 8 pages are free.
       </p>
       <div className="flex flex-wrap gap-2.5 mt-8">
         {banks.map((b) => (

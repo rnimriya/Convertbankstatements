@@ -1,5 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
+import { isIndiaSite } from "@/lib/site-region";
+import { withoutQbTools } from "@/lib/tools/qb-filter";
 
 const SOCIAL = [
   {
@@ -31,6 +33,7 @@ const SOCIAL = [
  */
 export async function Footer({ variant: _variant }: { variant?: "agri" | "light" }) {
   const t = await getTranslations("footer");
+  const IN = isIndiaSite(); // .in: no QuickBooks links (owner order 2026-11-27)
 
   const NAV = [
     {
@@ -45,10 +48,10 @@ export async function Footer({ variant: _variant }: { variant?: "agri" | "light"
       ],
     },
     {
-      heading: t("quickbooks"),
+      heading: IN ? "Tools" : t("quickbooks"),
       links: [
         { label: t("quickbooksReconciliation"), href: "/quickbooks" },
-        { label: t("allTools"),                 href: "/tools" },
+        { label: IN ? "All Tools" : t("allTools"), href: "/tools" },
         { label: t("qboDuplicateFinder"),       href: "/tools/free-qbo-cleanup-checker" },
         { label: t("stripeQboConverter"),       href: "/tools/free-stripe-to-quickbooks" },
         { label: t("paypalPayoutQboConverter"),  href: "/tools/free-paypal-to-quickbooks" },
@@ -122,7 +125,7 @@ export async function Footer({ variant: _variant }: { variant?: "agri" | "light"
   // The tool index: every QuickBooks tool link followed by every format
   // converter — the same arrays the columns above are built from, so the
   // index can never drift from them.
-  const indexLinks = [...qbCol.links, ...formatCol.links];
+  const indexLinks = withoutQbTools([...qbCol.links, ...formatCol.links]);
 
   const headingCls =
     "agri-mono mb-4 min-h-[30px] text-[11px] font-bold uppercase tracking-[0.14em] text-[#2CA01C]";
@@ -196,7 +199,7 @@ export async function Footer({ variant: _variant }: { variant?: "agri" | "light"
             <p className="agri-mono text-[11.5px] font-bold uppercase tracking-[0.14em] text-[#2CA01C]">
               {t("allToolsIndex")}
             </p>
-            <p className="text-[12.5px] text-[#8B968A]">{t("allToolsNote")}</p>
+            <p className="text-[12.5px] text-[#8B968A]">{IN ? `${indexLinks.length} tools — free and paid, in one place` : t("allToolsNote")}</p>
           </div>
           <ul className="columns-2 [column-gap:38px] md:columns-3 lg:columns-5">
             {indexLinks.map(({ label, href }, i) => (

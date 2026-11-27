@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { isIndiaSite } from "@/lib/site-region";
 
 const FORMATS = [
   { label: "Excel",              ext: ".xlsx" },
   { label: "CSV",                ext: ".csv"  },
   { label: "OFX for Tally",     ext: ".ofx"  },
-  { label: "QFX for QuickBooks", ext: ".qfx"  },
+  { label: isIndiaSite() ? "QFX" : "QFX for QuickBooks", ext: ".qfx"  },
   { label: "Google Sheets",      ext: ".csv"  },
 ];
 

@@ -5,6 +5,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { TOOL_CARDS } from "@/lib/tools/similar";
+import { isIndiaSite } from "@/lib/site-region";
+import { withoutQbSlugs } from "@/lib/tools/qb-filter";
 import ToolsGuideContent from "@/components/tools/ToolsGuideContent";
 import BankLinks from "@/components/banks/BankLinks";
 import { ArrowRight } from "lucide-react";
@@ -13,19 +15,35 @@ const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.o
 
 const PAGE_URL = `${BASE}/tools`;
 
-export const metadata: Metadata = {
-  title: "All QuickBooks Tools — 44 Converters, Checkers & Fixers | Convert Statement",
-  description:
-    "Every Convert Statement tool on one page: CSV to QBO, QBO to CSV, payout converters for Stripe, PayPal, Amazon, Shopify, Square and Etsy, plus QBO checkers, a reconciliation finder and more. 34 tools are completely free.",
-  alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: "All QuickBooks Tools — Converters, Checkers & Fixers",
-    description:
-      "44 focused tools for QuickBooks users: file converters, payout imports and pre-import checkers. 34 are completely free, no signup needed.",
-    url: PAGE_URL,
-    type: "website",
-  },
-};
+const IN = isIndiaSite();
+
+export const metadata: Metadata = IN
+  ? {
+      title: "All Converter Tools — Excel, CSV, OFX & PDF | Convert Statement",
+      description:
+        "Every Convert Statement tool on one page: CSV, OFX, QFX and QIF file converters for Excel, Google Sheets and Tally workflows. All free, no signup needed.",
+      alternates: { canonical: PAGE_URL },
+      openGraph: {
+        title: "All Converter Tools — Excel, CSV, OFX & PDF",
+        description:
+          "Focused file converters for Indian bank statements: CSV, OFX, QFX and QIF converters, all free, no signup needed.",
+        url: PAGE_URL,
+        type: "website",
+      },
+    }
+  : {
+      title: "All QuickBooks Tools — 44 Converters, Checkers & Fixers | Convert Statement",
+      description:
+        "Every Convert Statement tool on one page: CSV to QBO, QBO to CSV, payout converters for Stripe, PayPal, Amazon, Shopify, Square and Etsy, plus QBO checkers, a reconciliation finder and more. 34 tools are completely free.",
+      alternates: { canonical: PAGE_URL },
+      openGraph: {
+        title: "All QuickBooks Tools — Converters, Checkers & Fixers",
+        description:
+          "44 focused tools for QuickBooks users: file converters, payout imports and pre-import checkers. 34 are completely free, no signup needed.",
+        url: PAGE_URL,
+        type: "website",
+      },
+    };
 
 type Tool = {
   slug: string;
@@ -108,7 +126,15 @@ const GROUPS: { label: string; tools: Tool[] }[] = [
   },
 ];
 
-const ALL_TOOLS: Tool[] = [FEATURED, ...GROUPS.flatMap((g) => g.tools)];
+const VISIBLE_FEATURED: Tool | null = IN ? null : FEATURED;
+const VISIBLE_GROUPS = GROUPS.map((g) => ({ ...g, tools: withoutQbSlugs(g.tools) })).filter(
+  (g) => g.tools.length > 0
+);
+const ALL_TOOLS: Tool[] = [
+  ...(VISIBLE_FEATURED ? [VISIBLE_FEATURED] : []),
+  ...VISIBLE_GROUPS.flatMap((g) => g.tools),
+];
+const FREE_COUNT = ALL_TOOLS.filter((t) => t.tag === "free").length;
 
 function Tag({ tag, dark }: { tag?: Tool["tag"]; dark?: boolean }) {
   if (tag === "free")
@@ -164,7 +190,7 @@ export default function ToolsIndexPage() {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "QuickBooks Tools by Convert Statement",
+    name: IN ? "Converter Tools by Convert Statement" : "QuickBooks Tools by Convert Statement",
     itemListElement: ALL_TOOLS.map((tool, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -193,19 +219,21 @@ export default function ToolsIndexPage() {
             Small tools. <span className="text-[#2CA01C]">Big bookkeeping headaches,</span> gone.
           </h1>
           <p className="mx-auto max-w-[620px] text-base text-[#50614F]">
-            Forty-four focused tools for QuickBooks users — each one does a single job properly, right in your browser.
+            {IN
+              ? `${ALL_TOOLS.length} focused file converters — each one does a single job properly, right in your browser.`
+              : "Forty-four focused tools for QuickBooks users — each one does a single job properly, right in your browser."}
           </p>
           <div className="mt-6 flex justify-center gap-10">
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">44</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">{ALL_TOOLS.length}</span>
               <span className="text-xs text-[#6B7D6A]">tools</span>
             </div>
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">34</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">{FREE_COUNT}</span>
               <span className="text-xs text-[#6B7D6A]">completely free</span>
             </div>
             <div>
-              <span className="block font-display text-2xl font-bold text-[#0B1F16]">4</span>
+              <span className="block font-display text-2xl font-bold text-[#0B1F16]">{VISIBLE_GROUPS.length}</span>
               <span className="text-xs text-[#6B7D6A]">categories</span>
             </div>
           </div>
@@ -215,8 +243,8 @@ export default function ToolsIndexPage() {
         <div className="mx-auto w-full max-w-6xl px-6">
         {/* ── Bento grid ── */}
         <section className="grid grid-cols-1 gap-4 pb-4 pt-12 sm:grid-cols-2 lg:grid-cols-4">
-          <ToolCard tool={FEATURED} wide />
-          {GROUPS.map((group) => (
+          {VISIBLE_FEATURED && <ToolCard tool={VISIBLE_FEATURED} wide />}
+          {VISIBLE_GROUPS.map((group) => (
             <Fragment key={group.label}>
               <h2 className="col-span-full pt-5 text-[13px] font-bold uppercase tracking-[0.1em] text-[#8AA086]">
                 {group.label}
@@ -228,15 +256,17 @@ export default function ToolsIndexPage() {
           ))}
         </section>
 
-        <p className="pb-20 pt-8 text-center text-sm text-[#6B7D6A]">
-          Not sure where to start? Most bookkeepers start with the{" "}
-          <Link href="/tools/csv-to-qbo" className="font-semibold text-[#2CA01C] underline underline-offset-2">
-            CSV to QBO Converter
-          </Link>
-          .
-        </p>
+        {!IN && (
+          <p className="pb-20 pt-8 text-center text-sm text-[#6B7D6A]">
+            Not sure where to start? Most bookkeepers start with the{" "}
+            <Link href="/tools/csv-to-qbo" className="font-semibold text-[#2CA01C] underline underline-offset-2">
+              CSV to QBO Converter
+            </Link>
+            .
+          </p>
+        )}
 
-        <ToolsGuideContent />
+        {!IN && <ToolsGuideContent />}
 
         <section className="mx-auto max-w-6xl px-6 pb-24 pt-4">
           <BankLinks />

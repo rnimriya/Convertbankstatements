@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withoutQbTools } from "@/lib/tools/qb-filter";
 import { isIndiaSite } from "@/lib/site-region";
 
 const IN = isIndiaSite();
@@ -69,9 +70,9 @@ const FAQS: LandingFaq[] = [
     a: "No. Files are processed in memory and deleted immediately after conversion — statement content is not stored. We never sell or share your financial data.",
   },
   {
-    q: "Can I get CSV or QuickBooks formats instead of Excel?",
+    q: IN ? "Can I get CSV or other formats instead of Excel?" : "Can I get CSV or QuickBooks formats instead of Excel?",
     a: IN
-      ? "Yes. The same converter also exports CSV on every plan, and OFX for Tally, QBO, QFX and Google Sheets on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload; if your books are in Tally, export OFX and import it into Tally."
+      ? "Yes. The same converter also exports CSV on every plan, and OFX for Tally, QFX and Google Sheets on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload; if your books are in Tally, export OFX and import it into Tally."
       : "Yes. The same converter also exports CSV on every plan, and QBO, QFX, OFX and Google Sheets on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload; if your books are in QuickBooks, the PDF to QBO converter is the direct route.",
   },
 ];
@@ -90,11 +91,11 @@ export default function BankStatementToExcelPage() {
       steps={STEPS}
       faqs={FAQS}
       showBanks
-      related={[
+      related={withoutQbTools([
         { href: "/bank-statement-to-csv", label: "Bank Statement to CSV", desc: "The same converter with a plain-text CSV download — the most portable format." },
         { href: "/pdf-to-qbo", label: "PDF to QBO Converter", desc: "Skip the spreadsheet and turn a statement PDF straight into a QuickBooks QBO file." },
         { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", desc: "Already have a QBO file? Turn it back into a spreadsheet-ready CSV." },
-      ]}
+      ])}
     >
       <h2 className={H2}>What the Excel file contains</h2>
       <p className={P}>
@@ -166,9 +167,9 @@ export default function BankStatementToExcelPage() {
         Prefer plain text over a workbook? The{" "}
         <Link href="/bank-statement-to-csv" className={INLINE_LINK}>bank statement to CSV converter</Link>{" "}
         runs the same conversion and downloads a CSV instead — better for importing into other
-        tools. And if the end destination is QuickBooks rather than a spreadsheet, go straight
+        tools.{IN ? " And if your books are in Tally, export OFX from the same converter — Tally accepts OFX for bank statement import." : <> And if the end destination is QuickBooks rather than a spreadsheet, go straight
         to the{" "}
-        <Link href="/pdf-to-qbo" className={INLINE_LINK}>PDF to QBO converter</Link>.
+        <Link href="/pdf-to-qbo" className={INLINE_LINK}>PDF to QBO converter</Link>.</>}
       </p>
     </FormatLanding>
   );

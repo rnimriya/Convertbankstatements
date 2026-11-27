@@ -391,3 +391,50 @@ main div:has(> table:only-child) {
 @media (prefers-reduced-motion: reduce) {
   .dropbox-border-anim-6 { animation: none; }
 }
+
+/* ── convertstatement.in (India site) green: owner order 2026-11-27,
+   green = #047857. Scoped to body.india-site so .online is unchanged. ── */
+body.india-site {
+  --color-primary: 4 120 87;   /* #047857 */
+  --color-secondary: 4 120 87; /* #047857 */
+}
+body.india-site .dropbox-border-anim,
+body.india-site .dropbox-border-anim-6 {
+  background:
+    linear-gradient(#fafafa, #fafafa) padding-box,
+    conic-gradient(from var(--drop-angle), #047857, #a7f3d0, #ecfdf5, #065f46, #047857) border-box;
+}
+/* Hardcoded QuickBooks-green arbitrary classes in shared components
+   (UploadCard, Footer) remapped to #047857 on the India site only. */
+body.india-site .bg-\[\#2CA01C\] { background-color: #047857 !important; }
+body.india-site .hover\:bg-\[\#238a17\]:hover { background-color: #065f46 !important; }
+body.india-site .text-\[\#007A33\] { color: #047857 !important; }
+body.india-site .bg-\[\#E3F2DF\] { background-color: #ecfdf5 !important; }
+body.india-site .border-\[\#2CA01C\] { border-color: #047857 !important; }
+
+/* convertstatement.in navigation (clean white bar, owner picked
+   Option 2 on 2026-11-27): auth actions in the bar — Sign in as bold
+   text, Sign Up as a black pill. Scoped to .india-nav-auth wrappers. */
+body.india-site .india-nav-auth a[href$="/login"] {
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  color: #18181b !important;
+  padding: 0 12px !important;
+  white-space: nowrap !important;
+}
+body.india-site .india-nav-auth a[href$="/login"]:hover { color: #047857 !important; }
+body.india-site .india-nav-auth a[href$="/signup"] {
+  background-color: #18181b !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+  padding: 10px 20px !important;
+  font-size: 14.5px !important;
+  white-space: nowrap !important;
+}
+body.india-site .india-nav-auth a[href$="/signup"]:hover { background-color: #047857 !important; }
+
+/* The IN header is in-flow (white bar), not the overlay pill the
+   pages' pt-[124px] heroes were spaced for — tighten on IN only, and give
+   anchored sections clearance under the sticky header. */
+body.india-site .pt-\[124px\] { padding-top: 48px !important; }
+body.india-site .scroll-mt-24 { scroll-margin-top: 132px !important; }

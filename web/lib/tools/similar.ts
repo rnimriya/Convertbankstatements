@@ -1,3 +1,5 @@
+import { isQbToolSlug } from "@/lib/tools/qb-filter";
+import { isIndiaSite } from "@/lib/site-region";
 /**
  * Canonical tool-card data + per-page "Similar tools" picks.
  *
@@ -171,6 +173,7 @@ export const SIMILAR_SUBLINES: Record<string, string> = {
 };
 
 const FALLBACK_SUBLINE = "More converters, checkers and fixers for QuickBooks files.";
+const FALLBACK_SUBLINE_IN = "More free converters for your statements — Excel, CSV, OFX and PDF, one job each.";
 const FALLBACK_PICKS = [
   "csv-to-qbo",
   "qbo-to-csv",
@@ -190,15 +193,15 @@ export function getSimilarTools(currentPath: string): {
 } {
   const slug = currentPath.replace(/^\/tools\//, "");
   const picks = (SIMILAR_TOOLS[slug] ?? FALLBACK_PICKS).filter(
-    (s) => s !== slug && TOOL_CARDS[s],
+    (s) => s !== slug && TOOL_CARDS[s] && (!isIndiaSite() || !isQbToolSlug(s)),
   );
   // Top up from the fallback list if a family ever yields fewer than six.
   for (const s of FALLBACK_PICKS) {
     if (picks.length >= 6) break;
-    if (s !== slug && !picks.includes(s)) picks.push(s);
+    if (s !== slug && !picks.includes(s) && (!isIndiaSite() || !isQbToolSlug(s))) picks.push(s);
   }
   return {
-    subline: SIMILAR_SUBLINES[slug] ?? FALLBACK_SUBLINE,
+    subline: isIndiaSite() ? FALLBACK_SUBLINE_IN : (SIMILAR_SUBLINES[slug] ?? FALLBACK_SUBLINE),
     tools: picks.slice(0, 6).map((s) => TOOL_CARDS[s]),
   };
 }

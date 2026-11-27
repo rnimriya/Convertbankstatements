@@ -4,6 +4,8 @@ import { Footer } from "@/components/layout/Footer";
 import { QboChecker } from "@/components/tools/QboChecker";
 import { SimilarToolsSection } from "@/components/tools/SimilarTools";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
+import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 
 const FAQS = [
   {
@@ -51,6 +53,8 @@ export const metadata: Metadata = {
 };
 
 export default function QboCheckerPage() {
+  if (isIndiaSite()) notFound(); // convertstatement.in: no QuickBooks content (owner order 2026-11-27)
+
   const nonce = BUILD_NONCE;
   const faqSchema = {
     "@context": "https://schema.org",

@@ -196,7 +196,7 @@ export default async function PricingPage() {
                 </tr>
               </thead>
               <tbody>
-                {COMPARE_ROWS.map(({ feature, free, basic, pro, business }, i) => (
+                {COMPARE_ROWS.filter((r) => !IN || !/quickbooks|qbo/i.test(r.feature)).map(({ feature, free, basic, pro, business }, i) => (
                   <tr key={feature} className={"bg-white"}>
                     <td className="px-5 py-3 font-medium text-zinc-700">{feature}</td>
                     {(IN ? [basic, pro, business] : [free, basic, pro, business]).map((val, j) => (
@@ -210,7 +210,8 @@ export default async function PricingPage() {
         </div>
       </div>
 
-      {/* Bulk suite value section */}
+      {/* Bulk suite value section — QuickBooks-only, hidden on .in */}
+      {!IN && (
       <div className="bg-white px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <p className="mb-4 text-center"><span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#D8E8D2] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] text-[#007A33] shadow-sm"><span className="w-1.5 h-1.5 rounded-full bg-[#2CA01C] shrink-0" />Included free</span></p>
@@ -247,6 +248,7 @@ export default async function PricingPage() {
           </p>
         </div>
       </div>
+      )}
 
       <Footer />
     </div>

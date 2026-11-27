@@ -2,11 +2,15 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 
 import { MobileMenu } from "./MobileMenu";
+import { IndiaNavbar } from "./IndiaNavbar";
 import { NavQuickBooksMenu } from "./NavQuickBooksMenu";
 import { NavSessionIsland } from "./NavSessionIsland";
+import { isIndiaSite } from "@/lib/site-region";
+import { withoutQbTools } from "@/lib/tools/qb-filter";
 
 export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string }) {
   const t = await getTranslations("nav");
+  const IN = isIndiaSite(); // .in: no QuickBooks menu/content (owner order 2026-11-27)
   const linkCls = "text-[13.5px] font-medium text-zinc-600 hover:text-zinc-900";
 
   const quickBooksGroups = [
@@ -90,6 +94,27 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
     ctaHref: "/tools",
   };
 
+  const visibleGroups = quickBooksGroups
+    .map((g) => ({ ...g, items: withoutQbTools(g.items) }))
+    .filter((g) => g.items.length > 0);
+  const visibleFeatured = {
+    ...quickBooksFeatured,
+    links: IN
+      ? [
+          { href: "/tools/csv-to-ofx", label: t("csvToOfx") },
+          { href: "/tools/ofx-to-csv", label: t("ofxToCsv") },
+          { href: "/tools/qfx-to-excel", label: t("qfxToExcel") },
+        ]
+      : quickBooksFeatured.links,
+  };
+
+  // convertstatement.in: clean white-bar navigation (owner picked
+  // Option 2, 2026-11-27). .online renders the pill navbar below,
+  // unchanged.
+  if (IN) {
+    return <IndiaNavbar groups={visibleGroups} />;
+  }
+
   return (
     <div className="sticky top-0 z-50 px-3 sm:px-6 pt-3 pb-1 -mb-[72px]">
       <nav className="relative mx-auto max-w-6xl rounded-full bg-white/95 backdrop-blur-md border border-zinc-200/90 shadow-[0_10px_36px_rgba(11,31,22,0.10)]">
@@ -104,9 +129,9 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
                 { href: "/pricing", label: t("pricing") },
                 { href: "/#faq", label: t("faq") },
               ]}
-              groups={quickBooksGroups}
-              featured={quickBooksFeatured}
-              quickbooksLabel={t("quickbooks")}
+              groups={visibleGroups}
+              featured={visibleFeatured}
+              quickbooksLabel={IN ? "Tools" : t("quickbooks")}
               allToolsLabel={t("allTools")}
               menuLabel={t("menu")}
               closeLabel={t("close")}
@@ -139,9 +164,9 @@ export async function Navbar({ dark = false, bg }: { dark?: boolean; bg?: string
             ))}
             <NavQuickBooksMenu
               dark={false}
-              menuLabel={t("quickbooks")}
-              groups={quickBooksGroups}
-              featured={quickBooksFeatured}
+              menuLabel={IN ? "Tools" : t("quickbooks")}
+              groups={visibleGroups}
+              featured={visibleFeatured}
             />
             <Link
               href="/#faq"

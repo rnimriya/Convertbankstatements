@@ -48,16 +48,27 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
       ? "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and other Indian banks into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free."
       : "Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds. First 8 pages free.",
-  keywords: [
-    "Wells Fargo PDF to Excel",
-    "Citibank statement converter",
-    "bank statement PDF to Excel",
-    "bank statement converter",
-    "PDF to OFX Tally",
-    "bank statement to Google Sheets",
-    "CA bank reconciliation tool",
-    "PDF to QFX QuickBooks",
-  ],
+  keywords:
+    process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
+      ? [
+          "SBI PDF to Excel",
+          "HDFC statement converter",
+          "bank statement PDF to Excel",
+          "bank statement converter",
+          "PDF to OFX Tally",
+          "bank statement to Google Sheets",
+          "CA bank reconciliation tool",
+        ]
+      : [
+          "Wells Fargo PDF to Excel",
+          "Citibank statement converter",
+          "bank statement PDF to Excel",
+          "bank statement converter",
+          "PDF to OFX Tally",
+          "bank statement to Google Sheets",
+          "CA bank reconciliation tool",
+          "PDF to QFX QuickBooks",
+        ],
   authors: [{ name: "Convert Statement", url: BASE }],
   creator: "Convert Statement",
   publisher: "Convert Statement",
@@ -159,6 +170,7 @@ export default async function LocaleLayout({
   }
 
   const messages = await getMessages();
+  const IN = process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN";
   const nonce = BUILD_NONCE;
 
   return (
@@ -187,7 +199,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${manrope.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${manrope.variable} ${jetbrainsMono.variable} font-sans antialiased${IN ? " india-site" : ""}`}>
         {/* Google Analytics 4 — lazyOnload: analytics must never compete
             with the critical first paint (moved out of <head> 2026-11-01). */}
         <Script
@@ -206,7 +218,8 @@ export default async function LocaleLayout({
             visitors/pageviews alongside GA4. */}
         <Analytics />
         <NextIntlClientProvider messages={messages}>
-          <AnnouncementBanner />
+          {/* convertstatement.in: no top strip above the nav (owner order 2026-11-27) */}
+          {!IN && <AnnouncementBanner />}
           {children}
           <ChatWidgetLazy />
         </NextIntlClientProvider>

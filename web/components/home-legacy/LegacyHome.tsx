@@ -23,7 +23,7 @@ export type LegacyFaq = { q: string; a: string };
  */
 
 function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#047857] mb-3.5">{children}</p>;
+  return <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#047857] mb-3.5">{children}</p>;
 }
 
 function SecHead({ eyebrow, title, body, center = false }: { eyebrow: string; title: ReactNode; body?: string; center?: boolean }) {
@@ -44,24 +44,25 @@ function IconTile({ children }: { children: ReactNode }) {
   );
 }
 
-const FACTS = [
-  { n: "44", l: "Tools" },
-  { n: "34", l: "Free tools" },
-  { n: "8", l: "Pages free to start" },
-  { n: "~15 sec", l: "Per conversion" },
-];
+function factsFor(tools: LegacyTool[]) {
+  return [
+    { n: String(tools.length), l: "Tools" },
+    { n: String(tools.filter((t) => t.tag === "free").length), l: "Free tools" },
+    { n: "8", l: "Pages free to start" },
+    { n: "~15 sec", l: "Per conversion" },
+  ];
+}
 
 const USE_CASES = [
   { icon: <Table2 size={21} className="text-[#047857]" />, title: "PDF to Excel", body: "Statement PDF to a clean .xlsx — one row per transaction.", href: "/bank-statement-to-excel" },
   { icon: <FileText size={21} className="text-[#047857]" />, title: "PDF to CSV", body: "Plain-text rows that open in any spreadsheet or import tool.", href: "/bank-statement-to-csv" },
   { icon: <BookOpen size={21} className="text-[#047857]" />, title: "PDF to Tally", body: "OFX export your Tally books accept for bank statement import.", href: "#upload" },
-  { icon: <FileSpreadsheet size={21} className="text-[#047857]" />, title: "PDF to QuickBooks", body: "QBO Web Connect files QuickBooks can import directly.", href: "/pdf-to-qbo" },
   { icon: <FileText size={21} className="text-[#047857]" />, title: "PDF to Sheets", body: "Send statement rows straight into Google Sheets.", href: "#upload" },
 ];
 
 const WHO = [
   { title: "Chartered accountants", body: "Client statements converted and balance-checked before they reach your working papers." },
-  { title: "Bookkeepers", body: "Monthly statements into Excel, Tally or QuickBooks without line-by-line entry." },
+  { title: "Bookkeepers", body: "Monthly statements into Excel or Tally without line-by-line entry." },
   { title: "Small businesses", body: "Your own statements, ready for GST filing, audits and loan paperwork." },
   { title: "Tax filing", body: "A full year of transactions as clean rows when ITR season arrives." },
   { title: "Loan & visa applications", body: "Statement history in a spreadsheet you can sort, filter and share." },
@@ -71,7 +72,7 @@ const WHO = [
 const COMPARE: { crit: string; us: string; them: string }[] = [
   { crit: "Time", us: "~15 seconds per conversion", them: "Hours for a long statement" },
   { crit: "Balance check", us: "Checked on every conversion, before download", them: "You find mismatches at month-end" },
-  { crit: "Formats", us: "Excel, CSV, Tally, QBO, OFX, Google Sheets from one upload", them: "One format, typed once, fixed by hand" },
+  { crit: "Formats", us: "Excel, CSV, Tally, OFX, Google Sheets from one upload", them: "One format, typed once, fixed by hand" },
   { crit: "Password PDFs", us: "Accepted as they arrive from your bank", them: "Open, read and copy every line yourself" },
   { crit: "Cost to start", us: "First 8 pages free, no account needed", them: "Your team's hours, every single month" },
 ];
@@ -89,8 +90,8 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── FACTS STRIP ─────────────────────────────── */}
       <section className="bg-white border-y border-[#e2e8f0]">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4">
-          {FACTS.map((f, i) => (
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4">
+          {factsFor(tools).map((f, i) => (
             <div key={f.l} className={`py-7 px-5 text-center ${i > 0 ? "border-l border-[#e2e8f0]" : ""} ${i >= 2 ? "max-lg:border-t max-lg:border-[#e2e8f0]" : ""} ${i === 2 ? "max-lg:border-l-0" : ""}`}>
               <div className="text-[32px] font-extrabold tracking-tight text-[#047857]">{f.n}</div>
               <div className="text-sm font-semibold text-[#64748b] mt-0.5">{f.l}</div>
@@ -101,7 +102,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── PROBLEM REFRAME ─────────────────────────── */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead
             center
             eyebrow="The real problem"
@@ -109,7 +110,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
             body="Statements arrive as PDFs every month. Your accounting software cannot read them — so someone has to type every line by hand."
           />
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-[18px] border border-[#fecaca] bg-[#fef2f2] p-8">
+            <div className="rounded-xl border border-[#fecaca] bg-[#fef2f2] p-8">
               <p className="text-[13px] font-extrabold uppercase tracking-[0.1em] text-[#dc2626] mb-3">Manual typing</p>
               <h3 className="text-[28px] font-extrabold tracking-tight text-[#0f172a] mb-2.5">Hours of typing</h3>
               <p className="text-[#334155]">The result: typing errors, mismatched balances, and skilled staff stuck doing data entry.</p>
@@ -119,7 +120,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
                 ))}
               </ul>
             </div>
-            <div className="rounded-[18px] border border-[#d1fae5] bg-[#ecfdf5] p-8">
+            <div className="rounded-xl border border-[#d1fae5] bg-[#ecfdf5] p-8">
               <p className="text-[13px] font-extrabold uppercase tracking-[0.1em] text-[#047857] mb-3">With ConvertStatement</p>
               <h3 className="text-[28px] font-extrabold tracking-tight text-[#0f172a] mb-2.5">Seconds to download</h3>
               <p className="text-[#334155]">The result: clean rows in Excel, CSV or Tally — with the balance checked before you download.</p>
@@ -135,18 +136,17 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── HOW IT WORKS ────────────────────────────── */}
       <section id="how-it-works" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead center eyebrow="How it works" title="Start with one statement" body="One statement is enough to see the result on your own data. Your first 8 pages are free." />
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { n: "Step 01", icon: <Upload size={24} className="text-[#047857]" />, title: "Upload your statement PDF", body: "Drop the PDF in, or add it from your device, Google Drive, Dropbox or a link. Password-protected statement PDFs are accepted — PDF only, up to 50 MB." },
-              { n: "Step 02", icon: <Search size={24} className="text-[#047857]" />, title: "Check the preview", body: "See the transactions the converter found — date, description, amount and balance — with a balance check on every conversion before you download anything." },
-              { n: "Step 03", icon: <Download size={24} className="text-[#047857]" />, title: "Download in your format", body: "Excel, CSV, Tally, QuickBooks (QBO), OFX or Google Sheets — one row per transaction, ready for your books." },
+              { n: "1. Upload your statement PDF", icon: <Upload size={24} className="text-[#047857]" />, title: "Upload your statement PDF", body: "Drop the PDF in, or add it from your device, Google Drive, Dropbox or a link. Password-protected statement PDFs are accepted — PDF only, up to 50 MB." },
+              { n: "2. Check the preview", icon: <Search size={24} className="text-[#047857]" />, title: "Check the preview", body: "See the transactions the converter found — date, description, amount and balance — with a balance check on every conversion before you download anything." },
+              { n: "3. Download in your format", icon: <Download size={24} className="text-[#047857]" />, title: "Download in your format", body: "Excel, CSV, Tally, OFX or Google Sheets — one row per transaction, ready for your books." },
             ].map((s) => (
-              <div key={s.n} className="bg-white border border-[#e2e8f0] rounded-[18px] p-[30px]">
-                <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#047857] mb-4">{s.n}</p>
+              <div key={s.n} className="bg-white border border-[#e2e8f0] rounded-xl p-[30px]">
                 <IconTile>{s.icon}</IconTile>
-                <h3 className="text-[21px] font-extrabold tracking-tight text-[#0f172a] mb-2">{s.title}</h3>
+                <h3 className="text-[21px] font-extrabold tracking-tight text-[#0f172a] mb-2">{s.n}</h3>
                 <p className="text-[15px] text-[#64748b] leading-relaxed">{s.body}</p>
               </div>
             ))}
@@ -161,8 +161,8 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── USE CASES ───────────────────────────────── */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <SecHead eyebrow="Converters" title="One statement, every format your books need" body="44 tools in all — 34 of them free. These are the ones Indian businesses use most." />
+        <div className="max-w-7xl mx-auto px-4">
+          <SecHead eyebrow="Converters" title="One statement, every format your books need" body={`${tools.length} tools in all — ${tools.filter((t) => t.tag === "free").length} of them free. These are the ones Indian businesses use most.`} />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-[18px]">
             {USE_CASES.map((u) => (
               <div key={u.title} className="bg-white border border-[#e2e8f0] rounded-2xl px-5 py-6 flex flex-col">
@@ -178,10 +178,10 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── BENTO BENEFITS ──────────────────────────── */}
       <section id="features" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead eyebrow="Why ConvertStatement" title="Built for the whole job, not just extraction" body="Extracting text is the easy part. Checking it, formatting it and handing you a file your books accept is the job." />
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white border border-[#e2e8f0] rounded-[18px] p-8">
+            <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><CircleCheck size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Balance check on every conversion</h3>
               <p className="text-[15px] text-[#64748b] leading-relaxed">Running balances are verified against the statement before you download, so a mismatch surfaces immediately — not at month-end.</p>
@@ -191,7 +191,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Closing balance</span><b className="text-[#0f172a] inline-flex items-center gap-1">88,631 <Check size={13} strokeWidth={3} className="text-[#047857]" /> matches</b></div>
               </div>
             </div>
-            <div className="bg-white border border-[#e2e8f0] rounded-[18px] p-8">
+            <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><Landmark size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Made for Indian bank statements</h3>
               <p className="text-[15px] text-[#64748b] leading-relaxed">Statement layouts from the banks Indian businesses actually use — public sector, private and cooperative banks alike.</p>
@@ -201,7 +201,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
                 ))}
               </div>
             </div>
-            <div className="bg-white border border-[#e2e8f0] rounded-[18px] p-8">
+            <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><UserRound size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">No account needed to start</h3>
               <p className="text-[15px] text-[#64748b] leading-relaxed">Your first 8 pages are free with no signup. Convert a real statement, check the result, and decide from evidence.</p>
@@ -210,7 +210,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Account required</span><b className="text-[#0f172a]">No</b></div>
               </div>
             </div>
-            <div className="bg-white border border-[#e2e8f0] rounded-[18px] p-8">
+            <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><Lock size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Password-protected PDFs accepted</h3>
               <p className="text-[15px] text-[#64748b] leading-relaxed">Most Indian bank statements arrive password-protected. ConvertStatement accepts them as they are — enter the password during upload; it is never stored.</p>
@@ -223,9 +223,22 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
         </div>
       </section>
 
+            {/* ─── WHY CHOOSE US (RK-style checklist) ──────── */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <SecHead eyebrow="Why choose us" title="Why Businesses Across India Choose ConvertStatement" />
+          <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-[15px] text-[#334155] max-w-4xl">
+            {["Balance checked on every conversion — no guesswork, no wrong totals","Price in rupees, written clearly — no hidden charges","Made for Indian bank statements — SBI, HDFC, ICICI, Axis and 60 banks in all","Password-protected PDFs accepted, exactly as your bank sends them","Files processed in memory and deleted immediately — never stored","One upload gives Excel, CSV, Tally, OFX and Google Sheets"].map((t) => (
+              <li key={t} className="flex gap-2.5 items-start"><Check size={17} strokeWidth={2.8} className="text-[#047857] shrink-0 mt-0.5" />{t}</li>
+            ))}
+          </ul>
+          <a href="#upload" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#047857] px-6 py-3 text-sm font-bold text-white mt-7">Convert free <ArrowRight size={15} /></a>
+        </div>
+      </section>
+
       {/* ─── POSITIONING ─────────────────────────────── */}
       <section className="py-20 bg-[#047857] text-white text-center">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-display text-3xl sm:text-[42px] font-extrabold tracking-tight leading-[1.15]">Keep your bank. Remove the typing.</h2>
           <p className="text-lg text-[#d1fae5] max-w-[640px] mx-auto mt-4 leading-relaxed">ConvertStatement is built to finish one job — statement PDF in, bookkeeping-ready file out — not to hand you another tool to configure.</p>
           <div className="flex justify-center gap-3 flex-wrap mt-[26px]">
@@ -238,7 +251,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── WHO IT'S FOR ────────────────────────────── */}
       <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead eyebrow="Who it's for" title="Where ConvertStatement fits" body="Anyone who receives bank statements as PDFs and needs them as rows in a spreadsheet or accounting package." />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
             {WHO.map((w) => (
@@ -253,9 +266,9 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── COMPARISON ──────────────────────────────── */}
       <section className="py-20 bg-white border-y border-[#e2e8f0]">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead center eyebrow="Compare" title="ConvertStatement vs typing it yourself" body="Judge it on your own statement — the first 8 pages are free." />
-          <div className="bg-white border border-[#e2e8f0] rounded-[18px] overflow-x-auto">
+          <div className="bg-white border border-[#e2e8f0] rounded-xl overflow-x-auto">
             <table className="w-full border-collapse min-w-[600px]">
               <thead>
                 <tr>
@@ -278,13 +291,13 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
         </div>
       </section>
 
-      {/* ─── ALL 44 TOOLS ────────────────────────────── */}
+      {/* ─── ALL TOOLS ────────────────────────────── */}
       <section id="tools" className="py-20 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <SecHead eyebrow="All tools" title={<>All 44 tools. <span className="text-[#047857]">Thirty-four free.</span></>} body="Pick any tool — thirty-four are completely free, no account needed." />
+        <div className="max-w-7xl mx-auto px-4">
+          <SecHead eyebrow="All tools" title={<>All {tools.length} tools. <span className="text-[#047857]">{tools.filter((t) => t.tag === "free").length} free.</span></>} body={`Pick any tool — ${tools.filter((t) => t.tag === "free").length} are completely free, no account needed.`} />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tools.map((t) => (
-              <Link key={t.href} href={t.href} className="flex flex-col rounded-[18px] border border-[#e2e8f0] bg-white p-5 hover:border-[#a7f3d0]">
+              <Link key={t.href} href={t.href} className="flex flex-col rounded-xl border border-[#e2e8f0] bg-white p-5 hover:border-[#a7f3d0]">
                 <img src={t.img} alt="" width={52} height={52} loading="lazy" className="mb-3 h-[52px] w-[52px] rounded-[14px] bg-[#f8fafc] object-contain" />
                 <span className="font-display text-[15.5px] font-bold text-[#0f172a]">{t.label}</span>
                 <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#64748b]">{t.desc}</span>
@@ -306,11 +319,11 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── PRICING ─────────────────────────────────── */}
       <section id="pricing" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead center eyebrow="Pricing" title="Three packages. Prices in rupees." body="Start free with 8 pages. Upgrade when your statements run longer." />
           <div className="grid md:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto">
             {pricePlans.map((p) => (
-              <div key={p.name} className={`relative bg-white rounded-[20px] px-[30px] py-[34px] flex flex-col ${p.hot ? "border-2 border-[#047857]" : "border border-[#e2e8f0]"}`}>
+              <div key={p.name} className={`relative bg-white rounded-xl px-[30px] py-[34px] flex flex-col ${p.hot ? "border-2 border-[#047857]" : "border border-[#e2e8f0]"}`}>
                 {p.hot && <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#047857] text-white text-xs font-extrabold uppercase tracking-[0.08em] px-3.5 py-1.5 rounded-full whitespace-nowrap">Most popular</span>}
                 <p className="text-[15px] font-extrabold uppercase tracking-[0.08em] text-[#64748b]">{p.name}</p>
                 <p className="text-[44px] font-extrabold tracking-tight leading-none text-[#0f172a] mt-2.5 mb-1">
@@ -332,22 +345,24 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── GROUPED FAQ ─────────────────────────────── */}
       <section id="faq" className="py-20 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <SecHead eyebrow="FAQ" title="More questions? More answers." />
           <div className="grid md:grid-cols-3 gap-10 lg:gap-12">
             {faqGroups.map((g) => (
               <div key={g.title}>
                 <h3 className="text-[15px] font-extrabold uppercase tracking-[0.1em] text-[#047857] mb-[18px]">{g.title}</h3>
+                <div className="space-y-3">
                 {g.items.map((f) => (
-                  <div key={f.q} className="border-t border-[#e2e8f0] py-[18px]">
-                    <h4 className="text-[16.5px] font-extrabold tracking-tight text-[#0f172a] mb-1.5">{f.q}</h4>
-                    <p className="text-[15px] text-[#64748b] leading-relaxed">{f.a}</p>
-                  </div>
+                  <details key={f.q} className="bg-white border border-[#e2e8f0] rounded-xl p-5">
+                    <summary className="font-bold text-[#0f172a] cursor-pointer">{f.q}</summary>
+                    <p className="text-sm text-[#64748b] leading-relaxed mt-2">{f.a}</p>
+                  </details>
                 ))}
+                </div>
               </div>
             ))}
           </div>
-          <div className="mt-10 rounded-[18px] bg-[#0f172a] px-7 py-7 sm:px-9 flex flex-wrap items-center justify-between gap-4">
+          <div className="mt-10 rounded-xl bg-[#0f172a] px-7 py-7 sm:px-9 flex flex-wrap items-center justify-between gap-4">
             <div>
               <p className="text-white font-display font-bold text-lg">Still have questions?</p>
               <p className="text-[#cbd5e1] text-sm mt-0.5">Send us a message and we&apos;ll help you out.</p>
@@ -359,7 +374,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── BANKS — INTERNAL LINKS ──────────────────── */}
       <section className="py-20 bg-white border-t border-[#e2e8f0]">
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4">
           <Eyebrow>Banks</Eyebrow>
           <div className="mt-2">
             <BankLinks />
@@ -369,14 +384,21 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
 
       {/* ─── FINAL CTA ───────────────────────────────── */}
       <section className="pb-20 bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="bg-[#0f172a] text-white text-center rounded-[24px] px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="bg-[#0f172a] text-white text-center rounded-xl px-8 py-16">
             <h2 className="font-display text-3xl sm:text-[38px] font-extrabold tracking-tight">Try it on your own statement</h2>
             <p className="text-[#cbd5e1] text-[17px] max-w-[560px] mx-auto mt-3.5 leading-relaxed">Upload one real bank statement and judge the result yourself. First 8 pages free, no account needed.</p>
             <a href="#upload" className="inline-flex items-center gap-2 rounded-xl bg-white px-[30px] py-4 text-[17px] font-bold text-[#0f172a] whitespace-nowrap mt-[30px]">Convert free <ArrowRight size={17} /></a>
           </div>
         </div>
       </section>
+      {/* ─── STICKY MOBILE BAR (RK pattern) ──────────── */}
+      <div className="fixed bottom-0 inset-x-0 z-50 md:hidden bg-white border-t border-[#e2e8f0] shadow-[0_-4px_16px_rgba(0,0,0,0.12)] grid grid-cols-3 text-center text-[13px] font-bold">
+        <a href="#tools" className="py-3.5 text-[#0f172a]">Tools</a>
+        <a href="#pricing" className="py-3.5 text-[#0f172a]">Pricing</a>
+        <a href="#upload" className="py-3.5 bg-[#047857] text-white">Convert Free</a>
+      </div>
+      <div className="h-14 md:hidden" />
     </main>
   );
 }

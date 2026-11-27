@@ -4,6 +4,8 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
+import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -51,6 +53,8 @@ const FAQS = [
 ];
 
 export default function ForBookkeepersPage() {
+  if (isIndiaSite()) notFound(); // convertstatement.in: no QuickBooks content (owner order 2026-11-27)
+
   const nonce = BUILD_NONCE;
   const faqSchema = {
     "@context": "https://schema.org",

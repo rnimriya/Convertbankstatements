@@ -11,6 +11,7 @@ import { Footer } from"@/components/layout/Footer";
 import { Navbar } from"@/components/layout/Navbar";
 import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
 import { LegacyHome } from"@/components/home-legacy/LegacyHome";
+import { withoutQbTools } from "@/lib/tools/qb-filter";
 import { BANKS_REGION, bankCountLabel, visibleBankCount } from "@/lib/config/bank-region";
 import { isIndiaSite } from "@/lib/site-region";
 import BankLinks from"@/components/banks/BankLinks";
@@ -41,7 +42,7 @@ export default async function HomePage() {
     { icon: <FileCheck size={22} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", stat:"99.4", statSuffix:"%", title: tFeat("accurateTitle"), body: tFeat("accurateBody"), img:"/features/feature-accurate.webp" },
     { icon: <Globe size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", stat:"30", statSuffix:"+", title: IN ? "Indian banks covered" : tFeat("banksTitle"), body: IN ? "SBI, HDFC, ICICI, Axis, Kotak, PNB and other Indian banks — savings, current and salary accounts." : tFeat("banksBody"), img:"/features/feature-banks.webp" },
     { icon: <Lock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("passwordTitle"), body: tFeat("passwordBody"), img:"/features/feature-password.webp" },
-    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: IN ? "Excel, CSV, OFX for Tally, QBO and Google Sheets in one tool." : tFeat("formatsBody"), chips: ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
+    { icon: <FileText size={22} className="text-pine-500 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("formatsTitle"), body: IN ? "Excel, CSV, OFX for Tally and Google Sheets in one tool." : tFeat("formatsBody"), chips: IN ? ["Excel","CSV","OFX / Tally","Google Sheets"] : ["Excel","CSV","QBO · QuickBooks","OFX / Tally","Google Sheets"], img:"/features/feature-formats.webp" },
     { icon: <CreditCard size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("pricingTitle"), body: IN ? "First 8 pages free. Then monthly plans from ₹499 — no subscription traps." : tFeat("pricingBody"), img:"/features/feature-pricing.webp" },
     { icon: <Clock size={20} className="text-pine-600 dark:text-pine-400" />, gradient:"", glow:"", title: tFeat("instantTitle"), body: tFeat("instantBody"), img:"/features/feature-instant.webp" },
   ];
@@ -64,7 +65,7 @@ export default async function HomePage() {
       img:"/steps/step-format.webp",
       icon: <FileCheck className="text-pine-600 dark:text-pine-400"  size={20} />,
       title: tHow("step2Title"),
-      body: IN ? "Pick Excel, CSV, OFX for Tally, QBO, or Google Sheets — each optimized for its target." : tHow("step2Body"),
+      body: IN ? "Pick Excel, CSV, OFX for Tally, or Google Sheets — each optimized for its target." : tHow("step2Body"),
       gradient:"bg-zinc-100 text-zinc-900",
       glow:"",
     },
@@ -163,7 +164,7 @@ export default async function HomePage() {
   const PRICE_PLANS = IN
     ? [
         { name: "Basic", price: "₹499", suffix: " /mo", per: "for occasional converts", features: ["25 pages a month", "All export formats", "Password PDFs"], btn: "Choose Basic", hot: false },
-        { name: "Pro", price: "₹1,999", suffix: " /mo", per: "for firms & bookkeepers", features: ["Everything in Basic", "QBO / QFX / OFX downloads", "Priority processing"], btn: "Choose Pro", hot: true },
+        { name: "Pro", price: "₹1,999", suffix: " /mo", per: "for firms & bookkeepers", features: ["Everything in Basic", "QFX / OFX downloads", "Priority processing"], btn: "Choose Pro", hot: true },
         { name: "Business", price: "₹6,999", suffix: " /mo", per: "for high-volume teams", features: ["Everything in Pro", "High-volume conversion", "Team-ready workflow"], btn: "Choose Business", hot: false },
       ]
     : [
@@ -215,7 +216,7 @@ export default async function HomePage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
       <Navbar />
       {IN ? (
-        <LegacyHome tools={TOOLS} pricePlans={PRICE_PLANS} faqs={faqs} />
+        <LegacyHome tools={withoutQbTools(TOOLS)} pricePlans={PRICE_PLANS} faqs={faqs} />
       ) : (
       <main className="overflow-x-hidden agri-sans">
 

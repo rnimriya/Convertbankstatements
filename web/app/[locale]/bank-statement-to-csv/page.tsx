@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { withoutQbTools } from "@/lib/tools/qb-filter";
 import { isIndiaSite } from "@/lib/site-region";
 
 const IN = isIndiaSite();
@@ -88,11 +89,11 @@ export default function BankStatementToCsvPage() {
       steps={STEPS}
       faqs={FAQS}
       showBanks
-      related={[
+      related={withoutQbTools([
         { href: "/bank-statement-to-excel", label: "Bank Statement to Excel", desc: "The same converter with an .xlsx workbook download — keeps formulas and formatting." },
         { href: "/pdf-to-qbo", label: "PDF to QBO Converter", desc: "Turn a statement PDF straight into a QuickBooks QBO (Web Connect) file." },
         { href: "/tools/qbo-to-csv", label: "QBO to CSV Converter", desc: "Already have a QBO file? Turn it back into a plain CSV." },
-      ]}
+      ])}
     >
       <h2 className={H2}>What the CSV file contains</h2>
       <p className={P}>
@@ -158,12 +159,12 @@ export default function BankStatementToCsvPage() {
       <p className={P}>
         Both come from the same converter above — pick CSV here, or use the{" "}
         <Link href="/bank-statement-to-excel" className={INLINE_LINK}>bank statement to Excel converter</Link>{" "}
-        if the workbook is the destination. Going the other way with a QuickBooks file? The{" "}
+        if the workbook is the destination.{IN ? " And if your books are in Tally, export OFX from the same converter — Tally accepts OFX for bank statement import." : <> Going the other way with a QuickBooks file? The{" "}
         <Link href="/tools/qbo-to-csv" className={INLINE_LINK}>QBO to CSV converter</Link>{" "}
         turns an existing QBO file back into a CSV. And if your statement is headed for
         QuickBooks in the first place, the{" "}
         <Link href="/pdf-to-qbo" className={INLINE_LINK}>PDF to QBO converter</Link>{" "}
-        skips the spreadsheet step entirely.
+        skips the spreadsheet step entirely.</>}
       </p>
     </FormatLanding>
   );

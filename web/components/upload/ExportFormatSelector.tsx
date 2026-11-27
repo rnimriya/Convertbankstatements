@@ -1,5 +1,6 @@
 "use client";
 
+import { isIndiaSite } from "@/lib/site-region";
 import { Check } from"lucide-react";
 
 function IconCSV() {
@@ -82,6 +83,8 @@ interface Props {
   onChange: (formats: string[]) => void;
 }
 
+const VISIBLE_FORMATS = isIndiaSite() ? FORMATS.filter((f) => f.id !== "qbo") : FORMATS;
+
 export function ExportFormatSelector({ selected, onChange }: Props) {
   const toggle = (id: string) => {
     if (selected.includes(id)) {
@@ -94,7 +97,7 @@ export function ExportFormatSelector({ selected, onChange }: Props) {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-      {FORMATS.map(({ id, label, sub, Icon }) => {
+      {VISIBLE_FORMATS.map(({ id, label, sub, Icon }) => {
         const active = selected.includes(id);
         return (
           <button

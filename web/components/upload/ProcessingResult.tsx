@@ -1,5 +1,6 @@
 "use client";
 
+import { isIndiaSite } from "@/lib/site-region";
 import { CheckCircle2, Download, RefreshCw, FileSpreadsheet, TrendingUp, ExternalLink, Loader2, ArrowUpRight, AlertTriangle, FileCheck2, BookOpenCheck } from"lucide-react";
 import { useEffect, useState } from"react";
 import type { ProcessResult, Transaction } from"@/types/billing";
@@ -222,7 +223,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
                 <p className="text-pine-700 dark:text-pine-300 mt-0.5">
                   Opening {result.reconciliation.openingBalance?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
                   {" → "}closing {result.reconciliation.closingBalance?.toLocaleString("en-US", { style: "currency", currency: "USD" })}
-                  {" "}across {result.reconciliation.transactionCount} transactions. The running balance checks out at every step, so QuickBooks reconciliation starts from a file that already agrees with the bank.
+                  {" "}across {result.reconciliation.transactionCount} transactions. The running balance checks out at every step{isIndiaSite() ? ", so your books start from a file that already agrees with the bank." : ", so QuickBooks reconciliation starts from a file that already agrees with the bank."}
                 </p>
               </div>
             </div>
@@ -232,7 +233,7 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               <div className="text-sm">
                 <p className="font-semibold text-amber-900 dark:text-amber-100">Heads up — the running balances don&apos;t fully tie out</p>
                 <p className="text-amber-700 dark:text-amber-300 mt-0.5">
-                  At least one step in the statement&apos;s balance chain doesn&apos;t add up. That usually means a missing or duplicated transaction in the source statement. Review the transactions below before importing, so the problem doesn&apos;t land in QuickBooks.
+                  At least one step in the statement&apos;s balance chain doesn&apos;t add up. That usually means a missing or duplicated transaction in the source statement. Review the transactions below before importing{isIndiaSite() ? "." : ", so the problem doesn&apos;t land in QuickBooks."}
                 </p>
               </div>
             </div>
@@ -264,13 +265,13 @@ export function ProcessingResult({ result, onReset, hasSheetsAccess }: Props) {
               </div>
             )}
 
-            {/* Pre-import check — runs the exact QBO download through the checker */}
-            {result.export_urls.qbo && (
+            {/* Pre-import check — runs the exact QBO download through the checker (hidden on .in: no QuickBooks) */}
+            {!isIndiaSite() && result.export_urls.qbo && (
               <PreImportCheck qboUrl={result.export_urls.qbo} />
             )}
 
-            {/* Send to QuickBooks (direct connect) */}
-            {qbConnected && result.transactions && result.transactions.length > 0 && (
+            {/* Send to QuickBooks (direct connect) — hidden on .in */}
+            {!isIndiaSite() && qbConnected && result.transactions && result.transactions.length > 0 && (
               <div>
                 <button
                   onClick={pushToQuickBooks}

@@ -40,6 +40,10 @@ const NON_INDIAN_BANK_WORDS = [
   "bgl bnp",
 ];
 
+const QUICKBOOKS_WORDS = [
+  "quickbooks", "qbo", "iif", "intuit", "web connect",
+];
+
 function matches(text: string, words: string[]): boolean {
   return words.some((w) => text.includes(w));
 }
@@ -47,6 +51,9 @@ function matches(text: string, words: string[]): boolean {
 /** True when the post may appear in India-site blog listings/sitemap. */
 export function isIndiaRelevantPost(post: BlogPost): boolean {
   const text = `${post.slug} ${post.title} ${post.tags.join(" ")}`.toLowerCase();
+  // India site is converter-based only (owner order 2026-11-27): no
+  // QuickBooks content, even when the post also names an Indian bank.
+  if (matches(text, QUICKBOOKS_WORDS)) return false;
   if (matches(text, INDIAN_BANK_WORDS)) return true;
   return !matches(text, NON_INDIAN_BANK_WORDS);
 }

@@ -7,7 +7,7 @@ import { Link } from "@/i18n/navigation";
  * the user section, so static pre-renders match today's anonymous view and
  * double as the Suspense fallback.
  */
-export function NavAnonymousActions({ signInLabel, dark = false }: { signInLabel: string; dark?: boolean }) {
+export function NavAnonymousActions({ signInLabel, signUpLabel = "Free Trial", dark = false }: { signInLabel: string; signUpLabel?: string; dark?: boolean }) {
   return (
     <>
       <Link
@@ -20,7 +20,7 @@ export function NavAnonymousActions({ signInLabel, dark = false }: { signInLabel
         href="/signup"
         className={dark ? "inline-flex items-center gap-1.5 rounded-[10px] px-5 py-2.5 text-[13.5px] font-semibold text-[#0B3D2E] bg-pine-400 hover:bg-pine-300 border-0" : "inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-[13.5px] font-semibold text-white bg-[#2CA01C] hover:bg-[#238a17] border-0"}
       >
-        Free Trial
+        {signUpLabel}
       </Link>
     </>
   );

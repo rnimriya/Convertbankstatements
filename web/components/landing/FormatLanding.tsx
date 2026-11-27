@@ -43,8 +43,8 @@ const BANKS = process.env.NEXT_PUBLIC_BANKS_REGION === "IN"
 const PLANS = [
   { name: "Free", price: "$0", per: "", caption: "forever", features: ["8 pages free", "Excel & CSV export"] },
   { name: "Basic", price: "$5", per: " /mo", caption: "for occasional converts", features: ["25 pages / month", "Excel & CSV export"] },
-  { name: "Pro", price: "$20", per: " /mo", caption: "for firms & bookkeepers", features: ["500 pages / month", "All export formats, incl. QBO / QFX / OFX"] },
-  { name: "Business", price: "$75", per: " /mo", caption: "for high-volume teams", features: ["2,000 pages / month", "All export formats, incl. QBO / QFX / OFX"] },
+  { name: "Pro", price: "$20", per: " /mo", caption: "for firms & bookkeepers", features: ["500 pages / month", process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN" ? "All export formats, incl. QFX / OFX" : "All export formats, incl. QBO / QFX / OFX"] },
+  { name: "Business", price: "$75", per: " /mo", caption: "for high-volume teams", features: ["2,000 pages / month", process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN" ? "All export formats, incl. QFX / OFX" : "All export formats, incl. QBO / QFX / OFX"] },
 ];
 
 /**

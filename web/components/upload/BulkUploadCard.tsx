@@ -1,5 +1,6 @@
 "use client";
 
+import { isIndiaSite } from "@/lib/site-region";
 import { useState, useCallback } from"react";
 import { useDropzone } from"react-dropzone";
 import {
@@ -62,7 +63,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
     for (const file of files.slice(0, MAX_FILES)) {
       fd.append("files[]", file);
     }
-    fd.append("export_formats","csv,xlsx,qbo");
+    fd.append("export_formats", isIndiaSite() ? "csv,xlsx" : "csv,xlsx,qbo");
 
     try {
       const res = await fetch("/api/bulk-process", { method:"POST", body: fd });
@@ -198,7 +199,7 @@ export function BulkUploadCard({ billing, onBillingUpdate }: Props) {
               </div>
               {!r.error && (
                 <div className="flex gap-1.5 shrink-0">
-                  {r.exportUrls.qbo && (
+                  {!isIndiaSite() && r.exportUrls.qbo && (
                     <a href={r.exportUrls.qbo} download={r.fileName.replace(".pdf",".qbo")}
                       className="px-2.5 py-1.5 rounded-lg bg-pine-600 text-white text-xs font-semibold hover:bg-pine-500 transition-colors">
                       .qbo

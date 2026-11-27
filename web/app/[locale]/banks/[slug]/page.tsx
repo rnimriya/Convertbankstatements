@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { isIndiaSite } from "@/lib/site-region";
 import { notFound } from "next/navigation";
 import { getTopBanksForSEO, getBankBySlug } from "@/lib/seo/banks";
 import { getTopBankBySlug, TOP_20_SLUGS } from "@/lib/seo/banks-top20";
@@ -34,7 +35,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 
   const title = `Convert ${bankName} Bank Statements to Excel & CSV | ConvertStatement`;
-  const description = `Convert your ${bankName} PDF bank statement to Excel, CSV, OFX, QBO or Google Sheets. Free for your first 8 pages — no manual typing, no credit card required.`;
+  const description = isIndiaSite()
+    ? `Convert your ${bankName} PDF bank statement to Excel, CSV, OFX for Tally or Google Sheets. Free for your first 8 pages — no manual typing, no credit card required.`
+    : `Convert your ${bankName} PDF bank statement to Excel, CSV, OFX, QBO or Google Sheets. Free for your first 8 pages — no manual typing, no credit card required.`;
   return {
     title,
     description,
@@ -70,7 +73,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     {
       icon: <Settings2 size={22} className="text-[#007A33]" />,
       title: "Choose your format",
-      body: "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
+      body: isIndiaSite() ? "Pick Excel, CSV, OFX for Tally, or push straight to Google Sheets." : "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
     },
     {
       icon: <Download size={22} className="text-[#007A33]" />,
@@ -86,11 +89,11 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     },
     {
       q: `Which formats can I export my ${bankName} statement to?`,
-      a: `Excel (.xlsx), CSV, OFX/QBO for QuickBooks, Xero and Tally, plus direct export to Google Sheets. Every format is optimized for its target — dates, amounts and references stay clean.`,
+      a: isIndiaSite() ? `Excel (.xlsx), CSV, OFX for Tally, plus direct export to Google Sheets. Every format is optimized for its target — dates, amounts and references stay clean.` : `Excel (.xlsx), CSV, OFX/QBO for QuickBooks, Xero and Tally, plus direct export to Google Sheets. Every format is optimized for its target — dates, amounts and references stay clean.`,
     },
     {
-      q: `How do I import my ${bankName} statement into Tally or QuickBooks?`,
-      a: `Convert your ${bankName} PDF to OFX or QBO on Convert Statement, then import the file through your accounting software's bank-feed import. The whole round-trip takes about two minutes.`,
+      q: isIndiaSite() ? `How do I import my ${bankName} statement into Tally?` : `How do I import my ${bankName} statement into Tally or QuickBooks?`,
+      a: isIndiaSite() ? `Convert your ${bankName} PDF to OFX on Convert Statement, then import the file through Tally's bank statement import. The whole round-trip takes about two minutes.` : `Convert your ${bankName} PDF to OFX or QBO on Convert Statement, then import the file through your accounting software's bank-feed import. The whole round-trip takes about two minutes.`,
     },
     {
       q: `Is my ${bankName} statement data stored on your servers?`,
@@ -228,7 +231,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
                   <FileText className="text-[#007A33]" size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-3">Multiple Formats</h3>
-                <p className="text-zinc-600">Export to Excel, CSV, Google Sheets, or OFX for seamless import into QuickBooks, Xero and Tally.</p>
+                <p className="text-zinc-600">{isIndiaSite() ? "Export to Excel, CSV, Google Sheets, or OFX for seamless import into Tally." : "Export to Excel, CSV, Google Sheets, or OFX for seamless import into QuickBooks, Xero and Tally."}</p>
               </div>
             </div>
           </div>

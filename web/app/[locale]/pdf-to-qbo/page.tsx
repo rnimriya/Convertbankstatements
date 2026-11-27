@@ -5,6 +5,8 @@ import {
   H2, H2M, H3, P, INLINE_LINK,
   type LandingFaq, type LandingStep,
 } from "@/components/landing/FormatLanding";
+import { notFound } from "next/navigation";
+import { isIndiaSite } from "@/lib/site-region";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
@@ -71,6 +73,8 @@ const FAQS: LandingFaq[] = [
 ];
 
 export default function PdfToQboPage() {
+  if (isIndiaSite()) notFound(); // convertstatement.in: no QuickBooks content (owner order 2026-11-27)
+
   return (
     <FormatLanding
       eyebrow="QuickBooks converter"
