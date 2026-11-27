@@ -45,6 +45,18 @@ const COMPARE_ROWS = [
   { feature:"Multi-Client Workspace (Beta)", free:"—", basic:"—", pro:"—", business:"✓" },
 ];
 
+// .in: plain-English names for the comparison-table rows (owner order
+// 2026-11-27 — easy words, no heavy words). Same features, easier names.
+const IN_FEATURE_LABELS: Record<string, string> = {
+  "Smart Auto-Categorization (Beta)": "Auto category suggestions (Beta)",
+  "OCR for Scanned PDFs": "Scanned PDF reading (OCR)",
+  "Balance-Check reconciliation": "Balance check on every file",
+  "Direct Accounting Push (Coming Soon)": "Send to accounting software (Coming Soon)",
+  "Pre-Export Analytics (Beta)": "Summary report before download (Beta)",
+  "Secure Client Upload Portal (Beta)": "Client upload page (Beta)",
+  "Multi-Client Workspace (Beta)": "Separate space for each client (Beta)",
+};
+
 const pricingSchema = {"@context":"https://schema.org","@type":"Product",
   name:"Convert Statement",
   description: process.env.NEXT_PUBLIC_BANKS_REGION === "IN" ? "Convert bank statement PDFs from SBI, HDFC, ICICI, Axis, Kotak and other Indian banks into CSV, Excel, OFX for Tally, or Google Sheets." : "Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
@@ -165,7 +177,7 @@ export default async function PricingPage() {
 
       {IN ? (
         <IndiaHeadingBand
-          title={<>Simple, transparent <span className="text-[#34d399]">pricing</span></>}
+          title={<>Simple <span className="text-[#34d399]">pricing</span> in rupees</>}
           subtitle="Start free · All prices in ₹ · No hidden charges"
         >
           <div className="relative mt-6 flex justify-center">
@@ -217,7 +229,7 @@ export default async function PricingPage() {
               <tbody>
                 {COMPARE_ROWS.filter((r) => !IN || !/quickbooks|qbo/i.test(r.feature)).map(({ feature, free, basic, pro, business }, i) => (
                   <tr key={feature} className={"bg-white"}>
-                    <td className="px-5 py-3 font-medium text-zinc-700">{feature}</td>
+                    <td className="px-5 py-3 font-medium text-zinc-700">{IN ? (IN_FEATURE_LABELS[feature] ?? feature) : feature}</td>
                     {(IN ? [basic, pro, business] : [free, basic, pro, business]).map((val, j) => (
                       <td key={j} className={`px-4 py-3 text-center ${val ==="—" ?"text-zinc-300" : val ==="✓" ?"text-[#007A33] font-bold text-base" :"text-zinc-600"}`}>{val}</td>
                     ))}

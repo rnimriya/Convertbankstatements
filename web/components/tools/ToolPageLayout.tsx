@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { PricingCards } from "@/components/PricingCards";
 import { SimilarToolsSection } from "@/components/tools/SimilarTools";
 import { isIndiaSite } from "@/lib/site-region";
+import { INDIA_TOOL_COPY } from "@/lib/tools/india-tool-copy";
 import {
   IndiaHeadingBand,
   IndiaDropboxCard,
@@ -67,6 +68,12 @@ export async function ToolPageLayout({
   fullyFree?: boolean;
 }) {
   const nonce = BUILD_NONCE;
+  // .in: simple-English copy for the 15 IN-visible tools (owner order
+  // 2026-11-27). Same facts, easier words. .online uses the props as-is.
+  const inCopy = isIndiaSite() ? INDIA_TOOL_COPY[currentPath] : undefined;
+  const effSubtitle = inCopy?.subtitle ?? subtitle;
+  const effFaqs = inCopy?.faqs ?? faqs;
+  const effSteps = inCopy?.howToSteps ?? howToSteps;
   const pills = fullyFree
     ? TRUST_PILLS.map((p) =>
         p.label.startsWith("Scan free")
@@ -78,7 +85,7 @@ export async function ToolPageLayout({
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    mainEntity: effFaqs.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -88,7 +95,7 @@ export async function ToolPageLayout({
     "@context": "https://schema.org",
     "@type": "HowTo",
     name: howToName,
-    step: howToSteps.map((s, i) => ({
+    step: effSteps.map((s, i) => ({
       "@type": "HowToStep",
       position: i + 1,
       name: s.title,
@@ -113,14 +120,14 @@ export async function ToolPageLayout({
 
           {/* Hero Sample 1 (owner 2026-11-27): no eyebrow above the H1,
               dropbox directly on the dark band (no white card). */}
-          <IndiaHeadingBand title={title} subtitle={subtitle}>
+          <IndiaHeadingBand title={title} subtitle={effSubtitle}>
             <IndiaDropboxCard bare>
               <div className="min-w-0 max-w-full">
                 {tool}
                 <div className="mt-4 flex items-center justify-center gap-2">
                   <CheckCircle2 size={14} className="shrink-0 text-[#34d399]" />
                   <p className="text-[12.5px] text-white/60">
-                    <span className="font-semibold text-white/80">Bank-grade security</span>
+                    <span className="font-semibold text-white/80">Safe and private</span>
                     {" "}— {privacyLine}
                   </p>
                 </div>
@@ -144,7 +151,7 @@ export async function ToolPageLayout({
           <section id="how-it-works" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24 mt-10">
             <div className="max-w-7xl mx-auto px-4">
               <IndiaSecHead center eyebrow="How it works" title={howToName} />
-              <IndiaStepCards steps={howToSteps} />
+              <IndiaStepCards steps={effSteps} />
             </div>
           </section>
 
@@ -161,8 +168,8 @@ export async function ToolPageLayout({
               <IndiaSecHead
                 center
                 eyebrow="Pricing"
-                title="Simple, transparent pricing"
-                body="Start free. Only pay when you need more."
+                title="Simple pricing"
+                body="Start free. Pay only when you need more pages."
               />
               <PricingCards />
             </div>
@@ -170,9 +177,9 @@ export async function ToolPageLayout({
 
           <section id="faq" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
             <div className="max-w-7xl mx-auto px-4">
-              <IndiaSecHead center eyebrow="FAQ" title="Frequently asked questions" />
+              <IndiaSecHead center eyebrow="FAQ" title="Common questions" />
               <div className="max-w-4xl mx-auto">
-                <IndiaFaqCards faqs={faqs} />
+                <IndiaFaqCards faqs={effFaqs} />
               </div>
             </div>
           </section>

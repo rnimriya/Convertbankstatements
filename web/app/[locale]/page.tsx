@@ -12,6 +12,7 @@ import { Navbar } from"@/components/layout/Navbar";
 import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
 import { LegacyHome } from"@/components/home-legacy/LegacyHome";
 import { withoutQbTools } from "@/lib/tools/qb-filter";
+import { INDIA_TOOL_DESCS } from "@/lib/tools/india-tool-copy";
 import { BANKS_REGION, bankCountLabel, visibleBankCount } from "@/lib/config/bank-region";
 import { isIndiaSite } from "@/lib/site-region";
 import BankLinks from"@/components/banks/BankLinks";
@@ -82,12 +83,12 @@ export default async function HomePage() {
 
   const faqs = IN
     ? [
-        { q: "Which banks are supported?", a: "Indian banks including SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank, Bank of Baroda, Canara Bank and more. Email us if yours isn't listed." },
-        { q: "Is my financial data safe?", a: "Yes. PDFs are processed in memory and deleted immediately after conversion. Nothing is stored on disk or in a database." },
-        { q: "Can I process password-protected PDFs?", a: "Yes. Enter the password during upload. We never store the password." },
-        { q: "How does the 8 free pages work?", a: "Every new account gets 8 pages free — no card needed. That covers most 1-3 month statements. After that, paid plans start at ₹499/month." },
-        { q: "How do I import into Tally?", a: "Export as OFX from Convert Statement — OFX is the format Tally accepts for bank statement import — then import it into Tally. For spreadsheets, download the Excel file or send it straight to Google Sheets." },
-        { q: "Which payment methods do you accept?", a: "We accept UPI, cards and net banking via Razorpay." },
+        { q: "Which banks are supported?", a: "Indian banks like SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank, Bank of Baroda, Canara Bank and more. Email us if your bank is not in the list." },
+        { q: "Is my financial data safe?", a: "Yes. Your PDF is converted in memory and deleted at once. We do not store your file anywhere." },
+        { q: "Can I convert a PDF that has a password?", a: "Yes. Type the password when you upload. We never save the password." },
+        { q: "How do the 8 free pages work?", a: "Every new account gets 8 pages free. No card needed. That covers most 1 to 3 month statements. After that, plans start at ₹499/month." },
+        { q: "How do I import into Tally?", a: "Download the OFX file from Convert Statement. Tally accepts OFX for bank statement import. Then import it in Tally. For a spreadsheet, download Excel or send it to Google Sheets." },
+        { q: "Which payment methods do you accept?", a: "You can pay by UPI, card or net banking. Payments are taken by Razorpay." },
       ]
     : [
         { q: tFaq("q1"), a: tFaq("a1") },
@@ -163,9 +164,9 @@ export default async function HomePage() {
   // Feature lists unchanged from the USD tiers.
   const PRICE_PLANS = IN
     ? [
-        { name: "Basic", price: "₹499", suffix: " /mo", per: "for occasional converts", features: ["25 pages a month", "All export formats", "Password PDFs"], btn: "Choose Basic", hot: false },
-        { name: "Pro", price: "₹1,999", suffix: " /mo", per: "for firms & bookkeepers", features: ["Everything in Basic", "QFX / OFX downloads", "Priority processing"], btn: "Choose Pro", hot: true },
-        { name: "Business", price: "₹6,999", suffix: " /mo", per: "for high-volume teams", features: ["Everything in Pro", "High-volume conversion", "Team-ready workflow"], btn: "Choose Business", hot: false },
+        { name: "Basic", price: "₹499", suffix: " /mo", per: "for small, occasional work", features: ["25 pages a month", "All export formats", "Password PDFs work"], btn: "Choose Basic", hot: false },
+        { name: "Pro", price: "₹1,999", suffix: " /mo", per: "for CA firms and bookkeepers", features: ["Everything in Basic", "QFX / OFX downloads", "Faster converting"], btn: "Choose Pro", hot: true },
+        { name: "Business", price: "₹6,999", suffix: " /mo", per: "for teams with many statements", features: ["Everything in Pro", "Many pages every month", "Made for teams"], btn: "Choose Business", hot: false },
       ]
     : [
         { name: "Free", price: "$0", suffix: "", per: "forever", features: ["8 pages free", "Excel & CSV export", `${bankCountLabel()} banks`], btn: "Start free", hot: false },
@@ -216,7 +217,7 @@ export default async function HomePage() {
       <script nonce={nonce} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }} />
       <Navbar />
       {IN ? (
-        <LegacyHome tools={withoutQbTools(TOOLS)} pricePlans={PRICE_PLANS} faqs={faqs} />
+        <LegacyHome tools={withoutQbTools(TOOLS).map((t) => ({ ...t, desc: INDIA_TOOL_DESCS[t.href] ?? t.desc }))} pricePlans={PRICE_PLANS} faqs={faqs} />
       ) : (
       <main className="overflow-x-hidden agri-sans">
 

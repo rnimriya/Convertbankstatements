@@ -7,6 +7,7 @@ import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { TOOL_CARDS } from "@/lib/tools/similar";
 import { isIndiaSite } from "@/lib/site-region";
 import { withoutQbSlugs } from "@/lib/tools/qb-filter";
+import { INDIA_TOOL_DESCS } from "@/lib/tools/india-tool-copy";
 import ToolsGuideContent from "@/components/tools/ToolsGuideContent";
 import BankLinks from "@/components/banks/BankLinks";
 import { ArrowRight } from "lucide-react";
@@ -175,7 +176,7 @@ function ToolCard({ tool, wide }: { tool: Tool; wide?: boolean }) {
           className="mb-3 h-[52px] w-[52px] shrink-0 rounded-[14px] bg-[#f8fafc] object-contain"
         />
         <span className="font-display text-[15.5px] font-bold text-[#0f172a]">{tool.name}</span>
-        <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#64748b]">{tool.desc}</span>
+        <span className="mt-1 flex-1 text-[13px] leading-relaxed text-[#64748b]">{INDIA_TOOL_DESCS[`/tools/${tool.slug}`] ?? tool.desc}</span>
         <span className="mt-3 flex items-center justify-between">
           <Tag tag={tool.tag} />
           <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-[#047857]">
@@ -243,7 +244,7 @@ export default function ToolsIndexPage() {
         {IN ? (
           <IndiaHeadingBand
             title={<>Small tools. <span className="text-[#34d399]">Big bookkeeping headaches,</span> gone.</>}
-            subtitle={`${ALL_TOOLS.length} focused file converters — each one does a single job properly, right in your browser.`}
+            subtitle={`${ALL_TOOLS.length} simple file converters — each one does one job well, right in your browser.`}
           >
             <div className="mt-8 flex justify-center gap-10">
               <div>

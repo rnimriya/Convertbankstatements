@@ -59,6 +59,16 @@ const PLANS = [
   { name: "Business", price: "$75", per: " /mo", caption: "for high-volume teams", features: ["2,000 pages / month", process.env.NEXT_PUBLIC_SITE_REGION === "IN" || process.env.NEXT_PUBLIC_BANKS_REGION === "IN" ? "All export formats, incl. QFX / OFX" : "All export formats, incl. QBO / QFX / OFX"] },
 ];
 
+// India (.in): the same tiers at the real ₹ prices (owner-set
+// 2026-11-27: Basic ₹499, Pro ₹1,999, Business ₹6,999). The IN pricing
+// strip must show rupees, not the USD list above.
+const PLANS_IN = [
+  { name: "Free", price: "₹0", per: "", caption: "forever", features: ["8 pages free", "Excel & CSV export"] },
+  { name: "Basic", price: "₹499", per: " /mo", caption: "for small, occasional work", features: ["25 pages / month", "Excel & CSV export"] },
+  { name: "Pro", price: "₹1,999", per: " /mo", caption: "for CA firms and bookkeepers", features: ["500 pages / month", "All export formats, incl. QFX / OFX"] },
+  { name: "Business", price: "₹6,999", per: " /mo", caption: "for teams with many statements", features: ["2,000 pages / month", "All export formats, incl. QFX / OFX"] },
+];
+
 /**
  * Shared shell for the format landing pages (/bank-statement-to-excel,
  * /bank-statement-to-csv, /pdf-to-qbo) — light-V3 standard from
@@ -173,7 +183,7 @@ export function FormatLanding({
                   center
                   eyebrow="Supported banks"
                   title="Statements from major banks"
-                  body="The converter works with statements from hundreds of banks. Start with yours:"
+                  body="The converter works with statements from Indian banks. Start with yours:"
                 />
                 <div className="grid sm:grid-cols-3 gap-4">
                   {BANKS.map((b) => (
@@ -189,7 +199,7 @@ export function FormatLanding({
                   ))}
                 </div>
                 <p className="text-center text-sm text-[#64748b] mt-6">
-                  Don&rsquo;t see your bank listed here? The converter above accepts statement PDFs from hundreds of banks — upload yours and check the preview before you download.
+                  Don&rsquo;t see your bank here? The converter above works with statement PDFs from Indian banks — upload yours and check the preview before you download.
                 </p>
               </div>
             </section>
@@ -207,11 +217,11 @@ export function FormatLanding({
               <IndiaSecHead
                 center
                 eyebrow="Pricing"
-                title="Simple, transparent pricing"
-                body="Start free — your first 8 pages are free on every account. Only pay when you need more."
+                title="Simple pricing"
+                body="Start free — your first 8 pages are free on every account. Pay only when you need more pages."
               />
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
-                {PLANS.map((p) => (
+                {PLANS_IN.map((p) => (
                   <div key={p.name} className="bg-white rounded-xl px-[30px] py-[34px] border border-[#e2e8f0] flex flex-col">
                     <p className="text-[15px] font-extrabold uppercase tracking-[0.08em] text-[#64748b]">{p.name}</p>
                     <p className="text-[44px] font-extrabold tracking-tight leading-none text-[#0f172a] mt-2.5 mb-1">
@@ -233,14 +243,14 @@ export function FormatLanding({
                 ))}
               </div>
               <p className="text-center text-sm text-[#64748b] mt-8">
-                Full plan details, annual pricing and what each format needs: <Link href="/pricing" className="font-semibold text-[#047857] hover:underline">see pricing</Link>
+                Full plan details and yearly prices: <Link href="/pricing" className="font-semibold text-[#047857] hover:underline">see pricing</Link>
               </p>
             </div>
           </section>
 
           <section id="faq" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
             <div className="max-w-7xl mx-auto px-4">
-              <IndiaSecHead center eyebrow="FAQ" title="Frequently asked questions" />
+              <IndiaSecHead center eyebrow="FAQ" title="Common questions" />
               <div className="max-w-4xl mx-auto">
                 <IndiaFaqCards faqs={faqs} />
               </div>
@@ -251,7 +261,7 @@ export function FormatLanding({
             <div className="max-w-7xl mx-auto px-4">
               <IndiaFinalCta
                 title="Convert your statement now"
-                body="Your first 8 pages are free and no account is needed. Upload a PDF statement above and download a clean file."
+                body="Your first 8 pages are free. No account needed. Upload a PDF statement above and download a clean file."
                 href="#converter"
                 secondaryHref="/pricing"
                 secondaryLabel="See pricing"

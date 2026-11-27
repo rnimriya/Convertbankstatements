@@ -54,27 +54,27 @@ function factsFor(tools: LegacyTool[]) {
 }
 
 const USE_CASES = [
-  { icon: <Table2 size={21} className="text-[#047857]" />, title: "PDF to Excel", body: "Statement PDF to a clean .xlsx — one row per transaction.", href: "/bank-statement-to-excel" },
-  { icon: <FileText size={21} className="text-[#047857]" />, title: "PDF to CSV", body: "Plain-text rows that open in any spreadsheet or import tool.", href: "/bank-statement-to-csv" },
-  { icon: <BookOpen size={21} className="text-[#047857]" />, title: "PDF to Tally", body: "OFX export your Tally books accept for bank statement import.", href: "#upload" },
-  { icon: <FileText size={21} className="text-[#047857]" />, title: "PDF to Sheets", body: "Send statement rows straight into Google Sheets.", href: "#upload" },
+  { icon: <Table2 size={21} className="text-[#047857]" />, title: "PDF to Excel", body: "Statement PDF to a clean Excel file — one row for every transaction.", href: "/bank-statement-to-excel" },
+  { icon: <FileText size={21} className="text-[#047857]" />, title: "PDF to CSV", body: "Simple text rows that open in any spreadsheet or import tool.", href: "/bank-statement-to-csv" },
+  { icon: <BookOpen size={21} className="text-[#047857]" />, title: "PDF to Tally", body: "OFX file that Tally accepts for bank statement import.", href: "#upload" },
+  { icon: <FileText size={21} className="text-[#047857]" />, title: "PDF to Sheets", body: "Send your statement rows straight into Google Sheets.", href: "#upload" },
 ];
 
 const WHO = [
-  { title: "Chartered accountants", body: "Client statements converted and balance-checked before they reach your working papers." },
-  { title: "Bookkeepers", body: "Monthly statements into Excel or Tally without line-by-line entry." },
-  { title: "Small businesses", body: "Your own statements, ready for GST filing, audits and loan paperwork." },
-  { title: "Tax filing", body: "A full year of transactions as clean rows when ITR season arrives." },
-  { title: "Loan & visa applications", body: "Statement history in a spreadsheet you can sort, filter and share." },
-  { title: "Audits & reconciliation", body: "Bank rows side by side with your books, balances already checked." },
+  { title: "Chartered accountants", body: "Client statements changed to Excel and balance-checked, ready for your work." },
+  { title: "Bookkeepers", body: "Monthly statements into Excel or Tally. No typing line by line." },
+  { title: "Small businesses", body: "Your own statements, ready for GST filing, audits and loan papers." },
+  { title: "Tax filing", body: "One full year of transactions in clean rows, ready for ITR filing." },
+  { title: "Loan & visa applications", body: "Your statement history in a spreadsheet you can sort and share." },
+  { title: "Audits & matching", body: "Bank rows next to your books. Balance already checked." },
 ];
 
 const COMPARE: { crit: string; us: string; them: string }[] = [
-  { crit: "Time", us: "~15 seconds per conversion", them: "Hours for a long statement" },
-  { crit: "Balance check", us: "Checked on every conversion, before download", them: "You find mismatches at month-end" },
-  { crit: "Formats", us: "Excel, CSV, Tally, OFX, Google Sheets from one upload", them: "One format, typed once, fixed by hand" },
-  { crit: "Password PDFs", us: "Accepted as they arrive from your bank", them: "Open, read and copy every line yourself" },
-  { crit: "Cost to start", us: "First 8 pages free, no account needed", them: "Your team's hours, every single month" },
+  { crit: "Time", us: "About 15 seconds for one conversion", them: "Hours for a long statement" },
+  { crit: "Balance check", us: "Checked every time, before you download", them: "You find mistakes at month end" },
+  { crit: "Formats", us: "Excel, CSV, Tally, OFX, Google Sheets from one upload", them: "One format. Typed once, fixed by hand" },
+  { crit: "Password PDFs", us: "Accepted just as your bank sends them", them: "Open, read and copy every line yourself" },
+  { crit: "Cost to start", us: "First 8 pages free, no account needed", them: "Your team's time, every month" },
 ];
 
 export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; pricePlans: LegacyPlan[]; faqs: LegacyFaq[] }) {
@@ -107,15 +107,15 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
             center
             eyebrow="The real problem"
             title={<>Your bank statement is not the problem.<br />Typing it into Excel is.</>}
-            body="Statements arrive as PDFs every month. Your accounting software cannot read them — so someone has to type every line by hand."
+            body="Your bank sends statements as PDFs every month. Tally and Excel cannot read a PDF — so someone has to type every line by hand."
           />
           <div className="grid md:grid-cols-2 gap-6">
             <div className="rounded-xl border border-[#fecaca] bg-[#fef2f2] p-8">
-              <p className="text-[13px] font-extrabold uppercase tracking-[0.1em] text-[#dc2626] mb-3">Manual typing</p>
+              <p className="text-[13px] font-extrabold uppercase tracking-[0.1em] text-[#dc2626] mb-3">Typing by hand</p>
               <h3 className="text-[28px] font-extrabold tracking-tight text-[#0f172a] mb-2.5">Hours of typing</h3>
-              <p className="text-[#334155]">The result: typing errors, mismatched balances, and skilled staff stuck doing data entry.</p>
+              <p className="text-[#334155]">Result: typing mistakes, wrong totals, and staff wasting time on typing work.</p>
               <ul className="mt-[18px] grid gap-2.5 text-[15px] text-[#334155]">
-                {["Every transaction typed line by line", "One wrong digit breaks the balance", "Month-end means overtime and rework"].map((t) => (
+                {["Every transaction typed line by line", "One wrong number breaks the balance", "Month end means extra hours and rework"].map((t) => (
                   <li key={t} className="flex gap-2.5 items-start"><X size={17} strokeWidth={2.6} className="text-[#dc2626] shrink-0 mt-0.5" />{t}</li>
                 ))}
               </ul>
@@ -123,9 +123,9 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
             <div className="rounded-xl border border-[#d1fae5] bg-[#ecfdf5] p-8">
               <p className="text-[13px] font-extrabold uppercase tracking-[0.1em] text-[#047857] mb-3">With ConvertStatement</p>
               <h3 className="text-[28px] font-extrabold tracking-tight text-[#0f172a] mb-2.5">Seconds to download</h3>
-              <p className="text-[#334155]">The result: clean rows in Excel, CSV or Tally — with the balance checked before you download.</p>
+              <p className="text-[#334155]">Result: clean rows in Excel, CSV or Tally. We check the balance before you download.</p>
               <ul className="mt-[18px] grid gap-2.5 text-[15px] text-[#334155]">
-                {["Upload the PDF, get the table", "Balance check runs on every conversion", "You review the rows, then download"].map((t) => (
+                {["Upload the PDF, get the table", "Balance check on every conversion", "You check the rows, then download"].map((t) => (
                   <li key={t} className="flex gap-2.5 items-start"><Check size={17} strokeWidth={2.6} className="text-[#047857] shrink-0 mt-0.5" />{t}</li>
                 ))}
               </ul>
@@ -140,9 +140,9 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
           <SecHead center eyebrow="How it works" title="Start with one statement" body="One statement is enough to see the result on your own data. Your first 8 pages are free." />
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { n: "1. Upload your statement PDF", icon: <Upload size={24} className="text-[#047857]" />, title: "Upload your statement PDF", body: "Drop the PDF in, or add it from your device, Google Drive, Dropbox or a link. Password-protected statement PDFs are accepted — PDF only, up to 50 MB." },
-              { n: "2. Check the preview", icon: <Search size={24} className="text-[#047857]" />, title: "Check the preview", body: "See the transactions the converter found — date, description, amount and balance — with a balance check on every conversion before you download anything." },
-              { n: "3. Download in your format", icon: <Download size={24} className="text-[#047857]" />, title: "Download in your format", body: "Excel, CSV, Tally, OFX or Google Sheets — one row per transaction, ready for your books." },
+              { n: "1. Upload your statement PDF", icon: <Upload size={24} className="text-[#047857]" />, title: "Upload your statement PDF", body: "Drop the PDF in the box above. PDFs with a password also work — just type the password when asked. PDF only, up to 50 MB." },
+              { n: "2. Check the preview", icon: <Search size={24} className="text-[#047857]" />, title: "Check the preview", body: "See the transactions we found — date, description, amount and balance. We check the balance on every conversion, before you download." },
+              { n: "3. Download in your format", icon: <Download size={24} className="text-[#047857]" />, title: "Download in your format", body: "Excel, CSV, Tally, OFX or Google Sheets — one row for every transaction, ready for your books." },
             ].map((s) => (
               <div key={s.n} className="bg-white border border-[#e2e8f0] rounded-xl p-[30px]">
                 <IconTile>{s.icon}</IconTile>
@@ -179,12 +179,12 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
       {/* ─── BENTO BENEFITS ──────────────────────────── */}
       <section id="features" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
-          <SecHead eyebrow="Why ConvertStatement" title="Built for the whole job, not just extraction" body="Extracting text is the easy part. Checking it, formatting it and handing you a file your books accept is the job." />
+          <SecHead eyebrow="Why ConvertStatement" title="Made for the full job, not just reading the PDF" body="Reading the PDF is the easy part. Checking the numbers and giving you a file your books accept — that is the real job." />
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><CircleCheck size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Balance check on every conversion</h3>
-              <p className="text-[15px] text-[#64748b] leading-relaxed">Running balances are verified against the statement before you download, so a mismatch surfaces immediately — not at month-end.</p>
+              <p className="text-[15px] text-[#64748b] leading-relaxed">We check the running balance against your statement before you download. If a number does not match, you see it at once — not at month end.</p>
               <div className="mt-5 border border-[#e2e8f0] rounded-xl px-4 py-3.5 bg-[#f8fafc] text-[13px]">
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Opening balance</span><b className="text-[#0f172a]">27,450</b></div>
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Credits − Debits</span><b className="text-[#0f172a]">+61,181</b></div>
@@ -194,7 +194,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
             <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><Landmark size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Made for Indian bank statements</h3>
-              <p className="text-[15px] text-[#64748b] leading-relaxed">Statement layouts from the banks Indian businesses actually use — public sector, private and cooperative banks alike.</p>
+              <p className="text-[15px] text-[#64748b] leading-relaxed">Statement formats of the banks Indian businesses use — government, private and co-operative banks.</p>
               <div className="flex flex-wrap gap-[7px] mt-[18px]">
                 {["SBI", "HDFC Bank", "ICICI Bank", "Axis Bank", "Kotak", "PNB", "Bank of Baroda", "Canara Bank"].map((b) => (
                   <span key={b} className="text-[12.5px] font-bold border border-[#cbd5e1] rounded-full px-3 py-[5px] text-[#334155] bg-white">{b}</span>
@@ -204,7 +204,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
             <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><UserRound size={24} className="text-[#047857]" /></IconTile>
               <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">No account needed to start</h3>
-              <p className="text-[15px] text-[#64748b] leading-relaxed">Your first 8 pages are free with no signup. Convert a real statement, check the result, and decide from evidence.</p>
+              <p className="text-[15px] text-[#64748b] leading-relaxed">Your first 8 pages are free. No signup. Convert one real statement, check the result, then decide.</p>
               <div className="mt-5 border border-[#e2e8f0] rounded-xl px-4 py-3.5 bg-[#f8fafc] text-[13px]">
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Free pages to start</span><b className="text-[#0f172a]">8 pages</b></div>
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Account required</span><b className="text-[#0f172a]">No</b></div>
@@ -212,8 +212,8 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
             </div>
             <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
               <IconTile><Lock size={24} className="text-[#047857]" /></IconTile>
-              <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Password-protected PDFs accepted</h3>
-              <p className="text-[15px] text-[#64748b] leading-relaxed">Most Indian bank statements arrive password-protected. ConvertStatement accepts them as they are — enter the password during upload; it is never stored.</p>
+              <h3 className="text-[22px] font-extrabold tracking-tight text-[#0f172a] mb-2">Password PDFs work fine</h3>
+              <p className="text-[15px] text-[#64748b] leading-relaxed">Most Indian bank statements have a password. That is fine — just type the password when you upload. We never save it.</p>
               <div className="mt-5 border border-[#e2e8f0] rounded-xl px-4 py-3.5 bg-[#f8fafc] text-[13px]">
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Password-protected PDF</span><b className="text-[#0f172a]">Accepted</b></div>
                 <div className="flex justify-between py-[3px] text-[#64748b]"><span>Max file size</span><b className="text-[#0f172a]">50 MB</b></div>
@@ -228,7 +228,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
         <div className="max-w-7xl mx-auto px-4">
           <SecHead eyebrow="Why choose us" title="Why Businesses Across India Choose ConvertStatement" />
           <ul className="grid sm:grid-cols-2 gap-x-10 gap-y-3 text-[15px] text-[#334155] max-w-4xl">
-            {["Balance checked on every conversion — no guesswork, no wrong totals","Price in rupees, written clearly — no hidden charges","Made for Indian bank statements — SBI, HDFC, ICICI, Axis and 60 banks in all","Password-protected PDFs accepted, exactly as your bank sends them","Files processed in memory and deleted immediately — never stored","One upload gives Excel, CSV, Tally, OFX and Google Sheets"].map((t) => (
+            {["Balance checked every time — no wrong totals","Price in rupees, written clearly — no hidden charges","Made for Indian bank statements — SBI, HDFC, ICICI, Axis and 60 banks in all","Password PDFs accepted, exactly as your bank sends them","Files are deleted at once after converting — never stored","One upload gives Excel, CSV, Tally, OFX and Google Sheets"].map((t) => (
               <li key={t} className="flex gap-2.5 items-start"><Check size={17} strokeWidth={2.8} className="text-[#047857] shrink-0 mt-0.5" />{t}</li>
             ))}
           </ul>
@@ -240,7 +240,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
       <section className="py-20 bg-[#047857] text-white text-center">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-display text-3xl sm:text-[42px] font-extrabold tracking-tight leading-[1.15]">Keep your bank. Remove the typing.</h2>
-          <p className="text-lg text-[#d1fae5] max-w-[640px] mx-auto mt-4 leading-relaxed">ConvertStatement is built to finish one job — statement PDF in, bookkeeping-ready file out — not to hand you another tool to configure.</p>
+          <p className="text-lg text-[#d1fae5] max-w-[640px] mx-auto mt-4 leading-relaxed">ConvertStatement does one job well: statement PDF in, clean file out. No settings to learn.</p>
           <div className="flex justify-center gap-3 flex-wrap mt-[26px]">
             {["No software to install", "No account for the first 8 pages", "No retyping"].map((t) => (
               <span key={t} className="border border-white/35 rounded-full px-[18px] py-[9px] font-bold text-[14.5px]">{t}</span>
@@ -252,7 +252,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
       {/* ─── WHO IT'S FOR ────────────────────────────── */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4">
-          <SecHead eyebrow="Who it's for" title="Where ConvertStatement fits" body="Anyone who receives bank statements as PDFs and needs them as rows in a spreadsheet or accounting package." />
+          <SecHead eyebrow="Who it's for" title="Where ConvertStatement fits" body="Anyone who gets bank statements as PDFs and needs them in Excel, Tally or Google Sheets." />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[18px]">
             {WHO.map((w) => (
               <div key={w.title} className="bg-white border border-[#e2e8f0] rounded-2xl p-6">
@@ -320,7 +320,7 @@ export function LegacyHome({ tools, pricePlans, faqs }: { tools: LegacyTool[]; p
       {/* ─── PRICING ─────────────────────────────────── */}
       <section id="pricing" className="py-20 bg-white border-y border-[#e2e8f0] scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4">
-          <SecHead center eyebrow="Pricing" title="Three packages. Prices in rupees." body="Start free with 8 pages. Upgrade when your statements run longer." />
+          <SecHead center eyebrow="Pricing" title="Three packages. Prices in rupees." body="Start free with 8 pages. Take a plan only when you need more pages." />
           <div className="grid md:grid-cols-3 gap-6 items-stretch max-w-5xl mx-auto">
             {pricePlans.map((p) => (
               <div key={p.name} className={`relative bg-white rounded-xl px-[30px] py-[34px] flex flex-col ${p.hot ? "border-2 border-[#047857]" : "border border-[#e2e8f0]"}`}>

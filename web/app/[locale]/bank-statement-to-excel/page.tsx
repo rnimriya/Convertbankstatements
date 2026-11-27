@@ -44,6 +44,23 @@ const STEPS: LandingStep[] = [
   },
 ];
 
+// .in: same steps in simple words (owner order 2026-11-27). No cloud
+// import options are mentioned — on .in the drop box has no source menu.
+const STEPS_IN: LandingStep[] = [
+  {
+    title: "Upload your statement PDF",
+    body: "Drop the PDF in the box above, or click the box to choose a file from your device. PDFs with a password also work — just type the password when asked. PDF only, up to 50 MB.",
+  },
+  {
+    title: "Check the preview",
+    body: "The converter reads your statement and shows the first transactions it found — date, description, amount and balance. We check the balance on every conversion, before you download.",
+  },
+  {
+    title: "Download the Excel file",
+    body: "Pick the Excel format and download the .xlsx file. One row for every transaction. Ready to sort, filter and total in Excel or any spreadsheet app.",
+  },
+];
+
 const FAQS: LandingFaq[] = [
   {
     q: "How do I convert a bank statement PDF to Excel?",
@@ -77,19 +94,48 @@ const FAQS: LandingFaq[] = [
   },
 ];
 
+// .in: same questions in simple words, Indian context (owner order
+// 2026-11-27). Facts unchanged — 8 free pages, real ₹ prices, formats.
+const FAQS_IN: LandingFaq[] = [
+  {
+    q: "How do I convert a bank statement PDF to Excel?",
+    a: "Upload the statement PDF in the converter above. Check the preview of the transactions it found. Pick the Excel format and download the .xlsx file. Each transaction gets its own row with its date, description and amount — plus the running balance where your statement shows one.",
+  },
+  {
+    q: "Is converting a bank statement to Excel free?",
+    a: "Your first 8 pages are free and no account is needed. Excel export is included on the Free plan. If your statements run longer, the paid plans add more pages: Basic is ₹499/month for 25 pages, Pro is ₹1,999/month for 500 pages, and Business is ₹6,999/month for 2,000 pages.",
+  },
+  {
+    q: "Which banks does this work with?",
+    a: "The converter works with statement PDFs from Indian banks — SBI, HDFC Bank, ICICI Bank, Axis Bank, Kotak Mahindra Bank, Punjab National Bank and Bank of Baroda. Their converter pages are linked above. If your bank gives a standard PDF statement, upload it and check the preview before downloading.",
+  },
+  {
+    q: "My statement PDF has a password. Can I still convert it?",
+    a: "Yes. The converter accepts password PDFs — the same PDFs banks email you or give for download from online banking. Upload it the same way as any other statement, and type the password when asked.",
+  },
+  {
+    q: "Are my statements stored after conversion?",
+    a: "No. Your file is converted in memory and deleted at once. We do not store your statement, and we never sell or share your financial data.",
+  },
+  {
+    q: "Can I get CSV or other formats instead of Excel?",
+    a: "Yes. The same converter also gives CSV on every plan. OFX for Tally, QFX and Google Sheets come on the Pro plan. If you only need plain text, the bank statement to CSV converter on this site uses the same upload. If your books are in Tally, download OFX and import it into Tally.",
+  },
+];
+
 export default function BankStatementToExcelPage() {
   return (
     <FormatLanding
       eyebrow="Bank statement converter"
       title={<>Bank statement to <span className="text-[#2CA01C]">Excel</span> converter</>}
       subtitle={IN
-        ? "Upload an Indian bank statement PDF — SBI, HDFC, ICICI, Axis, Kotak and more — and download a clean Excel (.xlsx) file, every transaction on its own row. Ready for Tally, GST and tax filing. First 8 pages free, no account needed."
+        ? "Upload an Indian bank statement PDF — SBI, HDFC, ICICI, Axis, Kotak and more — and download a clean Excel (.xlsx) file. Every transaction gets its own row. Ready for Tally, GST and tax filing. First 8 pages free, no account needed."
         : "Upload a PDF bank statement and download a clean Excel (.xlsx) file — every transaction on its own row, with dates, descriptions and amounts in proper columns. First 8 pages free, no account needed."}
       pageUrl={PAGE_URL}
       softwareDescription="Convert PDF bank statements to Excel (.xlsx) with Convert Statement: one row per transaction with dates, descriptions, amounts and the running balance where the statement shows one. First 8 pages free."
       howToName="How to convert a bank statement to Excel"
-      steps={STEPS}
-      faqs={FAQS}
+      steps={IN ? STEPS_IN : STEPS}
+      faqs={IN ? FAQS_IN : FAQS}
       showBanks
       sample1Hero
       related={withoutQbTools([
@@ -100,10 +146,9 @@ export default function BankStatementToExcelPage() {
     >
       <h2 className={H2}>What the Excel file contains</h2>
       <p className={P}>
-        The download is a regular .xlsx workbook built from the transactions on your statement —
-        not a screenshot of the PDF and not a pasted table that falls apart when you sort it.
-        Each transaction gets its own row, and the values sit in separate columns so Excel can
-        sort, filter and add them up:
+        {IN
+          ? "The download is a normal Excel (.xlsx) file made from the transactions on your statement. It is not a photo of the PDF, and not a pasted table that breaks when you sort it. Every transaction gets its own row. Values sit in separate columns, so Excel can sort, filter and add them up:"
+          : "The download is a regular .xlsx workbook built from the transactions on your statement — not a screenshot of the PDF and not a pasted table that falls apart when you sort it. Each transaction gets its own row, and the values sit in separate columns so Excel can sort, filter and add them up:"}
       </p>
       <div className="mt-4 overflow-x-auto">
         <table className="w-full border-collapse text-sm">
@@ -122,18 +167,23 @@ export default function BankStatementToExcelPage() {
         </table>
       </div>
       <p className={P}>
-        Before the download, the converter also runs a balance check on every conversion: where
-        the statement carries balances, the preview shows the opening and closing position so a
-        missing or doubled row is visible before the file reaches your books.
+        {IN
+          ? "Before the download, we also check the balance on every conversion. Where your statement shows balances, the preview shows the opening and closing position. So a missing or doubled row is visible before the file reaches your books."
+          : "Before the download, the converter also runs a balance check on every conversion: where the statement carries balances, the preview shows the opening and closing position so a missing or doubled row is visible before the file reaches your books."}
       </p>
 
       <h2 className={H2M}>What people do with the Excel file</h2>
       <div className="grid md:grid-cols-3 gap-5 mt-5">
         {[
-          {
-            title: "Bookkeeping",
-            body: "Sort and filter a month of transactions, group spending by description, and reconcile the totals against your accounting records — without typing a single line by hand.",
-          },
+          IN
+            ? {
+                title: "Bookkeeping",
+                body: "Sort and filter a month of transactions. Group spending by description. Match the totals with your books — without typing a single line by hand.",
+              }
+            : {
+                title: "Bookkeeping",
+                body: "Sort and filter a month of transactions, group spending by description, and reconcile the totals against your accounting records — without typing a single line by hand.",
+              },
           IN
             ? {
                 title: "GST & tax filing",
@@ -143,10 +193,15 @@ export default function BankStatementToExcelPage() {
                 title: "Tax preparation",
                 body: "Total income and deductible spending category by category in the spreadsheet, so the numbers you hand to your accountant or tax software start from the statement itself.",
               },
-          {
-            title: "Loan applications",
-            body: "Check your own statement totals and spot anything unexpected before you share the official PDF with a lender — a spreadsheet makes a month of income and outgoings easy to review line by line.",
-          },
+          IN
+            ? {
+                title: "Loan applications",
+                body: "Check your own statement totals before you share the official PDF with a bank or lender. A spreadsheet makes a month of income and spending easy to check line by line.",
+              }
+            : {
+                title: "Loan applications",
+                body: "Check your own statement totals and spot anything unexpected before you share the official PDF with a lender — a spreadsheet makes a month of income and outgoings easy to review line by line.",
+              },
         ].map((c) => (
           <div key={c.title} className="rounded-[24px] border border-[#D8E8D2] bg-white p-6">
             <h3 className="font-bold text-zinc-900">{c.title}</h3>
@@ -157,12 +212,9 @@ export default function BankStatementToExcelPage() {
 
       <h2 className={H2M}>Why not just retype or copy-paste the PDF?</h2>
       <p className={P}>
-        A statement PDF is made for reading, not for data. Copy-pasting its table into a
-        spreadsheet splits descriptions across rows, merges columns and drops minus signs — and
-        every error survives silently until a total does not match. Retyping avoids that but
-        costs hours per statement and introduces its own typos. Converting reads the
-        statement&rsquo;s structure once and hands you numbers that are already in columns, so
-        the checking you do in Excel is checking the bank&rsquo;s figures, not your typing.
+        {IN
+          ? "A statement PDF is made for reading, not for data. If you copy-paste its table into a spreadsheet, descriptions break across rows, columns merge, and minus signs get lost. Every such mistake stays hidden until a total does not match. Typing by hand avoids that, but it takes hours for one statement and brings its own typing mistakes. Converting reads the statement once and gives you numbers already in columns. So in Excel, you check the bank's figures — not your typing."
+          : "A statement PDF is made for reading, not for data. Copy-pasting its table into a spreadsheet splits descriptions across rows, merges columns and drops minus signs — and every error survives silently until a total does not match. Retyping avoids that but costs hours per statement and introduces its own typos. Converting reads the statement's structure once and hands you numbers that are already in columns, so the checking you do in Excel is checking the bank's figures, not your typing."}
       </p>
       <p className={P}>
         Prefer plain text over a workbook? The{" "}

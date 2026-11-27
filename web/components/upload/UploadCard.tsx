@@ -27,6 +27,7 @@ import { cn } from"@/lib/utils";
 import { DROPBOX_ENABLED, GOOGLE_ENABLED, pickFromDropbox, pickFromGoogleDrive } from"@/lib/imports/cloud";
 import Link from"next/link";
 import { BANKS_REGION, visibleBankCount } from "@/lib/config/bank-region";
+import { isIndiaSite } from "@/lib/site-region";
 
 const MAX_FILE_MB = 50;
 const FREE_PAGE_CAP = 8;
@@ -63,6 +64,11 @@ type UploadState =
   | { status:"error"; message: string };
 
 export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAccess, fullWidth, variant, dark }: Props) {
+  // .in (owner order 2026-11-28): no "Choose File" split button in any
+  // drop box — the dashed zone itself opens the file picker on click
+  // (react-dropzone root props) and still accepts drag-and-drop.
+  // .online keeps the button.
+  const IN = isIndiaSite();
   const [state, setState] = useState<UploadState>({ status:"idle" });
   const [formats, setFormats] = useState<string[]>(["csv"]);
   const [staged, setStaged] = useState<File | null>(null);
@@ -608,9 +614,23 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                               <Upload size={30} className="text-[#34d399]" strokeWidth={2.2} />
                             </div>
                             <p className="text-xl font-extrabold text-white">Drop your bank statement PDF here</p>
-                            <p className="my-3.5 text-sm font-semibold text-[#8fb3a4]">or</p>
+                            {IN ? (
+                              <p className="mt-2 text-sm font-semibold text-[#8fb3a4]">or click here to choose a file from your device</p>
+                            ) : (
+                              <p className="my-3.5 text-sm font-semibold text-[#8fb3a4]">or</p>
+                            )}
                           </>
                         )}
+                        {!dark && IN && (
+                          <>
+                            <div className="mb-[18px] flex h-16 w-16 items-center justify-center rounded-full bg-[#ecfdf5]">
+                              <Upload size={30} className="text-[#047857]" strokeWidth={2.2} />
+                            </div>
+                            <p className="text-xl font-extrabold text-brand-text">Drop your bank statement PDF here</p>
+                            <p className="mt-2 text-sm font-semibold text-slate-500">or click here to choose a file from your device</p>
+                          </>
+                        )}
+                        {!IN && (
                         <div className="relative">
                           <div className={cn("inline-flex overflow-hidden shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]", dark ? "rounded-xl" : "rounded-md")}>
                             <button
@@ -666,11 +686,16 @@ export function UploadCard({ billing, onBillingUpdate, userEmail, hasSheetsAcces
                             </>
                           )}
                         </div>
+                        )}
+                        {(!IN || billing.tier === "FREE") && (
                         <p className={cn("mt-3.5 text-[13px] font-medium", dark ? "text-[#a7c4b8]" : "text-slate-500")}>
-                          {billing.tier === "FREE"
-                            ? "First 8 pages free · No account needed · Or drop your statement PDF here"
-                            : "Or drop your statement PDF here"}
+                          {IN
+                            ? "First 8 pages free · No account needed"
+                            : billing.tier === "FREE"
+                              ? "First 8 pages free · No account needed · Or drop your statement PDF here"
+                              : "Or drop your statement PDF here"}
                         </p>
+                        )}
                         <p className={cn("mt-1.5 text-xs", dark ? "text-white/60" : "text-slate-400")}>
                           PDF only · Max {MAX_FILE_MB} MB · Password OK · By proceeding, you agree to our{" "}
                           <Link href="/terms" className="underline underline-offset-2" onClick={(e) => e.stopPropagation()}>

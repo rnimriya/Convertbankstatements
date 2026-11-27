@@ -39,8 +39,8 @@ export function LandingConverter({ dark = false }: { dark?: boolean } = {}) {
       {/* Security note */}
       <div className="mt-4 flex items-center justify-center gap-2">
         <p className={dark ? "text-[12.5px] text-white/60" : "text-[12.5px] text-zinc-500"}>
-          <span className={dark ? "font-semibold text-white/80" : "font-semibold text-zinc-700"}>Bank-grade security</span>
-          {" "}— Files processed securely and deleted immediately
+          <span className={dark ? "font-semibold text-white/80" : "font-semibold text-zinc-700"}>{dark ? "Safe and private" : "Bank-grade security"}</span>
+          {" "}— {dark ? "Your file is deleted right after converting" : "Files processed securely and deleted immediately"}
         </p>
       </div>
     </div>

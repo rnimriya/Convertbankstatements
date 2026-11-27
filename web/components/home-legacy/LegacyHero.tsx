@@ -43,7 +43,7 @@ export function LegacyHero() {
           Bank Statement <span className="text-[#34d399]">Converter</span>
         </h1>
         <p className="mx-auto mt-5 max-w-[640px] text-base sm:text-lg font-medium leading-relaxed text-[#a7c4b8]">
-          Upload a PDF bank statement and download a clean Excel or CSV file — ready for Tally, accounting software or your CA.
+          Upload your bank statement PDF. Get a clean Excel or CSV file — ready for Tally, your accounting software or your CA.
         </p>
 
         {/* The dropbox — real working converter, directly on the dark band */}

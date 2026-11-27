@@ -109,8 +109,8 @@ export function IndiaDropboxCard({ children, bare = false }: { children: ReactNo
 export function IndiaTrustRow() {
   return (
     <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6 text-[13px] font-semibold text-[#d1fae5]">
-      <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#34d399]" /> Files processed in memory</span>
-      <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#34d399]" /> Never stored</span>
+      <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#34d399]" /> Your file is never stored</span>
+      <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#34d399]" /> Deleted at once after converting</span>
       <span className="flex items-center gap-1.5"><CheckCircle2 size={14} className="text-[#34d399]" /> First 8 pages free — no account needed</span>
     </div>
   );

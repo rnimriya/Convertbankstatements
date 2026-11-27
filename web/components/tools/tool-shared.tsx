@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Upload, FileText, Loader2, Lock, LogIn, UserPlus, Plus, ChevronDown, Monitor, HardDrive, CloudDownload, Link2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { DROPBOX_ENABLED, GOOGLE_ENABLED, pickFromDropbox, pickFromGoogleDrive } from "@/lib/imports/cloud";
+import { isIndiaSite } from "@/lib/site-region";
 
 /** Server marks anonymous tool-API calls with this code — the wall shows instead of a raw error. */
 export const SIGNUP_REQUIRED_CODE = "SIGNUP_REQUIRED";
@@ -201,7 +202,13 @@ export function ToolUpload({
     .map((t) => t.trim().toLowerCase())
     .filter((t) => t.startsWith("."));
   const pdfOnly = exts.length === 1 && exts[0] === ".pdf";
-  const dropHint = title.startsWith("Drop ") ? `Or d${title.slice(1)}` : title;
+  // .in (owner order 2026-11-28): no "Choose File" split button — the
+  // dashed zone itself opens the file picker on click (see zone onClick)
+  // and still accepts drag-and-drop. .online keeps the button.
+  const IN = isIndiaSite();
+  const dropHint = IN
+    ? "Click to choose a file, or drop it here"
+    : title.startsWith("Drop ") ? `Or d${title.slice(1)}` : title;
 
   const openPicker = () => {
     if (!busy) inputRef.current?.click();
@@ -357,9 +364,18 @@ export function ToolUpload({
                 <Upload size={30} className="text-[#34d399]" strokeWidth={2.2} />
               </div>
               <p className="text-xl font-extrabold text-white">{title}</p>
-              <p className="my-3.5 text-sm font-semibold text-[#8fb3a4]">or</p>
+              {!IN && <p className="my-3.5 text-sm font-semibold text-[#8fb3a4]">or</p>}
             </>
           )}
+          {!dark && IN && (
+            <>
+              <div className="mb-[18px] flex h-16 w-16 items-center justify-center rounded-full bg-[#ecfdf5]">
+                <Upload size={30} className="text-[#047857]" strokeWidth={2.2} />
+              </div>
+              <p className="text-xl font-extrabold text-brand-text">{title}</p>
+            </>
+          )}
+          {!IN && (
           <div className="relative">
             <div className={cn("inline-flex overflow-hidden shadow-[0_10px_15px_-3px_rgba(11,31,22,0.25),0_4px_6px_-4px_rgba(11,31,22,0.2)]", dark ? "rounded-xl" : "rounded-md")}>
               <button
@@ -443,6 +459,7 @@ export function ToolUpload({
               </>
             )}
           </div>
+          )}
 
           <p className={cn("mt-3.5 px-4 text-[13px] font-medium", dark ? "text-[#a7c4b8]" : "text-slate-500")}>
             {dragActive ? activeTitle : dropHint}

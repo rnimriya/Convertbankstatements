@@ -77,40 +77,40 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     {
       icon: <Upload size={22} className="text-[#007A33]" />,
       title: `Upload your ${bankName} PDF`,
-      body: `Drag & drop your ${bankName} statement — password-protected files work too. Just enter the PDF password at upload.`,
+      body: isIndiaSite() ? `Drop your ${bankName} statement in the box, or click the box to choose the file. Password PDFs also work — just type the password when asked.` : `Drag & drop your ${bankName} statement — password-protected files work too. Just enter the PDF password at upload.`,
     },
     {
       icon: <Settings2 size={22} className="text-[#007A33]" />,
       title: "Choose your format",
-      body: isIndiaSite() ? "Pick Excel, CSV, OFX for Tally, or push straight to Google Sheets." : "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
+      body: isIndiaSite() ? "Pick Excel, CSV, OFX for Tally, or send it straight to Google Sheets." : "Pick Excel, CSV, OFX/QBO for QuickBooks, Xero & Tally, or push straight to Google Sheets.",
     },
     {
       icon: <Download size={22} className="text-[#007A33]" />,
       title: "Download in seconds",
-      body: "Your file is ready in under 15 seconds — clean columns, correct dates, every transaction captured.",
+      body: isIndiaSite() ? "Your file is ready in under 15 seconds — clean columns, right dates, every transaction included." : "Your file is ready in under 15 seconds — clean columns, correct dates, every transaction captured.",
     },
   ];
 
   const faqs = [
     {
-      q: `Can I convert a password-protected ${bankName} statement?`,
-      a: `Yes. Upload your ${bankName} PDF and enter the document password when prompted. We never store your password, and the file is deleted immediately after conversion.`,
+      q: isIndiaSite() ? `Can I convert a ${bankName} statement that has a password?` : `Can I convert a password-protected ${bankName} statement?`,
+      a: isIndiaSite() ? `Yes. Upload your ${bankName} PDF and type the password when asked. We never save your password, and the file is deleted at once after converting.` : `Yes. Upload your ${bankName} PDF and enter the document password when prompted. We never store your password, and the file is deleted immediately after conversion.`,
     },
     {
       q: `Which formats can I export my ${bankName} statement to?`,
-      a: isIndiaSite() ? `Excel (.xlsx), CSV, OFX for Tally, plus direct export to Google Sheets. Every format is optimized for its target — dates, amounts and references stay clean.` : `Excel (.xlsx), CSV, OFX/QBO for QuickBooks, Xero and Tally, plus direct export to Google Sheets. Every format is optimized for its target — dates, amounts and references stay clean.`,
+      a: isIndiaSite() ? `Excel (.xlsx), CSV, OFX for Tally, and direct export to Google Sheets. Every format is made for its target — dates, amounts and references stay clean.` : `Excel (.xlsx), CSV, OFX/QBO for QuickBooks, Xero and Tally, plus direct export to Google Sheets. Every format is optimized for its target — dates, amounts and references stay clean.`,
     },
     {
       q: isIndiaSite() ? `How do I import my ${bankName} statement into Tally?` : `How do I import my ${bankName} statement into Tally or QuickBooks?`,
-      a: isIndiaSite() ? `Convert your ${bankName} PDF to OFX on Convert Statement, then import the file through Tally's bank statement import. The whole round-trip takes about two minutes.` : `Convert your ${bankName} PDF to OFX or QBO on Convert Statement, then import the file through your accounting software's bank-feed import. The whole round-trip takes about two minutes.`,
+      a: isIndiaSite() ? `Convert your ${bankName} PDF to OFX on Convert Statement. Then import the file through Tally's bank statement import. The whole job takes about two minutes.` : `Convert your ${bankName} PDF to OFX or QBO on Convert Statement, then import the file through your accounting software's bank-feed import. The whole round-trip takes about two minutes.`,
     },
     {
       q: `Is my ${bankName} statement data stored on your servers?`,
-      a: `No. Files are processed in memory and deleted immediately after conversion. Nothing is written to disk or kept in a database, and we follow GDPR and CCPA data-protection standards.`,
+      a: isIndiaSite() ? `No. Your file is converted in memory and deleted at once. We do not store it anywhere.` : `No. Files are processed in memory and deleted immediately after conversion. Nothing is written to disk or kept in a database, and we follow GDPR and CCPA data-protection standards.`,
     },
     {
       q: `How much does it cost to convert ${bankName} statements?`,
-      a: `Your first 8 pages are free — no credit card required. After that, pick a monthly plan starting at $5 for 25 pages.`,
+      a: isIndiaSite() ? `Your first 8 pages are free — no card needed. After that, plans start at ₹499/month for 25 pages.` : `Your first 8 pages are free — no credit card required. After that, pick a monthly plan starting at $5 for 25 pages.`,
     },
   ];
 
@@ -167,7 +167,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
         <main className="flex-1">
           <IndiaHeadingBand
             title={<>Convert <span className="text-[#34d399]">{bankName}</span> Statements to Excel</>}
-            subtitle={`Upload your ${bankName} PDF bank statements and instantly convert them to CSV, Excel, OFX for Tally, or Google Sheets. Zero manual data entry required.`}
+            subtitle={`Upload your ${bankName} PDF bank statement and convert it to CSV, Excel, OFX for Tally, or Google Sheets. No typing by hand.`}
             breadcrumb={
               <nav aria-label="Breadcrumb" className="text-[13px] text-[#a7f3d0] font-medium">
                 <Link href="/" className="hover:text-white">Home</Link>
@@ -185,7 +185,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
               >
                 Start Converting Free <Zap size={16} className="text-[#047857]" />
               </Link>
-              <p className="mt-4 text-sm text-[#a7f3d0]">8 pages free · No credit card required</p>
+              <p className="mt-4 text-sm text-[#a7f3d0]">8 pages free · No card needed</p>
             </div>
           </IndiaHeadingBand>
 
@@ -212,18 +212,18 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
                   <IndiaIconTile><Zap size={24} className="text-[#047857]" /></IndiaIconTile>
-                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Lightning Fast</h3>
-                  <p className="text-[15px] text-[#64748b] leading-relaxed">Convert multi-page {bankName} PDFs into structured spreadsheets in under 15 seconds.</p>
+                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Very fast</h3>
+                  <p className="text-[15px] text-[#64748b] leading-relaxed">Convert long {bankName} PDFs into clean Excel files in under 15 seconds.</p>
                 </div>
                 <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
                   <IndiaIconTile><Lock size={24} className="text-[#047857]" /></IndiaIconTile>
-                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">100% Private</h3>
-                  <p className="text-[15px] text-[#64748b] leading-relaxed">We never store your {bankName} financial data. Files are processed entirely in memory.</p>
+                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Fully private</h3>
+                  <p className="text-[15px] text-[#64748b] leading-relaxed">We never store your {bankName} data. Files are converted in memory and deleted at once.</p>
                 </div>
                 <div className="bg-white border border-[#e2e8f0] rounded-xl p-8">
                   <IndiaIconTile><FileText size={24} className="text-[#047857]" /></IndiaIconTile>
-                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Multiple Formats</h3>
-                  <p className="text-[15px] text-[#64748b] leading-relaxed">Export to Excel, CSV, Google Sheets, or OFX for seamless import into Tally.</p>
+                  <h3 className="text-[19px] font-extrabold tracking-tight text-[#0f172a] mb-2">Many formats</h3>
+                  <p className="text-[15px] text-[#64748b] leading-relaxed">Export to Excel, CSV, Google Sheets, or OFX for easy import into Tally.</p>
                 </div>
               </div>
             </div>
@@ -259,8 +259,8 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
           <section className="py-20">
             <div className="max-w-7xl mx-auto px-4">
               <IndiaFinalCta
-                title={`Stop typing ${bankName} transactions manually`}
-                body="Convert your first 8 pages free — no credit card required."
+                title={`Stop typing ${bankName} transactions by hand`}
+                body="Convert your first 8 pages free — no card needed."
                 href="/signup"
                 label="Convert free — 8 pages"
               />

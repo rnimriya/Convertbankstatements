@@ -141,7 +141,9 @@ export async function Footer({ variant: _variant }: { variant?: "agri" | "light"
               Convert<span className="text-[#2CA01C]">Statement</span>
             </p>
             <p className="mt-[14px] max-w-[340px] text-[13px] leading-[1.7] text-[#B9C2B2]">
-              {t("tagline")}
+              {IN
+                ? "Convert bank statement PDFs to clean Excel, CSV and OFX files for Tally. Your statements are never stored on our servers."
+                : t("tagline")}
             </p>
             <a
               href="mailto:support@convertstatement.online"
@@ -222,7 +224,7 @@ export async function Footer({ variant: _variant }: { variant?: "agri" | "light"
         {/* Bottom bar */}
         <div className="flex flex-col justify-between gap-2 border-t border-[#E3F2DF]/[0.14] pb-[26px] pt-[20px] text-[12px] text-[#8B968A] sm:flex-row">
           <p>{t("copyright", { year: new Date().getFullYear() })}</p>
-          <p>{t("prices")}</p>
+          <p>{IN ? "All prices in ₹ (INR) · Data never stored" : t("prices")}</p>
           <p>{t("payments")}</p>
         </div>
       </div>
