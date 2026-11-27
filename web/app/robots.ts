@@ -3,6 +3,11 @@ import { MetadataRoute } from "next";
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
 export default function robots(): MetadataRoute.Robots {
+  if (process.env.NEXT_PUBLIC_NOINDEX === "1") {
+    return {
+      rules: [{ userAgent: "*", disallow: "/" }],
+    };
+  }
   return {
     rules: [
       // Allow all crawlers including AI bots

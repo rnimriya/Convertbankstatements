@@ -89,11 +89,18 @@ export const metadata: Metadata = {
     apple: "/logo.svg",
     shortcut: "/logo.svg",
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  robots:
+    process.env.NEXT_PUBLIC_NOINDEX === "1"
+      ? {
+          index: false,
+          follow: false,
+          googleBot: { index: false, follow: false, noarchive: true },
+        }
+      : {
+          index: true,
+          follow: true,
+          googleBot: { index: true, follow: true, "max-image-preview": "large" },
+        },
   verification: {
     google: "yMseDO6GsCeGGbrHzYqqoSkfIf7GtYFkAYbbWJwGEyI",
     other: {
