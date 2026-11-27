@@ -4,15 +4,17 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ContactForm } from "@/components/contact/ContactForm";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 export const metadata: Metadata = {
   title: "Contact Us — Convert Statement",
   description:
     "Have questions about our bank statement PDF to Excel converter? Drop us a line and we will respond within 24 hours.",
-  alternates: { canonical: "https://www.convertstatement.online/contact" },
+  alternates: { canonical: `${BASE}/contact` },
   openGraph: {
     title: "Contact Us — Convert Statement",
     description: "Have questions? Drop us a line and we will respond within 24 hours.",
-    url: "https://www.convertstatement.online/contact",
+    url: `${BASE}/contact`,
   },
 };
 

@@ -7,7 +7,9 @@ import { SAMPLE_TRANSACTIONS } from "@/lib/autopay/sample-statement";
 import { AutopayAuditClient } from "./AutopayAuditClient";
 import { KhojProCheckout } from "./KhojProCheckout";
 
-const PAGE_URL = "https://www.convertstatement.online/autopay-audit";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/autopay-audit`;
 
 export const metadata: Metadata = {
   title: "AutoPay Khoj — Free Subscription & AutoPay Audit | Convert Statement",

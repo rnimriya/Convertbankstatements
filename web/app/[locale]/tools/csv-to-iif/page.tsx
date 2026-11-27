@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { CsvToIif } from "@/components/tools/CsvToIif";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/csv-to-iif";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/csv-to-iif`;
 
 export const metadata: Metadata = {
   title: "CSV to IIF Converter — Free CSV to QuickBooks Desktop | Convert Statement",

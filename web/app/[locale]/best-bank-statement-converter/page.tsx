@@ -6,7 +6,9 @@ import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Check, X } from "lucide-react";
 
-const PAGE_URL = "https://www.convertstatement.online/best-bank-statement-converter";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/best-bank-statement-converter`;
 
 export const metadata: Metadata = {
   title: "Best Bank Statement Converter — Honest Comparison (Nov 2026) | Convert Statement",

@@ -4,16 +4,18 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Link } from "@/i18n/navigation";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 export const metadata: Metadata = {
   title: { absolute: "Leave a Review | Convert Statement" },
   description:
     "Thanks for using ConvertStatement. If it saved you time, a short honest review helps other bookkeepers and accountants find us.",
-  alternates: { canonical: "https://www.convertstatement.online/review" },
+  alternates: { canonical: `${BASE}/review` },
   openGraph: {
     title: "Leave a Review | Convert Statement",
     description:
       "If ConvertStatement saved you time, a short honest review helps other bookkeepers and accountants find us.",
-    url: "https://www.convertstatement.online/review",
+    url: `${BASE}/review`,
   },
 };
 

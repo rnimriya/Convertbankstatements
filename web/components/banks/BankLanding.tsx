@@ -11,6 +11,8 @@ import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { BankConverter } from "@/components/banks/BankConverter";
 import { TOP_20_BANKS, type TopBank } from "@/lib/seo/banks-top20";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 /**
  * Light-V3 landing template for the top-20 bank pages — same standard as
  * ToolPageLayout: light Navbar, pale-green hero (pt-[124px], max-w-6xl),
@@ -34,7 +36,7 @@ const TRUST_PILLS = [
 
 export async function BankLanding({ bank, bankName }: { bank: TopBank; bankName: string }) {
   const nonce = BUILD_NONCE;
-  const pageUrl = `https://www.convertstatement.online/banks/${bank.slug}`;
+  const pageUrl = `${BASE}/banks/${bank.slug}`;
 
   const convertSteps = [
     {

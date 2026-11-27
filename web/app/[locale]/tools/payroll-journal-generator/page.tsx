@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayrollJournal } from "@/components/tools/PayrollJournal";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/payroll-journal-generator";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/payroll-journal-generator`;
 
 export const metadata: Metadata = {
   title: "Payroll Journal Entry Generator — Balanced Entry for QuickBooks | Convert Statement",

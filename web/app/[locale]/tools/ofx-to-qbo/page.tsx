@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { OfxFixer } from "@/components/tools/OfxFixer";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/ofx-to-qbo";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/ofx-to-qbo`;
 
 export const metadata: Metadata = {
   title: "OFX / QFX to QBO Converter + QBO Fixer — Free | Convert Statement",

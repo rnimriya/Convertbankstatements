@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { QboToCsv } from "@/components/tools/QboToCsv";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/qbo-to-csv";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/qbo-to-csv`;
 
 export const metadata: Metadata = {
   title: "QBO to CSV Converter — Free QBO / OFX to CSV & Excel | Convert Statement",

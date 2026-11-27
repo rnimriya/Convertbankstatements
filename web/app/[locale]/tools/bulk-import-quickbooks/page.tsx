@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { BulkImporter } from "@/components/tools/BulkImporter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/bulk-import-quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/bulk-import-quickbooks`;
 
 export const metadata: Metadata = {
   title: "Bulk Importer for QuickBooks — Merge Bank CSVs into One QBO or IIF File | Convert Statement",

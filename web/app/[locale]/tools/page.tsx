@@ -9,7 +9,9 @@ import ToolsGuideContent from "@/components/tools/ToolsGuideContent";
 import BankLinks from "@/components/banks/BankLinks";
 import { ArrowRight } from "lucide-react";
 
-const PAGE_URL = "https://www.convertstatement.online/tools";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools`;
 
 export const metadata: Metadata = {
   title: "All QuickBooks Tools — 44 Converters, Checkers & Fixers | Convert Statement",
@@ -167,7 +169,7 @@ export default function ToolsIndexPage() {
       "@type": "ListItem",
       position: i + 1,
       name: tool.name,
-      url: `https://www.convertstatement.online/tools/${tool.slug}`,
+      url: `${BASE}/tools/${tool.slug}`,
     })),
   };
 

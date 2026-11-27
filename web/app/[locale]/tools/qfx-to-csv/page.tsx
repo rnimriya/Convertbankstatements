@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { FormatConverter } from "@/components/tools/FormatConverter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/qfx-to-csv";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/qfx-to-csv`;
 
 export const metadata: Metadata = {
   title: "QFX to CSV Converter — Free | Convert Statement",

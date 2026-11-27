@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayoutConverterFree } from "@/components/tools/PayoutConverterFree";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/etsy-to-quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/etsy-to-quickbooks`;
 
 export const metadata: Metadata = {
   title: "Etsy to QuickBooks Converter — Free Etsy Statement to QBO | Convert Statement",

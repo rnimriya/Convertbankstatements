@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { QboMerger } from "@/components/tools/QboMerger";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/qbo-merger";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/qbo-merger`;
 
 export const metadata: Metadata = {
   title: "QBO File Merger — Combine QBO Files Free | Convert Statement",

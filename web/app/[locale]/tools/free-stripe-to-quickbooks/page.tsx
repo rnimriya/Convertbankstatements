@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayoutConverter } from "@/components/tools/PayoutConverter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/free-stripe-to-quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/free-stripe-to-quickbooks`;
 
 export const metadata: Metadata = {
   title: "Stripe QBO Converter — Free Stripe Payouts to QuickBooks | Convert Statement",

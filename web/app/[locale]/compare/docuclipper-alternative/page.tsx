@@ -6,7 +6,9 @@ import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { Check, X } from "lucide-react";
 
-const PAGE_URL = "https://www.convertstatement.online/compare/docuclipper-alternative";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/compare/docuclipper-alternative`;
 
 export const metadata: Metadata = {
   title: "DocuClipper Alternative — Lower-Cost File-Based Conversion | Convert Statement",

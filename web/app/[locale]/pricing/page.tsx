@@ -5,14 +5,16 @@ import { Navbar } from"@/components/layout/Navbar";
 import { Footer } from"@/components/layout/Footer";
 import { PricingCards } from"@/components/PricingCards";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 export const metadata = {
   title:"Pricing — Convert Statement",
   description:"Start free with 8 pages, then choose a Pro plan at $20/month (500 pages) or Business at $75/month (2,000 pages) for CAs and teams.",
-  alternates: { canonical:"https://www.convertstatement.online/pricing" },
+  alternates: { canonical:`${BASE}/pricing` },
   openGraph: {
     title:"Pricing — Convert Statement",
     description:"8 pages free · Pro $20/mo · Business $75/mo",
-    url:"https://www.convertstatement.online/pricing",
+    url:`${BASE}/pricing`,
   },
 };
 
@@ -40,7 +42,7 @@ const COMPARE_ROWS = [
 const pricingSchema = {"@context":"https://schema.org","@type":"Product",
   name:"Convert Statement",
   description:"Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets.",
-  url:"https://www.convertstatement.online",
+  url:BASE,
   brand: {"@type":"Brand", name:"Convert Statement" },
   offers: [
     {"@type":"Offer",
@@ -49,7 +51,7 @@ const pricingSchema = {"@context":"https://schema.org","@type":"Product",
       priceCurrency:"USD",
       description:"8 pages free forever, no credit card required",
       availability:"https://schema.org/InStock",
-      url:"https://www.convertstatement.online/signup",
+      url:`${BASE}/signup`,
     },
     {"@type":"Offer",
       name:"Basic",
@@ -62,7 +64,7 @@ const pricingSchema = {"@context":"https://schema.org","@type":"Product",
       },
       description:"25 pages/month, standard processing",
       availability:"https://schema.org/InStock",
-      url:"https://www.convertstatement.online/signup?plan=basic",
+      url:`${BASE}/signup?plan=basic`,
     },
     {"@type":"Offer",
       name:"Pro",
@@ -75,7 +77,7 @@ const pricingSchema = {"@context":"https://schema.org","@type":"Product",
       },
       description:"500 pages/month, Google Sheets, priority processing",
       availability:"https://schema.org/InStock",
-      url:"https://www.convertstatement.online/signup?plan=pro",
+      url:`${BASE}/signup?plan=pro`,
     },
     {"@type":"Offer",
       name:"Business",
@@ -88,7 +90,7 @@ const pricingSchema = {"@context":"https://schema.org","@type":"Product",
       },
       description:"2,000 pages/month for CA firms and fintech teams",
       availability:"https://schema.org/InStock",
-      url:"https://www.convertstatement.online/signup?plan=business",
+      url:`${BASE}/signup?plan=business`,
     },
   ],
 };

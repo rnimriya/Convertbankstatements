@@ -10,7 +10,9 @@ import {
   ArrowRight, BookOpen, Building2, Check, X, CheckCircle2,
 } from "lucide-react";
 
-const PAGE_URL = "https://www.convertstatement.online/quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/quickbooks`;
 
 export const metadata: Metadata = {
   title: "QuickBooks Reconciliation: Convert PDF Bank Statements to QBO | Convert Statement",

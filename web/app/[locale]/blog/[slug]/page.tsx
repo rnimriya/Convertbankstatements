@@ -12,6 +12,8 @@ import { getTranslations } from "next-intl/server";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import sanitizeHtml from "sanitize-html";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 
 export async function generateStaticParams() {
   return getAllPosts()
@@ -24,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const rawPost = getPostBySlug(slug);
   if (!rawPost) return { title: "Post not found" };
   const post = localizePost(rawPost, locale);
-  const canonicalUrl = `https://www.convertstatement.online/blog/${slug}`;
+  const canonicalUrl = `${BASE}/blog/${slug}`;
   return {
     title: `${post.title} - Convert Statement`,
     description: post.excerpt,
@@ -187,18 +189,18 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     publisher: {
       "@type": "Organization",
       name: "Convert Statement",
-      logo: { "@type": "ImageObject", url: "https://www.convertstatement.online/logo.svg" },
+      logo: { "@type": "ImageObject", url: `${BASE}/logo.svg` },
     },
-    mainEntityOfPage: { "@type": "WebPage", "@id": `https://www.convertstatement.online/blog/${slug}` },
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE}/blog/${slug}` },
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.convertstatement.online" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.convertstatement.online/blog" },
-      { "@type": "ListItem", position: 3, name: post.title, item: `https://www.convertstatement.online/blog/${slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${BASE}/blog/${slug}` },
     ],
   };
 

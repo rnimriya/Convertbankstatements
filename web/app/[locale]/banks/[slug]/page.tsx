@@ -10,6 +10,8 @@ import { Link } from "@/i18n/navigation";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 import { SamplePreview } from "@/components/banks/SamplePreview";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 // The [locale] segment is handled by next-intl middleware (localePrefix: as-needed),
 // so this page must render dynamically like the blog/guide pages — a
 // generateStaticParams without the locale segment 500s in production.
@@ -34,8 +36,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description,
-    alternates: { canonical: `https://www.convertstatement.online/banks/${slug}` },
-    openGraph: { title, description, url: `https://www.convertstatement.online/banks/${slug}` },
+    alternates: { canonical: `${BASE}/banks/${slug}` },
+    openGraph: { title, description, url: `${BASE}/banks/${slug}` },
   };
 }
 
@@ -108,7 +110,7 @@ export default async function BankSeoPage({ params }: { params: Promise<{ locale
     "name": `ConvertStatement for ${bankName}`,
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "WebBrowser",
-    "url": `https://www.convertstatement.online/banks/${slug}`,
+    "url": `${BASE}/banks/${slug}`,
     "offers": {
       "@type": "Offer",
       "price": "0",

@@ -6,7 +6,9 @@ import {
   type LandingFaq, type LandingStep,
 } from "@/components/landing/FormatLanding";
 
-const PAGE_URL = "https://www.convertstatement.online/pdf-to-qbo";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/pdf-to-qbo`;
 
 export const metadata: Metadata = {
   title: "PDF to QBO Converter — Bank Statement PDF to QuickBooks | Convert Statement",

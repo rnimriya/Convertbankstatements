@@ -5,7 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 
-const PAGE_URL = "https://www.convertstatement.online/partners";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/partners`;
 
 export const metadata: Metadata = {
   title: "Partners & Affiliates — 40% Recurring Commission | Convert Statement",

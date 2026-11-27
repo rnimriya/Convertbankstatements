@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { QboSplitter } from "@/components/tools/QboSplitter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/qbo-splitter";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/qbo-splitter`;
 
 export const metadata: Metadata = {
   title: "QBO File Splitter — Free Trim a QBO to a Date Range | Convert Statement",

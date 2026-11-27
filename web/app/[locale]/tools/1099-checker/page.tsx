@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { VendorChecker1099 } from "@/components/tools/VendorChecker1099";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/1099-checker";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/1099-checker`;
 
 export const metadata: Metadata = {
   title: "1099 Vendor Checker — Total Payments by Vendor from CSV or QBO | Convert Statement",

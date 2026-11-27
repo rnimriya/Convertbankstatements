@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { InvoiceChecker } from "@/components/tools/InvoiceChecker";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/invoice-import-checker";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/invoice-import-checker`;
 
 export const metadata: Metadata = {
   title: "Invoice Import Checker — Validate & Format Invoices for QuickBooks | Convert Statement",

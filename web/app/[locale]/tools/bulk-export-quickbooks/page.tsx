@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { BulkExporter } from "@/components/tools/BulkExporter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/bulk-export-quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/bulk-export-quickbooks`;
 
 export const metadata: Metadata = {
   title: "Bulk QBO Exporter — Merge Up to 10 QBO / OFX Files into One CSV or Excel | Convert Statement",

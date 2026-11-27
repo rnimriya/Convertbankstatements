@@ -32,7 +32,9 @@ const FAQS = [
   },
 ];
 
-const PAGE_URL = "https://www.convertstatement.online/tools/qbo-checker";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/qbo-checker`;
 
 export const metadata: Metadata = {
   title: "Free QBO File Checker — Validate QuickBooks Web Connect Files | Convert Statement",

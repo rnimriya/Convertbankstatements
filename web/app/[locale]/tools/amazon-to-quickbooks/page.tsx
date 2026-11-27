@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { PayoutConverter } from "@/components/tools/PayoutConverter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/amazon-to-quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/amazon-to-quickbooks`;
 
 export const metadata: Metadata = {
   title: "Amazon to QuickBooks Converter — Free Amazon Settlement to QBO | Convert Statement",

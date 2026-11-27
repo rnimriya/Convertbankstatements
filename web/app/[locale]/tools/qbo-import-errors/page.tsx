@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { SampleDownloads } from "@/components/tools/SampleDownloads";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/qbo-import-errors";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/qbo-import-errors`;
 
 export const metadata: Metadata = {
   title: "QBO Import Errors, Explained — Why QuickBooks Rejects a QBO File | Convert Statement",

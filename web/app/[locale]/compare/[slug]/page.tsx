@@ -6,6 +6,8 @@ import { COMPETITORS, getCompetitorBySlug, getAllCompetitorSlugs } from "@/lib/s
 import { Check, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 // Same fix as banks/[slug]: with next-intl's as-needed locale prefix,
 // generateStaticParams alone (missing the locale segment) 500s in production.
 
@@ -22,8 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title,
     description,
-    alternates: { canonical: `https://www.convertstatement.online/compare/${slug}` },
-    openGraph: { title, description, url: `https://www.convertstatement.online/compare/${slug}` },
+    alternates: { canonical: `${BASE}/compare/${slug}` },
+    openGraph: { title, description, url: `${BASE}/compare/${slug}` },
   };
 }
 
@@ -66,14 +68,14 @@ export default async function ComparePage({ params }: { params: Promise<{ locale
     "@type": "WebPage",
     name: `Convert Statement vs ${comp.name}`,
     description: `Side-by-side comparison of Convert Statement and ${comp.name} for bank statement PDF conversion.`,
-    url: `https://www.convertstatement.online/compare/${slug}`,
+    url: `${BASE}/compare/${slug}`,
     mainEntity: {
       "@type": "ItemList",
       itemListElement: [
         {
           "@type": "SoftwareApplication",
           name: "Convert Statement",
-          url: "https://www.convertstatement.online",
+          url: BASE,
           applicationCategory: "FinanceApplication",
           offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
         },

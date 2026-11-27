@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { ReconciliationFinder } from "@/components/tools/ReconciliationFinder";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/reconciliation-finder";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/reconciliation-finder`;
 
 export const metadata: Metadata = {
   title: "Reconciliation Difference Finder — Why QuickBooks Doesn't Reconcile | Convert Statement",

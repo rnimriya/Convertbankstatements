@@ -12,8 +12,10 @@ import { Navbar } from"@/components/layout/Navbar";
 import { HeroSectionWrapper } from"@/components/home/HeroSectionWrapper";
 import BankLinks from"@/components/banks/BankLinks";
 
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 export const metadata: Metadata = {
-  alternates: { canonical:"https://www.convertstatement.online" },
+  alternates: { canonical:BASE },
 };
 
 export default async function HomePage() {
@@ -161,7 +163,7 @@ export default async function HomePage() {
     name:"Convert Statement",
     applicationCategory:"FinanceApplication",
     operatingSystem:"Web",
-    url:"https://www.convertstatement.online",
+    url:BASE,
     description:"Convert bank statement PDFs from Wells Fargo, Citibank, U.S. Bank, Cadence Bank, Kotak and 400+ more into CSV, Excel, OFX for Tally, or Google Sheets in under 15 seconds.",
     offers: [
       {"@type":"Offer", name:"Free tier", price:"0", priceCurrency:"USD" },

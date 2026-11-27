@@ -6,7 +6,9 @@ import {
   type LandingFaq, type LandingStep,
 } from "@/components/landing/FormatLanding";
 
-const PAGE_URL = "https://www.convertstatement.online/bank-statement-to-excel";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/bank-statement-to-excel`;
 
 export const metadata: Metadata = {
   title: "Bank Statement to Excel Converter — PDF to XLSX | Convert Statement",

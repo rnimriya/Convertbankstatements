@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { BulkDeleter } from "@/components/tools/BulkDeleter";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/bulk-deleter-quickbooks";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/bulk-deleter-quickbooks`;
 
 export const metadata: Metadata = {
   title: "Bulk QBO Deleter — Remove Transactions from a QBO File Before Import | Convert Statement",

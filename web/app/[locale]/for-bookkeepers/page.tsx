@@ -5,7 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { FAQAccordion } from "@/components/home/FAQAccordion";
 import { BUILD_NONCE } from "@/lib/csp-nonce";
 
-const PAGE_URL = "https://www.convertstatement.online/for-bookkeepers";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/for-bookkeepers`;
 
 export const metadata: Metadata = {
   title: "For Bookkeepers — Multi-Client Statement Conversion | Convert Statement",

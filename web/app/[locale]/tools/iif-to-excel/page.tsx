@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { ToolPageLayout, type ToolFaq } from "@/components/tools/ToolPageLayout";
 import { IifToExcel } from "@/components/tools/IifToExcel";
 
-const PAGE_URL = "https://www.convertstatement.online/tools/iif-to-excel";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
+const PAGE_URL = `${BASE}/tools/iif-to-excel`;
 
 export const metadata: Metadata = {
   title: "IIF to Excel Converter — Free IIF to CSV & Excel | Convert Statement",
