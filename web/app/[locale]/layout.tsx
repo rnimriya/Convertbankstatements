@@ -36,7 +36,7 @@ export async function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-const BASE = "https://www.convertstatement.online";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),

@@ -6,7 +6,7 @@ import { TOP_20_BANKS } from "@/lib/seo/banks-top20";
 import { getAllCompetitorSlugs } from "@/lib/seo/competitors";
 import { getAllClusterSlugs } from "@/lib/seo/clusters";
 
-const BASE = "https://www.convertstatement.online";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
 
 interface RouteConfig {
   path: string;
