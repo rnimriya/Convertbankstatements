@@ -15,8 +15,13 @@ const GEMINI_API_BASE = "https://generativelanguage.googleapis.com/v1beta";
    give the function room beyond the platform default where allowed. */
 export const maxDuration = 120;
 
+// This deployment's own site URL (.in on the India project, .online
+// elsewhere) so fallback links always point at the site being visited.
+const SITE_BASE =
+  process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.convertstatement.online";
+
 const FALLBACK_REPLY =
-  "Sorry — I'm having a little trouble answering right now. Please try again in a moment, or reach our team from the [Contact page](https://www.convertstatement.online/contact) and we'll help you there.";
+  `Sorry — I'm having a little trouble answering right now. Please try again in a moment, or reach our team from the [Contact page](${SITE_BASE}/contact) and we'll help you there.`;
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -135,7 +140,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         reply:
-          "You're sending messages very fast — please wait a minute and try again. For anything urgent, our team is on the [Contact page](https://www.convertstatement.online/contact).",
+          `You're sending messages very fast — please wait a minute and try again. For anything urgent, our team is on the [Contact page](${SITE_BASE}/contact).`,
       },
       { status: 200 }
     );

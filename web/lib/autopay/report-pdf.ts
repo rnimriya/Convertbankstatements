@@ -10,6 +10,12 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont } from "pdf-lib";
 import type { ItemVM, ReportVM } from "./report-vm";
 
+// This deployment's own host for the "open your report" line (.in on the
+// India site, .online elsewhere).
+const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online")
+  .replace(/^https?:\/\//, "")
+  .replace(/^www\./, "");
+
 function clean(s: string): string {
   return s
     .replace(/₹/g, "Rs ")
@@ -106,7 +112,7 @@ export async function buildReportPdf(vm: ReportVM, generatedOn: string): Promise
 
   ensure(40);
   text(
-    "How to cancel: every charge in the full web report carries a two-part cancel guide — stop the service in its own app, and stop the money mandate in your UPI app or bank. Both halves are needed. Open your report at convertstatement.online/autopay-audit.",
+    `How to cancel: every charge in the full web report carries a two-part cancel guide — stop the service in its own app, and stop the money mandate in your UPI app or bank. Both halves are needed. Open your report at ${SITE_HOST}/autopay-audit.`,
     font, 9.5, muted, 3,
   );
   text(

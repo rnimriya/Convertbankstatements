@@ -12,6 +12,10 @@ import { usePathname } from "@/i18n/navigation";
 
 const HIDDEN_PREFIXES = ["/dashboard", "/login", "/signup", "/forgot-password", "/reset-password"];
 
+// Current site's own base URL (.in on the India deployment, .online
+// elsewhere) — chat links and fallback text must point at THIS site.
+const SITE_BASE = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online";
+
 const CHIPS = [
   "What are the prices?",
   "How many pages are free?",
@@ -38,14 +42,15 @@ function escapeHtml(s: string): string {
 
 /**
  * Minimal, safe rich text: escape everything first, then re-introduce ONLY
- * whitelisted convertstatement.online markdown links, **bold** and breaks.
+ * whitelisted Convert Statement markdown links (either domain), rewritten
+ * to this site's own base URL, plus **bold** and breaks.
  */
 function renderRich(text: string): string {
   let html = escapeHtml(text);
   html = html.replace(
-    /\[([^\]]+)\]\(https:\/\/www\.convertstatement\.online([^)\s]*)\)/g,
+    /\[([^\]]+)\]\(https:\/\/(?:www\.)?convertstatement\.(?:online|in)([^)\s]*)\)/g,
     (_m, label: string, path: string) =>
-      `<a href="https://www.convertstatement.online${path}" target="_blank" rel="noopener" class="font-bold text-[#007A33] underline decoration-[#007A33]/40 underline-offset-2 hover:decoration-[#007A33]">${label}</a>`
+      `<a href="${SITE_BASE}${path}" target="_blank" rel="noopener" class="font-bold text-[#007A33] underline decoration-[#007A33]/40 underline-offset-2 hover:decoration-[#007A33]">${label}</a>`
   );
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   return html.replace(/\n/g, "<br/>");
@@ -101,14 +106,14 @@ export function ChatWidget() {
       const data = (await res.json().catch(() => null)) as { reply?: string } | null;
       const reply =
         data?.reply ??
-        "Sorry — something went wrong on my side. Please try again, or reach our team from the contact page: https://www.convertstatement.online/contact";
+        `Sorry — something went wrong on my side. Please try again, or reach our team from the contact page: ${SITE_BASE}/contact`;
       setMsgs((cur) => [...cur, { role: "bot", text: reply }]);
     } catch {
       setMsgs((cur) => [
         ...cur,
         {
           role: "bot",
-          text: "Sorry — I couldn't connect just now. Please check your connection and try again, or reach our team from the contact page: https://www.convertstatement.online/contact",
+          text: `Sorry — I couldn't connect just now. Please check your connection and try again, or reach our team from the contact page: ${SITE_BASE}/contact`,
         },
       ]);
     } finally {

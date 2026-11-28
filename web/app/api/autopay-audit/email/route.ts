@@ -12,6 +12,10 @@ import { getResend, EMAIL_FROM } from "@/lib/email";
 import { buildReportPdf } from "@/lib/autopay/report-pdf";
 import type { ReportVM } from "@/lib/autopay/report-vm";
 
+// This deployment's own site URL for the report link in the email body.
+const SITE_BASE =
+  process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.convertstatement.online";
+
 export const maxDuration = 60;
 
 function looksLikeVM(v: unknown): v is ReportVM {
@@ -69,7 +73,7 @@ export async function POST(req: NextRequest) {
       `Possible waste: ${vm.possibleWasteMonthlyLabel} a month — only charges with a clear written reason are counted.`,
       "",
       "To cancel any charge, open the full report — every item carries a two-part cancel guide (stop the service AND stop the mandate):",
-      "https://www.convertstatement.online/autopay-audit",
+      `${SITE_BASE}/autopay-audit`,
       "",
       "This email was sent at your request from the AutoPay Khoj page. Your bank statement was processed in memory and was never stored.",
     ].join("\n"),

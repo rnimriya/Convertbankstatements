@@ -8,11 +8,18 @@ export const metadata = {
  description:"How Convert Statement collects, uses, and protects your personal and financial data.",
 };
 
+// This deployment's own host (www.convertstatement.in on the India site,
+// www.convertstatement.online elsewhere) for the "service at …" wording.
+const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online").replace(
+ /^https?:\/\//,
+ ""
+);
+
 const SECTIONS = [
  {
  id:"overview",
  title:"1. Overview",
- content: `Convert Statement ("we","us", or"our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at www.convertstatement.online ("Service").
+ content: `Convert Statement ("we","us", or"our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard information when you use our bank statement conversion service at ${SITE_HOST} ("Service").
 
 We comply with international data protection standards, including the GDPR (General Data Protection Regulation) and the CCPA (California Consumer Privacy Act).
 

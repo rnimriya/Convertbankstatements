@@ -3,6 +3,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { BookOpenCheck, Loader2, Plug, Unplug } from "lucide-react";
 
+// This deployment's own base URL for the setup-instruction callback
+// example (.in on the India site, .online elsewhere).
+const SITE_BASE = process.env.NEXT_PUBLIC_BASE_URL ?? "https://convertstatement.online";
+
 interface Status {
   configured: boolean;
   connected: boolean;
@@ -62,7 +66,7 @@ export function QuickBooksPanel() {
           <p className="rounded-[20px] border border-amber-200 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800 px-3.5 py-2.5 text-amber-800 dark:text-amber-300">
             One-time setup by the site owner: register an app at developer.intuit.com, then set
             QB_CLIENT_ID, QB_CLIENT_SECRET and QB_REDIRECT_URI
-            (https://convertstatement.online/api/quickbooks/callback) in the project environment.
+            ({SITE_BASE}/api/quickbooks/callback) in the project environment.
             The Connect button appears here as soon as those are in place.
           </p>
         </div>

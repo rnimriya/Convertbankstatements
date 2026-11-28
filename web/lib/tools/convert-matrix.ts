@@ -12,6 +12,12 @@
  * honest, user-facing errors so API routes can surface them as-is.
  */
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
+
+// This deployment's own host for the PDF footer credit (.in on the India
+// site, .online elsewhere).
+const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online")
+  .replace(/^https?:\/\//, "")
+  .replace(/^www\./, "");
 import {
   analyzeQboToCsv,
   qboRowsToCsv,
@@ -570,7 +576,7 @@ async function emitPdf(
   // Footer on every page (second pass — page count is now known).
   const pages = pdfDoc.getPages();
   const totalPages = pages.length;
-  const footerText = "Converted by ConvertStatement · convertstatement.online";
+  const footerText = `Converted by ConvertStatement · ${SITE_HOST}`;
   pages.forEach((p, idx) => {
     p.drawText(footerText, { x: PDF_MARGIN, y: 36, size: 8, font, color: grey });
     const pageLabel = `Page ${idx + 1} of ${totalPages}`;

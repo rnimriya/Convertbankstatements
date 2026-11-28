@@ -3,6 +3,12 @@
 import { useState, useEffect } from"react";
 import { Plus, Copy, CheckCircle2, Trash2, Link2, Loader2, Mail } from"lucide-react";
 
+// This deployment's own host for the portal-link prefix (.in on the India
+// site, .online elsewhere).
+const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online")
+ .replace(/^https?:\/\//, "")
+ .replace(/^www\./, "");
+
 interface Portal {
   token: string;
   label: string;
@@ -113,7 +119,7 @@ export function PortalsPanel() {
             <div className="flex flex-col sm:flex-row gap-2 items-center">
               <div className="flex-1 flex items-center rounded-[20px] border border-brand-border bg-brand-surface overflow-hidden focus-within:ring-2 focus-within:ring-navy/10 focus-within:border-navy transition-all">
                 <span className="px-3 py-2.5 text-sm text-brand-muted bg-[#F7FAF5] border-r border-[#E3EDE0] hidden sm:block">
-                  convertstatement.online/p/
+                  {SITE_HOST}/p/
                 </span>
                 <span className="px-2 py-2.5 text-sm text-brand-muted bg-[#F7FAF5] border-r border-[#E3EDE0] sm:hidden">
                   /p/

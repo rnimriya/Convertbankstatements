@@ -8,11 +8,18 @@ export const metadata = {
  description:"Terms and conditions governing use of the Convert Statement bank statement conversion service.",
 };
 
+// This deployment's own host (www.convertstatement.in on the India site,
+// www.convertstatement.online elsewhere) for the "service at …" wording.
+const SITE_HOST = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.convertstatement.online").replace(
+ /^https?:\/\//,
+ ""
+);
+
 const SECTIONS = [
  {
  id:"acceptance",
  title:"1. Acceptance of Terms",
- content: `By creating an account or using the Convert Statement service ("Service") at www.convertstatement.online, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
+ content: `By creating an account or using the Convert Statement service ("Service") at ${SITE_HOST}, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the Service.
 
 These Terms constitute a legally binding agreement between you and Convert Statement ("Company","we","us", or"our"). These Terms are governed by the laws of the State of Delaware, USA, and any disputes shall be subject to the exclusive jurisdiction of courts in Delaware.
 

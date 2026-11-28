@@ -67,7 +67,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
   // Sanitize the (admin-authored) post HTML with a serverless-safe sanitizer.
   // Note: isomorphic-dompurify pulls in jsdom, which fails to run in Vercel's
   // serverless functions (caused blog articles to 500); sanitize-html is pure JS.
-  const safeContent = sanitizeHtml(post.content, {
+  const sanitizedContent = sanitizeHtml(post.content, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "h1", "h2"]),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
@@ -76,6 +76,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
     },
     allowedSchemes: ["http", "https", "mailto"],
   });
+  // India site: post bodies are shared with .online and may mention its
+  // domain — point those mentions at this site instead (owner order
+  // 2026-11-28: convertstatement.in everywhere on the .in site).
+  const safeContent = IN
+    ? sanitizedContent.replaceAll("convertstatement.online", "convertstatement.in")
+    : sanitizedContent;
 
   const relatedSlugs = RELATED_MAP[slug] ?? [];
   const allPosts = getAllPosts();
