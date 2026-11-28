@@ -442,3 +442,19 @@ body.india-site .scroll-mt-24 { scroll-margin-top: 132px !important; }
 /* Inner-page dark heading bands (Option A, owner pick 2026-11-27):
    old #2CA01C accent spans inside page titles read as #34d399 on dark. */
 body.india-site .india-dark-band .text-\[\#2CA01C\] { color: #34d399 !important; }
+
+/* Footer (owner order 2026-11-28): footer green = button green #047857
+   on the India site (was #0B1F16 near-black green). Scoped to the footer
+   element only — bg-[#0B1F16] is used elsewhere and stays untouched. */
+body.india-site footer.bg-\[\#0B1F16\] { background-color: #047857 !important; }
+/* Footer CTA button: #2CA01C remaps to #047857 above, which would vanish
+   on the new footer background — white button, green text on IN. */
+body.india-site footer .bg-\[\#2CA01C\] { background-color: #ffffff !important; color: #047857 !important; }
+/* Accent text (column headings, logo span, tools-index label): mint. */
+body.india-site footer .text-\[\#2CA01C\] { color: #a7f3d0 !important; }
+body.india-site footer .hover\:border-\[\#2CA01C\]:hover { border-color: #a7f3d0 !important; }
+/* Muted grays were tuned for the near-black green; lighten for #047857. */
+body.india-site footer .text-\[\#CBD4C2\] { color: #e4f5ec !important; }
+body.india-site footer .text-\[\#B9C2B2\] { color: #d9f2e4 !important; }
+body.india-site footer .text-\[\#9FA99B\] { color: #c9ead9 !important; }
+body.india-site footer .text-\[\#8B968A\] { color: #bfe6d2 !important; }
